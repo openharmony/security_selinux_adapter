@@ -62,9 +62,12 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 
 ### 编译代码
 
-根据文档[《搭建Ubuntu环境(获取源码及编译，安装包方式)》](https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/quick-start/quickstart-standard-package-environment.md)编译主线代码。
+1. 根据文档[《获取源码》](https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/quick-start/quickstart-standard-sourcecode-acquire.md)获取主线代码。
+1. 根据文档[《源码编译》](https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/quick-start/quickstart-standard-running-hi3516-build.md)编译主线代码。
 
-### 进行编译
+### 编译镜像
+
+运行以下命令编译打包支持 SELinux 的镜像。
 
 ```
 ./build.sh --product-name Hi3516DV300 --gn-args "build_selinux=true"

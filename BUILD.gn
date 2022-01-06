@@ -188,8 +188,8 @@ action("build_file_contexts_bin") {
   outputs += [ target_out_dir + "/file_contexts" ]
 }
 
-action("enable_selinux") {
-  script = "scripts/enable_selinux.sh"
+action("enforce_selinux") {
+  script = "scripts/enforce_selinux.sh"
   outputs = [ "$target_out_dir/" ]
 }
 
@@ -213,8 +213,8 @@ ohos_prebuilt_etc("config") {
   source = "$SELINUX_ROOT_DIR/config/config"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
-  if (enable_selinux) {
-    deps = [ ":enable_selinux" ]
+  if (enforce_selinux) {
+    deps = [ ":enforce_selinux" ]
   }
   relative_install_dir = "selinux/"
 }
