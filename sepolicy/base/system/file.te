@@ -30,14 +30,45 @@ type cgroup, fs_type;
 type sysfs, fs_type;
 type inotify, fs_type;
 type debugfs, fs_type;
+type config_file, fs_type;
 
 type system_lib_file, system_file_type, file_type;
+type system_etc_file, system_file_type, file_type;
+type system_data_file, system_file_type, file_type;
+type system_hap_file, system_file_type, file_type;
+type system_fonts_file, system_file_type, file_type;
+type system_profile_file, system_file_type, file_type;
+type system_usr_file, system_file_type, file_type;
+type system_bin_file, system_file_type, file_type;
+
 type dev_cpu_variant, file_type;
 type fontconfig_file, system_file_type, file_type;
 type fonts_file, system_file_type, file_type;
 type vendor_file, vendor_file_type, file_type;
 
-type system_data_file, file_type, data_file_type;
 type sysfs_rtc, fs_type, sysfs_type;
 type system_file, file_type;
+type lib_file, file_type;
+type etc_file, file_type;
+type dev_file, file_type;
 
+type sysfs_block_file, sysfs_type;
+type sysfs_hisys_file, sysfs_type;
+
+type updater_file, file_type;
+
+type data_file, file_type, data_file_type;
+type data_hap_file, file_type, data_file_type;
+type data_app_file, file_type, data_file_type;
+type data_app_el1_file, file_type, data_file_type;
+type data_app_el2_file, file_type, data_file_type;
+type data_app_el3_file, file_type, data_file_type;
+type data_app_el4_file, file_type, data_file_type;
+type data_service_file, file_type, data_file_type;
+type data_service_el0_file, file_type, data_file_type;
+type data_service_el1_file, file_type, data_file_type;
+type data_service_el2_file, file_type, data_file_type;
+type data_chipset_file, file_type, data_file_type;
+type data_chipset_el1_file, file_type, data_file_type;
+type data_chipset_el2_file, file_type, data_file_type;
+type data_storage_file, file_type, data_file_type;

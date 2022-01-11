@@ -66,7 +66,8 @@ int restorecon(void)
         return -1;
     }
 
-    errors = selinux_restorecon("/", opts.restorecon_flags);
+    errors = selinux_restorecon("/data", opts.restorecon_flags);
+    errors = selinux_restorecon("/dev", opts.restorecon_flags);
     selabel_close(opts.hnd);
 
     return (errors ? -1 : 1);
