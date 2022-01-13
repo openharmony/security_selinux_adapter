@@ -1,3 +1,4 @@
+# please put shorter config ahead;
 # root
 /       u:object_r:rootfs:s0
 
@@ -11,38 +12,13 @@
 /storage      u:object_r:rootfs:s0
 /sys-prod      u:object_r:rootfs:s0
 /tmp      u:object_r:rootfs:s0
-
-/config(/.*)?       u:object_r:config_file:s0
-/data(/.*)?       u:object_r:data_file:s0
-/data/hap(/.*)?       u:object_r:data_hap_file:s0
-/data/service(/.*)?       u:object_r:data_service_file:s0
-/data/chipset(/.*)?       u:object_r:data_chipset_file:s0
-/data/storage(/.*)?       u:object_r:data_storage_file:s0
-
+/sys           u:object_r:sys_file:s0
 
 /dev(/.*)?       u:object_r:dev_file:s0
-
-
 /etc(/.*)?       u:object_r:etc_file:s0
-
-
 /lib(/.*)?       u:object_r:lib_file:s0
 
-
-/sys(/.*)?       u:object_r:sys_file:s0
-/sys/kernel(/.*)?       u:object_r:sys_file:s0
-/sys/hi3881_debug(/.*)?       u:object_r:sys_file:s0
-/sys/devices(/.*)?       u:object_r:sys_file:s0
-/sys/power(/.*)?       u:object_r:sys_file:s0
-/sys/class(/.*)?       u:object_r:sys_file:s0
-/sys/dev(/.*)?       u:object_r:sys_file:s0
-/sys/firmware(/.*)?       u:object_r:sys_file:s0
-/sys/fs(/.*)?       u:object_r:sys_file:s0
-/sys/bus(/.*)?       u:object_r:sys_file:s0
-/sys/module(/.*)?       u:object_r:sys_file:s0
-/sys/block(/.*)?       u:object_r:sys_file:s0
-/sys/hisys(/.*)?       u:object_r:sys_file:s0
-
+/config(/.*)?       u:object_r:config_file:s0
 
 /system(/.*)?       u:object_r:system_file:s0
 /system/hap(/.*)?       u:object_r:system_hap_file:s0
@@ -53,12 +29,24 @@
 /system/profile(/.*)?       u:object_r:system_profile_file:s0
 /system/usr(/.*)?       u:object_r:system_usr_file:s0
 
+/data(/.*)?                   u:object_r:data_file:s0
+/data/hap(/.*)?               u:object_r:data_hap_file:s0
+/data/app(/.*)?               u:object_r:data_app_file:s0
+/data/app/el1(/.*)?           u:object_r:data_app_el1_file:s0
+/data/app/el2(/.*)?           u:object_r:data_app_el2_file:s0
+/data/app/el3(/.*)?           u:object_r:data_app_el3_file:s0
+/data/app/el4(/.*)?           u:object_r:data_app_el4_file:s0
+/data/service(/.*)?           u:object_r:data_service_file:s0
+/data/service/el0(/.*)?       u:object_r:data_service_el0_file:s0
+/data/service/el1(/.*)?       u:object_r:data_service_el1_file:s0
+/data/service/el2(/.*)?       u:object_r:data_service_el2_file:s0
+/data/chipset(/.*)?           u:object_r:data_chipset_file:s0
+/data/chipset/el1(/.*)?       u:object_r:data_chipset_el1_file:s0
+/data/chipset/el2(/.*)?       u:object_r:data_chipset_el2_file:s0
+/data/storage(/.*)?           u:object_r:data_storage_file:s0
+
 
 /updater(/.*)?       u:object_r:updater_file:s0
 
-
 /vendor(/.*)?       u:object_r:vendor_file:s0
-/vendor/firmware(/.*)?       u:object_r:vendor_file:s0
 /vendor/etc(/.*)?       u:object_r:vendor_etc_file:s0
-/vendor/lost+found(/.*)?       u:object_r:vendor_file:s0
-/vendor/modules(/.*)?       u:object_r:vendor_file:s0

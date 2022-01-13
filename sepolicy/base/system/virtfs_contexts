@@ -1,7 +1,13 @@
+# please put longer path ahead.
+# use relative path to mount point.
 genfscon rootfs / u:object_r:rootfs:s0
-
 genfscon proc / u:object_r:proc:s0
-
 genfscon selinuxfs / u:object_r:selinuxfs:s0
 
+
+genfscon sysfs /block u:object_r:sysfs_block_file:s0
+genfscon sysfs /hisys u:object_r:sysfs_hisys_file:s0
 genfscon sysfs / u:object_r:sysfs:s0
+
+genfscon configfs / u:object_r:config_file:s0
+genfscon debugfs / u:object_r:debugfs:s0

@@ -88,11 +88,6 @@ def combine_file_contexts(file_contexts_list, combined_file_contexts):
                 ">", combined_file_contexts]
     run_command(grep_cmd)
 
-    sort_cmd = ["sort -b",
-                combined_file_contexts,
-                "-o", combined_file_contexts]
-    run_command(sort_cmd)
-
 
 def main(args):
     """build file_contexts.bin form all file_contexts files."""
