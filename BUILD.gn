@@ -51,6 +51,7 @@ ohos_shared_library("libload_policy") {
   install_images = [
     "system",
     "ramdisk",
+    "updater",
   ]
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
@@ -88,6 +89,7 @@ ohos_shared_library("librestorecon") {
   install_images = [
     "system",
     "ramdisk",
+    "updater",
   ]
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
