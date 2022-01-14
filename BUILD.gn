@@ -233,3 +233,28 @@ ohos_prebuilt_etc("file_contexts") {
   #relative_install_dir = "selinux/targeted/contexts/files/"
   relative_install_dir = "selinux/targeted/contexts/"
 }
+
+group("selinux_group") {
+  if (build_selinux) {
+    deps = [
+      "//base/security/selinux:build_file_contexts",
+      "//base/security/selinux:build_sepolicy",
+      "//base/security/selinux:config",
+      "//base/security/selinux:file_contexts",
+      "//base/security/selinux:load_policy",
+      "//base/security/selinux:restorecon",
+      "//base/security/selinux:selinux_test",
+      "//third_party/selinux:checkpolicy($host_toolchain)",
+      "//third_party/selinux:chkcon",
+      "//third_party/selinux:getenforce",
+      "//third_party/selinux:getfilecon",
+      "//third_party/selinux:getpidcon",
+      "//third_party/selinux:secilc($host_toolchain)",
+      "//third_party/selinux:sefcontext_compile($host_toolchain)",
+      "//third_party/selinux:selinux_check_access",
+      "//third_party/selinux:selinuxexeccon",
+      "//third_party/selinux:setenforce",
+      "//third_party/selinux:setfilecon",
+    ]
+  }
+}
