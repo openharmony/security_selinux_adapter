@@ -16,7 +16,7 @@ type labeledfs, fs_type;
 type pipefs, fs_type;
 type sockfs, fs_type;
 type rootfs, fs_type;
-type proc, fs_type, proc_type;
+type proc_file, fs_type, proc_type;
 type proc_panic, fs_type, proc_type;
 
 type unlabeled, fs_type;
@@ -27,7 +27,6 @@ type mqueue, fs_type;
 type sys_file, fs_type;
 type selinuxfs, fs_type;
 type cgroup, fs_type;
-type sysfs, fs_type;
 type inotify, fs_type;
 type debugfs, fs_type;
 type config_file, fs_type;

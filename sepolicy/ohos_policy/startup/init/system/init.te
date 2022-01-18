@@ -47,7 +47,7 @@ allow init system_file:file execute_no_trans;
 
 allow init device:sock_file { create setattr };
 
-allow init sysfs:file setattr;
+allow init sys_file:file setattr;
 
 allow init shell_exec:file { execute_no_trans };
 allow init logserver_exec:file { execute_no_trans };
