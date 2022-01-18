@@ -13,6 +13,8 @@
       "name": "selinux",
       "subsystem": "security",
       "adapted_system_type": [ "standard" ],
+      "rom": "3072KB",
+      "ram": "3072KB",
       "deps": {
         "components": [],
         "third_party": [ 
