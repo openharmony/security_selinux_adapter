@@ -1,0 +1,36 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# for test
+type selftest, domain;
+type selftest_hap_data_file, file_type;
+type selftest1, domain;
+type selftest_hap_data_file1, file_type;
+
+
+
+type launcher, domain;
+type settingsdata, domain;
+type systemui, domain;
+type mms, domain;
+type telephonydataability, domain;
+type contactsdataability, domain;
+type contacts, domain;
+
+type launcher_hap_data_file, file_type;
+type settingsdata_hap_data_file, file_type;
+type systemui_hap_data_file, file_type;
+type telephonydataability_hap_data_file, file_type;
+type mms_hap_data_file, file_type;
+type contactsdataability_hap_data_file, file_type;
+type contacts_hap_data_file, file_type;
