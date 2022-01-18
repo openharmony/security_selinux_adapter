@@ -18,7 +18,7 @@ init_daemon_domain(ueventd);
 
 allow ueventd kernel:fd use;
 
-allow ueventd sysfs:file write_file_perms;
+allow ueventd sys_file:file write_file_perms;
 allow ueventd tmpfs:chr_file { create setattr unlink rw_file_perms };
 allow ueventd tmpfs:dir create_dir_perms;
 allow ueventd tmpfs:blk_file { create setattr unlink rw_file_perms };

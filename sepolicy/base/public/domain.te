@@ -39,8 +39,8 @@ allow domain domain:{ file lnk_file } read_file_perms;
 allow domain domain:{ fifo_file file } rw_file_perms;
 allow domain domain:unix_dgram_socket { create_socket_perms sendto };
 
-allow domain proc:dir read_dir_perms;
-allow domain proc:lnk_file { getattr read };
+allow domain proc_file:dir read_dir_perms;
+allow domain proc_file:lnk_file { getattr read };
 
 allow domain tmpfs:dir { getattr search };
 allow domain tmpfs:chr_file { read write open getattr setattr ioctl map };
@@ -75,8 +75,8 @@ allow domain {
 
 allow domain system_lib_file:file { execute read open getattr map };
 
-allow domain sysfs:dir search;
-allow domain sysfs:{ lnk_file file } { getattr read };
+allow domain sys_file:dir search;
+allow domain sys_file:{ lnk_file file } { getattr read };
 
 allow domain system_data_file:dir search;
 
