@@ -47,6 +47,15 @@
               ],
               "header_base": "//base/security/selinux/interfaces/policycoreutils/include"
             }
+          },
+          {
+            "name": "//base/security/selinux:libhap_restorecon",
+            "header": {
+              "header_files": [
+                "hap_restorecon.h"
+              ],
+              "header_base": "//base/security/selinux/interfaces/policycoreutils/include"
+            }
           }
         ],
         "test": []
