@@ -37,7 +37,7 @@ static const std::string APL_PREFIX = "apl=";
 static const std::string NAME_PREFIX = "name=";
 static const std::string DOMAIN_PREFIX = "domain=";
 static const std::string TYPE_PREFIX = "type=";
-static const std::string PATH_PREFIX = "/data/app";
+static const std::string PATH_PREFIX = "/data/app/";
 
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 } // namespace
@@ -132,7 +132,7 @@ bool HapContext::HapContextsLoad()
             if (CouldSkip(line))
                 continue;
             struct SehapContext tmpContext = DecodeString(line);
-            if (!tmpContext.apl.empty()) {
+            if ((!tmpContext.apl.empty()) && (!tmpContext.type.empty()) && (!tmpContext.domain.empty())) {
                 sehapContextsBuff.emplace(tmpContext.apl + tmpContext.name, tmpContext);
             } else {
                 SELINUX_LOG_INFO(LABEL, "hap_contexts read fail in line %{public}d", lineNum);
@@ -162,6 +162,9 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
             type = iter->second.domain;
         } else {
             type = iter->second.type;
+        }
+        if (type.size() == 0) {
+            return -SELINUX_TYPE_INVALID;
         }
         if (context_type_set(con, type.c_str())) {
             SELINUX_LOG_ERROR(LABEL, "Set type for %{public}s fail", type.c_str());
@@ -275,10 +278,6 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
         return SELINUX_SUCC;
     }
 
-    if (std::string(pathNameOrig).compare(0, PATH_PREFIX.size(), PATH_PREFIX) != 0) {
-        return -SELINUX_PATH_INVAILD;
-    }
-
     // get file_contexts handle
     __selinux_once(FC_ONCE, RestoreconInit);
     if (fileContextsHandle == nullptr) {
@@ -289,6 +288,10 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
     struct stat sb;
     char realPath[PATH_MAX];
     if (realpath(pathNameOrig.c_str(), realPath) == nullptr) {
+        return -SELINUX_PATH_INVAILD;
+    }
+
+    if (std::string(realPath).compare(0, PATH_PREFIX.size(), PATH_PREFIX) != 0) {
         return -SELINUX_PATH_INVAILD;
     }
 
