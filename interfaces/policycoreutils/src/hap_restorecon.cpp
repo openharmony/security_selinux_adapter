@@ -17,14 +17,15 @@
 #include "callbacks.h"
 #include "selinux_error.h"
 #include "selinux_log.h"
+#include <cstring>
 #include <fstream>
 #include <include/fts.h>
 #include <iostream>
+#include <regex>
 #include <selinux/label.h>
 #include <selinux/restorecon.h>
 #include <selinux_internal.h>
 #include <sstream>
-#include <cstring>
 #include <string>
 #include <vector>
 
@@ -104,6 +105,16 @@ static struct SehapContext DecodeString(std::string &line)
     }
 
     return contextBuff;
+}
+
+static bool CheckPath(const std::string &path)
+{
+    std::regex pathPrefix1("^/data/app/el[1-4]/[0-9]+/(base|database)/.*");
+    std::regex pathPrefix2("^/data/accounts/account_0/appdata/.*");
+    if (std::regex_match(path, pathPrefix1) || std::regex_match(path, pathPrefix2)) {
+        return true;
+    }
+    return false;
 }
 
 void HapContext::RestoreconInit()
@@ -291,7 +302,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
         return -SELINUX_PATH_INVAILD;
     }
 
-    if (std::string(realPath).compare(0, PATH_PREFIX.size(), PATH_PREFIX) != 0) {
+    if (!CheckPath(std::string(realPath))) {
         return -SELINUX_PATH_INVAILD;
     }
 

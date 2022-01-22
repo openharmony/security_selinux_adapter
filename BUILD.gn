@@ -21,6 +21,13 @@ THIRD_PARTY_PCRE2_DIR = "//third_party/pcre2"
 LIBSELINUX_ROOT_DIR = "$THIRD_PARTY_SELINUX_DIR/libselinux"
 LIBSEPOL_ROOT_DIR = "$THIRD_PARTY_SELINUX_DIR/libsepol"
 
+config("selinux_core_config") {
+  include_dirs = [
+    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
+    "$LIBSELINUX_ROOT_DIR/include",
+  ]
+}
+
 ohos_shared_library("libload_policy") {
   output_name = "libload_policy"
   sources = [
@@ -107,6 +114,8 @@ ohos_shared_library("libhap_restorecon") {
     "//third_party/FreeBSD",
     "//utils/native/base/include",
   ]
+
+  public_configs = [ ":selinux_core_config" ]
   deps = [
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
     "//utils/native/base:utils",

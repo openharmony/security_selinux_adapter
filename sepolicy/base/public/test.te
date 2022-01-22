@@ -14,9 +14,6 @@
 # for test
 type selftest, domain;
 type selftest_hap_data_file, file_type;
-type selftest1, domain;
-type selftest_hap_data_file1, file_type;
-
 
 
 type launcher, domain;

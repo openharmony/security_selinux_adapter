@@ -15,10 +15,6 @@ apl=system_core domain=platform_hap_domain type=platform_hap_data_file
 apl=system_basic domain=priv_hap_domain type=priv_hap_data_file
 apl=normal domain=normal_hap_domain type=normal_hap_data_file
 
-# for test
-apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file
-apl=system_core name=com.hap.selftest1 domain=selftest1 type=selftest_hap_data_file1
-
 apl=system_core name=com.ohos.launcher domain=launcher type=launcher_hap_data_file
 apl=system_core name=com.ohos.settingsdata domain=settingsdata type=settingsdata_hap_data_file
 apl=system_core name=com.ohos.systemui domain=systemui type=systemui_hap_data_file

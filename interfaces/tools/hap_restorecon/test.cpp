@@ -15,39 +15,117 @@
 
 #include "hap_restorecon.h"
 
+#include <cstdio>
+#include <cstdlib>
+#include <getopt.h>
+#include <sstream>
 #include <unistd.h>
+#include <vector>
 
-int main(int argc, char **argv)
+static const int ALARM_TIME_S = 5;
+struct testInput {
+    std::string name = "";
+    std::string apl = "";
+    std::string path = "";
+    std::vector<std::string> multiPath;
+    bool domain = false;
+    std::string recurse = "1";
+};
+
+static void PrintUsage()
 {
-    int res;
+    printf("Usage:\n");
+    printf("hap_restorecon -p /data/app/test -n com.ohos.test -a normal -r 0\n");
+    printf("hap_restorecon -d -n com.ohos.test -a normal\n");
+    printf("\n");
+    printf("Options:\n");
+    printf(" -h (--help)                Show the help information.              [eg: hap_restorecon -h]\n");
+    printf(" -p (--path)                path to restorecon.                     [eg: -p /data/app/test]\n");
+    printf(" -r (--recurse)             recurse?                                [eg: -r 0]\n");
+    printf(" -a (--apl)                 apl info.                               [eg: -a normal]\n");
+    printf(" -n (--name)                package name.                           [eg: -n com.ohos.test]\n");
+    printf(" -d (--domain)              setcon domian.                          [eg: -d]\n");
+    printf(" -m (--multipath)           paths to restorecon.                    [eg: -m /data/app/test1 "
+           "/data/app/tes2]\n");
+    printf("\n");
+}
+
+static void SetOptions(int argc, char *argv[], const option *options, testInput &input)
+{
+    const char *command = argv[1];
+    int index = 0;
+    const char *optStr = "hda:p:n:r:m:";
+    int para = 0;
+    while ((para = getopt_long(argc, argv, optStr, options, &index)) != -1) {
+        switch (para) {
+            case 'h': {
+                PrintUsage();
+                exit(0);
+            }
+            case 'a': {
+                input.apl = optarg;
+                break;
+            }
+            case 'd': {
+                input.domain = true;
+                break;
+            }
+            case 'p': {
+                input.path = optarg;
+                break;
+            }
+            case 'm': {
+                std::stringstream str(optarg);
+                std::string tmp;
+                while (str >> tmp) {
+                    input.multiPath.emplace_back(tmp);
+                }
+                break;
+            }
+            case 'n': {
+                input.name = optarg;
+                break;
+            }
+            case 'r': {
+                input.recurse = optarg;
+                break;
+            }
+            default:
+                printf("Try 'hap_restorecon -h' for more information.\n");
+                exit(-1);
+        }
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    struct option options[] = {
+        {"help", no_argument, nullptr, 'h'},          {"apl", required_argument, nullptr, 'a'},
+        {"name", required_argument, nullptr, 'n'},    {"domain", no_argument, nullptr, 'd'},
+        {"path", required_argument, nullptr, 'p'},    {"mutilpath", required_argument, nullptr, 'm'},
+        {"recurse", required_argument, nullptr, 'r'}, {nullptr, no_argument, nullptr, 0},
+    };
+
+    if (argc == 1) {
+        PrintUsage();
+        exit(0);
+    }
+
+    testInput testCmd;
+    SetOptions(argc, argv, options, testCmd);
     HapContext test;
-    std::cout << "test 1: invalid path not with /data/app" << std::endl;
-    res = test.HapFileRestorecon("/data/data/com.hap.selftest", "system_core", "com.hap.selftest",
-                                 SELINUX_HAP_RESTORECON_RECURSE);
-    std::cout << "res: " << res << std::endl;
-
-    std::cout << "test 2: single path" << std::endl;
-    res = test.HapFileRestorecon("/data/app/com.hap.selftest", "system_core", "com.hap.selftest",
-                                 SELINUX_HAP_RESTORECON_RECURSE);
-    std::cout << "res: " << res << std::endl;
-
-    std::cout << "test 3: single path no recurse" << std::endl;
-    res = test.HapFileRestorecon("/data/app/com.hap.selftest1", "system_core", "com.hap.selftest1", 0);
-    std::cout << "res: " << res << std::endl;
-
-    std::cout << "test 4: multi path" << std::endl;
-    std::vector<std::string> tmp;
-    tmp.emplace_back("/data/app/test1");
-    tmp.emplace_back("/data/app/test2");
-    tmp.emplace_back("/data/app/test3");
-
-    res = test.HapFileRestorecon(tmp, "system_core", "com.hap.selftest", SELINUX_HAP_RESTORECON_RECURSE);
-    std::cout << "res: " << res << std::endl;
-
-    std::cout << "test 5" << std::endl;
-    res = test.HapDomainSetcontext("system_core", "com.hap.selftest");
-    std::cout << "res: " << res << std::endl;
-
-    while(1);
-    return 0;
+    int res = 0;
+    if (!testCmd.domain) {
+        if (testCmd.multiPath.empty()) {
+            res = test.HapFileRestorecon(testCmd.path, testCmd.apl, testCmd.name, atoi(testCmd.recurse.c_str()));
+        } else {
+            res = test.HapFileRestorecon(testCmd.multiPath, testCmd.apl, testCmd.name, atoi(testCmd.recurse.c_str()));
+        }
+        std::cout << "restorecon res: " << res << std::endl;
+    } else {
+        res = test.HapDomainSetcontext(testCmd.apl, testCmd.name);
+        std::cout << "setcon res: " << res << std::endl;
+        sleep(ALARM_TIME_S);
+    }
+    exit(0);
 }
