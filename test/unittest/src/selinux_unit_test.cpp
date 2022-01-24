@@ -134,7 +134,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon002, TestSize.Level1)
     ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
 
     ret = test.HapFileRestorecon(TEST_SUB_PATH_1, TEST_APL, "", 0);
-    ASSERT_EQ(-SELINUX_TYPE_INVALID, ret);
+    ASSERT_EQ(SELINUX_SUCC, ret);
 
     RunSysCmd("rm -r " + TEST_PATH);
 }
@@ -150,7 +150,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon003, TestSize.Level1)
     RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
     // apl=system_core name=com.ohos.test domain= type=
     int ret = test.HapFileRestorecon(TEST_SUB_PATH_1, TEST_APL, "com.ohos.test", 0);
-    ASSERT_EQ(-SELINUX_KEY_NOT_FOUND, ret);
+    ASSERT_EQ(-SELINUX_TYPE_INVALID, ret);
 
     RunSysCmd("rm -r " + TEST_PATH);
 }
@@ -514,7 +514,7 @@ HWTEST_F(SelinuxUnitTest, HapDomainSetcontext001, TestSize.Level1)
     ASSERT_EQ(-SELINUX_KEY_NOT_FOUND, ret);
 
     ret = test.HapDomainSetcontext(TEST_APL, "");
-    ASSERT_EQ(-SELINUX_TYPE_INVALID, ret);
+    ASSERT_EQ(SELINUX_SUCC, ret);
 }
 
 /**
@@ -527,7 +527,7 @@ HWTEST_F(SelinuxUnitTest, HapDomainSetcontext002, TestSize.Level1)
 {
     // apl=system_core name=com.ohos.test domain= type=
     int ret = test.HapDomainSetcontext(TEST_APL, "com.ohos.test");
-    ASSERT_EQ(-SELINUX_KEY_NOT_FOUND, ret);
+    ASSERT_EQ(-SELINUX_TYPE_INVALID, ret);
 }
 
 /**

@@ -52,6 +52,7 @@ private:
                      const std::string &packageName);
     int HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName, context_t con);
     int HapLabelLookup(const std::string &apl, const std::string &packageName, char **secontextPtr);
+    int TypeSet(std::unordered_map<std::string, SehapContext>::iterator &iter, bool isDomain, context_t con);
 
     static void RestoreconInit();
     static bool HapContextsLoad();

@@ -143,7 +143,7 @@ bool HapContext::HapContextsLoad()
             if (CouldSkip(line))
                 continue;
             struct SehapContext tmpContext = DecodeString(line);
-            if ((!tmpContext.apl.empty()) && (!tmpContext.type.empty()) && (!tmpContext.domain.empty())) {
+            if (!tmpContext.apl.empty()) {
                 sehapContextsBuff.emplace(tmpContext.apl + tmpContext.name, tmpContext);
             } else {
                 SELINUX_LOG_INFO(LABEL, "hap_contexts read fail in line %{public}d", lineNum);
@@ -158,6 +158,24 @@ bool HapContext::HapContextsLoad()
     return true;
 }
 
+int HapContext::TypeSet(std::unordered_map<std::string, SehapContext>::iterator &iter, bool isDomain, context_t con)
+{
+    std::string type = "";
+    if (isDomain) {
+        type = iter->second.domain;
+    } else {
+        type = iter->second.type;
+    }
+    if (type.size() == 0) {
+        return -SELINUX_TYPE_INVALID;
+    }
+    if (context_type_set(con, type.c_str())) {
+        SELINUX_LOG_ERROR(LABEL, "Set type for %{public}s fail", type.c_str());
+        return -SELINUX_TYPE_SET_ERR;
+    }
+    return SELINUX_SUCC;
+}
+
 int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName, context_t con)
 {
     if (sehapContextsBuff.empty()) {
@@ -168,20 +186,12 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
 
     auto iter = sehapContextsBuff.find(std::string(apl) + std::string(packageName));
     if (iter != sehapContextsBuff.end()) {
-        std::string type = "";
-        if (isDomain) {
-            type = iter->second.domain;
-        } else {
-            type = iter->second.type;
+        return TypeSet(iter, isDomain, con);
+    } else {
+        auto iter = sehapContextsBuff.find(std::string(apl));
+        if (iter != sehapContextsBuff.end()) {
+            return TypeSet(iter, isDomain, con);
         }
-        if (type.size() == 0) {
-            return -SELINUX_TYPE_INVALID;
-        }
-        if (context_type_set(con, type.c_str())) {
-            SELINUX_LOG_ERROR(LABEL, "Set type for %{public}s fail", type.c_str());
-            return -SELINUX_TYPE_SET_ERR;
-        }
-        return SELINUX_SUCC;
     }
     return -SELINUX_KEY_NOT_FOUND;
 }

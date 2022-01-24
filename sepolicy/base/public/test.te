@@ -15,6 +15,9 @@
 type selftest, domain;
 type selftest_hap_data_file, file_type;
 
+type platform_hap_domain, domain;
+type priv_hap_domain, domain;
+type normal_hap_domain, domain;
 
 type launcher, domain;
 type settingsdata, domain;
@@ -23,6 +26,10 @@ type mms, domain;
 type telephonydataability, domain;
 type contactsdataability, domain;
 type contacts, domain;
+
+type platform_hap_data_file, file_type;
+type priv_hap_data_file, file_type;
+type normal_hap_data_file, file_type;
 
 type launcher_hap_data_file, file_type;
 type settingsdata_hap_data_file, file_type;
