@@ -128,7 +128,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon002, TestSize.Level1)
     RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
 
     int ret = test.HapFileRestorecon("", TEST_APL, TEST_NAME, 0);
-    ASSERT_EQ(-SELINUX_PATH_INVAILD, ret);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
 
     ret = test.HapFileRestorecon(TEST_SUB_PATH_1, "", TEST_NAME, 0);
     ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
@@ -511,7 +511,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 HWTEST_F(SelinuxUnitTest, HapDomainSetcontext001, TestSize.Level1)
 {
     int ret = test.HapDomainSetcontext("", TEST_NAME);
-    ASSERT_EQ(-SELINUX_KEY_NOT_FOUND, ret);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
 
     ret = test.HapDomainSetcontext(TEST_APL, "");
     ASSERT_EQ(SELINUX_SUCC, ret);

@@ -39,6 +39,7 @@ static const std::string NAME_PREFIX = "name=";
 static const std::string DOMAIN_PREFIX = "domain=";
 static const std::string TYPE_PREFIX = "type=";
 static const std::string PATH_PREFIX = "/data/app/";
+static const int CONTEXTS_LENGTH_MIN = 20;
 
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 } // namespace
@@ -63,7 +64,7 @@ struct selabel_handle *SelinuxRestoreconHandle()
 
 static bool CouldSkip(const std::string &line)
 {
-    if (line.size() <= 10) {
+    if (line.size() <= CONTEXTS_LENGTH_MIN) {
         return true;
     }
     int i = 0;
@@ -198,7 +199,7 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
 
 int HapContext::HapLabelLookup(const std::string &apl, const std::string &packageName, char **secontextPtr)
 {
-    if (apl.size() == 0 || secontextPtr == nullptr) {
+    if (apl.empty() || secontextPtr == nullptr) {
         return -SELINUX_ARG_INVALID;
     }
     char *secontext = *secontextPtr;
@@ -281,8 +282,8 @@ int HapContext::RestoreconSb(const std::string &pathname, const struct stat *sb,
 int HapContext::HapFileRestorecon(std::vector<std::string> &pathNameOrig, const std::string &apl,
                                   const std::string &packageName, unsigned int flags)
 {
-    if (pathNameOrig.empty()) {
-        return -SELINUX_PATH_INVAILD;
+    if (apl.empty() || pathNameOrig.empty()) {
+        return -SELINUX_ARG_INVALID;
     }
     int res = SELINUX_SUCC;
     for (auto pathname : pathNameOrig) {
@@ -294,6 +295,9 @@ int HapContext::HapFileRestorecon(std::vector<std::string> &pathNameOrig, const 
 int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::string &apl,
                                   const std::string &packageName, unsigned int flags)
 {
+    if (apl.empty() || pathNameOrig.empty()) {
+        return -SELINUX_ARG_INVALID;
+    }
     if (is_selinux_enabled() < 1) {
         SELINUX_LOG_INFO(LABEL, "Selinux not enbaled");
         return SELINUX_SUCC;
@@ -373,6 +377,10 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
 
 int HapContext::HapDomainSetcontext(const std::string &apl, const std::string &packageName)
 {
+    if (apl.empty()) {
+        return -SELINUX_ARG_INVALID;
+    }
+
     if (is_selinux_enabled() < 1) {
         SELINUX_LOG_INFO(LABEL, "Selinux not enbaled");
         return SELINUX_SUCC;
