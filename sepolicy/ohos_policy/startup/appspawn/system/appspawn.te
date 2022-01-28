@@ -22,7 +22,7 @@ binder_call(appspawn, hdf_devmgr);
 allow appspawn appspawn:process { execmem };
 
 # "/dev/null", O_RDWR
-allow appspawn null_device:chr_file rw_file_perms;
+allow appspawn dev_null_file:chr_file rw_file_perms;
 
 # "/",
 allow appspawn rootfs:dir search;

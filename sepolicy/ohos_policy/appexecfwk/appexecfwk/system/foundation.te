@@ -13,9 +13,8 @@
 
 type foundation, domain, nativedomain;
 
-domain_auto_transition_pattern(init, samain_exec, foundation);
-
-allow init samain_exec:file execute_no_trans;
+#domain_auto_transition_pattern(init, samain_exec, foundation);
+#allow init samain_exec:file execute_no_trans;
 
 binder_call(foundation, appspawn);
 binder_call(foundation, installs);
