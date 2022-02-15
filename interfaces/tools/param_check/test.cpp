@@ -23,6 +23,7 @@
 #include <vector>
 #include "selinux_parameter.h"
 
+const static long USEC_PER_SEC = 1000000L;
 struct testInput {
     std::string pid;
     std::string paraName;
@@ -37,16 +38,22 @@ static void TestLoadList()
     ParameterInfoList *buff = nullptr;
     gettimeofday(&start, nullptr);
     buff = GetParamList();
+    if (buff == nullptr) {
+        std::cout << "buff empty" << std::endl;
+        return;
+    }
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);
-    int runtime_us = diff.tv_sec * 1000000L + diff.tv_usec;
+    int runtime_us = diff.tv_sec * USEC_PER_SEC + diff.tv_usec;
     std::cout << "GetParamList time use: " << runtime_us << std::endl;
 
     ParameterInfoList *head = buff;
-    if (buff == nullptr) {
-        std::cout << "buff empty" << std::endl;
-    }
     while (buff != nullptr) {
+        if (security_check_context(buff->info.paraContext) < 0) {
+            std::cout << "failed check context: " << buff->info.paraContext << std::endl;
+            buff = buff->next;
+            continue;
+        }
         std::string name = path + std::string(buff->info.paraContext);
         FILE *fp = fopen(name.c_str(), "w");
         if (fp == nullptr) {
@@ -55,11 +62,6 @@ static void TestLoadList()
             continue;
         }
         (void)fclose(fp);
-        if (security_check_context(buff->info.paraContext) < 0) {
-            std::cout << "failed check context: " << buff->info.paraContext << std::endl;
-            buff = buff->next;
-            continue;
-        }
         if (setfilecon(name.c_str(), buff->info.paraContext) < 0) {
             std::cout << "setcon failed: " << name << std::endl;
         }
@@ -67,10 +69,10 @@ static void TestLoadList()
     }
 
     gettimeofday(&start, nullptr);
-    DestroyParamList(head);
+    DestroyParamList(&head);
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);
-    runtime_us = diff.tv_sec * 1000000L + diff.tv_usec;
+    runtime_us = diff.tv_sec * USEC_PER_SEC + diff.tv_usec;
     std::cout << "DestroyParamList time use: " << runtime_us << std::endl;
 }
 
@@ -79,14 +81,15 @@ static void TestGetContext(std::string &paraName)
     struct timeval start, end, diff;
     const char *context = nullptr;
     gettimeofday(&start, nullptr);
-    if (GetParamLabel(paraName.c_str(), &context) == 0) {
+    int res = GetParamLabel(paraName.c_str(), &context);
+    if (res == 0) {
         std::cout << "para " << paraName.c_str() << "'s context is " << context << std::endl;
     } else {
-        std::cout << "para " << paraName.c_str() << "'s context get fail" << std::endl;
+        std::cout << "para " << paraName.c_str() << "'s context get fail, err: " << res << std::endl;
     }
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);
-    int runtime_us = diff.tv_sec * 1000000L + diff.tv_usec;
+    int runtime_us = diff.tv_sec * USEC_PER_SEC + diff.tv_usec;
     std::cout << "GetParamLabel time use: " << runtime_us << std::endl;
 }
 
@@ -189,7 +192,7 @@ int main(int argc, char *argv[])
     }
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);
-    int runtime_us = diff.tv_sec * 1000000L + diff.tv_usec;
+    int runtime_us = diff.tv_sec * USEC_PER_SEC + diff.tv_usec;
     std::cout << "time use: " << runtime_us << std::endl;
 
     exit(0);

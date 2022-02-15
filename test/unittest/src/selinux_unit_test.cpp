@@ -15,15 +15,16 @@
 
 #include "selinux_unit_test.h"
 #include <selinux/selinux.h>
+#include <dirent.h>
 #include <thread>
 #include "selinux_error.h"
+#include "selinux_parameter.h"
 
 using namespace testing::ext;
 using namespace OHOS::Security::Selinux;
 using namespace Selinux;
-
+const static int SLEEP_SECOND = 10;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
-const static std::string DATA_BASE_PATH = "/data/app/el1/0/database/";
 const static std::string TEST_PATH = BASE_PATH + "com.ohos.selftest/";
 
 const static std::string TEST_SUB_PATH_1 = TEST_PATH + "subpath1/";
@@ -50,7 +51,103 @@ const static std::string TEST_NAME = "com.hap.selftest";
 const static std::string DEST_LABEL = "u:object_r:selftest_hap_data_file:s0";
 const static std::string DEST_DOMAIN = "u:r:selftest:s0";
 
-static const std::string SEHAP_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/sehap_contexts";
+const static std::string SEHAP_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/sehap_contexts";
+const static std::string PARAM_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/parameter_contexts";
+
+const static std::string TEST_PARA_NAME = "test.para";
+const static std::string TEST_NOT_EXIST_PARA_NAME = "test.not.exist";
+const static std::string TEST_PARA_CONTEXT = "u:object_r:testpara:s0";
+const static std::string DEFAULT_PARA_CONTEXT = "u:object_r:default_para:s0";
+
+const static std::vector<std::string> TEST_INVALID_PARA = {{".test"}, {"test."}, {"test..test"}, {""}, {"test+test"}};
+
+static bool CreateDirectory(const std::string &path)
+{
+    std::string::size_type index = 0;
+    do {
+        std::string subPath;
+        index = path.find('/', index + 1);
+        if (index == std::string::npos) {
+            subPath = path;
+        } else {
+            subPath = path.substr(0, index);
+        }
+
+        if (access(subPath.c_str(), F_OK) != 0) {
+            if (mkdir(subPath.c_str(), S_IRWXU) != 0) {
+                return false;
+            }
+        }
+    } while (index != std::string::npos);
+
+    return access(path.c_str(), F_OK) == 0;
+}
+
+static bool RemoveDirectory(const std::string &path)
+{
+    const char *dir = path.c_str();
+    std::string curDir = ".";
+    std::string upDir = "..";
+    DIR *dirp;
+    struct dirent *dp;
+    struct stat dirStat;
+
+    if (access(dir, F_OK) != 0) {
+        return true;
+    }
+    int statRet = stat(dir, &dirStat);
+    if (statRet < 0) {
+        return false;
+    }
+
+    if (S_ISREG(dirStat.st_mode)) {
+        remove(dir);
+    } else if (S_ISDIR(dirStat.st_mode)) {
+        dirp = opendir(dir);
+        while ((dp = readdir(dirp)) != nullptr) {
+            if ((curDir == std::string(dp->d_name)) || (upDir == std::string(dp->d_name))) {
+                continue;
+            }
+            std::string dirName = std::string(dir) + "/" + std::string(dp->d_name);
+            RemoveDirectory(dirName.c_str());
+        }
+        closedir(dirp);
+        rmdir(dir);
+    } else {
+        return false;
+    }
+    return true;
+}
+
+static std::string GetDirectory(const std::string &path)
+{
+    std::string dir = "";
+    size_t index = path.rfind('/');
+    if (std::string::npos != index) {
+        dir = path.substr(0, index);
+    }
+    return dir;
+}
+
+static bool CreateFile(const std::string &path)
+{
+    std::string dir = GetDirectory(path);
+    if (dir != "") {
+        if (!CreateDirectory(dir)) {
+            return false;
+        }
+    }
+
+    if (access(path.c_str(), F_OK) != 0) {
+        FILE *fp = fopen(path.c_str(), "w");
+        if (fp == nullptr) {
+            return false;
+        }
+        fclose(fp);
+    }
+
+    return access(path.c_str(), F_OK) == 0;
+}
 
 static void RunSysCmd(const std::string &cmd)
 {
@@ -73,6 +170,16 @@ static std::string RunCommand(const std::string &command)
     return result;
 }
 
+static void GenerateTestFile()
+{
+    RunSysCmd("cp " + SEHAP_CONTEXTS_FILE + " " + SEHAP_CONTEXTS_FILE + "_bk");
+    RunSysCmd("echo 'apl=system_core name=com.ohos.test domain= type=' >> " + SEHAP_CONTEXTS_FILE);
+    RunSysCmd("echo 'apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file' >> " +
+              SEHAP_CONTEXTS_FILE);
+    RunSysCmd("cp " + PARAM_CONTEXTS_FILE + " " + PARAM_CONTEXTS_FILE + "_bk");
+    RunSysCmd("echo 'test.para                           u:object_r:testpara:s0' >> " + PARAM_CONTEXTS_FILE);
+}
+
 void SelinuxUnitTest::SetUpTestCase()
 {
     // make test case clean
@@ -82,15 +189,14 @@ void SelinuxUnitTest::TearDownTestCase() {}
 
 void SelinuxUnitTest::SetUp()
 {
-    RunSysCmd("cp " + SEHAP_CONTEXTS_FILE + " " + SEHAP_CONTEXTS_FILE + "_bk");
-    RunSysCmd("echo 'apl=system_core name=com.ohos.test domain= type=' >> " + SEHAP_CONTEXTS_FILE);
-    RunSysCmd("echo 'apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file' >> " +
-              SEHAP_CONTEXTS_FILE);
+    GenerateTestFile();
+    SetSelinuxLogCallback();
 }
 
 void SelinuxUnitTest::TearDown()
 {
     RunSysCmd("mv " + SEHAP_CONTEXTS_FILE + "_bk " + SEHAP_CONTEXTS_FILE);
+    RunSysCmd("mv " + PARAM_CONTEXTS_FILE + "_bk " + PARAM_CONTEXTS_FILE);
 }
 
 void SelinuxUnitTest::CreateDataFile() const {}
@@ -103,14 +209,14 @@ void SelinuxUnitTest::CreateDataFile() const {}
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon001, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + INVALID_PATH);
+    ASSERT_EQ(true, CreateDirectory(INVALID_PATH));
 
     int ret = test.HapFileRestorecon(INVALID_PATH, TEST_APL, TEST_NAME, 0);
     ASSERT_EQ(-SELINUX_PATH_INVAILD, ret);
-    RunSysCmd("rm -r " + INVALID_PATH);
+    ASSERT_EQ(true, RemoveDirectory(INVALID_PATH));
 
     if (access(NOT_EXIST_PATH.c_str(), F_OK) == 0) {
-        RunSysCmd("rm -r " + NOT_EXIST_PATH);
+        ASSERT_EQ(true, RemoveDirectory(NOT_EXIST_PATH));
     }
 
     ret = test.HapFileRestorecon(NOT_EXIST_PATH, TEST_APL, TEST_NAME, 0);
@@ -125,7 +231,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon002, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
+    ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_1));
 
     int ret = test.HapFileRestorecon("", TEST_APL, TEST_NAME, 0);
     ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
@@ -136,7 +242,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon002, TestSize.Level1)
     ret = test.HapFileRestorecon(TEST_SUB_PATH_1, TEST_APL, "", 0);
     ASSERT_EQ(SELINUX_SUCC, ret);
 
-    RunSysCmd("rm -r " + TEST_PATH);
+    ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
 
 /**
@@ -147,12 +253,12 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon002, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon003, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
+    ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_1));
     // apl=system_core name=com.ohos.test domain= type=
     int ret = test.HapFileRestorecon(TEST_SUB_PATH_1, TEST_APL, "com.ohos.test", 0);
     ASSERT_EQ(-SELINUX_TYPE_INVALID, ret);
 
-    RunSysCmd("rm -r " + TEST_PATH);
+    ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
 
 /**
@@ -163,8 +269,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon003, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon004, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
-    RunSysCmd("touch " + TEST_SUB_PATH_1_FILE_1); // this file should not be restorecon
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1)); // this file should not be restorecon
 
     char *secontextOld = nullptr;
     getfilecon(TEST_SUB_PATH_1_FILE_1.c_str(), &secontextOld);
@@ -185,7 +290,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon004, TestSize.Level1)
     freecon(secontext);
     secontext = nullptr;
 
-    RunSysCmd("rm -r " + TEST_PATH);
+    ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
 
 /**
@@ -196,12 +301,10 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon004, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon005, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_2);
-    RunSysCmd("touch " + TEST_SUB_PATH_1_FILE_1);
-    RunSysCmd("touch " + TEST_SUB_PATH_1_FILE_2);
-    RunSysCmd("touch " + TEST_SUB_PATH_2_FILE_1);
-    RunSysCmd("touch " + TEST_SUB_PATH_2_FILE_2);
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_2));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_2_FILE_1));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_2_FILE_2));
 
     int ret = test.HapFileRestorecon(TEST_PATH, TEST_APL, TEST_NAME, 1);
     ASSERT_EQ(SELINUX_SUCC, ret);
@@ -243,7 +346,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon005, TestSize.Level1)
     freecon(secontext);
     secontext = nullptr;
 
-    RunSysCmd("rm -r " + TEST_PATH);
+    ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
 
 /**
@@ -254,9 +357,8 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon005, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon006, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_3);
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_4);
-    RunSysCmd("touch " + TEST_SUB_PATH_3_FILE_1);
+    ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_4));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_3_FILE_1));
 
     int ret = test.HapFileRestorecon(TEST_UNSIMPLIFY_PATH, TEST_APL, TEST_NAME, 0);
     ASSERT_EQ(SELINUX_SUCC, ret);
@@ -278,7 +380,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon006, TestSize.Level1)
     freecon(secontext);
     secontext = nullptr;
 
-    RunSysCmd("rm -r " + TEST_PATH);
+    ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
 
 /**
@@ -289,14 +391,11 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon006, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon007, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_2);
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_3);
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_4);
-    RunSysCmd("touch " + TEST_SUB_PATH_1_FILE_1);
-    RunSysCmd("touch " + TEST_SUB_PATH_1_FILE_2);
-    RunSysCmd("touch " + TEST_SUB_PATH_2_FILE_1); // should not be restorecon
-    RunSysCmd("touch " + TEST_SUB_PATH_3_FILE_1);
+    ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_4));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_2));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_2_FILE_1)); // should not be restorecon
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_3_FILE_1));
 
     char *secontextOld = nullptr;
     getfilecon(TEST_SUB_PATH_2_FILE_1.c_str(), &secontextOld);
@@ -357,7 +456,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon007, TestSize.Level1)
     freecon(secontext);
     secontext = nullptr;
 
-    RunSysCmd("rm -r " + TEST_PATH);
+    ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
 
 /**
@@ -368,24 +467,20 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon007, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon008, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_2);
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_3);
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_4);
-    RunSysCmd("touch " + TEST_SUB_PATH_1_FILE_1);
-    RunSysCmd("touch " + TEST_SUB_PATH_1_FILE_2);
-    RunSysCmd("touch " + TEST_SUB_PATH_2_FILE_1);
-    RunSysCmd("touch " + TEST_SUB_PATH_2_FILE_2);
-    RunSysCmd("touch " + TEST_SUB_PATH_3_FILE_1);
-    RunSysCmd("touch " + TEST_SUB_PATH_3_FILE_2); // this file should not be restorecon
-    RunSysCmd("touch " + TEST_SUB_PATH_4_FILE_1);
-    RunSysCmd("touch " + TEST_SUB_PATH_4_FILE_2);
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_2));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_2_FILE_1));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_2_FILE_2));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_3_FILE_1));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_3_FILE_2)); // this file should not be restorecon
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_4_FILE_1));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_4_FILE_2));
 
     std::vector<std::string> tmp;
     tmp.emplace_back(TEST_SUB_PATH_1);
     tmp.emplace_back(TEST_SUB_PATH_2);
-    tmp.emplace_back(TEST_UNSIMPLIFY_FILE);
-    tmp.emplace_back(TEST_UNSIMPLIFY_PATH);
+    tmp.emplace_back(TEST_UNSIMPLIFY_FILE); // TEST_SUB_PATH_3_FILE_1
+    tmp.emplace_back(TEST_UNSIMPLIFY_PATH); // TEST_SUB_PATH_4
 
     char *secontextOld = nullptr;
     getfilecon(TEST_SUB_PATH_3_FILE_2.c_str(), &secontextOld);
@@ -462,18 +557,18 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon008, TestSize.Level1)
     secontext = nullptr;
     secontextOld = nullptr;
 
-    RunSysCmd("rm -r " + TEST_PATH);
+    ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
 
 /**
  * @tc.name: HapFileRestorecon009
- * @tc.desc: HapFileRestorecon double.
+ * @tc.desc: HapFileRestorecon repeat label.
  * @tc.type: FUNC
  * @tc.require:AR000GJSDQ
  */
 HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 {
-    RunSysCmd("mkdir -p " + TEST_SUB_PATH_1);
+    ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_1));
 
     int ret = test.HapFileRestorecon(TEST_SUB_PATH_1, TEST_APL, TEST_NAME, 0);
     ASSERT_EQ(SELINUX_SUCC, ret);
@@ -499,7 +594,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
     secontext = nullptr;
     secontextOld = nullptr;
 
-    RunSysCmd("rm -r " + TEST_PATH);
+    ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
 
 /**
@@ -545,10 +640,169 @@ HWTEST_F(SelinuxUnitTest, HapDomainSetcontext003, TestSize.Level1)
     } else if (pid == 0) {
         int ret = test.HapDomainSetcontext(TEST_APL, TEST_NAME);
         ASSERT_EQ(SELINUX_SUCC, ret);
-        sleep(1);
+        sleep(SLEEP_SECOND);
         exit(0);
     } else {
         std::string cmdRes = RunCommand("ps -efZ | grep selinux_unittest | grep -v grep");
         ASSERT_TRUE(cmdRes.find(DEST_DOMAIN) != std::string::npos);
     }
+}
+
+/**
+ * @tc.name: GetParamList001
+ * @tc.desc: GetParamList test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, GetParamList001, TestSize.Level1)
+{
+    ParameterInfoList *buff = nullptr;
+    buff = GetParamList();
+    ASSERT_NE(nullptr, buff);
+    ParameterInfoList *head = buff;
+    bool find = false;
+    while (buff != nullptr) {
+        if (std::string(buff->info.paraName) == TEST_PARA_NAME &&
+            std::string(buff->info.paraContext) == TEST_PARA_CONTEXT) {
+            find = true;
+            buff = buff->next;
+            continue;
+        }
+        ASSERT_EQ(SELINUX_SUCC, security_check_context(buff->info.paraContext));
+        buff = buff->next;
+    }
+    ASSERT_EQ(true, find);
+
+    DestroyParamList(&head);
+    ASSERT_EQ(nullptr, head);
+}
+
+/**
+ * @tc.name: DestroyParamList001
+ * @tc.desc: DestroyParamList input invalid.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, DestroyParamList001, TestSize.Level1)
+{
+    DestroyParamList(nullptr);
+}
+
+/**
+ * @tc.name: GetParamLabel001
+ * @tc.desc: GetParamLabel input invalid.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, GetParamLabel001, TestSize.Level1)
+{
+    const char *context = nullptr;
+    ASSERT_EQ(-SELINUX_PTR_NULL, GetParamLabel(nullptr, &context));
+
+    ASSERT_EQ(-SELINUX_PTR_NULL, GetParamLabel(TEST_PARA_NAME.c_str(), nullptr));
+
+    for (auto para : TEST_INVALID_PARA) {
+        ASSERT_EQ(-SELINUX_ARG_INVALID, GetParamLabel(para.c_str(), &context));
+    }
+
+    ASSERT_EQ(-SELINUX_KEY_NOT_FOUND, GetParamLabel(TEST_NOT_EXIST_PARA_NAME.c_str(), &context));
+}
+
+/**
+ * @tc.name: GetParamLabel002
+ * @tc.desc: GetParamLabel func test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, GetParamLabel002, TestSize.Level1)
+{
+    const char *context = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, GetParamLabel(TEST_PARA_NAME.c_str(), &context));
+    ASSERT_EQ(TEST_PARA_CONTEXT, std::string(context));
+}
+
+/**
+ * @tc.name: ReadParamCheck001
+ * @tc.desc: ReadParamCheck input invalid.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, ReadParamCheck001, TestSize.Level1)
+{
+    ASSERT_EQ(-SELINUX_PTR_NULL, ReadParamCheck(nullptr));
+
+    for (auto para : TEST_INVALID_PARA) {
+        ASSERT_EQ(-SELINUX_ARG_INVALID, ReadParamCheck(para.c_str()));
+    }
+
+    ASSERT_EQ(SELINUX_SUCC, ReadParamCheck(TEST_NOT_EXIST_PARA_NAME.c_str()));
+
+    std::string cmd = "dmesg | grep 'avc:  denied  { read } for parameter=" + TEST_NOT_EXIST_PARA_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tcontext=" + DEFAULT_PARA_CONTEXT +
+                      " tclass=file'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_NOT_EXIST_PARA_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: ReadParamCheck002
+ * @tc.desc: ReadParamCheck func test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, ReadParamCheck002, TestSize.Level1)
+{
+    ASSERT_EQ(SELINUX_SUCC, ReadParamCheck(TEST_PARA_NAME.c_str()));
+    std::string cmd = "dmesg | grep 'avc:  denied  { read } for parameter=" + TEST_PARA_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tcontext=" + TEST_PARA_CONTEXT + " tclass=file'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_PARA_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: SetParamCheck001
+ * @tc.desc: SetParamCheck input invalid.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, SetParamCheck001, TestSize.Level1)
+{
+    struct ucred uc;
+    uc.pid = getpid();
+    uc.uid = getuid();
+    uc.gid = getgid();
+    ASSERT_EQ(-SELINUX_PTR_NULL, SetParamCheck(nullptr, &uc));
+
+    ASSERT_EQ(-SELINUX_PTR_NULL, SetParamCheck(TEST_NOT_EXIST_PARA_NAME.c_str(), nullptr));
+
+    for (auto para : TEST_INVALID_PARA) {
+        ASSERT_EQ(-SELINUX_ARG_INVALID, SetParamCheck(para.c_str(), &uc));
+    }
+
+    ASSERT_EQ(SELINUX_SUCC, SetParamCheck(TEST_NOT_EXIST_PARA_NAME.c_str(), &uc));
+    std::string cmd = "dmesg | grep 'avc:  denied  { set } for parameter=" + TEST_NOT_EXIST_PARA_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tcontext=" + DEFAULT_PARA_CONTEXT +
+                      " tclass=parameter_service'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_NOT_EXIST_PARA_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: SetParamCheck002
+ * @tc.desc: SetParamCheck func test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, SetParamCheck002, TestSize.Level1)
+{
+    struct ucred uc;
+    uc.pid = getpid();
+    uc.uid = getuid();
+    uc.gid = getgid();
+    ASSERT_EQ(SELINUX_SUCC, SetParamCheck(TEST_PARA_NAME.c_str(), &uc));
+    std::string cmd = "dmesg | grep 'avc:  denied  { set } for parameter=" + TEST_PARA_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tcontext=" + TEST_PARA_CONTEXT +
+                      " tclass=parameter_service'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_PARA_NAME) != std::string::npos);
 }

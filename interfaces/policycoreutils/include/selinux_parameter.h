@@ -55,7 +55,7 @@ ParameterInfoList *GetParamList(void);
  *
  * @param list the head of contexts list
  */
-void DestroyParamList(ParameterInfoList *list);
+void DestroyParamList(ParameterInfoList **list);
 
 /**
  * @brief for a particular paraName, get its context

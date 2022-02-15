@@ -50,6 +50,9 @@ struct AuditMsg {
 
 static int SelinuxAuditCallback(void *data, security_class_t, char *buf, size_t len)
 {
+    if (data == nullptr || buf == nullptr) {
+        return -1;
+    }
     auto *msg = reinterpret_cast<AuditMsg *>(data);
     if (!msg || !msg->name || !msg->ucred) {
         selinux_log(SELINUX_ERROR, "Selinux audit msg invalid argument\n");
@@ -174,18 +177,23 @@ void SetSelinuxLogCallback()
     return;
 }
 
-void DestroyParamList(ParameterInfoList *list)
+void DestroyParamList(ParameterInfoList **list)
 {
-    ParameterInfoList *tmpNode;
-    while (list != nullptr) {
-        tmpNode = list->next;
-        free(list->info.paraName);
-        list->info.paraName = nullptr;
-        free(list->info.paraContext);
-        list->info.paraContext = nullptr;
-        free(list);
-        list = tmpNode;
+    if (list == nullptr) {
+        return;
     }
+    ParameterInfoList *tmpNode;
+    ParameterInfoList *listHead = *list;
+    while (listHead != nullptr) {
+        tmpNode = listHead->next;
+        free(listHead->info.paraName);
+        listHead->info.paraName = nullptr;
+        free(listHead->info.paraContext);
+        listHead->info.paraContext = nullptr;
+        free(listHead);
+        listHead = tmpNode;
+    }
+    *list = nullptr;
     return;
 }
 
@@ -207,7 +215,7 @@ ParameterInfoList *GetParamList()
     for (auto info : paraInfo) {
         ParameterInfoList *node = (ParameterInfoList *)malloc(sizeof(ParameterInfoList));
         if (node == nullptr) {
-            DestroyParamList(ptrParaInfo);
+            DestroyParamList(&ptrParaInfo);
             return nullptr;
         }
         struct ParameterNode contextBuff = {nullptr, nullptr};
