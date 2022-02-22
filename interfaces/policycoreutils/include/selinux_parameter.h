@@ -16,9 +16,6 @@
 #ifndef SELINUX_PARAMETER_H
 #define SELINUX_PARAMETER_H
 
-#include <selinux/selinux.h>
-#include <stdbool.h>
-#include <stdio.h>
 #include <sys/socket.h>
 
 #ifdef __cplusplus

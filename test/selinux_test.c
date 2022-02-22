@@ -13,13 +13,9 @@
  * limitations under the License.
  */
 
-#include <pwd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 #include <selinux/selinux.h>
 #include <securec.h>
+#include <unistd.h>
 
 #define BUFFLEN (1000)
 
@@ -31,6 +27,7 @@ int OpenFile(char *file)
     fp = fopen(file, "r");
     if (fp != NULL) {
         if (memset_s(buf, sizeof(buf), 0, BUFFLEN) != 0) {
+            fclose(fp);
             return 0;
         }
 
@@ -44,7 +41,7 @@ int OpenFile(char *file)
 
 int main(int argc, char *argv[])
 {
-    const sleepSeconds = 1;
+    const int sleepSeconds = 1;
     char *files[] = {
         "/data/abcd.txt",
         "/data/abcd2.txt",

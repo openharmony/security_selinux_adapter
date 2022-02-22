@@ -14,6 +14,9 @@
  */
 
 #include "selinux_klog.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include "securec.h"
 
 static int g_logLevel = SELINUX_KERROR;
 static const char *LOG_LEVEL_STR[] = {"ERROR", "WARNING", "INFO", "AVC"};
@@ -55,6 +58,7 @@ int SelinuKLog(int logLevel, const char *fmt, ...)
     if (vsnprintf_s(tmpFmt, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, fmt, vargs) == -1) {
         close(g_fd);
         g_fd = -1;
+        va_end(vargs);
         return -1;
     }
 
@@ -69,6 +73,7 @@ int SelinuKLog(int logLevel, const char *fmt, ...)
     if (res == -1) {
         close(g_fd);
         g_fd = -1;
+        va_end(vargs);
         return -1;
     }
     va_end(vargs);

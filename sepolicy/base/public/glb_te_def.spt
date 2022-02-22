@@ -12,26 +12,26 @@
 # limitations under the License.
 
 define(`domain_transition_pattern',`
-	allow $1 $2:file { getattr open map read execute ioctl };
-	allow $1 $3:process transition;
-	allow $1 $3:process { noatsecure siginh rlimitinh };
+    allow $1 $2:file { getattr open map read execute ioctl };
+    allow $1 $3:process transition;
+    allow $1 $3:process { noatsecure siginh rlimitinh };
 ')
 
 define(`domain_auto_transition_pattern',`
-	domain_transition_pattern($1,$2,$3)
-	type_transition $1 $2:process $3;
+    domain_transition_pattern($1,$2,$3)
+    type_transition $1 $2:process $3;
 ')
 
 define(`init_daemon_domain', `
-	domain_auto_transition_pattern(init, $1_exec, $1)
+    domain_auto_transition_pattern(init, $1_exec, $1)
 ')
 
 define(`appspawn _daemon_domain', `
-	domain_auto_transition_pattern(appspawn, $1_exec, $1)
+    domain_auto_transition_pattern(appspawn, $1_exec, $1)
 ')
 
 define(`binder_call', `
-	allow $1 $2:binder {call transfer};
-	allow $2 $1:binder transfer;
-	allow $1 $2:fd use;
+    allow $1 $2:binder {call transfer};
+    allow $2 $1:binder transfer;
+    allow $1 $2:fd use;
 ')

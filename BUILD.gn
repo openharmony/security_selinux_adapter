@@ -52,7 +52,8 @@ ohos_shared_library("libload_policy") {
   cflags = [
     "-D_GNU_SOURCE",
     "-DUSE_PCRE2",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
   install_enable = true
   install_images = [
@@ -92,7 +93,8 @@ ohos_shared_library("librestorecon") {
   cflags = [
     "-D_GNU_SOURCE",
     "-DUSE_PCRE2",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
   install_enable = true
   install_images = [
@@ -130,7 +132,8 @@ ohos_shared_library("libhap_restorecon") {
 
   cflags = [
     "-D_GNU_SOURCE",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
   install_enable = true
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
@@ -163,7 +166,8 @@ ohos_static_library("libselinux_klog_static") {
 
   cflags = [
     "-D_GNU_SOURCE",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
 
   part_name = "selinux"
@@ -222,7 +226,8 @@ ohos_static_library("libservice_checker_static") {
 
   cflags = [
     "-D_GNU_SOURCE",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
 
   part_name = "selinux"
@@ -242,7 +247,8 @@ ohos_executable("load_policy") {
   cflags = [
     "-D_GNU_SOURCE",
     "-DUSE_PCRE2",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
@@ -266,7 +272,8 @@ ohos_executable("restorecon") {
   cflags = [
     "-D_GNU_SOURCE",
     "-DUSE_PCRE2",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
@@ -280,11 +287,15 @@ ohos_executable("hap_restorecon") {
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
     "$LIBSELINUX_ROOT_DIR/include",
   ]
-  deps = [ ":libhap_restorecon" ]
+  deps = [
+    ":libhap_restorecon",
+    ":libselinux_error_static",
+  ]
 
   cflags = [
     "-D_GNU_SOURCE",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
@@ -329,7 +340,8 @@ ohos_executable("service_check") {
 
   cflags = [
     "-D_GNU_SOURCE",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
@@ -337,7 +349,7 @@ ohos_executable("service_check") {
 }
 
 ohos_executable("selinux_test") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/test/selinux_test.c" ]
   include_dirs = [
     "$LIBSELINUX_ROOT_DIR/include",
@@ -351,7 +363,8 @@ ohos_executable("selinux_test") {
   cflags = [
     "-D_GNU_SOURCE",
     "-DUSE_PCRE2",
-    "-w",
+    "-Wall",
+    "-Werror",
   ]
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"

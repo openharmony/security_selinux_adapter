@@ -14,20 +14,16 @@
  */
 
 #include "hap_restorecon.h"
-#include "callbacks.h"
-#include "selinux_error.h"
-#include "selinux_log.h"
-#include <cstring>
 #include <fstream>
 #include <include/fts.h>
-#include <iostream>
 #include <regex>
 #include <selinux/label.h>
 #include <selinux/restorecon.h>
 #include <selinux_internal.h>
 #include <sstream>
-#include <string>
-#include <vector>
+#include "callbacks.h"
+#include "selinux_error.h"
+#include "selinux_log.h"
 
 using namespace Selinux;
 
@@ -39,7 +35,7 @@ static const std::string NAME_PREFIX = "name=";
 static const std::string DOMAIN_PREFIX = "domain=";
 static const std::string TYPE_PREFIX = "type=";
 static const std::string PATH_PREFIX = "/data/app/";
-static const int CONTEXTS_LENGTH_MIN = 20;
+static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 } // namespace
@@ -54,12 +50,12 @@ HapContext::~HapContext() {}
 struct selabel_handle *SelinuxRestoreconHandle()
 {
     struct selinux_opt selinuxOpts[] = {
-        {SELABEL_OPT_VALIDATE, NULL},
+        {SELABEL_OPT_VALIDATE, (char *)1},
         {SELABEL_OPT_PATH, NULL},
         {SELABEL_OPT_DIGEST, NULL},
     };
 
-    return selabel_open(SELABEL_CTX_FILE, selinuxOpts, 1);
+    return selabel_open(SELABEL_CTX_FILE, selinuxOpts, sizeof(selinuxOpts) / sizeof(selinuxOpts[0]));
 }
 
 static bool CouldSkip(const std::string &line)
@@ -168,11 +164,12 @@ int HapContext::TypeSet(std::unordered_map<std::string, SehapContext>::iterator 
         type = iter->second.type;
     }
     if (type.size() == 0) {
-        return -SELINUX_TYPE_INVALID;
+        SELINUX_LOG_ERROR(LABEL, "type is empty in contexts file");
+        return -SELINUX_ARG_INVALID;
     }
     if (context_type_set(con, type.c_str())) {
-        SELINUX_LOG_ERROR(LABEL, "Set type for %{public}s fail", type.c_str());
-        return -SELINUX_TYPE_SET_ERR;
+        SELINUX_LOG_ERROR(LABEL, "%{public}s %{public}s", GetErrStr(SELINUX_SET_CONTEXT_TYPE_ERROR), type.c_str());
+        return -SELINUX_SET_CONTEXT_TYPE_ERROR;
     }
     return SELINUX_SUCC;
 }
@@ -181,7 +178,7 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
 {
     if (sehapContextsBuff.empty()) {
         if (!HapContextsLoad()) {
-            return -SELINUX_CONTEXTS_LOAD_ERR;
+            return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
         }
     }
 
@@ -229,7 +226,7 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
     // check whether the context is valid
     if (security_check_context(secontext) < 0) {
         context_free(con);
-        return -SELINUX_TYPE_INVALID;
+        return -SELINUX_CHECK_CONTEXT_ERROR;
     }
 
     freecon(*secontextPtr);
@@ -256,7 +253,7 @@ int HapContext::RestoreconSb(const std::string &pathname, const struct stat *sb,
     if (lgetfilecon(pathname.c_str(), &oldSecontext) < 0) {
         freecon(secontext);
         freecon(oldSecontext);
-        return -SELINUX_GET_CONTEXTS_ERROR;
+        return -SELINUX_GET_CONTEXT_ERROR;
     }
 
     int res = HapLabelLookup(apl, packageName, &secontext);
@@ -270,7 +267,7 @@ int HapContext::RestoreconSb(const std::string &pathname, const struct stat *sb,
         if (lsetfilecon(pathname.c_str(), secontext) < 0) {
             freecon(secontext);
             freecon(oldSecontext);
-            return -SELINUX_SET_CONTEXTS_ERROR;
+            return -SELINUX_SET_CONTEXT_ERROR;
         }
     }
 
@@ -323,7 +320,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
     bool recurse = (flags & SELINUX_HAP_RESTORECON_RECURSE) ? true : false;
     if (!recurse) {
         if (lstat(realPath, &sb) < 0) {
-            return -SELINUX_FILE_INVAILD;
+            return -SELINUX_STAT_INVAILD;
         }
 
         int res = RestoreconSb(realPath, &sb, apl, packageName);
@@ -338,7 +335,9 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
     int ftsFlags = FTS_PHYSICAL | FTS_NOCHDIR;
     FTS *fts = fts_open(paths, ftsFlags, NULL);
     if (fts == nullptr) {
-        return -SELINUX_FILE_ERR;
+        SELINUX_LOG_ERROR(LABEL, "%{public}s on %{public}s: %{public}s", GetErrStr(SELINUX_FTS_OPEN_ERROR), paths[0],
+                          strerror(errno));
+        return -SELINUX_FTS_OPEN_ERROR;
     }
 
     FTSENT *ftsent = nullptr;
@@ -346,7 +345,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
     while ((ftsent = fts_read(fts)) != NULL) {
         switch (ftsent->fts_info) {
             case FTS_DC:
-                SELINUX_LOG_ERROR(LABEL, "Cycle on %{public}s", ftsent->fts_path);
+                SELINUX_LOG_ERROR(LABEL, "%{public}s on %{public}s", GetErrStr(SELINUX_FTS_ELOOP), ftsent->fts_path);
                 (void)fts_close(fts);
                 return -SELINUX_FTS_ELOOP;
             case FTS_DP:
@@ -388,7 +387,7 @@ int HapContext::HapDomainSetcontext(const std::string &apl, const std::string &p
 
     char *typeContext = nullptr;
     if (getcon(&typeContext)) {
-        return -SELINUX_GETCON_ERR;
+        return -SELINUX_GET_CONTEXT_ERROR;
     }
 
     context_t con = nullptr;
@@ -418,14 +417,14 @@ int HapContext::HapDomainSetcontext(const std::string &apl, const std::string &p
     if (security_check_context(typeContext) < 0) {
         freecon(oldTypeContext);
         context_free(con);
-        return -SELINUX_TYPE_INVALID;
+        return -SELINUX_CHECK_CONTEXT_ERROR;
     }
 
     if (strcmp(typeContext, oldTypeContext)) {
         if (setcon(typeContext) < 0) {
             freecon(oldTypeContext);
             context_free(con);
-            return -SELINUX_SETCON_ERR;
+            return -SELINUX_SET_CONTEXT_ERROR;
         }
     }
     SELINUX_LOG_INFO(LABEL, "Hap setcon finish for %{public}s", packageName.c_str());

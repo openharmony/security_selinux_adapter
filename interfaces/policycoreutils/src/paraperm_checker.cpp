@@ -14,18 +14,13 @@
  */
 
 #include "paraperm_checker.h"
-#include <cerrno>
-#include <cstdio>
-#include <cstring>
 #include <fcntl.h>
 #include <fstream>
-#include <iostream>
 #include <regex>
 #include <securec.h>
 #include <selinux_internal.h>
 #include <sstream>
 #include <string>
-#include <sys/mman.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <unordered_map>
@@ -247,7 +242,7 @@ int GetParamLabel(const char *paraName, const char **context)
 
     if (paraInfo.empty()) {
         if (!ParameterContextsLoad()) {
-            return -SELINUX_CONTEXTS_LOAD_ERR;
+            return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
         }
     }
     std::string name(paraName);
@@ -283,7 +278,7 @@ int ReadParamCheck(const char *paraName)
     int rc = getcon(&srcContext);
     if (rc < 0) {
         selinux_log(SELINUX_ERROR, "getcon failed!\n");
-        return -SELINUX_GETCON_ERR;
+        return -SELINUX_GET_CONTEXT_ERROR;
     }
 
     AuditMsg msg;
@@ -322,7 +317,7 @@ int SetParamCheck(const char *paraName, struct ucred *uc)
     int rc = getpidcon(uc->pid, &srcContext);
     if (rc < 0) {
         selinux_log(SELINUX_ERROR, "getpidcon failed!\n");
-        return -SELINUX_GETCON_ERR;
+        return -SELINUX_GET_CONTEXT_ERROR;
     }
     const char *destContext = nullptr;
     if (GetParamLabel(paraName, &destContext) != 0) {

@@ -16,7 +16,7 @@
 #ifndef PARAPERM_CHECKER_H
 #define PARAPERM_CHECKER_H
 
-#include <iostream>
+#include <string>
 #include "selinux_parameter.h"
 
 typedef struct ParameterInfo {

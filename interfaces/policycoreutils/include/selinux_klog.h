@@ -15,11 +15,6 @@
 #ifndef SELINUX_KLOG_H
 #define SELINUX_KLOG_H
 
-#include <errno.h>
-#include <fcntl.h>
-#include <stdarg.h>
-#include "securec.h"
-
 #ifdef __cplusplus
 #if __cplusplus
 extern "C" {
@@ -33,7 +28,7 @@ typedef enum SelinuxKLogLevel {
     SELINUX_KWARN,
     SELINUX_KINFO,
     SELINUX_KAVC
-};
+} SelinuxKLogLevel;
 
 void SetSelinuKLogLevel(int logLevel);
 int SelinuKLog(int logLevel, const char *fmt, ...);

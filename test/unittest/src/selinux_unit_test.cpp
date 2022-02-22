@@ -256,7 +256,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon003, TestSize.Level1)
     ASSERT_EQ(true, CreateDirectory(TEST_SUB_PATH_1));
     // apl=system_core name=com.ohos.test domain= type=
     int ret = test.HapFileRestorecon(TEST_SUB_PATH_1, TEST_APL, "com.ohos.test", 0);
-    ASSERT_EQ(-SELINUX_TYPE_INVALID, ret);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
 
     ASSERT_EQ(true, RemoveDirectory(TEST_PATH));
 }
@@ -622,7 +622,7 @@ HWTEST_F(SelinuxUnitTest, HapDomainSetcontext002, TestSize.Level1)
 {
     // apl=system_core name=com.ohos.test domain= type=
     int ret = test.HapDomainSetcontext(TEST_APL, "com.ohos.test");
-    ASSERT_EQ(-SELINUX_TYPE_INVALID, ret);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
 }
 
 /**

@@ -16,10 +16,8 @@
 #ifndef HAP_RESTORECON_H
 #define HAP_RESTORECON_H
 
-#include <iostream>
 #include <selinux/context.h>
 #include <string>
-#include <sys/stat.h>
 #include <unordered_map>
 #include <vector>
 
