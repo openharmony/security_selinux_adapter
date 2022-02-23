@@ -43,7 +43,7 @@ struct AuditMsg {
     const char *name;
 };
 
-static int SelinuxAuditCallback(void *data, security_class_t, char *buf, size_t len)
+static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, size_t len)
 {
     if (data == nullptr || buf == nullptr) {
         return -1;

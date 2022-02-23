@@ -51,8 +51,6 @@ struct selabel_handle *SelinuxRestoreconHandle()
 {
     struct selinux_opt selinuxOpts[] = {
         {SELABEL_OPT_VALIDATE, (char *)1},
-        {SELABEL_OPT_PATH, NULL},
-        {SELABEL_OPT_DIGEST, NULL},
     };
 
     return selabel_open(SELABEL_CTX_FILE, selinuxOpts, sizeof(selinuxOpts) / sizeof(selinuxOpts[0]));

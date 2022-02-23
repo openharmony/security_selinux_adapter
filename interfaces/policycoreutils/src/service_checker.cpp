@@ -29,7 +29,6 @@ namespace {
 static const std::string SERVICE_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/service_contexts";
 static const std::string HDF_SERVICE_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/hdf_service_contexts";
 static const std::string OBJECT_PREFIX = "u:object_r:";
-static const std::string SUBJECT_PREFIX = "u:r:";
 static const int CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 } // namespace
@@ -39,7 +38,7 @@ struct AuditMsg {
     const char *name;
 };
 
-static int SelinuxAuditCallback(void *data, security_class_t, char *buf, size_t len)
+static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, size_t len)
 {
     if (data == nullptr || buf == nullptr) {
         return -1;
