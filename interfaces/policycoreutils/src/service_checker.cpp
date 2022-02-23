@@ -206,6 +206,10 @@ int ServiceChecker::CheckPerm(const pid_t &callingPid, const std::string &servic
     if (ret < 0) {
         return ret;
     }
+    if (security_check_context(srcContext.c_str()) < 0) {
+        selinux_log(SELINUX_ERROR, "context: %s, %s\n", srcContext.c_str(), GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
+        return -SELINUX_CHECK_CONTEXT_ERROR;
+    }
     std::string destContext = "";
     if (action == "list") {
         ret = GetThisContext(destContext);
@@ -215,9 +219,8 @@ int ServiceChecker::CheckPerm(const pid_t &callingPid, const std::string &servic
     if (ret < 0) {
         return ret;
     }
-
-    if (security_check_context(srcContext.c_str()) < 0 || security_check_context(destContext.c_str()) < 0) {
-        selinux_log(SELINUX_ERROR, "%s\n", GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
+    if (security_check_context(destContext.c_str()) < 0) {
+        selinux_log(SELINUX_ERROR, "context: %s, %s\n", destContext.c_str(), GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         return -SELINUX_CHECK_CONTEXT_ERROR;
     }
 

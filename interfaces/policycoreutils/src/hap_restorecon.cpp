@@ -224,6 +224,7 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
     // check whether the context is valid
     if (security_check_context(secontext) < 0) {
         context_free(con);
+        SELINUX_LOG_ERROR(LABEL, "context: %{public}s, %{public}s", secontext, GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         return -SELINUX_CHECK_CONTEXT_ERROR;
     }
 
@@ -415,6 +416,8 @@ int HapContext::HapDomainSetcontext(const std::string &apl, const std::string &p
     if (security_check_context(typeContext) < 0) {
         freecon(oldTypeContext);
         context_free(con);
+        SELINUX_LOG_ERROR(LABEL, "context: %{public}s, %{public}s", typeContext,
+                          GetErrStr(SELINUX_CHECK_CONTEXT_ERROR));
         return -SELINUX_CHECK_CONTEXT_ERROR;
     }
 
