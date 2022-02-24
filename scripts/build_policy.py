@@ -44,7 +44,6 @@ SEPOLICY_TYPE_LIST = ["security_classes",
 
 
 def parse_args():
-    """parse arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--dst-file', help='the policy dest path', required=True)
@@ -55,7 +54,6 @@ def parse_args():
 
 
 def traverse_folder_in_dir_name(search_dir, folder_suffix):
-    """for special dirname folder_suffix find all dirpath in search_dir."""
     folder_list = []
     for root, dirs, _ in os.walk(search_dir):
         for dir_i in dirs:
@@ -65,7 +63,6 @@ def traverse_folder_in_dir_name(search_dir, folder_suffix):
 
 
 def traverse_folder_in_type(search_dir, file_suffix):
-    """for special folder search_dir, find all files endswith file_suffix."""
     policy_file_list = []
     for root, _, files in os.walk(search_dir):
         for each_file in files:
@@ -76,7 +73,6 @@ def traverse_folder_in_type(search_dir, file_suffix):
 
 
 def traverse_file_in_each_type(folder_list, sepolicy_type_list):
-    """for each file in sepolicy_type_list. find all files in the folder_list."""
     policy_files = ""
     for policy_type in sepolicy_type_list:
         for folder in folder_list:
@@ -85,11 +81,6 @@ def traverse_file_in_each_type(folder_list, sepolicy_type_list):
 
 
 def run_command(in_cmd):
-    """run commond in os.system.
-
-    Raises:
-        OSError: If the cmd return none zero.
-    """
     cmdstr = " ".join(in_cmd)
     rc = os.system(cmdstr)
     if rc:
@@ -97,7 +88,6 @@ def run_command(in_cmd):
 
 
 def build_conf(output_conf, input_policy_file_list):
-    """build .conf from all sepolicy files."""
     build_conf_cmd = ["m4",
                       "--fatal-warnings",
                       "-s", input_policy_file_list, ">", output_conf]
@@ -105,7 +95,6 @@ def build_conf(output_conf, input_policy_file_list):
 
 
 def build_cil(args, output_cil, input_conf):
-    """build from .conf to .cil."""
     check_policy_cmd = [args.tool_path + "/checkpolicy",
                         input_conf,
                         "-M -C -c 31",
@@ -114,7 +103,6 @@ def build_cil(args, output_cil, input_conf):
 
 
 def build_policy(args, output_policy, input_cil):
-    """build from .cil to .31."""
     build_policy_cmd = [args.tool_path + "/secilc",
                         input_cil,
                         "-m -M true -G -c 31 -N",
@@ -124,7 +112,6 @@ def build_policy(args, output_policy, input_cil):
 
 
 def main(args):
-    """build policy.31 from sepolicy files."""
     output_path = os.path.abspath(os.path.dirname(args.dst_file))
 
     base_policy = [LOCAL_PATH + "/sepolicy/base"]

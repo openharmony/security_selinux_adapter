@@ -331,7 +331,13 @@ action("build_contexts") {
     "$THIRD_PARTY_SELINUX_DIR:sefcontext_compile($host_toolchain)",
   ]
   outputs = [ target_out_dir + "/file_contexts.bin" ]
-  outputs += [ target_out_dir + "/file_contexts" ]
+  outputs += [
+    target_out_dir + "/file_contexts",
+    target_out_dir + "/sehap_contexts",
+    target_out_dir + "/service_contexts",
+    target_out_dir + "/hdf_service_contexts",
+    target_out_dir + "/parameter_contexts",
+  ]
 }
 
 action("enforce_selinux") {
@@ -366,7 +372,8 @@ ohos_prebuilt_etc("config") {
 }
 
 ohos_prebuilt_etc("sehap_contexts") {
-  source = "$SELINUX_ROOT_DIR/sepolicy/sehap_contexts"
+  deps = [ ":build_contexts" ]
+  source = target_out_dir + "/sehap_contexts"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
@@ -374,7 +381,7 @@ ohos_prebuilt_etc("sehap_contexts") {
 
 ohos_prebuilt_etc("parameter_contexts") {
   deps = [ ":build_contexts" ]
-  source = "$SELINUX_ROOT_DIR/sepolicy/parameter_contexts"
+  source = target_out_dir + "/parameter_contexts"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
@@ -382,7 +389,7 @@ ohos_prebuilt_etc("parameter_contexts") {
 
 ohos_prebuilt_etc("service_contexts") {
   deps = [ ":build_contexts" ]
-  source = "$SELINUX_ROOT_DIR/sepolicy/service_contexts"
+  source = target_out_dir + "/service_contexts"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
@@ -390,7 +397,7 @@ ohos_prebuilt_etc("service_contexts") {
 
 ohos_prebuilt_etc("hdf_service_contexts") {
   deps = [ ":build_contexts" ]
-  source = "$SELINUX_ROOT_DIR/sepolicy/hdf_service_contexts"
+  source = target_out_dir + "/hdf_service_contexts"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
