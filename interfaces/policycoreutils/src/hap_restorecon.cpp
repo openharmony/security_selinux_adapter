@@ -34,7 +34,6 @@ static const std::string APL_PREFIX = "apl=";
 static const std::string NAME_PREFIX = "name=";
 static const std::string DOMAIN_PREFIX = "domain=";
 static const std::string TYPE_PREFIX = "type=";
-static const std::string PATH_PREFIX = "/data/app/";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
