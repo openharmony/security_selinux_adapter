@@ -49,8 +49,7 @@ def parse_args():
         '--dst-file', help='the policy dest path', required=True)
     parser.add_argument('--tool-path',
                         help='the policy tool bin path', required=True)
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()
 
 
 def traverse_folder_in_dir_name(search_dir, folder_suffix):

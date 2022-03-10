@@ -20,12 +20,11 @@
 
 int LoadPolicy(void)
 {
-    int ret, enforce = 0;
-    if ((ret = selinux_init_load_policy(&enforce))) {
-        if (enforce > 0) {
-            fprintf(stderr, "Can't load policy and enforcing mode requested:  %s\n", strerror(errno));
-            return -1;
-        }
+    int enforce = 0;
+    int ret = selinux_init_load_policy(&enforce);
+    if (ret && enforce > 0) {
+        fprintf(stderr, "Can't load policy and enforcing mode requested:  %s\n", strerror(errno));
+        return -1;
     }
     return 1;
 }

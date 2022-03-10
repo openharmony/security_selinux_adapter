@@ -282,27 +282,6 @@ ohos_executable("service_check") {
   subsystem_name = "security"
 }
 
-ohos_executable("selinux_test") {
-  install_enable = false
-  sources = [ "$SELINUX_ROOT_DIR/test/selinux_test.c" ]
-  include_dirs = [
-    "$LIBSELINUX_ROOT_DIR/include",
-    "//third_party/bounds_checking_function/include",
-  ]
-  deps = [
-    "$THIRD_PARTY_SELINUX_DIR:libselinux",
-    "//third_party/bounds_checking_function:libsec_static",
-  ]
-  cflags = [
-    "-D_GNU_SOURCE",
-    "-Wall",
-    "-Werror",
-  ]
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
-  part_name = "selinux"
-  subsystem_name = "security"
-}
-
 action("build_policy") {
   script = "$SELINUX_ROOT_DIR/scripts/build_policy.py"
   args = [
@@ -411,7 +390,7 @@ ohos_prebuilt_etc("file_contexts") {
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
 
-  # FIXME 此处不应该改变 file_contexts 的约定路径！
+  # 此处不应该改变 file_contexts 的约定路径！
   # 因为 OpenHarmony 的 e2fsdroid 无法支持五级系统目录，所以在此作出规避，
   # 但是很显然这是不应当的。
   #relative_install_dir = "selinux/targeted/contexts/files/"
@@ -432,7 +411,6 @@ group("selinux_group") {
       "//base/security/selinux:parameter_contexts",
       "//base/security/selinux:restorecon",
       "//base/security/selinux:sehap_contexts",
-      "//base/security/selinux:selinux_test",
       "//base/security/selinux:service_check",
       "//base/security/selinux:service_contexts",
       "//third_party/selinux:checkpolicy($host_toolchain)",

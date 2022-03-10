@@ -19,7 +19,7 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 | [third_party_toybox](https://gitee.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | 完善了 `ls` 的 SELinux 支持 |
 | [startup_init_lite](https://gitee.com/openharmony/startup_init_lite.git) | `base/startup/init_lite/` | 系统启动加载策略并分化服务的标签 |
 | [third_party_FreeBSD](https://gitee.com/openharmony/third_party_FreeBSD.git) | `third_party/FreeBSD/` | 提供 fts 库 |
-| [third_party_pcre](https://gitee.com/openharmony-sig/third_party_pcre.git) | `third_party/pcre/` | 提供 pcre2 库 |
+| [third_party_pcre](https://gitee.com/openharmony/third_party_pcre2.git) | `third_party/pcre/` | 提供 pcre2 库 |
 | [build](https://gitee.com/openharmony/build.git) | `build/` | 编译控制 |
 
 ## 架构
@@ -28,7 +28,7 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 
 ![整体架构](docs/images/整体架构.png)
 
-在 [third_party_selinux](https://gitee.com/openharmony-sig/third_party_selinux.git) 中使用了下面四个 SELinux 的组件。
+在 [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) 中使用了下面四个 SELinux 的组件。
 
 | 组件 | 来源 | 作用 | 形式 |
 | --- | --- | --- | --- |

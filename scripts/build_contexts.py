@@ -40,8 +40,7 @@ def parse_args():
                         help='the sefcontext_compile bin path', required=True)
     parser.add_argument('--policy-file',
                         help='the policy.31 file', required=True)
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()
 
 
 def run_command(in_cmd):
