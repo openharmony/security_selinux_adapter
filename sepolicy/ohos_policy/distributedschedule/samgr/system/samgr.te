@@ -16,16 +16,16 @@ type samgr_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(samgr);
 
-binder_call(samgr, appspawn);
-binder_call(samgr, foundation);
-binder_call(samgr, deviceauth_service);
-binder_call(samgr, hdf_devmgr);
-binder_call(samgr, render_service);
-binder_call(render_service, hdf_devmgr);
+#binder_call(samgr, appspawn);
+#binder_call(samgr, foundation);
+#binder_call(samgr, deviceauth_service);
+#binder_call(samgr, hdf_devmgr);
+#binder_call(samgr, render_service);
+#binder_call(render_service, hdf_devmgr);
 
-allow samgr kernel:fd use;
-allow samgr tmpfs:chr_file { open read write getattr ioctl map };
+#allow samgr kernel:fd use;
+#allow samgr tmpfs:chr_file { open read write getattr ioctl map };
 
-allow samgr samgr:binder set_context_mgr;
+#allow samgr samgr:binder set_context_mgr;
 
-allow samgr socket_device:sock_file write;
+#allow samgr socket_device:sock_file write;

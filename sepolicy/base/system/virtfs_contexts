@@ -73,3 +73,5 @@ genfscon cgroup / u:object_r:cgroup:s0
 genfscon functionfs / u:object_r:functionfs:s0
 
 genfscon tracefs / u:object_r:tracefs:s0
+
+genfscon hmdfs / u:object_r:hmdfs:s0

@@ -13,3 +13,5 @@
 
 type init, domain;
 type init_exec, exec_type, file_type;
+type init2, domain;
+

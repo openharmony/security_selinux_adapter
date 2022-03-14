@@ -74,6 +74,14 @@ attribute hdf_devmgr_type;
 attribute hapdomain;
 
 # Type of all native processes.
-# i.e. foundation,
+# i.e. appspawn,
 #      media
 attribute nativedomain;
+
+# Type of hdf processes.
+# i.e. hdv_devmgr,
+attribute hdfdomain;
+
+# Type of all native processes.
+# i.e. at,
+attribute sadomain;

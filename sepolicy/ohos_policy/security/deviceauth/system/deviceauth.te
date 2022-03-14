@@ -16,4 +16,4 @@ type deviceauth_service_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(deviceauth_service);
 
-binder_call(deviceauth_service, samgr);
+#binder_call(deviceauth_service, samgr);

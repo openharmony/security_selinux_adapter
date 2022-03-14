@@ -16,8 +16,8 @@ type hiview, domain;
 
 domain_auto_transition_pattern(init, logserver_exec, hiview);
 
-allow hiview shell:fd { use };
-allow hiview shell:fifo_file { write };
+#allow hiview shell:fd { use };
+#allow hiview shell:fifo_file { write };
 
-binder_call(samgr, hiview);
-allow hiview samgr:binder { call transfer };
+#binder_call(samgr, hiview);
+#allow hiview samgr:binder { call transfer };

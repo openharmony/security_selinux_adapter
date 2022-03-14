@@ -16,6 +16,6 @@ type render_service_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(render_service);
 
-binder_call(render_service, samgr);
-binder_call(render_service, appspawn);
+#binder_call(render_service, samgr);
+#binder_call(render_service, appspawn);
 

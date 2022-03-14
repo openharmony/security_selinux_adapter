@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-domain_auto_transition_pattern(kernel, init_exec, init)
+#domain_auto_transition_pattern(kernel, init_exec, init)
 
-allow kernel tmpfs:chr_file read_file_perms;
-allow kernel kernel:process setsched;
+#allow kernel tmpfs:chr_file read_file_perms;
+#allow kernel kernel:process setsched;

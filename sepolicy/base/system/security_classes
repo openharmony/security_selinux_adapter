@@ -106,3 +106,4 @@ class xdp_socket
 class parameter_service
 class samgr_class
 class hdf_devmgr_class
+class lockdown
