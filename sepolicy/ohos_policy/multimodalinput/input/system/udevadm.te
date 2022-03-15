@@ -16,5 +16,5 @@ type udevadm_exec, exec_type, file_type, system_file_type;
 
 domain_auto_transition_pattern(init, udevadm_exec, udevadm);
 
-allow udevadm udevd_socket:sock_file write;
-allow udevadm udevd:unix_stream_socket { connectto };
+#allow udevadm udevd_socket:sock_file write;
+#allow udevadm udevd:unix_stream_socket { connectto };

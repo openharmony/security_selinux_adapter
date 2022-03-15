@@ -16,23 +16,23 @@ type foundation, domain, nativedomain;
 #domain_auto_transition_pattern(init, samain_exec, foundation);
 #allow init samain_exec:file execute_no_trans;
 
-binder_call(foundation, appspawn);
-binder_call(foundation, installs);
-binder_call(foundation, deviceauth_service);
-binder_call(foundation, samgr);
-binder_call(foundation, render_service);
+#binder_call(foundation, appspawn);
+#binder_call(foundation, installs);
+#binder_call(foundation, deviceauth_service);
+#binder_call(foundation, samgr);
+#binder_call(foundation, render_service);
 
-allow foundation hdf_devmgr:binder call;
-allow appspawn foundation:binder call;
-allow deviceauth_service foundation:binder call;
+#allow foundation hdf_devmgr:binder call;
+#allow appspawn foundation:binder call;
+#allow deviceauth_service foundation:binder call;
 
-allow foundation appspawn:unix_stream_socket connectto;
+#allow foundation appspawn:unix_stream_socket connectto;
 
-allow foundation vendor_file:dir read_dir_perms;
+#allow foundation vendor_file:dir read_dir_perms;
 
-allow foundation foundation:{ udp_socket netlink_route_socket } { create ioctl setopt bind read };
+#allow foundation foundation:{ udp_socket netlink_route_socket } { create ioctl setopt bind read };
 
-allow foundation init:unix_stream_socket connectto;
+#allow foundation init:unix_stream_socket connectto;
 
 # "/system/profile/foundation.xml", O_RDONLY
-allow foundation system_file:file read_file_perms;
+#allow foundation system_file:file read_file_perms;

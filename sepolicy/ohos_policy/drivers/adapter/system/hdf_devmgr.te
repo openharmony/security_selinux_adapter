@@ -16,16 +16,16 @@ type hdf_devmgr_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(hdf_devmgr);
 
-binder_call(hdf_devmgr, samgr);
-binder_call(hdf_devmgr, render_service);
-binder_call(hdf_devmgr, foundation);
+#binder_call(hdf_devmgr, samgr);
+#binder_call(hdf_devmgr, render_service);
+#binder_call(hdf_devmgr, foundation);
 
-allow hdf_devmgr device:sock_file { write };
+#allow hdf_devmgr device:sock_file { write };
 
-allow hdf_devmgr system_file:file execute_no_trans;
+#allow hdf_devmgr system_file:file execute_no_trans;
 
-allow hdf_devmgr hdf_devmgr:netlink_kobject_uevent_socket { create_socket_perms };
+#allow hdf_devmgr hdf_devmgr:netlink_kobject_uevent_socket { create_socket_perms };
 
-allow hdf_devmgr dev_type:chr_file read_file_perms;
+#allow hdf_devmgr dev_type:chr_file read_file_perms;
 
-allow hdf_devmgr sysfs_type:file rw_file_perms;
+#allow hdf_devmgr sysfs_type:file rw_file_perms;

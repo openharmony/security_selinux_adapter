@@ -209,3 +209,4 @@ type dev_zero_file, dev_type;
 type tty_device, dev_type;
 
 type tracefs, fs_type;
+type hmdfs, fs_type;

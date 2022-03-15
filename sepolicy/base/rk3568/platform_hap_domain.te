@@ -1,0 +1,87 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow platform_hap_domain accessibility:binder { call transfer };
+allow platform_hap_domain accesstoken_service:binder { call };
+allow platform_hap_domain appspawn:fd { use };
+allow platform_hap_domain appspawn:fifo_file { write };
+allow platform_hap_domain appspawn:unix_dgram_socket { connect write };
+allow platform_hap_domain config_file:dir { mounton };
+allow platform_hap_domain data_app_el1_file:dir { add_name create mounton open read search setattr write };
+allow platform_hap_domain data_app_el1_file:file { getattr map open read };
+allow platform_hap_domain data_app_el2_file:dir { search };
+allow platform_hap_domain data_app_file:dir { search };
+allow platform_hap_domain data_file:dir { mounton search };
+allow platform_hap_domain data_service_el2_file:dir { search };
+allow platform_hap_domain debugfs:dir { search };
+allow platform_hap_domain dev_at_file:chr_file { ioctl open read write };
+allow platform_hap_domain dev_binder_file:chr_file { ioctl map open read write };
+allow platform_hap_domain dev_dri_file:chr_file { getattr ioctl open read write };
+allow platform_hap_domain dev_dri_file:dir { search };
+allow platform_hap_domain dev_file:chr_file { getattr ioctl map open read write };
+allow platform_hap_domain dev_file:dir { mounton search };
+allow platform_hap_domain dev_null_file:chr_file { ioctl open read write };
+allow platform_hap_domain dev_random_file:chr_file { open read };
+allow platform_hap_domain dev_unix_file:dir { search };
+allow platform_hap_domain dev_unix_socket_file:dir { search };
+allow platform_hap_domain dev_unix_socket_file:sock_file { write };
+allow platform_hap_domain display_gralloc_host:binder { call };
+allow platform_hap_domain display_gralloc_host:fd { use };
+allow platform_hap_domain foundation:binder { call transfer };
+allow platform_hap_domain hdf_devmgr:binder { call };
+allow platform_hap_domain hmdfs:dir { mounton search };
+allow platform_hap_domain init:unix_dgram_socket { sendto };
+allow platform_hap_domain inputmethod_service:binder { call transfer };
+allow platform_hap_domain labeledfs:filesystem { unmount };
+allow platform_hap_domain multimodalinput:binder { call };
+allow platform_hap_domain multimodalinput:fd { use };
+allow platform_hap_domain multimodalinput:unix_stream_socket { read write };
+allow platform_hap_domain param_watcher:binder { call transfer };
+allow platform_hap_domain platform_hap_data_file:dir { add_name create mounton open read search write };
+allow platform_hap_domain platform_hap_data_file:file { create getattr ioctl map read write open };
+allow platform_hap_domain platform_hap_domain:capability { setgid setuid sys_admin };
+allow platform_hap_domain platform_hap_domain:dir { search };
+allow platform_hap_domain platform_hap_domain:fifo_file { write };
+allow platform_hap_domain platform_hap_domain:file { open read };
+allow platform_hap_domain platform_hap_domain:lnk_file { read };
+allow platform_hap_domain platform_hap_domain:lockdown { confidentiality };
+allow platform_hap_domain platform_hap_domain:process { fork getsched setcap setsched };
+allow platform_hap_domain platform_hap_domain:unix_dgram_socket { create getopt setopt write };
+allow platform_hap_domain priv_hap_domain:binder { call };
+allow platform_hap_domain proc_file:dir { mounton search };
+allow platform_hap_domain proc_file:lnk_file { read };
+allow platform_hap_domain render_service:binder { call transfer };
+allow platform_hap_domain render_service:fd { use };
+allow platform_hap_domain render_service:unix_stream_socket { read write };
+allow platform_hap_domain resource_schedule_service:binder { call };
+allow platform_hap_domain rootfs:dir { mounton search };
+allow platform_hap_domain samgr:binder { call };
+allow platform_hap_domain sys_file:dir { mounton search };
+allow platform_hap_domain system_etc_file:dir { search };
+allow platform_hap_domain system_file:dir { mounton search };
+allow platform_hap_domain system_fonts_file:dir { search };
+allow platform_hap_domain system_fonts_file:file { getattr map open read };
+allow platform_hap_domain system_lib_file:dir { search };
+allow platform_hap_domain system_lib_file:file { execute getattr map open read };
+allow platform_hap_domain system_usr_file:dir { search };
+allow platform_hap_domain tmpfs:dir { add_name create mounton search write };
+allow platform_hap_domain tmpfs:lnk_file { create read };
+allow platform_hap_domain tracefs:dir { search };
+allow platform_hap_domain tracefs:file { open write };
+allow platform_hap_domain upms:binder { call };
+allowxperm platform_hap_domain dev_at_file:chr_file ioctl { 0x4101 };
+allowxperm platform_hap_domain dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f };
+allowxperm platform_hap_domain dev_dri_file:chr_file ioctl { 0x641f };
+allowxperm platform_hap_domain dev_file:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x8007 0x800e 0x800f 0x8011 0x8016 0x8018 0x801d 0x801e 0x8026 0xab02 0xab05 0xab06 0xab09 0xab0c 0xab0d };
+allowxperm platform_hap_domain dev_null_file:chr_file ioctl { 0x5413 };
+allowxperm platform_hap_domain platform_hap_data_file:file ioctl { 0x5413 };
