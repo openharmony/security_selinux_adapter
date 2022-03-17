@@ -14,16 +14,17 @@
  */
 
 #include "selinux_unit_test.h"
-#include <selinux/selinux.h>
-#include <dirent.h>
+#include <fstream>
 #include <thread>
+#include <dirent.h>
+#include <selinux/selinux.h>
 #include "selinux_error.h"
 #include "selinux_parameter.h"
 
 using namespace testing::ext;
 using namespace OHOS::Security::Selinux;
 using namespace Selinux;
-const static int SLEEP_SECOND = 10;
+const static int SLEEP_SECOND = 2;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
 const static std::string TEST_PATH = BASE_PATH + "com.ohos.selftest/";
 
@@ -149,9 +150,67 @@ static bool CreateFile(const std::string &path)
     return access(path.c_str(), F_OK) == 0;
 }
 
-static void RunSysCmd(const std::string &cmd)
+static bool CopyFile(const std::string &src, const std::string &des)
 {
-    system(cmd.c_str());
+    std::ifstream fin(src, std::ifstream::in || std::ifstream::binary);
+    if (!fin) {
+        return false;
+    }
+    std::ofstream fout(des, std::ofstream::out || std::ofstream::binary);
+    if (!fout) {
+        fin.close();
+        return false;
+    }
+    fout << fin.rdbuf();
+    if (!fout) {
+        fin.close();
+        fout.close();
+        return false;
+    }
+    fin.close();
+    fout.close();
+    return true;
+}
+
+static bool WriteFile(const std::string &file, std::vector<std::string> &info)
+{
+    std::ofstream fout(file, std::ofstream::out || std::ofstream::app);
+    if (!fout) {
+        return false;
+    }
+    for (auto i : info) {
+        fout << i << std::endl;
+    }
+    if (!fout) {
+        fout.close();
+        return false;
+    }
+    fout.close();
+    return true;
+}
+
+static int RenameFile(const std::string &src, const std::string &des)
+{
+    return rename(src.c_str(), des.c_str());
+}
+
+static void GenerateTestFile()
+{
+    ASSERT_EQ(true, CopyFile(SEHAP_CONTEXTS_FILE, SEHAP_CONTEXTS_FILE + "_bk"));
+    std::vector<std::string> sehapInfo = {
+        "apl=system_core name=com.ohos.test domain= type=",
+        "apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file"};
+    ASSERT_EQ(true, WriteFile(SEHAP_CONTEXTS_FILE, sehapInfo));
+
+    ASSERT_EQ(true, CopyFile(PARAM_CONTEXTS_FILE, PARAM_CONTEXTS_FILE + "_bk"));
+    std::vector<std::string> paramInfo = {"test.para                           u:object_r:testpara:s0"};
+    ASSERT_EQ(true, WriteFile(PARAM_CONTEXTS_FILE, paramInfo));
+}
+
+static void RemoveTestFile()
+{
+    ASSERT_EQ(0, RenameFile(SEHAP_CONTEXTS_FILE + "_bk", SEHAP_CONTEXTS_FILE));
+    ASSERT_EQ(0, RenameFile(PARAM_CONTEXTS_FILE + "_bk", PARAM_CONTEXTS_FILE));
 }
 
 static std::string RunCommand(const std::string &command)
@@ -170,34 +229,21 @@ static std::string RunCommand(const std::string &command)
     return result;
 }
 
-static void GenerateTestFile()
-{
-    RunSysCmd("cp " + SEHAP_CONTEXTS_FILE + " " + SEHAP_CONTEXTS_FILE + "_bk");
-    RunSysCmd("echo 'apl=system_core name=com.ohos.test domain= type=' >> " + SEHAP_CONTEXTS_FILE);
-    RunSysCmd("echo 'apl=system_core name=com.hap.selftest domain=selftest type=selftest_hap_data_file' >> " +
-              SEHAP_CONTEXTS_FILE);
-    RunSysCmd("cp " + PARAM_CONTEXTS_FILE + " " + PARAM_CONTEXTS_FILE + "_bk");
-    RunSysCmd("echo 'test.para                           u:object_r:testpara:s0' >> " + PARAM_CONTEXTS_FILE);
-}
-
 void SelinuxUnitTest::SetUpTestCase()
 {
     // make test case clean
-}
-
-void SelinuxUnitTest::TearDownTestCase() {}
-
-void SelinuxUnitTest::SetUp()
-{
     GenerateTestFile();
     SetSelinuxLogCallback();
 }
 
-void SelinuxUnitTest::TearDown()
+void SelinuxUnitTest::TearDownTestCase()
 {
-    RunSysCmd("mv " + SEHAP_CONTEXTS_FILE + "_bk " + SEHAP_CONTEXTS_FILE);
-    RunSysCmd("mv " + PARAM_CONTEXTS_FILE + "_bk " + PARAM_CONTEXTS_FILE);
+    RemoveTestFile();
 }
+
+void SelinuxUnitTest::SetUp() {}
+
+void SelinuxUnitTest::TearDown() {}
 
 void SelinuxUnitTest::CreateDataFile() const {}
 
