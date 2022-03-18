@@ -1,4 +1,4 @@
-/* Copyright (c) 2021 北京万里红科技有限公司
+/* Copyright (c) 2021-2022 北京万里红科技有限公司
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 
 #include <selinux/label.h>
 #include <selinux/restorecon.h>
+#include <policycoreutils.h>
 
 int Restorecon(const char *path)
 {
@@ -25,4 +26,3 @@ int RestoreconRecurse(const char *path)
 {
     return selinux_restorecon(path, SELINUX_RESTORECON_REALPATH | SELINUX_RESTORECON_RECURSE);
 }
-

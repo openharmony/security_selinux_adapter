@@ -31,6 +31,7 @@ static const char *g_selinuxErrMsg[SELINUX_ERROR_MAX] = {
     [SELINUX_CONTEXTS_FILE_LOAD_ERROR] = "load contexts file failed",
     [SELINUX_FTS_OPEN_ERROR] = "fts_open failed",
     [SELINUX_FTS_ELOOP] = "fts ELOOP",
+    [SELINUX_RESTORECON_ERROR] = "hap path restorecon error",
     [SELINUX_UNKNOWN_ERROR] = "unknown error",
     [SELINUX_PERMISSION_DENY] = "permission denied",
 };

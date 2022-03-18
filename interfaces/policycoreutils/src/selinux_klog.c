@@ -68,7 +68,7 @@ int SelinuKLog(int logLevel, const char *fmt, ...)
         res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, "[pid=%d][%s][%s] %s", getpid(), "SELINUX",
                          LOG_LEVEL_STR[logLevel], tmpFmt);
     } else {
-        res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, tmpFmt);
+        res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, "%s", tmpFmt);
     }
     if (res == -1) {
         close(g_fd);
