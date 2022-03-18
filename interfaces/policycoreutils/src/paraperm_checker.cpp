@@ -137,7 +137,7 @@ static struct ParameterInfo DecodeString(const std::string &line)
     return contextBuff;
 }
 
-static bool InsertContextsList(ParameterInfo tmpInfo, ParamContextsList **head)
+static bool InsertContextsList(const ParameterInfo &tmpInfo, ParamContextsList **head)
 {
     ParamContextsList *node = (ParamContextsList *)malloc(sizeof(ParamContextsList));
     if (node == nullptr) {

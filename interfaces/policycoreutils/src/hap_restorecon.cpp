@@ -282,11 +282,16 @@ int HapContext::HapFileRestorecon(std::vector<std::string> &pathNameOrig, const 
     if (apl.empty() || pathNameOrig.empty()) {
         return -SELINUX_ARG_INVALID;
     }
-    int res = SELINUX_SUCC;
+    bool failFlag = false;
     for (auto pathname : pathNameOrig) {
-        res |= HapFileRestorecon(pathname.c_str(), apl, packageName, flags);
+        int res = HapFileRestorecon(pathname.c_str(), apl, packageName, flags);
+        if (res != SELINUX_SUCC) {
+            failFlag = true;
+            SELINUX_LOG_ERROR(LABEL, "HapFileRestorecon fail for path: %{public}s, errorNo: %{public}d",
+                              pathname.c_str(), res);
+        }
     }
-    return res;
+    return failFlag ? -SELINUX_RESTORECON_ERROR : SELINUX_SUCC;
 }
 
 int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::string &apl,
