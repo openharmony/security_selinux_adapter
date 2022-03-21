@@ -74,14 +74,6 @@ selinux当前仅支持RK3568设备
 本模块单独编译命令
 ./build.sh --product-name=rk3568 -T selinux --ccache
 ```
-策略文件
-/etc/selinux/targeted/policy/policy.31
-文件标签规则
-/etc/selinux/targeted/policy/file_contexts
-selinux模式开关
-/etc/selinux/config
-
-
 ### 运行验证
 
 将镜像烧录到开发板上，开机，通过串口拿到 Shell ，在其中执行。
@@ -93,8 +85,15 @@ ps -eZ           # 查看进程标签
 setenforce 1     # 使能selinux强制模式
 setenforce 0     # 是能selinux宽容模式,当前默认宽容模式
 getenforce       # 获取selinux工作模式
-
 ```
+策略文件            /etc/selinux/targeted/policy/policy.31
+
+文件标签规则        /etc/selinux/targeted/policy/file_contexts
+
+selinux模式开关     /etc/selinux/config
+
+验证时，可单独替换上述文件。
+
 ### 日志信息
 
 ```
