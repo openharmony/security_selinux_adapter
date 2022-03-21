@@ -98,7 +98,7 @@ getenforce       # 获取selinux工作模式
 ### 日志信息
 
 ```
-audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object\_r:selinuxfs:s0 tclass=file permissive=1
+audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
 
 日志解读
 open                                #操作为open
@@ -108,7 +108,7 @@ path="/sys/fs/selinux/enforce"      #被访问客体为/sys/fs/selinux/enforce
 dev="selinuxfs"                     #被访问文件属于selinuxfs这一文件系统
 ino=4                               #文件节点编号为4
 scontext=u:r:hdcd:s0                #访问主体selinux标签为u:r:hdcd:s0
-tcontext=u:object\_r:selinuxfs:s0   #被访问客体selinux标签为u:object\_r:selinuxfs:s0
+tcontext=u:object_r:selinuxfs:s0   #被访问客体selinux标签为u:object_r:selinuxfs:s0
 tclass=file                         #当前告警属于file类型的操作
 permissive=1                        #当前selinux处于宽容模式，只告警不做访问拦截。强制模式时，做拦截， permissive=0
 ```
@@ -118,7 +118,7 @@ permissive=1                        #当前selinux处于宽容模式，只告警
 ```
 根据avc告警，获取访问信息
 如
-audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object\_r:selinuxfs:s0 tclass=file permissive=1
+audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
 对应规则为
 allow hdcd selinuxfs:file open;
 ```
