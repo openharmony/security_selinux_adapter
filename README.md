@@ -26,7 +26,7 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 
 ### 整体架构
 
-![整体架构](docs/images/整体架构.png)
+![整体架构](docs/images/update.png)
 
 在 [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) 中使用了下面四个 SELinux 的组件。
 
@@ -69,16 +69,55 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 
 运行以下命令编译打包支持 SELinux 的镜像。
 
+selinux当前仅支持RK3568设备
 ```
-./build.sh --product-name Hi3516DV300 --gn-args "build_selinux=true"
+本模块单独编译命令
+./build.sh --product-name=rk3568 -T selinux --ccache
 ```
-
 ### 运行验证
 
-将镜像烧录到 Hi3516DV300 开发板上，开机，通过串口拿到 Shell ，在其中执行。
+将镜像烧录到开发板上，开机，通过串口拿到 Shell ，在其中执行。
 
 ```
-ls -lZ /         # 查看文件标签是否成功
-ps -eZ           # 查看进程标签是否成功
-setenforce 1     # 进行各种操作，观察是否被拦截，以及串口是否有 avc denied
+ls -lZ /         # 查看文件标签
+ls -lLZ /        # 查看link源文件标签
+ps -eZ           # 查看进程标签
+setenforce 1     # 使能selinux强制模式
+setenforce 0     # 是能selinux宽容模式,当前默认宽容模式
+getenforce       # 获取selinux工作模式
+```
+策略文件            /etc/selinux/targeted/policy/policy.31
+
+文件标签规则        /etc/selinux/targeted/policy/file_contexts
+
+selinux模式开关     /etc/selinux/config
+
+验证时，可单独替换上述文件。
+
+### 日志信息
+
+```
+audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
+
+日志解读
+open                                #操作为open
+pid=1658                            #访问主体进程号为1658
+comm="setenforce"                   #访问主体进程名为setenforce
+path="/sys/fs/selinux/enforce"      #被访问客体为/sys/fs/selinux/enforce
+dev="selinuxfs"                     #被访问文件属于selinuxfs这一文件系统
+ino=4                               #文件节点编号为4
+scontext=u:r:hdcd:s0                #访问主体selinux标签为u:r:hdcd:s0
+tcontext=u:object_r:selinuxfs:s0   #被访问客体selinux标签为u:object_r:selinuxfs:s0
+tclass=file                         #当前告警属于file类型的操作
+permissive=1                        #当前selinux处于宽容模式，只告警不做访问拦截。强制模式时，做拦截， permissive=0
+```
+
+### 策略编写
+
+```
+根据avc告警，获取访问信息
+如
+audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
+对应规则为
+allow hdcd selinuxfs:file open;
 ```
