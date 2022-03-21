@@ -45,5 +45,5 @@ ohos_unittest("selinux_unittest") {
 
 group("unittest") {
   testonly = true
-  deps = [ ":selinux_unittest" ]
+  deps = []
 }
