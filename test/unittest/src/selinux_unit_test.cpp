@@ -172,7 +172,7 @@ static bool CopyFile(const std::string &src, const std::string &des)
     return true;
 }
 
-static bool WriteFile(const std::string &file, std::vector<std::string> &info)
+static bool WriteFile(const std::string &file, const std::vector<std::string> &info)
 {
     std::ofstream fout(file, std::ofstream::out || std::ofstream::app);
     if (!fout) {

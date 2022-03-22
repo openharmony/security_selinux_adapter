@@ -52,7 +52,7 @@ static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, siz
         return -1;
     }
     auto *msg = reinterpret_cast<AuditMsg *>(data);
-    if (!msg || !msg->name || !msg->ucred) {
+    if (!msg->name || !msg->ucred) {
         selinux_log(SELINUX_ERROR, "Selinux audit msg invalid argument\n");
         return -1;
     }
