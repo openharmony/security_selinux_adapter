@@ -185,7 +185,7 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
     if (iter != sehapContextsBuff.end()) {
         return TypeSet(iter, isDomain, con);
     } else {
-        auto iter = sehapContextsBuff.find(std::string(apl));
+        iter = sehapContextsBuff.find(std::string(apl));
         if (iter != sehapContextsBuff.end()) {
             return TypeSet(iter, isDomain, con);
         }
