@@ -17,13 +17,13 @@
 
 /lost\+found       u:object_r:rootfs:s0
 /bin       u:object_r:rootfs:s0
-/chip-prod       u:object_r:rootfs:s0
+/chip_prod       u:object_r:rootfs:s0
 /init       u:object_r:rootfs:s0
 /chipset       u:object_r:rootfs:s0
 /mnt      u:object_r:rootfs:s0
 /proc      u:object_r:rootfs:s0
 /storage      u:object_r:rootfs:s0
-/sys-prod      u:object_r:rootfs:s0
+/sys_prod      u:object_r:rootfs:s0
 /tmp      u:object_r:rootfs:s0
 /sys           u:object_r:sys_file:s0
 
