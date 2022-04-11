@@ -751,7 +751,7 @@ HWTEST_F(SelinuxUnitTest, GetParamLabel001, TestSize.Level1)
         ASSERT_EQ(-SELINUX_ARG_INVALID, GetParamLabel(para.c_str(), &context));
     }
 
-    ASSERT_EQ(-SELINUX_KEY_NOT_FOUND, GetParamLabel(TEST_NOT_EXIST_PARA_NAME.c_str(), &context));
+    ASSERT_EQ(SELINUX_SUCC, GetParamLabel(TEST_NOT_EXIST_PARA_NAME.c_str(), &context));
     if (!context) {
         free(context);
     }

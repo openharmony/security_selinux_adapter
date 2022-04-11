@@ -33,7 +33,7 @@ allow useriam init:unix_stream_socket { read write };
 allow useriam kernel:fd { use };
 allow useriam kernel:unix_stream_socket { connectto };
 allow useriam pinauth_service:binder { call transfer };
-allow useriam priv_hap_domain:binder { call };
+allow useriam system_basic_hap:binder { call };
 allow useriam proc_file:dir { search };
 allow useriam proc_file:lnk_file { read };
 allow useriam rootfs:dir { search };

@@ -36,7 +36,7 @@ allow wifi_manager_service init:unix_stream_socket { read write };
 allow wifi_manager_service kernel:fd { use };
 allow wifi_manager_service lib_file:lnk_file { read };
 allow wifi_manager_service netmanager:binder { call transfer };
-allow wifi_manager_service priv_hap_domain:binder { call };
+allow wifi_manager_service system_basic_hap:binder { call };
 allow wifi_manager_service proc_file:dir { search };
 allow wifi_manager_service proc_file:lnk_file { read };
 allow wifi_manager_service rootfs:dir { search };

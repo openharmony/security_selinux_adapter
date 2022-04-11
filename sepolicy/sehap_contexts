@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apl=system_core domain=platform_hap_domain type=platform_hap_data_file
-apl=system_basic domain=priv_hap_domain type=priv_hap_data_file
-apl=normal domain=normal_hap_domain type=normal_hap_data_file
+apl=system_core domain=system_core_hap type=system_core_hap_data_file
+apl=system_basic domain=system_basic_hap type=system_basic_hap_data_file
+apl=normal domain=normal_hap type=normal_hap_data_file

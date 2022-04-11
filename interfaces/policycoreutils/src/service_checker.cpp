@@ -34,6 +34,21 @@ static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 } // namespace
 
+extern "C" int HdfListServiceCheck(pid_t callingPid)
+{
+    return ServiceChecker::GetInstance().ListServiceCheck(callingPid);
+}
+
+extern "C" int HdfGetServiceCheck(pid_t callingPid, const char *serviceName)
+{
+    return ServiceChecker::GetInstance().GetServiceCheck(callingPid, serviceName);
+}
+
+extern "C" int HdfAddServiceCheck(pid_t callingPid, const char *serviceName)
+{
+    return ServiceChecker::GetInstance().AddServiceCheck(callingPid, serviceName);
+}
+
 struct AuditMsg {
     pid_t pid;
     const char *name;
@@ -258,4 +273,10 @@ int ServiceChecker::GetRemoteServiceCheck(const pid_t &callingPid, const std::st
 int ServiceChecker::AddServiceCheck(const pid_t &callingPid, const std::string &serviceName)
 {
     return CheckPerm(callingPid, serviceName, "add");
+}
+
+ServiceChecker& ServiceChecker::GetInstance()
+{
+    static ServiceChecker instance(true);
+    return instance;
 }

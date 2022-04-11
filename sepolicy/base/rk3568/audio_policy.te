@@ -49,7 +49,7 @@ allow audio_policy multimodalinput:binder { call };
 allow audio_policy multimodalinput:fd { use };
 allow audio_policy multimodalinput:unix_stream_socket { read write };
 allow audio_policy param_watcher:binder { call transfer };
-allow audio_policy priv_hap_domain:binder { call };
+allow audio_policy system_basic_hap:binder { call };
 allow audio_policy proc_file:dir { search };
 allow audio_policy proc_file:lnk_file { read };
 allow audio_policy pulseaudio:binder { call };

@@ -158,8 +158,8 @@ ohos_shared_library("libparaperm_checker") {
   subsystem_name = "security"
 }
 
-ohos_static_library("libservice_checker_static") {
-  output_name = "libservice_checker_static"
+ohos_shared_library("libservice_checker") {
+  output_name = "libservice_checker"
   sources =
       [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/service_checker.cpp" ]
   include_dirs = [
@@ -270,7 +270,7 @@ ohos_executable("service_check") {
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [
     ":libselinux_error_static",
-    ":libservice_checker_static",
+    ":libservice_checker",
   ]
   cflags = [
     "-D_GNU_SOURCE",
