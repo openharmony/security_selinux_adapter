@@ -35,7 +35,7 @@ allow bluetooth_service init:netlink_kobject_uevent_socket { read write };
 allow bluetooth_service init:unix_dgram_socket { sendto };
 allow bluetooth_service init:unix_stream_socket { read write };
 allow bluetooth_service kernel:fd { use };
-allow bluetooth_service priv_hap_domain:binder { call transfer };
+allow bluetooth_service system_basic_hap:binder { call transfer };
 allow bluetooth_service proc_file:dir { search };
 allow bluetooth_service proc_file:lnk_file { read };
 allow bluetooth_service rootfs:dir { search };

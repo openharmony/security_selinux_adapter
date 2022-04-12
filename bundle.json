@@ -67,6 +67,16 @@
             ],
             "header_base": "//base/security/selinux/interfaces/policycoreutils/include"
           }
+        },
+        {
+          "name": "//base/security/selinux:libservice_checker",
+          "header": {
+            "header_files": [
+              "service_checker.h",
+              "hdf_service_checker.h"
+            ],
+            "header_base": "//base/security/selinux/interfaces/policycoreutils/include"
+          }
         }
       ],
       "test": [

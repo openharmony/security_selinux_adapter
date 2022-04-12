@@ -17,6 +17,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "service_checker.h"
+#include "hdf_service_checker.h"
 #include "selinux_error.h"
 
 using namespace Selinux;
@@ -102,33 +103,38 @@ int main(int argc, char *argv[])
 
     testInput input;
     SetOptions(argc, argv, options, input);
-    if (input.isHdf) {
-        g_service = std::make_unique<ServiceChecker>(true);
-    } else {
+    if (!input.isHdf) {
         g_service = std::make_unique<ServiceChecker>(false);
     }
     std::string serName;
     switch (input.cmd) {
         case 'a': {
             while (std::cin >> serName) {
-                std::cout << GetErrStr(g_service->AddServiceCheck(getpid(), serName)) << std::endl;
+                std::cout << GetErrStr(input.isHdf ? HdfAddServiceCheck(getpid(), serName.c_str())
+                                                   : g_service->AddServiceCheck(getpid(), serName))
+                          << std::endl;
             }
             exit(0);
         }
         case 'g': {
             while (std::cin >> serName) {
-                std::cout << GetErrStr(g_service->GetServiceCheck(getpid(), serName)) << std::endl;
+                std::cout << GetErrStr(input.isHdf ? HdfGetServiceCheck(getpid(), serName.c_str())
+                                                   : g_service->GetServiceCheck(getpid(), serName))
+                          << std::endl;
             }
             exit(0);
         }
         case 'r': {
             while (std::cin >> serName) {
-                std::cout << GetErrStr(g_service->GetRemoteServiceCheck(getpid(), serName)) << std::endl;
+                std::cout << GetErrStr(input.isHdf ? SELINUX_PERMISSION_DENY
+                                                   : g_service->GetRemoteServiceCheck(getpid(), serName))
+                          << std::endl;
             }
             exit(0);
         }
         case 'l': {
-            std::cout << GetErrStr(g_service->ListServiceCheck(getpid())) << std::endl;
+            std::cout << GetErrStr(input.isHdf ? HdfListServiceCheck(getpid()) : g_service->ListServiceCheck(getpid()))
+                      << std::endl;
             exit(0);
         }
         default:

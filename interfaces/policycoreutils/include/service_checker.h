@@ -46,6 +46,8 @@ public:
 
     int AddServiceCheck(const pid_t &callingPid, const std::string &serviceName);
 
+    static ServiceChecker& GetInstance();
+
 protected:
 private:
     void SetSelinuxLogCallback();

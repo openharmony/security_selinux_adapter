@@ -41,9 +41,9 @@ allow inputmethod_service inputmethod_service:unix_dgram_socket { connect create
 allow inputmethod_service inputmethod_service:unix_stream_socket { connect create read setopt write };
 allow inputmethod_service kernel:fd { use };
 allow inputmethod_service lib_file:lnk_file { read };
-allow inputmethod_service normal_hap_domain:binder { call transfer };
-allow inputmethod_service platform_hap_domain:binder { call transfer };
-allow inputmethod_service priv_hap_domain:binder { call transfer };
+allow inputmethod_service normal_hap:binder { call transfer };
+allow inputmethod_service system_core_hap:binder { call transfer };
+allow inputmethod_service system_basic_hap:binder { call transfer };
 allow inputmethod_service proc_file:dir { search };
 allow inputmethod_service proc_file:lnk_file { read };
 allow inputmethod_service rootfs:dir { getattr search };

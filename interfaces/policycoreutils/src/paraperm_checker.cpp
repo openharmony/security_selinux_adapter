@@ -270,7 +270,7 @@ int GetParamLabel(const char *paraName, char **context)
     }
 
     if (!g_contextsTrie->Search(std::string(paraName), context)) {
-        return -SELINUX_KEY_NOT_FOUND;
+        *context = strdup(DEFAULT_CONTEXT);
     }
     selinux_log(SELINUX_INFO, "find context: %s\n", *context);
     return SELINUX_SUCC;
@@ -296,8 +296,10 @@ int ReadParamCheck(const char *paraName)
     ucred uc = {.pid = getpid(), .uid = getuid(), .gid = getgid()};
     msg.ucred = &uc;
     char *destContext = nullptr;
-    if (GetParamLabel(paraName, &destContext) != 0) {
-        destContext = strdup(DEFAULT_CONTEXT);
+    int res = GetParamLabel(paraName, &destContext);
+    if (res != SELINUX_SUCC) {
+        freecon(srcContext);
+        return res;
     }
     if (srcContext == nullptr || destContext == nullptr) {
         freecon(srcContext);
@@ -305,7 +307,7 @@ int ReadParamCheck(const char *paraName)
     }
     selinux_log(SELINUX_INFO, "srcContext[%s] is reading param[%s] destContext[%s]\n", srcContext, paraName,
                 destContext);
-    int res = selinux_check_access(srcContext, destContext, "file", "read", &msg);
+    res = selinux_check_access(srcContext, destContext, "file", "read", &msg);
     freecon(srcContext);
     free(destContext);
     return res == 0 ? SELINUX_SUCC : -SELINUX_PERMISSION_DENY;
@@ -331,10 +333,12 @@ int SetParamCheck(const char *paraName, struct ucred *uc)
         return -SELINUX_GET_CONTEXT_ERROR;
     }
     char *destContext = nullptr;
-    if (GetParamLabel(paraName, &destContext) != 0) {
-        destContext = strdup(DEFAULT_CONTEXT);
+    int res = GetParamLabel(paraName, &destContext);
+    if (res != SELINUX_SUCC) {
+        freecon(srcContext);
+        return res;
     }
-    int res = CheckPerm(std::string(paraName), srcContext, destContext, *uc);
+    res = CheckPerm(std::string(paraName), srcContext, destContext, *uc);
     freecon(srcContext);
     free(destContext);
     return res;

@@ -50,7 +50,7 @@ allow distributeddata init:unix_dgram_socket { sendto };
 allow distributeddata init:unix_stream_socket { read write };
 allow distributeddata kernel:fd { use };
 allow distributeddata lib_file:lnk_file { read };
-allow distributeddata normal_hap_domain:binder { call transfer };
+allow distributeddata normal_hap:binder { call transfer };
 allow distributeddata param_watcher:binder { call transfer };
 allow distributeddata proc_file:dir { search };
 allow distributeddata proc_file:lnk_file { read };

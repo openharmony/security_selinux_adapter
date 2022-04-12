@@ -34,7 +34,7 @@ allow camera_service init:netlink_kobject_uevent_socket { read write };
 allow camera_service init:unix_dgram_socket { sendto };
 allow camera_service init:unix_stream_socket { read write };
 allow camera_service kernel:fd { use };
-allow camera_service normal_hap_domain:binder { call transfer };
+allow camera_service normal_hap:binder { call transfer };
 allow camera_service proc_file:dir { search };
 allow camera_service proc_file:lnk_file { read };
 allow camera_service rootfs:dir { search };

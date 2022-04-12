@@ -11,10 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type platform_hap_domain, domain;
-type priv_hap_domain, domain;
-type normal_hap_domain, domain;
+type system_core_hap, domain;
+type system_basic_hap, domain;
+type normal_hap, domain;
 
-type platform_hap_data_file, file_type;
-type priv_hap_data_file, file_type;
+type system_core_hap_data_file, file_type;
+type system_basic_hap_data_file, file_type;
 type normal_hap_data_file, file_type;
