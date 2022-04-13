@@ -29,6 +29,8 @@ namespace {
 static const std::string SERVICE_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/service_contexts";
 static const std::string HDF_SERVICE_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/hdf_service_contexts";
 static const std::string OBJECT_PREFIX = "u:object_r:";
+static const std::string DEFAULT_CONTEXT = "u:object_r:default_service:s0";
+static const std::string DEFAULT_HDF_CONTEXT = "u:object_r:default_hdf_service:s0";
 static const int CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
@@ -41,11 +43,17 @@ extern "C" int HdfListServiceCheck(pid_t callingPid)
 
 extern "C" int HdfGetServiceCheck(pid_t callingPid, const char *serviceName)
 {
+    if (serviceName == nullptr) {
+        return -SELINUX_PTR_NULL;
+    }
     return ServiceChecker::GetInstance().GetServiceCheck(callingPid, serviceName);
 }
 
 extern "C" int HdfAddServiceCheck(pid_t callingPid, const char *serviceName)
 {
+    if (serviceName == nullptr) {
+        return -SELINUX_PTR_NULL;
+    }
     return ServiceChecker::GetInstance().AddServiceCheck(callingPid, serviceName);
 }
 
@@ -182,12 +190,12 @@ int ServiceChecker::GetServiceContext(const std::string &serviceName, std::strin
 
     auto iter = serviceMap.find(serviceName);
     if (iter != serviceMap.end()) {
-        selinux_log(SELINUX_INFO, "find context: %s\n", iter->second.serviceContext.c_str());
         context = iter->second.serviceContext;
-        return SELINUX_SUCC;
+    } else {
+        context = isHdf_ ? DEFAULT_HDF_CONTEXT : DEFAULT_CONTEXT;
     }
-    selinux_log(SELINUX_ERROR, "service %s's context not found!\n", serviceName.c_str());
-    return -SELINUX_KEY_NOT_FOUND;
+    selinux_log(SELINUX_INFO, "find context: %s\n", context.c_str());
+    return SELINUX_SUCC;
 }
 
 static int GetCallingContext(const pid_t &pid, std::string &context)
@@ -220,7 +228,7 @@ int ServiceChecker::CheckPerm(const pid_t &callingPid, const std::string &servic
 {
     std::string srcContext = "";
     int ret = GetCallingContext(callingPid, srcContext);
-    if (ret < 0) {
+    if (ret != SELINUX_SUCC) {
         return ret;
     }
     if (security_check_context(srcContext.c_str()) < 0) {
@@ -233,7 +241,7 @@ int ServiceChecker::CheckPerm(const pid_t &callingPid, const std::string &servic
     } else {
         ret = GetServiceContext(serviceName, destContext);
     }
-    if (ret < 0) {
+    if (ret != SELINUX_SUCC) {
         return ret;
     }
     if (security_check_context(destContext.c_str()) < 0) {

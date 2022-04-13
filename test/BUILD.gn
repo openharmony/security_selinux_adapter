@@ -35,12 +35,15 @@ ohos_unittest("selinux_unittest") {
   ]
 
   deps = [
-    "//base/security/selinux:libhap_restorecon",
     "//third_party/selinux:libselinux",
     "//utils/native/base:utils",
   ]
 
-  external_deps = [ "selinux:libparaperm_checker" ]
+  external_deps = [
+    "selinux:libhap_restorecon",
+    "selinux:libparaperm_checker",
+    "selinux:libservice_checker",
+  ]
 }
 
 group("unittest") {

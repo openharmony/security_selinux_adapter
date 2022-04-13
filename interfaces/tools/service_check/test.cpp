@@ -27,38 +27,48 @@ static std::unique_ptr<ServiceChecker> g_service = nullptr;
 struct testInput {
     char cmd = '\0';
     bool isHdf = false;
+    std::string serviceName;
 };
 
 static void PrintUsage()
 {
-    std::cout << "Usage:" << std::endl;
-    std::cout << "step 1:" << std::endl;
-    std::cout << "service_check (-d) -a|-g|-r|-l" << std::endl;
-    std::cout << "step 2:" << std::endl;
-    std::cout << "input service name and press 'enter' to continue, or ctrl+C to end process" << std::endl;
-    std::cout << "" << std::endl;
     std::cout << "Options:" << std::endl;
     std::cout << " -h (--help)           show the help information.        [eg: service_check -h]" << std::endl;
     std::cout << "***********************optinal*************************************************" << std::endl;
     std::cout << " -d (--isHdf)          service or hdf_service.           [eg: service_check -d]" << std::endl;
+    std::cout << " -n (--serviceName)    serviceName.                      [eg: service_check -n service_name]"
+              << std::endl;
     std::cout << "***********************requered: 1 in 4****************************************" << std::endl;
     std::cout << " -a (--add)            add service check.                [eg: service_check -a]" << std::endl;
     std::cout << " -g (--get)            get service check.                [eg: service_check -g]" << std::endl;
     std::cout << " -r (--get_remote)     get remote service check.         [eg: service_check -r]" << std::endl;
     std::cout << " -l (--list)           list service check.               [eg: service_check -l]" << std::endl;
     std::cout << "" << std::endl;
+    std::cout << "Usage:" << std::endl;
+    std::cout << ">>>>>>> choice 1: continuous input parameters" << std::endl;
+    std::cout << "step 1:" << std::endl;
+    std::cout << "service_check (-d) -a|-g|-r|-l" << std::endl;
+    std::cout << "step 2:" << std::endl;
+    std::cout << "input service name and press 'enter' to continue, or ctrl+C to end process" << std::endl;
+    std::cout << ">>>>>>> choice 2: single input parameter" << std::endl;
+    std::cout << "service_check (-d) -a|-g|-r|-l -n service_name" << std::endl;
+    std::cout << "" << std::endl;
 }
 
 static void SetOptions(int argc, char *argv[], const option *options, testInput &input)
 {
     int index = 0;
-    const char *optStr = "dhlagr";
+    const char *optStr = "dhlagrn:";
     int para = 0;
     while ((para = getopt_long(argc, argv, optStr, options, &index)) != -1) {
         switch (para) {
             case 'h': {
                 PrintUsage();
                 exit(0);
+            }
+            case 'n': {
+                input.serviceName = optarg;
+                break;
             }
             case 'd': {
                 input.isHdf = true;
@@ -87,13 +97,89 @@ static void SetOptions(int argc, char *argv[], const option *options, testInput 
     }
 }
 
+static void TestAddService(bool isHdf, const std::string &serviceName)
+{
+    if (!serviceName.empty()) {
+        std::cout << GetErrStr(isHdf ? HdfAddServiceCheck(getpid(), serviceName.c_str())
+                                     : g_service->AddServiceCheck(getpid(), serviceName))
+                  << std::endl;
+        exit(0);
+    }
+    std::string serName;
+    while (std::cin >> serName) {
+        std::cout << GetErrStr(isHdf ? HdfAddServiceCheck(getpid(), serName.c_str())
+                                     : g_service->AddServiceCheck(getpid(), serName))
+                  << std::endl;
+    }
+}
+
+static void TestGetService(bool isHdf, const std::string &serviceName)
+{
+    if (!serviceName.empty()) {
+        std::cout << GetErrStr(isHdf ? HdfGetServiceCheck(getpid(), serviceName.c_str())
+                                     : g_service->GetServiceCheck(getpid(), serviceName))
+                  << std::endl;
+        exit(0);
+    }
+    std::string serName;
+    while (std::cin >> serName) {
+        std::cout << GetErrStr(isHdf ? HdfGetServiceCheck(getpid(), serName.c_str())
+                                     : g_service->GetServiceCheck(getpid(), serName))
+                  << std::endl;
+    }
+}
+
+static void TestGetRemoteService(bool isHdf, const std::string &serviceName)
+{
+    if (!serviceName.empty()) {
+        std::cout << GetErrStr(isHdf ? SELINUX_PERMISSION_DENY
+                                     : g_service->GetRemoteServiceCheck(getpid(), serviceName))
+                  << std::endl;
+        exit(0);
+    }
+    std::string serName;
+    while (std::cin >> serName) {
+        std::cout << GetErrStr(isHdf ? SELINUX_PERMISSION_DENY : g_service->GetRemoteServiceCheck(getpid(), serName))
+                  << std::endl;
+    }
+}
+
+static void TestListService(bool isHdf)
+{
+    std::cout << GetErrStr(isHdf ? HdfListServiceCheck(getpid()) : g_service->ListServiceCheck(getpid())) << std::endl;
+}
+
+static void Test(testInput &testCmd)
+{
+    switch (testCmd.cmd) {
+        case 'a': {
+            TestAddService(testCmd.isHdf, testCmd.serviceName);
+            exit(0);
+        }
+        case 'g': {
+            TestGetService(testCmd.isHdf, testCmd.serviceName);
+            exit(0);
+        }
+        case 'r': {
+            TestGetRemoteService(testCmd.isHdf, testCmd.serviceName);
+            exit(0);
+        }
+        case 'l': {
+            TestListService(testCmd.isHdf);
+            exit(0);
+        }
+        default:
+            exit(-1);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     struct option options[] = {
         {"help", no_argument, nullptr, 'h'},  {"add", no_argument, nullptr, 'a'},
         {"get", no_argument, nullptr, 'g'},   {"get_remote", no_argument, nullptr, 'r'},
         {"isHdf", no_argument, nullptr, 'd'}, {"list", no_argument, nullptr, 'l'},
-        {nullptr, no_argument, nullptr, 0},
+        {"serviceName", required_argument, nullptr, 'n'}, {nullptr, no_argument, nullptr, 0},
     };
 
     if (argc == 1) {
@@ -106,40 +192,7 @@ int main(int argc, char *argv[])
     if (!input.isHdf) {
         g_service = std::make_unique<ServiceChecker>(false);
     }
-    std::string serName;
-    switch (input.cmd) {
-        case 'a': {
-            while (std::cin >> serName) {
-                std::cout << GetErrStr(input.isHdf ? HdfAddServiceCheck(getpid(), serName.c_str())
-                                                   : g_service->AddServiceCheck(getpid(), serName))
-                          << std::endl;
-            }
-            exit(0);
-        }
-        case 'g': {
-            while (std::cin >> serName) {
-                std::cout << GetErrStr(input.isHdf ? HdfGetServiceCheck(getpid(), serName.c_str())
-                                                   : g_service->GetServiceCheck(getpid(), serName))
-                          << std::endl;
-            }
-            exit(0);
-        }
-        case 'r': {
-            while (std::cin >> serName) {
-                std::cout << GetErrStr(input.isHdf ? SELINUX_PERMISSION_DENY
-                                                   : g_service->GetRemoteServiceCheck(getpid(), serName))
-                          << std::endl;
-            }
-            exit(0);
-        }
-        case 'l': {
-            std::cout << GetErrStr(input.isHdf ? HdfListServiceCheck(getpid()) : g_service->ListServiceCheck(getpid()))
-                      << std::endl;
-            exit(0);
-        }
-        default:
-            exit(-1);
-    }
+    Test(input);
 
     exit(0);
 }

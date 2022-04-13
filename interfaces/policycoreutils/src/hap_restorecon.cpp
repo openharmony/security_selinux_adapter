@@ -113,6 +113,14 @@ static bool CheckPath(const std::string &path)
     return false;
 }
 
+static bool CheckApl(const std::string &apl)
+{
+    if (apl == "system_core" || apl == "system_basic" || apl == "normal") {
+        return true;
+    }
+    return false;
+}
+
 void HapContext::RestoreconInit()
 {
     if (fileContextsHandle == nullptr) {
@@ -182,7 +190,7 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
     }
 
     auto iter = sehapContextsBuff.find(std::string(apl) + std::string(packageName));
-    if (iter != sehapContextsBuff.end()) {
+    if (iter != sehapContextsBuff.end() && apl != "normal") {
         return TypeSet(iter, isDomain, con);
     } else {
         iter = sehapContextsBuff.find(std::string(apl));
@@ -279,7 +287,7 @@ int HapContext::RestoreconSb(const std::string &pathname, const struct stat *sb,
 int HapContext::HapFileRestorecon(std::vector<std::string> &pathNameOrig, const std::string &apl,
                                   const std::string &packageName, unsigned int flags)
 {
-    if (apl.empty() || pathNameOrig.empty()) {
+    if (apl.empty() || pathNameOrig.empty() || !CheckApl(apl)) {
         return -SELINUX_ARG_INVALID;
     }
     bool failFlag = false;
@@ -297,7 +305,7 @@ int HapContext::HapFileRestorecon(std::vector<std::string> &pathNameOrig, const 
 int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::string &apl,
                                   const std::string &packageName, unsigned int flags)
 {
-    if (apl.empty() || pathNameOrig.empty()) {
+    if (apl.empty() || pathNameOrig.empty() || !CheckApl(apl)) {
         return -SELINUX_ARG_INVALID;
     }
     if (is_selinux_enabled() < 1) {
@@ -381,7 +389,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
 
 int HapContext::HapDomainSetcontext(const std::string &apl, const std::string &packageName)
 {
-    if (apl.empty()) {
+    if (apl.empty() || !CheckApl(apl)) {
         return -SELINUX_ARG_INVALID;
     }
 

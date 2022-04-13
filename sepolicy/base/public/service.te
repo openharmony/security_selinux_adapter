@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+type default_service, samgr_type;
 type ams_service, samgr_type;
 type bms_service, samgr_type;

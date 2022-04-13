@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+type default_hdf_service, hdf_devmgr_type;
 type hdf_usbd_service, hdf_devmgr_type;
 type hdf_wlan_hal_service, hdf_devmgr_type;

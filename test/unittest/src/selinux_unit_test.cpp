@@ -20,6 +20,8 @@
 #include <selinux/selinux.h>
 #include "selinux_error.h"
 #include "selinux_parameter.h"
+#include "service_checker.h"
+#include "hdf_service_checker.h"
 
 using namespace testing::ext;
 using namespace OHOS::Security::Selinux;
@@ -61,6 +63,10 @@ const static std::string TEST_PARA_CONTEXT = "u:object_r:testpara:s0";
 const static std::string DEFAULT_PARA_CONTEXT = "u:object_r:default_param:s0";
 
 const static std::vector<std::string> TEST_INVALID_PARA = {{".test"}, {"test."}, {"test..test"}, {""}, {"test+test"}};
+
+const static std::string TEST_SERVICE_NAME = "test_service";
+const static std::string DEFAULT_SERVICE = "default_service";
+const static std::string DEFAULT_HDF_SERVICE = "default_hdf_service";
 
 static bool CreateDirectory(const std::string &path)
 {
@@ -857,4 +863,126 @@ HWTEST_F(SelinuxUnitTest, SetParamCheck002, TestSize.Level1)
                       " tclass=parameter_service'";
     std::string cmdRes = RunCommand(cmd);
     ASSERT_TRUE(cmdRes.find(TEST_PARA_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: HdfListServiceCheck001
+ * @tc.desc: HdfListServiceCheck test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, HdfListServiceCheck001, TestSize.Level1)
+{
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, HdfListServiceCheck(-1));
+    ASSERT_EQ(SELINUX_SUCC, HdfListServiceCheck(getpid()));
+    std::string cmd =
+        "dmesg | grep 'avc:  denied  { list } for service=hdf_devmgr_class pid=" + std::to_string(getpid()) +
+        "' | grep 'tclass=hdf_devmgr_class'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find("hdf_devmgr_class") != std::string::npos);
+}
+
+/**
+ * @tc.name: HdfGetServiceCheck001
+ * @tc.desc: HdfGetServiceCheck test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, HdfGetServiceCheck001, TestSize.Level1)
+{
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, HdfGetServiceCheck(-1, TEST_SERVICE_NAME.c_str()));
+    ASSERT_EQ(-SELINUX_PTR_NULL, HdfGetServiceCheck(getpid(), nullptr));
+    ASSERT_EQ(SELINUX_SUCC, HdfGetServiceCheck(getpid(), TEST_SERVICE_NAME.c_str()));
+    std::string cmd = "dmesg | grep 'avc:  denied  { get } for service=" + TEST_SERVICE_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=hdf_devmgr_class'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: HdfAddServiceCheck001
+ * @tc.desc: HdfAddServiceCheck test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, HdfAddServiceCheck001, TestSize.Level1)
+{
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, HdfAddServiceCheck(-1, TEST_SERVICE_NAME.c_str()));
+    ASSERT_EQ(-SELINUX_PTR_NULL, HdfAddServiceCheck(getpid(), nullptr));
+    ASSERT_EQ(SELINUX_SUCC, HdfAddServiceCheck(getpid(), TEST_SERVICE_NAME.c_str()));
+    std::string cmd = "dmesg | grep 'avc:  denied  { add } for service=" + TEST_SERVICE_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=hdf_devmgr_class'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: ListServiceCheck001
+ * @tc.desc: ListServiceCheck test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, ListServiceCheck001, TestSize.Level1)
+{
+    ServiceChecker service(false);
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, service.ListServiceCheck(-1));
+    ASSERT_EQ(SELINUX_SUCC, service.ListServiceCheck(getpid()));
+    std::string cmd = "dmesg | grep 'avc:  denied  { list } for service=samgr_class pid=" + std::to_string(getpid()) +
+                      "' | grep 'tclass=samgr_class'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find("samgr_class") != std::string::npos);
+}
+
+/**
+ * @tc.name: GetServiceCheck001
+ * @tc.desc: GetServiceCheck test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, GetServiceCheck001, TestSize.Level1)
+{
+    ServiceChecker service(false);
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, service.GetServiceCheck(-1, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_ARG_INVALID, service.GetServiceCheck(getpid(), ""));
+    ASSERT_EQ(SELINUX_SUCC, service.GetServiceCheck(getpid(), TEST_SERVICE_NAME));
+    std::string cmd = "dmesg | grep 'avc:  denied  { get } for service=" + TEST_SERVICE_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=samgr_class'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: GetRemoteServiceCheck001
+ * @tc.desc: GetRemoteServiceCheck test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, GetRemoteServiceCheck001, TestSize.Level1)
+{
+    ServiceChecker service(false);
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, service.GetRemoteServiceCheck(-1, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_ARG_INVALID, service.GetRemoteServiceCheck(getpid(), ""));
+    ASSERT_EQ(SELINUX_SUCC, service.GetRemoteServiceCheck(getpid(), TEST_SERVICE_NAME));
+    std::string cmd = "dmesg | grep 'avc:  denied  { get_remote } for service=" + TEST_SERVICE_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=samgr_class'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
+}
+
+/**
+ * @tc.name: AddServiceCheck001
+ * @tc.desc: AddServiceCheck test.
+ * @tc.type: FUNC
+ * @tc.require:AR000GJSDS
+ */
+HWTEST_F(SelinuxUnitTest, AddServiceCheck001, TestSize.Level1)
+{
+    ServiceChecker service(false);
+    ASSERT_EQ(-SELINUX_GET_CONTEXT_ERROR, service.AddServiceCheck(-1, TEST_SERVICE_NAME));
+    ASSERT_EQ(-SELINUX_ARG_INVALID, service.AddServiceCheck(getpid(), ""));
+    ASSERT_EQ(SELINUX_SUCC, service.AddServiceCheck(getpid(), TEST_SERVICE_NAME));
+    std::string cmd = "dmesg | grep 'avc:  denied  { add } for service=" + TEST_SERVICE_NAME +
+                      " pid=" + std::to_string(getpid()) + "' | grep 'tclass=samgr_class'";
+    std::string cmdRes = RunCommand(cmd);
+    ASSERT_TRUE(cmdRes.find(TEST_SERVICE_NAME) != std::string::npos);
 }
