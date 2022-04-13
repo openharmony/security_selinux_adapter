@@ -97,7 +97,7 @@ During the verification, you can replace the preceding files separately.
 ```
 audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
 
-The log information can be interpreted as follows:
+The log information is interpreted as follows:
 open                                # The operation is open.
 pid=1658                            # The process ID is 1658.
 comm="setenforce"                   # The process name is setenforce.
