@@ -154,6 +154,10 @@ ohos_shared_library("libparaperm_checker") {
     "-Wall",
     "-Werror",
   ]
+  install_images = [
+    "system",
+    "updater",
+  ]
   part_name = "selinux"
   subsystem_name = "security"
 }
