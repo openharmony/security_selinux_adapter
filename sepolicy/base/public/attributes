@@ -71,12 +71,11 @@ attribute hdf_devmgr_type;
 
 # Type of all processes in the hap format.
 # i.e. com.ohos.setting
-attribute hapdomain;
+attribute hap_domain;
 
-# Type of all native processes.
-# i.e. appspawn,
-#      media
-attribute nativedomain;
+# File type of all processes in the hap format.
+# i.e. com.ohos.setting
+attribute hap_data_file;
 
 # Type of hdf processes.
 # i.e. hdv_devmgr,
@@ -85,3 +84,8 @@ attribute hdfdomain;
 # Type of all native processes.
 # i.e. at,
 attribute sadomain;
+
+# Type of left native processes not in sadomain.
+# i.e. appspawn,
+#      media
+attribute nativedomain;

@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type installs, domain;
+type installs, sadomain, domain;
 type installs_exec, system_file_type, exec_type, file_type;
 
 init_daemon_domain(installs);

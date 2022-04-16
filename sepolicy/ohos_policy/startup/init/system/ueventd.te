@@ -16,15 +16,3 @@ type ueventd_exec, system_file_type, exec_type, file_type;
 
 init_daemon_domain(ueventd);
 
-#allow ueventd kernel:fd use;
-
-#allow ueventd sys_file:file write_file_perms;
-#allow ueventd tmpfs:chr_file { create setattr unlink rw_file_perms };
-#allow ueventd tmpfs:dir create_dir_perms;
-#allow ueventd tmpfs:blk_file { create setattr unlink rw_file_perms };
-#allow ueventd tmpfs:lnk_file { create setattr unlink rw_file_perms };
-
-#allow ueventd sysfs_rtc:dir read_dir_perms;
-#allow ueventd sysfs_rtc: { file lnk_file } read_file_perms;
-
-#allow ueventd self:netlink_kobject_uevent_socket { read create setopt bind write };

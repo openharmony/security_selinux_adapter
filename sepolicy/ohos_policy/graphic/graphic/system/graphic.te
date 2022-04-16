@@ -11,11 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type render_service, domain;
+type render_service, sadomain, domain;
 type render_service_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(render_service);
 
-#binder_call(render_service, samgr);
-#binder_call(render_service, appspawn);
 

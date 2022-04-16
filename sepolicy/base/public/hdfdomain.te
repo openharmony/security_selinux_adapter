@@ -11,9 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type deviceauth_service, sadomain, domain;
-type deviceauth_service_exec, exec_type, file_type, system_file_type;
+#neverallow
 
-init_daemon_domain(deviceauth_service);
+# let every hdf_host join hdf_domain
+neverallow { domain -hdfdomain -sadomain -init -hap_domain } hdf_devmgr:binder call;
 
-#binder_call(deviceauth_service, samgr);
+neverallow { domain -hdf_devmgr -sadomain } { hdfdomain -display_gralloc_host }:binder call;
+

@@ -104,7 +104,7 @@ def build_cil(args, output_cil, input_conf):
 def build_policy(args, output_policy, input_cil):
     build_policy_cmd = [args.tool_path + "/secilc",
                         input_cil,
-                        "-m -M true -G -c 31 -N",
+                        "-m -M true -G -c 31",
                         "-f /dev/null",
                         "-o " + output_policy]
     run_command(build_policy_cmd)

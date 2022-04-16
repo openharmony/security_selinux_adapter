@@ -11,10 +11,85 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type system_core_hap, domain;
-type system_basic_hap, domain;
-type normal_hap, domain;
+type system_core_hap, hap_domain, domain;
+type system_basic_hap, hap_domain, domain;
+type normal_hap, hap_domain, domain;
 
-type system_core_hap_data_file, file_type;
-type system_basic_hap_data_file, file_type;
-type normal_hap_data_file, file_type;
+type system_core_hap_data_file, hap_data_file, data_file_type, file_type;
+type system_basic_hap_data_file, hap_data_file, data_file_type, file_type;
+type normal_hap_data_file, hap_data_file, data_file_type, file_type;
+
+
+allow hap_domain appspawn:fd use;
+allow hap_domain appspawn:fifo_file write;
+allow hap_domain appspawn:unix_dgram_socket { connect write };
+allow hap_domain self:process execmem;
+
+allow hap_domain data_app_el1_file:dir { add_name create mounton open read search setattr write };
+allow hap_domain data_app_el1_file:file { getattr map open read };
+allow hap_domain data_app_el2_file:dir search;
+allow hap_domain data_app_file:dir search;
+allow hap_domain data_file:dir { add_name getattr mounton open read remove_name search write };
+allow hap_domain data_file:file { create getattr ioctl lock map open read write rename setattr unlink write };
+allow hap_domain data_log:file { read write };
+
+binder_call(hap_domain, samgr);
+binder_call(hap_domain, render_service);
+binder_call(hap_domain, param_watcher);
+binder_call(hap_domain, multimodalinput);
+binder_call(hap_domain, inputmethod_service);
+binder_call(hap_domain, foundation);
+binder_call(hap_domain, accessibility);
+
+allow hap_domain hdf_devmgr:binder call;
+
+#neverallow
+#never use caps for haps.
+neverallow hap_domain self:{ capability capability2 } *;
+
+#haps can't modify files of other domain.
+neverallow hap_domain { domain -hap_domain }:file { append create link unlink relabelfrom rename setattr write };
+
+#limit hap file access.
+neverallow hap_domain vendor_file_type:dir_file_class_set *;
+
+#hap never access blk_file.
+neverallow hap_domain dev_type:blk_file { read write };
+
+#limit hap access dev file.
+neverallow hap_domain { dev_type -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file -dev_zero_file 
+                      -dev_unix_socket_file }:chr_file { open ioctl read write};
+
+#limit hap use kobject netlink.
+neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };
+
+#no use ptrace
+neverallow hap_domain { domain -hap_domain }:process ptrace;
+neverallow { domain -hap_domain } hap_domain:process ptrace;
+
+#hap don't bother other domain.
+neverallow hap_domain { domain -hap_domain }:process { sigkill sigstop signal };
+
+#file acess limit.
+neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow hap_domain system_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow hap_domain { file_type -data_file_type -dev_type }:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow { hap_domain -system_core_hap } system_core_hap_data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow { hap_domain -system_basic_hap } system_basic_hap_data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow hap_domain { sysfs_type proc_type }:dir_file_class_set write;
+
+neverallow hap_domain exec_type:file { create write setattr relabelfrom relabelto append unlink link rename };
+
+#Access /proc/kmsg
+neverallow hap_domain kernel:system { syslog_read syslog_mod syslog_console };
+
+#SELinux is not an API for haps to use.
+neverallow { hap_domain } *:security { compute_av check_context };
+
+#Ability to perform any filesystem operation other than statfs(2).
+neverallow hap_domain fs_type:filesystem ~getattr;
+
