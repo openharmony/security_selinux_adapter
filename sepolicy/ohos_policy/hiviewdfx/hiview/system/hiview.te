@@ -12,12 +12,8 @@
 # limitations under the License.
 
 type logserver_exec, exec_type, file_type, system_file_type;
-type hiview, domain;
+type hiview, sadomain, domain;
 
 domain_auto_transition_pattern(init, logserver_exec, hiview);
 
-#allow hiview shell:fd { use };
-#allow hiview shell:fifo_file { write };
 
-#binder_call(samgr, hiview);
-#allow hiview samgr:binder { call transfer };

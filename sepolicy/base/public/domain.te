@@ -12,197 +12,186 @@
 # limitations under the License.
 
 
-
-#allow domain domain:process {
-#    fork
-#    sigchld
-#    sigkill
-#    sigstop
-#    signull
-#    signal
-#    getsched
-#    setsched
-#    getsession
-#    getpgid
-#    setpgid
-#    getcap
-#    setcap
-#    getattr
-#    setrlimit
-#};
-#
-#allow domain domain:fd use;
-#allow domain init:fd use;
-#
-#allow domain domain:dir read_dir_perms;
-#allow domain domain:{ file lnk_file } read_file_perms;
-#allow domain domain:{ fifo_file file } rw_file_perms;
-#allow domain domain:unix_dgram_socket { create_socket_perms sendto };
-#
-#allow domain proc_file:dir read_dir_perms;
-#allow domain proc_file:lnk_file { getattr read };
-#
-#allow domain tmpfs:dir { getattr search };
-#allow domain tmpfs:chr_file { read write open getattr setattr ioctl map };
-#
-#allow domain rootfs:dir search;
-#allow domain rootfs:lnk_file { read getattr };
-#
-#allow domain device:dir search;
-#
-#allow domain dev_type:dir search;
-#allow domain dev_type:{ lnk_file chr_file } read_file_perms;
-#
-#allow domain devpts:dir search;
-#
-#allow domain socket_device:dir read_dir_perms;
-#allow domain {
-#    null_device
-#    binder_device
-#}:chr_file rw_file_perms;
-#
-#allow domain param_storage:file read_file_perms;
-#allow domain param_info:file read_file_perms;
-#
-#allow domain {
-#    system_file
-#    system_lib_file
-#}:dir read_dir_perms;
-#allow domain {
-#    system_file
-#    system_lib_file
-#}:lnk_file { getattr read open };
-#
-##allow domain system_lib_file:file { execute read open getattr map };
-#
-#allow domain sys_file:dir search;
-#allow domain sys_file:{ lnk_file file } { getattr read };
-#
-#allow domain system_data_file:dir search;
-#
-#allow domain selinuxfs:dir search;
-#allow domain selinuxfs:file getattr;
-#allow domain selinuxfs:filesystem getattr;
-#
-#allow domain debugfs:dir search;
-#
-#allow domain fs_type:dir getattr;
-#allow domain fs_type:filesystem getattr;
-#
-
 allow domain init:process sigchld;
-#type samgr, domain;
-type multimodalinput, sadomain, domain;
-type accesstoken_service, sadomain, domain;
-type face_service, sadomain, domain;
-type huks_service, sadomain, domain;
-type socperf_service, sadomain, domain;
-type distributedsche, sadomain, domain;
-type pulseaudio, sadomain, domain;
-type storage_manager, sadomain, domain;
-type bluetooth_service, sadomain, domain;
-type accountmgr, sadomain, domain;
-type dslm_service, sadomain, domain;
-type ui_service, sadomain, domain;
-type d_bms, sadomain, domain;
-type wifi_manager_service, sadomain, domain;
-type softbus_server, sadomain, domain;
-type distributeddata, sadomain, domain;
-type usb_service, sadomain, domain;
-type medialibrary_service, sadomain, domain;
-type netdnative, domain;
-type netmanager, sadomain, domain;
-type sensors, sadomain, domain;
-type telephony_sa, sadomain, domain;
-type updater_sa, sadomain, domain;
-type time_service, sadomain, domain;
-type bgtaskmgr_service, sadomain, domain;
-type camera_service, sadomain, domain;
-type media_service, sadomain, domain;
-type work_scheduler_service, sadomain, domain;
-type param_watcher, sadomain, domain;
-type useriam, sadomain, domain;
-type inputmethod_service, sadomain, domain;
-type pinauth_service, sadomain, domain;
-#type foundation, domain;
-type battery_stats, sadomain, domain;
-type audio_policy, sadomain, domain;
-type token_sync_service, sadomain, domain;
-type memmgrservice, sadomain, domain;
-type resource_schedule_service, sadomain, domain;
-type accessibility, sadomain, domain;
-type distributedsched, sadomain, domain;
-type distributedfile, sadomain, domain;
-type fms_service, sadomain, domain;
-type thermal_sa, sadomain, domain;
-type device_usage_statistics_service, sadomain, domain;
-type deviceinfoservice, sadomain, domain;
-type distributedhardware_fwk, sadomain, domain;
-type nwebspawn, sadomain, domain;
-type upms, sadomain, domain;
 
+allow domain self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
 
-type blue_host, hdfdomain, domain;
-type sample_host, hdfdomain, domain;
-type usb_host, hdfdomain, domain;
-type usbfnMaster_host, hdfdomain, domain;
-type power_host, hdfdomain, domain;
-type wifi_host, hdfdomain, domain;
-type audio_hdi_server_host, hdfdomain, domain;
-type camera_host, hdfdomain, domain;
-type input_user_host, hdfdomain, domain;
-type display_gralloc_host, hdfdomain, domain;
-type codec_host, hdfdomain, domain;
-type riladapter_host, hdfdomain, domain;
-type sensor_dal_host, hdfdomain, domain;
-type vibrator_dal_host, hdfdomain, domain;
-type light_dal_host, hdfdomain, domain;
-type wifi_c_host, hdfdomain, domain;
-type disp_gralloc_host, hdfdomain, domain;
+allow domain self:fd use;
+allow domain self:file rw_file_perms;
+allow domain self:fifo_file rw_file_perms;
+allow domain self:dir read_dir_perms;
+allow domain self:lnk_file read_file_perms;
+allow domain self:unix_dgram_socket { connect create write };
+allow domain self:unix_stream_socket { accept bind connect create getattr listen read getopt setopt write connectto ioctl lock append shutdown map };
+allow domain self:lockdown confidentiality;
 
-type watchdog_service, domain;
-type watchdog_service_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, watchdog_service_exec, watchdog_service);
+allow domain init:fd use;
 
-type uinput_inject, domain;
-type uinput_inject_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, uinput_inject_exec, uinput_inject);
+allow domain tmpfs:dir { getattr search };
+allow domain tmpfs:lnk_file read;
 
-type lmks, domain;
-type lmks_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, lmks_exec, lmks);
+allow domain proc_type:dir read_dir_perms;
+allow domain proc_type:lnk_file { getattr read };
 
-type wifi_hal_service, domain;
-type wifi_hal_service_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, wifi_hal_service_exec, wifi_hal_service);
+allow domain rootfs:dir search;
+allow domain rootfs:lnk_file { read getattr };
 
-type hilogd, domain;
-type hilogd_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, hilogd_exec, hilogd);
+allow domain dev_file:dir search;
+allow domain dev_null_file:chr_file rw_file_perms;
+allow domain dev_zero_file:chr_file rw_file_perms;
+allow domain dev_ashmem_file:chr_file { getattr read ioctl lock map append write };
+allow domain dev_binder_file:chr_file { ioctl map open read write };
+allowxperm domain dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f };
+allow domain dev_at_file:chr_file { ioctl open read write };
+allowxperm domain dev_at_file:chr_file ioctl { 0x4101 };
 
-type faultloggerd, domain;
-type faultloggerd_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, faultloggerd_exec, faultloggerd);
+allow domain dev_unix_file:dir search;
+allow domain dev_unix_socket_file:dir { search };
+allow domain dev_unix_socket_file:sock_file { write };
 
-type hiview_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, hiview_exec, hiview);
+allow domain dev_random_file:chr_file rw_file_perms;
+allow domain dev_parameters_file:dir { getattr search };
+allow domain dev_parameters_file:file read_file_perms;
 
-type ispserver, domain;
-type ispserver_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, ispserver_exec, ispserver);
+allow domain system_etc_file:dir { open read search getattr };
+allow domain system_etc_file:file { getattr map open read };
 
-type storage_daemon, domain;
-type storage_daemon_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, storage_daemon_exec, storage_daemon);
+allow domain system_file:dir { search };
 
-type thermal_protector, domain;
-type thermal_protector_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, thermal_protector_exec, thermal_protector);
+allow domain system_lib_file:dir { search };
+allow domain system_lib_file:file { execute getattr map open read };
+allow domain system_lib_file:lnk_file { read };
 
-type sh, domain;
-type sh_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, sh_exec, sh);
+allow domain system_profile_file:file read_file_perms;
+allow domain system_profile_file:dir search;
 
-type hdcd, domain;
-type hdcd_exec, exec_type, file_type, system_file_type;
-domain_auto_transition_pattern(init, hdcd_exec, hdcd);
+allow domain sysfs_type:lnk_file { getattr read };
+allow domain sysfs_type:dir search;
+
+allow domain selinuxfs:file getattr;
+
+allow domain debugfs:dir search;
+
+allow domain fs_type:filesystem getattr;
+allow domain { fs_type -unlabeled }:dir getattr;
+
+allow { domain -hap_domain } vendor_file:dir search;
+
+allow domain etc_file:lnk_file { read };
+
+allow { domain -hap_domain } kernel:fd use;
+
+allow domain init:unix_dgram_socket { sendto };
+allow { domain -hap_domain } init:unix_stream_socket { read write };
+allow { domain -hap_domain } init:netlink_kobject_uevent_socket { read write };
+
+# neverallow rules
+neverallow init file_type:file execute_no_trans;
+neverallow { domain -init } dev_parameters_file:file write;
+
+# only execute file with exec_type & system_bin_file & vendor_bin_file ToDo delete vendor_file
+neverallow * { file_type -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file -vendor_file -exec_type -hap_data_file }:file { execute execute_no_trans entrypoint };
+
+# keep every process join the domain attribute.
+neverallow ~domain domain:process { transition dyntransition };
+
+# everyone should in { sadomain hdfdomain hap_domain nativedomain }
+neverallow domain { domain -init -sadomain -hdfdomain -hap_domain -nativedomain }:process { transition dyntransition };
+
+# keep every file join file_type
+neverallow * ~{ file_type domain fs_type dev_type } :{ dir notdevfile_class_set } *;
+
+neverallow domain ~{ domain fs_type dev_type system_file_type vendor_file_type proc_type sysfs_type data_file_type }:{ file dir } *;
+# keep every dev_node join dev_type
+neverallow * ~{ dev_type fs_type } :devfile_class_set *;
+
+# keep every paramter join parameter_type
+neverallow * ~parameter_type:parameter_service *;
+
+# keep every service join service_type
+neverallow * ~samgr_type:samgr_class *;
+
+# keep every hdf service join hdf_devmgr_type
+neverallow * ~hdf_devmgr_type:hdf_devmgr_class *;
+
+neverallow domain default_param:parameter_service *;
+neverallow domain default_service:samgr_class *;
+neverallow domain default_hdf_service:hdf_devmgr_class *;
+
+# every file should have a label. The unlabeled file shouldn't be accessed.
+neverallow { domain -init -kernel } unlabeled:dir_file_class_set *;
+
+# keep selinuxfs safe.
+neverallow * kernel:security { load_policy setenforce setbool };
+neverallow { domain -kernel } kernel:security setcheckreqprot;
+neverallow { domain -init } kernel:security setsecparam;
+
+# can't use domain type as exec target.
+neverallow * domain:file { execute execute_no_trans entrypoint };
+
+# never use set stack and heap executable.
+neverallow * self:process { execstack execheap };
+
+# dev node file label should be configured in file_contexts.
+#neverallow domain dev_file:{ file chr_file blk_file } *;
+
+neverallow { domain -kernel -init } dev_type:blk_file { open read write };
+# only init can operate fs
+neverallow { domain -init -storage_daemon -hdcd } *:filesystem ~{ getattr };
+
+# can't execute data file unless hap.
+neverallow { domain -hap_domain } data_file_type:file { execute execute_no_trans };
+
+# service can't modify hap sandbox
+neverallow { domain -hap_domain -installs } hap_data_file:dir_file_class_set { create unlink };
+
+neverallow { domain -hap_domain } hap_data_file:file open;
+
+neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
+
+neverallow { domain -init } { proc_type sysfs_type }:dir { add_name create link rename remove_name reparent rmdir write };
+# limit capability use.
+# for exemption add rule like this:
+# neverallow { domain -init } self:capability chown;
+# means that only init can have the caps of chown.
+# TODO:debug/release
+neverallow { domain -appspawn -init -kernel -ueventd -storage_daemon } self:capability chown;
+neverallow { domain -appspawn -init -kernel -udevd -storage_daemon } self:capability dac_override;
+neverallow { domain -appspawn -init -kernel } self:capability dac_read_search;
+neverallow { domain -init -udevd -ueventd -faultloggerd } self:capability fowner;
+neverallow { domain -appspawn -init -udevd -ueventd } self:capability fsetid;
+neverallow { domain -faultloggerd } self:capability kill;
+neverallow { domain -init } self:capability setuid;
+neverallow { domain -init -ueventd } self:capability setgid;
+neverallow domain self:capability setpcap;
+neverallow domain self:capability linux_immutable;
+neverallow domain self:capability net_bind_service;
+neverallow domain self:capability net_broadcast;
+neverallow { domain -init -wifi_hal_service -wifi_manager_service -softbus_server -power_host
+            -storage_daemon -udevd } self:capability net_admin;
+neverallow { domain -wifi_hal_service } self:capability net_raw;
+neverallow domain self:capability ipc_lock;
+neverallow domain self:capability ipc_owner;
+neverallow { domain -wifi_hal_service } self:capability sys_module;
+neverallow { domain -init } self:capability sys_rawio;
+neverallow domain self:capability sys_chroot;
+neverallow { domain -hdcd -hiview } self:capability sys_ptrace;
+neverallow domain self:capability sys_pacct;
+neverallow { domain -init -render_service -storage_daemon -display_gralloc_host -hdcd } self:capability sys_admin;
+neverallow { domain -init } self:capability sys_boot;
+neverallow { domain -render_service } self:capability sys_nice;
+neverallow { domain -init -memmgrservice } self:capability sys_resource;
+neverallow domain self:capability sys_time;
+neverallow domain self:capability sys_tty_config;
+neverallow { domain -kernel -ueventd } self:capability mknod;
+neverallow domain self:capability lease;
+neverallow domain self:capability audit_write;
+neverallow domain self:capability audit_control;
+neverallow domain self:capability setfcap;
+neverallow domain self:capability2 mac_override;
+neverallow domain self:capability2 mac_admin;
+neverallow domain self:capability2 syslog;
+neverallow { domain -time_service } self:capability2 wake_alarm;
+neverallow { domain -power_host } self:capability2 block_suspend;
+neverallow domain self:capability2 audit_read;
+neverallow { domain -hdcd } self:capability2 checkpoint_restore;

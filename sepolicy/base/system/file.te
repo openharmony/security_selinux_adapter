@@ -24,14 +24,17 @@ type devpts, fs_type;
 type tmpfs, fs_type;
 type shm, fs_type;
 type mqueue, fs_type;
-type sys_file, fs_type;
+type sys_file, fs_type, sysfs_type, file_type;
 type selinuxfs, fs_type;
 type cgroup, fs_type;
 type inotify, fs_type;
 type debugfs, fs_type;
-type config_file, fs_type;
+type configfs, fs_type;
 type functionfs, fs_type;
+type tracefs, fs_type;
+type hmdfs, fs_type;
 
+type config_file, system_file_type, file_type;
 type system_lib_file, system_file_type, file_type;
 type system_etc_file, system_file_type, file_type;
 type system_data_file, system_file_type, file_type;
@@ -45,30 +48,30 @@ type dev_cpu_variant, file_type;
 type fontconfig_file, system_file_type, file_type;
 type fonts_file, system_file_type, file_type;
 type vendor_file, vendor_file_type, file_type;
-
+type vendor_bin_file, vendor_file_type, file_type;
+type vendor_lib_file, vendor_file_type, file_type;
 type vendor_etc_file, vendor_file_type, file_type;
 
 type sysfs_rtc, fs_type, sysfs_type;
-type system_file, file_type;
+type system_file, system_file_type, file_type;
 type lib_file, file_type;
 type etc_file, file_type;
-type dev_file, file_type;
+type dev_file, dev_type, file_type;
 
 type sysfs_block_file, sysfs_type, file_type;
 type sysfs_hisys_file, sysfs_type, file_type;
 
-
 type config_usb_gadget, file_type;
 
-type updater_file, file_type;
+type updater_file, system_file_type, file_type;
 
 type data_file, file_type, data_file_type;
 type data_hap_file, file_type, data_file_type;
-type data_app_file, file_type, data_file_type;
-type data_app_el1_file, file_type, data_file_type;
-type data_app_el2_file, file_type, data_file_type;
-type data_app_el3_file, file_type, data_file_type;
-type data_app_el4_file, file_type, data_file_type;
+type data_app_file, file_type, data_file_type, hap_data_file;
+type data_app_el1_file, file_type, data_file_type, hap_data_file;
+type data_app_el2_file, file_type, data_file_type, hap_data_file;
+type data_app_el3_file, file_type, data_file_type, hap_data_file;
+type data_app_el4_file, file_type, data_file_type, hap_data_file;
 type data_service_file, file_type, data_file_type;
 type data_service_el0_file, file_type, data_file_type;
 type data_service_el1_file, file_type, data_file_type;
@@ -162,8 +165,7 @@ type proc_vmallocinfo_file, file_type, proc_type;
 type proc_vmstat_file, file_type, proc_type;
 type proc_zoneinfo_file, file_type, proc_type;
 
-
-type dev_parameters_file, dev_type;
+type dev_parameters_file, dev_type, file_type;
 type dev_block_file, dev_type;
 type dev_bus_file, dev_type;
 type dev_bus_usb_file, dev_type;
@@ -176,8 +178,8 @@ type dev_input_file, dev_type;
 type dev_pts_file, dev_type;
 type dev_snd_file, dev_type;
 type dev_socket_file, dev_type;
-type dev_unix_file, dev_type;
-type dev_unix_socket_file, dev_type;
+type dev_unix_file, dev_type, file_type;
+type dev_unix_socket_file, dev_type, file_type;
 type dev_v_file, dev_type;
 type dev_at_file, dev_type;
 type dev_ashmem_file, dev_type;
@@ -205,8 +207,46 @@ type dev_video_file, dev_type;
 type dev_vndbinder_file, dev_type;
 type dev_watchdog_file, dev_type;
 type dev_zero_file, dev_type;
-
 type tty_device, dev_type;
 
-type tracefs, fs_type;
-type hmdfs, fs_type;
+
+type dev_hdf_i2c_mgr, dev_type;
+type dev_hdf_test, dev_type;
+type dev_i2c_test, dev_type;
+type dev_bbox, dev_type;
+type dev_bus, dev_type;
+type dev_dev_cec0, dev_type;
+type dev_full, dev_type;
+type dev_gpiochip, dev_type;
+type dev_hdf_audio_capture, dev_type;
+type dev_hdf_audio_codec_dev, dev_type;
+type dev_hdf_audio_codec_primary, dev_type;
+type dev_hdf_audio_control, dev_type;
+type dev_hdf_audio_render, dev_type;
+type dev_hdf_audio_smartpa, dev_type;
+type dev_hdf_bl, dev_type;
+type dev_hdf_disp, dev_type;
+type dev_hdf_input, dev_type;
+type dev_hdf_light, dev_type;
+type dev_hdf_misc_vibrator, dev_type;
+type dev_hdf_sensor_mgr, dev_type;
+type dev_hdf_usb_pnp, dev_type;
+type dev_hdmi_hdcplx, dev_type;
+type dev_hwrng, dev_type;
+type dev_i2c, dev_type;
+type dev_mali, dev_type;
+type dev_mem, dev_type;
+type dev_mpp, dev_type;
+type dev_pm_test, dev_type;
+type dev_port, dev_type;
+type dev_ptmx, dev_type;
+type dev_ptp, dev_type;
+type dev_rfkill, dev_type;
+type dev_rga, dev_type;
+type dev_sample_svc, dev_type;
+type dev_sched_rtg_ctrl, dev_type;
+type dev_snapshot, dev_type;
+type dev_sw_sync, dev_type;
+type dev_usb_ffs, dev_type;
+type dev_uinput, dev_type;
+
