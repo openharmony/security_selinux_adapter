@@ -132,6 +132,7 @@
 
 /etc(/.*)?       u:object_r:etc_file:s0
 /lib(/.*)?       u:object_r:lib_file:s0
+/lib64(/.*)?       u:object_r:lib_file:s0
 
 /config(/.*)?       u:object_r:config_file:s0
 
