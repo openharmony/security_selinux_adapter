@@ -16,4 +16,5 @@ type hdf_devmgr_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(hdf_devmgr);
 
-
+#avc:  denied  { entrypoint } for  pid=235 comm="init" path="/vendor/bin/hdf_devmgr" dev="mmcblk0p6" ino=14 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:hdf_devmgr_exec:s0 tclass=file permissive=1
+allow hdf_devmgr hdf_devmgr_exec:file { entrypoint };

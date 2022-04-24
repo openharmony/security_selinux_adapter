@@ -35,3 +35,11 @@ define(`binder_call', `
     allow $2 $1:binder transfer;
     allow $1 $2:fd use;
 ')
+
+define(`hdi_call', `
+    binder_call($1, hdf_devmgr)
+    allow hdf_devmgr $1:dir { search };
+    allow hdf_devmgr $1:process { getattr };
+    allow hdf_devmgr $1:file { read open };
+    allow $1 $2:hdf_devmgr_class { get };
+')

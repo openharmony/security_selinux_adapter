@@ -17,3 +17,5 @@ type render_service_exec, exec_type, file_type, system_file_type;
 init_daemon_domain(render_service);
 
 
+#avc:  denied  { get } for service=hdi_display_gralloc_service pid=437 scontext=u:r:render_service:s0 tcontext=u:object_r:hdf_hdi_display_gralloc_service:s0 tclass=hdf_devmgr_class permissive=1
+hdi_call(render_service, hdf_hdi_display_gralloc_service)

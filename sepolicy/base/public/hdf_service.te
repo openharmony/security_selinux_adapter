@@ -13,4 +13,24 @@
 
 type default_hdf_service, hdf_devmgr_type;
 type hdf_usbd_service, hdf_devmgr_type;
+type hdf_device_manager, hdf_devmgr_type;
+type hdf_BtHciService, hdf_devmgr_type;
+type hdf_thermal_interface_service, hdf_devmgr_type;
+type hdf_vibrator_interface_service, hdf_devmgr_type;
+type hdf_distributed_camera_provider_service, hdf_devmgr_type;
+type hdf_distributed_camera_service, hdf_devmgr_type;
+type hdf_sensor_interface_service, hdf_devmgr_type;
+type hdf_input_service, hdf_devmgr_type;
+type hdf_codec_hdi_omx_service, hdf_devmgr_type;
+type hdf_battery_interface_service, hdf_devmgr_type;
+type hdf_power_interface_service, hdf_devmgr_type;
+type hdf_light_interface_service, hdf_devmgr_type;
+type hdf_usbd, hdf_devmgr_type;
+type hdf_usb_pnp_manager, hdf_devmgr_type;
+type hdf_usbfn_master, hdf_devmgr_type;
+type hdf_usbfn_cdcecm, hdf_devmgr_type;
+type hdf_usbfn_cdcacm, hdf_devmgr_type;
+type hdf_audio_hdi_service, hdf_devmgr_type;
 type hdf_wlan_hal_service, hdf_devmgr_type;
+type hdf_hdi_display_gralloc_service, hdf_devmgr_type;
+type hdf_camera_service, hdf_devmgr_type;

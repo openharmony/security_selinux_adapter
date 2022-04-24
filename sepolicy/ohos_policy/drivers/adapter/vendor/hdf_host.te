@@ -1,0 +1,96 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { get } for service=hdf_device_manager pid=343 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=codec_hdi_omx_service pid=343 s;context=u:r:codec_host:s0 tcontext=u:object_r:hdf_codec_hdi_omx_service:s0 tclass=hdf_devmgr_class
+allow codec_host hdf_device_manager:hdf_devmgr_class { get };
+allow codec_host hdf_codec_hdi_omx_service:hdf_devmgr_class { add };
+
+
+#avc:  denied  { get } for service=hdf_device_manager pid=344 scontext=u:r:light_dal_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=light_interface_service pid=344 scontext=u:r:light_dal_host:s0 tcontext=u:object_r:hdf_light_interface_service:s0 tclass=hdf_devmgr_class
+allow light_dal_host hdf_device_manager:hdf_devmgr_class { get };
+allow light_dal_host hdf_light_interface_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=346 scontext=u:r:sensor_dal_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=sensor_interface_service pid=346 scontext=u:r:sensor_dal_host:s0 tcontext=u:object_r:hdf_sensor_interface_service:s0 tclass=hdf_devmgr_class
+allow sensor_dal_host hdf_device_manager:hdf_devmgr_class { get };
+allow sensor_dal_host hdf_sensor_interface_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=359 scontext=u:r:power_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=thermal_interface_service pid=359 scontext=u:r:power_host:s0 tcontext=u:object_r:hdf_thermal_interface_service:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=battery_interface_service pid=359 scontext=u:r:power_host:s0 tcontext=u:object_r:hdf_battery_interface_service:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=power_interface_service pid=359 scontext=u:r:power_host:s0 tcontext=u:object_r:hdf_power_interface_service:s0 tclass=hdf_devmgr_class
+allow power_host hdf_device_manager:hdf_devmgr_class { get };
+allow power_host hdf_thermal_interface_service:hdf_devmgr_class { add };
+allow power_host hdf_battery_interface_service:hdf_devmgr_class { add };
+allow power_host hdf_power_interface_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=342 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=distributed_camera_provider_service pid=342 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_distributed_camera_provider_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=distributed_camera_service pid=351 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_distributed_camera_service:s0 tclass=hdf_devmgr_class permissive=1
+allow dcamera_host hdf_device_manager:hdf_devmgr_class { get };
+allow dcamera_host hdf_distributed_camera_provider_service:hdf_devmgr_class { add };
+allow dcamera_host hdf_distributed_camera_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_dal_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_dal_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow vibrator_dal_host hdf_device_manager:hdf_devmgr_class { get };
+allow vibrator_dal_host hdf_vibrator_interface_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=camera_service pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_camera_service:s0 tclass=hdf_devmgr_class permissive=1
+allow camera_host hdf_device_manager:hdf_devmgr_class { get };
+allow camera_host hdf_camera_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=usbd pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_usbd:s0 tclass=hdf_devmgr_class permissive=1
+allow usb_host hdf_device_manager:hdf_devmgr_class { get };
+allow usb_host hdf_usbd:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=usb_pnp_manager pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usb_pnp_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=usbfn_master pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_master:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=usbfn_cdcecm pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_cdcecm:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=usbfn_cdcacm pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_cdcacm:s0 tclass=hdf_devmgr_class permissive=1
+allow usbfnMaster_host hdf_device_manager:hdf_devmgr_class { get };
+allow usbfnMaster_host hdf_usb_pnp_manager:hdf_devmgr_class { add };
+allow usbfnMaster_host hdf_usbfn_master:hdf_devmgr_class { add };
+allow usbfnMaster_host hdf_usbfn_cdcecm:hdf_devmgr_class { add };
+allow usbfnMaster_host hdf_usbfn_cdcacm:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=input_service pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_input_service:s0 tclass=hdf_devmgr_class permissive=1
+allow input_user_host hdf_device_manager:hdf_devmgr_class { get };
+allow input_user_host hdf_input_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=wlan_hal_service pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_wlan_hal_service:s0 tclass=hdf_devmgr_class permissive=1
+allow wifi_host hdf_device_manager:hdf_devmgr_class { get };
+allow wifi_host hdf_wlan_hal_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=362 scontext=u:r:blue_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=BtHciService pid=362 scontext=u:r:blue_host:s0 tcontext=u:object_r:hdf_BtHciService:s0 tclass=hdf_devmgr_class permissive=1
+allow blue_host hdf_device_manager:hdf_devmgr_class { get };
+allow blue_host hdf_BtHciService:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=363 scontext=u:r:disp_gralloc_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=hdi_display_gralloc_service pid=363 scontext=u:r:disp_gralloc_host:s0 tcontext=u:object_r:hdf_hdi_display_gralloc_service:s0 tclass=hdf_devmgr_class permissive=1
+allow disp_gralloc_host hdf_device_manager:hdf_devmgr_class { get };
+allow disp_gralloc_host hdf_hdi_display_gralloc_service:hdf_devmgr_class { add };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=349 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=audio_hdi_service pid=349 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_hdi_service:s0 tclass=hdf_devmgr_class permissive=1
+allow audio_hdi_server_host hdf_device_manager:hdf_devmgr_class { get };
+allow audio_hdi_server_host hdf_audio_hdi_service:hdf_devmgr_class { add };
+
