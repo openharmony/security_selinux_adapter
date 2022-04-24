@@ -32,7 +32,10 @@ ohos_shared_library("libload_policy") {
     "$LIBSELINUX_ROOT_DIR/include",
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
   ]
-  deps = [ "$THIRD_PARTY_SELINUX_DIR:libselinux" ]
+  deps = [
+    ":libselinux_klog_static",
+    "$THIRD_PARTY_SELINUX_DIR:libselinux",
+  ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",

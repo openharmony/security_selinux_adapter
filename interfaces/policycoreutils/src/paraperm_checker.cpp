@@ -329,7 +329,7 @@ int SetParamCheck(const char *paraName, struct ucred *uc)
 
     int rc = getpidcon(uc->pid, &srcContext);
     if (rc < 0) {
-        selinux_log(SELINUX_ERROR, "getpidcon failed!\n");
+        selinux_log(SELINUX_ERROR, "getpidcon failed: %s\n", strerror(errno));
         return -SELINUX_GET_CONTEXT_ERROR;
     }
     char *destContext = nullptr;

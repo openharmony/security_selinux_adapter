@@ -211,6 +211,8 @@ def build_file_contetxs(args, output_path):
                      "-s", combined_file_contexts, ">", output_path + "/file_contexts.tmp"]
     run_command(build_tmp_cmd)
 
+    check_redefinition(combined_file_contexts)
+
     build_bin_cmd = [args.tool_path + "/sefcontext_compile",
                      "-o", args.dst_file,
                      "-p", args.policy_file,

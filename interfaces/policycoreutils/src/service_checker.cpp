@@ -137,7 +137,7 @@ static int CheckServiceNameValid(const std::string &serviceName)
 
 void ServiceChecker::SetSelinuxLogCallback()
 {
-    SetSelinuKLogLevel(SELINUX_KINFO);
+    SetSelinuKLogLevel(SELINUX_KERROR);
     __selinux_once(FC_ONCE, SelinuxSetCallback);
     return;
 }
@@ -203,7 +203,7 @@ static int GetCallingContext(const pid_t &pid, std::string &context)
     char *srcContext = nullptr;
     int rc = getpidcon(pid, &srcContext);
     if (rc < 0) {
-        selinux_log(SELINUX_ERROR, "getpidcon failed!\n");
+        selinux_log(SELINUX_ERROR, "getpidcon failed: %s\n", strerror(errno));
         return -SELINUX_GET_CONTEXT_ERROR;
     }
     context = std::string(srcContext);
