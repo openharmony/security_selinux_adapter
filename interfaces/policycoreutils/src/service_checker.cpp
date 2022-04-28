@@ -137,19 +137,11 @@ static int CheckServiceNameValid(const std::string &serviceName)
     return SELINUX_SUCC;
 }
 
-static void ServiceContextsClear()
-{
-    if (!serviceMap.empty()) {
-        serviceMap.clear();
-    }
-}
-
-static bool ServiceContextsLoad(const std::string name)
+static bool ServiceContextsLoad(const std::string &name)
 {
     // load service_contexts file
     std::ifstream contextsFile(name);
     if (contextsFile) {
-        ServiceContextsClear();
         int lineNum = 0;
         std::string line;
         while (getline(contextsFile, line)) {

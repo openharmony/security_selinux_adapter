@@ -139,7 +139,6 @@ static bool InsertContextsList(const ParameterInfo &tmpInfo, ParamContextsList *
 
 static bool ParameterContextsLoad()
 {
-    ReleaseMem();
     std::ifstream contextsFile(PARAMETER_CONTEXTS_FILE);
     if (!contextsFile) {
         selinux_log(SELINUX_ERROR, "Load parameter_contexts fail, no such file: %s\n", PARAMETER_CONTEXTS_FILE.c_str());

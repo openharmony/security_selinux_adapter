@@ -13,37 +13,57 @@
 
 import("//build/test.gni")
 
-ohos_unittest("selinux_unittest") {
-  subsystem_name = "security"
-  part_name = "selinux"
-  module_out_path = part_name + "/" + part_name
-
+config("selinux_unittest_config") {
+  visibility = [ ":*" ]
   include_dirs = [
+    "unittest/common",
     "//utils/native/base/include",
     "//third_party/googletest/include",
     "//base/security/selinux/interfaces/policycoreutils/include",
     "//third_party/selinux/libselinux/include",
   ]
-
-  sources = [ "unittest/src/selinux_unit_test.cpp" ]
-
-  cflags_cc = [ "-DHILOG_ENABLE" ]
-
   cflags = [
     "-D_GNU_SOURCE",
     "-w",
   ]
+}
 
-  deps = [
-    "//third_party/selinux:libselinux",
-    "//utils/native/base:utils",
+ohos_unittest("hap_restorecon_unittest") {
+  subsystem_name = "security"
+  part_name = "selinux"
+  module_out_path = part_name + "/" + part_name
+  public_configs = [ ":selinux_unittest_config" ]
+  sources = [
+    "unittest/common/test_common.cpp",
+    "unittest/hap_restorecon/unit_test.cpp",
   ]
+  deps = [ "//third_party/selinux:libselinux" ]
+  external_deps = [ "selinux:libhap_restorecon" ]
+}
 
-  external_deps = [
-    "selinux:libhap_restorecon",
-    "selinux:libparaperm_checker",
-    "selinux:libservice_checker",
+ohos_unittest("paraperm_checker_unittest") {
+  subsystem_name = "security"
+  part_name = "selinux"
+  module_out_path = part_name + "/" + part_name
+  public_configs = [ ":selinux_unittest_config" ]
+  sources = [
+    "unittest/common/test_common.cpp",
+    "unittest/paraperm_checker/unit_test.cpp",
   ]
+  deps = [ "//third_party/selinux:libselinux" ]
+  external_deps = [ "selinux:libparaperm_checker" ]
+}
+
+ohos_unittest("service_checker_unittest") {
+  subsystem_name = "security"
+  part_name = "selinux"
+  module_out_path = part_name + "/" + part_name
+  public_configs = [ ":selinux_unittest_config" ]
+  sources = [
+    "unittest/common/test_common.cpp",
+    "unittest/service_checker/unit_test.cpp",
+  ]
+  external_deps = [ "selinux:libservice_checker" ]
 }
 
 group("unittest") {

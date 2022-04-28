@@ -13,15 +13,14 @@
  * limitations under the License.
  */
 
-#ifndef SELINUX_UNIT_TEST_H
-#define SELINUX_UNIT_TEST_H
+#ifndef SERVICE_CHECKER_SELINUX_UNIT_TEST_H
+#define SERVICE_CHECKER_SELINUX_UNIT_TEST_H
 
 #include <gtest/gtest.h>
-#include "hap_restorecon.h"
 
 namespace OHOS {
 namespace Security {
-namespace Selinux {
+namespace SelinuxUnitTest {
 class SelinuxUnitTest : public testing::Test {
 public:
     static void SetUpTestCase();
@@ -33,10 +32,8 @@ public:
     void TearDown();
 
     void CreateDataFile() const;
-
-    HapContext test;
 };
 } // namespace Selinux
 } // namespace Security
 } // namespace OHOS
-#endif // SELINUX_UNIT_TEST_H
+#endif // SERVICE_CHECKER_SELINUX_UNIT_TEST_H
