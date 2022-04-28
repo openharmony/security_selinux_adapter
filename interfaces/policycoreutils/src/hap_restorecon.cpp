@@ -37,10 +37,12 @@ static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
+static std::unordered_map<std::string, struct SehapInfo> sehapContextsBuff;
 } // namespace
 
 static void SelinuxSetCallback()
 {
+    SetSelinuxHilogLevel(SELINUX_HILOG_ERROR);
     union selinux_callback cb;
     cb.func_log = SelinuxHilog;
     selinux_set_callback(SELINUX_CB_LOG, cb);
@@ -111,32 +113,19 @@ static bool CheckApl(const std::string &apl)
     return false;
 }
 
-HapContext::HapContext()
-{
-    SetSelinuxLogCallback();
-}
-
-HapContext::~HapContext() {}
-
-void HapContext::SetSelinuxLogCallback()
-{
-    SetSelinuxHilogLevel(SELINUX_HILOG_ERROR);
-    __selinux_once(FC_ONCE, SelinuxSetCallback);
-    return;
-}
-
-void HapContext::HapContextsClear()
+static void HapContextsClear()
 {
     if (!sehapContextsBuff.empty()) {
         sehapContextsBuff.clear();
     }
 }
 
-bool HapContext::HapContextsLoad()
+static bool HapContextsLoad()
 {
     // load sehap_contexts file
     std::ifstream contextsFile(SEHAP_CONTEXTS_FILE);
     if (contextsFile) {
+        HapContextsClear();
         int lineNum = 0;
         std::string line;
         while (getline(contextsFile, line)) {
@@ -158,6 +147,13 @@ bool HapContext::HapContextsLoad()
     contextsFile.close();
     return true;
 }
+
+HapContext::HapContext()
+{
+    __selinux_once(FC_ONCE, SelinuxSetCallback);
+}
+
+HapContext::~HapContext() {}
 
 int HapContext::TypeSet(std::unordered_map<std::string, SehapInfo>::iterator &iter, bool isDomain, context_t con)
 {

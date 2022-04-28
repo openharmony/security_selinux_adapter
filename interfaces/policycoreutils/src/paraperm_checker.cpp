@@ -16,7 +16,6 @@
 #include "paraperm_checker.h"
 #include <fcntl.h>
 #include <fstream>
-#include <regex>
 #include <securec.h>
 #include <selinux_internal.h>
 #include <sstream>
@@ -65,6 +64,7 @@ static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, siz
 
 static void SelinuxSetCallback()
 {
+    SetSelinuxKmsgLevel(SELINUX_KERROR);
     union selinux_callback cb;
     cb.func_log = SelinuxKmsg;
     selinux_set_callback(SELINUX_CB_LOG, cb);

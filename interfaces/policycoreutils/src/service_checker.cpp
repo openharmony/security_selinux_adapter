@@ -34,6 +34,7 @@ static const std::string DEFAULT_HDF_CONTEXT = "u:object_r:default_hdf_service:s
 static const int CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
+static std::unordered_map<std::string, struct ServiceInfo> serviceMap;
 } // namespace
 
 extern "C" int HdfListServiceCheck(pid_t callingPid)
@@ -80,6 +81,7 @@ static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, siz
 
 static void SelinuxSetCallback()
 {
+    SetSelinuxHilogLevel(SELINUX_HILOG_ERROR);
     union selinux_callback cb;
     cb.func_log = SelinuxHilog;
     selinux_set_callback(SELINUX_CB_LOG, cb);
@@ -135,24 +137,19 @@ static int CheckServiceNameValid(const std::string &serviceName)
     return SELINUX_SUCC;
 }
 
-void ServiceChecker::SetSelinuxLogCallback()
+static void ServiceContextsClear()
 {
-    SetSelinuxHilogLevel(SELINUX_HILOG_ERROR);
-    __selinux_once(FC_ONCE, SelinuxSetCallback);
-    return;
+    if (!serviceMap.empty()) {
+        serviceMap.clear();
+    }
 }
 
-bool ServiceChecker::ServiceContextsLoad()
+static bool ServiceContextsLoad(const std::string name)
 {
     // load service_contexts file
-    std::string name;
-    if (isHdf_) {
-        name = HDF_SERVICE_CONTEXTS_FILE;
-    } else {
-        name = SERVICE_CONTEXTS_FILE;
-    }
     std::ifstream contextsFile(name);
     if (contextsFile) {
+        ServiceContextsClear();
         int lineNum = 0;
         std::string line;
         while (getline(contextsFile, line)) {
@@ -175,6 +172,16 @@ bool ServiceChecker::ServiceContextsLoad()
     return true;
 }
 
+ServiceChecker::ServiceChecker(bool isHdf) : isHdf_(isHdf)
+{
+    if (isHdf) {
+        serviceClass_ = "hdf_devmgr_class";
+    } else {
+        serviceClass_ = "samgr_class";
+    }
+    __selinux_once(FC_ONCE, SelinuxSetCallback);
+}
+
 int ServiceChecker::GetServiceContext(const std::string &serviceName, std::string &context)
 {
     if (CheckServiceNameValid(serviceName) != 0) {
@@ -183,7 +190,7 @@ int ServiceChecker::GetServiceContext(const std::string &serviceName, std::strin
     }
 
     if (serviceMap.empty()) {
-        if (!ServiceContextsLoad()) {
+        if (!ServiceContextsLoad(isHdf_ ? HDF_SERVICE_CONTEXTS_FILE : SERVICE_CONTEXTS_FILE)) {
             return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
         }
     }

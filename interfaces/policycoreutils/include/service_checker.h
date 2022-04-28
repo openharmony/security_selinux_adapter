@@ -27,16 +27,7 @@ struct ServiceInfo {
 
 class ServiceChecker {
 public:
-    ServiceChecker(bool isHdf) : isHdf_(isHdf)
-    {
-        if (isHdf) {
-            serviceClass_ = "hdf_devmgr_class";
-        } else {
-            serviceClass_ = "samgr_class";
-        }
-        SetSelinuxLogCallback();
-    }
-    ~ServiceChecker() {};
+    ServiceChecker(bool isHdf);
 
     int ListServiceCheck(const pid_t callingPid);
 
@@ -50,14 +41,11 @@ public:
 
 protected:
 private:
-    void SetSelinuxLogCallback();
-    bool ServiceContextsLoad();
     int CheckPerm(const pid_t callingPid, const std::string &serviceName, std::string action);
     int GetServiceContext(const std::string &serviceName, std::string &context);
 
     bool isHdf_ = false;
     std::string serviceClass_ = "";
-    std::unordered_map<std::string, struct ServiceInfo> serviceMap;
 };
 
 #endif // SERVICE_CHECKER_H

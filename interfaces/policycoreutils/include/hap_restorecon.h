@@ -43,17 +43,11 @@ public:
 
 protected:
 private:
-    void SetSelinuxLogCallback();
     int RestoreconSb(const std::string &pathname, const struct stat *sb, const std::string &apl,
                      const std::string &packageName);
     int HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName, context_t con);
     int HapLabelLookup(const std::string &apl, const std::string &packageName, char **secontextPtr);
     int TypeSet(std::unordered_map<std::string, SehapInfo>::iterator &iter, bool isDomain, context_t con);
-
-    bool HapContextsLoad();
-    void HapContextsClear();
-
-    std::unordered_map<std::string, struct SehapInfo> sehapContextsBuff;
 };
 
 #endif // HAP_RESTORECON_H
