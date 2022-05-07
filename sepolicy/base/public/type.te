@@ -75,6 +75,7 @@ type bootanimation, sadomain, domain;
 type thermal, sadomain, domain;
 type distributedfileservice, sadomain, domain;
 type distributedfiledaemon, sadomain, domain;
+type limit_domain, domain;
 
 
 type watchdog_service, sadomain, domain;

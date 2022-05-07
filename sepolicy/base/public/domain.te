@@ -17,7 +17,7 @@ allow domain init:process sigchld;
 allow domain self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
 
 allow domain self:fd use;
-allow domain self:file rw_file_perms;
+allow { domain -limit_domain } self:file rw_file_perms;
 allow domain self:fifo_file rw_file_perms;
 allow domain self:dir read_dir_perms;
 allow domain self:lnk_file read_file_perms;
@@ -51,24 +51,24 @@ allow domain dev_unix_socket_file:sock_file { write };
 
 allow domain dev_random_file:chr_file rw_file_perms;
 allow domain dev_parameters_file:dir { getattr search };
-allow domain dev_parameters_file:file read_file_perms;
+allow { domain -limit_domain } dev_parameters_file:file read_file_perms;
 
 allow domain system_etc_file:dir { open read search getattr };
-allow domain system_etc_file:file { getattr map open read };
+allow { domain -limit_domain } system_etc_file:file { getattr map open read };
 
 allow domain system_file:dir { search };
 
 allow domain system_lib_file:dir { search };
-allow domain system_lib_file:file { execute getattr map open read };
+allow { domain -limit_domain } system_lib_file:file { execute getattr map open read };
 allow domain system_lib_file:lnk_file { read };
 
-allow domain system_profile_file:file read_file_perms;
+allow { domain -limit_domain } system_profile_file:file read_file_perms;
 allow domain system_profile_file:dir search;
 
 allow domain sysfs_attr:lnk_file { getattr read };
 allow domain sysfs_attr:dir search;
 
-allow domain selinuxfs:file getattr;
+allow { domain -limit_domain } selinuxfs:file getattr;
 
 allow domain debugfs:dir search;
 
@@ -117,6 +117,10 @@ neverallow * ~hdf_service_attr:hdf_devmgr_class *;
 neverallow domain default_param:parameter_service *;
 neverallow domain default_service:samgr_class *;
 neverallow domain default_hdf_service:hdf_devmgr_class *;
+
+# Please set secon field service's cfg file, don't use limit_domain!
+neverallow limit_domain *:file *;
+neverallow domain limit_domain:binder *;
 
 # every file should have a label. The unlabeled file shouldn't be accessed.
 neverallow { domain -init -kernel } unlabeled:dir_file_class_set *;
