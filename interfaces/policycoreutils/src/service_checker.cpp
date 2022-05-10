@@ -17,6 +17,7 @@
 #include <selinux/label.h>
 #include <selinux_internal.h>
 #include <sstream>
+#include <mutex>
 #include <fstream>
 #include "selinux_log.h"
 #include "selinux_error.h"
@@ -34,7 +35,8 @@ static const std::string DEFAULT_HDF_CONTEXT = "u:object_r:default_hdf_service:s
 static const int CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
-static std::unordered_map<std::string, struct ServiceInfo> serviceMap;
+static std::unordered_map<std::string, struct ServiceInfo> g_serviceMap;
+std::mutex g_selinuxLock;
 } // namespace
 
 extern "C" int HdfListServiceCheck(pid_t callingPid)
@@ -150,7 +152,7 @@ static bool ServiceContextsLoad(const std::string &name)
                 continue;
             struct ServiceInfo tmpInfo = DecodeString(line);
             if (!tmpInfo.serviceContext.empty() && !tmpInfo.serviceName.empty()) {
-                serviceMap.emplace(tmpInfo.serviceName, tmpInfo);
+                g_serviceMap.emplace(tmpInfo.serviceName, tmpInfo);
             } else {
                 selinux_log(SELINUX_ERROR, "service_contexts read fail in line %d\n", lineNum);
             }
@@ -181,14 +183,14 @@ int ServiceChecker::GetServiceContext(const std::string &serviceName, std::strin
         return -SELINUX_ARG_INVALID;
     }
 
-    if (serviceMap.empty()) {
+    if (g_serviceMap.empty()) {
         if (!ServiceContextsLoad(isHdf_ ? HDF_SERVICE_CONTEXTS_FILE : SERVICE_CONTEXTS_FILE)) {
             return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
         }
     }
 
-    auto iter = serviceMap.find(serviceName);
-    if (iter != serviceMap.end()) {
+    auto iter = g_serviceMap.find(serviceName);
+    if (iter != g_serviceMap.end()) {
         context = iter->second.serviceContext;
     } else {
         context = isHdf_ ? DEFAULT_HDF_CONTEXT : DEFAULT_CONTEXT;
@@ -253,9 +255,12 @@ int ServiceChecker::CheckPerm(const pid_t callingPid, const std::string &service
     msg.pid = callingPid;
     selinux_log(SELINUX_INFO, "srcContext[%s] %s service[%s] destContext[%s]\n", srcContext.c_str(), action.c_str(),
                 msg.name, destContext.c_str());
-    int res =
-        selinux_check_access(srcContext.c_str(), destContext.c_str(), serviceClass_.c_str(), action.c_str(), &msg);
-    return res == 0 ? SELINUX_SUCC : -SELINUX_PERMISSION_DENY;
+    {
+        std::lock_guard<std::mutex> lock(g_selinuxLock);
+        ret =  selinux_check_access(srcContext.c_str(), destContext.c_str(),
+            serviceClass_.c_str(), action.c_str(), &msg);
+    }
+    return ret == 0 ? SELINUX_SUCC : -SELINUX_PERMISSION_DENY;
 }
 
 int ServiceChecker::ListServiceCheck(const pid_t callingPid)
