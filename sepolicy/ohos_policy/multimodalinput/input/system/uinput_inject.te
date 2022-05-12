@@ -12,4 +12,5 @@
 # limitations under the License.
 
 type uinput_inject, sadomain, domain;
-type uinput_inject_exec, exec_type, file_type, system_file_type;
+type uinput_inject_exec, exec_attr, file_attr, system_file_attr;
+#domain_auto_transition_pattern(init, uinput_inject_exec, uinput_inject);
