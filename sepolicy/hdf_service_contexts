@@ -32,3 +32,5 @@ audio_hdi_service                       u:object_r:hdf_audio_hdi_service:s0
 wlan_hal_service                        u:object_r:hdf_wlan_hal_service:s0
 hdi_display_gralloc_service             u:object_r:hdf_hdi_display_gralloc_service:s0
 camera_service                          u:object_r:hdf_camera_service:s0
+face_auth_interface_service             u:object_r:hdf_face_auth_interface_service:s0
+pin_auth_interface_service              u:object_r:hdf_pin_auth_interface_service:s0

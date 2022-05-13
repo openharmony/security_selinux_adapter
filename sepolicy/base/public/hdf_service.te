@@ -34,3 +34,5 @@ type hdf_audio_hdi_service, hdf_service_attr;
 type hdf_wlan_hal_service, hdf_service_attr;
 type hdf_hdi_display_gralloc_service, hdf_service_attr;
 type hdf_camera_service, hdf_service_attr;
+type hdf_face_auth_interface_service, hdf_service_attr;
+type hdf_pin_auth_interface_service, hdf_service_attr;
