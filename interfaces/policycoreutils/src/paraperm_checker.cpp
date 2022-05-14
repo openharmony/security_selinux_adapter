@@ -19,6 +19,7 @@
 #include <securec.h>
 #include <selinux_internal.h>
 #include <sstream>
+#include <mutex>
 #include <string>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -40,6 +41,7 @@ static std::unique_ptr<ParamContextsTrie> g_contextsTrie = nullptr;
 static ParamContextsList *g_contextsList = nullptr;
 static const int CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const int CONTEXTS_LENGTH_MAX = 1024;
+std::mutex g_loadContextsLock;
 } // namespace
 
 struct AuditMsg {
@@ -254,10 +256,12 @@ const char *GetParamLabel(const char *paraName)
         selinux_log(SELINUX_ERROR, "paraName is null!\n");
         return DEFAULT_CONTEXT;
     }
-
-    if (g_contextsTrie == nullptr) {
-        if (!ParameterContextsLoad()) {
-            return DEFAULT_CONTEXT;
+    {
+        std::lock_guard<std::mutex> lock(g_loadContextsLock);
+        if (g_contextsTrie == nullptr) {
+            if (!ParameterContextsLoad()) {
+                return DEFAULT_CONTEXT;
+            }
         }
     }
 

@@ -37,6 +37,7 @@ static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 static std::unordered_map<std::string, struct ServiceInfo> g_serviceMap;
 std::mutex g_selinuxLock;
+std::mutex g_loadContextsLock;
 } // namespace
 
 extern "C" int HdfListServiceCheck(pid_t callingPid)
@@ -182,10 +183,12 @@ int ServiceChecker::GetServiceContext(const std::string &serviceName, std::strin
         selinux_log(SELINUX_ERROR, "serviceName invalid!\n");
         return -SELINUX_ARG_INVALID;
     }
-
-    if (g_serviceMap.empty()) {
-        if (!ServiceContextsLoad(isHdf_ ? HDF_SERVICE_CONTEXTS_FILE : SERVICE_CONTEXTS_FILE)) {
-            return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+    {
+        std::lock_guard<std::mutex> lock(g_loadContextsLock);
+        if (g_serviceMap.empty()) {
+            if (!ServiceContextsLoad(isHdf_ ? HDF_SERVICE_CONTEXTS_FILE : SERVICE_CONTEXTS_FILE)) {
+                return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+            }
         }
     }
 
