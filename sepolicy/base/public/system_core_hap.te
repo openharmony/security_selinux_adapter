@@ -6,14 +6,15 @@
 #     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
+# distributed under the License is distributed on an "AS IS" BASIS,n
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#neverallow
+neverallow system_core_hap domain:netlink_socket *;
 
-# let every hdf_host join hdf_domain
-neverallow { domain -hdfdomain -sadomain -init -hap_domain } hdf_devmgr:binder call;
+neverallow system_core_hap domain:netlink_kobject_uevent_socket *;
 
-neverallow { domain -hdf_devmgr -sadomain } { hdfdomain -display_gralloc_host }:binder call;
+neverallow system_core_hap init:unix_stream_socket connectto;
+
+neverallow system_core_hap dev_kmsg_file:chr_file never_rw_file;

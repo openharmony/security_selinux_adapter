@@ -21,3 +21,7 @@ allow sadomain samgr:binder { call transfer };
 neverallow { domain -samgr } self:binder set_context_mgr;
 # let every sa join sadomain
 neverallow { domain -sadomain -init -hap_domain } samgr:binder transfer;
+
+neverallow { sadomain hap_domain } dev_tee_file:chr_file { open read append write ioctl };
+
+neverallow { sadomain hap_domain } dev_iio_file:chr_file { open read append write ioctl };

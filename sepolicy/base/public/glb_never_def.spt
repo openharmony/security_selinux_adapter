@@ -10,3 +10,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+define(`never_write_file', `{ append create link unlink relabelfrom rename setattr write }')
+define(`never_rw_file', `{ never_write_file open read ioctl lock watch watch_mount watch_sb watch_with_perm watch_reads }')
+define(`never_execute_file', `{ execute execute_no_trans}')
+define(`never_write_dir', `{ add_name create link relabelfrom remove_name rename reparent rmdir setattr write }')

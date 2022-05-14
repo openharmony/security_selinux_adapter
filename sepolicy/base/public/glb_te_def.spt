@@ -14,7 +14,9 @@
 define(`domain_transition_pattern',`
     allow $1 $2:file { getattr open map read execute ioctl };
     allow $1 $3:process transition;
-    allow $1 $3:process { noatsecure siginh rlimitinh };
+    allow $1 $3:process { siginh rlimitinh };
+    allow $3 $2:file { entrypoint open read execute getattr map };
+    dontaudit $1 $3:process noatsecure;
 ')
 
 define(`domain_auto_transition_pattern',`
@@ -43,3 +45,11 @@ define(`hdi_call', `
     allow hdf_devmgr $1:file { read open };
     allow $1 $2:hdf_devmgr_class { get };
 ')
+
+define(`hap_set', `
+    typeattribute $1 hap_domain;
+    neverallow $1 { domain -$1 }:file never_rw_file;
+    neverallow { hap_domain -$1 } $1:file never_rw_file;
+    neverallow { domain -$1 } $1:process ptrace;
+')
+

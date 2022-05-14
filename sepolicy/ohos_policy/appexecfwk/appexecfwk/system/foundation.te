@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type foundation, domain, nativedomain;
+type foundation, domain, sadomain;
 
 #domain_auto_transition_pattern(init, samain_exec, foundation);
 #allow init samain_exec:file execute_no_trans;

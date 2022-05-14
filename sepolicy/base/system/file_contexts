@@ -42,7 +42,17 @@
 /dev/snd(/.*)?                u:object_r:dev_snd_file:s0
 /dev/socket(/.*)?                u:object_r:dev_socket_file:s0
 /dev/unix(/.*)?                u:object_r:dev_unix_file:s0
-/dev/unix/socket(/.*)?                u:object_r:dev_unix_socket_file:s0
+/dev/unix/socket                u:object_r:dev_unix_socket:s0
+/dev/unix/socket/AppSpawn       u:object_r:appspawn_socket:s0
+/dev/unix/socket/NWebSpawn      u:object_r:nwebspawn_socket:s0
+/dev/unix/socket/faultloggerd.server        u:object_r:faultloggerd_socket:s0
+/dev/unix/socket/fd_holder      u:object_r:fd_holder_socket:s0
+/dev/unix/socket/hdcd           u:object_r:hdcd_socket:s0
+/dev/unix/socket/hilogControl       u:object_r:hilogcontrold_socket:s0
+/dev/unix/socket/hilogInput     u:object_r:hiloginput_socket:s0
+/dev/unix/socket/hisysevent     u:object_r:hisysevent_socket:s0
+/dev/unix/socket/native         u:object_r:native_socket:s0
+/dev/unix/socket/paramservice   u:object_r:paramservice_socket:s0
 /dev/v4l(/.*)?                u:object_r:dev_v_file:s0
 /dev/v4l-subdev[0-3]          u:object_r:dev_v_file:s0  
 /dev/tty[0-9]*                u:object_r:tty_device:s0
@@ -179,6 +189,8 @@
 /data/init_agent(/.*)?                 u:object_r:data_init_agent:s0
 /data/libinput(/.*)?                 u:object_r:data_libinput:s0
 /data/local(/.*)?                 u:object_r:data_local:s0
+/data/local/traces(/.*)?                 u:object_r:data_local_traces:s0
+/data/local/tmp(/.*)?                 u:object_r:data_local_tmp:s0
 /data/log(/.*)?                 u:object_r:data_log:s0
 /data/media(/.*)?                 u:object_r:data_media:s0
 /data/mediadrm(/.*)?                 u:object_r:data_mediadrm:s0

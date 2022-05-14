@@ -1,0 +1,36 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+neverallow normal_hap data_local_traces:dir *;
+neverallow normal_hap *:{ socket netlink_socket packet_socket appletalk_socket netlink_tcpdiag_socket
+netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket netlink_iscsi_socket 
+netlink_fib_lookup_socket netlink_connector_socket netlink_netfilter_socket netlink_generic_socket 
+netlink_scsitransport_socket netlink_rdma_socket netlink_crypto_socket sctp_socket ax25_socket 
+ipx_socket netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket atmsvc_socket rds_socket 
+irda_socket pppox_socket llc_socket can_socket tipc_socket bluetooth_socket iucv_socket rxrpc_socket 
+isdn_socket phonet_socket ieee802154_socket caif_socket alg_socket nfc_socket vsock_socket kcm_socket 
+qipcrtr_socket smc_socket xdp_socket  } *;
+
+neverallow normal_hap domain:netlink_kobject_uevent_socket *;
+
+neverallow normal_hap *:{ netlink_route_socket netlink_selinux_socket } ioctl;
+
+neverallow normal_hap domain:netlink_route_socket { bind nlmsg_readpriv };
+
+neverallow normal_hap *:{ netlink_route_socket netlink_selinux_socket } ioctl;
+
+#neverallowxperm normal_hap domain:{ icmp_socket rawip_socket tcp_socket udp_socket } ioctl 
+
+neverallow normal_hap dev_kmsg_file:chr_file never_rw_file;
+
+neverallow normal_hap dev_fuse_file:chr_file *;
