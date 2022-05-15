@@ -11,9 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type system_core_hap, hap_domain, domain;
-type system_basic_hap, hap_domain, domain;
-type normal_hap, hap_domain, domain;
+type system_core_hap, domain;
+type system_basic_hap, domain;
+type normal_hap, domain;
+
+hap_set(system_core_hap);
+hap_set(system_basic_hap);
+hap_set(normal_hap);
 
 type system_core_hap_data_file, hap_file_attr, data_file_attr, file_attr;
 type system_basic_hap_data_file, hap_file_attr, data_file_attr, file_attr;
@@ -25,11 +29,11 @@ allow hap_domain appspawn:fifo_file write;
 allow hap_domain appspawn:unix_dgram_socket { connect write };
 allow hap_domain self:process execmem;
 
-allow hap_domain data_app_el1_file:dir { add_name create mounton open read search setattr write };
+allow hap_domain data_app_el1_file:dir { add_name create  open read search setattr write };
 allow hap_domain data_app_el1_file:file { getattr map open read };
 allow hap_domain data_app_el2_file:dir search;
 allow hap_domain data_app_file:dir search;
-allow hap_domain data_file:dir { add_name getattr mounton open read remove_name search write };
+allow hap_domain data_file:dir { getattr open read  search };
 allow hap_domain data_file:file { create getattr ioctl lock map open read write rename setattr unlink write };
 allow hap_domain data_log:file { read write };
 
@@ -93,3 +97,19 @@ neverallow { hap_domain } *:security { compute_av check_context };
 #Ability to perform any filesystem operation other than statfs(2).
 neverallow hap_domain fs_attr:filesystem ~getattr;
 
+neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation } hap_file_attr :dir *;
+
+neverallow { domain -hap_domain -installs } hap_file_attr:dir ~read_dir_perms;
+
+neverallow hap_domain { domain -hap_domain }:process transition;
+neverallow hap_domain { domain -hap_domain }:process dyntransition;
+
+neverallow hap_domain domain:{ netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_audit_socket netlink_dnrt_socket } *;
+
+neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };
+
+neverallow hap_domain *:netlink_selinux_socket *;
+
+neverallow hap_domain dev_input_file:chr_file ~getattr;
+
+neverallow hap_domain hdcd_socket:sock_file write;

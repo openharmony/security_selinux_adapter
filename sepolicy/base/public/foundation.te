@@ -11,9 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#neverallow
+neverallow foundation dev_ashmem_file:chr_file execute;
 
-# let every hdf_host join hdf_domain
-neverallow { domain -hdfdomain -sadomain -init -hap_domain } hdf_devmgr:binder call;
+# forbid ioctl cmd:binder_freeze, binder_get_frozen_info
+neverallowxperm { domain -foundation } dev_binder_file:chr_file ioctl { 0x400c620e 0xc00c620f };
 
-neverallow { domain -hdf_devmgr -sadomain } { hdfdomain -display_gralloc_host }:binder call;
+neverallow { domain -foundation } appspawn_socket:sock_file write;

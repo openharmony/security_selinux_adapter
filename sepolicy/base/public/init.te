@@ -11,9 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#neverallow
+neverallow init data_local_tmp:dir { write add_name remove_name };
+neverallow domain init:process dyntransition;
+neverallow { domain -kernel } init:process transition;
+neverallow init *:process noatsecure;
+neverallow * init:process ptrace;
 
-# let every hdf_host join hdf_domain
-neverallow { domain -hdfdomain -sadomain -init -hap_domain } hdf_devmgr:binder call;
+neverallow init self:perf_event { kernel tracepoint read write };
 
-neverallow { domain -hdf_devmgr -sadomain } { hdfdomain -display_gralloc_host }:binder call;
+neverallow init hap_file_attr:lnk_file read;
+neverallow init data_local_tmp:lnk_file read;
