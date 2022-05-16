@@ -14,6 +14,8 @@
 allow bgtaskmgr_service accesstoken_service:binder { call };
 allow bgtaskmgr_service data_file:dir { search };
 allow bgtaskmgr_service data_service_file:dir { search };
+allow bgtaskmgr_service dev_unix_socket:dir { search };
+allow bgtaskmgr_service dev_unix_socket:sock_file { write };
 allow bgtaskmgr_service foundation:binder { call transfer };
 allow bgtaskmgr_service normal_hap:binder { call };
 allow bgtaskmgr_service resource_schedule_service:binder { call };
