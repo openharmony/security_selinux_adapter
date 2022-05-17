@@ -1,0 +1,99 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+init_daemon_domain(pulseaudio);
+
+#avc:  denied  { call } for  pid=304 comm="hdi-sink-playba" scontext=u:r:pulseaudio:s0 tcontext=u:r:audio_hdi_server_host:s0 tclass=binder permissive=1
+allow pulseaudio audio_hdi_server_host:binder { call };
+
+#avc:  denied  { search } for  pid=285 comm="pulseaudio" name="data" dev="mmcblk0p7" ino=1436162 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
+allow pulseaudio data_data_file:dir { search };
+
+#avc:  denied  { add_name } for  pid=285 comm="pulseaudio" name="pipe_sink.pcm" scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=285 comm="pulseaudio" path="/data/data/.pulse_dir/runtime" dev="mmcblk0p7" ino=1436166 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { open } for  pid=285 comm="pulseaudio" path="/data/data/.pulse_dir/runtime" dev="mmcblk0p7" ino=1436166 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { read } for  pid=285 comm="pulseaudio" name="runtime" dev="mmcblk0p7" ino=1436166 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { remove_name } for  pid=284 comm="pulseaudio" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { search } for  pid=285 comm="pulseaudio" name=".pulse_dir" dev="mmcblk0p7" ino=1436165 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { setattr } for  pid=284 comm="pulseaudio" name="state" dev="mmcblk0p7" ino=1436167 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { write } for  pid=285 comm="pulseaudio" name=".pulse_dir" dev="mmcblk0p7" ino=1436165 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+allow pulseaudio data_data_pulse_dir:dir { add_name getattr open read remove_name search setattr write };
+
+#avc:  denied  { create } for  pid=285 comm="pulseaudio" name="pipe_sink.pcm" scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=1
+#avc:  denied  { getattr } for  pid=285 comm="pulseaudio" path="/data/data/.pulse_dir/pipe_sink.pcm" dev="mmcblk0p7" ino=1436174 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=
+#avc:  denied  { open } for  pid=285 comm="pulseaudio" path="/data/data/.pulse_dir/pipe_sink.pcm" dev="mmcblk0p7" ino=1436174 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=1
+#avc:  denied  { read write } for  pid=285 comm="pulseaudio" name="pipe_sink.pcm" dev="mmcblk0p7" ino=1436174 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=1
+#avc:  denied  { setattr } for  pid=285 comm="pulseaudio" name="pipe_sink.pcm" dev="mmcblk0p7" ino=1436174 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=fifo_file permissive=1
+allow pulseaudio data_data_pulse_dir:fifo_file { create getattr open read write setattr };
+
+#avc:  denied  { create } for  pid=284 comm="pulseaudio" name="pid" scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=287 comm="pulseaudio" path="/data/data/.pulse_dir/runtime/pid" dev="mmcblk0p7" ino=1436168 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
+#avc:  denied  { read write open } for  pid=284 comm="pulseaudio" path="/data/data/.pulse_dir/runtime/pid" dev="mmcblk0p7" ino=1436168 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
+#avc:  denied  { lock } for  pid=284 comm="pulseaudio" path="/data/data/.pulse_dir/runtime/pid" dev="mmcblk0p7" ino=1436168 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
+#avc:  denied  { setattr } for  pid=285 comm="pulseaudio" name="cookie" dev="mmcblk0p7" ino=1436170 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
+allow pulseaudio data_data_pulse_dir:file { create getattr read write open lock setattr };
+
+#avc:  denied  { create } for  pid=284 comm="pulseaudio" name="cli" scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
+#avc:  denied  { setattr } for  pid=284 comm="pulseaudio" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
+#avc:  denied  { unlink } for  pid=284 comm="pulseaudio" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
+#avc:  denied  { write } for  pid=284 comm="pulseaudio" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
+allow pulseaudio data_data_pulse_dir:sock_file { create setattr unlink write };
+
+#avc:  denied  { search } for  pid=294 comm="pulseaudio" name="/" dev="mmcblk0p7" ino=2 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow pulseaudio data_file:dir { search };
+
+#avc:  denied  { search } for  pid=298 comm="pulseaudio" name="init_agent" dev="mmcblk0p7" ino=8166 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
+allow pulseaudio data_init_agent:dir { search };
+
+#avc:  denied  { get } for service=audio_hdi_a2dp_service pid=316 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:hdf_audio_hdi_a2dp_service:s0 tclass=hdf_devmgr_class permissive=1
+allow pulseaudio hdf_audio_hdi_a2dp_service:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=audio_hdi_service pid=288 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:hdf_audio_hdi_service:s0 tclass=hdf_devmgr_class permissive=1
+allow pulseaudio hdf_audio_hdi_service:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=audio_hdi_usb_service pid=283 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:hdf_audio_hdi_usb_service:s0 tclass=hdf_devmgr_class permissive=1i
+allow pulseaudio hdf_audio_hdi_usb_service:hdf_devmgr_class { get };
+
+#avc:  denied  { call } for  pid=304 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+allow pulseaudio hdf_devmgr:binder { call };
+
+#avc:  denied  { write } for  pid=389 comm="hidumper_servic" path="pipe:[28561]" dev="pipefs" ino=28561 scontext=u:r:pulseaudio:s0 tcontext=u:r:hidumper_service:s0 tclass=fifo_file permissive=1
+allow pulseaudio hidumper_service:fifo_file { write };
+
+#avc:  denied  { accept } for  pid=292 comm="pulseaudio" path="/dev/unix/socket/native" scontext=u:r:pulseaudio:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
+#avc:  denied  { getattr } for  pid=295 comm="pulseaudio" path="socket:[25323]" dev="sockfs" ino=25323 scontext=u:r:pulseaudio:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
+#avc:  denied  { getopt } for  pid=295 comm="pulseaudio" path="/dev/unix/socket/native" scontext=u:r:pulseaudio:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
+#avc:  denied  { setopt } for  pid=292 comm="pulseaudio" path="/dev/unix/socket/native" scontext=u:r:pulseaudio:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
+allow pulseaudio init:unix_stream_socket { accept getattr getopt setopt };
+
+#avc:  denied  { getattr } for  pid=294 comm="pulseaudio" path="/system/bin" dev="mmcblk0p5" ino=101 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+allow pulseaudio system_bin_file:dir { getattr };
+
+#avc:  denied  { search } for  pid=304 comm="pulseaudio" name="etc" dev="mmcblk0p6" ino=18 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+allow pulseaudio vendor_etc_file:dir { search };
+
+#avc:  denied  { getattr } for  pid=304 comm="pulseaudio" path="/vendor/etc/hdfconfig/audio_adapter_config.json" dev="mmcblk0p6" ino=28 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=304 comm="pulseaudio" name="audio_adapter_config.json" dev="mmcblk0p6" ino=28 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=304 comm="pulseaudio" path="/vendor/etc/hdfconfig/audio_adapter_config.json" dev="mmcblk0p6" ino=28 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+allow pulseaudio vendor_etc_file:file { getattr read open };
+
+#avc:  denied  { search } for  pid=294 comm="pulseaudio" name="lib" dev="mmcblk0p6" ino=44 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1
+allow pulseaudio vendor_lib_file:dir { search };
+
+#avc:  denied  { read } for  pid=282 comm="pulseaudio" name="libhdi_audio_client.z.so" dev="mmcblk0p6" ino=91 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=282 comm="pulseaudio" path="/vendor/lib/libhdi_audio_client.z.so" dev="mmcblk0p6" ino=91 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=282 comm="pulseaudio" path="/vendor/lib/libhdi_audio_client.z.so" dev="mmcblk0p6" ino=91 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=282 comm="pulseaudio" path="/vendor/lib/libhdi_audio_client.z.so" dev="mmcblk0p6" ino=91 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
+#avc:  denied  { execute } for  pid=282 comm="pulseaudio" path="/vendor/lib/libhdi_audio_client.z.so" dev="mmcblk0p6" ino=91 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
+allow pulseaudio vendor_lib_file:file { read open getattr map execute };
+

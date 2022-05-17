@@ -1,0 +1,27 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { search } for  pid=272 comm="memmgrservice" name="323" dev="proc" ino=2941 scontext=u:r:memmgrservice:s0 tcontext=u:r:audio_policy:s0 tclass=dir permissive=1
+allow memmgrservice audio_policy:dir { search };
+
+#avc:  denied  { open } for  pid=272 comm="memmgrservice" path="/proc/323/status" dev="proc" ino=16166 scontext=u:r:memmgrservice:s0 tcontext=u:r:audio_policy:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=272 comm="memmgrservice" scontext=u:r:memmgrservice:s0 tcontext=u:r:audio_policy:s0 tclass=file permissive=1
+allow memmgrservice audio_policy:file { open read };
+
+#avc:  denied  { search } for  pid=299 comm="memmgrservice" name="316" dev="proc" ino=891 scontext=u:r:memmgrservice:s0 tcontext=u:r:pulseaudio:s0 tclass=dir permissive=1
+allow memmgrservice pulseaudio:dir { search };
+
+#avc:  denied  { open } for  pid=299 comm="memmgrservice" path="/proc/316/status" dev="proc" ino=25829 scontext=u:r:memmgrservice:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=299 comm="memmgrservice" scontext=u:r:memmgrservice:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
+allow memmgrservice pulseaudio:file { open read };
+
