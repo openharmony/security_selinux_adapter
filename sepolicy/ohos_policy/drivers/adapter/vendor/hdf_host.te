@@ -104,3 +104,7 @@ allow faceauth_host hdf_face_auth_interface_service:hdf_devmgr_class { add };
 allow pinauth_host hdf_device_manager:hdf_devmgr_class { get };
 allow pinauth_host hdf_pin_auth_interface_service:hdf_devmgr_class { add };
 
+#avc:  denied  { get } for service=hdf_device_manager pid=364 scontext=u:r:user_auth_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=user_auth_interface_service pid=364 scontext=u:r:user_auth_host:s0 tcontext=u:object_r:hdf_user_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow user_auth_host hdf_device_manager:hdf_devmgr_class { get };
+allow user_auth_host hdf_user_auth_interface_service:hdf_devmgr_class { add };

@@ -36,3 +36,4 @@ hdi_display_gralloc_service             u:object_r:hdf_hdi_display_gralloc_servi
 camera_service                          u:object_r:hdf_camera_service:s0
 face_auth_interface_service             u:object_r:hdf_face_auth_interface_service:s0
 pin_auth_interface_service              u:object_r:hdf_pin_auth_interface_service:s0
+user_auth_interface_service             u:object_r:hdf_user_auth_interface_service:s0
