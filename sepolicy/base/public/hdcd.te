@@ -17,20 +17,20 @@ neverallow hdcd dev_input_file:chr_file never_write_file;
 
 neverallow hdcd { dev_fuse_file dev_port }:chr_file ~getattr;
 
-allow hdcd data_local_tmp:file { add_name write create setattr };
+allow hdcd data_local_tmp:file { write create setattr };
 allow hdcd data_local_tmp:dir { add_name write create setattr };
 
-allow hdcd vendor_lib_file:file { read write getattr search };
+allow hdcd vendor_lib_file:file { read write getattr };
 allow hdcd vendor_lib_file:dir { read write getattr search };
 
-allow hdcd self:capability { syslog syslog_read };
-allow hdcd self:capability2 { syslog syslog_read };
+allow hdcd self:capability { sys_time };
+allow hdcd self:capability2 { syslog };
 
-allow hdcd kernel:system { syslog_mod };
-allow hdcd dev_rtc_file:chr_file { write open ioct1 };
+allow hdcd kernel:system { syslog_read };
+allow hdcd dev_rtc_file:chr_file { write open ioctl };
 allow hdcd data_file:dir { read write open create add_name getattr };
-allow hdcd tty_device:chr_file { write open ioct1 };
-allow hdcd system_bin_file:lnk_file { read search };
-allow hdcd system_bin_file:dir { read search };
-allow hdcd lib_file:lnk_file { read search };
+allow hdcd tty_device:chr_file { ioctl };
+allow hdcd system_bin_file:lnk_file { read };
+allow hdcd system_bin_file:dir { search };
+allow hdcd lib_file:lnk_file { read };
 allow hdcd dev_kmsg_file:chr_file { read open };
