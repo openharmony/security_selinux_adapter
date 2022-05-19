@@ -17,20 +17,39 @@ neverallow hdcd dev_input_file:chr_file never_write_file;
 
 neverallow hdcd { dev_fuse_file dev_port }:chr_file ~getattr;
 
-allow hdcd data_local_tmp:file { write create setattr };
-allow hdcd data_local_tmp:dir { add_name write create setattr };
+allow hdcd data_local_tmp:file { write create setattr  read append open getattr };
+allow hdcd data_local_tmp:dir { add_name write create setattr search };
 
 allow hdcd vendor_lib_file:file { read write getattr };
 allow hdcd vendor_lib_file:dir { read write getattr search };
 
-#allow hdcd self:capability { sys_time };
+#allow hdcd self:capability { sys_time dac_read_search };
 #allow hdcd self:capability2 { syslog };
+allow hdcd self:tcp_socket { accept ioctl setopt read };
 
 allow hdcd kernel:system { syslog_read };
+allow hdcd kernel:unix_stream_socket { connectto };
+allow hdcd kernel:process { setsched };
 allow hdcd dev_rtc_file:chr_file { write open ioctl };
-allow hdcd data_file:dir { read open create getattr };
-allow hdcd tty_device:chr_file { ioctl };
+allow hdcd data_file:dir { read open create getattr search rmdir };
+allow hdcd data_file:file { unlink };
+allow hdcd tty_device:chr_file { ioctl read write open };
 allow hdcd system_bin_file:lnk_file { read };
 allow hdcd system_bin_file:dir { search };
 allow hdcd lib_file:lnk_file { read };
 allow hdcd dev_kmsg_file:chr_file { read open };
+allow hdcd data_local:dir { search };
+allow hdcd sh_exec:file { getattr execute read open execute_no_trans map };
+allow hdcd vendor_lib_file:file { open map execute };
+allow hdcd dev_unix_socket:dir { search };
+allow hdcd dev_unix_socket:sock_file { write };
+allow hdcd data_init_agent:dir { search write add_name };
+allow hdcd data_init_agent:file { create };
+allow hdcd dev_ptmx:chr_file { read write open ioctl };
+allow hdcd dev_pts_file:dir { search };
+allow hdcd devpts:chr_file { read write open };
+allow hdcd paramservice_socket:sock_file { write };
+allow hdcd dev_block_file:dir { search };
+allow hdcd dev_block_file:lnk_file { read };
+allow hdcd dev_block_file:blk_file { open ioctl };
+allow hdcd labeledfs:filesystem { remount };
