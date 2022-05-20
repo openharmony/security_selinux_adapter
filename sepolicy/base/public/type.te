@@ -47,7 +47,6 @@ type pinauth, sadomain, domain;
 type battery_stats, sadomain, domain;
 type token_sync_service, sadomain, domain;
 type memmgrservice, sadomain, domain;
-#type resource_schedule_service, sadomain, domain;
 type accessibility, sadomain, domain;
 type distributedsched, sadomain, domain;
 type distributedfile, sadomain, domain;

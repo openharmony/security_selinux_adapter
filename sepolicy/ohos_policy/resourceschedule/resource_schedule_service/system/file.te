@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init resource_schedule_service:process { rlimitinh siginh transition };
-dontaudit init resource_schedule_service:process { noatsecure };
+type sys_kernel_debug_tracing_trace_marker_file, fs_attr;
+
