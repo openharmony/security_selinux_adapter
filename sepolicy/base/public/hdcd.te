@@ -51,5 +51,5 @@ allow hdcd devpts:chr_file { read write open };
 allow hdcd paramservice_socket:sock_file { write };
 allow hdcd dev_block_file:dir { search };
 allow hdcd dev_block_file:lnk_file { read };
-allow hdcd dev_block_file:blk_file { open ioctl };
+allow hdcd dev_block_file:blk_file { ioctl };
 allow hdcd labeledfs:filesystem { remount };
