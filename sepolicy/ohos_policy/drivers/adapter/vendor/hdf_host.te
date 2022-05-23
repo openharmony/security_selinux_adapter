@@ -73,6 +73,7 @@ allow usbfnMaster_host hdf_usbfn_cdcacm:hdf_devmgr_class { add };
 #avc:  denied  { add } for service=input_service pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_input_service:s0 tclass=hdf_devmgr_class permissive=1
 allow input_user_host hdf_device_manager:hdf_devmgr_class { get };
 allow input_user_host hdf_input_service:hdf_devmgr_class { add };
+allow input_user_host hdf_input_interfaces_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=wlan_hal_service pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_wlan_hal_service:s0 tclass=hdf_devmgr_class permissive=1
