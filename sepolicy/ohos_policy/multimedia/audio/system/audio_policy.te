@@ -16,6 +16,7 @@ init_daemon_domain(audio_policy);
 #avc:  denied  { call } for  pid=334 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow audio_policy accesstoken_service:binder { call };
 
+
 #avc:  denied  { call } for  pid=353 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=351 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
 allow audio_policy bluetooth_service:binder { call transfer };
@@ -50,6 +51,16 @@ allow audio_policy data_init_agent:dir { search };
 #avc:  denied  { read append } for  pid=334 comm="audio_policy" name="begetctl.log" dev="mmcblk0p7" ino=75 scontext=u:r:audio_policy:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
 allow audio_policy data_init_agent:file { ioctl open read append };
 
+#avc:  denied  { search } for  pid=382 comm="audio_policy" name="socket" dev="tmpfs" ino=38 scontext=u:r:audio_policy:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow audio_policy dev_unix_socket:dir { search };
+
+#avc:  denied  { write } for  pid=382 comm="audio_policy" name="hilogInput" dev="tmpfs" ino=281 scontext=u:r:audio_policy:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=sock_file permissive=1
+allow audio_policy dev_unix_socket:sock_file { write };
+
+#avc:  denied  { call } for  pid=371 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=361 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+allow audio_policy distributeddata:binder { call transfer };
+
 #avc:  denied  { call } for  pid=334 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:hdcd:s0 tclass=binder permissive=1
 allow audio_policy hdcd:binder { call };
 
@@ -81,6 +92,9 @@ allow audio_policy multimodalinput:fd { use };
 #avc:  denied  { read write } for  pid=244 comm="multimodalinput" path="socket:[25817]" dev="sockfs" ino=25817 scontext=u:r:audio_policy:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
 allow audio_policy multimodalinput:unix_stream_socket { read write };
 
+#avc:  denied  { write } for  pid=338 comm="audio_policy" name="native" dev="tmpfs" ino=293 scontext=u:r:audio_policy:s0 tcontext=u:object_r:native_socket:s0 tclass=sock_file permissive=1
+allow audio_policy native_socket:sock_file { write };
+
 #avc:  denied  { call } for  pid=348 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=348 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
 allow audio_policy param_watcher:binder { call transfer };
@@ -88,8 +102,32 @@ allow audio_policy param_watcher:binder { call transfer };
 #avc:  denied  { call } for  pid=342 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
 allow audio_policy pulseaudio:binder { call };
 
+#avc:  denied  { get } for service=3503 pid=341 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
+allow audio_policy sa_accesstoken_manager_service:samgr_class { get };
+
+#avc:  denied  { add } for service=3009 pid=385 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
+allow audio_policy sa_audio_policy_service:samgr_class { add };
+
+#avc:  denied  { get } for service=5100 pid=341 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+allow audio_policy sa_device_service_manager:samgr_class { get };
+
+#avc:  denied  { get } for service=1301 pid=341 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class permissive=1
+allow audio_policy sa_distributeddata_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3101 pid=341 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
+allow audio_policy sa_multimodalinput_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3901 pid=341 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow audio_policy sa_param_watcher:samgr_class { get };
+
+#avc:  denied  { get } for service=3001 pid=385 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
+allow audio_policy sa_pulseaudio_audio_service:samgr_class { get };
+
 #avc:  denied  { call } for  pid=368 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
 allow audio_policy system_basic_hap:binder { call };
+
+#avc:  denied  { search } for  pid=377 comm="sa_main" name="bin" dev="mmcblk0p6" ino=103 scontext=u:r:audio_policy:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+allow audio_policy system_bin_file:dir { search };
 
 #avc:  denied  { call } for  pid=371 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
 allow audio_policy system_core_hap:binder { call };
@@ -100,6 +138,10 @@ allow audio_policy tracefs:dir { search };
 #avc:  denied  { open } for  pid=338 comm="audio_policy" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=13989 scontext=u:r:audio_policy:s0 tcontext=u:object_r:tracefs:s0 tclass=file permissive=1
 #avc:  denied  { write } for  pid=338 comm="audio_policy" name="trace_marker" dev="tracefs" ino=13989 scontext=u:r:audio_policy:s0 tcontext=u:object_r:tracefs:s0 tclass=file permissive=1
 allow audio_policy tracefs:file { open write };
+
+#avc:  denied  { open } for  pid=335 comm="audio_policy" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=13989 scontext=u:r:audio_policy:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
+#avc:  denied  { write } for  pid=385 comm="audio_policy" name="trace_marker" dev="tracefs" ino=15019 scontext=u:r:audio_policy:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
+allow audio_policy tracefs_trace_marker_file:file { open write };
 
 #avc:  denied  { search } for  pid=359 comm="audio_policy" name="lib" dev="mmcblk0p6" ino=44 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1
 allow audio_policy vendor_lib_file:dir { search };

@@ -18,3 +18,9 @@ allow media_service audio_policy:binder { call transfer };
 #avc:  denied  { call } for  pid=434 comm="aqueue:src" scontext=u:r:media_service:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
 allow media_service pulseaudio:binder { call };
 
+#avc:  denied  { get } for service=3009 pid=512 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
+allow media_service sa_audio_policy_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3001 pid=512 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
+allow media_service sa_pulseaudio_audio_service:samgr_class { get };
+

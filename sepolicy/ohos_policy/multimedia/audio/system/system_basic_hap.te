@@ -18,3 +18,9 @@ allow system_basic_hap audio_policy:binder { call transfer };
 #avc:  denied  { call } for  pid=1361 comm="com.ohos.system" scontext=u:r:system_basic_hap:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
 allow system_basic_hap pulseaudio:binder { call };
 
+#avc:  denied  { get } for service=3009 pid=1424 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
+allow system_basic_hap sa_audio_policy_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3001 pid=1424 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
+allow system_basic_hap sa_pulseaudio_audio_service:samgr_class { get };
+

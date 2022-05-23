@@ -18,3 +18,9 @@ allow hdcd audio_policy:binder { call transfer };
 #avc:  denied  { call } for  pid=1702 comm="audio_capturer_" scontext=u:r:hdcd:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
 allow hdcd pulseaudio:binder { call };
 
+# avc:  denied  { get } for service=3009 pid=1817 scontext=u:r:hdcd:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
+allow hdcd sa_audio_policy_service:samgr_class { get };
+
+# avc:  denied  { get } for service=3001 pid=1817 scontext=u:r:hdcd:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
+allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
+
