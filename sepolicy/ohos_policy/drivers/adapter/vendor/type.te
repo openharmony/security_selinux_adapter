@@ -12,6 +12,7 @@
 # limitations under the License.
 
 type blue_host, hdfdomain, domain;
+type a2dp_host, hdfdomain, domain;
 type sample_host, hdfdomain, domain;
 type usb_host, hdfdomain, domain;
 type usbfnMaster_host, hdfdomain, domain;
