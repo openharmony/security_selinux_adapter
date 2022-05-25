@@ -33,3 +33,5 @@ type dcamera_host, hdfdomain, domain;
 type faceauth_host, hdfdomain, domain;
 type pinauth_host, hdfdomain, domain;
 type user_auth_host, hdfdomain, domain;
+type fingerprint_auth_host, hdfdomain, domain;
+
