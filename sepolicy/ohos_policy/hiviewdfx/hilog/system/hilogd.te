@@ -34,7 +34,7 @@ define(`use_hilog', `
 define(`read_hilog', `
     allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
     allow $1 hilog_control_socket:sock_file write;
-    allow $1 hilogd:unix_dgram_socket connect;
+    allow $1 hilogd:unix_stream_socket connectto;
 ')
 
 ###################################
@@ -122,3 +122,4 @@ neverallow {
 
 # shell can read but cannot write hilogd files
 neverallow { shell hiview hdcd system_basic_hap system_core_hap } data_hilogd_file:file { append create rename setattr write };
+

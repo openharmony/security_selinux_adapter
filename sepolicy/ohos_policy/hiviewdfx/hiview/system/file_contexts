@@ -18,3 +18,4 @@
 
 /data/log/hiview(/.*)?          u:object_r:hiview_file:s0
 /data/system/hiview(/.*)?       u:object_r:hiview_file:s0
+

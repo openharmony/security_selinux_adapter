@@ -18,3 +18,4 @@
 /dev/unix/socket/hilogInput     u:object_r:hilog_input_socket:s0
 
 /data/log/hilog(/.*)?           u:object_r:data_hilogd_file:s0
+

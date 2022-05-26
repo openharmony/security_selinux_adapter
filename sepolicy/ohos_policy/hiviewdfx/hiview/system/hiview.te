@@ -41,7 +41,7 @@ allow hiview hiview_file:file { map read write getattr open lock };
 allow hiview data_file:dir { search };
 allow hiview data_log:dir { add_name open read search watch write create };
 allow hiview data_log:file { create getattr lock map open read write };
-allow hiview data_system:dir { search };
+allow hiview data_system:dir { search getattr };
 allow hiview dev_file:chr_file { open read };
 allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
@@ -71,3 +71,4 @@ allow hiview vendor_lib_file:dir { search };
 allow hiview vendor_lib_file:file { read open getattr map execute };
 
 allowxperm hiview data_init_agent:file ioctl { 0x5413 };
+
