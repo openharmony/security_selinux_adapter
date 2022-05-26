@@ -27,7 +27,6 @@ type riladapter_host, hdfdomain, domain;
 type sensor_dal_host, hdfdomain, domain;
 type vibrator_dal_host, hdfdomain, domain;
 type light_dal_host, hdfdomain, domain;
-type wifi_c_host, hdfdomain, domain;
 type disp_gralloc_host, hdfdomain, domain;
 type dcamera_host, hdfdomain, domain;
 type faceauth_host, hdfdomain, domain;
