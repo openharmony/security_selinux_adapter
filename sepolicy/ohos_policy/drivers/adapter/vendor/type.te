@@ -29,8 +29,8 @@ type vibrator_dal_host, hdfdomain, domain;
 type light_dal_host, hdfdomain, domain;
 type disp_gralloc_host, hdfdomain, domain;
 type dcamera_host, hdfdomain, domain;
-type faceauth_host, hdfdomain, domain;
-type pinauth_host, hdfdomain, domain;
+type face_auth_host, hdfdomain, domain;
+type pin_auth_host, hdfdomain, domain;
 type user_auth_host, hdfdomain, domain;
 type fingerprint_auth_host, hdfdomain, domain;
 

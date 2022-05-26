@@ -94,15 +94,15 @@ allow disp_gralloc_host hdf_hdi_display_gralloc_service:hdf_devmgr_class { add }
 allow audio_hdi_server_host hdf_device_manager:hdf_devmgr_class { get };
 allow audio_hdi_server_host hdf_audio_hdi_service:hdf_devmgr_class { add };
 
-#avc:  denied  { get } for service=5100 pid=403 scontext=u:r:faceauth_host:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
-#avc:  denied  { add } for service=face_auth_interface_service pid=403 scontext=u:r:pinauth_host:s0 tcontext=u:object_r:hdf_face_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-allow faceauth_host hdf_device_manager:hdf_devmgr_class { get };
-allow faceauth_host hdf_face_auth_interface_service:hdf_devmgr_class { add };
+#avc:  denied  { get } for service=5100 pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
+#avc:  denied  { add } for service=face_auth_interface_service pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:hdf_face_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow face_auth_host hdf_device_manager:hdf_devmgr_class { get };
+allow face_auth_host hdf_face_auth_interface_service:hdf_devmgr_class { add };
 
-#avc:  denied  { get } for service=5100 pid=402 scontext=u:r:pinauth_host:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
-#avc:  denied  { add } for service=pin_auth_interface_service pid=402 scontext=u:r:pinauth_host:s0 tcontext=u:object_r:hdf_pin_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-allow pinauth_host hdf_device_manager:hdf_devmgr_class { get };
-allow pinauth_host hdf_pin_auth_interface_service:hdf_devmgr_class { add };
+#avc:  denied  { get } for service=5100 pid=402 scontext=u:r:pin_auth_host:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
+#avc:  denied  { add } for service=pin_auth_interface_service pid=402 scontext=u:r:pin_auth_host:s0 tcontext=u:object_r:hdf_pin_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow pin_auth_host hdf_device_manager:hdf_devmgr_class { get };
+allow pin_auth_host hdf_pin_auth_interface_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=364 scontext=u:r:user_auth_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=user_auth_interface_service pid=364 scontext=u:r:user_auth_host:s0 tcontext=u:object_r:hdf_user_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
