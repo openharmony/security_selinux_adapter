@@ -387,6 +387,10 @@ ohos_prebuilt_etc("parameter_contexts") {
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
+  install_images = [
+    "system",
+    "updater",
+  ]
 }
 
 ohos_prebuilt_etc("service_contexts") {
@@ -416,6 +420,10 @@ ohos_prebuilt_etc("file_contexts") {
   # 但是很显然这是不应当的。
   #relative_install_dir = "selinux/targeted/contexts/files/"
   relative_install_dir = "selinux/targeted/contexts/"
+  install_images = [
+    "system",
+    "updater",
+  ]
 }
 
 group("selinux_group") {
