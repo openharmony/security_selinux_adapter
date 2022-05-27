@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type shell, domain;
+type shell, nativedomain, domain;
 type shell_exec, system_file_attr, exec_attr, file_attr;
 
