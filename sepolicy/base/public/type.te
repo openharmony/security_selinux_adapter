@@ -21,7 +21,6 @@ type distributedsche, sadomain, domain;
 type storage_manager, sadomain, domain;
 type bluetooth_service, sadomain, domain;
 type accountmgr, sadomain, domain;
-type dslm_service, sadomain, domain;
 type ui_service, sadomain, domain;
 type d_bms, sadomain, domain;
 type wifi_manager_service, sadomain, domain;
