@@ -1,0 +1,58 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+allow hdcd data_local_tmp:file { write create setattr  read append open getattr };
+allow hdcd data_local_tmp:dir { add_name write create setattr search };
+
+allow hdcd vendor_lib_file:file { read write getattr };
+allow hdcd vendor_lib_file:dir { read write getattr search };
+
+allow hdcd self:tcp_socket { accept ioctl setopt read };
+
+allow hdcd kernel:system { syslog_read };
+allow hdcd kernel:unix_stream_socket { connectto };
+allow hdcd kernel:process { setsched };
+
+allow hdcd dev_rtc_file:chr_file { write open ioctl };
+
+allow hdcd data_file:dir { read open create getattr search rmdir };
+allow hdcd data_file:file { unlink };
+
+allow hdcd tty_device:chr_file { ioctl read write open };
+allow hdcd system_bin_file:lnk_file { read };
+allow hdcd system_bin_file:dir { search };
+
+allow hdcd lib_file:lnk_file { read };
+allow hdcd dev_kmsg_file:chr_file { read open };
+allow hdcd data_local:dir { search };
+allow hdcd vendor_lib_file:file { open map execute };
+
+allow hdcd dev_unix_socket:dir { search };
+allow hdcd dev_unix_socket:sock_file { write };
+
+allow hdcd data_init_agent:dir { search write add_name };
+allow hdcd data_init_agent:file { create };
+
+allow hdcd dev_ptmx:chr_file { read write open ioctl };
+allow hdcd dev_pts_file:dir { search };
+allow hdcd devpts:chr_file { read write open };
+allow hdcd paramservice_socket:sock_file { write };
+
+allow hdcd dev_block_file:dir { search };
+allow hdcd dev_block_file:lnk_file { read };
+allow hdcd dev_block_file:blk_file { ioctl };
+
+allow hdcd labeledfs:filesystem { remount };
+
+domain_auto_transition_pattern(hdcd, shell_exec, shell);
+domain_auto_transition_pattern(hdcd, sh_exec, sh);

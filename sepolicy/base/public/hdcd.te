@@ -16,4 +16,3 @@ neverallow hdcd self:perf_event ~{ open read write kernel };
 neverallow hdcd dev_input_file:chr_file never_write_file;
 
 neverallow hdcd { dev_fuse_file dev_port }:chr_file ~getattr;
-
