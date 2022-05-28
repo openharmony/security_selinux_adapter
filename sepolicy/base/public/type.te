@@ -40,7 +40,6 @@ type media_service, sadomain, domain;
 type work_scheduler_service, sadomain, domain;
 type param_watcher, sadomain, domain;
 type useriam, sadomain, domain;
-type inputmethod_service, sadomain, domain;
 type pinauth, sadomain, domain;
 #type foundation, domain;
 type battery_stats, sadomain, domain;
