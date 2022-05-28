@@ -11,9 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init accountmgr:process { rlimitinh siginh transition };
-dontaudit init accountmgr:process { noatsecure };
-
-#allow init accountmgr:binder { call transfer };
-
-allow accountmgr init:binder { call transfer };
+binder_call(accountmgr, foundation);
+allow foundation accountmgr:binder { call };
