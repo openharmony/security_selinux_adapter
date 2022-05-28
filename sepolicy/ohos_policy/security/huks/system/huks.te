@@ -38,3 +38,4 @@ allow huks_service hiview:binder { call };
 allow huks_service huks_service:process { ptrace };
 allow huks_service system_bin_file:dir { search };
 allow huks_service system_bin_file:file { execute execute_no_trans map read open};
+allow huks_service dev_unix_socket:dir { search };
