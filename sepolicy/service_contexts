@@ -25,6 +25,7 @@
 1151                                   u:object_r:sa_net_conn_manager:s0
 1158                                   u:object_r:sa_netsys_native_manager:s0
 1301                                   u:object_r:sa_distributeddata_service:s0
+1401                                   u:object_r:sa_distributeschedule:s0
 1901                                   u:object_r:sa_resource_schedule:s0
 1903                                   u:object_r:sa_bgtaskmgr:s0
 1906                                   u:object_r:sa_resource_schedule_socperf_server:s0
