@@ -17,10 +17,10 @@ allow distributeddata accesstoken_service:binder { call };
 allow distributeddata accountmgr:binder { call };
 allow distributeddata audio_policy:binder { call transfer };
 
-#[冲突]avc:  denied  { search } for  pid=400 comm="SyncerTimer" name="el2" dev="mmcblk0p11" ino=261125 scontext=u:r:distributeddata:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
+#avc:  denied  { search } for  pid=400 comm="SyncerTimer" name="el2" dev="mmcblk0p11" ino=261125 scontext=u:r:distributeddata:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 #allow distributeddata data_app_el2_file:dir { search };
 
-#[冲突]avc:  denied  { search } for  pid=400 comm="SyncerTimer" name="app" dev="mmcblk0p11" ino=261121 scontext=u:r:distributeddata:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
+#avc:  denied  { search } for  pid=400 comm="SyncerTimer" name="app" dev="mmcblk0p11" ino=261121 scontext=u:r:distributeddata:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
 #allow distributeddata data_app_file:dir { search };
 
 allow distributeddata data_file:dir { search };
@@ -32,7 +32,7 @@ allow distributeddata data_service_el1_file:dir { add_name getattr open read sea
 allow distributeddata data_service_el1_file:file { create getattr ioctl lock map open read write };
 allow distributeddata data_service_file:dir { search };
 
-#[冲突]avc:  denied  { get } for service=3510 pid=400 scontext=u:r:distributeddata:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
+#avc:  denied  { get } for service=3510 pid=400 scontext=u:r:distributeddata:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
 #allow distributeddata default_service:samgr_class { get };
 
 allow distributeddata deviceauth_service:binder { call };
@@ -51,14 +51,14 @@ allow distributeddata hdcd:fd { use };
 allow distributeddata hdcd:file { open read };
 allow distributeddata huks_service:binder { call };
 
-#[冲突]avc:  denied  { call } for  pid=531 comm="distributeddata" scontext=u:r:distributeddata:s0 tcontext=u:r:limit_domain:s0 tclass=binder permissive=1
+#avc:  denied  { call } for  pid=531 comm="distributeddata" scontext=u:r:distributeddata:s0 tcontext=u:r:limit_domain:s0 tclass=binder permissive=1
 #allow distributeddata limit_domain:binder { call };
 
 allow distributeddata normal_hap:binder { call transfer };
 allow distributeddata normal_hap:dir { search };
 allow distributeddata normal_hap:file { open read };
 
-#[冲突]avc:  denied  { search } for  pid=400 comm="SyncerTimer" name="com.ohos.medialibrary.MediaLibraryDataA" dev="mmcblk0p11" ino=262507 scontext=u:r:distributeddata:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { search } for  pid=400 comm="SyncerTimer" name="com.ohos.medialibrary.MediaLibraryDataA" dev="mmcblk0p11" ino=262507 scontext=u:r:distributeddata:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
 #allow distributeddata normal_hap_data_file:dir { search };
 
 allow distributeddata normal_hap_data_file:file { getattr lock };
