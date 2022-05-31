@@ -16,4 +16,16 @@ type deviceauth_service_exec, exec_attr, file_attr, system_file_attr;
 
 init_daemon_domain(deviceauth_service);
 
-#binder_call(deviceauth_service, samgr);
+binder_call(deviceauth_service, samgr);
+allow deviceauth_service dev_unix_socket:dir { search };
+allow deviceauth_service data_file:dir { search };
+allow deviceauth_service system_bin_file:dir { search };
+allow deviceauth_service data_service_file:dir { search };
+allow deviceauth_service data_service_el1_file:dir { search };
+allow deviceauth_service data_service_el1_public_deviceauthService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
+allow deviceauth_service data_service_el1_public_deviceauthService_file:file { create getattr ioctl open read setattr unlink write };
+allow deviceauth_service accesstoken_service:binder { call };
+allow deviceauth_service foundation:binder { call };
+allow deviceauth_service softbus_server:binder { call transfer };
+allow deviceauth_service accountmgr:binder { call };
+allow deviceauth_service huks_service:binder { call };
