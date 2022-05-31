@@ -1,0 +1,161 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow hidumper_service appspawn:dir { getattr open read search };
+allow hidumper_service appspawn:file { getattr open read };
+allow hidumper_service appspawn:lnk_file read;
+allow hidumper_service appspawn:process ptrace;
+allow hidumper_service appspawn_exec:file { getattr map open read };
+
+allow hidumper_service data_file:dir { getattr open read search };
+allow hidumper_service data_init_agent:dir search;
+allow hidumper_service data_init_agent:file { append ioctl open read };
+allow hidumper_service data_local:dir { getattr open read remove_name rmdir search write };
+# allow hidumper_service data_local_tmp:dir { getattr open read remove_name rmdir search write };
+allow hidumper_service data_local_tmp:file { create ioctl open read unlink write };
+allow hidumper_service data_log:dir { open read search };
+allow hidumper_service data_log:file { getattr open read };
+allow hidumper_service data_misc:dir search;
+
+allow hidumper_service debugfs:dir { open read };
+# allow hidumper_service debugfs:file { getattr open read };
+
+allow hidumper_service dev_block_file:blk_file getattr;
+allow hidumper_service dev_block_file:dir search;
+allow hidumper_service dev_block_file:lnk_file read;
+allow hidumper_service dev_file:dir getattr;
+allow hidumper_service dev_kmsg_file:chr_file { open read };
+allow hidumper_service dev_pts_file:dir getattr;
+allow hidumper_service dev_unix_socket:dir search;
+allow hidumper_service dev_unix_socket:sock_file write;
+
+allow hidumper_service deviceauth_service_exec:file { getattr map open read };
+allow hidumper_service devpts:chr_file { read write };
+
+allow hidumper_service faultloggerd:unix_stream_socket connectto;
+allow hidumper_service faultloggerd_exec:file { getattr map open read };
+
+allow hidumper_service hdcd:dir { getattr open read search };
+allow hidumper_service hdcd:fd use;
+allow hidumper_service hdcd:file { getattr open read };
+allow hidumper_service hdcd:lnk_file read;
+allow hidumper_service hdcd:process ptrace;
+allow hidumper_service hdcd_exec:file { getattr map open read };
+
+allow hidumper_service hdf_devmgr_exec:file { getattr map open read };
+
+allow hidumper_service hidumper:binder call;
+allow hidumper_service hidumper:dir { getattr open read search };
+allow hidumper_service hidumper:file { getattr open read };
+allow hidumper_service hidumper:lnk_file read;
+allow hidumper_service hidumper:process ptrace;
+allow hidumper_service hidumper_exec:file { getattr map open read };
+
+allow hidumper_service hidumper_file:dir { add_name open read remove_name search write };
+allow hidumper_service hidumper_file:file { create ioctl open unlink write };
+
+# allow hidumper_service hilogd:process ptrace;
+allow hidumper_service hilogd_exec:file { getattr map open read };
+allow hidumper_service hiview_exec:file { getattr map open read };
+
+allow hidumper_service init:dir { getattr open read search };
+allow hidumper_service init:file { getattr open read };
+allow hidumper_service init:lnk_file read;
+# allow hidumper_service init:process ptrace;
+allow hidumper_service init:unix_stream_socket connectto;
+
+# allow hidumper_service installs:binder call;
+allow hidumper_service installs_exec:file { getattr map open read };
+
+allow hidumper_service kernel:dir { getattr open read search };
+allow hidumper_service kernel:file { getattr open read };
+allow hidumper_service kernel:lnk_file read;
+allow hidumper_service kernel:system syslog_read;
+
+allow hidumper_service limit_domain:file { getattr open read };
+allow hidumper_service limit_domain:lnk_file read;
+allow hidumper_service limit_domain:process ptrace;
+
+allow hidumper_service normal_hap:dir { getattr open read search };
+allow hidumper_service normal_hap:file { getattr open read };
+allow hidumper_service normal_hap:lnk_file read;
+# allow hidumper_service normal_hap:process ptrace;
+
+allow hidumper_service proc_cmdline_file:file { getattr open read };
+allow hidumper_service proc_loadavg_file:file { open read };
+allow hidumper_service proc_meminfo_file:file { open read };
+allow hidumper_service proc_modules_file:file { getattr open read };
+allow hidumper_service proc_net:file { getattr open read };
+allow hidumper_service proc_net_tcp_udp:file { open read };
+allow hidumper_service proc_slabinfo_file:file { getattr open read };
+allow hidumper_service proc_stat_file:file { open read };
+allow hidumper_service proc_version_file:file { getattr open read };
+allow hidumper_service proc_vmallocinfo_file:file { getattr open read };
+allow hidumper_service proc_vmstat_file:file { getattr open read };
+allow hidumper_service proc_zoneinfo_file:file { getattr open read };
+
+allow hidumper_service render_service_exec:file { getattr map open read };
+
+# allow hidumper_service self:capability { dac_override dac_read_search sys_ptrace };
+allow hidumper_service self:udp_socket { create ioctl };
+
+allow hidumper_service sh_exec:file { execute execute_no_trans getattr map open read };
+allow hidumper_service storage_daemon_exec:file { getattr map open read };
+
+allow hidumper_service sys_file:dir { open read };
+allow hidumper_service sys_file:file { getattr open read };
+
+allow hidumper_service system_basic_hap:dir { getattr open read search };
+allow hidumper_service system_basic_hap:file { getattr open read };
+allow hidumper_service system_basic_hap:lnk_file read;
+# allow hidumper_service system_basic_hap:process ptrace;
+
+allow hidumper_service system_bin_file:dir { getattr search };
+allow hidumper_service system_bin_file:file { execute execute_no_trans getattr map open read };
+allow hidumper_service system_bin_file:lnk_file read;
+allow hidumper_service system_file:dir getattr;
+allow hidumper_service system_fonts_file:dir getattr;
+allow hidumper_service system_lib_file:dir getattr;
+allow hidumper_service system_profile_file:dir getattr;
+allow hidumper_service system_usr_file:dir getattr;
+
+allow hidumper_service tty_device:chr_file { open read write };
+
+allow hidumper_service udevd:dir { getattr open read search };
+allow hidumper_service udevd:file { getattr read open };
+allow hidumper_service udevd:lnk_file read;
+# allow hidumper_service udevd:process ptrace;
+allow hidumper_service udevd_exec:file { getattr map open read };
+
+allow hidumper_service ueventd:dir { getattr open read search };
+allow hidumper_service ueventd:file { getattr open read };
+allow hidumper_service ueventd:lnk_file read;
+# allow hidumper_service ueventd:process ptrace;
+allow hidumper_service ueventd_exec:file { getattr map open read };
+
+allow hidumper_service uinput_inject_exec:file { getattr map open read };
+
+allow hidumper_service vendor_bin_file:dir search;
+allow hidumper_service vendor_bin_file:file { getattr map open read };
+allow hidumper_service vendor_file:dir getattr;
+allow hidumper_service vendor_lib_file:dir search;
+allow hidumper_service vendor_lib_file:file { getattr map open read };
+
+allow hidumper_service watchdog_service_exec:file { getattr map open read };
+allow hidumper_service wifi_hal_service_exec:file { getattr map open read };
+
+allow hidumper_service { sadomain -installs }:binder call;
+allow hidumper_service { hdfdomain sadomain }:dir { getattr open read search };
+allow hidumper_service { hdfdomain sadomain }:file { getattr open read };
+allow hidumper_service { hdfdomain sadomain }:lnk_file read;
+allow hidumper_service { hdfdomain sadomain -hilogd }:process ptrace;
