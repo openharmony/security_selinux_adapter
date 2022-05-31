@@ -46,10 +46,10 @@ allow dcamera sa_param_watcher:samgr_class { get };
 #avc: denied  { get } for service=4700 pid=2053 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=1
 allow dcamera sa_softbus_service:samgr_class { get };
 
-#avc:  denied  { setopt } for  pid=2047 comm="DHEventbusHandl" laddr=192.168.43.245 lport=42816 faddr=192.168.43.118 fport=46027 scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { setopt } for  pid=2047 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
 allow dcamera softbus_server:tcp_socket { setopt };
 
-#avc:  denied  { write } for  pid=2047 comm="DHEventbusHandl" laddr=192.168.43.245 lport=42816 faddr=192.168.43.118 fport=46027 scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { write } for  pid=2047 comm="DHEventbusHandl" fport=46027 scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
 allow dcamera softbus_server:tcp_socket { write };
 
 #avc:  denied  { call } for  pid=2047 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
