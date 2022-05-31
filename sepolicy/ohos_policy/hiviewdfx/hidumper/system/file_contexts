@@ -13,4 +13,4 @@
 
 /system/bin/hidumper       u:object_r:hidumper_exec:s0
 
-/data/dumper(/.*)?       u:object_r:hidumper_zip_file:s0
+/data/dumper(/.*)?       u:object_r:hidumper_file:s0
