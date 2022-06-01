@@ -15,4 +15,3 @@ type dhardware, sadomain, domain;
 type dhardware_exec, exec_attr, file_attr, system_file_attr;
 
 init_daemon_domain(dhardware);
-
