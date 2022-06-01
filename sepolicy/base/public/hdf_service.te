@@ -40,5 +40,6 @@ type hdf_face_auth_interface_service, hdf_service_attr;
 type hdf_pin_auth_interface_service, hdf_service_attr;
 type hdf_user_auth_interface_service, hdf_service_attr;
 type hdf_fingerprint_auth_interface_service, hdf_service_attr;
+type hdf_motion_interface_service, hdf_service_attr;
 
 

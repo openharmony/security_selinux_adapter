@@ -42,4 +42,5 @@ pin_auth_interface_service              u:object_r:hdf_pin_auth_interface_servic
 user_auth_interface_service             u:object_r:hdf_user_auth_interface_service:s0
 input_interfaces_service                u:object_r:hdf_input_interfaces_service:s0
 fingerprint_auth_interface_service      u:object_r:hdf_fingerprint_auth_interface_service:s0
+motion_interface_service                u:object_r:hdf_motion_interface_service:s0
 

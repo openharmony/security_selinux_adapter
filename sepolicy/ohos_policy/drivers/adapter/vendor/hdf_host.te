@@ -115,3 +115,7 @@ allow user_auth_host hdf_user_auth_interface_service:hdf_devmgr_class { add };
 allow fingerprint_auth_host hdf_device_manager:hdf_devmgr_class { get };
 allow fingerprint_auth_host hdf_fingerprint_auth_interface_service:hdf_devmgr_class { add };
 
+#avc:  denied  { get } for service=hdf_device_manager pid=346 scontext=u:r:motion_dal_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=motion_interface_service pid=346 scontext=u:r:motion_dal_host:s0 tcontext=u:object_r:hdf_motion_interface_service:s0 tclass=hdf_devmgr_class
+allow motion_dal_host hdf_device_manager:hdf_devmgr_class { get };
+allow motion_dal_host hdf_motion_interface_service:hdf_devmgr_class { add };
