@@ -18,6 +18,9 @@ vibrator_interface_service              u:object_r:hdf_vibrator_interface_servic
 distributed_camera_provider_service     u:object_r:hdf_distributed_camera_provider_service:s0
 distributed_camera_service              u:object_r:hdf_distributed_camera_service:s0
 sensor_interface_service                u:object_r:hdf_sensor_interface_service:s0
+gnss_interface_service                  u:object_r:hdf_gnss_interface_service:s0
+agnss_interface_service                 u:object_r:hdf_agnss_interface_service:s0
+geofence_interface_service              u:object_r:hdf_geofence_interface_service:s0
 input_service                           u:object_r:hdf_input_service:s0
 codec_hdi_omx_service                   u:object_r:hdf_codec_hdi_omx_service:s0
 battery_interface_service               u:object_r:hdf_battery_interface_service:s0
