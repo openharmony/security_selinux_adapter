@@ -15,3 +15,12 @@
 #avc:  denied  { transfer } for  pid=310 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
 allow bluetooth_service audio_policy:binder { call transfer };
 
+#avc:  denied  { call } for  pid=299 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
+allow bluetooth_service pulseaudio:binder { call };
+
+#avc:  denied  { get } for service=3009 pid=283 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
+allow bluetooth_service sa_audio_policy_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3001 pid=316 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
+allow bluetooth_service sa_pulseaudio_audio_service:samgr_class { get };
+

@@ -15,6 +15,17 @@
 #avc:  denied  { transfer } for  pid=434 comm="aqueue:src" scontext=u:r:media_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
 allow media_service audio_policy:binder { call transfer };
 
+#avc:  denied  { getattr } for  pid=431 comm="threaded-ml" path="/data/data/.pulse_dir/state" dev="mmcblk0p11" ino=522248 scontext=u:r:media_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { open } for  pid=431 comm="threaded-ml" path="/data/data/.pulse_dir/state" dev="mmcblk0p11" ino=522248 scontext=u:r:media_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { read } for  pid=431 comm="threaded-ml" name="state" dev="mmcblk0p11" ino=522248 scontext=u:r:media_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+#avc:  denied  { search } for  pid=431 comm="threaded-ml" name=".pulse_dir" dev="mmcblk0p11" ino=522246 scontext=u:r:media_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
+allow media_service data_data_pulse_dir:dir { getattr open read search };
+
+#avc:  denied  { lock } for  pid=431 comm="threaded-ml" path="/data/data/.pulse_dir/state/cookie" dev="mmcblk0p11" ino=522251 scontext=u:r:media_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=431 comm="threaded-ml" path="/data/data/.pulse_dir/state/cookie" dev="mmcblk0p11" ino=522251 scontext=u:r:media_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
+#avc:  denied  { read write } for  pid=431 comm="threaded-ml" name="cookie" dev="mmcblk0p11" ino=522251 scontext=u:r:media_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
+allow media_service data_data_pulse_dir:file { lock open read write };
+
 #avc:  denied  { call } for  pid=434 comm="aqueue:src" scontext=u:r:media_service:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
 allow media_service pulseaudio:binder { call };
 

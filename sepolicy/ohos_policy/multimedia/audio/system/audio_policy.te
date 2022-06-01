@@ -143,6 +143,14 @@ allow audio_policy tracefs:file { open write };
 #avc:  denied  { write } for  pid=385 comm="audio_policy" name="trace_marker" dev="tracefs" ino=15019 scontext=u:r:audio_policy:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
 allow audio_policy tracefs_trace_marker_file:file { open write };
 
+#avc:  denied  { search } for  pid=374 comm="audio_policy" name="etc" dev="mmcblk0p7" ino=19 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+allow audio_policy vendor_etc_file:dir { search };
+
+#avc:  denied  { getattr } for  pid=374 comm="audio_policy" path="/vendor/etc/audio/audio_policy_config.xml" dev="mmcblk0p7" ino=22 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=378 comm="audio_policy" path="/vendor/etc/audio/audio_policy_config.xml" dev="mmcblk0p7" ino=22 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=374 comm="audio_policy" name="audio_policy_config.xml" dev="mmcblk0p7" ino=22 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file p
+allow audio_policy vendor_etc_file:file { getattr open read };
+
 #avc:  denied  { search } for  pid=359 comm="audio_policy" name="lib" dev="mmcblk0p6" ino=44 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1
 allow audio_policy vendor_lib_file:dir { search };
 
