@@ -55,5 +55,7 @@
 4014                                   u:object_r:sa_telephony_tel_ims:s0
 4700                                   u:object_r:sa_softbus_service:s0
 4802                                   u:object_r:sa_foundation_devicemanager_service:s0
+4803                                   u:object_r:sa_foundation_dcamera_source_service:s0
+4804                                   u:object_r:sa_foundation_dcamera_sink_service:s0
 5003                                   u:object_r:sa_storage_manager_service:s0
 5100                                   u:object_r:sa_device_service_manager:s0
