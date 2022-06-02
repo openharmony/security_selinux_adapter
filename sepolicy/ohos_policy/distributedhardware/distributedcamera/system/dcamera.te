@@ -12,9 +12,6 @@
 # limitations under the License.
 
 type dcamera, sadomain, domain;
-type dcamera_exec, exec_attr, file_attr, system_file_attr;
-
-init_daemon_domain(dcamera);
 
 #avc:  denied  { search } for  pid=2047 comm="dcamera" name="socket" dev="tmpfs" ino=38 scontext=u:r:dcamera:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow dcamera dev_unix_socket:dir { search };
