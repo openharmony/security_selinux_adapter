@@ -12,9 +12,9 @@
 # limitations under the License.
 
 type dcamera, sadomain, domain;
-type dcamera_exec, exec_attr, file_attr, system_file_attr;
+#type dcamera_exec, exec_attr, file_attr, system_file_attr;
 
-init_daemon_domain(dcamera);
+#init_daemon_domain(dcamera);
 
 #avc:  denied  { search } for  pid=2047 comm="dcamera" name="socket" dev="tmpfs" ino=38 scontext=u:r:dcamera:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow dcamera dev_unix_socket:dir { search };
@@ -44,3 +44,16 @@ allow dcamera softbus_server:tcp_socket { read setopt write };
 
 #avc:  denied  { call } for  pid=2047 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
 allow dcamera softbus_server:binder { call };
+
+#avc:  denied  { call } for  pid=2178 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera_host:s0 tclass=binder permissive=1
+allow dcamera dcamera_host:binder { call };
+
+#avc:  denied  { add } for service=4803 pid=2068 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_foundation_dcamera_source_service:s0 tclass=samgr_class permissive=1
+allow dcamera sa_foundation_dcamera_source_service:samgr_class { add get_remote };
+
+#avc:  denied  { get_remote } for service=4804 pid=2068 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_foundation_dcamera_sink_service:s0 tclass=samgr_class permissive=1
+#avc:  denied  { add } for service=4804 pid=2068 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_foundation_dcamera_sink_service:s0 tclass=samgr_class permissive=1
+allow dcamera sa_foundation_dcamera_sink_service:samgr_class { add get_remote };
+
+#avc:  denied  { get } for service=5100 pid=2068 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+allow dcamera sa_device_service_manager:samgr_class { get };
