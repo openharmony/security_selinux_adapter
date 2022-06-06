@@ -52,6 +52,7 @@
 4005                                   u:object_r:sa_foundation_tel_call_manager:s0
 4006                                   u:object_r:sa_telephony_tel_cellular_call:s0
 4010                                   u:object_r:sa_telephony_tel_core_service:s0
+4201                                   u:object_r:sa_usb_service:s0
 4014                                   u:object_r:sa_telephony_tel_ims:s0
 4700                                   u:object_r:sa_softbus_service:s0
 4802                                   u:object_r:sa_foundation_devicemanager_service:s0

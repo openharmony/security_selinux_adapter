@@ -1,0 +1,44 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type sa_usb_service, sa_service_attr;
+
+allow usb_service console:binder { call };
+allow usb_service console:fd { use };
+allow usb_service data_file:dir { search };
+allow usb_service dev_unix_socket:dir { search };
+allow usb_service dev_unix_socket:sock_file { write };
+allow usb_service foundation:binder { call };
+allow usb_service hdf_devmgr:binder { call };
+allow usb_service hdf_usbd:hdf_devmgr_class { get };
+allow usb_service init:binder { call transfer };
+allow usb_service param_watcher:binder { call transfer };
+allow usb_service sa_device_service_manager:samgr_class { get };
+allow usb_service sa_foundation_bms:samgr_class { get };
+allow usb_service sa_foundation_cesfwk_service:samgr_class { get };
+allow usb_service sa_param_watcher:samgr_class { get };
+allow usb_service sa_usb_service:samgr_class { get add };
+allow usb_service samain_exec:file { entrypoint execute };
+allow usb_service samgr:binder { call transfer };
+allow usb_service system_bin_file:dir { search };
+allow usb_service system_etc_file:dir { getattr open read };
+allow usb_service system_lib_file:lnk_file { read };
+allow usb_service system_profile_file:dir { search };
+allow usb_service tracefs:dir { search };
+allow usb_service tracefs_trace_marker_file:file { open write };
+allow usb_service usb_host:binder { call transfer };
+allow usb_service usb_service:dir { search };
+allow usb_service usb_service:lnk_file { read };
+allow usb_service vendor_file:file { execute getattr map open read };
+allow usb_service vendor_lib_file:dir { search };
+allow usb_service vendor_lib_file:file { execute map getattr open read };

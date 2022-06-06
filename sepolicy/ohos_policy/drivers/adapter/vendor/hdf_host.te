@@ -55,19 +55,73 @@ allow camera_host hdf_camera_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=usbd pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_usbd:s0 tclass=hdf_devmgr_class permissive=1
+allow usb_host console:binder { call };
+allow usb_host console:fd { use };
+allow usb_host data_file:dir { search };
+allow usb_host data_init_agent:dir { search };
+allow usb_host data_init_agent:file { ioctl open read append };
+allow usb_host dev_bus:dir { search };
+allow usb_host dev_bus_usb_file:chr_file { ioctl map open read write ioctl };
+allow usb_host dev_bus_usb_file:dir { search };
+allow usb_host dev_file:chr_file { getattr ioctl read write ioctl open ioctl };
+allow usb_host dev_hdf_usb_pnp:chr_file { getattr ioctl open read write ioctl };
+allow usb_host dev_unix_socket:dir { search };
+allow usb_host dev_unix_socket:sock_file { write };
 allow usb_host hdf_device_manager:hdf_devmgr_class { get };
+allow usb_host hdf_devmgr:binder { call transfer };
 allow usb_host hdf_usbd:hdf_devmgr_class { add };
+allow usb_host hdf_usbfn_cdcacm:hdf_devmgr_class { get };
+allow usb_host hdf_usbfn_cdcecm:hdf_devmgr_class { get };
+allow usb_host hdf_usbfn_master:hdf_devmgr_class { get };
+allow usb_host kernel:unix_stream_socket { connectto };
+allow usb_host paramservice_socket:sock_file { write };
+allow usb_host rootfs:chr_file { read write };
+allow usb_host samgr:binder { call };
+allow usb_host sys_param:parameter_service { set };
+allow usb_host usb_service:binder { call };
+allow usb_host vendor_bin_file:file { entrypoint execute map read };
+allow usb_host vendor_etc_file:dir { search };
+allow usb_host vendor_etc_file:file { getattr open read };
+allow usb_host vendor_lib_file:dir { search };
+allow usb_host vendor_lib_file:file { execute getattr map open read };
+allowxperm usb_host data_init_agent:file ioctl {  0x5413  };
+allowxperm usb_host dev_bus_usb_file:chr_file ioctl {  0x5500 0x550b 0x550c 0x550f 0x5510   0x550a 0x551a  };
+allowxperm usb_host dev_file:chr_file ioctl {  0x6201   0x6202   0x6203  };
+allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl {  0x6201   0x6202   0x6203  };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=usb_pnp_manager pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usb_pnp_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=usbfn_master pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_master:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=usbfn_cdcecm pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_cdcecm:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=usbfn_cdcacm pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_cdcacm:s0 tclass=hdf_devmgr_class permissive=1
+allow usbfnMaster_host configfs:dir { add_name create open read remove_name rmdir search write };
+allow usbfnMaster_host configfs:file { create ioctl open read write };
+allow usbfnMaster_host configfs:lnk_file { create unlink };
+allow usbfnMaster_host data_file:dir { search };
+allow usbfnMaster_host data_init_agent:dir { search };
+allow usbfnMaster_host data_init_agent:file { ioctl open read append };
+allow usbfnMaster_host dev_file:chr_file { getattr ioctl open read write ioctl map ioctl };
+allow usbfnMaster_host dev_hdf_usb_pnp:chr_file { getattr ioctl open read write ioctl };
+allow usbfnMaster_host dev_unix_socket:dir { search };
+allow usbfnMaster_host dev_unix_socket:sock_file { write };
 allow usbfnMaster_host hdf_device_manager:hdf_devmgr_class { get };
+allow usbfnMaster_host hdf_devmgr:binder { call transfer };
 allow usbfnMaster_host hdf_usb_pnp_manager:hdf_devmgr_class { add };
-allow usbfnMaster_host hdf_usbfn_master:hdf_devmgr_class { add };
-allow usbfnMaster_host hdf_usbfn_cdcecm:hdf_devmgr_class { add };
 allow usbfnMaster_host hdf_usbfn_cdcacm:hdf_devmgr_class { add };
+allow usbfnMaster_host hdf_usbfn_cdcecm:hdf_devmgr_class { add };
+allow usbfnMaster_host hdf_usbfn_master:hdf_devmgr_class { add };
+allow usbfnMaster_host sh_exec:file { execute execute_no_trans map read open };
+allow usbfnMaster_host system_bin_file:dir { search };
+allow usbfnMaster_host tty_device:chr_file { open read write };
+allow usbfnMaster_host vendor_bin_file:file { entrypoint execute map read };
+allow usbfnMaster_host vendor_etc_file:dir { search };
+allow usbfnMaster_host vendor_etc_file:file { getattr open read };
+allow usbfnMaster_host vendor_lib_file:dir { search };
+allow usbfnMaster_host vendor_lib_file:file { execute getattr map open read };
+allowxperm usbfnMaster_host configfs:file ioctl {  0x5413  };
+allowxperm usbfnMaster_host data_init_agent:file ioctl {  0x5413  };
+allowxperm usbfnMaster_host dev_file:chr_file ioctl {  0x6201 0x6203   0x6202   0x6731 0x6732 0x6734 0x6735 0x6736 0x673c 0x673d 0x6782  };
+allowxperm usbfnMaster_host dev_hdf_usb_pnp:chr_file ioctl {  0x6201 0x6203   0x6202  };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=input_service pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_input_service:s0 tclass=hdf_devmgr_class permissive=1
