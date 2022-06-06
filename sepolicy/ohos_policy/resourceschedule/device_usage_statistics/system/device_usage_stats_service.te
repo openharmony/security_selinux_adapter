@@ -11,5 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow device_usage_stats_service data_file:dir { search };
+allow device_usage_stats_service data_service_el1_file:dir { search };
+allow device_usage_stats_service data_service_el1_file:file { getattr ioctl lock open read write };
+allow device_usage_stats_service data_service_file:dir { search };
+allow device_usage_stats_service dev_unix_socket:dir { search };
 allow device_usage_stats_service foundation:binder { call };
 allow device_usage_stats_service time_service:binder { call };
+allowxperm device_usage_stats_service data_service_el1_file:file ioctl 0xf50c;
