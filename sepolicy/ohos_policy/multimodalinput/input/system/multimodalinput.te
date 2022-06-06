@@ -25,3 +25,4 @@ allow multimodalinput tracefs_trace_marker_file:file { open write };
 allow multimodalinput dev_unix_socket:dir search;
 #allow multimodalinput hiloginput_socket:sock_file write;
 allow multimodalinput resource_schedule_service:binder call;
+allow multimodalinput rootfs:chr_file write;
