@@ -12,6 +12,8 @@
 # limitations under the License.
 
 type dcamera, sadomain, domain;
+type sa_dcamera_source_service, sa_service_attr;
+type sa_dcamera_sink_service, sa_service_attr;
 
 #avc:  denied  { search } for  pid=2047 comm="dcamera" name="socket" dev="tmpfs" ino=38 scontext=u:r:dcamera:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow dcamera dev_unix_socket:dir { search };
