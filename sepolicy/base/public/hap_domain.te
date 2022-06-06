@@ -97,7 +97,11 @@ neverallow { hap_domain } *:security { compute_av check_context };
 #Ability to perform any filesystem operation other than statfs(2).
 neverallow hap_domain fs_attr:filesystem ~getattr;
 
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation } hap_file_attr :dir *;
+neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_hap_file:dir *;
+neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_app_el1_file:dir *;
+neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_app_el2_file:dir *;
+neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_app_el3_file:dir *;
+neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_app_el4_file:dir *;
 
 neverallow { domain -hap_domain -installs } hap_file_attr:dir ~read_dir_perms;
 
