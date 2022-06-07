@@ -20,7 +20,6 @@ allow distributeddata data_app_el1_database_file:dir { add_name create open read
 allow distributeddata data_app_el1_database_file:file { getattr ioctl lock map open read };
 allow distributeddata data_app_el2_database_file:dir { add_name create open read remove_name search setattr write };
 allow distributeddata data_app_el2_database_file:file { getattr ioctl lock map open read };
-allow distributeddata data_app_el2_file:dir { search };
 allow distributeddata data_app_el3_database_file:dir { add_name create open read remove_name search setattr write };
 allow distributeddata data_app_el3_database_file:file { getattr ioctl lock map open read };
 allow distributeddata data_app_el4_database_file:dir { add_name create open read remove_name search setattr write };
