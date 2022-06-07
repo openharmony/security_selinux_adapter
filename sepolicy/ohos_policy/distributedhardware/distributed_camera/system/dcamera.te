@@ -1,0 +1,91 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type dcamera, sadomain, domain;
+type sa_dcamera_source_service, sa_service_attr;
+type sa_dcamera_sink_service, sa_service_attr;
+
+
+#avc:  denied  { call } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=1
+allow dcamera camera_service:binder { call transfer };
+
+#avc:  denied  { search } for  pid=2040 comm="dcamera" name="/" dev="mmcblk0p11" ino=2 scontext=u:r:dcamera:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow dcamera data_file:dir { search };
+
+#avc:  denied  { read } for  pid=2040 comm="Fillp_core_94" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
+#avc:  denied  { write } for  pid=2040 comm="Fillp_core_94" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
+allow dcamera dcamera:udp_socket { read write };
+
+#avc:  denied  { call } for  pid=2178 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera_host:s0 tclass=binder permissive=1
+allow dcamera dcamera_host:binder { call };
+
+#avc:  denied  { search } for  pid=2047 comm="dcamera" name="socket" dev="tmpfs" ino=38 scontext=u:r:dcamera:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow dcamera dev_unix_socket:dir { search };
+
+#avc:  denied  { call } for  pid=2061 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=1
+allow dcamera disp_gralloc_host:binder { call };
+#avc:  denied  { use } for  pid=2033 comm="dcamera" path="/dmabuf:" dev="dmabuf" ino=29931 ioctlcmd=0x6200 scontext=u:r:dcamera:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
+allow dcamera disp_gralloc_host:fd { use };
+
+#avc:  denied  { get } for service=hdf_device_manager pid=2053 scontext=u:r:dcamera:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+allow dcamera hdf_device_manager:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=distributed_camera_provider_service pid=2053 scontext=u:r:dcamera:s0 tcontext=u:object_r:hdf_distributed_camera_provider_service:s0 tclass=hdf_devmgr_class permissive=1
+allow dcamera hdf_distributed_camera_provider_service:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=hdi_display_gralloc_service pid=2053 scontext=u:r:dcamera:s0 tcontext=u:object_r:hdf_hdi_display_gralloc_service:s0 tclass=hdf_devmgr_class permissive=1
+allow dcamera hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
+
+#avc:  denied  { call } for  pid=2040 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+allow dcamera hdf_devmgr:binder { call };
+
+#avc:  denied  { call } for  pid=2040 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:limit_domain:s0 tclass=binder permissive=1
+#allow dcamera limit_domain:binder { call };
+
+#avc:  denied  { call } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+allow dcamera media_service:binder { call transfer };
+
+#avc:  denied  { get } for service=3002 pid=2053 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_media_service:s0 tclass=samgr_class permissive=1
+allow dcamera sa_media_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3901 pid=2042 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow dcamera sa_param_watcher:samgr_class { get };
+
+#avc: denied  { get } for service=4700 pid=2053 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=1
+allow dcamera sa_softbus_service:samgr_class { get };
+
+#avc:  denied  { add } for service=4803 pid=2068 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_dcamera_source_service:s0 tclass=samgr_class permissive=1
+allow dcamera sa_dcamera_source_service:samgr_class { add get_remote };
+
+#avc:  denied  { get_remote } for service=4804 pid=2068 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_dcamera_sink_service:s0 tclass=samgr_class permissive=1
+#avc:  denied  { add } for service=4804 pid=2068 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_dcamera_sink_service:s0 tclass=samgr_class permissive=1
+allow dcamera sa_dcamera_sink_service:samgr_class { add get_remote };
+
+#avc:  denied  { get } for service=5100 pid=2068 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+allow dcamera sa_device_service_manager:samgr_class { get };
+
+#avc:  denied  { read } for  pid=2433 comm="THREAD_POOL" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { setopt } for  pid=2047 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { shutdown } for  pid=2061 comm="THREAD_POOL" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { write } for  pid=2047 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+allow dcamera softbus_server:tcp_socket { read setopt write shutdown };
+
+#avc:  denied  { call } for  pid=2047 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2061 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
+allow dcamera softbus_server:binder { call transfer };
+
+#avc:  denied  { use } for  pid=586 comm="THREAD_POOL"  scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=fd permissive=1
+allow dcamera softbus_server:fd { use };
+
