@@ -16,6 +16,9 @@ init_daemon_domain(audio_policy);
 #avc:  denied  { call } for  pid=334 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow audio_policy accesstoken_service:binder { call };
 
+#avc:  denied  { getopt } for  pid=476 comm="threaded-ml" scontext=u:r:audio_policy:s0 tcontext=u:r:audio_policy:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { setopt } for  pid=476 comm="threaded-ml" scontext=u:r:audio_policy:s0 tcontext=u:r:audio_policy:s0 tclass=unix_dgram_socket permissive=1
+allow audio_policy audio_policy:unix_dgram_socket { getopt setopt };
 
 #avc:  denied  { call } for  pid=353 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=351 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
@@ -102,6 +105,9 @@ allow audio_policy param_watcher:binder { call transfer };
 #avc:  denied  { call } for  pid=342 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
 allow audio_policy pulseaudio:binder { call };
 
+#avc:  denied  { read write } for  pid=525 comm="sa_main" path=2F6465762F636F6E736F6C65202864656C6574656429 dev="rootfs" ino=15759 scontext=u:r:audio_policy:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+allow audio_policy rootfs:chr_file { read write };
+
 #avc:  denied  { get } for service=3503 pid=341 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
 allow audio_policy sa_accesstoken_manager_service:samgr_class { get };
 
@@ -150,6 +156,11 @@ allow audio_policy vendor_etc_file:dir { search };
 #avc:  denied  { open } for  pid=378 comm="audio_policy" path="/vendor/etc/audio/audio_policy_config.xml" dev="mmcblk0p7" ino=22 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=374 comm="audio_policy" name="audio_policy_config.xml" dev="mmcblk0p7" ino=22 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file p
 allow audio_policy vendor_etc_file:file { getattr open read };
+
+#avc:  denied  { getattr } for  pid=490 comm="audio_policy" path="/vendor/lib64/libhdi.z.so" dev="mmcblk0p7" ino=98 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=490 comm="audio_policy" path="/vendor/lib64/libhdi.z.so" dev="mmcblk0p7" ino=98 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=521 comm="audio_policy" path="/vendor/lib64/libhdi_display_gralloc_client.z.so" dev="mmcblk0p7" ino=108 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+allow audio_policy vendor_file:file { getattr open read };
 
 #avc:  denied  { search } for  pid=359 comm="audio_policy" name="lib" dev="mmcblk0p6" ino=44 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1
 allow audio_policy vendor_lib_file:dir { search };
