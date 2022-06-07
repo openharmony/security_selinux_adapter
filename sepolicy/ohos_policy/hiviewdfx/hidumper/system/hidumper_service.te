@@ -159,3 +159,18 @@ allow hidumper_service { hdfdomain sadomain }:dir { getattr open read search };
 allow hidumper_service { hdfdomain sadomain }:file { getattr open read };
 allow hidumper_service { hdfdomain sadomain }:lnk_file read;
 allow hidumper_service { hdfdomain sadomain -hilogd }:process ptrace;
+
+#avc:  denied  { get } for service=3301 pid=611 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
+allow hidumper_service sa_foundation_powermgr_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3302 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_battery_service:s0 tclass=samgr_class permissive=1
+allow hidumper_service sa_foundation_battery_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3304 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_batterystats_service:s0 tclass=samgr_class permissive=1
+allow hidumper_service sa_batterystats_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3308 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
+allow hidumper_service sa_foundation_displaymgr_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3303 pid=553 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_thermal_service:s0 tclass=samgr_class permissive=1
+allow hidumper_service sa_thermal_service:samgr_class { get };

@@ -41,6 +41,7 @@
 3299                                   u:object_r:sa_foundation_cesfwk_service:s0
 3301                                   u:object_r:sa_foundation_powermgr_service:s0
 3302                                   u:object_r:sa_foundation_battery_service:s0
+3303                                   u:object_r:sa_thermal_service:s0
 3304                                   u:object_r:sa_batterystats_service:s0
 3308                                   u:object_r:sa_foundation_displaymgr_service:s0
 3503                                   u:object_r:sa_accesstoken_manager_service:s0
