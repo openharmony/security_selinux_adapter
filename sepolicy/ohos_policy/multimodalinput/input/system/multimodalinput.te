@@ -13,7 +13,6 @@
 
 type multimodalinput, sadomain, domain;
 
-#allow multimodalinput multimodalinput:capability { dac_read_search dac_override };
 allow multimodalinput foundation:binder call;
 allow multimodalinput tracefs:dir search;
 allow multimodalinput tracefs:file { open write };
