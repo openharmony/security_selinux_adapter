@@ -14,5 +14,17 @@
 #avc:  denied  { get } for service=3503 pid=589 scontext=u:r:sensors:s0 tcontext=i:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
 allow sensors sa_accesstoken_manager_service:samgr_class { get };
 
+#avc:  denied  { get } for service=vibrator_interface_service pid=620 scontext=u:r:sensors:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow sensors hdf_vibrator_interface_service:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=sensor_interface_service pid=655 scontext=u:r:sensors:s0 tcontext=u:object_r:hdf_sensor_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow sensors hdf_sensor_interface_service:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=vibrator_interface_service pid=655 scontext=u:r:sensors:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow sensors hdf_vibrator_interface_service:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=3503 pid=620 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
+allow sensors sa_accesstoken_manager_service:samgr_class { get };
+
 #avc:  denied  { get } for service=5100 pid=546 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 allow sensors sa_device_service_manager:samgr_class { get };
