@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow device_usage_stats_service accesstoken_service:binder { call };
 allow device_usage_stats_service accountmgr:binder { call };
 allow device_usage_stats_service data_file:dir { search };
 allow device_usage_stats_service data_service_el1_file:dir { open read search };
