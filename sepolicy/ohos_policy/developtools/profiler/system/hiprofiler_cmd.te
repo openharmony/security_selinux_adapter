@@ -23,3 +23,4 @@ allow hiprofiler_cmd self:tcp_socket { bind create setopt };
 allow hiprofiler_cmd port:tcp_socket name_connect;
 allow hiprofiler_cmd self:tcp_socket { connect getattr getopt read write };
 allow hiprofiler_cmd self:tcp_socket shutdown;
+allow hiprofiler_cmd data_local:dir search;
