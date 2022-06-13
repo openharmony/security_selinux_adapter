@@ -95,6 +95,11 @@ allow pulseaudio init:unix_stream_socket { accept getattr getopt listen setopt }
 #avc:  denied  { write } for  pid=308 comm="pulseaudio" name="native" dev="tmpfs" ino=301 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:native_socket:s0 tclass=sock_file permissive=1
 allow pulseaudio native_socket:sock_file { write };
 
+#avc:  denied  { ioctl } for  pid=281 comm="hdi-source-reco" path=2F6465762F636F6E736F6C65202864656C6574656429 dev="rootfs" ino=382 ioctlcmd=0x5413 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+#avc:  denied  { read } for  pid=277 comm="sa_main" path=2F6465762F636F6E736F6C65202864656C6574656429 dev="rootfs" ino=33 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+#avc:  denied  { write } for  pid=281 comm="hdi-source-reco" path=2F6465762F636F6E736F6C65202864656C6574656429 dev="rootfs" ino=382 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+allow pulseaudio rootfs:chr_file { ioctl read write };
+
 #avc:  denied  { get } for service=3503 pid=297 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
 allow pulseaudio sa_accesstoken_manager_service:samgr_class { get };
 
@@ -116,6 +121,13 @@ allow pulseaudio vendor_etc_file:dir { search };
 #avc:  denied  { open } for  pid=304 comm="pulseaudio" path="/vendor/etc/hdfconfig/audio_adapter_config.json" dev="mmcblk0p6" ino=28 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 allow pulseaudio vendor_etc_file:file { getattr read open };
 
+#avc:  denied  { execute } for  pid=305 comm="pulseaudio" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=297 comm="pulseaudio" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=305 comm="pulseaudio" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=297 comm="pulseaudio" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=292 comm="pulseaudio" path="/vendor/lib64/libhdi_audio_client.z.so" dev="mmcblk0p7" ino=102 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+allow pulseaudio vendor_file:file { execute getattr map open read };
+
 #avc:  denied  { search } for  pid=294 comm="pulseaudio" name="lib" dev="mmcblk0p6" ino=44 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1
 allow pulseaudio vendor_lib_file:dir { search };
 
@@ -131,4 +143,7 @@ allowxperm pulseaudio data_data_pulse_dir:file ioctl { 0x5413 };
 
 #avc:  denied  { ioctl } for  pid=284 comm="sa_main" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=17 ioctlcmd=0x5413 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
 allowxperm pulseaudio data_init_agent:file ioctl { 0x5413 };
+
+#avc:  denied  { ioctl } for  pid=295 comm="hdi-source-reco" path=2F6465762F636F6E736F6C65202864656C6574656429 dev="rootfs" ino=15759 ioctlcmd=0x5413 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file perm
+allowxperm pulseaudio rootfs:chr_file ioctl { 0x5413 };
 

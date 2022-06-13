@@ -13,9 +13,13 @@
 
 allow work_scheduler_service accountmgr:binder { call };
 allow work_scheduler_service data_file:dir { search };
+allow work_scheduler_service data_service_el1_file:dir { search };
 allow work_scheduler_service data_service_el1_file:file { getattr ioctl open read write };
 allow work_scheduler_service data_service_file:dir { search };
 allow work_scheduler_service dev_unix_socket:dir { search };
 allow work_scheduler_service dev_unix_socket:sock_file { write };
 allow work_scheduler_service foundation:binder { call transfer };
+allow work_scheduler_service tracefs:dir { search };
+allow work_scheduler_service tracefs_trace_marker_file:file { write };
+allow work_scheduler_service work_scheduler_service:unix_dgram_socket { getopt setopt };
 allowxperm work_scheduler_service data_service_el1_file:file ioctl 0x5413;

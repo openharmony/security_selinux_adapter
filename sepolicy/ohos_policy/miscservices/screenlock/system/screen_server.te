@@ -15,3 +15,4 @@ type  screenlock_server, sadomain, domain;
 
 allow screenlock_server dev_unix_socket:dir { search };
 allow screenlock_server system_basic_hap:binder { call };
+allow screenlock_server system_usr_file:file { map };

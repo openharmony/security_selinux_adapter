@@ -41,6 +41,7 @@
 3299                                   u:object_r:sa_foundation_cesfwk_service:s0
 3301                                   u:object_r:sa_foundation_powermgr_service:s0
 3302                                   u:object_r:sa_foundation_battery_service:s0
+3303                                   u:object_r:sa_thermal_service:s0
 3304                                   u:object_r:sa_batterystats_service:s0
 3308                                   u:object_r:sa_foundation_displaymgr_service:s0
 3503                                   u:object_r:sa_accesstoken_manager_service:s0
@@ -52,9 +53,14 @@
 4005                                   u:object_r:sa_foundation_tel_call_manager:s0
 4006                                   u:object_r:sa_telephony_tel_cellular_call:s0
 4010                                   u:object_r:sa_telephony_tel_core_service:s0
+4201                                   u:object_r:sa_usb_service:s0
 4014                                   u:object_r:sa_telephony_tel_ims:s0
+4606                                   u:object_r:sa_foundation_wms:s0
+4607                                   u:object_r:sa_foundation_dms:s0
 4700                                   u:object_r:sa_softbus_service:s0
 4802                                   u:object_r:sa_foundation_devicemanager_service:s0
+4803                                   u:object_r:sa_dcamera_source_service:s0
+4804                                   u:object_r:sa_dcamera_sink_service:s0
 4807                                   u:object_r:sa_dscreen_source_service:s0
 4808                                   u:object_r:sa_dscreen_sink_service:s0
 5003                                   u:object_r:sa_storage_manager_service:s0

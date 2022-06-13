@@ -220,7 +220,7 @@ neverallow { domain -init } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
 neverallow * self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -memmgrservice } self:{ capability cap_userns } sys_resource;
-neverallow * self:{ capability cap_userns } sys_time;
+neverallow { domain -time_service } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;
 neverallow { domain -ueventd } self:{ capability cap_userns } mknod;
 neverallow * self:{ capability cap_userns } lease;

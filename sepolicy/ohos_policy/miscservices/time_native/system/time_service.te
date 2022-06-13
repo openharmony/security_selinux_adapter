@@ -14,3 +14,13 @@
 type  time_service, sadomain, domain;
 
 allow time_service foundation:binder { call };
+allow time_service accesstoken_service:binder { call };
+allow time_service time_service:capability { sys_time };
+allow time_service sa_accesstoken_manager_service:samgr_class { get };
+allow time_service sa_param_watcher:samgr_class { get };
+allow time_service dev_rtc_file:chr_file { ioctl open read write};
+allowxperm time_service dev_rtc_file:chr_file ioctl 0x700a;
+allow time_service node:udp_socket { node_bind };
+allow time_service time_service:capability2 { wake_alarm };
+allow time_service time_service:udp_socket { bind connect create read setopt write};
+allow time_service dev_unix_socket:dir { search };

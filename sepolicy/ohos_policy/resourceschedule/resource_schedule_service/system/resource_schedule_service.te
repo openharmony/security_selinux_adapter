@@ -22,6 +22,7 @@ allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
 #vendor
 allow resource_schedule_service vendor_lib_file:dir { search };
 allow resource_schedule_service vendor_lib_file:file { execute getattr map open read };
+allow resource_schedule_service vendor_file:file { execute getattr map open read };
 #system
 allow resource_schedule_service system_basic_hap:process { setsched };
 allow resource_schedule_service system_bin_file:dir { search };

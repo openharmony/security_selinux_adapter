@@ -11,8 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type dcamera, sadomain, domain;
-type dcamera_exec, exec_attr, file_attr, system_file_attr;
-
-init_daemon_domain(dcamera);
-
+const.display.brightness(.*)?       u:object_r:const_display_brightness_param:s0
