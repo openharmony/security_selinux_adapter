@@ -35,9 +35,9 @@ typedef struct ParamContextsList {
 } ParamContextsList;
 
 /**
- * @brief set selinux log print to dmesg
+ * @brief init param selinux
  */
-void SetSelinuxLogCallback(void);
+void InitParamSelinux(void);
 
 /**
  * @brief get param context list, for context-named files generate
@@ -62,14 +62,6 @@ void DestroyParamList(ParamContextsList **list);
  * @return context for given paraName
  */
 const char *GetParamLabel(const char *paraName);
-
-/**
- * @brief for read particular paraName, check its selinux permmisson
- *
- * @param paraName the name of param
- * @return 0 for success, or an error code
- */
-int ReadParamCheck(const char *paraName);
 
 /**
  * @brief for write particular paraName, get its context

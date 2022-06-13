@@ -47,7 +47,7 @@ void SelinuxUnitTest::SetUpTestCase()
 {
     // make test case clean
     GenerateTestFile();
-    SetSelinuxLogCallback();
+    InitParamSelinux();
 }
 
 void SelinuxUnitTest::TearDownTestCase()

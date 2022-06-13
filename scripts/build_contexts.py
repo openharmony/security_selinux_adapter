@@ -26,16 +26,12 @@ from collections import defaultdict
 SCRIPT_PATH = os.path.abspath(os.path.dirname(__file__))
 LOCAL_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, "../"))
 POLICY_PATH = LOCAL_PATH + "/sepolicy"
-SEHAP_CONTEXTS_PATH = LOCAL_PATH + "/sepolicy/sehap_contexts"
-SERVICE_CONTEXTS_PATH = LOCAL_PATH + "/sepolicy/service_contexts"
-HDF_SERVICE_CONTEXTS_PATH = LOCAL_PATH + "/sepolicy/hdf_service_contexts"
-PARAMETER_CONTEXTS_PATH = LOCAL_PATH + "/sepolicy/parameter_contexts"
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--dst-file', help='the file_contexts.bin dest path', required=True)
+        '--dst-dir', help='the output dest path', required=True)
     parser.add_argument('--tool-path',
                         help='the sefcontext_compile bin path', required=True)
     parser.add_argument('--policy-file',
@@ -60,13 +56,14 @@ def traverse_folder_in_type(search_dir, file_suffix):
     policy_file_list = []
     for root, _, files in os.walk(search_dir):
         for each_file in files:
-            if each_file.endswith(file_suffix):
+            file_name = os.path.basename(each_file)
+            if file_name == file_suffix:
                 policy_file_list.append(os.path.join(root, each_file))
     policy_file_list.sort()
     return " ".join(str(x) for x in policy_file_list)
 
 
-def combine_file_contexts(file_contexts_list, combined_file_contexts):
+def combine_contexts_file(file_contexts_list, combined_file_contexts):
     cat_cmd = ["cat",
                file_contexts_list,
                ">", combined_file_contexts + "_tmp"]
@@ -117,7 +114,7 @@ def check_redefinition(contexts_file):
         raise Exception(err)
 
 
-def check_contexts_file(args, contexts_file):
+def check_common_contexts(args, contexts_file):
     """
     check whether context used in contexts_file is defined in policy.31.
     :param args:
@@ -133,8 +130,6 @@ def check_contexts_file(args, contexts_file):
     run_command(check_cmd)
     if os.path.exists(contexts_file + ".bin"):
         os.unlink(contexts_file + ".bin")
-    shutil.copyfile(contexts_file, os.path.abspath(
-        os.path.dirname(args.dst_file)) + "/" + os.path.basename(contexts_file))
 
 
 def check_sehap_contexts(args, contexts_file, domain):
@@ -199,12 +194,12 @@ def check_sehap_contexts(args, contexts_file, domain):
         os.unlink(contexts_file + ".bin")
 
 
-def build_file_contetxs(args, output_path):
+def build_file_contexts(args, output_path):
     file_contexts_list = traverse_folder_in_type(
         POLICY_PATH, "file_contexts")
 
     combined_file_contexts = output_path + "/file_contexts"
-    combine_file_contexts(file_contexts_list, combined_file_contexts)
+    combine_contexts_file(file_contexts_list, combined_file_contexts)
 
     build_tmp_cmd = ["m4",
                      "--fatal-warnings",
@@ -214,25 +209,40 @@ def build_file_contetxs(args, output_path):
     check_redefinition(combined_file_contexts)
 
     build_bin_cmd = [args.tool_path + "/sefcontext_compile",
-                     "-o", args.dst_file,
+                     "-o", args.dst_dir + "/file_contexts.bin",
                      "-p", args.policy_file,
                      output_path + "/file_contexts.tmp"]
     run_command(build_bin_cmd)
 
 
+def build_common_contexts(args, output_path, contexts_file_name):
+    contexts_list = traverse_folder_in_type(
+        POLICY_PATH, contexts_file_name)
+
+    combined_contexts = output_path + contexts_file_name
+    combine_contexts_file(contexts_list, combined_contexts)
+
+    check_common_contexts(args, combined_contexts)
+
+
+def build_sehap_contexts(args, output_path):
+    contexts_list = traverse_folder_in_type(
+        POLICY_PATH, "sehap_contexts")
+
+    combined_contexts = output_path + "/sehap_contexts"
+    combine_contexts_file(contexts_list, combined_contexts)
+
+    check_sehap_contexts(args, combined_contexts, 1)
+    check_sehap_contexts(args, combined_contexts, 0)
+
+
 def main(args):
-    output_path = os.path.abspath(os.path.dirname(args.dst_file))
-
-    build_file_contetxs(args, output_path)
-
-    check_contexts_file(args, SERVICE_CONTEXTS_PATH)
-    check_contexts_file(args, HDF_SERVICE_CONTEXTS_PATH)
-    check_contexts_file(args, PARAMETER_CONTEXTS_PATH)
-
-    check_sehap_contexts(args, SEHAP_CONTEXTS_PATH, 1)
-    check_sehap_contexts(args, SEHAP_CONTEXTS_PATH, 0)
-    shutil.copyfile(SEHAP_CONTEXTS_PATH, output_path + "/" +
-                    os.path.basename(SEHAP_CONTEXTS_PATH))
+    output_path = args.dst_dir
+    build_file_contexts(args, output_path)
+    build_common_contexts(args, output_path, "service_contexts")
+    build_common_contexts(args, output_path, "hdf_service_contexts")
+    build_common_contexts(args, output_path, "parameter_contexts")
+    build_sehap_contexts(args, output_path)
 
 
 if __name__ == "__main__":

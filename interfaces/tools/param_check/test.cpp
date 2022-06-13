@@ -108,7 +108,14 @@ static void TestReadPara(std::string &paraName)
     struct timeval start, end, diff;
     gettimeofday(&start, nullptr);
 #endif
-    std::cout << GetErrStr(ReadParamCheck(paraName.c_str())) << std::endl;
+    const char *contexts = GetParamLabel(paraName.c_str());
+    std::string path = "/dev/__parameters__/" + std::string(contexts);
+    std::string res;
+    if (access(path.c_str(), F_OK) != 0) {
+        std::cout << "read param: " << paraName << " fail" << std::endl;
+    } else {
+        std::cout << "read param: " << paraName << " succ" << std::endl;
+    }
 #ifdef TIME_DISPLAY
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);
@@ -250,7 +257,7 @@ int main(int argc, char *argv[])
         PrintUsage();
         exit(0);
     }
-    SetSelinuxLogCallback();
+    InitParamSelinux();
     testInput testCmd;
     SetOptions(argc, argv, options, testCmd);
     Test(testCmd);

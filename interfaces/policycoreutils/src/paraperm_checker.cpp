@@ -19,7 +19,6 @@
 #include <securec.h>
 #include <selinux_internal.h>
 #include <sstream>
-#include <mutex>
 #include <string>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -35,13 +34,12 @@ namespace {
 static const std::string PARAMETER_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/parameter_contexts";
 static const std::string TYPE_PREFIX = "u:object_r:";
 static const char *DEFAULT_CONTEXT = "u:object_r:default_param:s0";
-static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
-static pthread_once_t HILOG_ONCE = PTHREAD_ONCE_INIT;
+static pthread_once_t SET_LOG_ONCE = PTHREAD_ONCE_INIT;
+static pthread_once_t LOAD_ONCE = PTHREAD_ONCE_INIT;
 static std::unique_ptr<ParamContextsTrie> g_contextsTrie = nullptr;
 static ParamContextsList *g_contextsList = nullptr;
 static const int CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const int CONTEXTS_LENGTH_MAX = 1024;
-std::mutex g_loadContextsLock;
 } // namespace
 
 struct AuditMsg {
@@ -151,18 +149,19 @@ static bool InsertContextsList(const ParameterInfo &tmpInfo, ParamContextsList *
     return true;
 }
 
-static bool ParameterContextsLoad()
+static void ParameterContextsLoad()
 {
     std::ifstream contextsFile(PARAMETER_CONTEXTS_FILE);
     if (!contextsFile) {
         selinux_log(SELINUX_ERROR, "Load parameter_contexts fail, no such file: %s\n", PARAMETER_CONTEXTS_FILE.c_str());
-        return false;
+        return;
     }
+
     g_contextsTrie = std::make_unique<ParamContextsTrie>();
     g_contextsList = (ParamContextsList *)malloc(sizeof(ParamContextsList));
     if (g_contextsList == nullptr) {
         selinux_log(SELINUX_ERROR, "malloc param info list head fail\n");
-        return false;
+        return;
     }
     ParamContextsList *head = g_contextsList;
     int lineNum = 0;
@@ -180,13 +179,13 @@ static bool ParameterContextsLoad()
             selinux_log(SELINUX_ERROR, "insert contexts trie node fail\n");
             contextsFile.close();
             ReleaseMem();
-            return false;
+            return;
         }
         if (!InsertContextsList(tmpInfo, &head)) {
             selinux_log(SELINUX_ERROR, "malloc param info list node fail\n");
             contextsFile.close();
             ReleaseMem();
-            return false;
+            return;
         }
     }
     head = g_contextsList->next;
@@ -194,7 +193,7 @@ static bool ParameterContextsLoad()
     g_contextsList = head;
     selinux_log(SELINUX_INFO, "Load parameter_contexts succes: %s\n", PARAMETER_CONTEXTS_FILE.c_str());
     contextsFile.close();
-    return true;
+    return;
 }
 
 static int CheckPerm(const std::string &paraName, const char *srcContext, const char *destContext, const ucred &uc)
@@ -212,10 +211,20 @@ static int CheckPerm(const std::string &paraName, const char *srcContext, const 
     return res == 0 ? SELINUX_SUCC : -SELINUX_PERMISSION_DENY;
 }
 
-void SetSelinuxLogCallback()
+static void SetSelinuxLog(bool isInit)
 {
-    __selinux_once(FC_ONCE, SelinuxSetCallback);
-    return;
+    if (isInit) {
+        __selinux_once(SET_LOG_ONCE, SelinuxSetCallback);
+    } else {
+        __selinux_once(SET_LOG_ONCE, SelinuxSetHilogCallback);
+    }
+}
+
+void InitParamSelinux(void)
+{
+    bool isInit = (getpid() == 1 ? true : false);
+    SetSelinuxLog(isInit);
+    __selinux_once(LOAD_ONCE, ParameterContextsLoad);
 }
 
 void DestroyParamList(ParamContextsList **list)
@@ -241,61 +250,23 @@ void DestroyParamList(ParamContextsList **list)
 ParamContextsList *GetParamList()
 {
     if (g_contextsList == nullptr) {
-        if (!ParameterContextsLoad()) {
-            return nullptr;
-        }
+        selinux_log(SELINUX_ERROR, "param list is null!\n");
+        return nullptr;
     }
     return g_contextsList;
 }
 
 const char *GetParamLabel(const char *paraName)
 {
-    __selinux_once(HILOG_ONCE, SelinuxSetHilogCallback);
-
     if (paraName == nullptr) {
         selinux_log(SELINUX_ERROR, "paraName is null!\n");
         return DEFAULT_CONTEXT;
     }
-    {
-        std::lock_guard<std::mutex> lock(g_loadContextsLock);
-        if (g_contextsTrie == nullptr) {
-            if (!ParameterContextsLoad()) {
-                return DEFAULT_CONTEXT;
-            }
-        }
+    if (g_contextsTrie == nullptr) {
+        selinux_log(SELINUX_ERROR, "contexts trie is null!\n");
+        return DEFAULT_CONTEXT;
     }
-
     return g_contextsTrie->Search(std::string(paraName));
-}
-
-int ReadParamCheck(const char *paraName)
-{
-    if (paraName == nullptr) {
-        selinux_log(SELINUX_ERROR, "paraName is null!\n");
-        return -SELINUX_PTR_NULL;
-    }
-
-    char *srcContext = nullptr;
-    int rc = getcon(&srcContext);
-    if (rc < 0) {
-        selinux_log(SELINUX_ERROR, "getcon failed!\n");
-        return -SELINUX_GET_CONTEXT_ERROR;
-    }
-
-    AuditMsg msg;
-    msg.name = paraName;
-    ucred uc = {.pid = getpid(), .uid = getuid(), .gid = getgid()};
-    msg.ucred = &uc;
-    const char *destContext = GetParamLabel(paraName);
-    if (srcContext == nullptr || destContext == nullptr) {
-        freecon(srcContext);
-        return -SELINUX_PTR_NULL;
-    }
-    selinux_log(SELINUX_INFO, "srcContext[%s] is reading param[%s] destContext[%s]\n", srcContext, paraName,
-                destContext);
-    int res = selinux_check_access(srcContext, destContext, "file", "read", &msg);
-    freecon(srcContext);
-    return res == 0 ? SELINUX_SUCC : -SELINUX_PERMISSION_DENY;
 }
 
 int SetParamCheck(const char *paraName, struct ucred *uc)

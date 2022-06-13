@@ -321,8 +321,8 @@ action("build_policy") {
 action("build_contexts") {
   script = "$SELINUX_ROOT_DIR/scripts/build_contexts.py"
   args = [
-    "--dst-file",
-    rebase_path(target_out_dir + "/file_contexts.bin"),
+    "--dst-dir",
+    rebase_path(target_out_dir + "/"),
     "--tool-path",
     rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
     "--policy-file",
@@ -332,8 +332,8 @@ action("build_contexts") {
     ":build_policy",
     "$THIRD_PARTY_SELINUX_DIR:sefcontext_compile($host_toolchain)",
   ]
-  outputs = [ target_out_dir + "/file_contexts.bin" ]
-  outputs += [
+  outputs = [
+    target_out_dir + "/file_contexts.bin",
     target_out_dir + "/file_contexts",
     target_out_dir + "/sehap_contexts",
     target_out_dir + "/service_contexts",
