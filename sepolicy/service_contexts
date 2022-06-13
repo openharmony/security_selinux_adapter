@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+10                                     u:object_r:sa_render_service:s0
 180                                    u:object_r:sa_foundation_abilityms:s0
 200                                    u:object_r:sa_accountmgr:s0
 401                                    u:object_r:sa_foundation_bms:s0
