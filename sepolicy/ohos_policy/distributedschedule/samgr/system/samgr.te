@@ -14,5 +14,63 @@
 type samgr, sadomain, domain;
 type samgr_exec, exec_attr, file_attr, system_file_attr;
 
+type bootevent_samgr_param, parameter_attr;
+
 init_daemon_domain(samgr);
 
+
+allow samgr sadomain:binder { call transfer };
+allow samgr sadomain:dir { search };
+allow samgr sadomain:file { open read };
+allow samgr sadomain:process { getattr };
+
+allow samgr hdfdomain:binder { transfer };
+allow samgr hdfdomain:dir { search };
+allow samgr hdfdomain:file { open read };
+allow samgr hdfdomain:process { getattr };
+
+allow samgr sh:dir { search };
+allow samgr sh:file { open read };
+allow samgr sh:process { getattr };
+allow samgr sh:binder { call transfer };
+
+allow samgr bootevent_samgr_param:parameter_service { set };
+
+allow samgr data_file:dir { search };
+
+allow samgr dev_binder_file:chr_file { ioctl };
+
+allow samgr dev_unix_socket:dir { search };
+
+allow samgr dslm_service:file { getattr open read };
+
+allow samgr kernel:unix_stream_socket { connectto };
+
+allow samgr normal_hap:dir { search };
+allow samgr normal_hap:file { open read };
+allow samgr normal_hap:process { getattr };
+
+allow samgr paramservice_socket:sock_file { write };
+
+allow samgr samgr:binder { set_context_mgr };
+
+allow samgr security:security { check_context compute_av };
+
+allow samgr selinuxfs:dir { open read search };
+allow samgr selinuxfs:file { map open read write };
+
+allow samgr system_basic_hap:dir { search };
+allow samgr system_basic_hap:file { open read };
+allow samgr system_basic_hap:process { getattr };
+
+allow samgr system_core_hap:dir { search };
+allow samgr system_core_hap:file { open read };
+allow samgr system_core_hap:process { getattr };
+
+allow samgr system_bin_file:dir { search };
+
+allow samgr system_file:file { getattr map open read };
+
+allow samgr system_profile_file:dir { open read };
+
+allowxperm samgr dev_binder_file:chr_file ioctl { 0x6207 };
