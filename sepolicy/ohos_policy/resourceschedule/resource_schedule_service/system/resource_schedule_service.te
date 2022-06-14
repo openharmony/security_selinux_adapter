@@ -19,6 +19,9 @@ allow resource_schedule_service foundation:binder { call transfer };
 allow resource_schedule_service hiview:binder { call transfer };
 allow resource_schedule_service param_watcher:binder { call transfer };
 allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
+#cgroup
+allow resource_schedule_service cgroup:dir { search };
+allow resource_schedule_service cgroup:file { getattr open write };
 #vendor
 allow resource_schedule_service vendor_lib_file:dir { search };
 allow resource_schedule_service vendor_lib_file:file { execute getattr map open read };
@@ -26,6 +29,7 @@ allow resource_schedule_service vendor_file:file { execute getattr map open read
 #system
 allow resource_schedule_service system_basic_hap:process { setsched };
 allow resource_schedule_service system_bin_file:dir { search };
+allow resource_schedule_service system_bin_file:file { execute };
 allow resource_schedule_service system_core_hap:process { setsched };
 allow resource_schedule_service system_usr_file:dir { search map };
 allow resource_schedule_service system_usr_file:file { getattr read };
@@ -35,6 +39,8 @@ allow resource_schedule_service tracefs_trace_marker_file:file { open write };
 #dev
 allow resource_schedule_service dev_unix_socket:dir { search };
 allow resource_schedule_service dev_unix_socket:sock_file { write };
+#ui_service
+allow resource_schedule_service ui_service:process { setsched };
 #normal_hap
 allow resource_schedule_service normal_hap:process { setsched };
 #data
@@ -44,7 +50,10 @@ allow resource_schedule_service data_init_agent:file { ioctl open read append };
 #lib_file
 allow resource_schedule_service lib_file:lnk_file { read };
 #sys_file
-allow resource_schedule_service sys_file:file { getattr write open ioctl };
+allow resource_schedule_service sys_devices_file:file { getattr write open ioctl };
+allow resource_schedule_service sys_devices_file:dir { open read search };
+allow resource_schedule_service sys_class_file:file { getattr write open ioctl };
+allow resource_schedule_service sys_class_file:dir { open read search };
 #frame_aware_scha
 allow resource_schedule_service dev_sched_rtg_ctrl:chr_file { ioctl open read write };
 #allowxperm
