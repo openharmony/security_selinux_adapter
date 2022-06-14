@@ -14,12 +14,6 @@
 type dhardware, sadomain, domain;
 type sa_dhardware_service, sa_service_attr;
 
-#avc:  denied  { get_remote } for service=4801 pid=2011 scontext=u:r:dhardware:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
-allow dhardware sa_dhardware_service:samgr_class { get_remote };
-
-#avc:  denied  { add } for service=4801 pid=1915 scontext=u:r:dhardware:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
-allow dhardware sa_dhardware_service:samgr_class { add };
-
 #avc:  denied  { get } for service=3901 pid=1881 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
 allow dhardware sa_param_watcher:samgr_class { get };
 
