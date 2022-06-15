@@ -31,23 +31,33 @@ allow hiview hiview_exec:file { entrypoint execute map read };
 
 allow hiview hiview:unix_dgram_socket { getopt setopt };
 allow hiview init:unix_dgram_socket { getattr getopt read write setopt };
+allow hiview faultloggerd:unix_stream_socket { connectto };
 
 allow hdcd hiview_exec:file { execute read open getattr execute_no_trans map };
 allow hdcd hisysevent_exec:file { execute read open getattr execute_no_trans map };
 
-allow hiview hiview_file:dir { search getattr };
+allow hiview hiview_file:dir { search getattr read open write add_name };
 allow hiview hiview_file:file { map read write getattr open lock };
 
 allow hiview data_file:dir { search };
-allow hiview data_log:dir { add_name open read search watch write create };
-allow hiview data_log:file { create getattr lock map open read write };
+allow hiview data_log:dir { add_name open read search watch write create remove_name };
+allow hiview data_log:file { create getattr lock map open read write unlink };
 allow hiview data_system:dir { search getattr };
 allow hiview dev_file:chr_file { open read };
 allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
+allow hiview system_bin_file:file { execute };
+allow hiview system_bin_file:lnk_file { read };
 allow hiview sys_file:dir { read open };
 allow hiview sys_file:file { read open };
 allow hiview dev_bbox:chr_file { read open };
+allow hiview normal_hap:dir { search };
+allow hiview normal_hap:file { read open };
+allow hiview proc_cpuinfo_file:file { read open };
+allow hiview sh_exec:file { execute read open execute_no_trans map };
+allow hiview sh:file { read open };
+allow hiview sh:dir { search };
+allow hiview rootfs:chr_file { read write };
 
 allow hiview data_init_agent:dir { search };
 allow hiview data_init_agent:file { ioctl open read append };
@@ -61,8 +71,14 @@ allow hiview time_service:binder { call transfer };
 allow hiview param_watcher:binder { call transfer };
 allow hiview hdcd:binder { call transfer };
 allow hiview resource_schedule_service:binder { call transfer };
+allow hiview normal_hap:binder { call transfer };
+allow hiview sh:binder { call transfer };
+allow hiview accountmgr:binder { call transfer };
+allow hiview device_usage_stats_service:binder { call transfer };
 
 allow hiview dev_unix_socket:dir { search };
+allow hiview dev_unix_socket:sock_file { write };
+allow hiview faultloggerd_socket:sock_file { write };
 
 allow hiview tracefs:dir { search };
 allow hiview tracefs_trace_marker_file:file { write open };
