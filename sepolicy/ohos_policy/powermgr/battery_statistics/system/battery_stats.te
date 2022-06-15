@@ -23,5 +23,8 @@ allow battery_stats sa_foundation_battery_service:samgr_class { get };
 #avc:  denied  { add } for service=3304 pid=557 scontext=u:r:battery_stats:s0 tcontext=u:object_r:sa_batterystats_service:s0 tclass=samgr_class permissive=1
 allow battery_stats sa_batterystats_service:samgr_class { add };
 
+#avc:  denied  { get } for service=1203 pid=693 scontext=u:r:battery_stats:s0 tcontext=u:object_r:sa_sys_event_service:s0 tclass=samgr_class permissive=1
+allow battery_stats sa_sys_event_service:samgr_class { get };
+
 #avc:  denied  { get } for service=3299 pid=557 scontext=u:r:battery_stats:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
 allow battery_stats sa_foundation_cesfwk_service:samgr_class { get };
