@@ -36,3 +36,4 @@ persist.sys.                            u:object_r:persist_sys_param:s0
 debug.                                  u:object_r:debug_param:s0
 
 build_version                           u:object_r:build_version_param:s0
+bootevent.samgr.ready                   u:object_r:bootevent_samgr_param:s0
