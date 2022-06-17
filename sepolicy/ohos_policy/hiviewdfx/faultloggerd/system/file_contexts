@@ -14,6 +14,12 @@
 # processdump
 /system/bin/processdump u:object_r:processdump_exec:s0
 
+# faultloggerd
+/system/bin/faultloggerd        u:object_r:faultloggerd_exec:s0
+
 # faultloggerd file
 /data/log/faultlog/temp(/.*)? u:object_r:faultloggerd_temp_file:s0
 /data/log/faultlog/debug(/.*)? u:object_r:faultloggerd_temp_file:s0
+
+# faultloggerd socket
+/dev/unix/socket/faultloggerd.server        u:object_r:faultloggerd_socket:s0

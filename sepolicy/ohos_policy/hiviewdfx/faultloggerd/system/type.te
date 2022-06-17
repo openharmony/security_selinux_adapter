@@ -11,10 +11,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type processdump_exec, exec_attr, file_attr, system_file_attr;
+##################
+## Type define: ##
+##################
+type faultloggerd, sadomain, domain;
+
+type faultloggerd_exec, exec_attr, file_attr, system_file_attr;
+
+type faultloggerd_temp_file, file_attr, data_file_attr;
+
+type faultloggerd_socket, dev_attr, file_attr;
+
+init_daemon_domain(faultloggerd);
 
 type processdump, nativedomain, domain;
 
-domain_auto_transition_pattern(nativedomain, processdump_exec, processdump);
+type processdump_exec, exec_attr, file_attr, system_file_attr;
 
-type faultloggerd_temp_file, file_attr, data_file_attr;
+domain_auto_transition_pattern(nativedomain, processdump_exec, processdump);

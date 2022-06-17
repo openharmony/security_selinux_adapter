@@ -11,73 +11,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#============= faultloggerd ==============
-allow faultloggerd faultloggerd_temp_file:dir remove_name;
-allow faultloggerd faultloggerd_temp_file:file { create open read setattr write };
-allow faultloggerd foundation:process signal;
-allow faultloggerd hdcd:process signal;
-allow faultloggerd huks_service:file { open read };
-allow faultloggerd light_dal_host:file read;
-allow faultloggerd locationhub:file { open read };
-allow faultloggerd memmgrservice:file read;
-allow faultloggerd resource_schedule_service:file { open read };
-allow faultloggerd sh_exec:file { execute execute_no_trans map open read };
-allow faultloggerd system_bin_file:dir search;
-allow faultloggerd system_bin_file:file getattr;
-allow faultloggerd system_bin_file:lnk_file read;
-allow faultloggerd tty_device:chr_file { open read write };
-allow faultloggerd vibrator_dal_host:file read;
-allow faultloggerd bluetooth_service:file read;
-allow faultloggerd edm_sa:file read;
-allow faultloggerd pulseaudio:file read;
-allow faultloggerd screenlock_server:file read;
-allow faultloggerd system_bin_file:file { execute execute_no_trans open read };
-allow faultloggerd accessibility:file { open read };
-allow faultloggerd device_usage_stats_service:file { open read };
-allow faultloggerd memmgrservice:file open;
-allow faultloggerd pulseaudio:dir { getattr search };
-allow faultloggerd watchdog_service:file { open read };
+###################
+## Macro define: ##
+###################
+define(`use_faultloggerd', `
+    # allow $1 faultloggerd:file { open read };
+    # allow $1 faultloggerd:dir { getattr search };
+    allow $1 faultloggerd:fd use;
+    allow $1 faultloggerd:unix_stream_socket connectto;
+    allow $1 faultloggerd_socket:sock_file { getattr write };
+')
 
+define(`use_faultloggerd_file', `
+    allow $1 faultloggerd_temp_file:dir { getattr setattr open read search watch };
+    allow $1 faultloggerd_temp_file:file { getattr open read write };
+')
+
+##########################################
+## Read/Use/Control faultloggerd rules: ##
+##########################################
+use_faultloggerd(hap_domain)
+use_faultloggerd(sadomain)
+use_faultloggerd({ domain -limit_domain })
+use_faultloggerd_file(hiview)
+
+#########################
+## faultloggerd rules: ##
+#########################
 allow faultloggerd data_file:dir search;
 allow faultloggerd data_init_agent:dir search;
-allow faultloggerd data_init_agent:file { append ioctl open read };
 allow faultloggerd dev_unix_socket:dir search;
-allow faultloggerd faultloggerd_temp_file:dir { remove_name search };
-allow faultloggerd faultloggerd_temp_file:file { create open read setattr unlink write };
-allow faultloggerd hdcd:process signal;
-allow faultloggerd sh_exec:file { execute execute_no_trans map open read };
-allow faultloggerd system_bin_file:dir search;
-allow faultloggerd tty_device:chr_file { read write };
+allow faultloggerd data_log:dir search;
 
-allow faultloggerd data_file:dir { search };
-allow faultloggerd data_log:dir { add_name open read remove_name search setattr write };
-allow faultloggerd data_log:file { create read write open setattr unlink };
-allow faultloggerd dev_file:dir { search };
-allow faultloggerd dev_null_file:chr_file { read write };
-allow faultloggerd dev_parameters_file:dir { search };
-allow faultloggerd dev_parameters_file:file { map open read };
-allow faultloggerd dev_unix_file:dir { search };
-allow faultloggerd dev_unix_socket_file:dir { add_name search write };
-allow faultloggerd dev_unix_socket_file:sock_file { create setattr write };
-allow faultloggerd etc_file:lnk_file { read };
-allow faultloggerd faultloggerd_exec:file { entrypoint execute map read };
-allow faultloggerd faultloggerd_temp_file:dir { add_name open read remove_name search setattr write };
-allow faultloggerd faultloggerd_temp_file:file { create read write open setattr unlink };
-allow faultloggerd faultloggerd:process { fork };
-allow faultloggerd faultloggerd:unix_dgram_socket { connect create write };
-allow faultloggerd faultloggerd:unix_stream_socket { accept bind create listen read setopt write };
-allow faultloggerd init:fd { use };
-allow faultloggerd init:netlink_kobject_uevent_socket { read write };
-allow faultloggerd init:unix_dgram_socket { sendto };
-allow faultloggerd init:unix_stream_socket { read write };
-allow faultloggerd kernel:fd { use };
-allow faultloggerd rootfs:dir { search };
-allow faultloggerd system_etc_file:dir { getattr open read search };
-allow faultloggerd system_etc_file:file { getattr open read };
-allow faultloggerd system_file:dir { search };
-allow faultloggerd system_lib_file:dir { search };
-allow faultloggerd system_lib_file:file { execute getattr map open read };
-allow faultloggerd tmpfs:dir { search };
+allow faultloggerd data_init_agent:file { append ioctl open read };
+allow faultloggerd faultloggerd_temp_file:dir { add_name write open read search };
+allow faultloggerd faultloggerd_temp_file:file { create setattr write open read };
 
-allow faultloggerd faultloggerd_temp_file:file getattr;
-# allow faultloggerd self:capability dac_override;  # never allow
+# conflict with neverallow
+# allow faultloggerd unlabeled:dir search;
+# allow faultloggerd self:capability dac_override;
