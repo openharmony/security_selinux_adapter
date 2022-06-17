@@ -13,8 +13,6 @@
 
 type bgtaskmgr_service, sadomain, domain;
 
-allow bgtaskmgr_service accountmgr:binder { call };
-allow bgtaskmgr_service accesstoken_service:binder { call };
 allow bgtaskmgr_service data_app_el1_file:file { getattr read };
 allow bgtaskmgr_service data_app_file:dir { search };
 allow bgtaskmgr_service data_file:dir { search };
@@ -23,11 +21,15 @@ allow bgtaskmgr_service data_service_el1_file:file { getattr ioctl open write };
 allow bgtaskmgr_service data_service_file:dir { search };
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 allow bgtaskmgr_service dev_unix_socket:sock_file { write };
-allow bgtaskmgr_service device_usage_stats_service:binder { call };
-allow bgtaskmgr_service foundation:binder { call transfer };
-allow bgtaskmgr_service foundation:fd { use };
-allow bgtaskmgr_service memmgrservice:binder { call };
-allow bgtaskmgr_service normal_hap:binder { call };
-allow bgtaskmgr_service resource_schedule_service:binder { call };
 allow bgtaskmgr_service sys_file:dir { open read };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
+
+binder_call(bgtaskmgr_service, accountmgr);
+binder_call(bgtaskmgr_service, accesstoken_service);
+binder_call(bgtaskmgr_service, device_usage_stats_service);
+binder_call(bgtaskmgr_service, foundation);
+binder_call(bgtaskmgr_service, memmgrservice);
+binder_call(bgtaskmgr_service, normal_hap);
+binder_call(bgtaskmgr_service, resource_schedule_service);
+binder_call(bgtaskmgr_service, sh);
+binder_call(bgtaskmgr_service, system_core_hap);
