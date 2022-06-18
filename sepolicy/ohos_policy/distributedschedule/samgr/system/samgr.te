@@ -59,6 +59,8 @@ allow samgr security:security { check_context compute_av };
 allow samgr selinuxfs:dir { open read search };
 allow samgr selinuxfs:file { map open read write };
 
+allow samgr softbus_server:tcp_socket { read write setopt};
+
 allow samgr system_basic_hap:dir { search };
 allow samgr system_basic_hap:file { open read };
 allow samgr system_basic_hap:process { getattr };
@@ -74,3 +76,4 @@ allow samgr system_file:file { getattr map open read };
 allow samgr system_profile_file:dir { open read };
 
 allowxperm samgr dev_binder_file:chr_file ioctl { 0x6207 };
+
