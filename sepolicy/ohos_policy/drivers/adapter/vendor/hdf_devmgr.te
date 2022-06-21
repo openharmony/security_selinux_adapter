@@ -13,8 +13,41 @@
 
 type hdf_devmgr, sadomain, domain;
 type hdf_devmgr_exec, exec_attr, file_attr, system_file_attr;
+type dev_hdf_kevent, dev_attr;
 
 init_daemon_domain(hdf_devmgr);
 
 #avc:  denied  { entrypoint } for  pid=235 comm="init" path="/vendor/bin/hdf_devmgr" dev="mmcblk0p6" ino=14 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:hdf_devmgr_exec:s0 tclass=file permissive=1
 allow hdf_devmgr hdf_devmgr_exec:file { entrypoint };
+
+#avc:  denied  { call } for  pid=242 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:power_host:s0 tclass=binder permissive=1
+allow hdf_devmgr power_host:binder call;
+
+#avc:  denied  { call } for  pid=243 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:camera_host:s0 tclass=binder permissive=1
+allow hdf_devmgr camera_host:binder { call };
+
+#avc:  denied  { check_context } for  pid=243 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:security:s0 tclass=security permissive=1
+#avc:  denied  { compute_av } for  pid=236 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:security:s0 tclass=security permissive=1
+allow hdf_devmgr security:security { check_context compute_av };
+
+#avc:  denied  { search } for  pid=243 comm="hdf_devmgr" name="/" dev="selinuxfs" ino=1 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:selinuxfs:s0 tclass=dir permissive=1
+allow hdf_devmgr selinuxfs:dir { search };
+
+#avc:  denied  { open } for  pid=243 comm="hdf_devmgr" path="/sys/fs/selinux/context" dev="selinuxfs" ino=5 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
+#avc:  denied  { read write } for  pid=243 comm="hdf_devmgr" name="context" dev="selinuxfs" ino=5 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
+allow hdf_devmgr selinuxfs:file { open read write };
+
+#avc:  denied  { search } for  pid=236 comm="hdf_devmgr" name="643" dev="proc" ino=683 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:telephony_sa:s0 tclass=dir permissive=1
+allow hdf_devmgr telephony_sa:dir { search };
+
+#avc:  denied  { open } for  pid=243 comm="hdf_devmgr" path="/proc/593/attr/current" dev="proc" ino=24187 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:telephony_sa:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=243 comm="hdf_devmgr" name="current" dev="proc" ino=24187 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:telephony_sa:s0 tclass=file permissive=1
+allow hdf_devmgr telephony_sa:file { open read };
+
+#avc:  denied  { getattr } for  pid=243 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:telephony_sa:s0 tclass=process permissive=1
+allow hdf_devmgr telephony_sa:process { getattr };
+
+#avc:  denied  { ioctl } for  pid=245 comm="hdf_devmgr" path="/dev/hdf_kevent" dev="tmpfs" ino=199 ioctlcmd=0x6201 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { ioctl } for  pid=245 comm="hdf_devmgr" path="/dev/hdf_kevent" dev="tmpfs" ino=199 ioctlcmd=0x6202 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=1
+allow hdf_devmgr dev_hdf_kevent:chr_file { ioctl };
+allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 };
