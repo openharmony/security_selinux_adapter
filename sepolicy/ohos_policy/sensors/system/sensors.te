@@ -28,3 +28,6 @@ allow sensors sa_accesstoken_manager_service:samgr_class { get };
 
 #avc:  denied  { get } for service=5100 pid=546 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 allow sensors sa_device_service_manager:samgr_class { get };
+
+#avc:  denied  { add } for service=3601 pid=572 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_sensor_service:s0 tclass=samgr_class permissive=1
+allow sensors sa_sensor_service:samgr_class { add };
