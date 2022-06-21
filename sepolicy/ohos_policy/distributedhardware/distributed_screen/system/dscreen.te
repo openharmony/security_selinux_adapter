@@ -79,3 +79,15 @@ allow dscreen sa_dscreen_source_service:samgr_class { add };
 #avc:  denied  { get } for service=4607 pid=2067 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
 allow dscreen sa_foundation_dms:samgr_class { get };
 
+#avc:  denied  { search } for  pid=2127 comm="dscreen" name="usr" dev="mmcblk0p6" ino=2492 scontext=u:r:dscreen:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+allow dscreen system_usr_file:dir { search };
+
+#avc:  denied  { getattr } for  pid=2127 comm="dscreen" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p6" ino=2499 scontext=u:r:dscreen:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2127 comm="dscreen" name="supported_regions.xml" dev="mmcblk0p6" ino=2499 scontext=u:r:dscreen:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2127 comm="dscreen" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p6" ino=2499 scontext=u:r:dscreen:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2127 comm="dscreen" path="/system/usr/ohos_icu/icudt67l.dat" dev="mmcblk0p6" ino=2494 scontext=u:r:dscreen:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow dscreen system_usr_file:file { getattr read open map };
+
+#avc:  denied  { transfer } for  pid=2127 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
+allow dscreen softbus_server:binder { transfer };
+
