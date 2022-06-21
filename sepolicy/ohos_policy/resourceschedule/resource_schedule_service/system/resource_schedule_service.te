@@ -29,7 +29,7 @@ allow resource_schedule_service vendor_file:file { execute getattr map open read
 #system
 allow resource_schedule_service system_basic_hap:process { setsched };
 allow resource_schedule_service system_bin_file:dir { search };
-allow resource_schedule_service system_bin_file:file { execute };
+allow resource_schedule_service system_bin_file:file { execute read open };
 allow resource_schedule_service system_core_hap:process { setsched };
 allow resource_schedule_service system_usr_file:dir { search map };
 allow resource_schedule_service system_usr_file:file { getattr read };
@@ -47,6 +47,12 @@ allow resource_schedule_service normal_hap:process { setsched };
 allow resource_schedule_service data_file:dir { search };
 allow resource_schedule_service data_init_agent:dir { search };
 allow resource_schedule_service data_init_agent:file { ioctl open read append };
+allow resource_schedule_service data_log:file { read write };
+#faultloggerd
+allow resource_schedule_service faultloggerd:fd { use };
+allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
+#resource_schedule_service
+allow resource_schedule_service resource_schedule_service:process { ptrace };
 #lib_file
 allow resource_schedule_service lib_file:lnk_file { read };
 #sys_file
