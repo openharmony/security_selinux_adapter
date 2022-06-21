@@ -14,7 +14,7 @@
 type device_usage_stats_service, sadomain, domain;
 
 allow device_usage_stats_service data_file:dir { search };
-allow device_usage_stats_service data_service_el1_file:dir { open read search };
+allow device_usage_stats_service data_service_el1_file:dir { open read write search };
 allow device_usage_stats_service data_service_el1_file:file { create getattr ioctl lock open read write };
 allow device_usage_stats_service data_service_file:dir { search };
 allow device_usage_stats_service dev_unix_socket:dir { search };
@@ -26,5 +26,6 @@ allow device_usage_stats_service sa_foundation_powermgr_service:samgr_class { ge
 binder_call(device_usage_stats_service, accesstoken_service);
 binder_call(device_usage_stats_service, accountmgr);
 binder_call(device_usage_stats_service, foundation);
+binder_call(device_usage_stats_service, system_basic_hap);
 binder_call(device_usage_stats_service, system_core_hap);
 binder_call(device_usage_stats_service, time_service);

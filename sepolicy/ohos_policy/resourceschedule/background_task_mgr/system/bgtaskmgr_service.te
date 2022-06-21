@@ -23,7 +23,10 @@ allow bgtaskmgr_service data_service_el1_file:file { getattr ioctl open write };
 allow bgtaskmgr_service data_service_file:dir { search };
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 allow bgtaskmgr_service dev_unix_socket:sock_file { write };
+allow bgtaskmgr_service faultloggerd_socket:sock_file { write };
 allow bgtaskmgr_service sys_file:dir { open read };
+allow bgtaskmgr_service system_bin_file:dir { search };
+allow bgtaskmgr_service system_bin_file:file { execute execute_no_trans map open read };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
 
 binder_call(bgtaskmgr_service, accountmgr);
