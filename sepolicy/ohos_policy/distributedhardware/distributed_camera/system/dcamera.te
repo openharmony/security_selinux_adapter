@@ -24,11 +24,13 @@ allow dcamera camera_service:binder { call transfer };
 allow dcamera data_file:dir { search };
 
 #avc:  denied  { bind } for  pid=3250 comm="Fillp_core_0" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
+#avc:  denied  { connect } for  pid=2344 comm="Fillp_core_0" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
 #avc:  denied  { create } for  pid=3250 comm="Fillp_core_0" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
+#avc:  denied  { getattr } for  pid=2344 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
 #avc:  denied  { read } for  pid=2040 comm="Fillp_core_94" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
 #avc:  denied  { setopt } for  pid=3250 comm="Fillp_core_0" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
 #avc:  denied  { write } for  pid=2040 comm="Fillp_core_94" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=udp_socket permissive=1
-allow dcamera dcamera:udp_socket { bind create read setopt write };
+allow dcamera dcamera:udp_socket { bind connect create getattr read setopt write };
 
 #avc:  denied  { getopt } for  pid=2051 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=unix_dgram_socket permissive=1
 #avc:  denied  { setopt } for  pid=2051 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=unix_dgram_socket permissive=1
@@ -36,6 +38,12 @@ allow dcamera dcamera:unix_dgram_socket { getopt setopt };
 
 #avc:  denied  { call } for  pid=2178 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera_host:s0 tclass=binder permissive=1
 allow dcamera dcamera_host:binder { call };
+
+#avc:  denied  { create } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
+#avc:  denied  { write } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
+#avc:  denied  { nlmsg_read } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
+#avc:  denied  { read } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
+allow dcamera dcamera:netlink_route_socket { create nlmsg_read read write }
 
 #avc:  denied  { search } for  pid=2047 comm="dcamera" name="socket" dev="tmpfs" ino=38 scontext=u:r:dcamera:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow dcamera dev_unix_socket:dir { search };
@@ -92,4 +100,7 @@ allow dcamera softbus_server:binder { call transfer };
 
 #avc:  denied  { use } for  pid=586 comm="THREAD_POOL"  scontext=u:r:dcamera:s0 tcontext=u:r:softbus_server:s0 tclass=fd permissive=1
 allow dcamera softbus_server:fd { use };
+
+#avc:  denied  { node_bind } for  pid=2166 comm="Fillp_core_210" scontext=u:r:dcamera:s0 tcontext=u:object_r:node:s0 tclass=udp_socket permissive=1
+allow dcamera node:udp_socket { node_bind }
 
