@@ -17,6 +17,7 @@ allow sh bgtaskmgr_service:process { sigkill };
 
 allow sh device_usage_stats_service:dir { getattr search };
 allow sh device_usage_stats_service:file { open read };
+allow sh device_usage_stats_service:process { sigkill };
 
 allow sh work_scheduler_service:dir { getattr search };
 allow sh work_scheduler_service:file { open read };
