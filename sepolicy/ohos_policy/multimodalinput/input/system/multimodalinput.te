@@ -19,6 +19,7 @@ allow multimodalinput data_init_agent:file { open read append ioctl };
 allow multimodalinput dev_unix_socket:dir { search };
 allow multimodalinput dev_unix_socket:sock_file { write };
 allow multimodalinput foundation:binder { call };
+allow multimodalinput param_watcher:binder { call transfer };
 allow multimodalinput resource_schedule_service:binder { call };
 allow multimodalinput rootfs:chr_file { write };
 allow multimodalinput tracefs:dir { search };

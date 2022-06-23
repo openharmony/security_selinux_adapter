@@ -37,5 +37,5 @@ type foundation, domain, sadomain;
 # "/system/profile/foundation.xml", O_RDONLY
 #allow foundation system_file:file read_file_perms;
 
-allow foundation multimodalinput:binder call;
-allow foundation multimodalinput:unix_stream_socket write;
+allow foundation multimodalinput:binder { call };
+allow foundation multimodalinput:unix_stream_socket { write read };
