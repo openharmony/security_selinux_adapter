@@ -13,8 +13,6 @@
 
 type multimodalinput, sadomain, domain;
 
-#allow multimodalinput multimodalinput:capability { dac_override };
-#allow multimodalinput multimodalinput:capability { dac_read_search };
 allow multimodalinput data_file:dir { search };
 allow multimodalinput data_init_agent:dir { search };
 allow multimodalinput data_init_agent:file { open read append ioctl };
