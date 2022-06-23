@@ -39,6 +39,7 @@ binder_call(bgtaskmgr_service, device_usage_stats_service);
 binder_call(bgtaskmgr_service, foundation);
 binder_call(bgtaskmgr_service, memmgrservice);
 binder_call(bgtaskmgr_service, normal_hap);
+binder_call(bgtaskmgr_service, param_watcher);
 binder_call(bgtaskmgr_service, resource_schedule_service);
 binder_call(bgtaskmgr_service, sh);
 binder_call(bgtaskmgr_service, system_core_hap);
