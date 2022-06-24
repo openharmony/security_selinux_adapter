@@ -1,0 +1,46 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type sa_foundation_tel_state_registry, sa_service_attr;
+type sa_net_policy_manager, sa_service_attr;
+type sa_telephony_tel_cellular_data, sa_service_attr;
+type sa_telephony_tel_sms_mms, sa_service_attr;
+
+allow telephony_sa data_file:dir search;
+allow telephony_sa hdf_cellular_radio1:hdf_devmgr_class get;
+allow telephony_sa hdf_cellular_radio_ext:hdf_devmgr_class get;
+allow telephony_sa init:binder { call transfer };
+allow telephony_sa kernel:unix_stream_socket connectto;
+allow telephony_sa normal_hap:binder call;
+allow telephony_sa persist_param:parameter_service set;
+allow telephony_sa sa_accesstoken_manager_service:samgr_class get;
+allow telephony_sa sa_device_service_manager:samgr_class get;
+allow telephony_sa sa_foundation_abilityms:samgr_class get;
+allow telephony_sa sa_foundation_cesfwk_service:samgr_class get;
+allow telephony_sa sa_foundation_powermgr_service:samgr_class get;
+allow telephony_sa sa_foundation_tel_state_registry:samgr_class get;
+allow telephony_sa sa_netsys_native_manager:samgr_class get;
+allow telephony_sa sa_net_conn_manager:samgr_class get;
+allow telephony_sa sa_net_policy_manager:samgr_class get;
+allow telephony_sa sa_param_watcher:samgr_class get;
+allow telephony_sa sa_telephony_tel_cellular_call:samgr_class { add get };
+allow telephony_sa sa_telephony_tel_cellular_data:samgr_class { add get };
+allow telephony_sa sa_telephony_tel_core_service:samgr_class { add get };
+allow telephony_sa sa_telephony_tel_ims:samgr_class { add get };
+allow telephony_sa sa_telephony_tel_sms_mms:samgr_class { add get };
+allow telephony_sa sa_time_service:samgr_class get;
+allow telephony_sa self:unix_dgram_socket { getopt setopt };
+allow telephony_sa system_basic_hap:binder call;
+allow telephony_sa sys_file:dir { open read };
+allow telephony_sa sys_file:file { open read };
+
