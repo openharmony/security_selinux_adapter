@@ -17,15 +17,15 @@ allow codec_host hdf_device_manager:hdf_devmgr_class { get };
 allow codec_host hdf_codec_hdi_omx_service:hdf_devmgr_class { add };
 
 
-#avc:  denied  { get } for service=hdf_device_manager pid=344 scontext=u:r:light_dal_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
-#avc:  denied  { add } for service=light_interface_service pid=344 scontext=u:r:light_dal_host:s0 tcontext=u:object_r:hdf_light_interface_service:s0 tclass=hdf_devmgr_class
-allow light_dal_host hdf_device_manager:hdf_devmgr_class { get };
-allow light_dal_host hdf_light_interface_service:hdf_devmgr_class { add };
+#avc:  denied  { get } for service=hdf_device_manager pid=344 scontext=u:r:light_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=light_interface_service pid=344 scontext=u:r:light_host:s0 tcontext=u:object_r:hdf_light_interface_service:s0 tclass=hdf_devmgr_class
+allow light_host hdf_device_manager:hdf_devmgr_class { get };
+allow light_host hdf_light_interface_service:hdf_devmgr_class { add };
 
-#avc:  denied  { get } for service=hdf_device_manager pid=346 scontext=u:r:sensor_dal_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
-#avc:  denied  { add } for service=sensor_interface_service pid=346 scontext=u:r:sensor_dal_host:s0 tcontext=u:object_r:hdf_sensor_interface_service:s0 tclass=hdf_devmgr_class
-allow sensor_dal_host hdf_device_manager:hdf_devmgr_class { get };
-allow sensor_dal_host hdf_sensor_interface_service:hdf_devmgr_class { add };
+#avc:  denied  { get } for service=hdf_device_manager pid=346 scontext=u:r:sensor_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=sensor_interface_service pid=346 scontext=u:r:sensor_host:s0 tcontext=u:object_r:hdf_sensor_interface_service:s0 tclass=hdf_devmgr_class
+allow sensor_host hdf_device_manager:hdf_devmgr_class { get };
+allow sensor_host hdf_sensor_interface_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=359 scontext=u:r:power_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
 #avc:  denied  { add } for service=thermal_interface_service pid=359 scontext=u:r:power_host:s0 tcontext=u:object_r:hdf_thermal_interface_service:s0 tclass=hdf_devmgr_class
@@ -71,10 +71,10 @@ allow dcamera_host disp_gralloc_host:fd { use };
 allow dcamera_host samgr:binder { call };
 allow dcamera_host sh:binder { call };
 
-#avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_dal_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_dal_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-allow vibrator_dal_host hdf_device_manager:hdf_devmgr_class { get };
-allow vibrator_dal_host hdf_vibrator_interface_service:hdf_devmgr_class { add };
+#avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow vibrator_host hdf_device_manager:hdf_devmgr_class { get };
+allow vibrator_host hdf_vibrator_interface_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=camera_service pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_camera_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -279,7 +279,24 @@ allow fingerprint_auth_host hdf_device_manager:hdf_devmgr_class { get };
 allow fingerprint_auth_host hdf_fingerprint_auth_interface_service:hdf_devmgr_class { add };
 allow fingerprint_auth_host sa_device_service_manager:samgr_class { get };
 
-#avc:  denied  { get } for service=hdf_device_manager pid=346 scontext=u:r:motion_dal_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
-#avc:  denied  { add } for service=motion_interface_service pid=346 scontext=u:r:motion_dal_host:s0 tcontext=u:object_r:hdf_motion_interface_service:s0 tclass=hdf_devmgr_class
-allow motion_dal_host hdf_device_manager:hdf_devmgr_class { get };
-allow motion_dal_host hdf_motion_interface_service:hdf_devmgr_class { add };
+#avc:  denied  { get } for service=hdf_device_manager pid=346 scontext=u:r:motion_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=motion_interface_service pid=346 scontext=u:r:motion_host:s0 tcontext=u:object_r:hdf_motion_interface_service:s0 tclass=hdf_devmgr_class
+allow motion_host hdf_device_manager:hdf_devmgr_class { get };
+allow motion_host hdf_motion_interface_service:hdf_devmgr_class { add };
+
+allow sh hdf_sensor_interface_service:hdf_devmgr_class { get };
+allow sh sa_device_service_manager:samgr_class { get };
+
+allow sensor_host sa_device_service_manager:samgr_class { get };
+
+allow sensors sa_miscdevice_service:samgr_class { add };
+allow sensors sa_param_watcher:samgr_class { get };
+
+allow light_host sa_device_service_manager:samgr_class { get };
+
+allow vibrator_host sa_device_service_manager:samgr_class { get };
+
+allow motion_host sa_device_service_manager:samgr_class { get };
+
+allow sh hdf_light_interface_service:hdf_devmgr_class { get };
+allow sh hdf_vibrator_interface_service:hdf_devmgr_class { get };
