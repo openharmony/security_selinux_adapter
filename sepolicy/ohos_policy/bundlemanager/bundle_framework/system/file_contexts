@@ -16,3 +16,4 @@
 
 # for sa_main Service
 /system/bin/sa_main u:object_r:samain_exec:s0
+
