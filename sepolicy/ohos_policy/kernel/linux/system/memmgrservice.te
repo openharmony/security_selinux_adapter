@@ -34,3 +34,6 @@ allow memmgrservice system_core_hap:process { sigkill };
 allow memmgrservice vendor_lib_file:file { read };
 allowxperm memmgrservice cgroup:file ioctl {  0x5413  };
 allowxperm memmgrservice data_init_agent:file ioctl 0x5413;
+
+# denied  { set } for parameter=persist.sys.eswap.permanently.closed pid=287 uid=1111 gid=1111 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=parameter_service permissive=1
+allow memmgrservice persist_sys_param:parameter_service { set };
