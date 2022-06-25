@@ -38,10 +38,10 @@ allowxperm memmgrservice data_init_agent:file ioctl 0x5413;
 # denied  { set } for parameter=persist.sys.eswap.permanently.closed pid=287 uid=1111 gid=1111 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=parameter_service permissive=1
 allow memmgrservice persist_sys_param:parameter_service { set };
 
-#denied  { write } for  pid=1798 comm="memmgrservice" name="paramservice" dev="tmpfs" ino=45 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
+# denied  { write } for  pid=1798 comm="memmgrservice" name="paramservice" dev="tmpfs" ino=45 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
 allow memmgrservice paramservice_socket:sock_file { write };
 
-#denied  { connectto } for  pid=1798 comm="memmgrservice" path="/dev/unix/socket/paramservice" scontext=u:r:memmgrservice:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
+# denied  { connectto } for  pid=1798 comm="memmgrservice" path="/dev/unix/socket/paramservice" scontext=u:r:memmgrservice:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
 allow memmgrservice kernel:unix_stream_socket { connectto };
 
 # denied  { get } for service=200 pid=275 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
