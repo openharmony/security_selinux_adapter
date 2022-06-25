@@ -18,4 +18,5 @@ allow sh lib_file:lnk_file { read };
 allow sh memmgrservice:dir { getattr search};
 allow sh memmgrservice:file { open read };
 allow sh tty_device:chr_file { ioctl };
+allow sh normal_hap:file { getattr write };
 allowxperm sh tty_device:chr_file ioctl { 0x5410 };
