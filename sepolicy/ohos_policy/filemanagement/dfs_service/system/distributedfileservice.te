@@ -11,28 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap hmdfs:dir create_dir_perms;
-allow normal_hap hmdfs:{file lnk_file} create_file_perms;
+type distributedfileservice, sadomain, domain;
 
-neverallow {
-    domain
-    -storage_daemon
-} data_user_file:dir {
-    create_dir_perms
-    never_write_dir
-};
+allow distributedfileservice sys_fs_hmdfs:dir { read search setattr };
 
-neverallow {
-    domain
-    -storage_daemon
-} data_user_file:{ file lnk_file } {
-    create_file_perms
-    never_rw_file
-};
-
-neverallow {
-    domain
-    -storage_daemon
-} data_user_file:file {
-    never_execute_file
-};
+#avc:  denied  { transfer } for  pid=605 comm="distributedfile" scontext=u:r:distributedfileservice:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+#avc:  denied  { call } for  pid=632 comm="distributedfile" scontext=u:r:distributedfileservice:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow distributedfileservice foundation:binder { call transfer };

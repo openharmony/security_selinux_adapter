@@ -11,28 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap hmdfs:dir create_dir_perms;
-allow normal_hap hmdfs:{file lnk_file} create_file_perms;
-
-neverallow {
-    domain
-    -storage_daemon
-} data_user_file:dir {
-    create_dir_perms
-    never_write_dir
-};
-
-neverallow {
-    domain
-    -storage_daemon
-} data_user_file:{ file lnk_file } {
-    create_file_perms
-    never_rw_file
-};
-
-neverallow {
-    domain
-    -storage_daemon
-} data_user_file:file {
-    never_execute_file
-};
+/dev/block(/^vol.*)?                u:object_r:dev_block_volfile:s0

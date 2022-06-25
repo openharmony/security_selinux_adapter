@@ -15,7 +15,6 @@
 type accesstoken_service, sadomain, domain;
 type socperf_service, sadomain, domain;
 type distributedsche, sadomain, domain;
-type storage_manager, sadomain, domain;
 type bluetooth_service, sadomain, domain;
 type accountmgr, sadomain, domain;
 type ui_service, sadomain, domain;
@@ -56,8 +55,6 @@ type hidumper_service, sadomain, domain;
 type console, sadomain, domain;
 type bootanimation, sadomain, domain;
 type thermal, sadomain, domain;
-type distributedfileservice, sadomain, domain;
-type distributedfiledaemon, sadomain, domain;
 type limit_domain, domain;
 type device_usage_statistics_service, sadomain, domain;
 type thermal_sa, sadomain, domain;
@@ -82,8 +79,6 @@ type ispserver, sadomain, domain;
 type ispserver_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, ispserver_exec, ispserver);
 
-type storage_daemon, sadomain, domain;
-type storage_daemon_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, storage_daemon_exec, storage_daemon);
 
 type thermal_protector, sadomain, domain;

@@ -1,0 +1,127 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type storage_daemon, sadomain, domain;
+type storage_daemon_exec, exec_attr, file_attr, system_file_attr;
+type dev_block_volfile, dev_attr;
+
+allow storage_daemon hmdfs:dir { read search setattr getattr };
+allow storage_daemon vfat:dir { read search setattr getattr };
+allow storage_daemon exfat:dir { read search setattr getattr };
+allow storage_daemon ntfs:dir { read search setattr getattr };
+
+#avc:  denied  { call } for  pid=255 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow storage_daemon accesstoken_service:binder { call };
+
+#avc:  denied  { search } for  pid=2218 comm="blkid" name="/" dev="mmcblk0p11" ino=2 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow storage_daemon data_file:dir { search };
+
+#avc:  denied  { search } for  pid=2218 comm="blkid" name="init_agent" dev="mmcblk0p11" ino=16321 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
+allow storage_daemon data_init_agent:dir { search };
+#avc:  denied  { read append open } for  pid=2218 comm="blkid" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=16 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
+#avc:  denied  { ioctl } for  pid=2218 comm="blkid" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=16 ioctlcmd=0x5413 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
+allow storage_daemon data_init_agent:file { read append open ioctl };
+
+#avc:  denied  { read open } for  pid=1476 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=130633 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+#avc:  denied  { search } for  pid=241 comm="storage_daemon" name="el2" dev="mmcblk0p11" ino=130568 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=182 comm="kworker/u8:5" path="/data/service/el2/100/hmdfs/account/data" dev="mmcblk0p11" ino=1044557 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+allow storage_daemon data_service_el2_file:file { rw_file_perms };
+allow storage_daemon data_service_el1_file:file { rw_file_perms };
+allow storage_daemon data_service_el2_file:dir { rw_dir_perms };
+allow storage_daemon data_service_el1_file:dir { rw_dir_perms };
+
+#avc:  denied  { read open } for  pid=1789 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=913996 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
+allow storage_daemon data_user_file:file { rw_file_perms };
+allow storage_daemon data_user_file:dir { rw_dir_perms };
+
+#avc:  denied  { read } for  pid=246 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:device_usage_stats_service:s0 tclass=file permissive=1
+allow storage_daemon device_usage_stats_service:file { read };
+#avc:  denied  { search } for  pid=246 comm="storage_daemon" name="306" dev="proc" ino=1476 scontext=u:r:storage_daemon:s0 tcontext=u:r:device_usage_stats_service:s0 tclass=dir permissive=1
+allow storage_daemon device_usage_stats_service:dir { search };
+#avc:  denied  { read } for  pid=246 comm="storage_daemon" name="48" dev="proc" ino=34994 scontext=u:r:storage_daemon:s0 tcontext=u:r:device_usage_stats_service:s0 tclass=lnk_file permissive=1
+allow storage_daemon device_usage_stats_service:lnk_file { read };
+
+#avc:  denied  { search } for  pid=249 comm="storage_daemon" name="socket" dev="tmpfs" ino=40 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow storage_daemon dev_unix_socket:dir { search };
+
+#avc:  denied  { write search } for  pid=241 comm="storage_daemon" name="block" dev="tmpfs" ino=7 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
+#avc:  denied  { add_name search } for  pid=241 comm="storage_daemon" name="disk-8-0" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
+allow storage_daemon dev_block_volfile:dir { add_name write search };
+
+#conflict
+#avc:  denied  { create } for  pid=241 comm="storage_daemon" name="disk-8-0" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+#avc:  denied  { read } for  pid=241 comm="storage_daemon" name="disk-8-0" dev="tmpfs" ino=508 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+#avc:  denied  { read open } for  pid=2061 comm="blkid" path="/dev/block/vol-8-2" dev="tmpfs" ino=502 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+#avc:  denied  { getattr } for  pid=2061 comm="blkid" path="/dev/block/vol-8-2" dev="tmpfs" ino=502 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+allow storage_daemon dev_block_volfile:blk_file { create read open getattr ioctl };
+
+#avc:  denied  { search } for  pid=241 comm="storage_daemon" name="service" dev="mmcblk0p11" ino=130561 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow storage_daemon data_service_file:dir { search };
+
+#avc:  denied  { search } for  pid=246 comm="storage_daemon" name="fd" dev="proc" ino=25873 scontext=u:r:storage_daemon:s0 tcontext=u:r:fms_service:s0 tclass=dir permissive=1
+allow storage_daemon fms_service:dir { search };
+
+#avc:  denied  { search } for  pid=182 comm="kworker/u8:5" name="/" dev="hmdfs" ino=1 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=dir permissive=1
+allow storage_daemon hmdfs:dir { search };
+
+#avc:  denied  { search } for  pid=241 comm="storage_daemon" name="32" dev="proc" ino=25299 scontext=u:r:storage_daemon:s0 tcontext=u:r:kernel:s0 tclass=dir permissive=1
+allow storage_daemon kernel:dir { search };
+#avc:  denied  { read open } for  pid=257 comm="storage_daemon" path="/proc/1752/maps" dev="proc" ino=33499 scontext=u:r:storage_daemon:s0 tcontext=u:r:kernel:s0 tclass=file permissive=1
+allow storage_daemon kernel:file { open read };
+#avc:  denied  { read } for  pid=241 comm="storage_daemon" name="root" dev="proc" ino=33070 scontext=u:r:storage_daemon:s0 tcontext=u:r:kernel:s0 tclass=lnk_file permissive=1
+allow storage_daemon kernel:lnk_file { read };
+
+#avc:  denied  { read } for  pid=255 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:pin_auth_host:s0 tclass=file permissive=1
+allow storage_daemon pin_auth_host:file { read };
+
+#avc:  denied  { search } for  pid=257 comm="storage_daemon" name="fd" dev="proc" ino=31594 scontext=u:r:storage_daemon:s0 tcontext=u:r:pulseaudio:s0 tclass=dir permissive=1
+allow storage_daemon pulseaudio:dir { search };
+#avc:  denied  { read } for  pid=257 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
+allow storage_daemon pulseaudio:file { read };
+#avc:  denied  { read } for  pid=257 comm="storage_daemon" name="16" dev="proc" ino=31611 scontext=u:r:storage_daemon:s0 tcontext=u:r:pulseaudio:s0 tclass=lnk_file permissive=1
+allow storage_daemon pulseaudio:lnk_file { read };
+
+#avc:  denied  { read } for  pid=257 comm="storage_daemon" name="54" dev="proc" ino=35056 scontext=u:r:storage_daemon:s0 tcontext=u:r:render_service:s0 tclass=lnk_file permissive=1
+allow storage_daemon render_service:lnk_file { read };
+#avc:  denied  { read } for  pid=257 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:render_service:s0 tclass=file permissive=1
+allow storage_daemon render_service:file { read };
+
+#avc:  denied  { read } for  pid=241 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:screenlock_server:s0 tclass=file permissive=1
+allow storage_daemon screenlock_server:file { read };
+#avc:  denied  { search } for  pid=241 comm="storage_daemon" name="533" dev="proc" ino=18171 scontext=u:r:storage_daemon:s0 tcontext=u:r:screenlock_server:s0 tclass=dir permissive=1
+allow storage_daemon screenlock_server:dir { search };
+#avc:  denied  { read } for  pid=241 comm="storage_daemon" name="0" dev="proc" ino=32305 scontext=u:r:storage_daemon:s0 tcontext=u:r:screenlock_server:s0 tclass=lnk_file permissive=1
+allow storage_daemon screenlock_server:lnk_file { read };
+
+#avc:  denied  { search } for  pid=246 comm="storage_daemon" name="1692" dev="proc" ino=25045 scontext=u:r:storage_daemon:s0 tcontext=u:r:system_basic_hap:s0 tclass=dir permissive=1
+allow storage_daemon system_basic_hap:dir { search };
+#avc:  denied  { read } for  pid=246 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:system_basic_hap:s0 tclass=file permissive=1
+allow storage_daemon system_basic_hap:file { read };
+
+#avc:  denied  { read } for  pid=2061 comm="blkid" path="/system/bin/blkid" dev="mmcblk0p6" ino=122 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+allow storage_daemon system_bin_file:file { read };
+
+#avc:  denied  { read } for  pid=241 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:system_core_hap:s0 tclass=file permissive=1
+allow storage_daemon system_core_hap:file { read };
+#avc:  denied  { search } for  pid=241 comm="storage_daemon" name="1875" dev="proc" ino=28270 scontext=u:r:storage_daemon:s0 tcontext=u:r:system_core_hap:s0 tclass=dir permissive=1
+allow storage_daemon system_core_hap:dir { search };
+
+#avc:  denied  { read } for  pid=254 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow storage_daemon storage_daemon:netlink_kobject_uevent_socket { read };
+
+#conflict
+#avc:  denied  { dac_read_search } for  pid=241 comm="storage_daemon" capability=2  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
+#avc:  denied  { mknod } for  pid=241 comm="storage_daemon" capability=27  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
+#avc:  denied  { sys_ptrace } for  pid=246 comm="storage_daemon" capability=19  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
+#avc:  denied  { dac_override } for  pid=2028 comm="blkid" capability=1  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
+allow storage_daemon storage_daemon:capability { mknod dac_read_search sys_ptrace dac_override};

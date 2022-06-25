@@ -175,7 +175,7 @@ neverallow * self:process { execstack execheap };
 # dev node file label should be configured in file_contexts.
 #neverallow domain dev_file:{ file chr_file blk_file } *;
 
-neverallow { domain -kernel -init } dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -storage_daemon } dev_attr:blk_file { open read write };
 # only init can operate fs
 neverallow { domain -init -storage_daemon -hdcd } *:filesystem ~{ getattr };
 
@@ -196,8 +196,8 @@ neverallow { domain -init } { proc_attr sysfs_attr }:dir { add_name create link 
 # means that only init can have the caps of chown.
 # TODO:debug/release
 neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } chown;
-neverallow { domain -appspawn -init -udevd -memmgrservice } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init } self:{ capability cap_userns } dac_read_search;
+neverallow { domain -appspawn -init -udevd -memmgrservice -storage_daemon } self:{ capability cap_userns } dac_override;
+neverallow { domain -appspawn -init -storage_daemon } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice } self:{ capability cap_userns } kill;
@@ -214,7 +214,7 @@ neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow * self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
-neverallow * self:{ capability cap_userns } sys_ptrace;
+neverallow { domain -storage_daemon } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -init } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
@@ -222,7 +222,7 @@ neverallow * self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -memmgrservice } self:{ capability cap_userns } sys_resource;
 neverallow { domain -time_service } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;
-neverallow { domain -ueventd } self:{ capability cap_userns } mknod;
+neverallow { domain -ueventd -storage_daemon } self:{ capability cap_userns } mknod;
 neverallow * self:{ capability cap_userns } lease;
 neverallow * self:{ capability cap_userns } audit_write;
 neverallow * self:{ capability cap_userns } audit_control;
@@ -235,3 +235,4 @@ neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend
 neverallow * self:{ capability2 cap2_userns } audit_read;
 neverallow { domain -hdcd } self:{ capability2 cap2_userns } checkpoint_restore;
 neverallow * self:{ capability2 cap2_userns } perfmon;
+neverallow { domain -storage_manager -hidumper_service -samgr } storage_daemon:{ binder } call;
