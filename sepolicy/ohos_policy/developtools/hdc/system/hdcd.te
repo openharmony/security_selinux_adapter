@@ -12,12 +12,13 @@
 # limitations under the License
 
 allow hdcd data_local_tmp:file { write create setattr  read append open getattr };
-allow hdcd data_local_tmp:dir { add_name write create setattr search };
+allow hdcd data_local_tmp:dir { add_name write create setattr search getattr };
 
 allow hdcd vendor_lib_file:file { read write getattr };
 allow hdcd vendor_lib_file:dir { read write getattr search };
 
 allow hdcd self:tcp_socket { accept ioctl setopt read };
+allow hdcd sh:process { signal sigkill };
 
 allow hdcd kernel:system { syslog_read };
 allow hdcd kernel:unix_stream_socket { connectto };
