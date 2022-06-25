@@ -26,8 +26,8 @@ allow sensors sa_device_service_manager:samgr_class { get };
 #avc:  denied  { add } for service=3601 pid=572 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_sensor_service:s0 tclass=samgr_class permissive=1
 allow sensors sa_sensor_service:samgr_class { add };
 
-#avc:  denied  { call } for  pid=2061 comm="sensor_dal_host" scontext=u:r:sensor_dal_host:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
-allow sensors sensor_dal_host:binder { call };
+#avc:  denied  { call } for  pid=2061 comm="sensor_host" scontext=u:r:sensor_host:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
+allow sensors sensor_host:binder { call };
 
 #avc:  denied  { call } for  pid=2043 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow sensors accesstoken_service:binder { call };
