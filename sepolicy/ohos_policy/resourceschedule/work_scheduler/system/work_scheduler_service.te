@@ -31,3 +31,6 @@ binder_call(work_scheduler_service, normal_hap);
 binder_call(work_scheduler_service, param_watcher);
 binder_call(work_scheduler_service, sh);
 binder_call(work_scheduler_service, thermal);
+binder_call(param_watcher, work_scheduler_service);
+binder_call(foundation, work_scheduler_service);
+binder_call(normal_hap, work_scheduler_service);

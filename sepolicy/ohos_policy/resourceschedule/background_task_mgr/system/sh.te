@@ -22,3 +22,5 @@ allow sh device_usage_stats_service:process { sigkill };
 allow sh work_scheduler_service:dir { getattr search };
 allow sh work_scheduler_service:file { open read };
 allow sh work_scheduler_service:process { sigkill };
+
+binder_call(system_core_hap, device_usage_stats_service);
