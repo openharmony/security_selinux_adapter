@@ -74,7 +74,8 @@ allow dscreen media_service:fd { use };
 allow dscreen dscreen:udp_socket { read write };
 
 #avc:  denied  { add } for service=4807 pid=2067 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_dscreen_source_service:s0 tclass=samgr_class permissive=1
-allow dscreen sa_dscreen_source_service:samgr_class { add };
+#avc:  denied  { get_remote } for service=4807 pid=2325 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_dscreen_source_service:s0 tclass=samgr_class permissive=1
+allow dscreen sa_dscreen_source_service:samgr_class { add get_remote };
 
 #avc:  denied  { get } for service=4607 pid=2067 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
 allow dscreen sa_foundation_dms:samgr_class { get };
@@ -91,3 +92,33 @@ allow dscreen system_usr_file:file { getattr read open map };
 #avc:  denied  { transfer } for  pid=2127 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
 allow dscreen softbus_server:binder { transfer };
 
+#avc:  denied  { create } for  pid=2315 comm="Fillp_core_0" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=udp_socket permissive=1
+#avc:  denied  { setopt } for  pid=2315 comm="Fillp_core_0" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=udp_socket permissive=1
+#avc:  denied  { bind } for  pid=2315 comm="Fillp_core_0" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=udp_socket permissive=1
+#avc:  denied  { getattr } for  pid=2315 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=udp_socket permissive=1
+allow dscreen  dscreen:udp_socket { create setopt bind getattr};
+
+#avc:  denied  { node_bind } for  pid=2315 comm="Fillp_core_0" scontext=u:r:dscreen:s0 tcontext=u:object_r:node:s0 tclass=udp_socket permissive=1
+allow dscreen node:udp_socket { node_bind };
+
+#avc:  denied  { create } for  pid=2315 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=netlink_route_socket permissive=1
+#avc:  denied  { write } for  pid=2315 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=netlink_route_socket permissive=1
+allow dscreen dscreen:netlink_route_socket { create write};
+
+#avc:  denied  { shutdown } for  pid=2315 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+allow dscreen softbus_server:tcp_socket { shutdown };
+
+#avc:  denied  { call } for  pid=2325 comm="dscreen"     scontext=u:r:dscreen:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
+allow dscreen render_service:binder { call };
+
+#avc:  denied  { shutdown } for  pid=2325 comm="THREAD_POOL" scontext=u:r:dscreen:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+allow dscreen softbus_server:tcp_socket { shutdown };
+
+#avc:  denied  { get } for service=10 pid=2325 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_render_service:s0 tclass=samgr_class permissive=1
+allow dscreen sa_render_service:samgr_class { get };
+
+#avc:  denied  { get } for service=4606 pid=2325 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=1
+allow dscreen sa_foundation_wms:samgr_class { get };
+
+#avc:  denied  { get } for service=3101 pid=2325 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
+allow dscreen sa_multimodalinput_service:samgr_class { get };
