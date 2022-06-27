@@ -1,0 +1,26 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { getopt } for  pid=563 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:msdp_sa:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { setopt } for  pid=563 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:msdp_sa:s0 tclass=unix_dgram_socket permissive=1
+allow msdp_sa msdp_sa:unix_dgram_socket { getopt setopt };
+
+#avc:  denied  { search } for  pid=538 comm="msdp" name="socket" dev="tmpfs" ino=40 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow msdp_sa dev_unix_socket:dir { search };
+
+#avc:  denied  { call } for  pid=543 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
+allow msdp_sa sh:binder { call };
+
+#avc:  denied  { call } for  pid=571 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow msdp_sa accesstoken_service:binder { call };
+
