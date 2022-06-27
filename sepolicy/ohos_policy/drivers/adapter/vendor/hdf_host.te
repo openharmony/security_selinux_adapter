@@ -80,8 +80,45 @@ allow vibrator_host hdf_vibrator_interface_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=camera_service pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_camera_service:s0 tclass=hdf_devmgr_class permissive=1
+allow camera_host camera_host:netlink_kobject_uevent_socket { bind bind create read create };
+allow camera_host camera_host:process { ptrace };
+allow camera_host camera_service:binder { call transfer };
+allow camera_host data_log:file { read write };
+allow camera_host dev_dri_file:chr_file { getattr ioctl open read write };
+allow camera_host dev_dri_file:dir { search };
+allow camera_host dev_hdf_kevent:chr_file { getattr getattr ioctl };
+allow camera_host dev_mpp:chr_file { ioctl open read write };
+allow camera_host dev_rga:chr_file { ioctl open read write };
+allow camera_host dev_unix_socket:dir { search };
+allow camera_host dev_unix_socket:sock_file { write };
+allow camera_host dev_video_file:chr_file { getattr ioctl open read write };
+allow camera_host disp_gralloc_host:fd { use };
+allow camera_host faultloggerd:fd { use };
+allow camera_host faultloggerd:unix_stream_socket { connectto };
 allow camera_host hdf_device_manager:hdf_devmgr_class { get };
 allow camera_host hdf_camera_service:hdf_devmgr_class { add };
+allow camera_host hdf_devmgr:binder { call transfer transfer };
+allow camera_host hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
+allow camera_host hiview:binder { call };
+allow camera_host media_service:binder { call };
+allow camera_host proc_version_file:file { open read };
+allow camera_host render_service:binder { call };
+allow camera_host samgr:binder { call };
+allow camera_host sys_file:file { open read };
+allow camera_host system_basic_hap:fd { use };
+allow camera_host system_bin_file:dir { search };
+allow camera_host system_bin_file:file { execute execute execute_no_trans map read open execute_no_trans map read open };
+allow camera_host system_core_hap:binder { call };
+allow camera_host system_core_hap:fd { use };
+allow camera_host vendor_bin_file:file { entrypoint entrypoint execute map read execute map read };
+allow camera_host vendor_etc_file:dir { search };
+allow camera_host vendor_etc_file:file { getattr open read };
+allow camera_host vendor_file:file { execute execute getattr map open read getattr map open read };
+allowxperm camera_host dev_dri_file:chr_file ioctl {  0x641f 0x642d 0x642e 0x64b2 0x64b4  };
+allowxperm camera_host dev_hdf_kevent:chr_file ioctl {  0x6201 0x6202  };
+allowxperm camera_host dev_mpp:chr_file ioctl {  0x7601  };
+allowxperm camera_host dev_rga:chr_file ioctl {  0x5017 0x5019 0x601b  };
+allowxperm camera_host dev_video_file:chr_file ioctl {  0x5600 0x5605 0x5608 0x5609 0x560f 0x5611 0x5612 0x5613  };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=usbd pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_usbd:s0 tclass=hdf_devmgr_class permissive=1
