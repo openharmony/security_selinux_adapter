@@ -1,0 +1,11 @@
+allow location_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow location_host dev_unix_socket:dir { search };
+allow location_host hdf_devmgr:binder { call transfer };
+allow location_host location_host:capability { dac_override };
+allow location_host locationhub:binder { call };
+allow location_host sa_device_service_manager:samgr_class { get };
+allow location_host samgr:binder { call };
+allow location_host system_bin_file:dir { search };
+allow location_host vendor_etc_file:dir { search };
+allow location_host vendor_etc_file:file { getattr open read };
+allowxperm location_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };

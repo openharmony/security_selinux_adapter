@@ -1,0 +1,6 @@
+allow pasteboard_service param_watcher:binder { call transfer };
+allow pasteboard_service sa_param_watcher:samgr_class { get };
+allow pasteboard_service sa_pasteboard_service:samgr_class { add };
+allow pasteboard_service system_bin_file:dir { search };
+allow pasteboard_service tracefs:dir { search };
+allow pasteboard_service tracefs_trace_marker_file:file { open write };

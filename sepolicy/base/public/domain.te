@@ -57,10 +57,11 @@ allow domain system_etc_file:dir { open read search getattr };
 allow { domain -limit_domain } system_etc_file:file { getattr map open read };
 
 allow domain system_file:dir { search };
+allow domain vendor_file:dir search;
 
-allow domain system_lib_file:dir { search };
-allow { domain -limit_domain } system_lib_file:file { execute getattr map open read };
-allow domain system_lib_file:lnk_file { read };
+allow domain { lib_file system_lib_file vendor_lib_file }:dir { search };
+allow { domain -limit_domain } { lib_file system_lib_file vendor_lib_file }:file { execute getattr map open read };
+allow domain { lib_file system_lib_file vendor_lib_file }:lnk_file { read };
 
 allow { domain -limit_domain } system_profile_file:file read_file_perms;
 allow domain system_profile_file:dir search;
@@ -75,8 +76,6 @@ allow domain debugfs:dir search;
 allow domain fs_attr:filesystem getattr;
 allow domain { fs_attr -unlabeled }:dir getattr;
 
-allow { domain -hap_domain } vendor_file:dir search;
-
 allow domain etc_file:lnk_file { read };
 
 allow { domain -hap_domain } kernel:fd use;
@@ -85,20 +84,21 @@ allow domain init:unix_dgram_socket { sendto };
 allow { domain -hap_domain } init:unix_stream_socket { read write };
 allow { domain -hap_domain } init:netlink_kobject_uevent_socket { read write };
 
+dontaudit domain domain:process noatsecure;
 # neverallow rules
-neverallow init file_attr:file execute_no_trans;
 neverallow { domain -init } dev_parameters_file:file write;
 neverallow { domain -init } data_parameters:dir never_write_dir;
 
-neverallow { domain -init } proc_file:{ file dir } mounton;
+neverallow { domain -init -hap_domain } proc_file:{ file dir } mounton;
 
-neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
+#todo audio edm hidump installs location multimodalinput netmanager normal pwer thermal..
+#neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
-neverallow { domain -hdcd -installs -init } data_local_tmp:dir never_write_dir;
+neverallow { domain -hdcd -installs -init -hidumper_service -power_host } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation } data_local_tmp:dir { open search };
+neverallow { domain -hdcd -hap_domain -init -installs -foundation -hidumper_service -power_host -sh } data_local_tmp:dir { open search };
 
-neverallow domain { proc_attr sysfs_attr }:dir { add_name create link remove_name rename reparent rmdir write };
+neverallow { domain -init } { proc_attr sysfs_attr }:dir { add_name create link remove_name rename reparent rmdir write };
 
 neverallow { domain -samgr } *:binder set_context_mgr;
 
@@ -108,12 +108,12 @@ neverallow * hdcd:process dyntransition;
 
 neverallow * { file_attr fs_attr dev_attr }:{ lnk_file fifo_file sock_file } mounton;
 
-neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
+neverallow { domain -init -hidumper_service -hiview } debugfs: { file lnk_file } never_rw_file;
 
 #ioctl cmd TIOCSTI
 neverallowxperm * devpts:chr_file ioctl 0x5412;
 
-neverallow * dev_port:chr_file ~{ create relabelto unlink setattr getattr };
+neverallow { domain -udevd } dev_port:chr_file ~{ create relabelto unlink setattr getattr };
 
 neverallow * *:{ blk_file chr_file } rename;
 
@@ -124,7 +124,7 @@ neverallow domain self:lockdown integrity;
 neverallow * self:memprotect mmap_zero;
 
 # only execute file with exec_attr & system_bin_file & vendor_bin_file ToDo delete vendor_file
-neverallow * { file_attr -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file -vendor_file -exec_attr -hap_file_attr }:file { execute execute_no_trans entrypoint };
+neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file -vendor_file -exec_attr -hap_file_attr }:file { execute execute_no_trans entrypoint };
 
 # keep every process join the domain attribute.
 neverallow ~domain domain:process { transition dyntransition };
@@ -135,7 +135,7 @@ neverallow domain { domain -init -sadomain -hdfdomain -hap_domain -nativedomain 
 # keep every file join file_attr
 neverallow * ~{ file_attr domain fs_attr dev_attr } :{ dir notdevfile_class_set } *;
 
-neverallow domain ~{ domain fs_attr dev_attr system_file_attr vendor_file_attr proc_attr sysfs_attr data_file_attr }:{ file dir } *;
+neverallow domain ~{ domain fs_attr dev_attr system_file_attr vendor_file_attr proc_attr sysfs_attr data_file_attr rootfs_file_attr }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
@@ -173,19 +173,15 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
 neverallow * self:process { execstack execheap };
 
 # dev node file label should be configured in file_contexts.
-#neverallow domain dev_file:{ file chr_file blk_file } *;
+#/dev/char
+#/dev/v4l
+#neverallow { domain -ueventd } dev_file:{ file chr_file blk_file } *;
 
-neverallow { domain -kernel -init } dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -misc -updater_sa } dev_attr:blk_file { open read write };
 # only init can operate fs
-neverallow { domain -init -storage_daemon -hdcd } *:filesystem ~{ getattr };
+neverallow { domain -init -storage_daemon -hdcd -hap_domain } *:filesystem ~{ getattr };
 
-# can't execute data file unless hap.
-neverallow { domain -hap_domain } data_file_attr:file { execute execute_no_trans };
-
-# service can't modify hap sandbox
-neverallow { domain -hap_domain -installs } hap_file_attr:dir_file_class_set { create unlink };
-
-neverallow { domain -hap_domain } hap_file_attr:file open;
+#neverallow { domain -hap_domain } hap_file_attr:file open;
 
 neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
 
@@ -195,34 +191,79 @@ neverallow { domain -init } { proc_attr sysfs_attr }:dir { add_name create link 
 # neverallow { domain -init } self:capability chown;
 # means that only init can have the caps of chown.
 # TODO:debug/release
-neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } chown;
-neverallow { domain -appspawn -init -udevd -memmgrservice } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init } self:{ capability cap_userns } dac_read_search;
-neverallow { domain -init -udevd -ueventd } self:{ capability cap_userns } fowner;
-neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } fsetid;
-neverallow { domain -init -memmgrservice } self:{ capability cap_userns } kill;
-neverallow { domain -init } self:{ capability cap_userns } setuid;
-neverallow { domain -init -ueventd -appspawn } self:{ capability cap_userns } setgid;
+#neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } chown;
+#neverallow { domain -appspawn -init -udevd -memmgrservice } self:{ capability cap_userns } dac_override;
+#neverallow { domain -appspawn -init } self:{ capability cap_userns } dac_read_search;
+#neverallow { domain -init -udevd -ueventd } self:{ capability cap_userns } fowner;
+#neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } fsetid;
+#neverallow { domain -init -memmgrservice } self:{ capability cap_userns } kill;
+#neverallow { domain -init } self:{ capability cap_userns } setuid;
+#neverallow { domain -init -ueventd -appspawn } self:{ capability cap_userns } setgid;
+#neverallow { domain -init } self:{ capability cap_userns } setpcap;
+#neverallow * self:{ capability cap_userns } linux_immutable;
+#neverallow * self:{ capability cap_userns } net_bind_service;
+#neverallow * self:{ capability cap_userns } net_broadcast;
+#neverallow { domain -init -wifi_hal_service -wifi_manager_service -softbus_server } self:{ capability cap_userns } net_admin;
+#neverallow { domain -wifi_hal_service } self:{ capability cap_userns } net_raw;
+#neverallow * self:{ capability cap_userns } ipc_lock;
+#neverallow * self:{ capability cap_userns } ipc_owner;
+#neverallow * self:{ capability cap_userns } sys_module;
+#neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
+#neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
+#neverallow * self:{ capability cap_userns } sys_ptrace;
+#neverallow * self:{ capability cap_userns } sys_pacct;
+#neverallow { domain -init } self:{ capability cap_userns } sys_admin;
+#neverallow { domain -init } self:{ capability cap_userns } sys_boot;
+#neverallow * self:{ capability cap_userns } sys_nice;
+#neverallow { domain -init -memmgrservice } self:{ capability cap_userns } sys_resource;
+#neverallow { domain -time_service } self:{ capability cap_userns } sys_time;
+#neverallow * self:{ capability cap_userns } sys_tty_config;
+#neverallow { domain -ueventd } self:{ capability cap_userns } mknod;
+#neverallow * self:{ capability cap_userns } lease;
+#neverallow * self:{ capability cap_userns } audit_write;
+#neverallow * self:{ capability cap_userns } audit_control;
+#neverallow * self:{ capability cap_userns } setfcap;
+#neverallow * self:{ capability2 cap2_userns } mac_override;
+#neverallow * self:{ capability2 cap2_userns } mac_admin;
+#neverallow * self:{ capability2 cap2_userns } syslog;
+#neverallow { domain -time_service } self:{ capability2 cap2_userns } wake_alarm;
+#neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend;
+#neverallow * self:{ capability2 cap2_userns } audit_read;
+#neverallow { domain -hdcd } self:{ capability2 cap2_userns } checkpoint_restore;
+#neverallow * self:{ capability2 cap2_userns } perfmon;
+
+neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -udevd -kernel } self:{ capability cap_userns } chown;
+neverallow { domain -appspawn -init -udevd -memmgrservice -blue_host -bluetooth_service -camera_host -codec_host -disp_gralloc_host
+             -face_auth_host -faultloggerd -fingerprint_auth_host -hdcd -hiview -installs -location_host
+             -misc -mmi_uinput_service -multimodalinput -netsysnative -pin_auth_host -power_host
+             -resource_schedule_service -storage_daemon -usb_host -usbfnMaster_host -user_auth_host
+             -wifi_host -kernel  } self:{ capability cap_userns } dac_override;
+neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon } self:{ capability cap_userns } dac_read_search;
+neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
+neverallow { domain -appspawn -init -ueventd -storage_daemon -udevd } self:{ capability cap_userns } fsetid;
+neverallow { domain -init -memmgrservice -appspawn } self:{ capability cap_userns } kill;
+neverallow { domain -init -normal_hap -system_basic_hap } self:{ capability cap_userns } setuid;
+neverallow { domain -init -ueventd -appspawn -normal_hap -system_basic_hap } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
 neverallow * self:{ capability cap_userns } linux_immutable;
 neverallow * self:{ capability cap_userns } net_bind_service;
 neverallow * self:{ capability cap_userns } net_broadcast;
-neverallow { domain -init -wifi_hal_service -wifi_manager_service -softbus_server } self:{ capability cap_userns } net_admin;
+neverallow { domain -init -wifi_hal_service -wifi_manager_service -softbus_server -netsysnative -storage_daemon -udevd } self:{ capability cap_userns } net_admin;
 neverallow { domain -wifi_hal_service } self:{ capability cap_userns } net_raw;
 neverallow * self:{ capability cap_userns } ipc_lock;
 neverallow * self:{ capability cap_userns } ipc_owner;
-neverallow * self:{ capability cap_userns } sys_module;
+neverallow { domain -netsysnative } self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
-neverallow * self:{ capability cap_userns } sys_ptrace;
+neverallow { domain -hidumper_service -init -memmgrservice } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
-neverallow { domain -init } self:{ capability cap_userns } sys_admin;
+neverallow { domain -init -normal_hap -system_basic_hap -storage_daemon } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
-neverallow * self:{ capability cap_userns } sys_nice;
+neverallow { domain -render_service } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -memmgrservice } self:{ capability cap_userns } sys_resource;
 neverallow { domain -time_service } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;
-neverallow { domain -ueventd } self:{ capability cap_userns } mknod;
+neverallow { domain -ueventd -kernel } self:{ capability cap_userns } mknod;
 neverallow * self:{ capability cap_userns } lease;
 neverallow * self:{ capability cap_userns } audit_write;
 neverallow * self:{ capability cap_userns } audit_control;

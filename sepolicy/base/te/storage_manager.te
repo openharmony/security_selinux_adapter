@@ -1,0 +1,16 @@
+allow storage_manager dev_unix_socket:dir { search };
+allow storage_manager foundation:binder { call transfer };
+allow storage_manager normal_hap:binder { call };
+allow storage_manager sa_foundation_abilityms:samgr_class { get };
+allow storage_manager sa_foundation_cesfwk_service:samgr_class { get };
+allow storage_manager sa_param_watcher:samgr_class { get };
+allow storage_manager sa_storage_manager_daemon:samgr_class { get };
+allow storage_manager sa_storage_manager_service:samgr_class { add get };
+allow storage_manager storage_daemon:binder { call };
+allow storage_manager sys_file:file { open read };
+allow storage_manager sysfs_rtc:dir { open read };
+allow storage_manager system_bin_file:dir { search };
+allow storage_manager system_usr_file:dir { search };
+allow storage_manager system_usr_file:file { getattr map open read };
+allow storage_manager tracefs:dir { search };
+allow storage_manager tracefs_trace_marker_file:file { open write };

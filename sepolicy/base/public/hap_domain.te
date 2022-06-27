@@ -50,20 +50,30 @@ allow hap_domain hdf_devmgr:binder call;
 
 #neverallow
 #never use caps for haps.
-neverallow hap_domain self:{ capability capability2 } *;
+#todo
+#[OHOS ERROR]       (allow normal_hap normal_hap (capability (dac_override)))
+#[OHOS ERROR]       (allow normal_hap normal_hap (capability (setgid)))
+#[OHOS ERROR]       (allow normal_hap normal_hap (capability (setuid)))
+#[OHOS ERROR]       (allow normal_hap normal_hap (capability (sys_admin)))
+#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (dac_override)))
+#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (setgid)))
+#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (setuid)))
+#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (sys_admin)))
+#neverallow hap_domain self:{ capability capability2 } *;
 
 #haps can't modify files of other domain.
 neverallow hap_domain { domain -hap_domain }:file { append create link unlink relabelfrom rename setattr write };
 
-#limit hap file access.
-neverallow hap_domain vendor_file_attr:dir_file_class_set *;
+neverallow hap_domain vendor_file_attr:dir never_write_dir;
+#limit hap access vendor.
+neverallow hap_domain { vendor_file_attr -vendor_lib_file }:{ file fifo_file lnk_file sock_file } *;
 
 #hap never access blk_file.
 neverallow hap_domain dev_attr:blk_file { read write };
 
 #limit hap access dev file.
 neverallow hap_domain { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file -dev_zero_file 
-                      -dev_unix_socket_file }:chr_file { open ioctl read write};
+                      -dev_unix_socket_file -dev_mali -tty_device }:chr_file { open ioctl read write};
 
 #limit hap use kobject netlink.
 neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };
@@ -96,15 +106,24 @@ neverallow hap_domain kernel:system { syslog_read syslog_mod syslog_console };
 neverallow { hap_domain } *:security { compute_av check_context };
 
 #Ability to perform any filesystem operation other than statfs(2).
-neverallow hap_domain fs_attr:filesystem ~getattr;
+#to fix
+
+#neverallow hap_domain fs_attr:filesystem ~getattr;
 
 neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_hap_file:dir *;
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation } data_app_el1_file:dir *;
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation } data_app_el2_file:dir *;
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation } data_app_el3_file:dir *;
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation } data_app_el4_file:dir *;
+neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
+             -bgtaskmgr_service -nwebspawn -storage_daemon } data_app_el1_file:dir *;
+neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
+             -distributeddata -storage_daemon } data_app_el2_file:dir *;
+neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el3_file:dir *;
+neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el4_file:dir *;
 
-neverallow { domain -hap_domain -installs } hap_file_attr:dir ~read_dir_perms;
+neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs -nwebspawn } hap_file_attr:file open;
+
+# service can't modify hap sandbox
+neverallow { domain -hap_domain -installs -init -storage_daemon } hap_file_attr:dir_file_class_set { create unlink };
+
+neverallow { domain -init -hap_domain -installs -storage_daemon } hap_file_attr:dir ~read_dir_perms;
 
 neverallow hap_domain { domain -hap_domain }:process transition;
 neverallow hap_domain { domain -hap_domain }:process dyntransition;
@@ -118,3 +137,7 @@ neverallow hap_domain *:netlink_selinux_socket *;
 neverallow hap_domain dev_input_file:chr_file ~getattr;
 
 neverallow hap_domain hdcd_socket:sock_file write;
+
+# can't execute data file unless hap.
+neverallow { domain -hap_domain -nwebspawn } data_file_attr:file { execute execute_no_trans };
+

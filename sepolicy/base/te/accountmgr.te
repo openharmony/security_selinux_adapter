@@ -1,0 +1,5 @@
+allow accountmgr distributeddata:binder { transfer };
+allow accountmgr distributedfiledaemon:binder { call transfer };
+allow accountmgr locationhub:binder { transfer };
+allow accountmgr softbus_server:binder { transfer };
+allow accountmgr system_bin_file:dir { search };

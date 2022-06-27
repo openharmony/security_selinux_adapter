@@ -1,0 +1,10 @@
+allow misc dev_block_file:blk_file { open read write };
+allow misc dev_block_file:dir { search };
+allow misc dev_block_file:lnk_file { read };
+allow misc dev_unix_socket:dir { search };
+allow misc misc:capability { dac_override };
+allow misc proc_cmdline_file:file { open read };
+allow misc system_bin_file:dir { search };
+allow misc system_bin_file:file { entrypoint execute map read };
+allow misc vendor_etc_file:dir { search };
+allow misc vendor_etc_file:file { getattr open read };

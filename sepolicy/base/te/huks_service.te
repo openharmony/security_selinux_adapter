@@ -1,0 +1,4 @@
+allow huks_service param_watcher:binder { call transfer };
+allow huks_service sa_param_watcher:samgr_class { get };
+allow huks_service tracefs:dir { search };
+allow huks_service tracefs_trace_marker_file:file { open write };

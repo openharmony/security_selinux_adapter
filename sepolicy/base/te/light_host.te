@@ -1,0 +1,7 @@
+allow light_host dev_hdf_kevent:chr_file { getattr };
+allow light_host dev_unix_socket:dir { search };
+allow light_host hdf_devmgr:binder { call transfer };
+allow light_host samgr:binder { call };
+allow light_host system_bin_file:dir { search };
+allow light_host vendor_etc_file:dir { search };
+allow light_host vendor_etc_file:file { getattr open read };

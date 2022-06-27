@@ -37,3 +37,5 @@ type debug_param, parameter_attr;
 type default_param, parameter_attr;
 
 type build_version_param, parameter_attr;
+type startup_param, parameter_attr;
+type bootevent_param, parameter_attr;

@@ -1,0 +1,14 @@
+allow accesstoken_service accesstoken_data_file:file { open read };
+allow accesstoken_service accesstoken_service:unix_dgram_socket { getopt setopt };
+allow accesstoken_service data_service_el0_file:dir { search };
+allow accesstoken_service data_service_el1_file:dir { add_name getattr open read remove_name search write };
+allow accesstoken_service data_service_el1_file:file { create getattr ioctl lock read write open unlink };
+allow accesstoken_service data_service_file:dir { search };
+allow accesstoken_service param_watcher:binder { call transfer };
+allow accesstoken_service sa_accesstoken_manager_service:samgr_class { add };
+allow accesstoken_service sa_foundation_devicemanager_service:samgr_class { get };
+allow accesstoken_service sa_param_watcher:samgr_class { get };
+allow accesstoken_service sa_privacy_service:samgr_class { add };
+allow accesstoken_service tracefs:dir { search };
+allow accesstoken_service tracefs_trace_marker_file:file { open write };
+allowxperm accesstoken_service data_service_el1_file:file ioctl { 0xf50c };

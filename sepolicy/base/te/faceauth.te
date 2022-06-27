@@ -1,0 +1,8 @@
+allow faceauth dev_unix_socket:dir { search };
+allow faceauth face_auth_host:binder { call };
+allow faceauth hdf_devmgr:binder { call transfer };
+allow faceauth param_watcher:binder { call transfer };
+allow faceauth system_bin_file:dir { search };
+allow faceauth tracefs:dir { search };
+allow faceauth tracefs_trace_marker_file:file { open write };
+allow faceauth useriam:binder { call transfer };

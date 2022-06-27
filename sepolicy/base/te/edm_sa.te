@@ -1,0 +1,15 @@
+allow edm_sa data_file:dir { add_name open read remove_name search write };
+allow edm_sa data_file:file { create ioctl read rename write open };
+allow edm_sa dev_unix_socket:dir { search };
+allow edm_sa foundation:binder { call transfer };
+allow edm_sa param_watcher:binder { call transfer };
+allow edm_sa sa_enterprise_device_manager_service:samgr_class { add };
+allow edm_sa sa_foundation_cesfwk_service:samgr_class { get };
+allow edm_sa sa_param_watcher:samgr_class { get };
+allow edm_sa sys_file:file { open read };
+allow edm_sa sysfs_rtc:dir { open read };
+allow edm_sa system_bin_file:dir { search };
+allow edm_sa system_lib_file:dir { open read };
+allow edm_sa tracefs:dir { search };
+allow edm_sa tracefs_trace_marker_file:file { open write };
+allowxperm edm_sa data_file:file ioctl { 0x5413 };

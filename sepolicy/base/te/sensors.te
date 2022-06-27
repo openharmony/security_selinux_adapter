@@ -1,0 +1,8 @@
+allow sensors dev_unix_socket:dir { search };
+allow sensors hdf_devmgr:binder { call };
+allow sensors param_watcher:binder { call transfer };
+allow sensors sensor_host:binder { call transfer };
+allow sensors system_bin_file:dir { search };
+allow sensors tracefs:dir { search };
+allow sensors tracefs_trace_marker_file:file { open write };
+allow sensors vibrator_host:binder { call };

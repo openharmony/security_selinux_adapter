@@ -1,0 +1,17 @@
+allow distributedfiledaemon accountmgr:binder { call transfer };
+allow distributedfiledaemon dev_unix_socket:dir { search };
+allow distributedfiledaemon distributedfiledaemon:unix_dgram_socket { getopt setopt };
+allow distributedfiledaemon foundation:binder { call transfer };
+allow distributedfiledaemon huks_service:binder { call };
+allow distributedfiledaemon param_watcher:binder { call transfer };
+allow distributedfiledaemon sa_accountmgr:samgr_class { get };
+allow distributedfiledaemon sa_filemanagement_distributed_file_daemon_service:samgr_class { add };
+allow distributedfiledaemon sa_foundation_devicemanager_service:samgr_class { get };
+allow distributedfiledaemon sa_huks_service:samgr_class { get };
+allow distributedfiledaemon sa_param_watcher:samgr_class { get };
+allow distributedfiledaemon sa_softbus_service:samgr_class { get };
+allow distributedfiledaemon softbus_server:binder { call transfer };
+allow distributedfiledaemon sys_file:file { getattr open read write };
+allow distributedfiledaemon system_bin_file:dir { search };
+allow distributedfiledaemon tracefs:dir { search };
+allow distributedfiledaemon tracefs_trace_marker_file:file { open write };

@@ -1,0 +1,9 @@
+allow camera_service dev_unix_socket:dir { search };
+allow camera_service hdf_devmgr:binder { call transfer };
+allow camera_service param_watcher:binder { call transfer };
+allow camera_service sa_camera_service:samgr_class { add };
+allow camera_service sa_device_service_manager:samgr_class { get };
+allow camera_service sa_param_watcher:samgr_class { get };
+allow camera_service system_bin_file:dir { search };
+allow camera_service tracefs:dir { search };
+allow camera_service tracefs_trace_marker_file:file { open write };

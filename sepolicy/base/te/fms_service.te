@@ -1,0 +1,11 @@
+allow fms_service dev_unix_socket:dir { search };
+allow fms_service foundation:binder { call transfer };
+allow fms_service param_watcher:binder { call transfer };
+allow fms_service sa_file_manager_service:samgr_class { add };
+allow fms_service sa_foundation_cesfwk_service:samgr_class { get };
+allow fms_service sa_param_watcher:samgr_class { get };
+allow fms_service system_bin_file:dir { search };
+allow fms_service system_usr_file:dir { search };
+allow fms_service system_usr_file:file { getattr map open read };
+allow fms_service tracefs:dir { search };
+allow fms_service tracefs_trace_marker_file:file { open write };

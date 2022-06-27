@@ -1,0 +1,9 @@
+allow memmgrservice memmgrservice:capability { sys_ptrace };
+allow memmgrservice param_watcher:binder { call transfer };
+allow memmgrservice proc_file:file { read };
+allow memmgrservice sa_bgtaskmgr:samgr_class { get };
+allow memmgrservice sa_memory_manager_service:samgr_class { add };
+allow memmgrservice sa_param_watcher:samgr_class { get };
+allow memmgrservice system_bin_file:dir { search };
+allow memmgrservice tracefs:dir { search };
+allow memmgrservice tracefs_trace_marker_file:file { open write };

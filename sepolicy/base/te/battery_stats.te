@@ -1,0 +1,12 @@
+allow battery_stats data_file:dir { search };
+allow battery_stats data_system:dir { search };
+allow battery_stats dev_unix_socket:dir { search };
+allow battery_stats foundation:binder { call transfer };
+allow battery_stats hiview:binder { call transfer };
+allow battery_stats param_watcher:binder { call transfer };
+allow battery_stats system_bin_file:dir { search };
+allow battery_stats system_etc_batterystats_file:file { open read };
+allow battery_stats system_usr_file:dir { search };
+allow battery_stats system_usr_file:file { getattr map open read };
+allow battery_stats tracefs:dir { search };
+allow battery_stats tracefs_trace_marker_file:file { open write };

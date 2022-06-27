@@ -1,0 +1,11 @@
+allow inputmethod_service foundation:binder { call transfer };
+allow inputmethod_service param_watcher:binder { call transfer };
+allow inputmethod_service sa_foundation_abilityms:samgr_class { get };
+allow inputmethod_service sa_foundation_cesfwk_service:samgr_class { get };
+allow inputmethod_service sa_inputmethod_service:samgr_class { add };
+allow inputmethod_service sa_param_watcher:samgr_class { get };
+allow inputmethod_service system_bin_file:dir { search };
+allow inputmethod_service system_usr_file:dir { search };
+allow inputmethod_service system_usr_file:file { getattr map open read };
+allow inputmethod_service tracefs:dir { search };
+allow inputmethod_service tracefs_trace_marker_file:file { open write };

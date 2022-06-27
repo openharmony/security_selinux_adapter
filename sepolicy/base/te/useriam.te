@@ -1,0 +1,16 @@
+allow useriam accesstoken_service:binder { call };
+allow useriam accountmgr:binder { call };
+allow useriam bootevent_param:parameter_service { set };
+allow useriam dev_unix_socket:dir { search };
+allow useriam faceauth:binder { call transfer };
+allow useriam hdf_devmgr:binder { call };
+allow useriam kernel:unix_stream_socket { connectto };
+allow useriam paramservice_socket:sock_file { write };
+allow useriam param_watcher:binder { call transfer };
+allow useriam pinauth:binder { call transfer };
+allow useriam sa_param_watcher:samgr_class { get };
+allow useriam system_basic_hap:binder { call };
+allow useriam system_bin_file:dir { search };
+allow useriam tracefs:dir { search };
+allow useriam tracefs_trace_marker_file:file { open write };
+allow useriam user_auth_host:binder { call };

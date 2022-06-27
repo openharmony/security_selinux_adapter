@@ -1,0 +1,13 @@
+allow sensor_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow sensor_host dev_hdf_sensor_mgr:chr_file { getattr ioctl open read write };
+allow sensor_host dev_mgr_file:chr_file { getattr ioctl open read write };
+allow sensor_host dev_unix_socket:dir { search };
+allow sensor_host hdf_devmgr:binder { call transfer };
+allow sensor_host samgr:binder { call };
+allow sensor_host sensors:binder { call };
+allow sensor_host system_bin_file:dir { search };
+allow sensor_host vendor_etc_file:dir { search };
+allow sensor_host vendor_etc_file:file { getattr open read };
+allowxperm sensor_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
+allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl { 0x6201 0x6203 };
+allowxperm sensor_host dev_mgr_file:chr_file ioctl { 0x6201 };

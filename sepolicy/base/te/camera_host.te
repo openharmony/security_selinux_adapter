@@ -1,0 +1,13 @@
+allow camera_host camera_host:capability { dac_override };
+allow camera_host camera_host:netlink_kobject_uevent_socket { bind create read };
+allow camera_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow camera_host dev_unix_socket:dir { search };
+allow camera_host dev_video_file:chr_file { getattr ioctl open read write };
+allow camera_host hdf_devmgr:binder { call transfer };
+allow camera_host sa_device_service_manager:samgr_class { get };
+allow camera_host samgr:binder { call };
+allow camera_host system_bin_file:dir { search };
+allow camera_host vendor_etc_file:dir { search };
+allow camera_host vendor_etc_file:file { getattr open read };
+allowxperm camera_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
+allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 };

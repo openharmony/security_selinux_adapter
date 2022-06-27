@@ -1,0 +1,10 @@
+allow msdp_sa foundation:binder { call };
+allow msdp_sa msdp_sa:unix_dgram_socket { getopt setopt };
+allow msdp_sa param_watcher:binder { call transfer };
+allow msdp_sa sa_accesstoken_manager_service:samgr_class { get };
+allow msdp_sa sa_msdp_devicestatus_service:samgr_class { add };
+allow msdp_sa sa_param_watcher:samgr_class { get };
+allow msdp_sa sensors:binder { call };
+allow msdp_sa system_bin_file:dir { search };
+allow msdp_sa tracefs:dir { search };
+allow msdp_sa tracefs_trace_marker_file:file { open write };

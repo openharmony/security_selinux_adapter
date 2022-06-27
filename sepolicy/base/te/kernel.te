@@ -1,0 +1,12 @@
+allow kernel data_file:dir { search };
+allow kernel data_log:dir { add_name create search setattr write };
+allow kernel data_log:file { append create read write open setattr };
+allow kernel dev_bbox:chr_file { open write };
+allow kernel device:chr_file { create getattr setattr unlink };
+allow kernel device:dir { add_name remove_name rmdir search write };
+allow kernel init:process { dyntransition };
+allow kernel kernel:capability { chown dac_override dac_read_search mknod };
+allow kernel kernel:process { setcurrent };
+allow kernel pstorefs:dir { open read remove_name search write };
+allow kernel pstorefs:file { open read unlink };
+allow kernel tmpfs:chr_file { write };

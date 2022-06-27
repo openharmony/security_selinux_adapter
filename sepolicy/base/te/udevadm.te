@@ -1,0 +1,16 @@
+allow udevadm dev_unix_socket:dir { search };
+allow udevadm sys_file:dir { open read };
+allow udevadm sys_file:file { getattr open write };
+allow udevadm sysfs_android_usb:dir { open read };
+allow udevadm sysfs_block_file:file { getattr open write };
+allow udevadm sysfs_block_loop:file { getattr open write };
+allow udevadm sysfs_block_zram:file { getattr open write };
+allow udevadm sysfs_devices_system_cpu:file { getattr open write };
+allow udevadm sysfs_extcon:dir { open read };
+allow udevadm sysfs_leds:dir { open read };
+allow udevadm sysfs_net:dir { open read };
+allow udevadm sysfs_net:file { getattr open write };
+allow udevadm sysfs_rtc:dir { open read };
+allow udevadm sysfs_wakeup:dir { open read };
+allow udevadm sysfs_wakeup:file { getattr open write };
+allow udevadm system_bin_file:dir { search };

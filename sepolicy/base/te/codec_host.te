@@ -1,0 +1,11 @@
+allow codec_host codec_host:capability { dac_override };
+allow codec_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow codec_host dev_unix_socket:dir { search };
+allow codec_host hdf_codec_hdi_service:hdf_devmgr_class { add };
+allow codec_host hdf_devmgr:binder { call transfer };
+allow codec_host sa_device_service_manager:samgr_class { get };
+allow codec_host samgr:binder { call };
+allow codec_host system_bin_file:dir { search };
+allow codec_host vendor_etc_file:dir { search };
+allow codec_host vendor_etc_file:file { getattr open read };
+allowxperm codec_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };

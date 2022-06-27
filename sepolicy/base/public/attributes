@@ -36,6 +36,10 @@ attribute proc_attr;
 #      /system/bin
 attribute file_attr;
 
+# Type of all rootfs files.
+# i.e. /*
+attribute rootfs_file_attr;
+
 # Type of all system files.
 # i.e. /system/*
 attribute system_file_attr;

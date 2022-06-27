@@ -66,7 +66,6 @@
 /dev/dev_mgr          u:object_r:dev_mgr_file:s0
 /dev/devsvc_mgr          u:object_r:dev_svc_mgr_file:s0
 /dev/fuse          u:object_r:dev_fuse_file:s0
-/dev/hdf_input_event1          u:object_r:dev_hdf_file:s0
 /dev/hdf_input_host          u:object_r:dev_hdf_file:s0
 /dev/hwbinder          u:object_r:dev_hwbinder_file:s0
 /dev/iio:device0          u:object_r:dev_iio_file:s0
@@ -127,7 +126,7 @@
 /dev/pm_test_service                u:object_r:dev_pm_test:s0
 /dev/port                           u:object_r:dev_port:s0
 /dev/ptmx                           u:object_r:dev_ptmx:s0
-/dev/ptp0                           u:object_r:dev_ptp:s0
+/dev/ptp[0-9]                       u:object_r:dev_ptp:s0
 /dev/rfkill                         u:object_r:dev_rfkill:s0
 /dev/rga                            u:object_r:dev_rga:s0
 /dev/sample_service                 u:object_r:dev_sample_svc:s0
@@ -136,6 +135,9 @@
 /dev/sw_sync                        u:object_r:dev_sw_sync:s0
 /dev/usb-ffs                        u:object_r:dev_usb_ffs:s0
 /dev/uinput                         u:object_r:dev_uinput:s0
+
+/dev/hdmi_hdcp1x                    u:object_r:dev_hdmi_hdcp1x:s0
+
 
 /etc(/.*)?       u:object_r:etc_file:s0
 /lib(/.*)?       u:object_r:lib_file:s0
@@ -214,6 +216,7 @@
 /data/vendor(/.*)?                 u:object_r:data_vendor:s0
 /data/vendor_ce(/.*)?                 u:object_r:data_vendor_ce:s0
 /data/vendor_de(/.*)?                 u:object_r:data_vendor_de:s0
+/data/updater(/.*)?                   u:object_r:data_updater:s0
 
 
 /updater(/.*)?       u:object_r:updater_file:s0
@@ -221,6 +224,7 @@
 /vendor(/.*)?       u:object_r:vendor_file:s0
 /vendor/bin(/.*)?       u:object_r:vendor_bin_file:s0
 /vendor/lib(/.*)?       u:object_r:vendor_lib_file:s0
+/vendor/lib64(/.*)?       u:object_r:vendor_lib_file:s0
 /vendor/etc(/.*)?       u:object_r:vendor_etc_file:s0
 
 

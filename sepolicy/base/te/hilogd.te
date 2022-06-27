@@ -1,0 +1,2 @@
+allow hilogd dev_unix_socket:dir { search };
+allow hilogd system_bin_file:dir { search };
