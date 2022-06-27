@@ -20,3 +20,7 @@ allow sh sa_sensor_service:samgr_class { get };
 #avc:  denied  { unlink } for  pid=2268 comm="rm" name="SensorAgentFuzzTest" dev="mmcblk0p11" ino=913935 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
 #avc:  denied  { getattr } for  pid=2268 comm="rm" path="/data/test/SensorAgentFuzzTest" dev="mmcblk0p11" ino=913935 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
 allow sh data_file:file { unlink getattr };
+
+#avc:  denied  { getattr } for  pid=2148 comm="ps" path="/proc/571" dev="proc" ino=30549 scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=dir permissive=1
+#avc:  denied  { search } for  pid=2148 comm="ps" name="571" dev="proc" ino=30549 scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=dir permissive=1
+allow sh sensors:dir { search getattr };
