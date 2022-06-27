@@ -61,7 +61,11 @@ allow samgr security:security { check_context compute_av };
 allow samgr selinuxfs:dir { open read search };
 allow samgr selinuxfs:file { map open read write };
 
-allow samgr softbus_server:tcp_socket { read write setopt};
+#avc:  denied  { use } for  pid=677 comm="THREAD_POOL" path="socket:[36108]" dev="sockfs" ino=36108 scontext=u:r:samgr:s0 tcontext=u:r:softbus_server:s0 tclass=fd permissive=1
+#avc:  denied  { shutdown } for  pid=246 comm="THREAD_POOL" laddr=192.168.43.222 lport=34003 faddr=192.168.43.64 fport=39734 scontext=u:r:samgr:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { shutdown } for  pid=246 comm="samgr" laddr=192.168.43.222 lport=48160 faddr=192.168.43.64 fport=40605 scontext=u:r:samgr:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+allow samgr softbus_server:tcp_socket { read write setopt shutdown };
+allow samgr softbus_server:fd { use };
 
 allow samgr system_basic_hap:dir { search };
 allow samgr system_basic_hap:file { open read };
