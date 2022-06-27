@@ -48,5 +48,5 @@ allow sensors sensors:unix_dgram_socket { getopt setopt };
 #avc:  denied  { search } for  pid=645 comm="sensors" name="socket" dev="tmpfs" ino=40 scontext=u:r:sensors:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow sensors dev_unix_socket:dir { search };
 
-#avc:  denied  { call } for  pid=645 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:vibrator_dal_host:s0 tclass=binder permissive=1
-allow sensors vibrator_dal_host:binder { call };
+#avc:  denied  { call } for  pid=645 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:vibrator_host:s0 tclass=binder permissive=1
+allow sensors vibrator_host:binder { call };
