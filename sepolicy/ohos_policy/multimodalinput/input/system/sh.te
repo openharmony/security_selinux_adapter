@@ -16,7 +16,6 @@ allow sh data_init_agent:dir { search };
 allow sh data_init_agent:file { open };
 allow sh data_init_agent:file { read append };
 allow sh data_init_agent:file { ioctl };
-allow sh devpts:chr_file { ioctl };
 allow sh dev_unix_socket:dir { search };
 allow sh multimodalinput:binder { call };
 allow sh samgr:binder { call };

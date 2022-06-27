@@ -16,7 +16,6 @@ type multimodalinput, sadomain, domain;
 allow multimodalinput data_file:dir { search };
 allow multimodalinput data_init_agent:dir { search };
 allow multimodalinput data_init_agent:file { open read append ioctl };
-allow multimodalinput default_param:parameter_service { set };
 allow multimodalinput dev_kmsg_file:chr_file { open write };
 allow multimodalinput dev_unix_socket:dir { search };
 allow multimodalinput dev_unix_socket:sock_file { write };
