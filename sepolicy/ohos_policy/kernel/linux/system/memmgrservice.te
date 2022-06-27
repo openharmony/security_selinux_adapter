@@ -25,8 +25,16 @@ allow memmgrservice foundation:binder { call transfer };
 allow memmgrservice memmgrservice:capability { kill sys_resource dac_override };
 allow memmgrservice normal_hap:file { write };
 allow memmgrservice normal_hap:process { sigkill };
+
 # denied  { read } for  pid=274 comm="event_runner#9" name="enable" dev="proc" ino=305072 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
-allow memmgrservice proc_file:file { write open read };
+# denied  { create } for  pid=286 comm="event_runner#11" name="lmkd_dbg_trigger" scontext=u:r:memmgrservice:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+# denied  { ioctl } for  pid=286 comm="event_runner#11" path="/proc/lmkd_dbg_trigger" dev="proc" ino=4026532101 ioctlcmd=0x5413 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
+allow memmgrservice proc_file:file { write open read create ioctl getattr };
+
+# denied  { write } for  pid=286 comm="event_runner#11" name="/" dev="proc" ino=1 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
+# denied  { add_name } for  pid=286 comm="event_runner#11" name="lmkd_dbg_trigger" scontext=u:r:memmgrservice:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
+allow memmgrservice proc_file:dir { write add_name }
+
 allow memmgrservice proc_meminfo_file:file { open read};
 allow memmgrservice system_basic_hap:file { write };
 allow memmgrservice system_basic_hap:process { sigkill };
