@@ -19,6 +19,8 @@ allow device_usage_stats_service data_service_el1_file:file { create getattr ioc
 allow device_usage_stats_service data_service_file:dir { search };
 allow device_usage_stats_service dev_unix_socket:dir { search };
 allow device_usage_stats_service system_bin_file:dir { search };
+allow device_usage_stats_service tracefs:dir { search };
+allow device_usage_stats_service vendor_file:file { execute getattr map open read };
 allowxperm device_usage_stats_service data_service_el1_file:file ioctl { 0x5413 0xf50c };
 
 #avc:  denied  { get } for service=3301 pid=282 scontext=u:r:device_usage_stats_service:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
@@ -30,3 +32,4 @@ binder_call(device_usage_stats_service, foundation);
 binder_call(device_usage_stats_service, system_basic_hap);
 binder_call(device_usage_stats_service, system_core_hap);
 binder_call(device_usage_stats_service, time_service);
+binder_call(system_core_hap, device_usage_stats_service);

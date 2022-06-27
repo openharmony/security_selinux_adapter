@@ -44,3 +44,7 @@ binder_call(bgtaskmgr_service, resource_schedule_service);
 binder_call(bgtaskmgr_service, sh);
 binder_call(bgtaskmgr_service, system_core_hap);
 binder_call(bgtaskmgr_service, thermal);
+binder_call(normal_hap, bgtaskmgr_service);
+binder_call(system_core_hap, bgtaskmgr_service);
+binder_call(param_watcher, bgtaskmgr_service);
+binder_call(foundation, bgtaskmgr_service);
