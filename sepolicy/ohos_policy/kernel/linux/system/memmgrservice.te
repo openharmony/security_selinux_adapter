@@ -35,7 +35,7 @@ allow memmgrservice proc_file:file { write open read create ioctl getattr };
 # denied  { add_name } for  pid=286 comm="event_runner#11" name="lmkd_dbg_trigger" scontext=u:r:memmgrservice:s0 tcontext=u:object_r:proc_file:s0 tclass=dir permissive=1
 allow memmgrservice proc_file:dir { write add_name }
 
-allow memmgrservice proc_meminfo_file:file { open read};
+allow memmgrservice proc_meminfo_file:file { open read };
 allow memmgrservice system_basic_hap:file { write };
 allow memmgrservice system_basic_hap:process { sigkill };
 allow memmgrservice system_core_hap:file { write };
