@@ -49,3 +49,4 @@ allow dhardware sa_dscreen_sink_service:samgr_class { get };
 
 #avc:  denied  { get } for service=4807 pid=2498 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_dscreen_source_service:s0 tclass=samgr_class permissive=1
 allow dhardware sa_dscreen_source_service:samgr_class { get };
+
