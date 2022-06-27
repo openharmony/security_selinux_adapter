@@ -25,6 +25,7 @@ type hdf_agnss_interface_service, hdf_service_attr;
 type hdf_geofence_interface_service, hdf_service_attr;
 type hdf_input_service, hdf_service_attr;
 type hdf_codec_hdi_omx_service, hdf_service_attr;
+type hdf_codec_hdi_service, hdf_service_attr;
 type hdf_battery_interface_service, hdf_service_attr;
 type hdf_power_interface_service, hdf_service_attr;
 type hdf_light_interface_service, hdf_service_attr;
