@@ -45,6 +45,7 @@
 2902                                   u:object_r:sa_msdp_devicestatus_service:s0
 3001                                   u:object_r:sa_pulseaudio_audio_service:s0
 3002                                   u:object_r:sa_media_service:s0
+3008                                   u:object_r:sa_camera_service:s0
 3009                                   u:object_r:sa_audio_policy_service:s0
 3101                                   u:object_r:sa_multimodalinput_service:s0
 3203                                   u:object_r:sa_foundation_ans:s0

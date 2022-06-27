@@ -59,3 +59,4 @@ type sa_softbus_service, sa_service_attr;
 type sa_foundation_devicemanager_service, sa_service_attr;
 type sa_storage_manager_service, sa_service_attr;
 type sa_device_service_manager, sa_service_attr;
+type sa_camera_service, sa_service_attr;
