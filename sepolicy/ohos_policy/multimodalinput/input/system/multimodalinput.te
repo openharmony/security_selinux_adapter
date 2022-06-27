@@ -28,6 +28,7 @@ allow multimodalinput tracefs:file { open write };
 allow multimodalinput tracefs_trace_marker_file:file { open write };
 allow multimodalinput vendor_etc_file:dir { search };
 allow normal_hap multimodalinput:unix_stream_socket { read };
+allow normal_hap sa_multimodalinput_service:samgr_class { get };
 allow system_basic_hap multimodalinput:unix_stream_socket { read };
 allow system_basic_hap multimodalinput:unix_stream_socket { read write };
 allow system_core_hap multimodalinput:unix_stream_socket { read };
