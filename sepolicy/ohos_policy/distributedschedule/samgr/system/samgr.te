@@ -55,6 +55,7 @@ allow samgr paramservice_socket:sock_file { write };
 allow samgr softbus_server:tcp_socket { read setopt shutdown write };
 
 allow samgr samgr:binder { set_context_mgr };
+allow samgr samgr:unix_dgram_socket { getopt setopt };
 
 allow samgr security:security { check_context compute_av };
 
