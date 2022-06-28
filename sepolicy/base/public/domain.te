@@ -98,8 +98,6 @@ neverallow { domain -hdcd -installs -init -hidumper_service -power_host } data_l
 
 neverallow { domain -hdcd -hap_domain -init -installs -foundation -hidumper_service -power_host -sh } data_local_tmp:dir { open search };
 
-neverallow { domain -init } { proc_attr sysfs_attr }:dir { add_name create link remove_name rename reparent rmdir write };
-
 neverallow { domain -samgr } *:binder set_context_mgr;
 
 neverallow { domain -init } hdcd:process transition;
@@ -184,7 +182,7 @@ neverallow { domain -init -storage_daemon -hdcd -hap_domain } *:filesystem ~{ ge
 
 neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
 
-neverallow { domain -init } { proc_attr sysfs_attr }:dir { add_name create link rename remove_name reparent rmdir write };
+neverallow { domain -init -memmgrservice } { proc_attr sysfs_attr }:dir { add_name create link rename remove_name reparent rmdir write };
 # limit capability use.
 # for exemption add rule like this:
 # neverallow { domain -init } self:capability chown;
