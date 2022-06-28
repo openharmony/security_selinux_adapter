@@ -43,7 +43,6 @@ type distributedhardware_fwk, sadomain, domain;
 type nwebspawn, sadomain, domain;
 type upms, sadomain, domain;
 type mmi_uinput_service, sadomain, domain;
-type locationhub, sadomain, domain;
 type edm_sa, sadomain, domain;
 type wallpaper_service, sadomain, domain;
 type download_server, sadomain, domain;
