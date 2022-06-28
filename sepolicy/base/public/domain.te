@@ -150,7 +150,7 @@ neverallow * ~samgr:samgr_class list;
 neverallow * ~hdf_service_attr:hdf_devmgr_class ~list;
 neverallow * ~hdf_devmgr:hdf_devmgr_class list;
 
-neverallow domain default_param:parameter_service *;
+neverallow { domain -multimodalinput } default_param:parameter_service *;
 neverallow domain default_service:samgr_class *;
 neverallow domain default_hdf_service:hdf_devmgr_class *;
 
@@ -195,11 +195,11 @@ neverallow { domain -init } { proc_attr sysfs_attr }:dir { add_name create link 
 # neverallow { domain -init } self:capability chown;
 # means that only init can have the caps of chown.
 # TODO:debug/release
-neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } chown;
-neverallow { domain -appspawn -init -udevd -memmgrservice -storage_daemon } self:{ capability cap_userns } dac_override;
+neverallow { domain -appspawn -init -ueventd -udevd } self:{ capability cap_userns } chown;
+neverallow { domain -appspawn -init -udevd -memmgrservice -storage_daemon -multimodalinput -mmi_uinput_service } self:{ capability cap_userns } dac_override;
 neverallow { domain -appspawn -init -storage_daemon } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd } self:{ capability cap_userns } fowner;
-neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } fsetid;
+neverallow { domain -appspawn -init -ueventd -udevd } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice } self:{ capability cap_userns } kill;
 neverallow { domain -init } self:{ capability cap_userns } setuid;
 neverallow { domain -init -ueventd -appspawn } self:{ capability cap_userns } setgid;
@@ -207,7 +207,7 @@ neverallow { domain -init } self:{ capability cap_userns } setpcap;
 neverallow * self:{ capability cap_userns } linux_immutable;
 neverallow * self:{ capability cap_userns } net_bind_service;
 neverallow * self:{ capability cap_userns } net_broadcast;
-neverallow { domain -init -wifi_hal_service -wifi_manager_service -softbus_server } self:{ capability cap_userns } net_admin;
+neverallow { domain -init -wifi_hal_service -wifi_manager_service -softbus_server -udevd } self:{ capability cap_userns } net_admin;
 neverallow { domain -wifi_hal_service } self:{ capability cap_userns } net_raw;
 neverallow * self:{ capability cap_userns } ipc_lock;
 neverallow * self:{ capability cap_userns } ipc_owner;
