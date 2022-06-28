@@ -58,20 +58,49 @@ genfscon proc /vmallocinfo  u:object_r:proc_vmallocinfo_file:s0
 genfscon proc /vmstat  u:object_r:proc_vmstat_file:s0
 genfscon proc /zoneinfo  u:object_r:proc_zoneinfo_file:s0
 
-
 genfscon selinuxfs / u:object_r:selinuxfs:s0
 
 genfscon sysfs / u:object_r:sys_file:s0
-genfscon sysfs /block u:object_r:sysfs_block_file:s0
 genfscon sysfs /hisys u:object_r:sysfs_hisys_file:s0
+genfscon sysfs /devices/system/cpu  u:object_r:sysfs_devices_system_cpu:s0
+genfscon sysfs /class/android_usb   u:object_r:sysfs_android_usb:s0
+genfscon sysfs /class/extcon        u:object_r:sysfs_extcon:s0
+genfscon sysfs /class/leds          u:object_r:sysfs_leds:s0
+genfscon sysfs /class/net           u:object_r:sysfs_net:s0
+genfscon sysfs /class/rfkill/rfkill0/state      u:object_r:sysfs_rfkill:s0
+genfscon sysfs /class/rfkill/rfkill1/state      u:object_r:sysfs_rfkill:s0
+genfscon sysfs /class/rfkill/rfkill2/state      u:object_r:sysfs_rfkill:s0
+genfscon sysfs /class/rfkill/rfkill3/state      u:object_r:sysfs_rfkill:s0
+genfscon sysfs /class/rtc                       u:object_r:sysfs_rtc:s0
+genfscon sysfs /class/wakeup                    u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/virtual/android_usb     u:object_r:sysfs_android_usb:s0
+genfscon sysfs /devices/virtual/block/          u:object_r:sysfs_block_file:s0
+genfscon sysfs /devices/virtual/block/loop      u:object_r:sysfs_block_loop:s0
+genfscon sysfs /devices/virtual/block/zram0     u:object_r:sysfs_block_zram:s0
+genfscon sysfs /devices/virtual/block/zram1     u:object_r:sysfs_block_zram:s0
+genfscon sysfs /devices/virtual/net                         u:object_r:sysfs_net:s0
+genfscon sysfs /devices/virtual/wakeup                      u:object_r:sysfs_wakeup:s0
+genfscon sysfs /fs/ext4/features                            u:object_r:sysfs_fs_ext4_features:s0
+genfscon sysfs /power/autosleep     u:object_r:sysfs_autosleep:s0
+genfscon sysfs /power/state         u:object_r:sysfs_state:s0
+genfscon sysfs /power/suspend_stats  u:object_r:sysfs_suspend_stats:s0
+genfscon sysfs /power/wakeup_count      u:object_r:sysfs_power:s0
+genfscon sysfs /power/wake_lock         u:object_r:sysfs_wake_lck:s0
+genfscon sysfs /power/wake_unlock       u:object_r:sysfs_wake_lck:s0
+genfscon sysfs /kernel/notes            u:object_r:sysfs_kernel_notes:s0
+genfscon sysfs /kernel/wakeup_reasons       u:object_r:sysfs_wakeup_reasons:s0
+genfscon sysfs /module/tcp_cubic/parameters u:object_r:sysfs_net:s0
+
+genfscon debugfs / u:object_r:debugfs:s0
+
+genfscon tracefs / u:object_r:tracefs:s0
 
 genfscon configfs / u:object_r:configfs:s0
 genfscon configfs /usb_gadget  u:object_r:config_usb_gadget:s0
 
-genfscon debugfs / u:object_r:debugfs:s0
 genfscon cgroup / u:object_r:cgroup:s0
 genfscon functionfs / u:object_r:functionfs:s0
 
-genfscon tracefs / u:object_r:tracefs:s0
+genfscon pstore / u:object_r:pstorefs:s0
 
 genfscon hmdfs / u:object_r:hmdfs:s0

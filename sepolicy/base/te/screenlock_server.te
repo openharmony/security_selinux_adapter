@@ -1,0 +1,12 @@
+allow screenlock_server foundation:binder { call transfer };
+allow screenlock_server param_watcher:binder { call transfer };
+allow screenlock_server sa_foundation_bms:samgr_class { get };
+allow screenlock_server sa_foundation_dms:samgr_class { get };
+allow screenlock_server sa_foundation_wms:samgr_class { get };
+allow screenlock_server sa_param_watcher:samgr_class { get };
+allow screenlock_server sa_screenlock_service:samgr_class { add };
+allow screenlock_server system_bin_file:dir { search };
+allow screenlock_server system_usr_file:dir { search };
+allow screenlock_server system_usr_file:file { getattr open read };
+allow screenlock_server tracefs:dir { search };
+allow screenlock_server tracefs_trace_marker_file:file { open write };

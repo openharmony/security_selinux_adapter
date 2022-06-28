@@ -1,0 +1,16 @@
+allow media_service bootanimation:binder { call transfer };
+allow media_service data_data_file:dir { search };
+allow media_service data_file:dir { search };
+allow media_service data_media:dir { search };
+allow media_service dev_unix_socket:dir { search };
+allow media_service init:unix_stream_socket { connectto };
+allow media_service media_service:unix_dgram_socket { getopt setopt };
+allow media_service native_socket:sock_file { write };
+allow media_service param_watcher:binder { call transfer };
+allow media_service sa_media_service:samgr_class { add };
+allow media_service sa_param_watcher:samgr_class { get };
+allow media_service system_basic_hap:binder { call transfer };
+allow media_service system_bin_file:dir { search };
+allow media_service system_lib_file:dir { open read };
+allow media_service tracefs:dir { search };
+allow media_service tracefs_trace_marker_file:file { open write };

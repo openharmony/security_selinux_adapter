@@ -1,0 +1,8 @@
+allow distributedsche distributeddata:binder { transfer };
+allow distributedsche huks_service:binder { call };
+allow distributedsche param_watcher:binder { call transfer };
+allow distributedsche sa_huks_service:samgr_class { get };
+allow distributedsche softbus_server:binder { transfer };
+allow distributedsche system_bin_file:dir { search };
+allow distributedsche tracefs:dir { search };
+allow distributedsche tracefs_trace_marker_file:file { open write };

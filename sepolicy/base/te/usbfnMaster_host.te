@@ -1,0 +1,1 @@
+allow usbfnMaster_host usbfnMaster_host:capability { dac_override };

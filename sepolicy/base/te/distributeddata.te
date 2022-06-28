@@ -1,0 +1,14 @@
+allow distributeddata accountmgr:binder { transfer };
+allow distributeddata data_app_el2_file:dir { search };
+allow distributeddata distributeddata:unix_dgram_socket { getopt setopt };
+allow distributeddata normal_hap_data_file:dir { open read };
+allow distributeddata normal_hap_data_file:file { ioctl map open read write };
+allow distributeddata param_watcher:binder { call transfer };
+allow distributeddata sa_device_auth_service:samgr_class { get };
+allow distributeddata sa_foundation_cesfwk_service:samgr_class { get };
+allow distributeddata sa_huks_service:samgr_class { get };
+allow distributeddata sa_softbus_service:samgr_class { get };
+allow distributeddata system_bin_file:dir { search };
+allow distributeddata tracefs:dir { search };
+allow distributeddata tracefs_trace_marker_file:file { open write };
+allowxperm distributeddata normal_hap_data_file:file ioctl { 0xf50c };

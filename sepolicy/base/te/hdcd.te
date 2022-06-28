@@ -1,0 +1,5 @@
+allow hdcd dev_usb_ffs:dir { open read search };
+allow hdcd functionfs:dir { search };
+allow hdcd functionfs:file { open read write };
+allow hdcd hdcd:capability { dac_override dac_read_search };
+allow hdcd hdcd_exec:file { entrypoint execute map read };

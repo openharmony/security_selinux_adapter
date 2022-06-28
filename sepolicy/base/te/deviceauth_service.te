@@ -1,0 +1,4 @@
+allow deviceauth_service sa_accesstoken_manager_service:samgr_class { get };
+allow deviceauth_service sa_device_auth_service:samgr_class { add };
+allow deviceauth_service sa_huks_service:samgr_class { get };
+allow deviceauth_service sa_softbus_service:samgr_class { get };

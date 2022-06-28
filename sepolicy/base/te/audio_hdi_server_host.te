@@ -1,0 +1,6 @@
+allow audio_hdi_server_host audio_hdi_server_host:netlink_kobject_uevent_socket { bind create setopt };
+allow audio_hdi_server_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow audio_hdi_server_host dev_input_file:dir { search };
+allow audio_hdi_server_host hdf_audio_hdi_pnp_service:hdf_devmgr_class { add };
+allow audio_hdi_server_host samgr:binder { call };
+allowxperm audio_hdi_server_host dev_hdf_kevent:chr_file ioctl { 0x6203 };

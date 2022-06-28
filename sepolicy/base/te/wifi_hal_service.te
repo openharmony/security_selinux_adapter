@@ -1,0 +1,14 @@
+allow wifi_hal_service data_file:dir { search };
+allow wifi_hal_service data_misc:dir { add_name remove_name search write };
+allow wifi_hal_service data_misc:sock_file { create unlink };
+allow wifi_hal_service dev_mgr_file:chr_file { getattr };
+allow wifi_hal_service dev_unix_socket:dir { search };
+allow wifi_hal_service sh_exec:file { execute execute_no_trans map read read open };
+allow wifi_hal_service system_bin_file:dir { search };
+allow wifi_hal_service system_bin_file:file { execute execute_no_trans getattr map read read open };
+allow wifi_hal_service system_bin_file:lnk_file { read };
+allow wifi_hal_service tty_device:chr_file { open read write };
+allow wifi_hal_service wifi_hal_service_exec:file { entrypoint execute map read };
+allow wifi_hal_service wifi_manager_service:dir { search };
+allow wifi_hal_service wifi_manager_service:file { open read };
+allow wifi_hal_service wifi_manager_service:process { signal };

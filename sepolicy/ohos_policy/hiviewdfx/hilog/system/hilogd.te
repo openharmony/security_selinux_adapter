@@ -89,9 +89,6 @@ neverallow hilogd {
     -data_init_agent
 }:file { create write append };
 
-# Block device access
-neverallow hilogd dev_file:blk_file { read write };
-
 # ptrace any other app
 neverallow hilogd domain:process ptrace;
 

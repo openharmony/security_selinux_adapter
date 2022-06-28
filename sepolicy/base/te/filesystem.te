@@ -1,0 +1,1 @@
+allow dev_pts_file devpts:filesystem { associate };

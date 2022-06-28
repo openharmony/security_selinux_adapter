@@ -1,0 +1,7 @@
+allow faultloggerd data_file:dir { search };
+allow faultloggerd data_log:dir { search };
+allow faultloggerd dev_unix_socket:dir { add_name search write };
+allow faultloggerd dev_unix_socket:sock_file { create setattr };
+allow faultloggerd faultloggerd:capability { dac_override };
+allow faultloggerd faultloggerd_exec:file { entrypoint execute map read };
+allow faultloggerd system_bin_file:dir { search };

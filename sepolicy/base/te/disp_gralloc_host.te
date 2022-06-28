@@ -1,0 +1,13 @@
+allow disp_gralloc_host dev_dri_file:chr_file { getattr ioctl open read write };
+allow disp_gralloc_host dev_dri_file:dir { search };
+allow disp_gralloc_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow disp_gralloc_host dev_unix_socket:dir { search };
+allow disp_gralloc_host disp_gralloc_host:capability { dac_override };
+allow disp_gralloc_host hdf_devmgr:binder { call transfer };
+allow disp_gralloc_host sa_device_service_manager:samgr_class { get };
+allow disp_gralloc_host samgr:binder { call };
+allow disp_gralloc_host system_bin_file:dir { search };
+allow disp_gralloc_host vendor_etc_file:dir { search };
+allow disp_gralloc_host vendor_etc_file:file { getattr open read };
+allowxperm disp_gralloc_host dev_dri_file:chr_file ioctl { 0x641f 0x642d 0x64b2 0x64b4 };
+allowxperm disp_gralloc_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };

@@ -1,0 +1,9 @@
+allow dslm_service normal_hap:binder { call };
+allow dslm_service param_watcher:binder { call transfer };
+allow dslm_service sa_device_security_level_manager_service:samgr_class { add };
+allow dslm_service sa_huks_service:samgr_class { get };
+allow dslm_service sa_param_watcher:samgr_class { get };
+allow dslm_service sa_softbus_service:samgr_class { get };
+allow dslm_service system_bin_file:dir { search };
+allow dslm_service tracefs:dir { search };
+allow dslm_service tracefs_trace_marker_file:file { open write };

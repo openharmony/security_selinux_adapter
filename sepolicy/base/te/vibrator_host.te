@@ -1,0 +1,7 @@
+allow vibrator_host dev_hdf_kevent:chr_file { getattr };
+allow vibrator_host dev_unix_socket:dir { search };
+allow vibrator_host hdf_devmgr:binder { call transfer };
+allow vibrator_host samgr:binder { call };
+allow vibrator_host system_bin_file:dir { search };
+allow vibrator_host vendor_etc_file:dir { search };
+allow vibrator_host vendor_etc_file:file { getattr open read };

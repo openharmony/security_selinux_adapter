@@ -1,0 +1,9 @@
+allow fingerprint_auth_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow fingerprint_auth_host dev_unix_socket:dir { search };
+allow fingerprint_auth_host fingerprint_auth_host:capability { dac_override };
+allow fingerprint_auth_host hdf_devmgr:binder { call transfer };
+allow fingerprint_auth_host samgr:binder { call };
+allow fingerprint_auth_host system_bin_file:dir { search };
+allow fingerprint_auth_host vendor_etc_file:dir { search };
+allow fingerprint_auth_host vendor_etc_file:file { getattr open read };
+allowxperm fingerprint_auth_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };

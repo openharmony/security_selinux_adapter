@@ -1,0 +1,7 @@
+allow updater_sa dev_unix_socket:dir { search };
+allow updater_sa param_watcher:binder { call transfer };
+allow updater_sa sa_param_watcher:samgr_class { get };
+allow updater_sa sa_update_distributed_service:samgr_class { add };
+allow updater_sa system_bin_file:dir { search };
+allow updater_sa tracefs:dir { search };
+allow updater_sa tracefs_trace_marker_file:file { open write };

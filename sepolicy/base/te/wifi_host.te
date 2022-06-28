@@ -1,0 +1,11 @@
+allow wifi_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow wifi_host dev_unix_socket:dir { search };
+allow wifi_host hdf_devmgr:binder { call transfer };
+allow wifi_host hdf_wlan_hal_c_service:hdf_devmgr_class { add };
+allow wifi_host sa_device_service_manager:samgr_class { get };
+allow wifi_host samgr:binder { call };
+allow wifi_host system_bin_file:dir { search };
+allow wifi_host vendor_etc_file:dir { search };
+allow wifi_host vendor_etc_file:file { getattr open read };
+allow wifi_host wifi_host:capability { dac_override };
+allowxperm wifi_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };

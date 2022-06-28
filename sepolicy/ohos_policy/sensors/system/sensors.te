@@ -57,3 +57,15 @@ allow sensors tracefs:dir { search };
 #avc:  denied  { write } for  pid=451 comm="sensors" name="trace_marker" dev="tracefs" ino=15134 scontext=u:r:sensors:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=451 comm="sensors" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=15134 scontext=u:r:sensors:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
 allow sensors tracefs_trace_marker_file:file { write open };
+
+#avc:  denied  { use } for  pid=475 comm="hidumper_servic" path="pipe:[32513]" dev="pipefs" ino=32513 scontext=u:r:sensors:s0 tcontext=u:r:hidumper_service:s0 tclass=fd permissive=1
+allow sensors hidumper_service:fd { use };
+
+#avc:  denied  { write } for  pid=475 comm="hidumper_servic" path="pipe:[32513]" dev="pipefs" ino=32513 scontext=u:r:sensors:s0 tcontext=u:r:hidumper_service:s0 tclass=fifo_file permissive=1
+allow sensors hidumper_service:fifo_file { write };
+
+#avc:  denied  { transfer } for  pid=2152 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:sensor_host:s0 tclass=binder permissive=1
+allow sensors sensor_host:binder { transfer };
+
+#avc:  denied  { use } for  pid=2778 comm="processdump" dev="mmcblk0p11" ino=652843 scontext=u:r:sensors:s0 tcontext=u:r:faultloggerd:s0 tclass=fd permissive=1
+allow sensors faultloggerd:fd { use };

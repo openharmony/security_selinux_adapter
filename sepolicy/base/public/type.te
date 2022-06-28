@@ -27,7 +27,6 @@ type netdnative, domain;
 type netmanager, sadomain, domain;
 type sensors, sadomain, domain;
 type telephony_sa, sadomain, domain;
-type updater_sa, sadomain, domain;
 type camera_service, sadomain, domain;
 type media_service, sadomain, domain;
 type param_watcher, sadomain, domain;

@@ -1,0 +1,4 @@
+allow pulseaudio param_watcher:binder { call transfer };
+allow pulseaudio sa_param_watcher:samgr_class { get };
+allow pulseaudio tracefs:dir { search };
+allow pulseaudio tracefs_trace_marker_file:file { open write };

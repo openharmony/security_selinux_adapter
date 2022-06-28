@@ -1,0 +1,9 @@
+allow download_server dev_unix_socket:dir { search };
+allow download_server netmanager:binder { call transfer };
+allow download_server param_watcher:binder { call transfer };
+allow download_server sa_download_service:samgr_class { add };
+allow download_server sa_net_conn_manager:samgr_class { get };
+allow download_server sa_param_watcher:samgr_class { get };
+allow download_server system_bin_file:dir { search };
+allow download_server tracefs:dir { search };
+allow download_server tracefs_trace_marker_file:file { open write };

@@ -1,0 +1,10 @@
+allow telephony_sa dev_unix_socket:dir { search };
+allow telephony_sa foundation:binder { call };
+allow telephony_sa hdf_devmgr:binder { call };
+allow telephony_sa param_watcher:binder { call transfer };
+allow telephony_sa sysfs_rtc:dir { open read };
+allow telephony_sa system_bin_file:dir { search };
+allow telephony_sa system_usr_file:dir { search };
+allow telephony_sa system_usr_file:file { getattr map open read };
+allow telephony_sa tracefs:dir { search };
+allow telephony_sa tracefs_trace_marker_file:file { open write };

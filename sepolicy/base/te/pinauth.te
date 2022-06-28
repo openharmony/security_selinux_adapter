@@ -1,0 +1,8 @@
+allow pinauth dev_unix_socket:dir { search };
+allow pinauth hdf_devmgr:binder { call transfer };
+allow pinauth param_watcher:binder { call transfer };
+allow pinauth pin_auth_host:binder { call };
+allow pinauth system_bin_file:dir { search };
+allow pinauth tracefs:dir { search };
+allow pinauth tracefs_trace_marker_file:file { open write };
+allow pinauth useriam:binder { call transfer };

@@ -1,0 +1,18 @@
+allow time_service data_file:dir { search };
+allow time_service data_misc:dir { getattr search };
+allow time_service data_service_el1_file:dir { add_name search write };
+allow time_service data_service_el1_file:file { create ioctl read write open };
+allow time_service data_service_file:dir { search };
+allow time_service hiview:binder { call };
+allow time_service netmanager:binder { call transfer };
+allow time_service param_watcher:binder { call transfer };
+allow time_service sa_foundation_bms:samgr_class { get };
+allow time_service sa_foundation_cesfwk_service:samgr_class { get };
+allow time_service sa_net_conn_manager:samgr_class { get };
+allow time_service sa_time_service:samgr_class { add };
+allow time_service sys_file:file { open read };
+allow time_service sysfs_rtc:dir { open read };
+allow time_service system_bin_file:dir { search };
+allow time_service tracefs:dir { search };
+allow time_service tracefs_trace_marker_file:file { open write };
+allowxperm time_service data_service_el1_file:file ioctl { 0x5413 };

@@ -24,3 +24,9 @@ allow msdp_sa sh:binder { call };
 #avc:  denied  { call } for  pid=571 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow msdp_sa accesstoken_service:binder { call };
 
+#avc:  denied  { add } for service=2902 pid=387 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_msdp_devicestatus_service:s0 tclass=samgr_class permissive=1
+allow msdp_sa sa_msdp_devicestatus_service:samgr_class { add };
+
+#avc:  denied  { get } for service=3901 pid=387 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow msdp_sa sa_param_watcher:samgr_class { get };
+

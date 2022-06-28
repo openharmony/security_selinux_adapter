@@ -1,0 +1,3 @@
+allow samgr dev_kmsg_file:chr_file { open write };
+allow samgr dev_unix_socket:sock_file { write };
+allow samgr samgr:unix_dgram_socket { getopt setopt };

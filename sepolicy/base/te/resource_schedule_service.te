@@ -1,0 +1,13 @@
+allow resource_schedule_service resource_schedule_service:capability { dac_override };
+allow resource_schedule_service sa_bgtaskmgr:samgr_class { get };
+allow resource_schedule_service sa_foundation_appms:samgr_class { get };
+allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };
+allow resource_schedule_service sa_foundation_wms:samgr_class { get };
+allow resource_schedule_service sa_param_watcher:samgr_class { get };
+allow resource_schedule_service sa_resource_schedule:samgr_class { add };
+allow resource_schedule_service sa_resource_schedule_socperf_server:samgr_class { add get };
+allow resource_schedule_service sa_sys_event_service:samgr_class { get };
+allow resource_schedule_service sysfs_devices_system_cpu:file { getattr ioctl open write };
+allow resource_schedule_service system_usr_file:file { map open };
+allow resource_schedule_service vendor_etc_file:dir { search };
+allowxperm resource_schedule_service sysfs_devices_system_cpu:file ioctl { 0x5413 };

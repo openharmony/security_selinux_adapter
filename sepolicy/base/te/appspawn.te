@@ -1,0 +1,16 @@
+allow appspawn appspawn:capability { kill };
+allow appspawn appspawn:process { setcurrent };
+allow appspawn dev_at_file:chr_file { ioctl };
+allow appspawn dev_unix_socket:dir { add_name search write };
+allow appspawn dev_unix_socket:sock_file { create setattr };
+allow appspawn normal_hap:process { sigkill };
+allow appspawn security:security { check_context };
+allow appspawn selinuxfs:dir { search };
+allow appspawn selinuxfs:file { open read write };
+allow appspawn system_basic_hap:process { dyntransition sigkill };
+allow appspawn system_bin_file:dir { search };
+allow appspawn system_fonts_file:dir { open read search };
+allow appspawn system_fonts_file:file { getattr map open read };
+allow appspawn system_usr_file:dir { search };
+allow appspawn system_usr_file:file { getattr map open read };
+allowxperm appspawn dev_at_file:chr_file ioctl { 0x4102 };
