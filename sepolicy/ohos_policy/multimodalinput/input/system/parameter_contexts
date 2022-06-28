@@ -11,14 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init multimodalinput:dir { search };
-allow sh data_file:dir { search };
-allow sh data_init_agent:dir { search };
-allow sh data_init_agent:file { open };
-allow sh data_init_agent:file { read append };
-allow sh data_init_agent:file { ioctl };
-allow sh dev_unix_socket:dir { search };
-allow sh multimodalinput:binder { call };
-allow sh multimodalinput:file { read };
-allow sh samgr:binder { call };
-allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
+input.pointer.device.               u:object_r:input_pointer_device_param:s0

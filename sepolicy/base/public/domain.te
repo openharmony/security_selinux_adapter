@@ -150,7 +150,7 @@ neverallow * ~samgr:samgr_class list;
 neverallow * ~hdf_service_attr:hdf_devmgr_class ~list;
 neverallow * ~hdf_devmgr:hdf_devmgr_class list;
 
-neverallow { domain -multimodalinput } default_param:parameter_service *;
+neverallow domain default_param:parameter_service *;
 neverallow domain default_service:samgr_class *;
 neverallow domain default_hdf_service:hdf_devmgr_class *;
 
