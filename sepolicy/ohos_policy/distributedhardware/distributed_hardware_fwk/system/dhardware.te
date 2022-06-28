@@ -68,3 +68,6 @@ allow dhardware softbus_server:tcp_socket { read write };
 #avc:  denied  { setopt } for  pid=2338 comm="dhardware"  scontext=u:r:dhardware:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
 allow dhardware softbus_server:tcp_socket { setopt };
 
+#avc:  denied  { get } for service=3008 pid=2324 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_camera_service:s0 tclass=samgr_class permissive=1
+allow dhardware sa_camera_service:samgr_class { get };
+
