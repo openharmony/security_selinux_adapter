@@ -1,3 +1,16 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 allow init accessibility:process { rlimitinh siginh transition };
 allow init accesstoken_data_file:file { getattr open read write relabelto setattr };
 allow init accesstoken_service:process { rlimitinh siginh transition };
@@ -70,7 +83,8 @@ allow init data_service_el1_file:dir { add_name create getattr open read relabel
 allow init data_service_el1_file:file { getattr setattr };
 allow init data_service_el1_public_deviceauthService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el1_public_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
-allow init data_service_el2_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_service_el2_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+allow init data_service_el2_hmdfs:dir { open read relabelto setattr };
 allow init data_service_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_ss:dir { getattr open read relabelto setattr };
 allow init data_system_ce:dir { getattr open read relabelto setattr };
@@ -89,6 +103,7 @@ allow init dev_binder_file:chr_file { relabelto };
 allow init dev_block_file:blk_file { getattr ioctl open read read write relabelto setattr write };
 allow init dev_block_file:dir { open read relabelto search };
 allow init dev_block_file:lnk_file { read relabelto };
+allow init dev_block_volfile:dir { open read relabelto search };
 allow init dev_console_file:chr_file { getattr ioctl open read write };
 allow init dev_file:dir { add_name create getattr mounton open read relabelfrom relabelto write };
 allow init dev_file:lnk_file { create };
@@ -121,7 +136,7 @@ allow init dev_random_file:chr_file { relabelto };
 allow init dev_sched_rtg_ctrl:chr_file { setattr };
 allow init dev_unix_file:dir { getattr open read relabelto };
 allow init dev_unix_file:sock_file { getattr relabelto };
-allow init dev_unix_socket:dir { add_name getattr open read relabelto search write };
+allow init dev_unix_socket:dir { add_name getattr open read relabelto remove_name search write };
 allow init dev_unix_socket:sock_file { create getattr relabelfrom setattr };
 allow init dev_usb_ffs:dir { add_name create getattr mounton open read relabelto search setattr write };
 allow init disp_gralloc_host:process { rlimitinh siginh transition };
@@ -145,7 +160,7 @@ allow init foundation:process { getattr rlimitinh siginh transition };
 allow init functionfs:filesystem { mount };
 allow init hdcd_exec:file { execute getattr open read };
 allow init hdcd:process { rlimitinh siginh transition };
-allow init hdcd_socket:sock_file { relabelto };
+allow init hdcd_socket:sock_file { getattr relabelto };
 allow init hidumper_service:process { rlimitinh siginh transition };
 allow init hilog_control_socket:sock_file { getattr relabelto };
 allow init hilog_input_socket:sock_file { getattr relabelto };
@@ -191,6 +206,7 @@ allow init proc_kmsg_file:file { setattr };
 allow init proc_net:file { setattr };
 allow init proc_slabinfo_file:file { setattr };
 allow init proc_stat_file:file { setattr };
+allow init proc_swaps_file:file { read };
 allow init proc_vmallocinfo_file:file { setattr };
 allow init pstorefs:dir { setattr };
 allow init pstorefs:filesystem { mount };
@@ -225,7 +241,7 @@ allow init thermal:process { rlimitinh siginh transition };
 allow init thermal_protector_exec:file { execute getattr read open };
 allow init time_service:process { rlimitinh siginh transition };
 allow init tmpfs:blk_file { getattr relabelfrom };
-allow init tmpfs:chr_file { getattr relabelfrom };
+allow init tmpfs:chr_file { getattr relabelfrom write };
 allow init tmpfs:dir { add_name create mounton open read relabelfrom setattr write };
 allow init tmpfs:file { getattr relabelfrom };
 allow init tmpfs:lnk_file { create getattr relabelfrom };

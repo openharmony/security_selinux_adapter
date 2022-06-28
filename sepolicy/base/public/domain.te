@@ -175,13 +175,12 @@ neverallow * self:process { execstack execheap };
 # dev node file label should be configured in file_contexts.
 #/dev/char
 #/dev/v4l
+#todo
 #neverallow { domain -ueventd } dev_file:{ file chr_file blk_file } *;
 
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon } dev_attr:blk_file { open read write };
 # only init can operate fs
 neverallow { domain -init -storage_daemon -hdcd -hap_domain } *:filesystem ~{ getattr };
-
-#neverallow { domain -hap_domain } hap_file_attr:file open;
 
 neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
 
@@ -277,3 +276,8 @@ neverallow * self:{ capability2 cap2_userns } audit_read;
 neverallow { domain -hdcd } self:{ capability2 cap2_userns } checkpoint_restore;
 neverallow * self:{ capability2 cap2_userns } perfmon;
 neverallow { domain -storage_manager -hidumper_service -samgr } storage_daemon:{ binder } call;
+
+#tmp policy
+dontaudit hap_domain dev_kmsg_file:chr_file { open write };
+dontaudit hap_domain self:capability dac_override;
+dontaudit multimodalinput default_param:parameter_service set;

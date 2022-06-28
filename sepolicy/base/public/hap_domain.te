@@ -141,3 +141,4 @@ neverallow hap_domain hdcd_socket:sock_file write;
 # can't execute data file unless hap.
 neverallow { domain -hap_domain -nwebspawn } data_file_attr:file { execute execute_no_trans };
 
+neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs } hap_file_attr:file open;
