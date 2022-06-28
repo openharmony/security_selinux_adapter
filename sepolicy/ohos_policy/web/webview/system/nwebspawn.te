@@ -1,0 +1,56 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { search } for  pid=1852 comm="nwebspawn" name="socket" dev="tmpfs" ino=40 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow nwebspawn dev_unix_socket:dir { search };
+
+#avc:  denied  { search } for  pid=1852 comm="nwebspawn" name="/" dev="mmcblk0p11" ino=2 scontext=u:r:nwebspawn:s0tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow nwebspawn data_file:dir { search };
+
+#avc:  denied  { read append } for  pid=1852 comm="nwebspawn" name="begetctl.log" dev="mmcblk0p11" ino=15 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=1852 comm="nwebspawn" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=15 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
+#avc:  denied  { ioctl } for  pid=2616 comm="nwebspawn" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=22 ioctlcmd=0x5413 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1 
+allow nwebspawn data_init_agent:file { read append open ioctl };
+
+#avc:  denied  { search } for  pid=2616 comm="nwebspawn" name="init_agent" dev="mmcblk0p11" ino=89761 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
+allow nwebspawn data_init_agent:dir { search };
+
+#avc:  denied  { accept } for  pid=3598 comm="nwebspawn" path="/dev/unix/socket/NWebSpawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
+allow nwebspawn init:unix_stream_socket { accept };
+
+#avc:  denied  { ioctl } for  pid=4499 comm="nwebspawn" path="/dev/access_token_id" dev="tmpfs" ino=172 ioctlcmd=0x4102 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_at_file:s0 tclass=chr_file permissive=1
+allow nwebspawn dev_at_file:chr_file { ioctl };
+
+#avc:  denied  { search } for  pid=4499 comm="nwebspawn" name="/" dev="selinuxfs" ino=1 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:selinuxfs:s0 tclass=dir permissive=1
+allow nwebspawn selinuxfs:dir { search };
+
+#avc:  denied  { read write } for  pid=4499 comm="nwebspawn" name="context" dev="selinuxfs" ino=5 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=4499 comm="nwebspawn" path="/sys/fs/selinux/context" dev="selinuxfs" ino=5 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
+allow nwebspawn selinuxfs:file { read write open };
+
+#avc:  denied  { check_context } for  pid=4499 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:object_r:security:s0 tclass=security permissive=1
+allow nwebspawn security:security { check_context };
+
+#avc:  denied  { setcurrent } for  pid=4499 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:nwebspawn:s0 tclass=process permissive=1
+#avc:  denied  { dyntransition } for  pid=4499 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:normal_hap:s0 tclass=process permissive=
+allow nwebspawn normal_hap:process { setcurrent dyntransition };
+
+#avc:  denied  { setcurrent } for  pid=4868 comm="nwebspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:nwebspawn:s0 tclass=process permissive=1
+allow nwebspawn nwebspawn:process { setcurrent };
+
+#avc:  denied  { mounton } for  pid=4868 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/config" dev="configfs" ino=14342 scontext=u:r:normal_hap:s0 tcontext=u:object_r:configfs:s0 tclass=dir permissive=1
+allow nwebspawn configfs:dir { mounton };
+
+#avc:  denied  { mounton } for  pid=4868 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/dev" dev="tmpfs" ino=1 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
+allow nwebspawn dev_file:dir { mounton };
+

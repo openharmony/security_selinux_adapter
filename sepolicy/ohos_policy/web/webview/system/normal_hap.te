@@ -1,0 +1,203 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { read write } for  pid=1912 comm="nweb_test" path="socket:[26685]" dev="sockfs" ino=26685 scontext=u:r:normal_hap:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=1
+allow normal_hap init:unix_stream_socket { read write };
+
+#avc:  denied  { read append } for  pid=1912 comm="nweb_test" name="begetctl.log" dev="mmcblk0p11" ino=1044487 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=1912 comm="nweb_test" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=1044487 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1 
+#avc:  denied  { ioctl } for  pid=1912 comm="nweb_test" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=1044487 ioctlcmd=0x5413 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=
+allow normal_hap data_init_agent:file { read append open ioctl };
+
+#avc:  denied  { append } for  pid=1912 comm="nweb_test" name="debug.log" dev="mmcblk0p11" ino=1175104 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_local:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=1912 comm="nweb_test" path="/data/local/debug.log" dev="mmcblk0p11" ino=1175104 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_local:s0 tclass=file permissive=1
+allow normal_hap data_local:file { append open };
+
+#avc:  denied  { search } for  pid=1909 comm="com.example.web" name="socket" dev="tmpfs" ino=40 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow normal_hap dev_unix_socket:dir { search };
+
+#avc:  denied  { search } for  pid=21671 comm="nweb_test" name="/" dev="mmcblk0p11" ino=2 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow normal_hap data_file:dir { search };
+
+#avc:  denied  { search } for  pid=21671 comm="nweb_test" name="init_agent" dev="mmcblk0p11" ino=89761 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
+allow normal_hap data_init_agent:dir { search };
+
+#avc:  denied  { search } for  pid=21830 comm="nweb_test" name="local" dev="mmcblk0p11" ino=261121 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
+#avc:  denied  { write } for  pid=21830 comm="nweb_test" name="cache" dev="mmcblk0p11" ino=261173 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
+#avc:  denied  { add_name } for  pid=21830 comm="nweb_test" name=".org.chromium.Chromium.MhPcFg" scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
+allow normal_hap data_local:dir { search write add_name };
+
+#avc:  denied  { call } for  pid=21830 comm="nweb_test" scontext=u:r:normal_hap:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow normal_hap foundation:binder { call };
+
+#avc:  denied  { call } for  pid=21830 comm="nweb_test" scontext=u:r:normal_hap:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+allow normal_hap multimodalinput:binder { call };
+
+#avc:  denied  { read write } for  pid=1953 comm="nweb_test" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:normal_hap:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+allow normal_hap devpts:chr_file { read write };
+
+#avc:  denied  { use } for  pid=1953 comm="nweb_test" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:normal_hap:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=1
+allow normal_hap hdcd:fd { use };
+
+#avc:  denied  { use } for  pid=1953 comm="nweb_test" path="anon_inode:[eventpoll]" dev="anon_inodefs" ino=16043 scontext=u:r:normal_hap:s0 tcontext=u:r:kernel:s0 tclass=fd permissive=1
+allow normal_hap kernel:fd { use };
+
+#avc:  denied  { call } for  pid=2115 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+allow normal_hap system_basic_hap:binder { call };
+
+#avc:  denied  { call } for  pid=2526 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2526 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+allow normal_hap media_service:binder { call transfer };
+
+#avc:  denied  { getattr } for  pid=2827 comm="nweb_test" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p6" ino=2500 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2827 comm="nweb_test" name="supported_regions.xml" dev="mmcblk0p6" ino=2500 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2827 comm="nweb_test" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p6" ino=2500 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2827 comm="nweb_test" path="/system/usr/ohos_icu/icudt67l.dat" dev="mmcblk0p6" ino=2495 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow normal_hap system_usr_file:file { getattr read open map };
+
+#avc:  denied  { search } for  pid=2526 comm="com.example.web" name="usr" dev="mmcblk0p6" ino=2493 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+#avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/system/usr" dev="mmcblk0p6" ino=2493 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+allow normal_hap system_usr_file:dir { search mounton };
+
+#avc:  denied  { call } for  pid=1909 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=1
+allow normal_hap resource_schedule_service:binder { call };
+
+#avc:  denied  { write } for  pid=1980 comm="com.example.web" path="socket:[16372]" dev="sockfs" ino=16372 scontext=u:r:normal_hap:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { connect } for  pid=12410 comm="WebRTC_Signalin" scontext=u:r:normal_hap:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=1
+allow normal_hap nwebspawn:unix_dgram_socket { write connect };
+
+#avc:  denied  { search } for  pid=2178 comm="com.example.web" name="fonts" dev="mmcblk0p6" ino=1502 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+#avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/system/fonts" dev="mmcblk0p6" ino=1502 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+#avc:  denied  { read } for  pid=4433 comm="com.example.web" name="fonts" dev="mmcblk0p6" ino=1502 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+#avc:  denied  { open } for  pid=4433 comm="com.example.web" path="/system/fonts" dev="mmcblk0p6" ino=1502 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=1
+allow normal_hap system_fonts_file:dir { search mounton read open };
+
+#avc:  denied  { use } for  pid=2178 comm="com.example.web" path="socket:[16372]" dev="sockfs" ino=16372 scontext=u:r:normal_hap:s0 tcontext=u:r:nwebspawn:s0 tclass=fd permissive=1
+allow normal_hap nwebspawn:fd { use };
+
+#avc:  denied  { getattr } for  pid=2252 comm="com.example.web" path="/dev/dri/renderD128" dev="tmpfs" ino=94 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { read write } for  pid=2252 comm="com.example.web" name="renderD128" dev="tmpfs" ino=94 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { open } for  pid=2252 comm="com.example.web" path="/dev/dri/renderD128" dev="tmpfs" ino=94 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { ioctl } for  pid=2252 comm="com.example.web" path="/dev/dri/renderD128" dev="tmpfs" ino=94 ioctlcmd=0x641f scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+allow normal_hap dev_dri_file:chr_file { getattr read write open ioctl };
+
+#avc:  denied  { read } for  pid=2314 comm="com.example.web" name="HarmonyOS_Sans_Regular_Italic.ttf" dev="mmcblk0p6" ino=1536 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2314 comm="com.example.web" path="/system/fonts/HarmonyOS_Sans_Regular_Italic.ttf" dev="mmcblk0p6" ino=1536 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=2314 comm="com.example.web" path="/system/fonts/HarmonyOS_Sans_Regular_Italic.ttf" dev="mmcblk0p6" ino=1536 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2314 comm="com.example.web" path="/system/fonts/HarmonyOS_Sans_Regular_Italic.ttf" dev="mmcblk0p6" ino=1536 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=1
+allow normal_hap system_fonts_file:file { read open getattr map };
+
+#avc:  denied  { search } for  pid=2252 comm="NetworkService" name="com.example.web330" dev="mmcblk0p11" ino=784917 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { remove_name } for  pid=2957 comm="com.example.web" name=".org.chromium.Chromium.DFNANO" dev="mmcblk0p11" ino=785164 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { open } for  pid=3965 comm="com.example.web" path="/data/storage/el2/base/haps/entry/cache" dev="mmcblk0p11" ino=654423 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/data/storage/el2/base" dev="mmcblk0p11" ino=654353 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=4361 comm="CacheThread_Blo" path="/data/storage/el2/base" dev="mmcblk0p11" ino=523589 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
+allow normal_hap normal_hap_data_file:dir { search remove_name read open mounton getattr };
+
+#avc:  denied  { create } for  pid=2957 comm="com.example.web" name=".org.chromium.Chromium.coKdNG" scontext=u:r:normal_hap:s0 tcontext=u:ect_r:normal_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { read write open } for  pid=2957 comm="com.example.web" path="/data/storage/el2/base/cache/.org.chromium.Chromium.coKdNG" ="mmcblk0p11" ino=785176 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+#vc:  denied  { getattr } for  pid=2957 comm="com.example.web" path="/data/storage/el2/base/cache/.org.chromium.Chromium.coKdNG" dev="mmc0p11" ino=785176 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { unlink } for  pid=3540 comm="com.example.web" name=".org.chromium.Chromium.IjPMLH" dev="mmcblk0p11" ino=654428 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=3540 comm="com.example.web" path=2F646174612F73746F726167652F656C322F626173652F63616368652F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E496A504D4C48202864656C6574656429 dev="mmcblk0p11" ino=654428 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { ioctl } for  pid=4361 comm="ThreadPoolForeg" path="/data/storage/el2/base/cache/cookie.db" dev="mmcblk0p11" ino=523820 ioctlcmd=0xf50c scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { lock } for  pid=4361 comm="ThreadPoolForeg" path="/data/storage/el2/base/cache/cookie.db" dev="mmcblk0p11" ino=523820 scontext=u:r:normal_hap:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
+allow normal_hap normal_hap_data_file:file { create read write open getattr unlink map ioctl lock };
+
+#avc:  denied  { call } for  pid=2377 comm="Geolocation" scontext=u:r:normal_hap:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2377 comm="Geolocation" scontext=u:r:normal_hap:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
+allow normal_hap locationhub:binder { call transfer };
+
+#avc:  denied  { use } for  pid=2526 comm="com.example.web" path="/dmabuf:" dev="dmabuf" ino=35030 ioctlcmd=0x6200 scontext=u:r:normal_hap:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
+allow normal_hap disp_gralloc_host:fd { use };
+
+#avc:  denied  { getopt } for  pid=3204 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { setopt } for  pid=3204 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=unix_dgram_socket permissive=1
+allow normal_hap normal_hap:unix_dgram_socket { getopt setopt };
+
+#avc:  denied  { read } for  pid=3965 comm="com.example.web" name="extensionability" dev="mmcblk0p6" ino=1557 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
+#avc:  denied  { open } for  pid=3965 comm="com.example.web" path="/system/lib64/extensionability" dev="mmcblk0p6" ino=1557 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
+allow normal_hap system_lib_file:dir { read open };
+
+#avc:  denied  { create } for  pid=4137 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
+#avc:  denied  { connect } for  pid=4137 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
+#avc:  denied  { bind } for  pid=4137 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
+#avc:  denied  { write } for  pid=4137 comm="ThreadPoolForeg" lport=60279 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
+#vc:  denied  { ioctl } for  pid=12742 comm="ThreadPoolForeg" path="socket:[104645]" dev="sockfs" ino=104645 ioctlcmd=0x8910 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
+#avc:  denied  { setopt } for  pid=12742 comm="NetworkService" lport=48535 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
+#avc:  denied  { read } for  pid=4361 comm="ThreadPoolForeg" lport=43704 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
+#avc:  denied  { getattr } for  pid=4745 comm="ThreadPoolForeg" laddr=192.168.137.205 lport=43495 faddr=119.176.24.38 fport=65535 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=udp_socket permissive=1
+allow normal_hap normal_hap:udp_socket { create connect bind write ioctl setopt read getattr };
+
+#avc:  denied  { node_bind } for  pid=4137 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:object_r:node:s0 tclass=udp_socket permissive=1
+allow normal_hap node:udp_socket { node_bind };
+
+#avc:  denied  { use } for  pid=4377 comm="ThreadPoolSingl" path="socket:[52549]" dev="sockfs" ino=52549 scontext=u:r:foundation:s0 tcontext=u:r:normal_hap:s0 tclass=fd permissive=1
+allow normal_hap normal_hap:fd { use };
+
+#avc:  denied  { read write } for  pid=4377 comm="ThreadPoolSingl" path="socket:[52549]" dev="sockfs" ino=52549 scontext=u:r:foundation:s0 tcontext=u:r:normal_hap:s0 tclass=unix_stream_socket permissive=1
+allow normal_hap normal_hap:unix_stream_socket { read write };
+
+#avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/" dev="tmpfs" ino=3 scontext=u:r:normal_hap:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+allow normal_hap tmpfs:dir { mounton };
+
+#avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/sys_prod" dev="mmcblk0p6" ino=26 scontext=u:r:normal_hap:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
+allow normal_hap rootfs:dir { mounton };
+
+#avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/system/profile" dev="mmcblk0p6" ino=2436 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_profile_file:s0 tclass=dir permissive=1
+allow normal_hap system_profile_file:dir { mounton };
+   
+#avc:  denied  { read } for  pid=12410 comm="com.example.web" name="cpuinfo" dev="proc" ino=4026532107 scontext=u:r:normal_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=12410 comm="com.example.web" path="/proc/cpuinfo" dev="proc" ino=4026532107 scontext=u:r:normal_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=4745 comm="com.example.web" path="/proc/cpuinfo" dev="proc" ino=4026532107 scontext=u:r:normal_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
+allow normal_hap proc_cpuinfo_file:file { read open getattr };
+
+#avc:  denied  { getopt } for  pid=12342 comm="NetworkService" laddr=192.168.137.169 lport=58660 faddr=172.67.70.207 fport=443 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { create } for  pid=12342 comm="NetworkService" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=tcp_socket permissive=1avc:  denied  { setopt } for  pid=12342 comm="NetworkService" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { connect } for  pid=12342 comm="N etworkService" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { read } for  pid=12342 comm="NetworkService" laddr=192.168.137.169 lport=34658 faddr=104.16.176.44 fport=80 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { write } for  pid=12342 comm="NetworkService" path="socket:[97452]" dev="sockfs" ino=97452 scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=tcp_socket permissive=1
+allow normal_hap normal_hap:tcp_socket { getopt create setopt connect read write };
+
+#avc:  denied  { call } for  pid=2297 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=1
+#allow normal_hap disp_gralloc_host:binder { call };
+
+#avc:  denied  { name_connect } for  pid=4361 comm="NetworkService" dest=443 scontext=u:r:normal_hap:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=1
+allow normal_hap port:tcp_socket { name_connect };
+
+#avc:  denied  { call } for  pid=4745 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow normal_hap accesstoken_service:binder { call };
+
+#avc:  denied  { search } for  pid=4745 comm="com.example.web" name="bin" dev="mmcblk0p6" ino=108 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+allow normal_hap system_bin_file:dir { search };
+
+#avc:  denied  { getattr } for  pid=4745 comm="com.example.web" path="/data/storage/el1/bundle/nweb/entry/resources/rawfile" dev="mmcblk0p11" ino=523570 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+allow normal_hap data_app_el1_file:dir { getattr };
+
+#avc:  denied  { create } for  pid=4745 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=netlink_route_socket permissive=1
+#avc:  denied  { write } for  pid=4745 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=netlink_route_socket permissive=1
+#avc:  denied  { read } for  pid=4745 comm="ThreadPoolForeg" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=netlink_route_socket permissive=1
+allow normal_hap normal_hap:netlink_route_socket { create write read };
+
+#avc:  denied  { watch } for  pid=4745 comm="ThreadPoolForeg" path="/system/etc" dev="mmcblk0p6" ino=455 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_etc_file:s0 tclass=dir permissive=1
+allow normal_hap system_etc_file:dir { watch };
+
+#avc:  denied  { read } for  pid=4884 comm="com.example.web" name="midr_el1" dev="sysfs" ino=15102 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=4884 comm="com.example.web" path="/sys/devices/system/cpu/cpu0/regs/identification/midr_el1" dev="sysfs" ino=15102 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow normal_hap sys_file:file { read open };
+
+#avc:  denied  { mounton } for  pid=4914 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/config" dev="configfs" ino=14342 scontext=u:r:normal_hap:s0 tcontext=u:object_r:configfs:s0 tclass=dir permissive=1
+allow normal_hap configfs:dir { mounton };
+
+#avc:  denied  { mounton } for  pid=4914 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/dev" dev="tmpfs" ino=1 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
+allow normal_hap dev_file:dir { mounton };
+ 
