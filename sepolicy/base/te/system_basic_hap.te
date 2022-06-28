@@ -1,3 +1,16 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 allow system_basic_hap accesstoken_service:binder { call };
 allow system_basic_hap bluetooth_service:binder { call transfer };
 allow system_basic_hap bootanimation:fd { use };
@@ -5,6 +18,7 @@ allow system_basic_hap configfs:dir { mounton };
 allow system_basic_hap data_app_el1_file:dir { mounton };
 allow system_basic_hap data_service_el1_file:file { getattr read };
 allow system_basic_hap data_service_el2_file:dir { search };
+allow system_basic_hap data_service_el2_hmdfs:dir { search };
 allow system_basic_hap data_service_file:dir { search };
 allow system_basic_hap dev_ashmem_file:chr_file { open };
 allow system_basic_hap dev_file:dir { mounton };
