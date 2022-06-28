@@ -1,0 +1,37 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow accessibility data_app_el1_file:dir { search };
+allow accessibility data_app_el1_file:file { getattr open read };
+allow accessibility data_app_file:dir { search };
+allow accessibility data_file:dir { search };
+allow accessibility data_service_el1_file:dir { add_name getattr remove_name search write };
+allow accessibility data_service_el1_file:file { create getattr ioctl open read rename setattr unlink write };
+allow accessibility data_service_file:dir { search };
+allow accessibility dev_unix_socket:dir { search };
+allow accessibility foundation:binder { call transfer };
+allow accessibility multimodalinput:binder { call };
+allow accessibility multimodalinput:fd { use };
+allow accessibility multimodalinput:unix_stream_socket { read write };
+allow accessibility normal_hap:binder { call };
+allow accessibility param_watcher:binder { call transfer };
+allow accessibility system_basic_hap:binder { call };
+allow accessibility system_bin_file:dir { search };
+allow accessibility system_core_hap:binder { call };
+allow accessibility system_usr_file:dir { search };
+allow accessibility system_usr_file:file { getattr map open read };
+allow accessibility tracefs:dir { search };
+allow accessibility tracefs_trace_marker_file:file { open write };
+allow accessibility vendor_lib_file:dir { search };
+allow accessibility vendor_lib_file:file { execute getattr map open read };
+allowxperm accessibility data_service_el1_file:file ioctl { 0x5413 };
