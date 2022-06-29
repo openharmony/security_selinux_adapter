@@ -35,5 +35,6 @@ allow distributedsche softbus_server:binder { call transfer };
 allow distributedsche softbus_server:fd { use };
 allow distributedsche softbus_server:tcp_socket { read setopt shutdown write };
 
+allow accountmgr distributedsche:binder { transfer };
 allow sh distributedsche:process { sigkill };
 allow softbus_server distributedsche:binder { call };
