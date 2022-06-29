@@ -30,6 +30,9 @@ allow distributedfiledaemon data_file:dir { search };
 #avc:  denied  { search } for  pid=182 comm="kworker/u8:5" name="service" dev="mmcblk0p11" ino=1044481 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
 allow distributedfiledaemon data_service_file:dir { search };
 
+#avc:  denied  { search } for  pid=7 comm="kworker/u8:0" name="el2" dev="mmcblk0p11" ino=130569 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+allow distributedfiledaemon data_service_el2_file:dir { search };
+
 #avc:  denied  { search } for  pid=182 comm="kworker/u8:5" name="el2" dev="mmcblk0p11" ino=1044488 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=182 comm="kworker/u8:5" name="account_cache" dev="mmcblk0p11" ino=1044562 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
 allow distributedfiledaemon data_service_el2_hmdfs:dir { rw_dir_perms };
@@ -39,3 +42,6 @@ allow distributedfiledaemon data_service_el2_hmdfs:file { rw_file_perms };
 
 #avc:  denied  { search } for  pid=659 comm="distributedfile" name="socket" dev="tmpfs" ino=40 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow distributedfiledaemon dev_unix_socket:dir { search };
+
+#avc:  denied  { call } for  pid=548 comm="distributedfile" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:dslm_service:s0 tclass=binder permissive=1
+allow distributedfiledaemon dslm_service:binder { call };
