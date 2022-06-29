@@ -11,5 +11,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#init
 allow init resource_schedule_service:process { rlimitinh siginh transition };
 dontaudit init resource_schedule_service:process { noatsecure };
+#normal_hap
+allow normal_hap resource_schedule_service:binder { call };
+#system_core_hap
+allow system_core_hap resource_schedule_service:binder { call };
+#system_basic_hap
+allow system_basic_hap resource_schedule_service:binder { call };
+#param_watcher
+allow param_watcher resource_schedule_service:binder { call };
+#sh
+allow sh resource_schedule_service:file { read open };
+allow sh resource_schedule_service:dir { getattr search };
+#hiview
+allow hiview resource_schedule_service:dir { search };
+allow hiview resource_schedule_service:file { open read };
+#ui_service
+allow ui_service resource_schedule_service:binder { call };
+#foundation
+allow foundation resource_schedule_service:binder { call transfer };

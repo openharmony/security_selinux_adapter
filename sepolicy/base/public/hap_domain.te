@@ -112,13 +112,14 @@ neverallow { hap_domain } *:security { compute_av check_context };
 
 neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_hap_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
-             -bgtaskmgr_service -nwebspawn -storage_daemon } data_app_el1_file:dir *;
+             -bgtaskmgr_service -nwebspawn -storage_daemon -accessibility } data_app_el1_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
              -distributeddata -storage_daemon -nwebspawn } data_app_el2_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el3_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el4_file:dir *;
 
-neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs -nwebspawn } hap_file_attr:file open;
+neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs -nwebspawn
+             -accessibility } hap_file_attr:file open;
 
 # service can't modify hap sandbox
 neverallow { domain -hap_domain -installs -init -storage_daemon -appspawn } hap_file_attr:dir_file_class_set { create unlink };
