@@ -1,0 +1,50 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+###################
+## Macro define: ##
+###################
+define(`use_faultloggerd', `
+    # allow $1 faultloggerd:file { open read };
+    # allow $1 faultloggerd:dir { getattr search };
+    allow $1 faultloggerd:fd use;
+    allow $1 faultloggerd:unix_stream_socket connectto;
+    allow $1 faultloggerd_socket:sock_file { getattr write };
+')
+
+define(`use_faultloggerd_file', `
+    allow $1 faultloggerd_temp_file:dir { getattr setattr open read search watch };
+    allow $1 faultloggerd_temp_file:file { getattr open read write };
+')
+
+##########################################
+## Read/Use/Control faultloggerd rules: ##
+##########################################
+use_faultloggerd({ domain -limit_domain })
+use_faultloggerd(normal_hap)
+
+#########################
+## faultloggerd rules: ##
+#########################
+# allow faultloggerd self:capability dac_override; # conflict with neverallow
+
+allow faultloggerd data_file:dir search;
+allow faultloggerd data_init_agent:dir search;
+allow faultloggerd dev_unix_socket:dir search;
+allow faultloggerd data_log:dir search;
+
+allow faultloggerd data_init_agent:file { append ioctl open read };
+allow faultloggerd faultloggerd_temp_file:dir { add_name remove_name write open read search };
+allow faultloggerd faultloggerd_temp_file:file { create getattr setattr write open read unlink };
+
+allow faultloggerd_temp_file labeledfs:filesystem { associate };

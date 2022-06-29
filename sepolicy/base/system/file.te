@@ -209,7 +209,6 @@ type dev_unix_socket_file, dev_attr, file_attr;
 type dev_unix_socket, dev_attr, file_attr;
 type appspawn_socket, dev_attr, file_attr;
 type nwebspawn_socket, dev_attr, file_attr;
-type faultloggerd_socket, dev_attr, file_attr;
 type fd_holder_socket, dev_attr, file_attr;
 type hdcd_socket, dev_attr, file_attr;
 type native_socket, dev_attr, file_attr;

@@ -1,0 +1,121 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+###################
+## Macro define: ##
+###################
+define(`use_processdump', `
+    allow $1 processdump_exec:file { execute execute_no_trans getattr map open read };
+')
+
+use_processdump({ domain -limit_domain -init })
+
+########################
+## processdump rules: ##
+########################
+#============= domain =================
+allow domain processdump:process { share };
+allow domain self:fifo_file { write };
+# allow processdump { domain -processdump }:process ptrace; # conflict with neverallow
+allow processdump domain:fd use;
+allow processdump domain:fifo_file { read write };
+allow processdump domain:dir { getattr open read search };
+allow processdump domain:file { getattr open read };
+
+#============= write event to hiview =========
+allow processdump hiview:binder { call transfer };
+allow processdump samgr:binder { call };
+
+#============= for faultloggerd ===========
+allow processdump faultloggerd_temp_file:file { getattr open read write };
+allow processdump faultloggerd:fd { use };
+allow processdump faultloggerd:unix_stream_socket { connectto };
+allow processdump faultloggerd_socket:sock_file write;
+
+#============= processdump ==============
+# allow processdump self:capability { dac_read_search sys_ptrace }; # conflict with neverallow
+allow processdump processdump_exec:file { entrypoint };
+allow processdump processdump:process { fork };
+allow processdump processdump:dir { search };
+allow processdump processdump:lnk_file { read };
+allow processdump processdump:unix_dgram_socket { create connect write };
+allow processdump processdump:unix_stream_socket { create setopt connect write read };
+
+#============ data_xxx ==================
+allow processdump data_init_agent:file { append ioctl open read };
+allow processdump data_init_agent:dir search;
+allow processdump data_file:file { getattr map open read };
+allow processdump data_file:dir search;
+
+#============ dev_xxx ===================
+allow processdump dev_file:dir { search };
+allow processdump dev_null_file:chr_file { read write };
+allow processdump dev_parameters_file:dir { search };
+allow processdump dev_parameters_file:file { map open read };
+allow processdump dev_unix_file:dir { search };
+allow processdump dev_unix_socket:dir search;
+allow processdump dev_unix_socket:sock_file write;
+allow processdump dev_unix_socket_file:dir { search };
+
+#============ system_xxx =================
+allow processdump system_bin_file:dir search;
+allow processdump system_file:dir { search };
+allow processdump system_lib_file:dir { search };
+allow processdump system_lib_file:file { execute getattr map open read };
+allow processdump system_etc_file:dir { getattr open read search };
+allow processdump system_etc_file:file { getattr open read };
+
+#============ vendor_xxx =================
+allow processdump vendor_file:file { getattr map open read };
+allow processdump vendor_file:dir { getattr open read search };
+
+#============ proc_xxx & tmpfs & debugfs ===================
+allow processdump proc_file:dir { search };
+allow processdump proc_file:lnk_file { read };
+allow processdump tmpfs:dir { search };
+allow processdump tmpfs:lnk_file { read };
+allow processdump debugfs:dir { search };
+
+#============ normal_hap =================
+allow processdump normal_hap:dir { getattr open read search };
+allow processdump normal_hap:file { getattr open read };
+
+#============= for hdcd ================
+allow processdump hdcd:fd use;
+allow processdump hdcd:fifo_file { read write };
+allow processdump hdcd:file { getattr open read };
+allow processdump hdcd:process ptrace;
+allow processdump hdcd:unix_stream_socket { read write };
+
+#============= devpts && tty ===========
+allow processdump devpts:chr_file { read write };
+allow processdump tty_device:chr_file { read write };
+
+#============= for init ================
+allow processdump init:dir { getattr open read search };
+allow processdump init:file { getattr open read };
+allow processdump init:netlink_kobject_uevent_socket { read write };
+allow processdump init:unix_dgram_socket { sendto };
+allow processdump init:unix_stream_socket { read write };
+
+#============ sh & appspawn_exec & foundation ===========
+allow processdump sh:fd use;
+allow processdump appspawn_exec:file { getattr map open read };
+allow processdump foundation:dir { getattr open read search };
+allow processdump foundation:file { getattr open read };
+allow processdump samain_exec:file { getattr map open read };
+
+############################
+## neverallow assertions: ##
+############################
+neverallow processdump self:process ptrace;
