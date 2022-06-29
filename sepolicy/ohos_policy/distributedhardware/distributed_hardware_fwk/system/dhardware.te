@@ -64,7 +64,8 @@ allow dhardware softbus_server:fd { use };
 
 #avc:  denied  { read write } for  pid=535 comm="THREAD_POOL" scontext=u:r:dhardware:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
 #avc:  denied  { setopt } for  pid=2338 comm="dhardware"  scontext=u:r:dhardware:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
-allow dhardware softbus_server:tcp_socket { setopt read write };
+#avc:  denied  { shutdown } for  pid=2343 comm="THREAD_POOL" scontext=u:r:dhardware:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+allow dhardware softbus_server:tcp_socket { setopt read write shutdown };
 
 #avc:  denied  { get } for service=3008 pid=2324 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_camera_service:s0 tclass=samgr_class permissive=1
 allow dhardware sa_camera_service:samgr_class { get };
@@ -76,4 +77,7 @@ allow dhardware camera_service:binder { transfer call };
 #avc:  denied  { getopt } for  pid=2302 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:dhardware:s0 tclass=unix_dgram_socket permissive=1
 #avc:  denied  { setopt } for  pid=2302 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:dhardware:s0 tclass=unix_dgram_socket permissive=1
 allow dhardware dhardware:unix_dgram_socket { setopt getopt };
+
+#avc:  denied  { call } for  pid=2343 comm="DHEventbusHandl" scontext=u:r:dhardware:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+allow dhardware distributeddata:binder { call };
 
