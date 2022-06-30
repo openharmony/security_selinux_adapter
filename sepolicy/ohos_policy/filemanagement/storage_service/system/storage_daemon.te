@@ -15,10 +15,10 @@ type storage_daemon, sadomain, domain;
 type storage_daemon_exec, exec_attr, file_attr, system_file_attr;
 type dev_block_volfile, dev_attr;
 
-allow storage_daemon hmdfs:dir { read search setattr getattr };
-allow storage_daemon vfat:dir { read search setattr getattr };
-allow storage_daemon exfat:dir { read search setattr getattr };
-allow storage_daemon ntfs:dir { read search setattr getattr };
+allow storage_daemon hmdfs:dir { read search setattr getattr mounton };
+allow storage_daemon vfat:dir { read search setattr getattr mounton };
+allow storage_daemon exfat:dir { read search setattr getattr mounton };
+allow storage_daemon ntfs:dir { read search setattr getattr mounton };
 
 #avc:  denied  { call } for  pid=255 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow storage_daemon accesstoken_service:binder { call };
@@ -35,21 +35,22 @@ allow storage_daemon data_init_agent:file { read append open ioctl };
 #avc:  denied  { read open } for  pid=1476 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=130633 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
 #avc:  denied  { search } for  pid=241 comm="storage_daemon" name="el2" dev="mmcblk0p11" ino=130568 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=182 comm="kworker/u8:5" path="/data/service/el2/100/hmdfs/account/data" dev="mmcblk0p11" ino=1044557 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
+#avc:  denied  { rmdir } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=914136 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow storage_daemon data_service_el2_file:file { rw_file_perms };
 allow storage_daemon data_service_el1_file:file { rw_file_perms };
-allow storage_daemon data_service_el2_file:dir { rw_dir_perms };
-allow storage_daemon data_service_el1_file:dir { rw_dir_perms };
+allow storage_daemon data_service_el2_file:dir { rw_dir_perms rmdir };
+allow storage_daemon data_service_el1_file:dir { rw_dir_perms rmdir };
 
 #avc:  denied  { read open } for  pid=1875 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=130643 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=3372 comm="kworker/u8:4" path="/data/service/el2/100/hmdfs/account/data" dev="mmcblk0p11" ino=130644 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
 #avc:  denied  { search } for  pid=7 comm="kworker/u8:0" name="account" dev="mmcblk0p11" ino=130642 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=7 comm="kworker/u8:0" path=2F646174612F736572766963652F656C322F3130302F686D6466732F63616368652F6163636F756E745F63616368652F23313330373335202864656C6574656429 dev="mmcblk0p11" ino=130735 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
-allow storage_daemon data_service_el2_hmdfs:dir { rw_dir_perms };
+allow storage_daemon data_service_el2_hmdfs:dir { rw_dir_perms rmdir };
 allow storage_daemon data_service_el2_hmdfs:file { rw_file_perms };
 
 #avc:  denied  { read open } for  pid=1789 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=913996 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
 allow storage_daemon data_user_file:file { rw_file_perms };
-allow storage_daemon data_user_file:dir { rw_dir_perms };
+allow storage_daemon data_user_file:dir { rw_dir_perms rmdir };
 
 #avc:  denied  { read } for  pid=246 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:device_usage_stats_service:s0 tclass=file permissive=1
 allow storage_daemon device_usage_stats_service:file { read };
@@ -63,7 +64,7 @@ allow storage_daemon dev_unix_socket:dir { search };
 
 #avc:  denied  { write search } for  pid=241 comm="storage_daemon" name="block" dev="tmpfs" ino=7 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
 #avc:  denied  { add_name search } for  pid=241 comm="storage_daemon" name="disk-8-0" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
-allow storage_daemon dev_block_volfile:dir { add_name write search };
+allow storage_daemon dev_block_volfile:dir { rw_dir_perms };
 
 #avc:  denied  { use } for  pid=7 comm="kworker/u8:0" path=2F646174612F736572766963652F656C322F3130302F686D6466732F63616368652F6163636F756E745F63616368652F23313330373335202864656C6574656429 dev="mmcblk0p11" ino=130735 scontext=u:r:storage_daemon:s0 tcontext=u:r:distributedfiledaemon:s0 tclass=fd permissive=1
 allow storage_daemon distributedfiledaemon:fd { use };
@@ -73,10 +74,33 @@ allow storage_daemon distributedfiledaemon:fd { use };
 #avc:  denied  { read } for  pid=241 comm="storage_daemon" name="disk-8-0" dev="tmpfs" ino=508 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 #avc:  denied  { read open } for  pid=2061 comm="blkid" path="/dev/block/vol-8-2" dev="tmpfs" ino=502 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 #avc:  denied  { getattr } for  pid=2061 comm="blkid" path="/dev/block/vol-8-2" dev="tmpfs" ino=502 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
-allow storage_daemon dev_block_volfile:blk_file { create read open getattr ioctl };
+allow storage_daemon dev_block_volfile:blk_file { create rw_file_perms unlink };
 
 #avc:  denied  { search } for  pid=241 comm="storage_daemon" name="service" dev="mmcblk0p11" ino=130561 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
 allow storage_daemon data_service_file:dir { search };
+
+#avc:  denied  { remove_name } for  pid=254 comm="storage_daemon" name="database" dev="mmcblk0p11" ino=132176 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+#avc:  denied  { remove_name } for  pid=257 comm="storage_daemon" name="base" dev="mmcblk0p11" ino=523949 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
+allow storage_daemon data_app_el1_file:dir { remove_name rmdir };
+allow storage_daemon data_app_el2_file:dir { remove_name rmdir };
+
+
+#avc:  denied  { remove_name } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=262719 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_chipset_el1_file:s0 tclass=dir permissive=1
+#avc:  denied  { rmdir } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=262719 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_chipset_el1_file:s0 tclass=dir permissive=1
+#avc:  denied  { remove_name } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=391690 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_chipset_el2_file:s0 tclass=dir permissive=1
+allow storage_daemon data_chipset_el1_file:dir { rmdir remove_name };
+allow storage_daemon data_chipset_el2_file:dir { rmdir remove_name };
+
+#avc:  denied  { search } for  pid=259 comm="storage_daemon" name="547" dev="proc" ino=36346 scontext=u:r:storage_daemon:s0 tcontext=u:r:dslm_service:s0 tclass=dir permissive=1
+#avc:  denied  { read } for  pid=259 comm="storage_daemon" name="cwd" dev="proc" ino=40910 scontext=u:r:storage_daemon:s0 tcontext=u:r:dslm_service:s0 tclass=lnk_file permissive=1
+#avc:  denied  { read } for  pid=259 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:dslm_service:s0 tclass=file permissive=1
+allow storage_daemon dslm_service:dir { search };
+allow storage_daemon dslm_service:lnk_file { read  };
+allow storage_daemon dslm_service:file { read  };
+
+#avc:  denied  { mount } for  pid=256 comm="storage_daemon" name="/" dev="sda1" ino=1 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:exfat:s0 tclass=filesystem permissive=1
+allow storage_daemon exfat:filesystem { mount unmount };
+allow storage_daemon vfat:filesystem { mount unmount };
 
 #avc:  denied  { search } for  pid=246 comm="storage_daemon" name="fd" dev="proc" ino=25873 scontext=u:r:storage_daemon:s0 tcontext=u:r:fms_service:s0 tclass=dir permissive=1
 allow storage_daemon fms_service:dir { search };
@@ -127,6 +151,9 @@ allow storage_daemon system_basic_hap:file { read };
 #avc:  denied  { map } for  pid=1662 comm="restorecon" path="/system/bin/restorecon" dev="mmcblk0p6" ino=335 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 allow storage_daemon system_bin_file:file { read execute open execute_no_trans map };
 
+#avc:  denied  { getattr } for  pid=256 comm="storage_daemon" path="/sys/devices/platform/fd800000.usb/usb1/1-1/1-1:1.0/host1/target1:0:0/1:0:0:0/vendor" dev="sysfs" ino=32018 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow storage_daemon sys_file:file { getattr read };
+
 #avc:  denied  { call } for  pid=249 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=1
 allow storage_daemon storage_manager:binder { call };
 
@@ -144,3 +171,6 @@ allow storage_daemon storage_daemon:netlink_kobject_uevent_socket { read };
 #avc:  denied  { sys_ptrace } for  pid=246 comm="storage_daemon" capability=19  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
 #avc:  denied  { dac_override } for  pid=2028 comm="blkid" capability=1  scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=capability permissive=1
 allow storage_daemon storage_daemon:capability { mknod dac_read_search sys_ptrace dac_override};
+
+#avc:  denied  { remove_name } for  pid=256 comm="storage_daemon" name="F7BC-FF57" dev="tmpfs" ino=406 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
+allow storage_daemon tmpfs:dir { remove_name rmdir };

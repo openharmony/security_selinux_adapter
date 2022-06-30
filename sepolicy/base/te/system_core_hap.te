@@ -110,6 +110,7 @@ allow system_core_hap system_fonts_file:file { getattr map open read };
 allow system_core_hap system_lib_file:dir { open read };
 allow system_core_hap system_usr_file:dir { search };
 allow system_core_hap sys_usb_param:file { map open read };
+allow system_core_hap storage_manager:binder { call };
 allow system_core_hap tracefs:dir { search };
 allow system_core_hap tracefs_trace_marker_file:file { open write };
 allowxperm system_core_hap dev_dri_file:chr_file ioctl { 0x641f };
