@@ -27,6 +27,8 @@ allow hiview data_log:dir { setattr };
 allow hiview data_system:dir { add_name create setattr write };
 allow hiview debug_param:file { map open read };
 allow hiview default_param:file { map open read };
+allow hiview faultloggerd_temp_file:dir { open read search watch };
+allow hiview faultloggerd_temp_file:file { open read };
 allow hiview hidumper_exec:file { execute execute_no_trans getattr map read open };
 allow hiview hidumper_service:binder { call transfer };
 allow hiview hilog_param:file { map open read };
