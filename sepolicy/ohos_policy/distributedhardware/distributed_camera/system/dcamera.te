@@ -37,7 +37,8 @@ allow dcamera dcamera:udp_socket { bind connect create getattr read setopt write
 allow dcamera dcamera:unix_dgram_socket { getopt setopt };
 
 #avc:  denied  { call } for  pid=2178 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera_host:s0 tclass=binder permissive=1
-allow dcamera dcamera_host:binder { call };
+#avc:  denied  { transfer } for  pid=2429 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera_host:s0 tclass=binder permissive=1
+allow dcamera dcamera_host:binder { call transfer };
 
 #avc:  denied  { create } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
 #avc:  denied  { write } for  pid=2166 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:dcamera:s0 tclass=netlink_route_socket permissive=1
@@ -62,8 +63,12 @@ allow dcamera dhardware:binder { call };
 
 #avc:  denied  { call } for  pid=2061 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=1
 allow dcamera disp_gralloc_host:binder { call };
+
 #avc:  denied  { use } for  pid=2033 comm="dcamera" path="/dmabuf:" dev="dmabuf" ino=29931 ioctlcmd=0x6200 scontext=u:r:dcamera:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
 allow dcamera disp_gralloc_host:fd { use };
+
+#avc:  denied  { call } for  pid=2483 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+allow dcamera foundation:binder { call };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=2053 scontext=u:r:dcamera:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 allow dcamera hdf_device_manager:hdf_devmgr_class { get };
@@ -76,7 +81,7 @@ allow dcamera hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
 
 #avc:  denied  { call } for  pid=2040 comm="DHEventbusHandl" scontext=u:r:dcamera:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=2464 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
-allow dcamera hdf_devmgr:binder { call transfer};
+allow dcamera hdf_devmgr:binder { call transfer };
 
 #avc:  denied  { call } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
