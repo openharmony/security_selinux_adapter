@@ -12,5 +12,17 @@
 # limitations under the License.
 
 #avc:  denied  { call } for pid=2349 comm="com.example.app" scontext=u:r:normal_hap:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
-allow normal_hap softbus_server:binder { call };
+allow normal_hap distributedsche:binder { call transfer };
 allow normal_hap distributedsche:fd { use };
+allow normal_hap sa_distributeschedule:samgr_class { get };
+allow normal_hap softbus_server:binder { call };
+
+allow system_basic_hap distributedsche:binder { call transfer };
+allow system_basic_hap distributedsche:fd { use };
+allow system_basic_hap sa_distributeschedule:samgr_class { get };
+
+allow system_core_hap distributedsche:binder { call transfer };
+allow system_core_hap distributedsche:fd { use };
+allow system_core_hap sa_distributeschedule:samgr_class { get };
+
+allow faultloggerd normal_hap:process { signal };
