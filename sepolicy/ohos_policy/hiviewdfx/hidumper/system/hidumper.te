@@ -21,6 +21,7 @@ allow hidumper dev_unix_socket:sock_file write;
 allow hidumper devpts:chr_file { read write };
 
 allow hidumper hdcd:fd use;
+allow hidumper hdcd:fifo_file write;
 allow hidumper hdcd:unix_stream_socket { read write };
 
 allow hidumper hidumper_service:binder { call transfer };
