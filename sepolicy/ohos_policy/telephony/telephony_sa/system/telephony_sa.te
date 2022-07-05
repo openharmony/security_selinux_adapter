@@ -16,6 +16,7 @@ type sa_net_policy_manager, sa_service_attr;
 type sa_telephony_tel_cellular_data, sa_service_attr;
 type sa_telephony_tel_sms_mms, sa_service_attr;
 
+allow telephony_sa accesstoken_service:binder call;
 allow telephony_sa data_file:dir search;
 allow telephony_sa hdf_cellular_radio1:hdf_devmgr_class get;
 allow telephony_sa hdf_cellular_radio_ext:hdf_devmgr_class get;
