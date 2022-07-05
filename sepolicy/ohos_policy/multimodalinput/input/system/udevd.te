@@ -21,13 +21,14 @@ init_daemon_domain(udevd);
 
 allow udevd data_file:dir { open search getattr rmdir };
 allow udevd data_file:file { create unlink open write };
-allow udevd dev_char_file:dir { search write };
+allow udevd dev_char_file:dir { search write remove_name };
+allow udevd dev_char_file:lnk_file { unlink };
 allow udevd dev_dri_file:chr_file { getattr write };
 allow udevd dev_dri_file:dir { add_name search write };
 allow udevd dev_file:dir { add_name create write };
 allow udevd dev_file:lnk_file { create getattr };
 allow udevd dev_input_file:dir { remove_name rmdir };
-allow udevd dev_input_file:lnk_file { unlink };
+allow udevd dev_input_file:lnk_file { getattr read write unlink };
 allow udevd dev_ptmx:chr_file { write getattr };
 allow udevd sh_exec:file { read open execute execute_no_trans map };
 allow udevd system_bin_file:dir { search };

@@ -39,6 +39,7 @@ allow render_service hw_sc_param:file { map open read };
 allow render_service init_param:file { map open read };
 allow render_service init_svc_param:file { map open read };
 allow render_service input_pointer_device_param:file { map open read };
+allow render_service multimodalinput:binder { call transfer };
 allow render_service net_param:file { map open read };
 allow render_service net_tcp_param:file { map open read };
 allow render_service ohos_boot_param:file { map open read };

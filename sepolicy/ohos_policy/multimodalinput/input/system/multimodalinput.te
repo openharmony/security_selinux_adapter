@@ -13,20 +13,27 @@
 
 type multimodalinput, sadomain, domain;
 
+allow multimodalinput bootanimation:fd { use };
 allow multimodalinput data_file:dir { search };
 allow multimodalinput data_init_agent:dir { search };
 allow multimodalinput data_init_agent:file { open read append ioctl };
-allow multimodalinput input_pointer_device_param:parameter_service { set };
+allow multimodalinput dev_dri_file:dir { search };
+allow multimodalinput dev_dri_file:chr_file { open read write getattr ioctl };
 allow multimodalinput dev_kmsg_file:chr_file { open write };
 allow multimodalinput dev_unix_socket:dir { search };
 allow multimodalinput dev_unix_socket:sock_file { write };
+allow multimodalinput disp_gralloc_host:binder { call };
+allow multimodalinput disp_gralloc_host:fd { use };
 allow multimodalinput faultloggerd_socket:sock_file { write };
 allow multimodalinput faultloggerd:unix_stream_socket { connectto };
-allow multimodalinput foundation:binder { call };
+allow multimodalinput foundation:binder { call transfer };
+allow multimodalinput hdf_devmgr:binder { call };
+allow multimodalinput input_pointer_device_param:parameter_service { set };
 allow multimodalinput multimodalinput:capability { dac_override };
-allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind create getattr setopt };
+allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind create getattr setopt read };
 allow multimodalinput multimodalinput:process { ptrace };
 allow multimodalinput param_watcher:binder { call transfer };
+allow multimodalinput render_service:binder { call transfer };
 allow multimodalinput resource_schedule_service:binder { call };
 allow multimodalinput rootfs:chr_file { write };
 allow multimodalinput sys_file:dir { open read };
@@ -42,3 +49,4 @@ allow normal_hap sa_multimodalinput_service:samgr_class { get };
 allow system_basic_hap multimodalinput:unix_stream_socket { read };
 allow system_basic_hap multimodalinput:unix_stream_socket { read write };
 allow system_core_hap multimodalinput:unix_stream_socket { read };
+allowxperm multimodalinput dev_dri_file:chr_file ioctl { 0x641f };
