@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+type distributedsche_param, parameter_attr;
+
 #avc:  denied  { add } for service=1401 pid=406 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_1401_service:s0 tclass=samgr_class permissive=1
 allow distributedsche sa_distributeschedule:samgr_class { add get_remote };
 allow distributedsche sa_distributeddata_service:samgr_class { get };
@@ -26,6 +28,7 @@ allow distributedsche deviceauth_service:binder { call };
 allow distributedsche dev_ashmem_file:chr_file { open };
 allow distributedsche dev_unix_socket:dir { search };
 allow distributedsche distributeddata:binder { call transfer };
+allow distributedsche distributedsche_param:parameter_service { set };
 allow distributedsche distributedsche:unix_dgram_socket { getopt setopt };
 allow distributedsche foundation:binder { call transfer };
 allow distributedsche kernel:unix_stream_socket { connectto };
