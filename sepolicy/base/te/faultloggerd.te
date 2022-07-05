@@ -27,6 +27,7 @@ allow faultloggerd data_log:dir { add_name open read search write };
 allow faultloggerd data_log:file { create read write open setattr };
 allow faultloggerd debug_param:file { map open read };
 allow faultloggerd default_param:file { map open read };
+allow faultloggerd dev_kmsg_file:chr_file { open write };
 allow faultloggerd dev_unix_socket:dir { add_name remove_name search write };
 allow faultloggerd dev_unix_socket:sock_file { create setattr };
 allow faultloggerd faultloggerd:capability { dac_override kill };

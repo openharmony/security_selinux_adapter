@@ -46,6 +46,7 @@ allow hdcd persist_param:file { map open read };
 allow hdcd persist_sys_param:file { map open read };
 allow hdcd security_param:file { map open read };
 allow hdcd startup_param:file { map open read };
+allow hdcd sys_file:file { open read };
 allow hdcd sys_param:file { map open read };
 allow hdcd system_etc_file:dir { add_name write };
 allow hdcd system_etc_file:file { create write };

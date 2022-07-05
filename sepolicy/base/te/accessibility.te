@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow accessibility accountmgr:binder { call };
 allow accessibility bootevent_param:file { map open read };
 allow accessibility bootevent_samgr_param:file { map open read };
 allow accessibility build_version_param:file { map open read };
@@ -46,6 +47,7 @@ allow accessibility param_watcher:binder { call transfer };
 allow accessibility persist_param:file { map open read };
 allow accessibility persist_sys_param:file { map open read };
 allow accessibility sa_accessibleabilityms:samgr_class { add };
+allow accessibility sa_accountmgr:samgr_class { get };
 allow accessibility sa_foundation_bms:samgr_class { get };
 allow accessibility sa_foundation_cesfwk_service:samgr_class { get };
 allow accessibility sa_foundation_dms:samgr_class { get };
