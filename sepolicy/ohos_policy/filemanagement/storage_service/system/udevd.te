@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap sa_distributeddata_service:samgr_class { get };
-allow system_basic_hap sa_huks_service:samgr_class { get };
-allow system_basic_hap system_core_hap:binder { call };
+allow udevd sys_file:dir { read open };
+allow udevd sys_file:file { ioctl write };
+allow udevd dev_block_volfile:dir { search write remove_name };

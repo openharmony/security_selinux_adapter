@@ -20,7 +20,11 @@ allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
 
-neverallow { domain -storage_manager -hidumper_service -samgr } storage_daemon:{ binder } call;
+neverallow { domain -storage_manager -hidumper_service -samgr -init } storage_daemon:{ binder } call;
+
+allow storage_daemon domain:file { read open };
+allow storage_daemon domain:dir { search read open };
+allow storage_daemon domain:lnk_file { read };
 
 #avc:  denied  { call } for  pid=255 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow storage_daemon accesstoken_service:binder { call };
@@ -113,6 +117,14 @@ allow storage_daemon vfat:filesystem { mount unmount };
 #avc:  denied  { search } for  pid=246 comm="storage_daemon" name="fd" dev="proc" ino=25873 scontext=u:r:storage_daemon:s0 tcontext=u:r:fms_service:s0 tclass=dir permissive=1
 allow storage_daemon fms_service:dir { search };
 
+#avc:  denied  { search } for  pid=259 comm="storage_daemon" name="243" dev="proc" ino=36785 scontext=u:r:storage_daemon:s0 tcontext=u:r:hilogd:s0 tclass=dir permissive=0
+#avc:  denied  { open } for  pid=257 comm="storage_daemon" path="/proc/245/maps" dev="proc" ino=43286 scontext=u:r:storage_daemon:s0 tcontext=u:r:hilogd:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=257 comm="storage_daemon" name="cwd" dev="proc" ino=43287 scontext=u:r:storage_daemon:s0 tcontext=u:r:hilogd:s0 tclass=lnk_file permissive=0
+allow storage_daemon hilogd:dir { search read open };
+allow storage_daemon hilogd:file { getattr open read };
+allow storage_daemon hilogd:lnk_file { read };
+
+
 #avc:  denied  { call } for  pid=257 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
 allow storage_daemon huks_service:binder { call };
 
@@ -125,12 +137,12 @@ allow storage_daemon hmdfs:file { read write open getattr };
 #avc:  denied  { read } for  pid=253 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:init:s0 tclass=file permissive=0
 allow storage_daemon init:file { open read };
 #avc:  denied  { read } for  pid=253 comm="storage_daemon" name="fd" dev="proc" ino=35228 scontext=u:r:storage_daemon:s0 tcontext=u:r:init:s0 tclass=dir permissive=1
-allow storage_daemon init:dir { read search };
+allow storage_daemon init:dir { open read search };
 #avc:  denied  { read } for  pid=253 comm="storage_daemon" name="exe" dev="proc" ino=35227 scontext=u:r:storage_daemon:s0 tcontext=u:r:init:s0 tclass=lnk_file permissive=1
 allow storage_daemon init:lnk_file { read };
 
 #avc:  denied  { search } for  pid=241 comm="storage_daemon" name="32" dev="proc" ino=25299 scontext=u:r:storage_daemon:s0 tcontext=u:r:kernel:s0 tclass=dir permissive=1
-allow storage_daemon kernel:dir { read search };
+allow storage_daemon kernel:dir { open read search };
 #avc:  denied  { read open } for  pid=257 comm="storage_daemon" path="/proc/1752/maps" dev="proc" ino=33499 scontext=u:r:storage_daemon:s0 tcontext=u:r:kernel:s0 tclass=file permissive=1
 allow storage_daemon kernel:file { open read };
 #avc:  denied  { read } for  pid=241 comm="storage_daemon" name="root" dev="proc" ino=33070 scontext=u:r:storage_daemon:s0 tcontext=u:r:kernel:s0 tclass=lnk_file permissive=1
@@ -195,9 +207,11 @@ allow storage_daemon sys_file:file { getattr read };
 allow storage_daemon storage_manager:binder { call };
 
 #avc:  denied  { read } for  pid=241 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:system_core_hap:s0 tclass=file permissive=1
-allow storage_daemon system_core_hap:file { read };
+allow storage_daemon system_core_hap:file { open read };
 #avc:  denied  { search } for  pid=241 comm="storage_daemon" name="1875" dev="proc" ino=28270 scontext=u:r:storage_daemon:s0 tcontext=u:r:system_core_hap:s0 tclass=dir permissive=1
 allow storage_daemon system_core_hap:dir { search };
+#avc:  denied  { read } for  pid=254 comm="storage_daemon" name="cwd" dev="proc" ino=52653 scontext=u:r:storage_daemon:s0 tcontext=u:r:system_core_hap:s0 tclass=lnk_file permissive=0
+allow storage_daemon system_core_hap:lnk_file { read };
 
 #avc:  denied  { read } for  pid=254 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=netlink_kobject_uevent_socket permissive=1
 allow storage_daemon storage_daemon:netlink_kobject_uevent_socket { read };
@@ -213,3 +227,10 @@ allow storage_daemon storage_daemon:capability { mknod dac_read_search sys_ptrac
 
 #avc:  denied  { remove_name } for  pid=256 comm="storage_daemon" name="F7BC-FF57" dev="tmpfs" ino=406 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 allow storage_daemon tmpfs:dir { remove_name rmdir };
+
+#avc:  denied  { search } for  pid=259 comm="storage_daemon" name="235" dev="proc" ino=36779 scontext=u:r:storage_daemon:s0 tcontext=u:r:watchdog_service:s0 tclass=dir permissive=0
+#avc:  denied  { open } for  pid=257 comm="storage_daemon" path="/proc/237/maps" dev="proc" ino=43261 scontext=u:r:storage_daemon:s0 tcontext=u:r:watchdog_service:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=257 comm="storage_daemon" name="cwd" dev="proc" ino=43262 scontext=u:r:storage_daemon:s0 tcontext=u:r:watchdog_service:s0 tclass=lnk_file permissive=0
+allow storage_daemon watchdog_service:dir { search read open };
+allow storage_daemon watchdog_service:file { open };
+allow storage_daemon watchdog_service:lnk_file { read };

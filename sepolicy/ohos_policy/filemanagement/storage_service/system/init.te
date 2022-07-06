@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap sa_distributeddata_service:samgr_class { get };
-allow system_basic_hap sa_huks_service:samgr_class { get };
-allow system_basic_hap system_core_hap:binder { call };
+allow init sa_storage_manager_daemon:samgr_class { get };
+allow init sa_storage_manager_service:samgr_class { get };
+allow init storage_manager:binder { call };
+allow init storage_daemon:binder { call };
