@@ -26,6 +26,7 @@ allow system_core_hap const_postinstall_fstab_param:file { map open read };
 allow system_core_hap const_postinstall_param:file { map open read };
 allow system_core_hap const_product_param:file { map open read };
 allow system_core_hap data_service_el2_hmdfs:file { write };
+allow system_core_hap data_user_file:file { write };
 allow system_core_hap debug_param:file { map open read };
 allow system_core_hap default_param:file { map open read };
 allow system_core_hap dev_ashmem_file:chr_file { open };

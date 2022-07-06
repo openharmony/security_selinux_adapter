@@ -24,6 +24,7 @@ allow processdump const_postinstall_param:file { map open read };
 allow processdump const_product_param:file { map open read };
 allow processdump debug_param:file { map open read };
 allow processdump default_param:file { map open read };
+allow processdump dev_kmsg_file:chr_file { open write };
 allow processdump distributedsche_param:file { map open read };
 allow processdump download_server:process { ptrace };
 allow processdump hilog_param:file { map open read };

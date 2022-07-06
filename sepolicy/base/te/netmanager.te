@@ -51,6 +51,7 @@ allow netmanager net_param:file { map open read };
 allow netmanager netsysnative:binder { transfer };
 allow netmanager netsysnative:unix_stream_socket { connectto };
 allow netmanager net_tcp_param:file { map open read };
+allow netmanager normal_hap:binder { call };
 allow netmanager ohos_boot_param:file { map open read };
 allow netmanager ohos_param:file { map open read };
 allow netmanager param_watcher:binder { call transfer };
