@@ -56,3 +56,4 @@ allow battery_stats system_usr_file:file { getattr map open read };
 allow battery_stats sys_usb_param:file { map open read };
 allow battery_stats tracefs:dir { search };
 allow battery_stats tracefs_trace_marker_file:file { open write };
+allow battery_stats vendor_etc_file:dir { search };

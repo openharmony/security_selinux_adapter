@@ -59,7 +59,7 @@ genfscon proc /vmallocinfo  u:object_r:proc_vmallocinfo_file:s0
 genfscon proc /vmstat  u:object_r:proc_vmstat_file:s0
 genfscon proc /zoneinfo  u:object_r:proc_zoneinfo_file:s0
 genfscon proc /sys/kernel/random/boot_id  u:object_r:proc_boot_id:s0
-
+genfscon proc /sys/fs/inotify/max_user_watches  u:object_r:proc_max_user_watches:s0
 
 genfscon selinuxfs / u:object_r:selinuxfs:s0
 

@@ -65,6 +65,8 @@ allow locationhub startup_param:file { map open read };
 allow locationhub sys_param:file { map open read };
 allow locationhub system_basic_hap:binder { call };
 allow locationhub system_bin_file:dir { search };
+allow locationhub system_usr_file:dir { search };
+allow locationhub system_usr_file:file { getattr map open read };
 allow locationhub sys_usb_param:file { map open read };
 allow locationhub tracefs:dir { search };
 allow locationhub tracefs_trace_marker_file:file { open write };

@@ -61,7 +61,7 @@ allow init data_applib:dir { getattr open read relabelto setattr };
 allow init data_appprivate:dir { getattr open read relabelto setattr };
 allow init data_appstaging:dir { getattr open read relabelto setattr };
 allow init data_backup:dir { getattr open read relabelto setattr };
-allow init data_bluetooth:dir { getattr open read relabelto search setattr };
+allow init data_bluetooth:dir { getattr open read relabelto search setattr add_name create write };
 allow init data_bootchart:dir { getattr open read relabelto setattr };
 allow init data_cache:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_chipset_el1_file:dir { add_name create getattr open read relabelto search setattr write };
@@ -106,7 +106,7 @@ allow init data_service_el2_file:dir { add_name create getattr open read relabel
 allow init data_service_el2_hmdfs:dir { getattr open read relabelto setattr };
 allow init data_service_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_ss:dir { getattr open read relabelto setattr };
-allow init data_storage:dir { getattr setattr };
+allow init data_storage:dir { getattr open read relabelto setattr };
 allow init data_system_ce:dir { getattr open read relabelto setattr };
 allow init data_system_de:dir { getattr open read relabelto setattr };
 allow init data_system:dir { add_name create getattr open read relabelto search setattr write };
