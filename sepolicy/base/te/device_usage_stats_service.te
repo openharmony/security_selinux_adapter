@@ -52,6 +52,7 @@ allow device_usage_stats_service sa_time_service:samgr_class { get };
 allow device_usage_stats_service security_param:file { map open read };
 allow device_usage_stats_service startup_param:file { map open read };
 allow device_usage_stats_service sys_file:file { open read };
+allow device_usage_stats_service sysfs_hctosys:file { open read };
 allow device_usage_stats_service sysfs_rtc:dir { open read };
 allow device_usage_stats_service sys_param:file { map open read };
 allow device_usage_stats_service sys_usb_param:file { map open read };

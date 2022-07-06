@@ -50,6 +50,7 @@ allow thermal security_param:file { map open read };
 allow thermal startup_param:file { map open read };
 allow thermal sys_file:dir { open read };
 allow thermal sys_file:file { open read };
+allow thermal sysfs_hctosys:file { open read };
 allow thermal sysfs_rtc:dir { open read };
 allow thermal sys_param:file { map open read };
 allow thermal system_bin_file:dir { search };

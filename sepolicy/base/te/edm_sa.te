@@ -49,6 +49,7 @@ allow edm_sa sa_param_watcher:samgr_class { get };
 allow edm_sa security_param:file { map open read };
 allow edm_sa startup_param:file { map open read };
 allow edm_sa sys_file:file { open read };
+allow edm_sa sysfs_hctosys:file { open read };
 allow edm_sa sysfs_rtc:dir { open read };
 allow edm_sa sys_param:file { map open read };
 allow edm_sa system_bin_file:dir { search };

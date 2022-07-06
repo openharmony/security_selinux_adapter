@@ -63,6 +63,7 @@ allow system_core_hap ohos_param:file { map open read };
 allow system_core_hap persist_param:file { map open read };
 allow system_core_hap persist_sys_param:file { map open read };
 allow system_core_hap port:udp_socket { name_bind };
+allow system_core_hap proc_boot_id:file { open read };
 allow system_core_hap proc_cpuinfo_file:file { open read };
 allow system_core_hap proc_file:file { open read };
 allow system_core_hap render_service:unix_stream_socket { read read write write };

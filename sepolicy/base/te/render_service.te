@@ -48,6 +48,7 @@ allow render_service ohos_param:file { map open read };
 allow render_service param_watcher:binder { call transfer };
 allow render_service persist_param:file { map open read };
 allow render_service persist_sys_param:file { map open read };
+allow render_service proc_boot_id:file { open read };
 allow render_service render_service:capability { sys_nice };
 allow render_service render_service:netlink_kobject_uevent_socket { bind create setopt };
 allow render_service sa_device_service_manager:samgr_class { get };

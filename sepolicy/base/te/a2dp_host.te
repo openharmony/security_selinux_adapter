@@ -27,6 +27,7 @@ allow a2dp_host debug_param:file { map open read };
 allow a2dp_host default_param:file { map open read };
 allow a2dp_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow a2dp_host dev_unix_socket:dir { search };
+allow a2dp_host distributedsche_param:file { map open read };
 allow a2dp_host hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { add };
 allow a2dp_host hdf_device_manager:hdf_devmgr_class { get };
 allow a2dp_host hdf_devmgr:binder { call transfer };

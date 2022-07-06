@@ -40,6 +40,7 @@ allow samgr ohos_boot_param:file { map open read };
 allow samgr ohos_param:file { map open read };
 allow samgr persist_param:file { map open read };
 allow samgr persist_sys_param:file { map open read };
+allow samgr processdump:binder { transfer };
 allow samgr processdump:dir { search };
 allow samgr processdump:file { open read };
 allow samgr processdump:process { getattr };
