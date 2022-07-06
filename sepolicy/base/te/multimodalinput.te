@@ -34,6 +34,7 @@ allow multimodalinput default_param:file { map open read };
 allow multimodalinput dev_input_file:chr_file { getattr ioctl open read write };
 allow multimodalinput dev_input_file:dir { search };
 allow multimodalinput dev_kmsg_file:chr_file { open write };
+allow multimodalinput distributedsche_param:file { map open read };
 allow multimodalinput hilog_param:file { map open read };
 allow multimodalinput hw_sc_build_os_param:file { map open read };
 allow multimodalinput hw_sc_build_param:file { map open read };

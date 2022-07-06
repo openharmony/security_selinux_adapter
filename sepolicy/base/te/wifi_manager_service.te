@@ -30,6 +30,7 @@ allow wifi_manager_service data_misc:sock_file { write };
 allow wifi_manager_service debug_param:file { map open read };
 allow wifi_manager_service default_param:file { map open read };
 allow wifi_manager_service dev_unix_socket:dir { search };
+allow wifi_manager_service distributedsche_param:file { map open read };
 allow wifi_manager_service hilog_param:file { map open read };
 allow wifi_manager_service hw_sc_build_os_param:file { map open read };
 allow wifi_manager_service hw_sc_build_param:file { map open read };

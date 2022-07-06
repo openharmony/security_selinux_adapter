@@ -33,3 +33,4 @@ binder_call(device_usage_stats_service, system_basic_hap);
 binder_call(device_usage_stats_service, system_core_hap);
 binder_call(device_usage_stats_service, time_service);
 binder_call(system_core_hap, device_usage_stats_service);
+binder_call(system_basic_hap, device_usage_stats_service);

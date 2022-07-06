@@ -25,6 +25,7 @@ allow audio_policy const_product_param:file { map open read };
 allow audio_policy debug_param:file { map open read };
 allow audio_policy default_param:file { map open read };
 allow audio_policy dev_kmsg_file:chr_file { open write };
+allow audio_policy distributedsche_param:file { map open read };
 allow audio_policy hilog_param:file { map open read };
 allow audio_policy hw_sc_build_os_param:file { map open read };
 allow audio_policy hw_sc_build_param:file { map open read };

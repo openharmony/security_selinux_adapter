@@ -24,6 +24,7 @@ allow usb_host const_postinstall_param:file { map open read };
 allow usb_host const_product_param:file { map open read };
 allow usb_host debug_param:file { map open read };
 allow usb_host default_param:file { map open read };
+allow usb_host distributedsche_param:file { map open read };
 allow usb_host hilog_param:file { map open read };
 allow usb_host hw_sc_build_os_param:file { map open read };
 allow usb_host hw_sc_build_param:file { map open read };

@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type debugfs_usb,file_attr,sysfs_attr;
+type debugfs_usb, fs_attr, debugfs_attr;
 
 #avc:  denied  { get } for service=hdf_device_manager pid=343 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
 #avc:  denied  { add } for service=codec_hdi_omx_service pid=343 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_codec_hdi_omx_service:s0 tclass=hdf_devmgr_class

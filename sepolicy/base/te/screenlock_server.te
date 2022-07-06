@@ -24,6 +24,7 @@ allow screenlock_server const_postinstall_param:file { map open read };
 allow screenlock_server const_product_param:file { map open read };
 allow screenlock_server debug_param:file { map open read };
 allow screenlock_server default_param:file { map open read };
+allow screenlock_server distributedsche_param:file { map open read };
 allow screenlock_server foundation:binder { call transfer };
 allow screenlock_server hilog_param:file { map open read };
 allow screenlock_server hw_sc_build_os_param:file { map open read };

@@ -27,6 +27,7 @@ allow codec_host debug_param:file { map open read };
 allow codec_host default_param:file { map open read };
 allow codec_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow codec_host dev_unix_socket:dir { search };
+allow codec_host distributedsche_param:file { map open read };
 allow codec_host hdf_codec_hdi_service:hdf_devmgr_class { add };
 allow codec_host hdf_devmgr:binder { call transfer };
 allow codec_host hilog_param:file { map open read };

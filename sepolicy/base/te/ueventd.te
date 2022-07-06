@@ -108,6 +108,7 @@ allow ueventd dev_video_file:chr_file { relabelto };
 allow ueventd dev_vndbinder_file:chr_file { relabelto };
 allow ueventd dev_watchdog_file:chr_file { relabelto };
 allow ueventd dev_zero_file:chr_file { relabelto };
+allow ueventd distributedsche_param:file { map open read };
 allow ueventd hilog_param:file { map open read };
 allow ueventd hw_sc_build_os_param:file { map open read };
 allow ueventd hw_sc_build_param:file { map open read };

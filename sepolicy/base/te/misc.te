@@ -29,6 +29,7 @@ allow misc dev_block_file:dir { search };
 allow misc dev_block_file:lnk_file { read };
 allow misc dev_block_volfile:dir { search };
 allow misc dev_unix_socket:dir { search };
+allow misc distributedsche_param:file { map open read };
 allow misc hilog_param:file { map open read };
 allow misc hw_sc_build_os_param:file { map open read };
 allow misc hw_sc_build_param:file { map open read };

@@ -14,3 +14,5 @@
 neverallow * ueventd:process ptrace;
 
 neverallow ueventd dev_port:chr_file ~{ getattr create setattr unlink relabelto };
+
+neverallow ueventd { file_attr fs_attr -processdump_exec }:file execute_no_trans;

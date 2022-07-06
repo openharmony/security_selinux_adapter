@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow { domain -samgr -foundation -storage_manager } installs:binder call;
+neverallow { domain -samgr -foundation -storage_manager -hidumper_service } installs:binder call;
 
 neverallow installs { domain -samgr }:binder call;

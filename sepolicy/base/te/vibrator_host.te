@@ -26,6 +26,7 @@ allow vibrator_host debug_param:file { map open read };
 allow vibrator_host default_param:file { map open read };
 allow vibrator_host dev_hdf_kevent:chr_file { getattr };
 allow vibrator_host dev_unix_socket:dir { search };
+allow vibrator_host distributedsche_param:file { map open read };
 allow vibrator_host hdf_devmgr:binder { call transfer };
 allow vibrator_host hilog_param:file { map open read };
 allow vibrator_host hw_sc_build_os_param:file { map open read };

@@ -27,6 +27,7 @@ allow audio_hdi_server_host debug_param:file { map open read };
 allow audio_hdi_server_host default_param:file { map open read };
 allow audio_hdi_server_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow audio_hdi_server_host dev_input_file:dir { search };
+allow audio_hdi_server_host distributedsche_param:file { map open read };
 allow audio_hdi_server_host hdf_audio_hdi_pnp_service:hdf_devmgr_class { add };
 allow audio_hdi_server_host hilog_param:file { map open read };
 allow audio_hdi_server_host hw_sc_build_os_param:file { map open read };

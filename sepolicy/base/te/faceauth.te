@@ -25,6 +25,7 @@ allow faceauth const_product_param:file { map open read };
 allow faceauth debug_param:file { map open read };
 allow faceauth default_param:file { map open read };
 allow faceauth dev_unix_socket:dir { search };
+allow faceauth distributedsche_param:file { map open read };
 allow faceauth face_auth_host:binder { call transfer };
 allow faceauth hdf_devmgr:binder { call transfer };
 allow faceauth hilog_param:file { map open read };

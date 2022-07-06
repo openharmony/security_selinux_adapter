@@ -25,6 +25,7 @@ allow sensors const_product_param:file { map open read };
 allow sensors debug_param:file { map open read };
 allow sensors default_param:file { map open read };
 allow sensors dev_unix_socket:dir { search };
+allow sensors distributedsche_param:file { map open read };
 allow sensors hdf_devmgr:binder { call };
 allow sensors hilog_param:file { map open read };
 allow sensors hw_sc_build_os_param:file { map open read };

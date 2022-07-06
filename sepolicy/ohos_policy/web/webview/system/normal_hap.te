@@ -190,7 +190,7 @@ allow normal_hap system_etc_file:dir { watch };
 
 #avc:  denied  { read } for  pid=4884 comm="com.example.web" name="midr_el1" dev="sysfs" ino=15102 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=4884 comm="com.example.web" path="/sys/devices/system/cpu/cpu0/regs/identification/midr_el1" dev="sysfs" ino=15102 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
-allow normal_hap sys_file:file { read open };
+allow normal_hap sysfs_devices_system_cpu:file { read open };
 
 #avc:  denied  { mounton } for  pid=4914 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/config" dev="configfs" ino=14342 scontext=u:r:normal_hap:s0 tcontext=u:object_r:configfs:s0 tclass=dir permissive=1
 allow normal_hap configfs:dir { mounton };

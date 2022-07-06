@@ -25,6 +25,7 @@ allow fms_service const_product_param:file { map open read };
 allow fms_service debug_param:file { map open read };
 allow fms_service default_param:file { map open read };
 allow fms_service dev_unix_socket:dir { search };
+allow fms_service distributedsche_param:file { map open read };
 allow fms_service foundation:binder { call transfer };
 allow fms_service hilog_param:file { map open read };
 allow fms_service hw_sc_build_os_param:file { map open read };

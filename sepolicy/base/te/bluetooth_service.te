@@ -33,6 +33,7 @@ allow bluetooth_service data_log:file { create ioctl open read rename write writ
 allow bluetooth_service debug_param:file { map open read };
 allow bluetooth_service default_param:file { map open read };
 allow bluetooth_service dev_unix_socket:dir { search };
+allow bluetooth_service distributedsche_param:file { map open read };
 allow bluetooth_service foundation:binder { call transfer };
 allow bluetooth_service hdf_devmgr:binder { call };
 allow bluetooth_service hilog_param:file { map open read };

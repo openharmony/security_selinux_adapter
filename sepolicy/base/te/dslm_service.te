@@ -26,6 +26,7 @@ allow dslm_service debug_param:file { map open read };
 allow dslm_service default_param:file { map open read };
 allow dslm_service distributeddata:binder { call };
 allow dslm_service distributedfiledaemon:binder { call };
+allow dslm_service distributedsche_param:file { map open read };
 allow dslm_service hilog_param:file { map open read };
 allow dslm_service hw_sc_build_os_param:file { map open read };
 allow dslm_service hw_sc_build_param:file { map open read };

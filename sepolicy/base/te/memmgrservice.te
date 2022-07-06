@@ -24,6 +24,7 @@ allow memmgrservice const_postinstall_param:file { map open read };
 allow memmgrservice const_product_param:file { map open read };
 allow memmgrservice debug_param:file { map open read };
 allow memmgrservice default_param:file { map open read };
+allow memmgrservice distributedsche_param:file { map open read };
 allow memmgrservice hilog_param:file { map open read };
 allow memmgrservice hw_sc_build_os_param:file { map open read };
 allow memmgrservice hw_sc_build_param:file { map open read };

@@ -26,6 +26,7 @@ allow fingerprint_auth_host debug_param:file { map open read };
 allow fingerprint_auth_host default_param:file { map open read };
 allow fingerprint_auth_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow fingerprint_auth_host dev_unix_socket:dir { search };
+allow fingerprint_auth_host distributedsche_param:file { map open read };
 allow fingerprint_auth_host fingerprint_auth_host:capability { dac_override };
 allow fingerprint_auth_host hdf_devmgr:binder { call transfer };
 allow fingerprint_auth_host hilog_param:file { map open read };

@@ -26,6 +26,7 @@ allow wifi_host debug_param:file { map open read };
 allow wifi_host default_param:file { map open read };
 allow wifi_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow wifi_host dev_unix_socket:dir { search };
+allow wifi_host distributedsche_param:file { map open read };
 allow wifi_host hdf_devmgr:binder { call transfer };
 allow wifi_host hdf_wlan_hal_c_service:hdf_devmgr_class { add };
 allow wifi_host hilog_param:file { map open read };

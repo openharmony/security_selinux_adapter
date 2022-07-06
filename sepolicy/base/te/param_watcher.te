@@ -41,6 +41,7 @@ allow param_watcher dhardware:binder { call };
 allow param_watcher distributeddata:binder { call };
 allow param_watcher distributedfiledaemon:binder { call };
 allow param_watcher distributedsche:binder { call };
+allow param_watcher distributedsche_param:file { map open read };
 allow param_watcher download_server:binder { call };
 allow param_watcher dscreen:binder { call };
 allow param_watcher dslm_service:binder { call };

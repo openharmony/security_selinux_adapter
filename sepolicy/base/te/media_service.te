@@ -35,6 +35,7 @@ allow media_service dev_dri_file:chr_file { getattr ioctl open read write };
 allow media_service dev_dri_file:dir { search };
 allow media_service dev_unix_socket:dir { search };
 allow media_service dhardware:binder { call transfer };
+allow media_service distributedsche_param:file { map open read };
 allow media_service disp_gralloc_host:binder { call };
 allow media_service disp_gralloc_host:fd { use };
 allow media_service dscreen:binder { call transfer };

@@ -164,7 +164,6 @@
 /data/service/el0(/.*)?       u:object_r:data_service_el0_file:s0
 /data/service/el1(/.*)?       u:object_r:data_service_el1_file:s0
 /data/service/el2(/.*)?       u:object_r:data_service_el2_file:s0
-/data/service/el2/[0-9]+/hmdfs/account/files(/.*)?       u:object_r:data_user_file:s0
 /data/chipset(/.*)?           u:object_r:data_chipset_file:s0
 /data/chipset/el1(/.*)?       u:object_r:data_chipset_el1_file:s0
 /data/chipset/el2(/.*)?       u:object_r:data_chipset_el2_file:s0
@@ -224,6 +223,7 @@
 /vendor/lib64(/.*)?       u:object_r:vendor_lib_file:s0
 /vendor/etc(/.*)?       u:object_r:vendor_etc_file:s0
 
+/system/bin/init                u:object_r:init_exec:s0
 
 /system/bin/watchdog_service        u:object_r:watchdog_service_exec:s0
 

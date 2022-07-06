@@ -24,6 +24,7 @@ allow msdp_sa const_postinstall_param:file { map open read };
 allow msdp_sa const_product_param:file { map open read };
 allow msdp_sa debug_param:file { map open read };
 allow msdp_sa default_param:file { map open read };
+allow msdp_sa distributedsche_param:file { map open read };
 allow msdp_sa foundation:binder { call };
 allow msdp_sa hilog_param:file { map open read };
 allow msdp_sa hw_sc_build_os_param:file { map open read };

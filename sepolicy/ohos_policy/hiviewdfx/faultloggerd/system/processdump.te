@@ -18,7 +18,7 @@ define(`use_processdump', `
     allow $1 processdump_exec:file { execute execute_no_trans getattr map open read };
 ')
 
-use_processdump({ domain -limit_domain -init })
+use_processdump({ domain -limit_domain -init -kernel })
 
 ########################
 ## processdump rules: ##

@@ -15,6 +15,8 @@ allow sadomain samain_exec:file read_file_perms;
 allow sadomain samain_exec:file { entrypoint execute };
 allow sadomain samgr:binder { call transfer };
 
+allow sadomain system_profile_file:file read_file_perms;
+
 
 # neverallow
 # only samgr can be the mgr for binder.

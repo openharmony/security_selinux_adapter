@@ -24,6 +24,7 @@ allow resource_schedule_service const_postinstall_param:file { map open read };
 allow resource_schedule_service const_product_param:file { map open read };
 allow resource_schedule_service debug_param:file { map open read };
 allow resource_schedule_service default_param:file { map open read };
+allow resource_schedule_service distributedsche_param:file { map open read };
 allow resource_schedule_service hilog_param:file { map open read };
 allow resource_schedule_service hw_sc_build_os_param:file { map open read };
 allow resource_schedule_service hw_sc_build_param:file { map open read };

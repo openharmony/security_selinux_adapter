@@ -30,6 +30,7 @@ allow netmanager data_log:file { read write };
 allow netmanager data_system:file { create getattr read write open };
 allow netmanager debug_param:file { map open read };
 allow netmanager default_param:file { map open read };
+allow netmanager distributedsche_param:file { map open read };
 allow netmanager dev_file:sock_file { write };
 allow netmanager dev_unix_socket:sock_file { write };
 allow netmanager faultloggerd:fd { use };

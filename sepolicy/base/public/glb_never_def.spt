@@ -14,4 +14,5 @@
 define(`never_write_file', `{ append create link unlink relabelfrom rename setattr write }')
 define(`never_rw_file', `{ never_write_file open read ioctl lock watch watch_mount watch_sb watch_with_perm watch_reads }')
 define(`never_execute_file', `{ execute execute_no_trans}')
+define(`never_rwx_file', `{ never_rw_file never_execute_file }')
 define(`never_write_dir', `{ add_name create link relabelfrom remove_name rename reparent rmdir setattr write }')

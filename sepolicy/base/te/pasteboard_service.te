@@ -24,6 +24,7 @@ allow pasteboard_service const_postinstall_param:file { map open read };
 allow pasteboard_service const_product_param:file { map open read };
 allow pasteboard_service debug_param:file { map open read };
 allow pasteboard_service default_param:file { map open read };
+allow pasteboard_service distributedsche_param:file { map open read };
 allow pasteboard_service hilog_param:file { map open read };
 allow pasteboard_service hw_sc_build_os_param:file { map open read };
 allow pasteboard_service hw_sc_build_param:file { map open read };

@@ -27,6 +27,7 @@ allow input_user_host default_param:file { map open read };
 allow input_user_host dev_hdf_file:chr_file { getattr ioctl open read write };
 allow input_user_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow input_user_host dev_unix_socket:dir { search };
+allow input_user_host distributedsche_param:file { map open read };
 allow input_user_host hdf_devmgr:binder { call transfer };
 allow input_user_host hilog_param:file { map open read };
 allow input_user_host hw_sc_build_os_param:file { map open read };

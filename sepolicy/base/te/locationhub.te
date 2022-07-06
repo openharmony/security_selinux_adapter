@@ -29,6 +29,7 @@ allow locationhub data_file:file { create getattr ioctl open read write open };
 allow locationhub debug_param:file { map open read };
 allow locationhub default_param:file { map open read };
 allow locationhub dev_unix_socket:dir { search };
+allow locationhub distributedsche_param:file { map open read };
 allow locationhub foundation:binder { call transfer };
 allow locationhub hdf_agnss_interface_service:hdf_devmgr_class { get };
 allow locationhub hdf_devmgr:binder { call };

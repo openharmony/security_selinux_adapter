@@ -25,6 +25,7 @@ allow udevadm const_product_param:file { map open read };
 allow udevadm debug_param:file { map open read };
 allow udevadm default_param:file { map open read };
 allow udevadm dev_unix_socket:dir { search };
+allow udevadm distributedsche_param:file { map open read };
 allow udevadm hilog_param:file { map open read };
 allow udevadm hw_sc_build_os_param:file { map open read };
 allow udevadm hw_sc_build_param:file { map open read };

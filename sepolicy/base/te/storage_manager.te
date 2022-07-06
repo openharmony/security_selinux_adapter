@@ -25,6 +25,7 @@ allow storage_manager const_product_param:file { map open read };
 allow storage_manager debug_param:file { map open read };
 allow storage_manager default_param:file { map open read };
 allow storage_manager dev_unix_socket:dir { search };
+allow storage_manager distributedsche_param:file { map open read };
 allow storage_manager foundation:binder { call transfer };
 allow storage_manager hilog_param:file { map open read };
 allow storage_manager hw_sc_build_os_param:file { map open read };

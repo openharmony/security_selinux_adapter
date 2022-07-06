@@ -30,6 +30,7 @@ allow user_auth_host debug_param:file { map open read };
 allow user_auth_host default_param:file { map open read };
 allow user_auth_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow user_auth_host dev_unix_socket:dir { search };
+allow user_auth_host distributedsche_param:file { map open read };
 allow user_auth_host hdf_devmgr:binder { call transfer };
 allow user_auth_host hilog_param:file { map open read };
 allow user_auth_host hw_sc_build_os_param:file { map open read };

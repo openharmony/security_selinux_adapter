@@ -51,3 +51,9 @@ allow hdf_devmgr telephony_sa:process { getattr };
 #avc:  denied  { ioctl } for  pid=245 comm="hdf_devmgr" path="/dev/hdf_kevent" dev="tmpfs" ino=199 ioctlcmd=0x6202 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=1
 allow hdf_devmgr dev_hdf_kevent:chr_file { ioctl };
 allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 };
+
+#avc:  denied  { create } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { setopt } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { bind } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { read } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow hdf_devmgr hdf_devmgr:netlink_kobject_uevent_socket { create bind setopt read };

@@ -24,6 +24,7 @@ allow usbfnMaster_host const_postinstall_param:file { map open read };
 allow usbfnMaster_host const_product_param:file { map open read };
 allow usbfnMaster_host debug_param:file { map open read };
 allow usbfnMaster_host default_param:file { map open read };
+allow usbfnMaster_host distributedsche_param:file { map open read };
 allow usbfnMaster_host hilog_param:file { map open read };
 allow usbfnMaster_host hw_sc_build_os_param:file { map open read };
 allow usbfnMaster_host hw_sc_build_param:file { map open read };

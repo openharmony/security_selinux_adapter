@@ -28,6 +28,7 @@ allow ispserver dev_media_file:chr_file { ioctl open read read write write };
 allow ispserver dev_unix_socket:dir { search };
 allow ispserver dev_v_file:chr_file { getattr ioctl open read write };
 allow ispserver dev_video_file:chr_file { getattr ioctl map open read write };
+allow ispserver distributedsche_param:file { map open read };
 allow ispserver hilog_param:file { map open read };
 allow ispserver hw_sc_build_os_param:file { map open read };
 allow ispserver hw_sc_build_param:file { map open read };

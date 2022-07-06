@@ -23,6 +23,8 @@ allow netmanager data_system:dir { add_name search write };
 allow netmanager dev_unix_socket:dir { search };
 allow netmanager download_server:binder { call };
 allow netmanager foundation:binder { call transfer };
+allow netmanager netmanager:capability { net_admin };
+allow netmanager netmanager:capability { net_raw };
 allow netmanager netmanager:netlink_route_socket { create nlmsg_read read write };
 allow netmanager netmanager:packet_socket { bind create read write };
 allow netmanager netmanager:tcp_socket { connect create getattr getopt read setopt write };

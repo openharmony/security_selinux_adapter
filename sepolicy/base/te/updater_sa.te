@@ -30,6 +30,7 @@ allow updater_sa dev_block_file:dir { search };
 allow updater_sa dev_block_file:lnk_file { read };
 allow updater_sa dev_block_volfile:dir { search };
 allow updater_sa dev_unix_socket:dir { search };
+allow updater_sa distributedsche_param:file { map open read };
 allow updater_sa hilog_param:file { map open read };
 allow updater_sa hw_sc_build_os_param:file { map open read };
 allow updater_sa hw_sc_build_param:file { map open read };

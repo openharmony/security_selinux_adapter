@@ -40,6 +40,7 @@ allow softbus_server dhardware:binder { call };
 allow softbus_server distributeddata:binder { call };
 allow softbus_server distributedfiledaemon:binder { call };
 allow softbus_server distributedsche:binder { call };
+allow softbus_server distributedsche_param:file { map open read };
 allow softbus_server dslm_service:binder { call };
 allow softbus_server faultloggerd:fd { use };
 allow softbus_server faultloggerd:unix_stream_socket { connectto };

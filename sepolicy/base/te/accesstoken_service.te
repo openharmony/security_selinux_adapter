@@ -30,6 +30,7 @@ allow accesstoken_service data_service_el1_file:file { create getattr ioctl lock
 allow accesstoken_service data_service_file:dir { search };
 allow accesstoken_service debug_param:file { map open read };
 allow accesstoken_service default_param:file { map open read };
+allow accesstoken_service distributedsche_param:file { map open read };
 allow accesstoken_service hilog_param:file { map open read };
 allow accesstoken_service hw_sc_build_os_param:file { map open read };
 allow accesstoken_service hw_sc_build_param:file { map open read };

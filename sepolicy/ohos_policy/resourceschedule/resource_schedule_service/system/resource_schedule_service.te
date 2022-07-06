@@ -25,7 +25,10 @@ allow resource_schedule_service cgroup:file { getattr open write };
 #vendor
 allow resource_schedule_service vendor_lib_file:dir { search };
 allow resource_schedule_service vendor_lib_file:file { execute getattr map open read };
+allow resource_schedule_service vendor_file:dir { search };
 allow resource_schedule_service vendor_file:file { execute getattr map open read };
+allow resource_schedule_service vendor_etc_file:dir { search };
+allow resource_schedule_service vendor_etc_file:file { getattr map open read };
 #system
 allow resource_schedule_service system_basic_hap:process { setsched };
 allow resource_schedule_service system_bin_file:dir { search };
@@ -33,6 +36,10 @@ allow resource_schedule_service system_bin_file:file { execute read open };
 allow resource_schedule_service system_core_hap:process { setsched };
 allow resource_schedule_service system_usr_file:dir { search map };
 allow resource_schedule_service system_usr_file:file { getattr read };
+allow resource_schedule_service system_lib_file:dir { search };
+allow resource_schedule_service system_lib_file:file { getattr map open read };
+allow resource_schedule_service system_etc_file:dir { search };
+allow resource_schedule_service system_etc_file:file { getattr map open read };
 #tracefs
 allow resource_schedule_service tracefs:dir { search };
 allow resource_schedule_service tracefs_trace_marker_file:file { open write };

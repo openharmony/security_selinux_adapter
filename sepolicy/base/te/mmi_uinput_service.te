@@ -27,6 +27,7 @@ allow mmi_uinput_service default_param:file { map open read };
 allow mmi_uinput_service dev_hdf_input:chr_file { getattr ioctl open read write };
 allow mmi_uinput_service dev_uinput:chr_file { ioctl open write };
 allow mmi_uinput_service dev_unix_socket:dir { search };
+allow mmi_uinput_service distributedsche_param:file { map open read };
 allow mmi_uinput_service hilog_param:file { map open read };
 allow mmi_uinput_service hw_sc_build_os_param:file { map open read };
 allow mmi_uinput_service hw_sc_build_param:file { map open read };

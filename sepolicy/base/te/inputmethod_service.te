@@ -24,6 +24,7 @@ allow inputmethod_service const_postinstall_param:file { map open read };
 allow inputmethod_service const_product_param:file { map open read };
 allow inputmethod_service debug_param:file { map open read };
 allow inputmethod_service default_param:file { map open read };
+allow inputmethod_service distributedsche_param:file { map open read };
 allow inputmethod_service foundation:binder { call transfer };
 allow inputmethod_service hilog_param:file { map open read };
 allow inputmethod_service hw_sc_build_os_param:file { map open read };

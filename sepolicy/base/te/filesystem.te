@@ -25,6 +25,7 @@ allow const_product_param tmpfs:filesystem { associate };
 allow debug_param tmpfs:filesystem { associate };
 allow default_param tmpfs:filesystem { associate };
 allow dev_pts_file devpts:filesystem { associate };
+allow distributedsche_param tmpfs:filesystem { associate };
 allow hilog_param tmpfs:filesystem { associate };
 allow hw_sc_build_os_param tmpfs:filesystem { associate };
 allow hw_sc_build_param tmpfs:filesystem { associate };

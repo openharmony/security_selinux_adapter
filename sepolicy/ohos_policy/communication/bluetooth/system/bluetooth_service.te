@@ -57,3 +57,6 @@ allow bluetooth_service sa_foundation_tel_call_manager:samgr_class { get };
 
 #avc:  denied  { get } for pid=279 scontext=u:r:bluetooth_service:s0 tcontext=u:r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 allow bluetooth_service hdf_device_manager:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=1130 pid=8861 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=1
+allow system_core_hap sa_bluetooth_server:samgr_class { get };

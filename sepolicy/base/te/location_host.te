@@ -26,6 +26,7 @@ allow location_host debug_param:file { map open read };
 allow location_host default_param:file { map open read };
 allow location_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow location_host dev_unix_socket:dir { search };
+allow location_host distributedsche_param:file { map open read };
 allow location_host hdf_devmgr:binder { call transfer };
 allow location_host hilog_param:file { map open read };
 allow location_host hw_sc_build_os_param:file { map open read };

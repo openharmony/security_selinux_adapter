@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow accountmgr accessibility:binder { transfer };
 allow accountmgr bootevent_param:file { map open read };
 allow accountmgr bootevent_samgr_param:file { map open read };
 allow accountmgr build_version_param:file { map open read };
@@ -27,6 +28,7 @@ allow accountmgr default_param:file { map open read };
 allow accountmgr deviceauth_service:binder { transfer };
 allow accountmgr distributeddata:binder { transfer };
 allow accountmgr distributedfiledaemon:binder { call transfer };
+allow accountmgr distributedsche_param:file { map open read };
 allow accountmgr hilog_param:file { map open read };
 allow accountmgr hiview:binder { transfer };
 allow accountmgr hw_sc_build_os_param:file { map open read };

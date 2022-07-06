@@ -26,6 +26,7 @@ allow console debug_param:file { map open read };
 allow console default_param:file { map open read };
 allow console dev_console_file:chr_file { getattr ioctl read write };
 allow console dev_unix_socket:dir { search };
+allow console distributedsche_param:file { map open read };
 allow console hilog_param:file { map open read };
 allow console hw_sc_build_os_param:file { map open read };
 allow console hw_sc_build_param:file { map open read };
