@@ -22,6 +22,7 @@ allow installs data_app_el2_file:dir { add_name create getattr open read remove_
 allow installs data_app_file:dir { search };
 allow installs data_file:dir { search };
 allow installs data_service_el1_file:dir { search };
+allow installs data_service_el1_file:file { setattr unlink };
 allow installs data_service_el2_file:dir { add_name create open read search setattr write };
 allow installs data_service_file:dir { search };
 allow installs dev_unix_socket:dir { search };
