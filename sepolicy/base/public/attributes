@@ -61,6 +61,10 @@ attribute data_file_attr;
 # i.e. /sys/firmware
 attribute sysfs_attr;
 
+# All types in the debugfs file system.
+# i.e. /sys/kernel/debug/*
+attribute debugfs_attr;
+
 # All types of parameters.
 # i.e. ohos_param
 attribute parameter_attr;

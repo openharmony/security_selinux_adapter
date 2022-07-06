@@ -27,3 +27,11 @@ neverallow appspawn data_cache:dir ~{ read_dir_perms };
 #neverallow appspawn hap_file_attr:dir ~getattr;
 
 neverallow { domain -appspawn -foundation } appspawn:unix_stream_socket connectto;
+
+neverallow appspawn { file_attr -processdump_exec }:file execute_no_trans;
+
+neverallow appspawn hap_file_attr:file { rw_file_perms exec_file_perms };
+
+neverallow appspawn data_cache:file ~{ read getattr };
+
+neverallow appspawn data_file_attr:file never_execute_file;

@@ -85,6 +85,7 @@ allow normal_hap sa_uri_permission_mgr_service:samgr_class { get };
 allow normal_hap security_param:file { map open read };
 allow normal_hap startup_param:file { map open read };
 allow normal_hap sysfs_devices_system_cpu:file { open read };
+allow normal_hap sysfs_hctosys:file { open read };
 allow normal_hap sysfs_rtc:dir { open read };
 allow normal_hap sys_param:file { map open read };
 allow normal_hap system_basic_hap:fd { use };

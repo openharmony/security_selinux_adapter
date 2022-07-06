@@ -52,6 +52,7 @@ allow bgtaskmgr_service sa_work_schedule_service:samgr_class { add };
 allow bgtaskmgr_service security_param:file { map open read };
 allow bgtaskmgr_service startup_param:file { map open read };
 allow bgtaskmgr_service sys_file:file { open read };
+allow bgtaskmgr_service sysfs_hctosys:file { open read };
 allow bgtaskmgr_service sysfs_rtc:dir { open read };
 allow bgtaskmgr_service sys_param:file { map open read };
 allow bgtaskmgr_service sys_usb_param:file { map open read };

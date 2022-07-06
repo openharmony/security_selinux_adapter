@@ -60,6 +60,7 @@ allow hiview sa_param_watcher:samgr_class { get };
 allow hiview sa_time_service:samgr_class { get };
 allow hiview security_param:file { map open read };
 allow hiview startup_param:file { map open read };
+allow hiview sysfs_hctosys:file { open read };
 allow hiview sysfs_rtc:dir { open read };
 allow hiview sys_param:file { map open read };
 allow hiview system_core_hap:dir { search };

@@ -32,7 +32,7 @@ allow storage_daemon data_chipset_file:dir { search };
 allow storage_daemon data_file:dir { search };
 allow storage_daemon data_service_el1_file:dir { add_name create getattr open read search setattr write };
 allow storage_daemon data_service_el2_file:dir { add_name create getattr open read relabelfrom search setattr write };
-allow storage_daemon data_service_el2_hmdfs:dir { add_name create getattr open read read open relabelto search setattr write };
+allow storage_daemon data_service_el2_hmdfs:dir { add_name create getattr open read read open relabelto relabelfrom search setattr write };
 allow storage_daemon data_service_el2_hmdfs:file { read read open write open };
 allow storage_daemon data_service_file:dir { search };
 allow storage_daemon data_user_file:dir { open read read open relabelto setattr };

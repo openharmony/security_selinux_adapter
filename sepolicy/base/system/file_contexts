@@ -223,6 +223,7 @@
 /vendor/lib64(/.*)?       u:object_r:vendor_lib_file:s0
 /vendor/etc(/.*)?       u:object_r:vendor_etc_file:s0
 
+/system/bin/init                u:object_r:init_exec:s0
 
 /system/bin/watchdog_service        u:object_r:watchdog_service_exec:s0
 

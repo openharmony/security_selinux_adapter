@@ -34,6 +34,7 @@ allow hap_domain data_app_el1_file:file { getattr map open read };
 allow hap_domain data_app_el2_file:dir search;
 allow hap_domain data_app_file:dir search;
 allow hap_domain data_file:dir { getattr open read  search };
+#to remove
 allow hap_domain data_file:file { create getattr ioctl lock map open read write rename setattr unlink write };
 allow hap_domain data_log:file { read write };
 
@@ -62,7 +63,9 @@ allow hap_domain hdf_devmgr:binder call;
 #neverallow hap_domain self:{ capability capability2 } *;
 
 #haps can't modify files of other domain.
-neverallow hap_domain { domain -hap_domain }:file { append create link unlink relabelfrom rename setattr write };
+neverallow hap_domain { domain -hap_domain }:file never_write_file;
+
+neverallow hap_domain { domain -hap_domain }:file never_rw_file;
 
 neverallow hap_domain vendor_file_attr:dir never_write_dir;
 #limit hap access vendor.
@@ -141,3 +144,22 @@ neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
 neverallow { domain -hap_domain -nwebspawn } data_file_attr:file { execute execute_no_trans };
+
+neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow hap_domain system_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+# limit access to /data/(*)? first level.todo
+#neverallow hap_domain data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow { domain -hap_domain -installs -appspawn -init -storage_daemon } hap_file_attr:dir_file_class_set { create unlink };
+
+neverallow { domain -installs } normal_hap_data_file:dir_file_class_set { relabelfrom relabelto };
+
+neverallow { hap_domain -system_basic_hap } data_app_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow hap_domain proc_file:dir_file_class_set write;
+
+neverallow * { file_attr -hap_file_attr }:file execmod;
+
+neverallow hap_domain exec_attr:file { create write setattr relabelfrom relabelto append unlink link rename };

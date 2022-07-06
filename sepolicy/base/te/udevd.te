@@ -109,6 +109,7 @@ allow udevd sysfs_block_file:file { open read };
 allow udevd sysfs_block_loop:file { open read };
 allow udevd sysfs_block_zram:file { open read };
 allow udevd sysfs_devices_system_cpu:file { getattr open read };
+allow udevd sysfs_hctosys:file { getattr open read };
 allow udevd sysfs_net:file { getattr open read };
 allow udevd sysfs_wakeup:file { getattr open read };
 allow udevd sys_param:file { map open read };

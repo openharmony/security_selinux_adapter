@@ -35,14 +35,14 @@ define(`rw_socket_perms', `{ ioctl read getattr write setattr append bind connec
 define(`create_socket_perms', `{ create rw_socket_perms }')
 
 # permission for dir
-define(`read_dir_perms', `{ getattr search open read lock ioctl }')
+define(`read_dir_perms', `{ getattr search open read lock ioctl watch watch_reads }')
 define(`rw_dir_perms', `{ open read getattr lock search ioctl add_name remove_name write }')
 define(`create_dir_perms',`{ create reparent rename rmdir setattr rw_dir_perms }')
 
 # permission for file
-define(`read_file_perms',`{ getattr open read lock ioctl map }')
-define(`exec_file_perms',`{ getattr open map read execute execute_no_trans }')
-define(`write_file_perms',`{ getattr open write append lock map }')
+define(`read_file_perms',`{ getattr open read lock ioctl map watch watch_reads }')
+define(`exec_file_perms',`{ getattr map execute execute_no_trans }')
+define(`write_file_perms',`{ open write append lock map }')
 define(`rw_file_perms',`{ write_file_perms read_file_perms }')
 define(`create_file_perms',`{ create rename setattr unlink rw_file_perms }')
 

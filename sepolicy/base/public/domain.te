@@ -63,7 +63,7 @@ allow domain { lib_file system_lib_file vendor_lib_file }:dir { search };
 allow { domain -limit_domain } { lib_file system_lib_file vendor_lib_file }:file { execute getattr map open read };
 allow domain { lib_file system_lib_file vendor_lib_file }:lnk_file { read };
 
-allow { domain -limit_domain } system_profile_file:file read_file_perms;
+
 allow domain system_profile_file:dir search;
 
 allow domain sysfs_attr:lnk_file { getattr read };
@@ -124,16 +124,20 @@ neverallow * self:memprotect mmap_zero;
 # only execute file with exec_attr & system_bin_file & vendor_bin_file ToDo delete vendor_file
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file -vendor_file -exec_attr -hap_file_attr }:file { execute execute_no_trans entrypoint };
 
+neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file entrypoint;
+
 # keep every process join the domain attribute.
 neverallow ~domain domain:process { transition dyntransition };
 
 # everyone should in { sadomain hdfdomain hap_domain nativedomain }
 neverallow domain { domain -init -sadomain -hdfdomain -hap_domain -nativedomain }:process { transition dyntransition };
 
-# keep every file join file_attr
+# keep file based type belong to file_attr , fs_attr, dev_attr, parameter_attr.
+# first label class
 neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr } :{ dir notdevfile_class_set } *;
 
-neverallow domain ~{ domain fs_attr dev_attr system_file_attr vendor_file_attr proc_attr sysfs_attr data_file_attr rootfs_file_attr parameter_attr }:{ file dir } *;
+# second level for file based label class
+neverallow domain ~{ domain fs_attr dev_attr parameter_attr system_file_attr vendor_file_attr sysfs_attr data_file_attr rootfs_file_attr  }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
@@ -183,6 +187,34 @@ neverallow { domain -init -storage_daemon -hdcd -appspawn -nwebspawn } *:filesys
 neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
 
 neverallow { domain -init -memmgrservice } { proc_attr sysfs_attr }:dir { add_name create link rename remove_name reparent rmdir write };
+
+neverallow { domain -init } debugfs_kprobes:file *;
+
+neverallow domain parameter_attr:file { ioctl lock };
+
+neverallow { domain -init } data_parameters:file { never_write_file never_execute_file };
+
+neverallow { domain -init } parameter_attr:file { never_write_file never_execute_file };
+
+neverallow { domain -init } dev_parameters_file:file { never_write_file never_execute_file };
+
+neverallow domain file_attr:file execmod;
+
+neverallow installs data_data_file:file ~{ read_file_perms relabelfrom unlink };
+
+neverallow domain debugfs_attr:file { execute execute_no_trans };
+
+neverallow { domain -memmgrservice } cgroup:file create;
+
+neverallow { domain -init -hidumper_service } debugfs:{ file lnk_file } never_rw_file;
+
+neverallow { domain -init -appspawn -nwebspawn -normal_hap } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
+
+neverallow { domain -samgr -init -installs -hap_domain -edm_sa -kernel -locationhub -multimodalinput
+             -power_host -thermal -udevd -sh -foundation -hdcd -audio_hdi_server_host } data_file:file never_write_file;
+
+neverallow { domain -hdcd -hap_domain -hidumper_service -installs -power_host -sh -hiprofilerd } data_local_tmp:file open;
+
 # limit capability use.
 # for exemption add rule like this:
 # neverallow { domain -init } self:capability chown;
