@@ -90,3 +90,8 @@ allow dhardware foundation:binder { call transfer };
 #avc:  denied  { transfer } for  pid=2154 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
 allow dhardware media_service:binder { call transfer };
 
+#avc:  denied  { read } for  pid=2507 comm="sa_main" name="u:object_r:distributedsche_param:s0" dev="tmpfs" ino=57 scontext=u:r:dhardware:s0 tcontext=u:object_r:distributedsche_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2507 comm="sa_main" path="/dev/__parameters__/u:object_r:distributedsche_param:s0" dev="tmpfs" ino=57 scontext=u:r:dhardware:s0 tcontext=u:object_r:distributedsche_param:s0 tclass=file permissive=
+#avc:  denied  { map } for  pid=2507 comm="sa_main" path="/dev/__parameters__/u:object_r:distributedsche_param:s0" dev="tmpfs" ino=57 scontext=u:r:dhardware:s0 tcontext=u:object_r:distributedsche_param:s0 tclass=file permissive=1
+allow dhardware distributedsche_param:file { read open map };
+
