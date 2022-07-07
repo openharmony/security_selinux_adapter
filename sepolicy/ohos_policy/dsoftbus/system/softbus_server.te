@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow softbus_server d-bms:binder { call };
 allow softbus_server sa_accesstoken_manager_service:samgr_class { get };
 allow softbus_server sa_accountmgr:samgr_class { get };
 allow softbus_server sa_bluetooth_server:samgr_class { get };
@@ -21,3 +22,4 @@ allow softbus_server sa_wifi_device_ability:samgr_class { get };
 allow softbus_server sa_wifi_hotspot_ability:samgr_class { get };
 allow softbus_server sa_wifi_p2p_ability:samgr_class { get };
 allow softbus_server sa_wifi_scan_ability:samgr_class { get };
+allow softbus_server sh:binder { call };
