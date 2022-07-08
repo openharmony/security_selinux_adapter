@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/system/bin/hidumper       u:object_r:hidumper_exec:s0
-
-/data/log/hidumper(/.*)?       u:object_r:hidumper_file:s0
+allow sh hidumper_file:dir { open read search };

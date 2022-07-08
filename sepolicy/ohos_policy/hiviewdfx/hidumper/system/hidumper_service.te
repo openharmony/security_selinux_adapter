@@ -75,7 +75,6 @@ allow hidumper_service init:file { getattr open read };
 allow hidumper_service init:lnk_file read;
 allow hidumper_service init:unix_stream_socket connectto;
 
-# allow hidumper_service installs:binder call;
 allow hidumper_service installs_exec:file { getattr map open read };
 
 allow hidumper_service kernel:dir { getattr open read search };
@@ -172,6 +171,7 @@ allow hidumper_service sa_foundation_displaymgr_service:samgr_class { get };
 allow hidumper_service sa_thermal_service:samgr_class { get };
 
 allow hidumper_service debugfs:file { getattr open read };
+allow hidumper_service dev_at_file:chr_file ioctl;
 allow hidumper_service dev_block_volfile:dir search;
 allow hidumper_service dev_console_file:chr_file getattr;
 allow hidumper_service devpts:chr_file getattr;
