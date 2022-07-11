@@ -38,6 +38,7 @@ allow samgr net_param:file { map open read };
 allow samgr net_tcp_param:file { map open read };
 allow samgr ohos_boot_param:file { map open read };
 allow samgr ohos_param:file { map open read };
+allow samgr ohos_param:parameter_service { set };
 allow samgr persist_param:file { map open read };
 allow samgr persist_sys_param:file { map open read };
 allow samgr processdump:binder { transfer };

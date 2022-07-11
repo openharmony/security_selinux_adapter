@@ -33,6 +33,7 @@ allow appspawn data_file:dir { add_name create mounton search write };
 allow appspawn data_service_el2_file:dir { search };
 allow appspawn data_service_el2_hmdfs:dir { search };
 allow appspawn data_service_file:dir { search };
+allow appspawn data_storage:dir { mounton };
 allow appspawn debug_param:file { map open read };
 allow appspawn default_param:file { map open read };
 allow appspawn dev_at_file:chr_file { ioctl };

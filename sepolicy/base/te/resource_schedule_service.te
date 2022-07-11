@@ -42,6 +42,7 @@ allow resource_schedule_service resource_schedule_service:capability { dac_overr
 allow resource_schedule_service sa_bgtaskmgr:samgr_class { get };
 allow resource_schedule_service sa_foundation_appms:samgr_class { get };
 allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };
+allow resource_schedule_service sa_foundation_tel_state_registry:samgr_class { get };
 allow resource_schedule_service sa_foundation_wms:samgr_class { get };
 allow resource_schedule_service sa_param_watcher:samgr_class { get };
 allow resource_schedule_service sa_resource_schedule:samgr_class { add };
