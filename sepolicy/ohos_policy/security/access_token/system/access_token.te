@@ -13,7 +13,7 @@
 
 type accesstoken_data_file, file_attr, data_file_attr;
 
-allow accesstoken_service accesstoken_data_file:file { getattr lock };
+allow accesstoken_service accesstoken_data_file:file { getattr ioctl lock relabelto write };
 
 allow accesstoken_service data_file:dir { search };
 
@@ -22,6 +22,8 @@ allow accesstoken_service data_system:file { create getattr open read unlink wri
 
 allow accesstoken_service dev_unix_socket:dir { search };
 
+allow accesstoken_service sa_softbus_service:samgr_class { get };
+
 allow accesstoken_service sa_token_sync_manager_service:samgr_class { get };
 
 allow accesstoken_service system_bin_file:dir { search };
@@ -29,3 +31,5 @@ allow accesstoken_service system_bin_file:dir { search };
 allow accesstoken_service token_sync_service:binder { call };
 
 binder_call(accesstoken_service, foundation);
+binder_call(accesstoken_service, sh);
+binder_call(accesstoken_service, softbus_server);
