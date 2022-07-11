@@ -19,6 +19,8 @@ allow d-bms data_app_el1_file:file { getattr read };
 allow d-bms data_app_file:dir { search };
 allow d-bms data_file:dir { search };
 allow d-bms dev_unix_socket:dir { search };
+allow d-bms distributedsche_param:file { read };
+allow d-bms d-bms:unix_dgram_socket { getopt setopt };
 allow d-bms foundation:binder { call };
 allow d-bms sa_accesstoken_manager_service:samgr_class { get };
 allow d-bms sa_accountmgr:samgr_class { get };
@@ -27,5 +29,5 @@ allow d-bms sa_param_watcher:samgr_class { get };
 allow d-bms sa_softbus_service:samgr_class { get };
 allow d-bms softbus_server:binder { call transfer };
 allow d-bms softbus_server:fd { use };
-allow d-bms softbus_server:tcp_socket { read write setopt };
-
+allow d-bms softbus_server:tcp_socket { read write setopt shutdown };
+allow d-bms startup_param:file { map open };
