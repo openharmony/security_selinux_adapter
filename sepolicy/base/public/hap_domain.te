@@ -125,9 +125,9 @@ neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation 
              -accessibility } hap_file_attr:file open;
 
 # service can't modify hap sandbox
-neverallow { domain -hap_domain -installs -init -storage_daemon -appspawn } hap_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -init -storage_daemon -appspawn -distributeddata } hap_file_attr:dir_file_class_set { create unlink };
 
-neverallow { domain -init -hap_domain -installs -storage_daemon -appspawn -nwebspawn } hap_file_attr:dir ~read_dir_perms;
+neverallow { domain -init -hap_domain -installs -storage_daemon -appspawn -nwebspawn -distributeddata } hap_file_attr:dir ~read_dir_perms;
 
 neverallow hap_domain { domain -hap_domain }:process transition;
 neverallow hap_domain { domain -hap_domain }:process dyntransition;
@@ -152,7 +152,7 @@ neverallow hap_domain system_file:dir_file_class_set { create write setattr rela
 # limit access to /data/(*)? first level.todo
 #neverallow hap_domain data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
-neverallow { domain -hap_domain -installs -appspawn -init -storage_daemon } hap_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -appspawn -init -storage_daemon -distributeddata } hap_file_attr:dir_file_class_set { create unlink };
 
 neverallow { domain -installs } normal_hap_data_file:dir_file_class_set { relabelfrom relabelto };
 
