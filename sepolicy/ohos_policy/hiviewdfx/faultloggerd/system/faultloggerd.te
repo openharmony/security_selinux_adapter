@@ -15,8 +15,6 @@
 ## Macro define: ##
 ###################
 define(`use_faultloggerd', `
-    # allow $1 faultloggerd:file { open read };
-    # allow $1 faultloggerd:dir { getattr search };
     allow $1 faultloggerd:fd use;
     allow $1 faultloggerd:unix_stream_socket connectto;
     allow $1 faultloggerd_socket:sock_file { getattr write };
@@ -25,26 +23,46 @@ define(`use_faultloggerd', `
 define(`use_faultloggerd_file', `
     allow $1 faultloggerd_temp_file:dir { getattr setattr open read search watch };
     allow $1 faultloggerd_temp_file:file { getattr open read write };
+    allow $1 faultloggerd:fifo_file read;
 ')
 
 ##########################################
 ## Read/Use/Control faultloggerd rules: ##
 ##########################################
 use_faultloggerd({ domain -limit_domain })
-use_faultloggerd(normal_hap)
+use_faultloggerd_file({ hiview hidumper })
 
 #########################
 ## faultloggerd rules: ##
 #########################
-# allow faultloggerd self:capability dac_override; # conflict with neverallow
+# allow faultloggerd self:capability { dac_override sys_ptrace }; # conflict with neverallow
+
+allow faultloggerd domain:file { open read };
+allow faultloggerd domain:dir { getattr search };
+allow faultloggerd domain:process signal;
 
 allow faultloggerd data_file:dir search;
 allow faultloggerd data_init_agent:dir search;
 allow faultloggerd dev_unix_socket:dir search;
 allow faultloggerd data_log:dir search;
 
+allow faultloggerd tty_device:chr_file { open read write };
+allow faultloggerd sh_exec:file { execute execute_no_trans map open read };
+allow faultloggerd system_bin_file:file { execute execute_no_trans getattr map open read };
+allow faultloggerd system_bin_file:lnk_file read;
+
 allow faultloggerd data_init_agent:file { append ioctl open read };
+allow faultloggerd dev_unix_socket:sock_file unlink;
+allow faultloggerd faultloggerd_socket:sock_file unlink;
 allow faultloggerd faultloggerd_temp_file:dir { add_name remove_name write open read search };
 allow faultloggerd faultloggerd_temp_file:file { create getattr setattr write open read unlink };
 
 allow faultloggerd_temp_file labeledfs:filesystem { associate };
+
+allow sh faultloggerd:dir { getattr search };
+allow sh faultloggerd:fifo_file read;
+allow sh faultloggerd:file { open read };
+allow sh faultloggerd:process getattr;
+allow sh faultloggerd_exec:file getattr;
+allow sh faultloggerd_temp_file:dir { open read remove_name search write };
+allow sh faultloggerd_temp_file:file { open read unlink };

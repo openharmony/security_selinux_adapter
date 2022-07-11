@@ -110,6 +110,7 @@ allow processdump init:unix_stream_socket { read write };
 
 #============ sh & appspawn_exec & foundation ===========
 allow processdump sh:fd use;
+allow processdump sh:fifo_file ioctl;
 allow processdump appspawn_exec:file { getattr map open read };
 allow processdump foundation:dir { getattr open read search };
 allow processdump foundation:file { getattr open read };
