@@ -22,6 +22,8 @@ allow hdcd const_param:file { map open read };
 allow hdcd const_postinstall_fstab_param:file { map open read };
 allow hdcd const_postinstall_param:file { map open read };
 allow hdcd const_product_param:file { map open read };
+allow hdcd data_file:dir { add_name write };
+allow hdcd data_file:file { create open write };
 allow hdcd data_local_tmp:dir { remove_name };
 allow hdcd data_local_tmp:file { unlink };
 allow hdcd debug_param:file { map open read };

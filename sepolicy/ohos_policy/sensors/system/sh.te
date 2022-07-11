@@ -24,3 +24,12 @@ allow sh data_file:file { unlink getattr };
 #avc:  denied  { getattr } for  pid=2148 comm="ps" path="/proc/571" dev="proc" ino=30549 scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=dir permissive=1
 #avc:  denied  { search } for  pid=2148 comm="ps" name="571" dev="proc" ino=30549 scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=dir permissive=1
 allow sh sensors:dir { search getattr };
+
+#avc: denied { setattr } for pid=2043 comm="chmod" name="SensorJsTest.hap" dev="mmcblk0p11" ino=255 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1963 comm="SensorAgentFuzz" name="u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sh:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1963 comm="SensorAgentFuzz" path="/dev/parameters/u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sh:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+#avc: denied { map } for pid=1963 comm="SensorAgentFuzz" path="/dev/parameters/u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sh:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+allow sh data_file:file { setattr open read map };
+
+#avc: denied { remove_name } for pid=2050 comm="rm" name="SensorJsTest.hap" dev="mmcblk0p11" ino=255 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow sh data_file:dir { remove_name };

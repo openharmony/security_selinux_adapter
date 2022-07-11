@@ -96,7 +96,7 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 
 neverallow { domain -hdcd -installs -init -hidumper_service -power_host } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation -hidumper_service -power_host -sh } data_local_tmp:dir { open search };
+neverallow { domain -hdcd -hap_domain -init -installs -foundation -hidumper_service -power_host -sh -hiprofiler_plugins } data_local_tmp:dir { open search };
 
 neverallow { domain -samgr } *:binder set_context_mgr;
 
@@ -213,7 +213,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap } { system_file_attr 
 neverallow { domain -samgr -init -installs -hap_domain -edm_sa -kernel -locationhub -multimodalinput
              -power_host -thermal -udevd -sh -foundation -hdcd -audio_hdi_server_host } data_file:file never_write_file;
 
-neverallow { domain -hdcd -hap_domain -hidumper_service -installs -power_host -sh -hiprofilerd } data_local_tmp:file open;
+neverallow { domain -hdcd -hap_domain -hidumper_service -installs -power_host -sh -hiprofilerd -hiprofiler_plugins } data_local_tmp:file open;
 
 # limit capability use.
 # for exemption add rule like this:
@@ -266,8 +266,8 @@ neverallow { domain -appspawn -init -udevd -memmgrservice -blue_host -bluetooth_
              -face_auth_host -faultloggerd -fingerprint_auth_host -hdcd -hiview -installs -location_host
              -misc -mmi_uinput_service -multimodalinput -netsysnative -pin_auth_host -power_host
              -resource_schedule_service -storage_daemon -usb_host -usbfnMaster_host -user_auth_host
-             -wifi_host -kernel -a2dp_host } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -distributeddata } self:{ capability cap_userns } dac_read_search;
+             -wifi_host -kernel -a2dp_host -hiprofiler_plugins } self:{ capability cap_userns } dac_override;
+neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -hiprofiler_plugins -distributeddata } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon -udevd } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation } self:{ capability cap_userns } kill;

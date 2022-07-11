@@ -10,11 +10,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+ 
+#avc: denied { create } for pid=645 comm="hdcd" name="SensorJsTest.hap" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+#avc: denied { write open } for pid=645 comm="hdcd" path="/data/SensorJsTest.hap" dev="mmcblk0p11" ino=255 scontext=u:r:hdcd:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+allow hdcd data_file:file { create write open };
 
-allow hidumper data_log:file { write };
-allow hidumper dev_bbox:chr_file { read };
-allow hidumper distributedsche_param:file { map open read };
-allow hidumper hiview:fd { use };
-allow hidumper hiview:fifo_file { read write };
-allow hidumper hiview_file:file { read write };
-allow hidumper init:unix_dgram_socket { read write };
+#avc: denied { add_name } for pid=531 comm="hdcd" name="SensorJsTest.hap" scontext=u:r:hdcd:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow hdcd data_file:dir { add_name };

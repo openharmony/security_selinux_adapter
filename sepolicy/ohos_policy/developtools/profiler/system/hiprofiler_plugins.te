@@ -50,3 +50,90 @@ allow hiprofiler_plugins tracefs:file { getattr open read };
 allow hiprofiler_plugins system_file:file { open read getattr };
 
 allow hiprofiler_plugins tmpfs:file { map read };
+
+allow hiprofiler_plugins appspawn:file read;
+allow hiprofiler_plugins hdcd:fd use;
+allow hiprofiler_plugins hdf_devmgr:file read;
+allow hiprofiler_plugins hilog_param:file { map open read };
+allow hiprofiler_plugins init:file { getattr open read };
+allow hiprofiler_plugins kernel:file read;
+allow hiprofiler_plugins net_param:file read;
+allow hiprofiler_plugins net_tcp_param:file read;
+allow hiprofiler_plugins ohos_boot_param:file { map open read };
+allow hiprofiler_plugins ohos_param:file { map open read };
+allow hiprofiler_plugins param_watcher:file read;
+allow hiprofiler_plugins persist_param:file { map open read };
+allow hiprofiler_plugins persist_sys_param:file read;
+allow hiprofiler_plugins proc_stat_file:file { getattr open read };
+allow hiprofiler_plugins samgr:file read;
+allow hiprofiler_plugins security_param:file { map open read };
+allow hiprofiler_plugins sh_exec:file execute;
+allow hiprofiler_plugins storage_manager:file read;
+allow hiprofiler_plugins sys_param:file { map open read };
+allow hiprofiler_plugins sys_usb_param:file read;
+allow hiprofiler_plugins sysfs_devices_system_cpu:dir { open read };
+allow hiprofiler_plugins sysfs_devices_system_cpu:file { getattr read };
+allow hiprofiler_plugins tmpfs:file write;
+allow hiprofiler_plugins udevd:file read;
+allow hiprofiler_plugins watchdog_service:file read;
+
+allow hiprofiler_plugins const_param:file read;
+allow hiprofiler_plugins const_postinstall_param:file read;
+allow hiprofiler_plugins hw_sc_build_os_param:file read;
+allow hiprofiler_plugins hw_sc_build_param:file read;
+allow hiprofiler_plugins hw_sc_param:file { map open read };
+allow hiprofiler_plugins init_param:file read;
+allow hiprofiler_plugins init_svc_param:file read;
+allow hiprofiler_plugins net_param:file { map open };
+allow hiprofiler_plugins net_tcp_param:file { map open };
+allow hiprofiler_plugins sys_usb_param:file { map open };
+
+allow hiprofiler_plugins const_param:file { map open };
+allow hiprofiler_plugins hw_sc_build_os_param:file { map open };
+allow hiprofiler_plugins hw_sc_build_param:file { map open };
+allow hiprofiler_plugins init_param:file { map open };
+allow hiprofiler_plugins init_svc_param:file { map open };
+allow hiprofiler_plugins const_postinstall_param:file open;
+
+allow hiprofiler_plugins const_allow_mock_param:file read;
+allow hiprofiler_plugins const_allow_param:file { open read };
+allow hiprofiler_plugins const_build_param:file read;
+allow hiprofiler_plugins const_postinstall_fstab_param:file { map open read };
+allow hiprofiler_plugins const_postinstall_param:file map;
+allow hiprofiler_plugins const_product_param:file read;
+allow hiprofiler_plugins debug_param:file read;
+allow hiprofiler_plugins persist_sys_param:file open;
+allow hiprofiler_plugins startup_param:file read;
+allow hiprofiler_plugins bootevent_param:file read;
+allow hiprofiler_plugins bootevent_samgr_param:file read;
+allow hiprofiler_plugins build_version_param:file read;
+allow hiprofiler_plugins const_allow_mock_param:file open;
+allow hiprofiler_plugins const_allow_param:file map;
+allow hiprofiler_plugins const_build_param:file open;
+allow hiprofiler_plugins const_product_param:file open;
+allow hiprofiler_plugins debug_param:file open;
+allow hiprofiler_plugins persist_sys_param:file map;
+allow hiprofiler_plugins startup_param:file open;
+
+allow hiprofiler_plugins bootevent_param:file { map open };
+allow hiprofiler_plugins bootevent_samgr_param:file open;
+allow hiprofiler_plugins build_version_param:file { map open };
+allow hiprofiler_plugins const_allow_mock_param:file map;
+allow hiprofiler_plugins const_build_param:file map;
+allow hiprofiler_plugins const_product_param:file map;
+allow hiprofiler_plugins debug_param:file map;
+allow hiprofiler_plugins startup_param:file map;
+
+allow hiprofiler_plugins bootevent_samgr_param:file map;
+allow hiprofiler_plugins const_display_brightness_param:file { map open read };
+allow hiprofiler_plugins distributedsche_param:file { map open read };
+allow hiprofiler_plugins input_pointer_device_param:file { map open read };
+
+allow hiprofiler_plugins data_local_tmp:file { create write };
+allow hiprofiler_plugins default_param:file { map open read };
+
+allow hiprofiler_plugins data_local_tmp:file { lock };
+
+allow hiprofiler_plugins data_local_tmp:dir { open search };
+allow hiprofiler_plugins data_local_tmp:file open;
+allow hiprofiler_plugins self:capability { dac_override dac_read_search };

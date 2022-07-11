@@ -25,6 +25,7 @@ allow dcamera const_product_param:file { map open read };
 allow dcamera dcamera_host:binder { transfer };
 allow dcamera debug_param:file { map open read };
 allow dcamera default_param:file { map open read };
+allow dcamera distributedsche_param:file { map open read };
 allow dcamera hilog_param:file { map open read };
 allow dcamera hw_sc_build_os_param:file { map open read };
 allow dcamera hw_sc_build_param:file { map open read };

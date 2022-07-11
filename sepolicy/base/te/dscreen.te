@@ -25,6 +25,7 @@ allow dscreen const_product_param:file { map open read };
 allow dscreen debug_param:file { map open read };
 allow dscreen default_param:file { map open read };
 allow dscreen dhardware:binder { call };
+allow dscreen distributedsche_param:file { map open read };
 allow dscreen hilog_param:file { map open read };
 allow dscreen hw_sc_build_os_param:file { map open read };
 allow dscreen hw_sc_build_param:file { map open read };

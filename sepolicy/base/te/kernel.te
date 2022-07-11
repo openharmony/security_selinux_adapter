@@ -23,4 +23,5 @@ allow kernel kernel:capability { chown dac_override dac_read_search mknod };
 allow kernel kernel:process { setcurrent };
 allow kernel pstorefs:dir { open read remove_name search write };
 allow kernel pstorefs:file { open read unlink };
+allow kernel softbus_server:tcp_socket { read write };
 allow kernel tmpfs:chr_file { write };

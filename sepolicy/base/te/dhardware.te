@@ -25,6 +25,7 @@ allow dhardware const_product_param:file { map open read };
 allow dhardware debug_param:file { map open read };
 allow dhardware default_param:file { map open read };
 allow dhardware distributeddata:binder { call transfer };
+allow dhardware distributedsche_param:file { map open read };
 allow dhardware dscreen:binder { call transfer };
 allow dhardware foundation:binder { call transfer };
 allow dhardware hilog_param:file { map open read };
