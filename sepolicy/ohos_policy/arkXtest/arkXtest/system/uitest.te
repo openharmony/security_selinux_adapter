@@ -11,9 +11,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type uitest, domain, nativedomain;
 type uitest_exec, exec_attr, file_attr, system_file_attr;
-domain_auto_transition_pattern(init, uitest_exec, uitest);
+# uitest started by init/hdcd, translate to sh domain
+domain_auto_transition_pattern(init, uitest_exec, sh);
+domain_auto_transition_pattern(hdcd, uitest_exec, sh);
+# uitest started by sh, translate to sh domain (in 'start-daemon', parent-process is sh)
+domain_auto_transition_pattern(sh, uitest_exec, sh);
 
-allow uitest sa_accessibleabilityms:samgr_class { get };
+# enable getting accessibility service
 allow sh sa_accessibleabilityms:samgr_class { get };
+# enable accessibility call binder in sh (binder of accessibility-client in uitest process)
+allow accessibility sh:binder { call transfer };
+allow system_basic_hap sh:binder { call };
