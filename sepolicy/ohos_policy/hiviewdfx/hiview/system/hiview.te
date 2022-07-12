@@ -57,6 +57,10 @@ allow hiview sh_exec:file { execute read open execute_no_trans map };
 allow hiview sh:file { read open };
 allow hiview sh:dir { search };
 allow hiview rootfs:chr_file { read write };
+allow hiview faultloggerd_temp_file:file { getattr };
+allow hiview faultloggerd:fifo_file { read };
+allow hiview system_basic_hap:dir { search };
+allow hiview system_basic_hap:file { read open };
 
 allow hiview data_init_agent:dir { search };
 allow hiview data_init_agent:file { ioctl open read append };
