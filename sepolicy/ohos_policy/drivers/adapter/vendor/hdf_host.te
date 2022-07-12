@@ -594,3 +594,8 @@ allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6206;
 #avc:  denied  { call } for  pid=502 comm="sensor_host" scontext=u:r:sensor_host:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
 allow sensor_host sh:binder { call };
 
+#avc: denied { get } for service=hdf_device_manager pid=379 scontext=u:r:partitionslot_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc: denied { add } for service=partition_slot_service pid=379 scontext=u:r:partitionslot_host:s0 tcontext=u:object_r:hdf_partition_slot_service:s0 tclass=hdf_devmgr_class permissive=1
+allow partitionslot_host hdf_device_manager:hdf_devmgr_class { get };
+allow partitionslot_host hdf_partition_slot_service:hdf_devmgr_class { add };
+allow partitionslot_host sa_device_service_manager:samgr_class { get };

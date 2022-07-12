@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-usb_interface_service                   u:object_r:hdf_usb_interface_service:s0
-partition_slot_service                  u:object_r:hdf_partition_slot_service:s0
+allow sh partitionslot_host:dir { getattr search };
+allow sh partitionslot_host:file { open read };
