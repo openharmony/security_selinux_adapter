@@ -1,5 +1,0 @@
-allow sh sa_media_service:samgr_class { get };
-allow sh sa_render_service:samgr_class { get };
-allow sh sa_foundation_wms:samgr_class { get };
-allow sh sa_foundation_dms:samgr_class {get};
-allow sh sa_multimodalinput_service:samgr_class { get };

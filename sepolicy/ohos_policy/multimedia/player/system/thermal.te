@@ -1,0 +1,2 @@
+#avc:  denied  { get } for service=battery_interface_service pid=480 scontext=u:r:thermal:s0 tcontext=u:object_r:hdf_battery_interface_service:s0 tclass=hdf_devmgr_class permissive=0
+allow thermal hdf_battery_interface_service:hdf_devmgr_class { get };

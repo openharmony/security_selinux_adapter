@@ -1,1 +1,0 @@
-allow thermal hdf_battery_interface_service:hdf_devmgr_class { get };
