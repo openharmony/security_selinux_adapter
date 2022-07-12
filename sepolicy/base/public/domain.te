@@ -186,7 +186,7 @@ neverallow { domain -init -storage_daemon -hdcd -appspawn -nwebspawn } *:filesys
 
 neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
 
-neverallow { domain -init -memmgrservice } { proc_attr sysfs_attr }:dir { add_name create link rename remove_name reparent rmdir write };
+neverallow { domain -init } { proc_attr sysfs_attr }:dir { add_name create link rename remove_name reparent rmdir write };
 
 neverallow { domain -init } debugfs_kprobes:file *;
 
