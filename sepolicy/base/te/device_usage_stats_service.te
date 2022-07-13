@@ -41,6 +41,7 @@ allow device_usage_stats_service ohos_param:file { map open read };
 allow device_usage_stats_service param_watcher:binder { call transfer };
 allow device_usage_stats_service persist_param:file { map open read };
 allow device_usage_stats_service persist_sys_param:file { map open read };
+allow device_usage_stats_service sa_accesstoken_manager_service:samgr_class { get };
 allow device_usage_stats_service sa_accountmgr:samgr_class { get };
 allow device_usage_stats_service sa_bgtaskmgr:samgr_class { get };
 allow device_usage_stats_service sa_device_usage_statistics_service:samgr_class { add };

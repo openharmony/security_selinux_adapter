@@ -26,7 +26,7 @@ allow accesstoken_service const_postinstall_param:file { map open read };
 allow accesstoken_service const_product_param:file { map open read };
 allow accesstoken_service data_service_el0_file:dir { search };
 allow accesstoken_service data_service_el1_file:dir { add_name getattr open read remove_name search write };
-allow accesstoken_service data_service_el1_file:file { create getattr ioctl lock read write open unlink };
+allow accesstoken_service data_service_el1_file:file { create getattr ioctl lock read write open unlink relabelfrom };
 allow accesstoken_service data_service_file:dir { search };
 allow accesstoken_service debug_param:file { map open read };
 allow accesstoken_service default_param:file { map open read };

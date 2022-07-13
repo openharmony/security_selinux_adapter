@@ -22,6 +22,7 @@ allow location_host const_param:file { map open read };
 allow location_host const_postinstall_fstab_param:file { map open read };
 allow location_host const_postinstall_param:file { map open read };
 allow location_host const_product_param:file { map open read };
+allow location_host data_file:dir { search };
 allow location_host debug_param:file { map open read };
 allow location_host default_param:file { map open read };
 allow location_host dev_hdf_kevent:chr_file { getattr ioctl open read write };

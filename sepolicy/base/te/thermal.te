@@ -32,6 +32,7 @@ allow thermal default_param:file { map open read };
 allow thermal dev_unix_socket:dir { search };
 allow thermal distributedsche_param:file { map open read };
 allow thermal foundation:binder { call transfer };
+allow thermal hdf_battery_interface_service:hdf_devmgr_class { get };
 allow thermal hdf_devmgr:binder { call transfer };
 allow thermal hilog_param:file { map open read };
 allow thermal hw_sc_build_os_param:file { map open read };
