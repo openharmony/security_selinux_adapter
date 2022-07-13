@@ -23,6 +23,7 @@ allow audio_hdi_server_host const_param:file { map open read };
 allow audio_hdi_server_host const_postinstall_fstab_param:file { map open read };
 allow audio_hdi_server_host const_postinstall_param:file { map open read };
 allow audio_hdi_server_host const_product_param:file { map open read };
+allow audio_hdi_server_host data_log:dir { search };
 allow audio_hdi_server_host debug_param:file { map open read };
 allow audio_hdi_server_host default_param:file { map open read };
 allow audio_hdi_server_host dev_hdf_kevent:chr_file { getattr ioctl open read write };

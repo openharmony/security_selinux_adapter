@@ -165,6 +165,7 @@ allow init devpts:dir { relabelfrom };
 allow init dev_pts_file:chr_file { relabelto };
 allow init dev_pts_file:dir { open read relabelto search };
 allow init dev_random_file:chr_file { relabelto };
+allow init dev_rga:chr_file { setattr };
 allow init dev_sched_rtg_ctrl:chr_file { setattr };
 allow init dev_uhid_file:chr_file { setattr };
 allow init dev_unix_file:dir { getattr open read relabelto };
