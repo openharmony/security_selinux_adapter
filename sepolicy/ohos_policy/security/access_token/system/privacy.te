@@ -12,3 +12,18 @@
 # limitations under the License.
 
 type privacy_service, sadomain, domain;
+
+allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
+allow privacy_service accesstoken_data_file:file { getattr ioctl lock open read write };
+
+allow privacy_service data_file:dir { search };
+
+allow privacy_service data_service_el1_file:dir { add_name getattr open read remove_name search write };
+allow privacy_service data_service_el1_file:file { create getattr lock open read write unlink };
+allow privacy_service data_service_file:dir { search };
+
+allow privacy_service dev_unix_socket:dir { search };
+
+binder_call(privacy_service, foundation);
+binder_call(privacy_service, sh);
+binder_call(privacy_service, accesstoken_service);
