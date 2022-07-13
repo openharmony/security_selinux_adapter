@@ -26,7 +26,7 @@ use_processdump({ domain -limit_domain -init -kernel })
 #============= domain =================
 allow domain processdump:process { share };
 allow domain self:fifo_file { write };
-# allow processdump { domain -processdump }:process ptrace; # conflict with neverallow
+allow processdump { domain -processdump }:process ptrace; # conflict with neverallow
 allow processdump domain:fd use;
 allow processdump domain:fifo_file { read write };
 allow processdump domain:dir { getattr open read search };
@@ -43,7 +43,7 @@ allow processdump faultloggerd:unix_stream_socket { connectto };
 allow processdump faultloggerd_socket:sock_file write;
 
 #============= processdump ==============
-# allow processdump self:capability { dac_read_search sys_ptrace }; # conflict with neverallow
+allow processdump self:capability sys_ptrace; # conflict with neverallow
 allow processdump processdump_exec:file { entrypoint };
 allow processdump processdump:process { fork };
 allow processdump processdump:dir { search };

@@ -50,7 +50,7 @@ define(`hap_set', `
     typeattribute $1 hap_domain;
     neverallow $1 { domain -$1 }:file never_rw_file;
     neverallow { hap_domain -$1 } $1:file never_rw_file;
-    neverallow { domain -$1 } $1:process ptrace;
+    neverallow { domain -$1 -processdump } $1:process ptrace;
 ')
 
 define(`debug_only', ifelse(build_with_debug, `true', $1, ))

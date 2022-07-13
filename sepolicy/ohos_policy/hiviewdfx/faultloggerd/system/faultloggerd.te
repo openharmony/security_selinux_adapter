@@ -35,7 +35,7 @@ use_faultloggerd_file({ hiview hidumper })
 #########################
 ## faultloggerd rules: ##
 #########################
-# allow faultloggerd self:capability { dac_override sys_ptrace }; # conflict with neverallow
+allow faultloggerd self:capability sys_ptrace; # conflict with neverallow
 
 allow faultloggerd domain:file { open read };
 allow faultloggerd domain:dir { getattr search };
@@ -64,5 +64,5 @@ allow sh faultloggerd:fifo_file read;
 allow sh faultloggerd:file { open read };
 allow sh faultloggerd:process getattr;
 allow sh faultloggerd_exec:file getattr;
-allow sh faultloggerd_temp_file:dir { open read remove_name search write };
-allow sh faultloggerd_temp_file:file { open read unlink };
+allow sh faultloggerd_temp_file:dir { getattr open read remove_name search write };
+allow sh faultloggerd_temp_file:file { getattr write open read unlink };

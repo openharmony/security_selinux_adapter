@@ -93,7 +93,7 @@ neverallow hilogd {
 neverallow hilogd domain:process ptrace;
 
 # ... and nobody may ptrace me (except init)
-neverallow { domain -init } hilogd:process ptrace;
+neverallow { domain -init -processdump } hilogd:process ptrace;
 
 # write to /system
 neverallow hilogd system_file:dir_file_class_set write;
