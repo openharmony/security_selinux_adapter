@@ -13,7 +13,6 @@
 
 type privacy_service, sadomain, domain;
 
-allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
 allow privacy_service accesstoken_data_file:file { getattr ioctl lock open read write };
 
 allow privacy_service data_file:dir { search };
@@ -22,8 +21,44 @@ allow privacy_service data_service_el1_file:dir { add_name getattr open read rem
 allow privacy_service data_service_el1_file:file { create getattr lock open read write unlink };
 allow privacy_service data_service_file:dir { search };
 
+allow privacy_service system_bin_file:dir { search };
+
 allow privacy_service dev_unix_socket:dir { search };
 
-binder_call(privacy_service, foundation);
+allow privacy_service ohos_param:file { map open read };
+allow privacy_service ohos_boot_param:file { map open read };
+allow privacy_service sys_param:file { map open read };
+allow privacy_service sys_usb_param:file { map open read };
+allow privacy_service net_tcp_param:file { map open read };
+allow privacy_service net_param:file { map open read };
+allow privacy_service hw_sc_build_param:file { map open read };
+allow privacy_service hw_sc_build_os_param:file { map open read };
+allow privacy_service hw_sc_param:file { map open read };
+allow privacy_service init_param:file { map open read };
+allow privacy_service init_svc_param:file { map open read };
+allow privacy_service const_param:file { map open read };
+allow privacy_service const_postinstall_fstab_param:file { map open read };
+allow privacy_service const_postinstall_param:file { map open read };
+allow privacy_service const_allow_param:file { map open read };
+allow privacy_service const_allow_mock_param:file { map open read };
+allow privacy_service const_build_param:file { map open read };
+allow privacy_service const_display_brightness_param:file { map open read };
+allow privacy_service const_product_param:file { map open read };
+allow privacy_service security_param:file { map open read };
+allow privacy_service startup_param:file { map open read };
+allow privacy_service persist_param:file { map open read };
+allow privacy_service persist_sys_param:file { map open read };
+allow privacy_service hilog_param:file { map open read };
+allow privacy_service debug_param:file { map open read };
+allow privacy_service bootevent_param:file { map open read };
+allow privacy_service bootevent_samgr_param:file { map open read };
+allow privacy_service distributedsche_param:file { map open read };
+allow privacy_service build_version_param:file { map open read };
+allow privacy_service input_pointer_device_param:file { map open read };
+allow privacy_service default_param:file { map open read };
+allow privacy_service tracefs:dir { search };
+allow privacy_service tracefs_trace_marker_file:file { open write };
+allow privacy_service param_watcher:binder { call transfer };
+
 binder_call(privacy_service, sh);
 binder_call(privacy_service, accesstoken_service);
