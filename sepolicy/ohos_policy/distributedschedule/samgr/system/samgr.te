@@ -49,6 +49,7 @@ allow samgr kernel:unix_stream_socket { connectto };
 allow samgr normal_hap:dir { search };
 allow samgr normal_hap:file { open read };
 allow samgr normal_hap:process { getattr };
+allow samgr ohos_param:parameter_service { set };
 
 allow samgr paramservice_socket:sock_file { write };
 
