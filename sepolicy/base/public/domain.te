@@ -180,7 +180,7 @@ neverallow * self:process { execstack execheap };
 #todo
 #neverallow { domain -ueventd } dev_file:{ file chr_file blk_file } *;
 
-neverallow { domain -kernel -init -misc -updater_sa -storage_daemon } dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -misc -updater_sa -storage_daemon -hdcd } dev_attr:blk_file { open read write };
 # only init can operate fs
 neverallow { domain -init -storage_daemon -hdcd -appspawn -nwebspawn } *:filesystem ~{ getattr };
 
@@ -271,8 +271,8 @@ neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -k
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon -udevd } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation } self:{ capability cap_userns } kill;
-neverallow { domain -init -appspawn -nwebspawn } self:{ capability cap_userns } setuid;
-neverallow { domain -init -ueventd -appspawn -nwebspawn } self:{ capability cap_userns } setgid;
+neverallow { domain -init -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } setuid;
+neverallow { domain -init -ueventd -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
 neverallow * self:{ capability cap_userns } linux_immutable;
 neverallow * self:{ capability cap_userns } net_bind_service;
