@@ -15,6 +15,7 @@
 allow domain init:process sigchld;
 
 allow domain self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
+allow domain domain:process noatsecure;
 
 allow domain self:fd use;
 allow { domain -limit_domain } self:file rw_file_perms;
