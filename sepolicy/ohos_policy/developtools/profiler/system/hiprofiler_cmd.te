@@ -26,3 +26,68 @@ allow hiprofiler_cmd self:tcp_socket shutdown;
 allow hiprofiler_cmd data_local:dir search;
 
 allow hiprofiler_cmd rootfs:file { read };
+
+allow hiprofiler_cmd dev_unix_socket:dir search;
+allow hiprofiler_cmd hdcd:fifo_file write;
+allow hiprofiler_cmd ohos_boot_param:file { map open read };
+allow hiprofiler_cmd ohos_param:file { map open read };
+allow hiprofiler_cmd sh:fifo_file write;
+allow hiprofiler_cmd system_bin_file:dir search;
+
+allow hiprofiler_cmd const_param:file { map open read };
+allow hiprofiler_cmd init_param:file { map open read };
+allow hiprofiler_cmd net_tcp_param:file { open read };
+allow hiprofiler_cmd sys_usb_param:file { map open };
+
+allow hiprofiler_cmd hw_sc_param:file { open read };
+allow hiprofiler_cmd net_param:file { map open read };
+allow hiprofiler_cmd net_tcp_param:file map;
+allow hiprofiler_cmd persist_param:file read;
+allow hiprofiler_cmd security_param:file { map open read };
+
+allow hiprofiler_cmd const_postinstall_param:file { map open read };
+allow hiprofiler_cmd hw_sc_build_param:file { map open read };
+allow hiprofiler_cmd hw_sc_param:file map;
+allow hiprofiler_cmd init_svc_param:file { map open read };
+
+allow hiprofiler_cmd hw_sc_build_os_param:file { open read };
+allow hiprofiler_cmd persist_param:file { map open };
+allow hiprofiler_cmd persist_sys_param:file { open read };
+
+allow hiprofiler_cmd const_postinstall_fstab_param:file { map open read };
+allow hiprofiler_cmd debug_param:file { map open read };
+allow hiprofiler_cmd hw_sc_build_os_param:file map;
+allow hiprofiler_cmd persist_sys_param:file map;
+allow hiprofiler_cmd startup_param:file { open read };
+
+allow hiprofiler_cmd const_postinstall_fstab_param:file { map open read };
+allow hiprofiler_cmd hw_sc_build_os_param:file map;
+allow hiprofiler_cmd persist_sys_param:file map;
+
+allow hiprofiler_cmd bootevent_param:file { map open read };
+allow hiprofiler_cmd const_allow_mock_param:file { map open read };
+allow hiprofiler_cmd const_allow_param:file { map open read };
+allow hiprofiler_cmd startup_param:file map;
+
+allow hiprofiler_cmd build_version_param:file { open read };
+allow hiprofiler_cmd data_file:dir search;
+allow hiprofiler_cmd dev_file:sock_file write;
+allow hiprofiler_cmd netsysnative:unix_stream_socket connectto;
+
+allow hiprofiler_cmd bootevent_samgr_param:file read;
+allow hiprofiler_cmd build_version_param:file map;
+allow hiprofiler_cmd const_display_brightness_param:file read;
+allow hiprofiler_cmd distributedsche_param:file { map open read };
+
+allow hiprofiler_cmd bootevent_samgr_param:file { map open };
+allow hiprofiler_cmd const_build_param:file { map open read };
+allow hiprofiler_cmd const_display_brightness_param:file open;
+allow hiprofiler_cmd input_pointer_device_param:file { map open read };
+
+allow hiprofiler_cmd const_display_brightness_param:file map;
+allow hiprofiler_cmd default_param:file { map open read };
+
+allow hiprofiler_cmd sh:fifo_file ioctl;
+
+allow hiprofiler_cmd data_local_tmp:dir search;
+allow hiprofiler_cmd data_local_tmp:file { open read };

@@ -31,4 +31,3 @@ allow fingerprintauth sa_device_service_manager:samgr_class { get };
 
 #avc:  denied  { get } for service=fingerprint_auth_interface_service pid=918 scontext=u:r:fingerprintauth:s0 tcontext=u:object_r:hdf_fingerprint_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
 allow fingerprintauth hdf_fingerprint_auth_interface_service:hdf_devmgr_class { get };
-

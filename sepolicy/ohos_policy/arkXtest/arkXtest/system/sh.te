@@ -53,8 +53,6 @@ allow sh download_server:file { open read };
 allow sh dslm_service:file { open read };
 allow sh edm_sa:dir { getattr search };
 allow sh edm_sa:file { open read };
-allow sh faceauth:dir { getattr search };
-allow sh faceauth:file { open read };
 allow sh face_auth_host:dir { getattr search };
 allow sh face_auth_host:file { open read };
 allow sh faultloggerd:dir { getattr search };

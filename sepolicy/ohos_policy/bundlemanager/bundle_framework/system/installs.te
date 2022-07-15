@@ -35,7 +35,7 @@ allow installs selinuxfs:file { open read write };
 allow installs system_basic_hap_data_file:file { getattr };
 allow installs system_basic_hap_data_file:dir { open read relabelto search getattr };
 allow installs system_core_hap_data_file:dir { getattr open read relabelfrom relabelto remove_name rmdir search write };
-allow installs system_core_hap_data_file:file { unlink };
+allow installs system_core_hap_data_file:file { getattr unlink };
 allow installs system_file:file { getattr open read };
 allowxperm installs data_app_el1_file:file ioctl { 0x5413 };
 

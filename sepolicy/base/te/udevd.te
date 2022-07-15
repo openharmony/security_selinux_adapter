@@ -27,7 +27,7 @@ allow udevd data_file:file { ioctl read rename };
 allow udevd data_file:sock_file { create unlink };
 allow udevd data_udev:dir { add_name create getattr open read remove_name search watch write };
 allow udevd data_udev:file { create ioctl open read rename unlink write write open };
-allow udevd data_udev:sock_file { create };
+allow udevd data_udev:sock_file { create unlink };
 allow udevd debug_param:file { map open read };
 allow udevd default_param:file { map open read };
 allow udevd dev_at_file:chr_file { getattr };

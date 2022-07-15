@@ -9,15 +9,7 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.
+# limitations under the License
 
-#for debugging
-allow hdcd { file_attr -data_hilogd_file -data_parameters -data_user_file }:dir create_dir_perms;
-allow hdcd { file_attr -data_hilogd_file -dev_parameters_file -data_parameters -data_user_file }:file create_file_perms;
-#for debugging
-
-neverallow hdcd self:perf_event ~{ open read write kernel };
-
-neverallow hdcd dev_input_file:chr_file never_write_file;
-
-neverallow hdcd { dev_fuse_file dev_port }:chr_file ~getattr;
+allow hidumper_service bytrace:dir search;
+allow hidumper_service bytrace:file { open read };

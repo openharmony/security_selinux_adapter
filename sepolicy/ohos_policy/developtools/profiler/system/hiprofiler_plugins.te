@@ -31,25 +31,8 @@ allow hiprofiler_plugins hiprofilerd:fd { use };
 allow hiprofiler_plugins battery_stats:dir { search };
 allow hiprofiler_plugins battery_stats:file { getattr open read };
 
-allow hiprofiler_plugins hilogd:dir { search };
-allow hiprofiler_plugins hilogd:file { getattr open read };
-
-allow hiprofiler_plugins normal_hap:dir { open read search };
-allow hiprofiler_plugins normal_hap:file { open read getattr };
-
-allow hiprofiler_plugins proc_file:file { open read getattr };
-
-allow hiprofiler_plugins sh:dir { search };
-allow hiprofiler_plugins sh:file { read };
-
-allow hiprofiler_plugins system_bin_file:file { execute };
-
-allow hiprofiler_plugins tracefs:dir { search };
-allow hiprofiler_plugins tracefs:file { getattr open read };
-
-allow hiprofiler_plugins system_file:file { open read getattr };
-
-allow hiprofiler_plugins tmpfs:file { map read };
+allow hiprofiler_plugins domain:dir { getattr search };
+allow hiprofiler_plugins domain:file { open read getattr }; 
 
 allow hiprofiler_plugins appspawn:file read;
 allow hiprofiler_plugins hdcd:fd use;
@@ -137,3 +120,161 @@ allow hiprofiler_plugins data_local_tmp:file { lock };
 allow hiprofiler_plugins data_local_tmp:dir { open search };
 allow hiprofiler_plugins data_local_tmp:file open;
 allow hiprofiler_plugins self:capability { dac_override dac_read_search };
+
+allow hiprofiler_plugins accessibility:file { getattr open read };
+allow hiprofiler_plugins distributeddata:file { getattr read };
+allow hiprofiler_plugins fms_service:dir search;
+allow hiprofiler_plugins hilog_exec:file { execute execute_no_trans getattr map open read };
+allow hiprofiler_plugins init:dir { open read };
+allow hiprofiler_plugins kernel:file { getattr open };
+allow hiprofiler_plugins media_service:dir search;
+allow hiprofiler_plugins proc_meminfo_file:file { getattr open read };
+allow hiprofiler_plugins proc_vmstat_file:file { getattr open read };
+allow hiprofiler_plugins sh:dir { open read };
+allow hiprofiler_plugins sh:file { getattr open };
+allow hiprofiler_plugins sysfs_block_zram:file { open read };
+allow hiprofiler_plugins sysfs_devices_system_cpu:file open;
+
+allow hiprofiler_plugins tracefs:file write;
+
+allow hiprofiler_plugins init:dir search;
+allow hiprofiler_plugins init:unix_stream_socket connectto;
+allow hiprofiler_plugins mmi_uinput_service:file read;
+
+allow hiprofiler_plugins accountmgr:file read;
+allow hiprofiler_plugins deviceauth_service:file read;
+allow hiprofiler_plugins huks_service:file read;
+allow hiprofiler_plugins locationhub:file read;
+allow hiprofiler_plugins memmgrservice:file read;
+allow hiprofiler_plugins multimodalinput:file read;
+allow hiprofiler_plugins resource_schedule_service:file read;
+allow hiprofiler_plugins sh_exec:file { execute_no_trans map open read };
+allow hiprofiler_plugins storage_daemon:file read;
+
+allow hiprofiler_plugins bgtaskmgr_service:file read;
+allow hiprofiler_plugins bluetooth_service:file read;
+allow hiprofiler_plugins device_usage_stats_service:file read;
+allow hiprofiler_plugins pasteboard_service:file read;
+allow hiprofiler_plugins pulseaudio:file read;
+
+allow hiprofiler_plugins audio_policy:file read;
+allow hiprofiler_plugins console:file read;
+allow hiprofiler_plugins download_server:file read;
+allow hiprofiler_plugins edm_sa:file read;
+allow hiprofiler_plugins msdp_sa:file read;
+allow hiprofiler_plugins screenlock_server:file read;
+allow hiprofiler_plugins time_service:file read;
+allow hiprofiler_plugins tty_device:chr_file open;
+allow hiprofiler_plugins wallpaper_service:file read;
+
+allow hiprofiler_plugins codec_host:file read;
+allow hiprofiler_plugins face_auth_host:file read;
+allow hiprofiler_plugins fingerprint_auth_host:file read;
+allow hiprofiler_plugins hdcd:fifo_file ioctl;
+allow hiprofiler_plugins hilog_control_socket:sock_file write;
+allow hiprofiler_plugins light_host:file read;
+allow hiprofiler_plugins location_host:file read;
+allow hiprofiler_plugins pin_auth_host:file read;
+allow hiprofiler_plugins sensor_host:file read;
+allow hiprofiler_plugins user_auth_host:file read;
+allow hiprofiler_plugins vibrator_host:file read;
+
+allow hiprofiler_plugins audio_hdi_server_host:file read;
+allow hiprofiler_plugins blue_host:file read;
+allow hiprofiler_plugins camera_host:file read;
+allow hiprofiler_plugins disp_gralloc_host:file read;
+allow hiprofiler_plugins input_user_host:file read;
+allow hiprofiler_plugins power_host:file read;
+allow hiprofiler_plugins usb_host:file read;
+allow hiprofiler_plugins usbfnMaster_host:file read;
+allow hiprofiler_plugins wifi_host:file read;
+
+allow hiprofiler_plugins camera_service:file read;
+allow hiprofiler_plugins faultloggerd:file read;
+allow hiprofiler_plugins fms_service:file read;
+allow hiprofiler_plugins media_service:file read;
+allow hiprofiler_plugins render_service:file read;
+allow hiprofiler_plugins thermal:file read;
+allow hiprofiler_plugins useriam:file read;
+allow hiprofiler_plugins wifi_hal_service:file read;
+
+allow hiprofiler_plugins distributedsche:file read;
+allow hiprofiler_plugins softbus_server:file read;
+allow hiprofiler_plugins ui_service:file read;
+
+allow hiprofiler_plugins hiview:file read;
+allow hiprofiler_plugins installs:file read;
+allow hiprofiler_plugins sensors:file read;
+
+allow hiprofiler_plugins foundation:file read;
+allow hiprofiler_plugins hdcd:file read;
+allow hiprofiler_plugins hidumper_service:file read;
+allow hiprofiler_plugins hiprofilerd:file read;
+allow hiprofiler_plugins kernel:dir search;
+allow hiprofiler_plugins pinauth:file read;
+allow hiprofiler_plugins wifi_manager_service:file read;
+
+allow hiprofiler_plugins hdf_devmgr:dir search;
+allow hiprofiler_plugins hdf_devmgr:file { getattr open };
+allow hiprofiler_plugins param_watcher:dir search;
+allow hiprofiler_plugins param_watcher:file { getattr open };
+allow hiprofiler_plugins watchdog_service:dir search;
+allow hiprofiler_plugins watchdog_service:file { getattr open };
+
+allow hiprofiler_plugins appspawn:dir search;
+allow hiprofiler_plugins samgr:dir search;
+allow hiprofiler_plugins samgr:file { getattr open };
+allow hiprofiler_plugins storage_manager:dir search;
+allow hiprofiler_plugins storage_manager:file { getattr open };
+
+allow hiprofiler_plugins accesstoken_service:file read;
+allow hiprofiler_plugins distributedfiledaemon:file read;
+allow hiprofiler_plugins inputmethod_service:file read;
+allow hiprofiler_plugins netmanager:file read;
+allow hiprofiler_plugins netsysnative:file read;
+allow hiprofiler_plugins telephony_sa:file read;
+allow hiprofiler_plugins updater_sa:file read;
+allow hiprofiler_plugins usb_service:file read;
+
+allow hiprofiler_plugins appspawn:file { getattr open };
+allow hiprofiler_plugins udevd:dir search;
+
+allow hiprofiler_plugins mmi_uinput_service:dir search;
+allow hiprofiler_plugins mmi_uinput_service:file { getattr open };
+allow hiprofiler_plugins multimodalinput:dir search;
+allow hiprofiler_plugins multimodalinput:file { getattr open };
+allow hiprofiler_plugins proc_file:file write;
+allow hiprofiler_plugins tracefs:dir { open read };
+allow hiprofiler_plugins tracefs:file append;
+allow hiprofiler_plugins udevd:file { getattr open };
+
+allow hiprofiler_plugins deviceauth_service:dir search;
+allow hiprofiler_plugins deviceauth_service:file { getattr open };
+allow hiprofiler_plugins resource_schedule_service:dir search;
+allow hiprofiler_plugins resource_schedule_service:file { getattr open };
+allow hiprofiler_plugins storage_daemon:dir search;
+allow hiprofiler_plugins storage_daemon:file { getattr open };
+
+allow hiprofiler_plugins hilogd:file getattr;
+allow hiprofiler_plugins system_bin_file:file execute;
+allow hiprofiler_plugins tmpfs:file { map read };
+allow hiprofiler_plugins tracefs:dir search;
+allow hiprofiler_plugins tracefs:file { getattr read };
+
+allow hiprofiler_plugins accountmgr:file getattr;
+allow hiprofiler_plugins bgtaskmgr_service:file getattr;
+allow hiprofiler_plugins bluetooth_service:file getattr;
+allow hiprofiler_plugins device_usage_stats_service:file getattr;
+allow hiprofiler_plugins hiprofiler_cmd:file getattr;
+allow hiprofiler_plugins hiprofilerd:file getattr;
+allow hiprofiler_plugins huks_service:file getattr;
+allow hiprofiler_plugins locationhub:file getattr;
+allow hiprofiler_plugins memmgrservice:file getattr;
+allow hiprofiler_plugins pasteboard_service:file getattr;
+allow hiprofiler_plugins proc_file:file { getattr open read };
+allow hiprofiler_plugins pulseaudio:file getattr;
+allow hiprofiler_plugins tracefs:file open;
+
+allow hiprofiler_plugins data_local_tmp:dir { add_name write };
+allow hiprofiler_plugins data_local_tmp:file { execute getattr ioctl map read };
+allow hiprofiler_plugins self:capability sys_ptrace;

@@ -24,7 +24,7 @@ allow user_auth_host const_postinstall_param:file { map open read };
 allow user_auth_host const_product_param:file { map open read };
 allow user_auth_host data_file:dir { search };
 allow user_auth_host data_service_el1_file:dir { add_name search write };
-allow user_auth_host data_service_el1_file:file { create ioctl open write write open };
+allow user_auth_host data_service_el1_file:file { create ioctl open read write open };
 allow user_auth_host data_service_file:dir { search };
 allow user_auth_host debug_param:file { map open read };
 allow user_auth_host default_param:file { map open read };

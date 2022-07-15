@@ -13,4 +13,3 @@
 
 #avc:  denied  { get } for service=941 pid=919 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_useriam_pinauth_service:s0 tclass=samgr_class permissive=1
 allow system_basic_hap sa_useriam_pinauth_service:samgr_class { get };
-
