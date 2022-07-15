@@ -1,0 +1,16 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { getopt } for  pid=438 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { setopt } for  pid=438 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=1
+allow download_server download_server:unix_dgram_socket { getopt setopt };
