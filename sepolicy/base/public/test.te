@@ -13,4 +13,4 @@
 
 # for test
 type selftest, domain;
-type selftest_hap_data_file, file_attr;
+type selftest_hap_data_file, file_attr, system_file_attr;

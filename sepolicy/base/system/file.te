@@ -47,7 +47,6 @@ type system_profile_file, system_file_attr, file_attr;
 type system_usr_file, system_file_attr, file_attr;
 type system_bin_file, system_file_attr, file_attr;
 
-type dev_cpu_variant, file_attr;
 type fontconfig_file, system_file_attr, file_attr;
 type fonts_file, system_file_attr, file_attr;
 type vendor_file, vendor_file_attr, file_attr;
@@ -86,7 +85,7 @@ type sysfs_kernel_notes, sysfs_attr, fs_attr;
 type sysfs_wakeup_reasons, sysfs_attr, fs_attr;
 type sysfs_hctosys, sysfs_attr, fs_attr;
 
-type config_usb_gadget, file_attr;
+type config_usb_gadget, fs_attr;
 
 type data_file, file_attr, data_file_attr;
 type data_hap_file, file_attr, data_file_attr,hap_file_attr;

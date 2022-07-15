@@ -76,7 +76,7 @@ allow init data_file:dir { add_name create getattr mounton open read relabelfrom
 allow init data_file:file { create getattr ioctl open read append relabelfrom rename unlink write write open };
 allow init data_file:sock_file { getattr relabelfrom };
 allow init data_hilogd_file:dir { relabelto };
-allow init data_libinput:dir { open read relabelto search setattr };
+allow init data_libinput:dir { getattr open read relabelto search setattr };
 allow init data_libinput:file { relabelto };
 allow init data_local:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_local_tmp:dir { getattr open read relabelto setattr };
