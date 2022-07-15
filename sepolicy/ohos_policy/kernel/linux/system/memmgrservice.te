@@ -22,7 +22,10 @@ allow memmgrservice bgtaskmgr_service:binder { call transfer };
 allow memmgrservice cgroup:dir { add_name create search write };
 allow memmgrservice cgroup:file { append create getattr ioctl open read write };
 allow memmgrservice foundation:binder { call transfer };
+
 allow memmgrservice memmgrservice:capability { kill sys_resource dac_override sys_ptrace };
+neverallow memmgrservice *:process ptrace;
+
 allow memmgrservice normal_hap:file { write };
 allow memmgrservice normal_hap:process { sigkill };
 
@@ -58,3 +61,5 @@ allow memmgrservice sa_foundation_appms:samgr_class { get };
 allow memmgrservice sa_foundation_cesfwk_service:samgr_class { get };
 
 allow memmgrservice sa_foundation_abilityms:samgr_class { get };
+
+allow memmgrservice sa_bgtaskmgr:samgr_class { get };
