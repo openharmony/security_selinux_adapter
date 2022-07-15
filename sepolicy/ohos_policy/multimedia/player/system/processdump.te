@@ -10,5 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-type media_service, sadomain, domain;
-type privacy_service, hdf_service_attr;
+
+#avc:  denied  { ptrace } for  pid=20622 comm="processdump" scontext=u:r:processdump:s0 tcontext=u:r:sh:s0 tclass=process permissive=0
+allow processdump sh:process { ptrace };

@@ -15,3 +15,9 @@
 allow system_core_hap dev_unix_socket:sock_file { write };
 #avc:  denied  { use } for  pid=475 comm="media_service" path="/dev/ashmem" dev="tmpfs" ino=178 scontext=u:r:system_core_hap:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=1
 allow system_core_hap media_service:fd { use };
+#avc:  denied  { getattr } for  pid=6124 comm="ohos.acts.multi" path="/data/service/el2/100/hmdfs/account/files/Pictures/SR001PRO/01.jpg" dev="mmcblk0p11" ino=1045005 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
+allow system_core_hap data_user_file:file { getattr };
+#avc:  denied  { read } for  pid=6124 comm="ohos.acts.multi" path="/data/service/el2/100/hmdfs/account/files/Documents/Dynamic01/01.dat" dev="mmcblk0p11" ino=1044996 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
+allow system_core_hap data_user_file:file { read };
+#avc:  denied  { getattr } for  pid=6124 comm="ohos.acts.multi" path="/storage/media/local/files/Pictures/SR001PRO/01.jpg" dev="hmdfs" ino=2305843009214738957 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
+allow system_core_hap hmdfs:file { getattr };

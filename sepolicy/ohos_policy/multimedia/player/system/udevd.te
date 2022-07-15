@@ -10,5 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-type media_service, sadomain, domain;
-type privacy_service, hdf_service_attr;
+
+#avc:  denied  { unlink } for  pid=243 comm="udevd" name="control" dev="mmcblk0p11" ino=261122 scontext=u:r:udevd:s0 tcontext=u:object_r:data_udev:s0 tclass=sock_file permissive=1
+allow udevd data_udev:sock_file { unlink };

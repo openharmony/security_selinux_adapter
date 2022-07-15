@@ -20,7 +20,7 @@ allow sh appspawn_exec:file { execute };
 #avc:  denied  { getattr } for  pid=2232 comm="sh" path="/system/bin/appspawn" dev="mmcblk0p6" ino=114 scontext=u:r:sh:s0 tcontext=u:object_r:appspawn_exec:s0 tclass=file permissive=1
 allow sh appspawn_exec:file { getattr };
 #avc:  denied  { search } for  pid=2058 comm="chmod" name="el2" dev="mmcblk0p11" ino=1175045 scontext=u:r:sh:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
-allow sh data_app_el2_file:dir { search };
+#allow sh data_app_el2_file:dir { search };
 #avc:  denied  { search } for  pid=8568 comm="sh" name="el2" dev="mmcblk0p11" ino=261129 scontext=u:r:sh:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
 allow sh data_service_el2_file:dir { search };
 #avc:  denied  { getattr } for  pid=2061 comm="chmod" path="/data/service/el2/100/hmdfs/account" dev="mmcblk0p11" ino=261292 scontext=u:r:sh:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
@@ -66,7 +66,7 @@ allow sh hmdfs:file { read write open };
 #avc:  denied  { setattr } for  pid=2669 comm="chmod" name="audioEncode_function_callback_05.aac" dev="hmdfs" ino=2305843009213955432 scontext=u:r:sh:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 allow sh hmdfs:file { setattr };
 #avc:  denied  { getattr } for  pid=2232 comm="sh" path="/system/bin/init" dev="mmcblk0p6" ino=240 scontext=u:r:sh:s0 tcontext=u:object_r:init_exec:s0 tclass=file permissive=1
-allow sh init_exec:file { getattr };
+#allow sh init_exec:file { getattr };
 #avc:  denied  { getattr } for  pid=8144 comm="mkdir" path="/data/app/el2/100/base/ohos.acts.multimedia.video.videodecoder/haps/entry/files" dev="mmcblk0p11" ino=1307090 scontext=u:r:sh:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
 allow sh normal_hap_data_file:dir { getattr };
 #avc:  denied  { search } for  pid=8144 comm="mkdir" name="ohos.acts.multimedia.video.videodecoder" dev="mmcblk0p11" ino=1307057 scontext=u:r:sh:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=1
@@ -86,11 +86,11 @@ allow sh power_shell_exec:file { map };
 #avc:  denied  { read open } for  pid=2270 comm="sh" path="/system/bin/power-shell" dev="mmcblk0p6" ino=318 scontext=u:r:sh:s0 tcontext=u:object_r:power_shell_exec:s0 tclass=file permissive=1
 allow sh power_shell_exec:file { read open };
 #avc:  denied  { dac_override } for  pid=2565 comm="hilog" capability=1  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=capability permissive=1
-allow sh sh:capability { dac_override };
+#allow sh sh:capability { dac_override };
 #avc:  denied  { sys_admin } for  pid=3329 comm="mount" capability=21  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=capability permissive=1
-allow sh sh:capability { sys_admin };
+#allow sh sh:capability { sys_admin };
 #avc:  denied  { sys_ptrace } for  pid=2064 comm="killall" capability=19  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=capability permissive=1
-allow sh sh:capability { sys_ptrace };
+#allow sh sh:capability { sys_ptrace };
 #avc:  denied  { getattr } for  pid=2232 comm="sh" path="/system/bin" dev="mmcblk0p6" ino=106 scontext=u:r:sh:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
 allow sh system_bin_file:dir { getattr };
 #avc:  denied  { open } for  pid=2232 comm="sh" path="/system/bin" dev="mmcblk0p6" ino=106 scontext=u:r:sh:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
@@ -100,19 +100,19 @@ allow sh system_bin_file:dir { read };
 #avc:  denied  { getattr } for  pid=2232 comm="sh" path="/system/bin/ability_tool" dev="mmcblk0p6" ino=111 scontext=u:r:sh:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file permissive=1
 allow sh system_bin_file:lnk_file { getattr };
 #avc:  denied  { getattr } for  pid=14785 comm="chmod" path="/data/app/el2/100/base/ohos.acts.multimedia.video.codecformat/haps/entry/files" dev="mmcblk0p11" ino=1307350 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-allow sh system_core_hap_data_file:dir { getattr };
+#allow sh system_core_hap_data_file:dir { getattr };
 #avc:  denied  { open } for  pid=4183 comm="chmod" path="/data/app/el2/100/base/ohos.acts.multimedia.audio.audioencoder/haps/entry/files" dev="mmcblk0p11" ino=1307313 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-allow sh system_core_hap_data_file:dir { open };
+#allow sh system_core_hap_data_file:dir { open };
 #avc:  denied  { read } for  pid=4183 comm="chmod" name="files" dev="mmcblk0p11" ino=1307313 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-allow sh system_core_hap_data_file:dir { read };
+#allow sh system_core_hap_data_file:dir { read };
 #avc:  denied  { search } for  pid=4182 comm="mkdir" name="ohos.acts.multimedia.audio.audioencoder" dev="mmcblk0p11" ino=1176718 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-allow sh system_core_hap_data_file:dir { search };
+#allow sh system_core_hap_data_file:dir { search };
 #avc:  denied  { setattr } for  pid=4183 comm="chmod" name="files" dev="mmcblk0p11" ino=1307313 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-allow sh system_core_hap_data_file:dir { setattr };
+#allow sh system_core_hap_data_file:dir { setattr };
 #avc:  denied  { getattr } for  pid=4183 comm="chmod" path="/data/app/el2/100/base/ohos.acts.multimedia.audio.audioencoder/haps/entry/files/S16LE.pcm" dev="mmcblk0p11" ino=1307314 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
-allow sh system_core_hap_data_file:file { getattr };
+#allow sh system_core_hap_data_file:file { getattr };
 #avc:  denied  { setattr } for  pid=4183 comm="chmod" name="S16LE.pcm" dev="mmcblk0p11" ino=1307314 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
-allow sh system_core_hap_data_file:file { setattr };
+#allow sh system_core_hap_data_file:file { setattr };
 #avc:  denied  { open } for  pid=8136 comm="bm" path="/system/app/ActsVideoDecoderJsTest.hap" dev="mmcblk0p6" ino=2547 scontext=u:r:sh:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
 allow sh system_file:file { open };
 #avc:  denied  { read } for  pid=8136 comm="bm" name="ActsVideoDecoderJsTest.hap" dev="mmcblk0p6" ino=2547 scontext=u:r:sh:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
@@ -125,3 +125,50 @@ allow sh system_lib_file:dir { open };
 allow sh system_lib_file:dir { read };
 #avc:  denied  { read } for  pid=2672 comm="killall" scontext=u:r:sh:s0 tcontext=u:r:wifi_host:s0 tclass=file permissive=1
 allow sh wifi_host:file { read };
+
+#avc:  denied  { search } for  pid=20594 comm="player_unit_tes" name="usr" dev="mmcblk0p6" ino=2529 scontext=u:r:sh:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+allow sh system_usr_file:dir { search };
+
+#avc:  denied  { getattr } for  pid=20594 comm="player_unit_tes" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p6" ino=2536 scontext=u:r:sh:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=20594 comm="player_unit_tes" name="supported_regions.xml" dev="mmcblk0p6" ino=2536 scontext=u:r:sh:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=20594 comm="player_unit_tes" path="/system/usr/ohos_icu/icudt67l.dat" dev="mmcblk0p6" ino=2531 scontext=u:r:sh:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=20594 comm="player_unit_tes" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p6" ino=2536 scontext=u:r:sh:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow sh system_usr_file:file { getattr read open map };
+
+#avc:  denied  { call } for  pid=20594 comm="player_unit_tes" scontext=u:r:sh:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=20594 comm="player_unit_tes" scontext=u:r:sh:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+allow sh media_service:binder { call transfer };
+
+#avc:  denied  { use } for  pid=475 comm="media_service" path="/dev/ashmem" dev="tmpfs" ino=178 scontext=u:r:sh:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=1
+allow sh media_service:fd { use };
+
+#avc:  denied  { call } for  pid=20638 comm="player_unit_tes" scontext=u:r:sh:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=20638 comm="player_unit_tes" scontext=u:r:sh:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
+allow sh render_service:binder { call transfer };
+
+#avc:  denied  { execute } for  pid=20586 comm="sh" name="player_unit_test" dev="mmcblk0p11" ino=1044488 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+#allow sh data_file:file { execute };
+
+#avc:  denied  { execute_no_trans } for  pid=20594 comm="sh" path="/data/test/player_unit_test" dev="mmcblk0p11" ino=1044488 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+#allow sh data_file:file { execute_no_trans };
+#avc:  denied  { open } for  pid=14734 comm="rm" path="/data/data/resource" dev="mmcblk0p11" ino=391694 scontext=u:r:sh:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
+#allow sh data_data_file:dir { open };
+#avc:  denied  { remove_name } for  pid=14734 comm="rm" name="resource" dev="mmcblk0p11" ino=391694 scontext=u:r:sh:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
+#allow sh data_data_file:dir { remove_name };
+#avc:  denied  { rmdir } for  pid=14734 comm="rm" name="resource" dev="mmcblk0p11" ino=391694 scontext=u:r:sh:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
+#allow sh data_data_file:dir { rmdir };
+#avc:  denied  { search } for  pid=2502 comm="killall" name="507" dev="proc" ino=35525 scontext=u:r:sh:s0 tcontext=u:r:privacy_service:s0 tclass=dir permissive=1
+#allow sh privacy_service:dir { search };
+#avc:  denied  { open } for  pid=2502 comm="killall" path="/proc/507/comm" dev="proc" ino=46944 scontext=u:r:sh:s0 tcontext=u:r:privacy_service:s0 tclass=file permissive=1
+#allow sh privacy_service:file { open };
+#avc:  denied  { read } for  pid=2502 comm="killall" scontext=u:r:sh:s0 tcontext=u:r:privacy_service:s0 tclass=file permissive=1
+#allow sh privacy_service:file { read };
+#avc:  denied  { fowner } for  pid=5811 comm="chmod" capability=3  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=capability permissive=1
+#allow sh sh:capability { fowner };
+#avc:  denied  { fsetid } for  pid=5811 comm="chmod" capability=4  scontext=u:r:sh:s0 tcontext=u:r:sh:s0 tclass=capability permissive=1
+#allow sh sh:capability { fsetid };
+#allow sh system_core_hap_data_file:dir { add_name create getattr open search setattr read };
+#avc:  denied  { setattr } for  pid=2496 comm="chmod" name="S16LE_1_32000.pcm" dev="mmcblk0p11" ino=1306746 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
+allow sh system_core_hap_data_file:file { setattr };
+#avc:  denied  { getattr } for  pid=2320 comm="mkdir" path="/data/app/el1/bundle/public/ohos.acts.multimedia.video.videoplayer/ohos.acts.multimedia.video.videoplayer/assets/entry/resources/rawfile" dev="mmcblk0p11" ino=1176976 scontext=u:r:sh:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+#allow sh data_app_el1_file:dir { getattr };

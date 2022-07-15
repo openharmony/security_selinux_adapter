@@ -10,5 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-type media_service, sadomain, domain;
-type privacy_service, hdf_service_attr;
+
+#avc:  denied  { getopt } for  pid=438 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { setopt } for  pid=438 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=1
+allow download_server download_server:unix_dgram_socket { getopt setopt };

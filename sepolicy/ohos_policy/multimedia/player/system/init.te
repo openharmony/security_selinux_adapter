@@ -17,3 +17,13 @@ allow init hilog_control_socket:sock_file { unlink };
 allow init hilog_input_socket:sock_file { unlink };
 #avc:  denied  { sigkill } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:hilogd:s0 tclass=process permissive=1
 allow init hilogd:process { sigkill };
+#avc:  denied  { getattr } for  pid=1 comm="init" path="/data/libinput" dev="mmcblk0p11" ino=652801 scontext=u:r:init:s0 tcontext=u:object_r:data_libinput:s0 tclass=dir permissive=1
+allow init data_libinput:dir { getattr };
+#avc:  denied  { setattr } for  pid=1 comm="init" name="rga" dev="tmpfs" ino=181 scontext=u:r:init:s0 tcontext=u:object_r:dev_rga:s0 tclass=chr_file permissive=1
+allow init dev_rga:chr_file { setattr };
+#avc:  denied  { rlimitinh } for  pid=507 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:privacy_service:s0 tclass=process permissive=1
+allow init privacy_service:process { rlimitinh };
+#avc:  denied  { siginh } for  pid=507 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:privacy_service:s0 tclass=process permissive=1
+allow init privacy_service:process { siginh };
+#avc:  denied  { transition } for  pid=507 comm="init" path="/system/bin/sa_main" dev="mmcblk0p6" ino=348 scontext=u:r:init:s0 tcontext=u:r:privacy_service:s0 tclass=process permissive=1
+allow init privacy_service:process { transition };

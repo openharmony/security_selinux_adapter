@@ -16,3 +16,9 @@ allow multimodalinput sys_file:file { ioctl };
 allowxperm multimodalinput sys_file:file ioctl { 0x5413 };
 #avc:  denied  { write } for  pid=252 comm="mmi_service" name="uevent" dev="sysfs" ino=32447 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
 allow multimodalinput sys_file:file { write };
+#avc:  denied  { add_name } for  pid=246 comm="multimodalinput" name="libinput.log" scontext=u:r:multimodalinput:s0 tcontext=u:object_r:data_libinput:s0 tclass=dir permissive=1
+allow multimodalinput data_libinput:dir { add_name };
+#avc:  denied  { write } for  pid=246 comm="multimodalinput" name="libinput" dev="mmcblk0p11" ino=652801 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:data_libinput:s0 tclass=dir permissive=1
+allow multimodalinput data_libinput:dir { write };
+#avc:  denied  { create } for  pid=246 comm="multimodalinput" name="libinput.log" scontext=u:r:multimodalinput:s0 tcontext=u:object_r:data_libinput:s0 tclass=file permissive=1
+allow multimodalinput data_libinput:file { create };
