@@ -53,3 +53,4 @@ allow hdcd system_file:file { create };
 allow hdcd system_file:file { write open };
 #avc:  denied  { write } for  pid=623 comm="hdcd" name="ActsHLSPlayerJsTest.hap" dev="mmcblk0p6" ino=2546 scontext=u:r:hdcd:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
 allow hdcd system_file:file { write };
+allow hdcd normal_hap_data_file:dir { search };

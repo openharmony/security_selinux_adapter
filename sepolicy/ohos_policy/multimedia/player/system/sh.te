@@ -28,21 +28,21 @@ allow sh data_service_el2_hmdfs:dir { getattr };
 #avc:  denied  { search } for  pid=1983 comm="sh" name="account" dev="mmcblk0p11" ino=261292 scontext=u:r:sh:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
 allow sh data_service_el2_hmdfs:dir { search };
 #avc:  denied  { getattr } for  pid=2061 comm="chmod" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=261293 scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
-allow sh data_user_file:dir { getattr };
+#allow sh data_user_file:dir { getattr };
 #avc:  denied  { read open } for  pid=1984 comm="rm" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=261293 scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
-allow sh data_user_file:dir { read open };
+#allow sh data_user_file:dir { read open };
 #avc:  denied  { search } for  pid=1984 comm="rm" name="files" dev="mmcblk0p11" ino=261293 scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
-allow sh data_user_file:dir { search };
+#allow sh data_user_file:dir { search };
 #avc:  denied  { setattr } for  pid=8575 comm="chmod" name="Audios" dev="mmcblk0p11" ino=261458 scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
-allow sh data_user_file:dir { setattr };
+#allow sh data_user_file:dir { setattr };
 #avc:  denied  { write } for  pid=2061 comm="chmod" name="files" dev="mmcblk0p11" ino=261293 scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
-allow sh data_user_file:dir { write };
+#allow sh data_user_file:dir { write };
 #avc:  denied  { create } for  pid=8277 comm="cp" name="01.jpg" scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
-allow sh data_user_file:file { create };
+#allow sh data_user_file:file { create };
 #avc:  denied  { getattr } for  pid=2636 comm="rm" path="/data/service/el2/100/hmdfs/account/files/Audios/audioEncode_function_callback_04.aac" dev="mmcblk0p11" ino=261479 scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
-allow sh data_user_file:file { getattr };
+#allow sh data_user_file:file { getattr };
 #avc:  denied  { write } for  pid=2669 comm="chmod" name="audioEncode_function_callback_05.aac" dev="mmcblk0p11" ino=261480 scontext=u:r:sh:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
-allow sh data_user_file:file { write };
+#allow sh data_user_file:file { write };
 #avc:  denied  { add_name } for  pid=8264 comm="mkdir" name="Pictures" scontext=u:r:sh:s0 tcontext=u:object_r:hmdfs:s0 tclass=dir permissive=1
 allow sh hmdfs:dir { add_name };
 #avc:  denied  { open } for  pid=1983 comm="sh" path="/storage/media/100/local/files" dev="hmdfs" ino=2305843009213955245 scontext=u:r:sh:s0 tcontext=u:object_r:hmdfs:s0 tclass=dir permissive=1
