@@ -31,7 +31,7 @@ allow sh kernel:dir { getattr search };
 allow sh kernel:file { open read };
 allow sh kernel:system { syslog_read };
 allow sh normal_hap_data_file:dir { open read };
-allow sh security:security { check_context };
+allow sh security:security { check_context setsecparam };
 allow sh selinuxfs:dir { search };
 allow sh selinuxfs:file { open read write };
 allow sh sh:unix_dgram_socket { getopt setopt };
