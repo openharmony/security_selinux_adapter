@@ -34,7 +34,7 @@ allow hdcd dev_block_file:blk_file { read };
 #avc:  denied  { sys_admin } for  pid=623 comm="hdcd" capability=21  scontext=u:r:hdcd:s0 tcontext=u:r:hdcd:s0 tclass=capability permissive=1
 allow hdcd hdcd:capability { sys_admin };
 #avc:  denied  { getattr } for  pid=623 comm="hdcd" path="/data/app/el2/100/base/ohos.acts.multimedia.audio.codecformat/haps/entry/files" dev="mmcblk0p11" ino=1307128 scontext=u:r:hdcd:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-allow hdcd system_core_hap_data_file:dir { getattr };
+allow hdcd system_core_hap_data_file:dir { getattr write };
 #avc:  denied  { search } for  pid=623 comm="hdcd" name="ohos.acts.multimedia.audio.codecformat" dev="mmcblk0p11" ino=1307021 scontext=u:r:hdcd:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
 allow hdcd system_core_hap_data_file:dir { search };
 allow hdcd system_core_hap_data_file:dir { open };
