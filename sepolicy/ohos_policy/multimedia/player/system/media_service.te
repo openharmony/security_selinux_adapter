@@ -30,7 +30,7 @@ allow media_service port:tcp_socket { name_connect };
 allow media_service system_core_hap:fd { use };
 #avc:  denied  { getattr } for  pid=475 comm="media_service" path="/data/test/H264_AAC.mp4" dev="mmcblk0p11" ino=1044486 scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=475 comm="media_service" name="H264_AAC.mp4" dev="mmcblk0p11" ino=1044486 scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
-allow media_service data_file:file { getattr read };
+allow media_service data_file:file { getattr read open };
 #avc:  denied  { open } for  pid=475 comm="conv_src:src" path="/proc/sys/kernel/random/boot_id" dev="proc" ino=150834 scontext=u:r:media_service:s0 tcontext=u:object_r:proc_boot_id:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=475 comm="conv_src:src" name="boot_id" dev="proc" ino=150834 scontext=u:r:media_service:s0 tcontext=u:object_r:proc_boot_id:s0 tclass=file permissive=1
 allow media_service proc_boot_id:file { open read };

@@ -35,3 +35,5 @@ allow privacy_service data_service_el1_file:file { getattr };
 allow privacy_service data_service_el1_file:file { lock };
 #avc:  denied  { search } for  pid=507 comm="privacy_service" name="service" dev="mmcblk0p11" ino=1044481 scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
 allow privacy_service data_service_file:dir { search };
+
+allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
