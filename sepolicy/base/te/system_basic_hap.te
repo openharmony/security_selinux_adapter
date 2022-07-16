@@ -125,7 +125,7 @@ allow system_basic_hap ui_service:binder { call transfer };
 allow system_basic_hap ui_service:fd { use };
 allow system_basic_hap updater_sa:binder { call transfer };
 allow system_basic_hap useriam:binder { call transfer };
-allow system_basic_hap wallpaper_service:binder { call };
+allow system_basic_hap wallpaper_service:binder { call transfer };
 allow system_basic_hap wallpaper_service:fd { use };
 allow system_basic_hap wifi_manager_service:binder { call transfer };
 allowxperm system_basic_hap dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x800e 0x8011 0x8016 0x8018 0x8019 0x801d 0x801e 0x8026 };
