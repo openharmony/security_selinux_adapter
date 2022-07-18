@@ -258,7 +258,7 @@ allow disp_gralloc_host hdf_hdi_display_gralloc_service:hdf_devmgr_class { add }
 #avc:  denied  { ioctl  getattr read write open} for  pid=547 comm="audio_hdi_serve" path="/dev/hdf_audio_render" dev="tmpfs" ino=190 ioctlcmd=0x6201 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_hdf_audio_render:s0 tclass=chr_file permissive=1
 #avc:  denied  { read write } for  pid=1936 comm="hdf_audio_hdi_c" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
 #avc:  denied  { use } for  pid=1936 comm="hdf_audio_hdi_c" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=1
-#avc:  denied  { add } for service=audio_hdi_usb_service pid=577 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_hdi_usb_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add get } for service=audio_hdi_usb_service pid=577 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_hdi_usb_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { get } for service=5100 pid=547 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 #avc:  denied  { use } for  pid=1936 comm="hdf_audio_hdi_c" path="/data/lowlatencycapturetest.wav" dev="mmcblk0p11" ino=15 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
 #avc:  denied  { dac_read_search } for  pid=1938 comm="processdump" capability=2  scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:audio_hdi_server_host:s0 tclass=capability permissive=1
@@ -290,7 +290,7 @@ allow audio_hdi_server_host data_file:file { map open read append write };
 allow audio_hdi_server_host dev_hdf_audio_render:chr_file { getattr ioctl open read write };
 allow audio_hdi_server_host devpts:chr_file { read write };
 allow audio_hdi_server_host hdcd:fd { use };
-allow audio_hdi_server_host hdf_audio_hdi_usb_service:hdf_devmgr_class { add };
+allow audio_hdi_server_host hdf_audio_hdi_usb_service:hdf_devmgr_class { add get };
 allow audio_hdi_server_host sa_device_service_manager:samgr_class { get };
 allow audio_hdi_server_host sh:fd { use };
 allow audio_hdi_server_host audio_hdi_server_host:netlink_kobject_uevent_socket { read };
