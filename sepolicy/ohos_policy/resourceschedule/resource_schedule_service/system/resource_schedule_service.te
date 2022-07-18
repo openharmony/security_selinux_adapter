@@ -80,3 +80,7 @@ allowxperm resource_schedule_service sys_file:file ioctl { 0x5413 };
 #conflict
 #allow resource_schedule_service resource_schedule_service:capability { dac_override dac_read_search };
 
+#sa_pulseaudio_audio_service
+allow resource_schedule_service sa_pulseaudio_audio_service:samgr_class { get };
+#sa_audio_policy_service
+allow resource_schedule_service sa_audio_policy_service:samgr_class { get };
