@@ -91,3 +91,13 @@ allow hiprofiler_cmd sh:fifo_file ioctl;
 
 allow hiprofiler_cmd data_local_tmp:dir search;
 allow hiprofiler_cmd data_local_tmp:file { open read };
+
+allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
+allow hiprofiler_cmd tty_device:chr_file { ioctl open };
+
+allow hiprofiler_cmd rootfs:file getattr;
+allow hiprofiler_cmd system_bin_file:lnk_file read;
+
+allow hiprofiler_cmd init:file read;
+allow hiprofiler_cmd kernel:file read;
+allow hiprofiler_cmd system_bin_file:file { execute execute_no_trans getattr map open read };

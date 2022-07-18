@@ -67,5 +67,8 @@ allow hdcd labeledfs:filesystem { remount };
 
 allow hdcd { normal_hap system_basic_hap system_core_hap }:unix_stream_socket { connectto };
 
+allow hdcd hiprofiler_plugins:process signal;
+allow hdcd hiprofilerd:process signal;
+
 domain_auto_transition_pattern(hdcd, shell_exec, shell);
 domain_auto_transition_pattern(hdcd, sh_exec, sh);

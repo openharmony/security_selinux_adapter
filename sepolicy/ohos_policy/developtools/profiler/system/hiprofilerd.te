@@ -107,3 +107,6 @@ allow hiprofiler_plugins updater_sa:file read;
 allow hiprofiler_plugins usb_service:file read;
 
 allow hiprofilerd data_local_tmp:dir search;
+
+allow hiprofilerd hiprofiler_cmd:fd use;
+allow hiprofilerd rootfs:file read;
