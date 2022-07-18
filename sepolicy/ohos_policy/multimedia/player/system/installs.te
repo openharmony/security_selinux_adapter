@@ -15,3 +15,5 @@
 allow installs normal_hap_data_file:file { getattr };
 #avc:  denied  { getattr } for  pid=491 comm="installs" path="/data/app/el2/100/base/ohos.acts.multimedia.audio.audiodecoder/haps/entry/files/mp3.es" dev="mmcblk0p11" ino=1307242 scontext=u:r:installs:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
 allow installs system_core_hap_data_file:file { getattr };
+#avc:  denied  { call } for  pid=536 comm="installs" scontext=u:r:installs:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow installs accesstoken_service:binder { call };
