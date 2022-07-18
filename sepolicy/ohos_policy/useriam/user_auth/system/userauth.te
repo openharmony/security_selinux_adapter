@@ -16,6 +16,7 @@ type sa_useriam_userauth_service, sa_service_attr;
 type sa_useriam_useridm_service, sa_service_attr;
 type sa_useriam_authexecutormgr_service, sa_service_attr;
 type sa_useriam_faceauth_service, sa_service_attr;
+type sa_useriam_fingerprintauth_service, sa_service_attr;
 
 #avc:  denied  { add } for service=901 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_useridm_service:samgr_class { add };
@@ -28,6 +29,9 @@ allow useriam sa_useriam_authexecutormgr_service:samgr_class { add };
 
 #avc:  denied  { add } for service=942 pid=515 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_faceauth_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_faceauth_service:samgr_class { add };
+
+#avc:  denied  { add } for service=943 pid=918 scontext=u:r:fingerprintauth:s0 tcontext=u:object_r:sa_useriam_fingerprintauth_service:s0 tclass=samgr_class permissive=1
+allow useriam sa_useriam_fingerprintauth_service:samgr_class { add };
 
 #avc:  denied  { get } for service=931 pid=515 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_authexecutormgr_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_authexecutormgr_service:samgr_class { get };
@@ -46,3 +50,6 @@ allow useriam hdf_user_auth_interface_service:hdf_devmgr_class { get };
 
 #avc:  denied  { get } for service=face_auth_interface_service pid=552 scontext=u:r:useriam:s0 tcontext=u:object_r:hdf_face_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
 allow useriam hdf_face_auth_interface_service:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=fingerprint_auth_interface_service pid=918 scontext=u:r:fingerprintauth:s0 tcontext=u:object_r:hdf_fingerprint_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow useriam hdf_fingerprint_auth_interface_service:hdf_devmgr_class { get };

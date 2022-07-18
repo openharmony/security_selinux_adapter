@@ -61,4 +61,5 @@ allow useriam user_auth_host:binder { call };
 allow useriam useriam:unix_dgram_socket { getopt setopt };
 allowxperm useriam dev_at_file:chr_file ioctl { 0x4103 };
 allow useriam face_auth_host:binder { call transfer };
+allow useriam fingerprint_auth_host:binder { call transfer };
 allow useriam render_service:binder { call };
