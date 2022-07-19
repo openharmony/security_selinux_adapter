@@ -37,6 +37,8 @@ use_faultloggerd_file({ hiview hidumper })
 #########################
 allow faultloggerd self:capability sys_ptrace; # conflict with neverallow
 
+allow faultloggerd init:unix_stream_socket { accept getattr getopt listen setopt };
+
 allow faultloggerd domain:file { open read };
 allow faultloggerd domain:dir { getattr search };
 allow faultloggerd domain:process signal;

@@ -106,7 +106,7 @@ allow processdump init:dir { getattr open read search };
 allow processdump init:file { getattr open read };
 allow processdump init:netlink_kobject_uevent_socket { read write };
 allow processdump init:unix_dgram_socket { sendto };
-allow processdump init:unix_stream_socket { read write };
+allow processdump init:unix_stream_socket { read write connectto };
 
 #============ sh & appspawn_exec & foundation ===========
 allow processdump sh:fd use;

@@ -188,7 +188,7 @@ allow init edm_sa:process { rlimitinh siginh transition };
 allow init face_auth_host:process { rlimitinh siginh transition };
 allow init faultloggerd_exec:file { execute getattr read open };
 allow init faultloggerd:process { rlimitinh siginh transition };
-allow init faultloggerd_socket:sock_file { getattr relabelto };
+allow init faultloggerd_socket:sock_file { getattr relabelto unlink };
 allow init faultloggerd_temp_file:dir { getattr open read relabelfrom relabelto setattr };
 allow init fd_holder_socket:sock_file { getattr relabelto };
 allow init fingerprint_auth_host:process { rlimitinh siginh transition };
