@@ -39,3 +39,6 @@ allow media_service proc_boot_id:file { open read };
 allow media_service sh:binder { call transfer };
 #avc:  denied  { use } for  pid=20777 comm="avmetadata_unit" path="/data/test/H264_AAC.mp4" dev="mmcblk0p11" ino=1044486 scontext=u:r:media_service:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
 allow media_service sh:fd { use };
+#avc:  denied  { getattr } for  pid=499 comm="media_service" path="/data/storage/el2/base/haps/entry/files/H264_AAC.mp4" dev="mmcblk0p11" ino=1307219 scontext=u:r:media_service:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2096 comm="jsThread-1" path="/data/storage/el2/base/haps/entry/files/H264_AAC.mp4" dev="mmcblk0p11" ino=1307219 scontext=u:r:media_service:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=0
+allow media_service system_core_hap_data_file:file { getattr read };
