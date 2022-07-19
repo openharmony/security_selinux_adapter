@@ -13,6 +13,7 @@
 
 
 allow domain init:process sigchld;
+allow init domain:process sigkill;
 
 allow domain self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
 allow domain domain:process noatsecure;

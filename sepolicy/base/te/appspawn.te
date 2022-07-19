@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow appspawn appspawn:capability { dac_override kill setgid setuid sys_admin };
+allow appspawn appspawn_socket:sock_file { unlink };
 allow appspawn appspawn:process { setcurrent };
 allow appspawn appspawn:unix_dgram_socket { getopt setopt };
 allow appspawn bootevent_param:file { map open read };
@@ -38,7 +39,7 @@ allow appspawn debug_param:file { map open read };
 allow appspawn default_param:file { map open read };
 allow appspawn dev_at_file:chr_file { ioctl };
 allow appspawn dev_file:dir { mounton };
-allow appspawn dev_unix_socket:dir { add_name search write };
+allow appspawn dev_unix_socket:dir { add_name search write remove_name };
 allow appspawn dev_unix_socket:sock_file { create setattr };
 allow appspawn distributedsche_param:file { map open read };
 allow appspawn hilog_param:file { map open read };
