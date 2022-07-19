@@ -591,3 +591,6 @@ allow sample_host hdf_sample_driver_service:hdf_devmgr_class { add };
 allow sample_host sa_device_service_manager:samgr_class { get };
 allowxperm sample_host dev_hdf_kevent:chr_file ioctl { 0x6203 };
 # for testcase end
+
+allow sensor_host dev_hdf_sensor_mgr:chr_file { ioctl };
+allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6202;
