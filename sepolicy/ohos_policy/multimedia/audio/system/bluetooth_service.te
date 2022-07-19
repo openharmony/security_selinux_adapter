@@ -11,6 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#avc:  denied  { call } for  pid=305 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:a2dp_host:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=305 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:a2dp_host:s0 tclass=binder permissive=1
+allow bluetooth_service a2dp_host:binder { call transfer };
+
 #avc:  denied  { call } for  pid=293 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=310 comm="bluetooth_servi" scontext=u:r:bluetooth_service:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
 allow bluetooth_service audio_policy:binder { call transfer };
