@@ -28,27 +28,11 @@ define(`processdump_cmd', `
 use_processdump({ domain -limit_domain -init -kernel })
 processdump_cmd({
     domain
-    appspawn_exec
     data_file
     dev_parameters_file
-    deviceauth_service_exec
-    faultloggerd_exec
+    exec_attr
     foundation
-    hdcd_exec
-    hdf_devmgr_exec
-    hilogd_exec
-    hiview_exec
-    init_exec
-    installs_exec
-    render_service_exec
-    samain_exec
-    sh_exec
-    storage_daemon_exec
-    udevd_exec
     vendor_bin_file
-    uinput_inject_exec
-    watchdog_service_exec
-    wifi_hal_service_exec
 })
 
 #============= domain =================
