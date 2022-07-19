@@ -48,6 +48,7 @@ allow multimodalinput sa_foundation_dms:samgr_class { get };
 allow multimodalinput sa_foundation_wms:samgr_class { get };
 allow multimodalinput sa_multimodalinput_service:samgr_class { get };
 allow multimodalinput sa_render_service:samgr_class { get };
+allow multimodalinput sh:binder { call };
 allow multimodalinput sys_file:dir { open read };
 allow multimodalinput sys_file:file { getattr open read };
 allow multimodalinput system_bin_file:dir { search };
