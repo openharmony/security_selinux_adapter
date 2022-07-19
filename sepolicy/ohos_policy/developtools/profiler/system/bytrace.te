@@ -17,3 +17,72 @@ allow bytrace hiprofilerd:fd use;
 
 allow bytrace hiprofiler_plugins:fd use;
 allow bytrace hiprofiler_plugins:fifo_file write;
+
+allow bytrace domain:file { map open read write };
+
+allow bytrace data_local_tmp:dir read;
+
+allow bytrace const_allow_mock_param:file read;
+allow bytrace const_allow_param:file read;
+allow bytrace const_param:file { open read };
+allow bytrace const_postinstall_fstab_param:file read;
+allow bytrace const_postinstall_param:file read;
+allow bytrace hw_sc_build_os_param:file map;
+allow bytrace init_param:file { map open read };
+allow bytrace init_svc_param:file { map open read };
+allow bytrace ohos_boot_param:file open;
+allow bytrace tmpfs:file { read write };
+
+allow bytrace const_build_param:file read;
+allow bytrace const_param:file map;
+allow bytrace const_postinstall_fstab_param:file { map open };
+allow bytrace const_postinstall_param:file { map open };
+allow bytrace const_product_param:file read;
+allow bytrace hilog_param:file read;
+allow bytrace persist_param:file read;
+allow bytrace security_param:file read;
+
+allow bytrace bootevent_param:file read;
+allow bytrace build_version_param:file read;
+allow bytrace const_build_param:file open;
+allow bytrace const_product_param:file open;
+allow bytrace debug_param:file read;
+allow bytrace hilog_param:file open;
+allow bytrace persist_param:file open;
+allow bytrace persist_sys_param:file read;
+allow bytrace security_param:file open;
+allow bytrace startup_param:file read;
+
+allow bytrace bootevent_param:file read;
+allow bytrace build_version_param:file read;
+allow bytrace const_build_param:file { map open };
+allow bytrace const_product_param:file { map open };
+allow bytrace debug_param:file read;
+allow bytrace hilog_param:file { map open };
+allow bytrace persist_param:file { map open };
+allow bytrace persist_sys_param:file read;
+allow bytrace security_param:file { map open };
+allow bytrace startup_param:file read;
+
+allow bytrace bootevent_param:file open;
+allow bytrace bootevent_samgr_param:file read;
+allow bytrace build_version_param:file open;
+allow bytrace const_display_brightness_param:file read;
+allow bytrace debug_param:file open;
+allow bytrace default_param:file read;
+allow bytrace distributedsche_param:file read;
+allow bytrace input_pointer_device_param:file read;
+allow bytrace persist_sys_param:file open;
+allow bytrace startup_param:file open;
+
+allow bytrace bootevent_param:file map;
+allow bytrace bootevent_samgr_param:file open;
+allow bytrace build_version_param:file map;
+allow bytrace const_display_brightness_param:file open;
+allow bytrace debug_param:file map;
+allow bytrace default_param:file open;
+allow bytrace distributedsche_param:file open;
+allow bytrace hiprofiler_plugins:fifo_file ioctl;
+allow bytrace input_pointer_device_param:file open;
+allow bytrace persist_sys_param:file map;
+allow bytrace startup_param:file map;
