@@ -18,15 +18,19 @@ allow normal_hap sa_distributeschedule:samgr_class { get };
 allow normal_hap sa_softbus_service:samgr_class { get };
 allow normal_hap softbus_server:binder { call transfer };
 allow normal_hap softbus_server:fd { use };
+allow normal_hap softbus_server:tcp_socket { read setopt write };
 
 allow system_basic_hap distributedsche:binder { call transfer };
 allow system_basic_hap distributedsche:fd { use };
 allow system_basic_hap sa_distributeschedule:samgr_class { get };
 allow system_basic_hap sa_softbus_service:samgr_class { get };
+allow system_basic_hap softbus_server:tcp_socket { read setopt write };
 
 allow system_core_hap distributedsche:binder { call transfer };
 allow system_core_hap distributedsche:fd { use };
 allow system_core_hap sa_distributeschedule:samgr_class { get };
 allow system_core_hap sa_softbus_service:samgr_class { get };
+allow system_core_hap softbus_server:tcp_socket { read setopt write };
 
 allow faultloggerd normal_hap:process { signal };
+allow softbus_server normal_hap:binder { call };
