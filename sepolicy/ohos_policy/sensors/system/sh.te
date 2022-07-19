@@ -14,6 +14,9 @@
 #avc:  denied  { signal } for  pid=2026 comm="sh" scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=process permissive=1
 allow sh sensors:process { signal };
 
+#avc:  denied  { call } for  pid=2025 comm="SensorAgentFuzz" scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
+allow sh sensors:binder { call };
+
 #avc:  denied  { get } for service=3601 pid=1930 scontext=u:r:sh:s0 tcontext=u:object_r:sa_sensor_service:s0 tclass=samgr_class permissive=1
 allow sh sa_sensor_service:samgr_class { get };
 
