@@ -12,10 +12,10 @@
 # limitations under the License.
 
 allow kernel data_file:dir { add_name write create search setattr };
-allow kernel data_file:file { create read write open setattr };
+allow kernel data_file:file { create read write open };
 allow kernel data_log:dir { add_name create search setattr write };
 allow kernel data_log:file { append create read write open setattr };
-allow kernel debugfs_usb:dir { search };
+
 allow kernel dev_bbox:chr_file { open write };
 allow kernel device:chr_file { create getattr setattr unlink };
 allow kernel device:dir { add_name remove_name rmdir search write };
@@ -25,5 +25,5 @@ allow kernel kernel:process { setcurrent };
 allow kernel pstorefs:dir { open read remove_name search write };
 allow kernel pstorefs:file { open read unlink };
 allow kernel softbus_server:tcp_socket { read write };
-allow kernel sys_file:dir { open read };
+allow kernel sys_file:dir { read };
 allow kernel tmpfs:chr_file { write };
