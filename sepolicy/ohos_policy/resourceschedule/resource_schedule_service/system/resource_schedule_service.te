@@ -21,6 +21,8 @@ allow resource_schedule_service param_watcher:binder { call transfer };
 allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
 allow resource_schedule_service audio_policy:binder { call transfer };
 allow resource_schedule_service pulseaudio:binder { call transfer };
+allow pulseaudio resource_schedule_service:binder { call transfer};
+allow audio_policy resource_schedule_service:binder { call transfer};
 
 #cgroup
 allow resource_schedule_service cgroup:dir { search };
