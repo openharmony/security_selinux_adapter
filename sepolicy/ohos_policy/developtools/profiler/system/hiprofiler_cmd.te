@@ -118,7 +118,7 @@ allow hiprofiler_cmd hilogd:file read;
 allow hiprofiler_cmd hiprofilerd:process signal;
 
 allow hiprofiler_cmd domain:dir { search open read };
-allow hiprofiler_cmd domain:file { map open read };
+allow hiprofiler_cmd domain:file { getattr map open read };
 
 allow hiprofiler_cmd self:capability sys_ptrace;
 
@@ -138,3 +138,7 @@ allow hiprofiler_cmd data_local_tmp:dir add_name;
 allow hiprofiler_cmd devpts:chr_file ioctl;
 
 allow hiprofiler_cmd data_local_tmp:file create;
+
+allow hiprofiler_cmd domain:process signal;
+allow hiprofiler_cmd hiview_exec:file { getattr map open read };
+allow hiprofiler_cmd self:capability kill;
