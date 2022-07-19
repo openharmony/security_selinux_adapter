@@ -14,4 +14,5 @@
 #avc:  denied  { ptrace } for  pid=20622 comm="processdump" scontext=u:r:processdump:s0 tcontext=u:r:sh:s0 tclass=process permissive=0
 allow processdump sh:process { ptrace };
 allow processdump data_user_file:file { getattr };
-allow processdump data_app_el1_file:file { open getattr read search };
+allow processdump data_app_el1_file:file { open getattr read map };
+allow processdump data_app_el1_file:dir { search };
