@@ -22,4 +22,4 @@ allow multimodalinput data_libinput:dir { add_name };
 allow multimodalinput data_libinput:dir { write };
 #avc:  denied  { create } for  pid=246 comm="multimodalinput" name="libinput.log" scontext=u:r:multimodalinput:s0 tcontext=u:object_r:data_libinput:s0 tclass=file permissive=1
 allow multimodalinput data_libinput:file { create };
-allow multimodalinput data_service_file:dir {search };
+allow multimodalinput data_service_file:dir { search };
