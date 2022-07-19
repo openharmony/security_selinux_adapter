@@ -28,8 +28,7 @@ allow bytrace ohos_param:file { read map open };
 allow bytrace kernel:unix_stream_socket connectto;
 allow bytrace paramservice_socket:sock_file write;
 
-#allow bytrace ohos_boot_param:file { map open read};
-allow bytrace ohos_boot_param:file { map read};
+allow bytrace ohos_boot_param:file { map open read };
 allow bytrace sys_param:file { open read map };
 
 allow bytrace net_param:file { map open read };
@@ -40,6 +39,14 @@ allow bytrace hw_sc_build_param:file { open read map };
 allow bytrace hw_sc_param:file { map open read };
 allow bytrace net_tcp_param:file { map open };
 
-allow bytrace hw_sc_build_os_param:file { open read };
-
 allow bytrace data_local_tmp:file { read write };
+
+allow bytrace domain:dir { getattr search };
+allow bytrace domain:file { open read };
+allow bytrace hw_sc_build_os_param:file { open read map };
+allow bytrace sh:fifo_file { read write };
+
+allow bytrace const_param:file read;
+allow bytrace hw_sc_build_os_param:file { open read };
+allow bytrace init_param:file { map open read };
+allow bytrace init_svc_param:file { map open read };
