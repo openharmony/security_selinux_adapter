@@ -174,6 +174,8 @@ allow init dev_unix_socket:dir { add_name getattr open read relabelto remove_nam
 allow init dev_unix_socket:sock_file { create getattr relabelfrom setattr };
 allow init dev_usb_ffs:dir { add_name create getattr mounton open read relabelto search setattr write };
 allow init dev_v_file:dir { open getattr read relabelto setattr };
+allow init dev_v_file:chr_file { setattr };
+allow init dev_media_file:chr_file { setattr };
 allow init dev_video_file:chr_file { setattr };
 allow init dhardware:process { rlimitinh siginh transition };
 allow init disp_gralloc_host:process { rlimitinh siginh transition };
