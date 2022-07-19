@@ -19,3 +19,9 @@ allow thermal sa_foundation_cesfwk_service:samgr_class { get };
 
 #avc:  denied  { add } for service=3303 pid=536 scontext=u:r:thermal:s0 tcontext=u:object_r:sa_thermal_service:s0 tclass=samgr_class permissive=1
 allow thermal sa_thermal_service:samgr_class { add };
+
+#avc:  denied  { call } for  pid=472 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
+allow thermal sh:binder { call };
+
+#avc:  denied  { call } for  pid=472 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
+allow thermal normal_hap:binder { call };
