@@ -66,3 +66,21 @@ allow sh sa_bluetooth_server:samgr_class { get };
 
 #avc:  denied  { get } for service=1130 pid=2180 scontext=u:r:a2dp_host:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=1
 allow a2dp_host sa_bluetooth_server:samgr_class { get };
+
+allow bluetooth_service dev_uhid_file:chr_file { read write };
+allow softbus_server bluetooth_service:fd { use };
+allow softbus_server bluetooth_service:unix_stream_socket { read write };
+allow softbus_server bluetooth_service:unix_stream_socket { setopt };
+allow softbus_server bluetooth_service:unix_stream_socket { shutdown };
+allow bluetooth_service data_bluetooth:dir { remove_name };
+allow bluetooth_service data_bluetooth:file { rename };
+allow bluetooth_service data_bluetooth:file { unlink };
+allow bluetooth_service sh:binder { transfer };
+allow bluetooth_service sh:binder { call };
+allow bluetooth_service dev_uhid_file:chr_file { open };
+allow sh bluetooth_service:fd { use };
+allow sh bluetooth_service:unix_stream_socket { read write };
+allow sh bluetooth_service:unix_stream_socket { setopt };
+allow sh bluetooth_service:unix_stream_socket { shutdown };
+allow sh bluetooth_service:binder { call };
+allow sh bluetooth_service:binder { transfer };

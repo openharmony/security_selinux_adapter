@@ -78,3 +78,9 @@ allow accountmgr data_init_agent:dir { search };
 allow accountmgr data_init_agent:file { read append ioctl open };
 
 allow accountmgr param_watcher:binder { transfer };
+
+# add for xts
+allow sh sa_accountmgr:samgr_class { get };
+allow system_core_hap sa_accountmgr:samgr_class { get };
+allow normal_hap sa_accountmgr:samgr_class { get };
+allow hiview sa_accountmgr:samgr_class { get };

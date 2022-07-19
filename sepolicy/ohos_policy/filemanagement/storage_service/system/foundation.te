@@ -13,3 +13,4 @@
 
 allow foundation configfs:dir { add_name create search };
 allow foundation data_service_el1_file:file { ioctl lock map read append open };
+allow foundation fms_service:binder { transfer };

@@ -13,5 +13,5 @@
 
 allow system_basic_hap sa_foundation_tel_state_registry:samgr_class get;
 allow system_basic_hap sa_telephony_tel_core_service:samgr_class get;
-allow system_basic_hap telephony_sa:binder call;
+allow system_basic_hap telephony_sa:binder { call transfer };
 

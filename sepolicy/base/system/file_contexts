@@ -185,7 +185,7 @@
 /data/ethernet(/.*)?                 u:object_r:data_ethernet:s0
 /data/file.log                 u:object_r:data_filelog:s0
 /data/init_agent(/.*)?                 u:object_r:data_init_agent:s0
-/data/libinput(/.*)?                 u:object_r:data_libinput:s0
+/data/log/libinput(/.*)?                 u:object_r:data_libinput:s0
 /data/local(/.*)?                 u:object_r:data_local:s0
 /data/local/traces(/.*)?                 u:object_r:data_local_traces:s0
 /data/local/tmp(/.*)?                 u:object_r:data_local_tmp:s0
@@ -207,7 +207,7 @@
 /data/system(/.*)?                 u:object_r:data_system:s0
 /data/system_ce(/.*)?                 u:object_r:data_system_ce:s0
 /data/system_de(/.*)?                 u:object_r:data_system_de:s0
-/data/udev(/.*)?                 u:object_r:data_udev:s0
+/data/service/el1/public/udev(/.*)?                 u:object_r:data_udev:s0
 /data/update_service_log.txt     u:object_r:data_update_service_log:s0
 /data/user(/.*)?                 u:object_r:data_user:s0
 /data/user_de(/.*)?                 u:object_r:data_user_de:s0

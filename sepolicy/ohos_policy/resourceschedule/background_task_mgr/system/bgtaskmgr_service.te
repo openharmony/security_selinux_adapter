@@ -24,6 +24,7 @@ allow bgtaskmgr_service data_service_file:dir { search };
 allow bgtaskmgr_service dev_unix_socket:dir { search };
 allow bgtaskmgr_service dev_unix_socket:sock_file { write };
 allow bgtaskmgr_service faultloggerd_socket:sock_file { write };
+allow bgtaskmgr_service faultloggerd_temp_file:file { read write };
 allow bgtaskmgr_service proc_meminfo_file:file { open read };
 allow bgtaskmgr_service sys_file:dir { open read };
 allow bgtaskmgr_service system_bin_file:dir { search };

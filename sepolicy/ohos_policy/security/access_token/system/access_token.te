@@ -33,3 +33,4 @@ allow accesstoken_service token_sync_service:binder { call };
 binder_call(accesstoken_service, foundation);
 binder_call(accesstoken_service, sh);
 binder_call(accesstoken_service, softbus_server);
+binder_call(accesstoken_service, privacy_service);

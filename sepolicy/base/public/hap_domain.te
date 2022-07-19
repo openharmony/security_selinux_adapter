@@ -115,14 +115,14 @@ neverallow { hap_domain } *:security { compute_av check_context };
 
 neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_hap_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
-             -bgtaskmgr_service -nwebspawn -storage_daemon -accessibility } data_app_el1_file:dir *;
+             -bgtaskmgr_service -nwebspawn -storage_daemon -accessibility -telephony_sa } data_app_el1_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
              -distributeddata -storage_daemon -nwebspawn } data_app_el2_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el3_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el4_file:dir *;
 
 neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs -nwebspawn
-             -accessibility -hdcd } hap_file_attr:file open;
+             -accessibility -hdcd -telephony_sa } hap_file_attr:file open;
 
 # service can't modify hap sandbox
 neverallow { domain -hap_domain -installs -init -storage_daemon -appspawn -distributeddata -hdcd } hap_file_attr:dir_file_class_set { create unlink };
@@ -143,7 +143,7 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn } data_file_attr:file { execute execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -hiprofiler_plugins } data_file_attr:file { execute execute_no_trans };
 
 neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 

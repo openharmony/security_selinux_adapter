@@ -18,4 +18,5 @@ allow system_core_hap sh:binder { call };
 allow system_core_hap sysfs_rtc:dir { open read };
 allow system_core_hap system_core_hap:binder { call };
 allow system_core_hap time_service:binder { call };
+allow system_core_hap sa_form_mgr_service:samgr_class { get };
 

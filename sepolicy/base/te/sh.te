@@ -145,8 +145,6 @@ allow sh edm_sa:dir { getattr search };
 allow sh edm_sa:file { open read };
 allow sh edm_sa:process { getattr };
 allow sh etc_file:lnk_file { getattr };
-allow sh faceauth:dir { getattr search };
-allow sh faceauth:file { open read };
 allow sh face_auth_host:dir { getattr search };
 allow sh face_auth_host:file { open read };
 allow sh faultloggerd:dir { getattr search };

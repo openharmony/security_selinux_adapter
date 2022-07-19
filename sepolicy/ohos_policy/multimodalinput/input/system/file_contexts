@@ -15,7 +15,7 @@
 
 # for udevd
 /system/bin/udevd u:object_r:udevd_exec:s0
-/data/udev/control u:object_r:udevd_socket:s0
+/data/service/el1/public/udev/control u:object_r:udevd_socket:s0
 
 # for uinput_inject
 /system/bin/uinput_inject u:object_r:uinput_inject_exec:s0

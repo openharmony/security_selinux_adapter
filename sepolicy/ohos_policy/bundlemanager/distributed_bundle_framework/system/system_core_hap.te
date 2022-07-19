@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow system_core_hap d-bms:binder { call };
+allow system_core_hap sa_distributed_bundle_mgr_service_service:samgr_class { get };
+allow system_core_hap sa_foundation_devicemanager_service:samgr_class { get };

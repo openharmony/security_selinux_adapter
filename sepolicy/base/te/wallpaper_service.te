@@ -54,6 +54,7 @@ allow wallpaper_service sa_wallpaper_manager_service:samgr_class { add };
 allow wallpaper_service security_param:file { map open read };
 allow wallpaper_service startup_param:file { map open read };
 allow wallpaper_service sys_param:file { map open read };
+allow wallpaper_service system_basic_hap:binder { call };
 allow wallpaper_service system_bin_file:dir { search };
 allow wallpaper_service sys_usb_param:file { map open read };
 allow wallpaper_service tracefs:dir { search };
