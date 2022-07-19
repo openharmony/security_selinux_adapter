@@ -14,4 +14,4 @@
 #avc:  denied  { unlink } for  pid=243 comm="udevd" name="control" dev="mmcblk0p11" ino=261122 scontext=u:r:udevd:s0 tcontext=u:object_r:data_udev:s0 tclass=sock_file permissive=1
 allow udevd data_udev:sock_file { unlink };
 allow udevd data_service_file:dir { search };
-allow udevd data_service_el1_file:dir { search };
+allow udevd data_service_el1_file:dir { search write };
