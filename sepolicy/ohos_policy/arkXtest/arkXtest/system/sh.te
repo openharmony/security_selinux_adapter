@@ -132,7 +132,6 @@ allow sh selinuxfs:file { open read write };
 allow sh sensor_host:dir { getattr search };
 allow sh sensor_host:file { open read };
 allow sh sensors:file { read };
-allow sh sh:capability { kill };
 allow sh sh_exec:file { execute_no_trans };
 allow sh softbus_server:dir { getattr search };
 allow sh softbus_server:file { read };
