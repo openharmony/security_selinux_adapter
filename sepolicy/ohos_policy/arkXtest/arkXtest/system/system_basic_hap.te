@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_core_hap data_app_el1_file:file { execute };
+allow system_basic_hap data_app_el1_file:file { execute };
+allow system_basic_hap system_basic_hap:tcp_socket { create };
