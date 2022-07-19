@@ -18,11 +18,23 @@ define(`use_processdump', `
     allow $1 processdump_exec:file { execute execute_no_trans getattr map open read };
 ')
 
-use_processdump({ domain -limit_domain -init -kernel })
+define(`processdump_cmd', `
+    allow processdump $1:file { getattr map open read };
+')
 
 ########################
 ## processdump rules: ##
 ########################
+use_processdump({ domain -limit_domain -init -kernel })
+processdump_cmd({
+    domain
+    data_file
+    dev_parameters_file
+    exec_attr
+    foundation
+    vendor_bin_file
+})
+
 #============= domain =================
 allow domain processdump:process { share };
 allow domain self:fifo_file { write };
@@ -30,7 +42,6 @@ allow processdump { domain -processdump }:process ptrace; # conflict with nevera
 allow processdump domain:fd use;
 allow processdump domain:fifo_file { read write };
 allow processdump domain:dir { getattr open read search };
-allow processdump domain:file { getattr open read };
 
 #============= write event to hiview =========
 allow processdump hiview:binder { call transfer };
@@ -51,40 +62,8 @@ allow processdump processdump:lnk_file { read };
 allow processdump processdump:unix_dgram_socket { create connect write };
 allow processdump processdump:unix_stream_socket { create setopt connect write read };
 
-#============ data_xxx ==================
-allow processdump data_init_agent:file { append ioctl open read };
-allow processdump data_init_agent:dir search;
-allow processdump data_file:file { getattr map open read };
-allow processdump data_file:dir search;
-
-#============ dev_xxx ===================
-allow processdump dev_file:dir { search };
-allow processdump dev_null_file:chr_file { read write };
-allow processdump dev_parameters_file:dir { search };
-allow processdump dev_parameters_file:file { map open read };
-allow processdump dev_unix_file:dir { search };
-allow processdump dev_unix_socket:dir search;
-allow processdump dev_unix_socket:sock_file write;
-allow processdump dev_unix_socket_file:dir { search };
-
-#============ system_xxx =================
-allow processdump system_bin_file:dir search;
-allow processdump system_file:dir { search };
-allow processdump system_lib_file:dir { search };
-allow processdump system_lib_file:file { execute getattr map open read };
-allow processdump system_etc_file:dir { getattr open read search };
-allow processdump system_etc_file:file { getattr open read };
-
-#============ vendor_xxx =================
-allow processdump vendor_file:file { getattr map open read };
-allow processdump vendor_file:dir { getattr open read search };
-
-#============ proc_xxx & tmpfs & debugfs ===================
-allow processdump proc_file:dir { search };
-allow processdump proc_file:lnk_file { read };
-allow processdump tmpfs:dir { search };
-allow processdump tmpfs:lnk_file { read };
-allow processdump debugfs:dir { search };
+#============ hidumper ==============
+allow processdump hidumper_service:fifo_file ioctl;
 
 #============ normal_hap =================
 allow processdump normal_hap:dir { getattr open read search };
@@ -101,20 +80,51 @@ allow processdump hdcd:unix_stream_socket { read write };
 allow processdump devpts:chr_file { read write };
 allow processdump tty_device:chr_file { read write };
 
-#============= for init ================
+#============= init ================
 allow processdump init:dir { getattr open read search };
 allow processdump init:file { getattr open read };
 allow processdump init:netlink_kobject_uevent_socket { read write };
 allow processdump init:unix_dgram_socket { sendto };
-allow processdump init:unix_stream_socket { read write connectto };
+allow processdump init:unix_stream_socket { read write };
 
-#============ sh & appspawn_exec & foundation ===========
+#============ sh & foundation ===========
 allow processdump sh:fd use;
 allow processdump sh:fifo_file ioctl;
-allow processdump appspawn_exec:file { getattr map open read };
 allow processdump foundation:dir { getattr open read search };
-allow processdump foundation:file { getattr open read };
-allow processdump samain_exec:file { getattr map open read };
+
+#============ data_xxx ==================
+allow processdump data_init_agent:file { append ioctl open read };
+allow processdump data_init_agent:dir search;
+allow processdump data_file:dir search;
+
+#============ dev_xxx ===================
+allow processdump dev_file:dir { search };
+allow processdump dev_null_file:chr_file { read write };
+allow processdump dev_parameters_file:dir { search };
+allow processdump dev_unix_file:dir { search };
+allow processdump dev_unix_socket:dir search;
+allow processdump dev_unix_socket:sock_file write;
+allow processdump dev_unix_socket_file:dir { search };
+
+#============ system_xxx =================
+allow processdump system_bin_file:dir search;
+allow processdump system_file:dir { search };
+allow processdump system_lib_file:dir { search };
+allow processdump system_lib_file:file { execute getattr map open read };
+allow processdump system_etc_file:dir { getattr open read search };
+allow processdump system_etc_file:file { getattr open read };
+
+#============ vendor_xxx =================
+allow processdump vendor_file:file { getattr map open read };
+allow processdump vendor_file:dir { getattr open read search };
+allow processdump vendor_bin_file:dir search;
+
+#============ proc_xxx & tmpfs & debugfs ===================
+allow processdump proc_file:dir { search };
+allow processdump proc_file:lnk_file { read };
+allow processdump tmpfs:dir { search };
+allow processdump tmpfs:lnk_file { read };
+allow processdump debugfs:dir { search };
 
 ############################
 ## neverallow assertions: ##
