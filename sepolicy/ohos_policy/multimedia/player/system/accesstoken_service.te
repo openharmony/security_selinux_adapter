@@ -13,3 +13,4 @@
 
 #avc:  denied  { call } for  pid=504 comm="accesstoken_ser" scontext=u:r:accesstoken_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
 allow accesstoken_service privacy_service:binder { call };
+allow accesstoken_service dev_unix_socket:sock_file { write };
