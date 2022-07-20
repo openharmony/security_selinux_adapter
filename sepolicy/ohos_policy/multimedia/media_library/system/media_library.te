@@ -45,3 +45,11 @@ neverallow {
 } data_user_file:file {
     never_execute_file
 };
+
+#audit: type=1400 audit(1657881691.823:16): avc:  denied  { remove_name } for  pid=1542 comm="com.ohos.medial" name="IMG_2022715_103944.jpg" dev="mmcblk0p11" ino=1045008 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
+allow normal_hap data_user_file:dir remove_name;
+#audit: type=1400 audit(1657881691.823:17): avc:  denied  { rename } for  pid=1542 comm="com.ohos.medial" name="IMG_2022715_103944.jpg" dev="mmcblk0p11" ino=1045008 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
+#audit: type=1400 audit(1501923750.060:21): avc:  denied  { unlink } for  pid=1676 comm="com.ohos.medial" name="F8EBDCBABE41F1CDEEBCEFD30480F24047DE7BE1A6114EE5251F853A07B84AC6.jpg" dev="mmcblk0p11" ino=1175800 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1
+allow normal_hap data_user_file:file { rename unlink };
+#audit: type=1400 audit(1501923711.886:16): avc:  denied  { call } for  pid=1676 comm="com.ohos.medial" scontext=u:r:normal_hap:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
+allow normal_hap privacy_service:binder call;
