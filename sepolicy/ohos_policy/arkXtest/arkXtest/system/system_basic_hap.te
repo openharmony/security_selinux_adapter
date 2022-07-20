@@ -12,4 +12,5 @@
 # limitations under the License.
 
 allow system_basic_hap data_app_el1_file:file { execute };
-allow system_basic_hap system_basic_hap:tcp_socket { create setopt };
+allow system_basic_hap system_basic_hap:tcp_socket { create setopt bind };
+allow system_basic_hap normal_hap:binder { transfer };

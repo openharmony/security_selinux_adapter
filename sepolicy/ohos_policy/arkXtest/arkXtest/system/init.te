@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow hdcd hdcd:tcp_socket { connect name_connect };
-allow hdcd port:tcp_socket { name_connect };
+allow init data_service_el1_file:sock_file { getattr };
+allow init data_service_el1_file:file { relabelfrom };
