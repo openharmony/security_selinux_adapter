@@ -69,3 +69,6 @@ allow sensors sensor_host:binder { transfer };
 
 #avc:  denied  { use } for  pid=2778 comm="processdump" dev="mmcblk0p11" ino=652843 scontext=u:r:sensors:s0 tcontext=u:r:faultloggerd:s0 tclass=fd permissive=1
 allow sensors faultloggerd:fd { use };
+
+#avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
+allow sensors sh:fd { use };
