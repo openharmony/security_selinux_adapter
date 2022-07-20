@@ -20,3 +20,10 @@ allow inputmethod_service dev_unix_socket:sock_file { write };
 allow inputmethod_service normal_hap:binder { call };
 allow inputmethod_service system_basic_hap:binder { call };
 allow inputmethod_service system_core_hap:binder { call };
+allow inputmethod_service data_file:dir { search };
+allow inputmethod_service inputmethod_service:unix_dgram_socket { getopt setopt };
+allow inputmethod_service persist_sys_param:parameter_service { set };
+allow inputmethod_service data_app_file:dir { search };
+allow inputmethod_service kernel:unix_stream_socket { connectto };
+allow inputmethod_service paramservice_socket:sock_file { write };
+
