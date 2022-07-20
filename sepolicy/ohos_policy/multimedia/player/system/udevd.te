@@ -15,3 +15,4 @@
 allow udevd data_udev:sock_file { unlink };
 allow udevd data_service_file:dir { search };
 allow udevd data_service_el1_file:dir { search write ioctl };
+allow udevd data_service_el1_file:sock_file { unlink };

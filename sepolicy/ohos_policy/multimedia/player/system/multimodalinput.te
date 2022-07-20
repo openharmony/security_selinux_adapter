@@ -24,3 +24,4 @@ allow multimodalinput data_libinput:dir { write };
 allow multimodalinput data_libinput:file { create };
 allow multimodalinput data_service_file:dir { search };
 allow multimodalinput data_service_el1_file:dir { search };
+allow multimodalinput data_log:dir { search };

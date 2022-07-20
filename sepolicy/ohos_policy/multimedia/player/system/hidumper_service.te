@@ -13,3 +13,4 @@
 
 #avc:  denied  { getattr } for  pid=535 comm="hidumper_servic" path="/proc/10928" dev="proc" ino=102645 scontext=u:r:hidumper_service:s0 tcontext=u:r:system_core_hap:s0 tclass=dir permissive=1
 allow hidumper_service system_core_hap:dir { getattr };
+allow hidumper_service dev_at_file:chr_file { ioctl };

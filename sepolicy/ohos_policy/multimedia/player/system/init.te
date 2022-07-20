@@ -29,3 +29,4 @@ allow init privacy_service:process { siginh };
 allow init privacy_service:process { transition };
 allow init data_service_el1_file:file { relabelfrom };
 allow init data_service_el1_file:sock_file { getattr };
+allow init data_udev:file { getattr };
