@@ -15,7 +15,7 @@ allow sh configfs:dir { add_name create search write };
 allow sh configfs:file { open write };
 allow sh data_app_file:dir { open read search };
 allow sh data_data_file:dir { open remove_name rmdir };
-allow sh data_file:dir { add_name create setattr write };
+allow sh data_file:dir { add_name create setattr write rmdir};
 allow sh data_file:file { create ioctl setattr write };
 allow sh data_local_tmp:dir { open read };
 allow sh data_local_tmp:file { setattr };
