@@ -142,3 +142,7 @@ allow hiprofiler_cmd data_local_tmp:file create;
 allow hiprofiler_cmd domain:process signal;
 allow hiprofiler_cmd hiview_exec:file { getattr map open read };
 allow hiprofiler_cmd self:capability kill;
+
+allow domain hiprofiler_cmd:fd use;
+allow domain hiprofiler_cmd:unix_stream_socket connectto;
+allow { domain -limit_domain } tmpfs:file { map read write };
