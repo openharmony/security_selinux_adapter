@@ -28,12 +28,10 @@ allow sh data_file:file { unlink getattr };
 #avc:  denied  { search } for  pid=2148 comm="ps" name="571" dev="proc" ino=30549 scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=dir permissive=1
 allow sh sensors:dir { search getattr };
 
-#avc: denied { setattr } for pid=2043 comm="chmod" name="SensorJsTest.hap" dev="mmcblk0p11" ino=255 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
 #avc: denied { read } for pid=1963 comm="SensorAgentFuzz" name="u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sh:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
 #avc: denied { open } for pid=1963 comm="SensorAgentFuzz" path="/dev/parameters/u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sh:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
 #avc: denied { map } for pid=1963 comm="SensorAgentFuzz" path="/dev/parameters/u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sh:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
-#avc:  denied  { write open } for  pid=2011 comm="SensorAgentTest" path="/SensorAgentTest.xml" dev="mmcblk0p6" ino=2550 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-allow sh data_file:file { setattr write open read map };
+allow sh sys_param:file { setattr open read map };
 
 #avc: denied { remove_name } for pid=2050 comm="rm" name="SensorJsTest.hap" dev="mmcblk0p11" ino=255 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
 allow sh data_file:dir { remove_name };
@@ -43,4 +41,8 @@ allow sh data_file:dir { remove_name };
 allow sh rootfs:dir { write add_name };
 
 #avc:  denied  { ioctl } for  pid=2011 comm="SensorAgentTest" path="/SensorAgentTest.xml" dev="mmcblk0p6" ino=2550 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-allow sh rootfs:file { ioctl };
+#avc:  denied  { write open } for  pid=2011 comm="SensorAgentTest" path="/SensorAgentTest.xml" dev="mmcblk0p6" ino=2550 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow sh rootfs:file { ioctl  write open };
+
+#avc: denied { setattr } for pid=2043 comm="chmod" name="SensorJsTest.hap" dev="mmcblk0p11" ino=255 scontext=u:r:sh:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+allow sh data_file:file { setattr };
