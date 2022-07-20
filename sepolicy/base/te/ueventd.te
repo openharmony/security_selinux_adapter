@@ -151,4 +151,3 @@ allow ueventd tmpfs:dir { relabelfrom write };
 allow ueventd tty_device:chr_file { getattr relabelto setattr };
 allow ueventd ueventd:capability { chown fowner fsetid mknod setgid };
 allow ueventd vendor_etc_file:dir { search };
-allow ueventd data_service_file:dir { search };

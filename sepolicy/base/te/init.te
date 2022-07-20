@@ -100,7 +100,6 @@ allow init data_service_el0_file:dir { add_name create getattr open read relabel
 allow init data_service_el0_file:file { create getattr read write open relabelfrom };
 allow init data_service_el1_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_el1_file:file { getattr setattr relabelto };
-allow init data_service_el1_file:sock_file { getattr };
 allow init data_service_el1_public_deviceauthService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el1_public_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el2_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
@@ -354,4 +353,3 @@ allowxperm init dev_at_file:chr_file ioctl { 0x4102 };
 allowxperm init dev_block_file:blk_file ioctl { 0x125e 0x1272 0x127c 0x5413 };
 allowxperm init dev_console_file:chr_file ioctl { 0x540e };
 allowxperm init init:udp_socket ioctl { 0x8913 0x8914 };
-allow init processdump:unix_stream_socket { connectto };
