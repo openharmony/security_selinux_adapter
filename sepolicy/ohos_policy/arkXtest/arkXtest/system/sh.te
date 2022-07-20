@@ -36,7 +36,6 @@ allow sh codec_host:file { read };
 allow sh console:dir { getattr search };
 allow sh console:file { open read };
 allow sh console:lnk_file { read };
-allow sh data_app_el2_file:dir { add_name create };
 allow sh dev_console_file:chr_file { getattr };
 allow sh deviceauth_service:dir { getattr search };
 allow sh deviceauth_service:file { open read };
