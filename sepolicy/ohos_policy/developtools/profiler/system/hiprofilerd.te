@@ -92,21 +92,12 @@ allow hiprofilerd const_display_brightness_param:file { map open read };
 
 allow hiprofilerd default_param:file { map open read };
 
-allow hiprofiler_cmd const_product_param:file { map open read };
-allow hiprofiler_cmd hilog_param:file { map open read };
-allow hiprofiler_cmd sys_param:file { map open read };
-allow hiprofiler_cmd sys_usb_param:file read;
-
-allow hiprofiler_plugins accesstoken_service:file read;
-allow hiprofiler_plugins distributedfiledaemon:file read;
-allow hiprofiler_plugins inputmethod_service:file read;
-allow hiprofiler_plugins netmanager:file read;
-allow hiprofiler_plugins netsysnative:file read;
-allow hiprofiler_plugins telephony_sa:file read;
-allow hiprofiler_plugins updater_sa:file read;
-allow hiprofiler_plugins usb_service:file read;
-
 allow hiprofilerd data_local_tmp:dir search;
 
 allow hiprofilerd hiprofiler_cmd:fd use;
 allow hiprofilerd rootfs:file read;
+
+allow hiprofilerd data_local_tmp:file read;
+
+allow hiprofilerd dev_unix_socket:sock_file write;
+allow hiprofilerd hiprofiler_cmd:unix_stream_socket connectto;

@@ -101,3 +101,46 @@ allow hiprofiler_cmd system_bin_file:lnk_file read;
 allow hiprofiler_cmd init:file read;
 allow hiprofiler_cmd kernel:file read;
 allow hiprofiler_cmd system_bin_file:file { execute execute_no_trans getattr map open read };
+
+allow hiprofiler_cmd dev_unix_socket:dir remove_name;
+allow hiprofiler_cmd dev_unix_socket:sock_file unlink;
+allow hiprofiler_cmd hdf_devmgr:file read;
+allow hiprofiler_cmd hiprofiler_plugins:process sigkill;
+allow hiprofiler_cmd hiprofilerd:fd use;
+allow hiprofiler_cmd hiprofilerd:process sigkill;
+
+allow hiprofiler_cmd const_product_param:file { map open read };
+allow hiprofiler_cmd hilog_param:file { map open read };
+allow hiprofiler_cmd sys_param:file { map open read };
+allow hiprofiler_cmd sys_usb_param:file read;
+
+allow hiprofiler_cmd hilogd:file read;
+allow hiprofiler_cmd hiprofilerd:process signal;
+
+allow hiprofiler_cmd domain:dir { search open read };
+allow hiprofiler_cmd domain:file { getattr map open read };
+
+allow hiprofiler_cmd self:capability sys_ptrace;
+
+allow hiprofiler_cmd data_local_tmp:file { lock write };
+allow hiprofiler_cmd dev_unix_socket:dir write;
+allow hiprofiler_cmd dev_unix_socket:sock_file write;
+allow hiprofiler_cmd self:capability dac_override;
+
+allow hiprofiler_cmd data_local_tmp:dir write;
+allow hiprofiler_cmd dev_unix_socket:dir add_name;
+allow hiprofiler_cmd hiprofilerd:unix_stream_socket connectto;
+allow hiprofiler_cmd tmpfs:file { map read write };
+
+allow hiprofiler_cmd dev_unix_socket:sock_file create;
+allow hiprofiler_cmd data_local_tmp:dir add_name;
+
+allow hiprofiler_cmd data_local_tmp:file create;
+
+allow hiprofiler_cmd domain:process signal;
+allow hiprofiler_cmd hiview_exec:file { getattr map open read };
+allow hiprofiler_cmd self:capability kill;
+
+allow domain hiprofiler_cmd:fd use;
+allow domain hiprofiler_cmd:unix_stream_socket connectto;
+allow { domain -limit_domain } tmpfs:file { map read write };

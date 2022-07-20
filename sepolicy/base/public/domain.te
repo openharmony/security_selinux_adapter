@@ -95,7 +95,7 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #todo audio edm hidump installs location multimodalinput netmanager normal pwer thermal..
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
-neverallow { domain -hdcd -installs -init -hidumper_service -power_host -hiprofilerd -hiprofiler_plugins -hiperf } data_local_tmp:dir never_write_dir;
+neverallow { domain -hdcd -installs -init -hidumper_service -power_host -hiprofilerd -hiprofiler_plugins -hiperf -hiprofiler_cmd } data_local_tmp:dir never_write_dir;
 
 neverallow { domain -hdcd -hap_domain -init -installs -foundation -hidumper_service -power_host -sh -hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf } data_local_tmp:dir { open search };
 
@@ -267,11 +267,11 @@ neverallow { domain -appspawn -init -udevd -memmgrservice -blue_host -bluetooth_
              -face_auth_host -faultloggerd -fingerprint_auth_host -hdcd -hiview -installs -location_host
              -misc -mmi_uinput_service -multimodalinput -netsysnative -pin_auth_host -power_host
              -resource_schedule_service -storage_daemon -usb_host -usbfnMaster_host -user_auth_host
-             -wifi_host -kernel -a2dp_host -hiprofiler_plugins -hiprofilerd -hiperf } self:{ capability cap_userns } dac_override;
+             -wifi_host -kernel -a2dp_host -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
 neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -hiprofiler_plugins -distributeddata -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon -udevd } self:{ capability cap_userns } fsetid;
-neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiperf } self:{ capability cap_userns } kill;
+neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiperf -hiprofiler_cmd } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } setuid;
 neverallow { domain -init -ueventd -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
@@ -285,7 +285,7 @@ neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow { domain -netsysnative } self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
-neverallow { domain -hidumper_service -init -memmgrservice -storage_daemon -hiview -faultloggerd -processdump -hiprofiler_plugins -foundation -hiperf } self:{ capability cap_userns } sys_ptrace;
+neverallow { domain -hidumper_service -init -memmgrservice -storage_daemon -hiview -faultloggerd -processdump -hiprofiler_plugins -foundation -hiperf -hiprofiler_cmd } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -init -storage_daemon -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
