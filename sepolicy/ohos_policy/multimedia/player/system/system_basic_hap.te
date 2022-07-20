@@ -1,0 +1,1 @@
+allow system_basic_hap normal_hap:binder { transfer };

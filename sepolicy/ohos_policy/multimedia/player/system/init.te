@@ -27,3 +27,5 @@ allow init privacy_service:process { rlimitinh };
 allow init privacy_service:process { siginh };
 #avc:  denied  { transition } for  pid=507 comm="init" path="/system/bin/sa_main" dev="mmcblk0p6" ino=348 scontext=u:r:init:s0 tcontext=u:r:privacy_service:s0 tclass=process permissive=1
 allow init privacy_service:process { transition };
+allow init data_service_el1_file:file { relabelfrom };
+allow init data_service_el1_file:sock_file { getattr };

@@ -16,3 +16,4 @@ allow processdump sh:process { ptrace };
 allow processdump data_user_file:file { getattr };
 allow processdump data_app_el1_file:file { open getattr read map };
 allow processdump data_app_el1_file:dir { search };
+allow processdump init:unix_stream_socket { connectto };
