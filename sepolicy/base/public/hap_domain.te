@@ -113,13 +113,13 @@ neverallow { hap_domain } *:security { compute_av check_context };
 
 #neverallow hap_domain fs_attr:filesystem ~getattr;
 
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_hap_file:dir *;
+neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata -processdump } data_hap_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
              -bgtaskmgr_service -nwebspawn -storage_daemon -accessibility -telephony_sa -processdump } data_app_el1_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
-             -distributeddata -storage_daemon -nwebspawn } data_app_el2_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el3_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el4_file:dir *;
+             -distributeddata -storage_daemon -nwebspawn -processdump } data_app_el2_file:dir *;
+neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation -processdump } data_app_el3_file:dir *;
+neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation -processdump } data_app_el4_file:dir *;
 
 neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs -nwebspawn
              -accessibility -hdcd -telephony_sa -processdump } hap_file_attr:file open;
