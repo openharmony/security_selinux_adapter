@@ -140,6 +140,7 @@ allow sh storage_daemon:file { open read };
 allow sh storage_manager:dir { getattr search };
 allow sh storage_manager:file { open read };
 allow sh system_basic_hap:file { read };
+allow sh system_basic_hap_data_file:dir { search };
 allow sh system_core_hap:process { signal };
 allow sh telephony_sa:dir { getattr search };
 allow sh telephony_sa:file { open read };
