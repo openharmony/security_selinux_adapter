@@ -269,7 +269,7 @@ neverallow { domain -appspawn -init -udevd -memmgrservice -blue_host -bluetooth_
              -misc -mmi_uinput_service -multimodalinput -netsysnative -pin_auth_host -power_host
              -resource_schedule_service -storage_daemon -usb_host -usbfnMaster_host -user_auth_host
              -wifi_host -kernel -a2dp_host -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -hiprofiler_plugins -distributeddata -hiperf } self:{ capability cap_userns } dac_read_search;
+neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon -udevd } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiperf -hiprofiler_cmd } self:{ capability cap_userns } kill;

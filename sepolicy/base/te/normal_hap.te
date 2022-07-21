@@ -60,7 +60,7 @@ allow normal_hap net_param:file { map open read };
 allow normal_hap netsysnative:unix_stream_socket { connectto };
 allow normal_hap net_tcp_param:file { map open read };
 allow normal_hap normal_hap:binder { call transfer };
-allow normal_hap normal_hap_data_file:dir { open read remove_name search };
+allow normal_hap normal_hap_data_file:dir { open read remove_name rmdir search };
 allow normal_hap normal_hap_data_file:file { getattr ioctl lock map read write open rename setattr unlink };
 allow normal_hap normal_hap:netlink_route_socket { bind nlmsg_read };
 allow normal_hap normal_hap:process { ptrace };
