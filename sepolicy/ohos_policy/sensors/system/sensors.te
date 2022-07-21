@@ -82,3 +82,6 @@ allow sensors system_core_hap:fd { use };
 
 #avc:  denied  { call } for  pid=687 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
 allow sensors system_core_hap:binder { call };
+
+#avc:  denied  { read write } for  pid=2132 comm="SensorAgentTest" path="socket:[39407]" dev="sockfs" ino=39407 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=unix_stream_socket permissive=0
+allow sensors sh:unix_stream_socket { read write };

@@ -44,6 +44,3 @@ allow sh rootfs:dir { write add_name };
 #avc:  denied  { ioctl } for  pid=2011 comm="SensorAgentTest" path="/SensorAgentTest.xml" dev="mmcblk0p6" ino=2550 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2011 comm="SensorAgentTest" path="/SensorAgentTest.xml" dev="mmcblk0p6" ino=2550 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 allow sh rootfs:file { ioctl open };
-
-#avc:  denied  { read write } for  pid=2132 comm="SensorAgentTest" path="socket:[39407]" dev="sockfs" ino=39407 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=unix_stream_socket permissive=0
-allow sensors sh:unix_stream_socket { read write };
