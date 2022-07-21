@@ -47,8 +47,3 @@ allow huks_service sys_param:file { map open read };
 allow huks_service sys_usb_param:file { map open read };
 allow huks_service tracefs:dir { search };
 allow huks_service tracefs_trace_marker_file:file { open write };
-
-#avc:  denied  { search } for  pid=407 comm="huks_service" name="el0" dev="mmcblk0p11" ino=1044482 scontext=u:r:huks_service:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
-#avc:  denied  { getattr } for  pid=407 comm="huks_service" path="/data/service/el0/huks_service/root_encrypt_key" dev="mmcblk0p11" ino=1044791 scontext=u:r:huks_service:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
-allow huks_service data_service_el0_file:dir { search };
-allow huks_service data_service_el0_file:file { getattr read open };

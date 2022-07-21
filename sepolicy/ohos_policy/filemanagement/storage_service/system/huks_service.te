@@ -11,5 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#avc:  denied  { search } for  pid=407 comm="huks_service" name="el0" dev="mmcblk0p11" ino=1044482 scontext=u:r:huks_service:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=407 comm="huks_service" path="/data/service/el0/huks_service/root_encrypt_key" dev="mmcblk0p11" ino=1044791 scontext=u:r:huks_service:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
+allow huks_service data_service_el0_file:dir { search };
+allow huks_service data_service_el0_file:file { getattr read open };
+
 #avc:  denied  { search } for  pid=415 comm="huks_service" scontext=u:r:huks_service:s0 tcontext=u:r:storage_daemon:s0 tclass=key permissive=0
 allow huks_service storage_daemon:key { search };

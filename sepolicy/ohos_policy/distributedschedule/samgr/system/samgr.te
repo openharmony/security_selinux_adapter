@@ -95,15 +95,3 @@ allow samgr samgr:unix_dgram_socket { getopt setopt };
 
 allowxperm samgr dev_binder_file:chr_file ioctl { 0x6207 };
 
-#avc:  denied  { search } for  pid=242 comm="samgr" name="260" dev="proc" ino=23041 scontext=u:r:samgr:s0 tcontext=u:r:init:s0 tclass=dir permissive=1
-#avc:  denied  { read } for  pid=242 comm="samgr" name="current" dev="proc" ino=23077 scontext=u:r:samgr:s0 tcontext=u:r:init:s0 tclass=file permissive=1
-#avc:  denied  { open } for  pid=242 comm="samgr" path="/proc/260/attr/current" dev="proc" ino=23077 scontext=u:r:samgr:s0 tcontext=u:r:init:s0 tclass=file permissive=1
-allow samgr init:dir { read_dir_perms search };
-allow samgr init:file { open read };
-
-#avc:  denied  { transfer } for  pid=233 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:init:s0 tclass=binder permissive=1
-allow samgr init:binder { transfer };
-
-#avc:  denied  { getattr } for  pid=233 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:init:s0 tclass=process permissive=1
-allow samgr init:process { getattr };
-
