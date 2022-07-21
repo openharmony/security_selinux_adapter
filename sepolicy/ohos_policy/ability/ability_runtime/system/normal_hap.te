@@ -12,5 +12,5 @@
 # limitations under the License.
 
 allow normal_hap sa_form_mgr_service:samgr_class { get };
-allow normal_hap system_core_hap:binder { call };
+allow normal_hap system_core_hap:binder { call transfer };
 

@@ -13,10 +13,11 @@
 
 allow system_core_hap faultloggerd:fifo_file { write };
 allow system_core_hap faultloggerd_temp_file:file { read write };
-allow system_core_hap normal_hap:binder { transfer };
-allow system_core_hap sh:binder { call };
+allow system_core_hap normal_hap:binder { call transfer };
+allow system_core_hap sh:binder { call transfer };
 allow system_core_hap sysfs_rtc:dir { open read };
-allow system_core_hap system_core_hap:binder { call };
+allow system_core_hap system_core_hap:binder { call transfer };
 allow system_core_hap time_service:binder { call };
 allow system_core_hap sa_form_mgr_service:samgr_class { get };
+allow system_core_hap sa_dataobs_mgr_service_service:samgr_class { get };
 
