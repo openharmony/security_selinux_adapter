@@ -412,9 +412,9 @@ allowxperm vibrator_host dev_hdf_misc_vibrator:chr_file ioctl 0x6201;
 # for testcase start
 #avc:  denied  { remove_name } for  pid=2085 comm="ueventd" name="sample_service1" dev="tmpfs" ino=491 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
 #avc:  denied  { unlink } for  pid=2085 comm="ueventd" name="sample_service1" dev="tmpfs" ino=491 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=1
-#avc:  denied  { setattr } for  pid=2098 comm="ueventd" name="HDF_TEST" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
-#avc:  denied  { getattr } for  pid=2098 comm="ueventd" path="/dev/HDF_TEST" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
-#avc:  denied  { unlink } for  pid=2060 comm="ueventd" name="HDF_TEST" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
+#avc:  denied  { setattr } for  pid=2098 comm="ueventd" name="khdf_ut" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
+#avc:  denied  { getattr } for  pid=2098 comm="ueventd" path="/dev/khdf_ut" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
+#avc:  denied  { unlink } for  pid=2060 comm="ueventd" name="khdf_ut" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
 #avc:  denied  { create } for  pid=227 comm="ueventd" name="=9" scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
 allow ueventd dev_file:dir { remove_name };
 allow ueventd dev_file:chr_file { unlink };
@@ -429,7 +429,7 @@ allow init sample_host:process { rlimitinh siginh transition sigkill };
 
 #avc:  denied  { call } for  pid=1967 comm="HdiServiceManag" scontext=u:r:sh:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=2007 comm="HdiServiceManag" scontext=u:r:sh:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
-#avc:  denied  { open } for  pid=2103 comm="sh" path="/sys/devices/virtual/hdf/HDF_TEST/uevent" dev="sysfs" ino=32554 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2103 comm="sh" path="/sys/devices/virtual/hdf/khdf_ut/uevent" dev="sysfs" ino=32554 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
 #avc:  denied  { write } for  pid=2103 comm="sh" name="uevent" dev="sysfs" ino=32554 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
 #avc:  denied  { get } for service=sample_driver_service2 pid=1998 scontext=u:r:sh:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { get } for service=hdf_device_manager pid=1998 scontext=u:r:sh:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
