@@ -14,6 +14,7 @@
 #avc:  denied  { call } for pid=2349 comm="com.example.app" scontext=u:r:normal_hap:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
 allow normal_hap distributedsche:binder { call transfer };
 allow normal_hap distributedsche:fd { use };
+allow normal_hap sa_bluetooth_server:samgr_class { get };
 allow normal_hap sa_distributeschedule:samgr_class { get };
 allow normal_hap sa_softbus_service:samgr_class { get };
 allow normal_hap softbus_server:binder { call transfer };

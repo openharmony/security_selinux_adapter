@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow accessibility sa_foundation_abilityms:samgr_class { get };
+allow accessibility sa_multimodalinput_service:samgr_class { get };
 allow accessibility sh:binder { call };
 allow accessibility sh:binder { transfer };
 allow accessibility sh:binder { call transfer };

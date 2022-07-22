@@ -14,6 +14,7 @@
 type distributedsche_param, parameter_attr;
 
 #avc:  denied  { add } for service=1401 pid=406 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_1401_service:s0 tclass=samgr_class permissive=1
+allow distributedsche accessibility:binder { call };
 allow distributedsche sa_distributeschedule:samgr_class { add get_remote };
 allow distributedsche sa_distributeddata_service:samgr_class { get };
 allow distributedsche sa_softbus_service:samgr_class { get };
