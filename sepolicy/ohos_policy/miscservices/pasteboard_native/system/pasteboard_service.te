@@ -16,4 +16,7 @@ type  pasteboard_service, sadomain, domain;
 allow pasteboard_service system_core_hap:binder { call };
 allow pasteboard_service dev_unix_socket:dir { search };
 allow system_core_hap sa_pasteboard_service:samgr_class { get };
+allow system_basic_hap sa_pasteboard_service:samgr_class { get };
+allow normal_hap sa_pasteboard_service:samgr_class { get };
+
 
