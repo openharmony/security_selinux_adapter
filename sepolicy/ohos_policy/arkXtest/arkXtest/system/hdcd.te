@@ -13,3 +13,4 @@
 
 allow hdcd hdcd:tcp_socket { connect name_connect getopt };
 allow hdcd port:tcp_socket { name_connect };
+ 
