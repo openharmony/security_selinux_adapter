@@ -15,6 +15,7 @@ type hiview, sadomain, domain;
 
 type hiview_exec, exec_attr, file_attr, system_file_attr;
 type hisysevent_exec, exec_attr, file_attr, system_file_attr;
+type usage_report_exec, exec_attr, file_attr, system_file_attr;
 type hiview_file, file_attr, data_file_attr;
 type hisysevent_socket, dev_attr, file_attr;
 
@@ -31,6 +32,7 @@ allow hiview hiview_exec:file { entrypoint execute map read };
 
 allow hiview hiview:unix_dgram_socket { getopt setopt };
 allow hiview init:unix_dgram_socket { getattr getopt read write setopt };
+allow hiview init:unix_stream_socket { connectto };
 allow hiview faultloggerd:unix_stream_socket { connectto };
 
 allow hdcd hiview_exec:file { execute read open getattr execute_no_trans map };
@@ -45,7 +47,7 @@ allow hiview data_log:file { create getattr lock map open read write unlink };
 allow hiview data_system:dir { search getattr };
 allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
-allow hiview system_bin_file:file { execute };
+allow hiview system_bin_file:file { read execute entrypoint };
 allow hiview system_bin_file:lnk_file { read };
 allow hiview sys_file:dir { read open };
 allow hiview sys_file:file { read open };
@@ -57,6 +59,11 @@ allow hiview sh_exec:file { execute read open execute_no_trans map };
 allow hiview sh:file { read open };
 allow hiview sh:dir { search };
 allow hiview rootfs:chr_file { read write };
+allow hiview faultloggerd_temp_file:file { getattr };
+allow hiview faultloggerd:fifo_file { read };
+allow hiview system_basic_hap:dir { search };
+allow hiview system_basic_hap:file { read open };
+allow hiview usage_report_exec:file { getattr read open execute_no_trans map execute };
 
 allow hiview data_init_agent:dir { search };
 allow hiview data_init_agent:file { ioctl open read append };
