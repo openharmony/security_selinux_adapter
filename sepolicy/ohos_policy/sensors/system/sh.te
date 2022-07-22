@@ -15,7 +15,8 @@
 allow sh sensors:process { signal };
 
 #avc:  denied  { call } for  pid=2025 comm="SensorAgentFuzz" scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
-allow sh sensors:binder { call };
+#avc:  denied  { transfer } for  pid=2349 comm="SensorAgentTest" scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
+allow sh sensors:binder { call transfer };
 
 #avc:  denied  { get } for service=3601 pid=1930 scontext=u:r:sh:s0 tcontext=u:object_r:sa_sensor_service:s0 tclass=samgr_class permissive=1
 allow sh sa_sensor_service:samgr_class { get };
@@ -44,3 +45,6 @@ allow sh rootfs:dir { write add_name };
 #avc:  denied  { ioctl } for  pid=2011 comm="SensorAgentTest" path="/SensorAgentTest.xml" dev="mmcblk0p6" ino=2550 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2011 comm="SensorAgentTest" path="/SensorAgentTest.xml" dev="mmcblk0p6" ino=2550 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 allow sh rootfs:file { ioctl open };
+
+#avc:  denied  { sigkill } for  pid=2789 comm="sh" scontext=u:r:sh:s0 tcontext=u:r:sensors:s0 tclass=process permissive=1
+allow sh sensors:process { sigkill };
