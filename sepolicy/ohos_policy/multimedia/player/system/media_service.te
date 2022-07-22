@@ -43,4 +43,4 @@ allow media_service sh:fd { use };
 #avc:  denied  { read } for  pid=2096 comm="jsThread-1" path="/data/storage/el2/base/haps/entry/files/H264_AAC.mp4" dev="mmcblk0p11" ino=1307219 scontext=u:r:media_service:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=0
 allow media_service system_core_hap_data_file:file { getattr read };
 allow media_service media_service:udp_socket { create };
-allow media_service foundation:binder { call };
+allow media_service foundation:binder { call transfer };
