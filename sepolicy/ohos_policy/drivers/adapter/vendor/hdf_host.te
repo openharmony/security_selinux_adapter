@@ -307,9 +307,32 @@ allow audio_hdi_server_host vendor_lib_file:file { getattr open read };
 allow audio_hdi_server_host data_file:file { ioctl };
 allow audio_hdi_server_host dev_hdf_audio_capture:chr_file { getattr ioctl open read write };
 allow audio_hdi_server_host dev_hdf_audio_control:chr_file { getattr ioctl open read write };
-allow audio_hdi_server_host dev_snd_file:chr_file { ioctl };
+#avc:  denied  { search } for  pid=2136 comm="sh" name="bin" dev="mmcblk0p7" ino=12 scontext=u:r:sh:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr execute read open execute_no_trans map } for  pid=2136 comm="sh" path="/vendor/bin/audio_sample_render" dev="mmcblk0p7" ino=14 scontext=u:r:sh:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=2006 comm="audio_sample_re" path="/vendor/etc/hdfconfig/audio_adapter.json" dev="mmcblk0p7" ino=37 scontext=u:r:sh:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { search getattr setattr open read } for  pid=2078 comm="audio_sample_ca" name="snd" dev="tmpfs" ino=73 scontext=u:r:sh:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=dir permissive=1
+#avc:  denied  { ioctl } for  pid=2078 comm="audio_sample_ca" path="/dev/snd/controlC0" dev="tmpfs" ino=123 ioctlcmd=0x5501 scontext=u:r:sh:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { call } for  pid=2025 comm="audio_sample_re" scontext=u:r:sh:s0 tcontext=u:r:audio_hdi_server_host:s0 tclass=binder permissive=1
+#neverallow allow sh audio_hdi_server_host:binder { call };
+#avc:  denied  { open read write } for  pid=460 comm="audio_hdi_serve" name="controlC0" dev="tmpfs" ino=123 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { ioctl } for  pid=460 comm="audio_hdi_serve" path="/dev/snd/controlC0" dev="tmpfs" ino=123 ioctlcmd=0x5500 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=chr_file permissive=1
+# ioctlcmd: 0x4143 0x4144 0x5500 0x5501 0x5505 0x5530 0x5531
+#avc:  denied  { getattr read setattr } for  pid=2019 comm="chown" name="platform-rk809-sound" dev="tmpfs" ino=357 scontext=u:r:sh:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=lnk_file permissive=1
+#avc:  denied  { search getattr setattr open read } for  pid=2019 comm="chown" name="by-path" dev="tmpfs" ino=351 scontext=u:r:sh:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr setattr open read write map } for  pid=2019 comm="chown" path="/dev/snd/timer" dev="tmpfs" ino=198 scontext=u:r:sh:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { getattr ioctl open read write } for  pid=2055 comm="audio_hdi_serve" name="controlC1" dev="tmpfs" ino=75 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=1
 allow audio_hdi_server_host dev_snd_file:dir { search };
-allowxperm audio_hdi_server_host dev_snd_file:chr_file ioctl { 0x4143 };
+allow audio_hdi_server_host dev_snd_file:chr_file { ioctl open read write };
+allow audio_hdi_server_host dev_file:chr_file { getattr ioctl open read write map };
+allow sh dev_snd_file:dir { search getattr setattr open read };
+allow sh dev_snd_file:chr_file { getattr setattr open read write map };
+allow sh dev_snd_file:lnk_file { getattr read setattr };
+allow sh vendor_etc_file:file { getattr };
+allow sh vendor_bin_file:dir { search };
+allow sh vendor_bin_file:file { getattr execute read open execute_no_trans map };
+allow sh vendor_etc_file:file { getattr };
+allowxperm sh dev_snd_file:chr_file ioctl { 0x5501 };
+allowxperm audio_hdi_server_host dev_snd_file:chr_file ioctl { 0x4143 0x4144 0x5500 0x5501 0x5505 0x5530 0x5531 };
 allowxperm audio_hdi_server_host dev_hdf_audio_render:chr_file ioctl { 0x6201 };
 allowxperm audio_hdi_server_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 };
 allowxperm audio_hdi_server_host data_file:file ioctl { 0x5413 };
