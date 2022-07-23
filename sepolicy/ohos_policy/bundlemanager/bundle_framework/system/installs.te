@@ -16,6 +16,7 @@ type installs_exec, system_file_attr, exec_attr, file_attr;
 
 init_daemon_domain(installs);
 
+allow installs accesstoken_service:binder { call };
 allow installs data_app_el1_file:dir { add_name getattr open read remove_name rmdir search write };
 allow installs data_app_el1_file:file { create getattr ioctl setattr unlink };
 allow installs data_app_el2_file:dir { add_name create getattr open read remove_name search setattr write };
