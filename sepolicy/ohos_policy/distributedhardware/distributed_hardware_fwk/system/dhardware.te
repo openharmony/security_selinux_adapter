@@ -111,7 +111,8 @@ allow dhardware data_service_file:dir { search };
 #avc:  denied  { getattr } for  pid=2451 comm="dhardware" path="/data/xxx/kvdb" dev="mmcblk0p11" ino=1436925 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 #avc:  denied  { read } for  pid=2812 comm="dhardware" name="single_ver" dev="mmcblk0p11" ino=131322 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
 #avc:  denied  { open } for  pid=2593 comm="dhardware" path="/data/xxx/single_ver" dev="mmcblk0p11" ino=784131 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
-allow dhardware data_service_el1_file:dir { search write add_name create getattr read open };
+#avc:  denied  { remove_name } for  pid=2403 comm="dhardware" name="gen_natural_store.db-journal" dev="mmcblk0p11" ino=784138 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow dhardware data_service_el1_file:dir { search write add_name create getattr read open remove_name };
 
 #avc:  denied  { create } for  pid=2451 comm="dhardware" name="single_ver_db_incomplete.lock" scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 #avc:  denied  { write open } for  pid=2451 comm="dhardware" path="/data/xxx/single_ver_db_incomplete.lock" dev="mmcblk0p11" ino=1436928 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
@@ -119,7 +120,9 @@ allow dhardware data_service_el1_file:dir { search write add_name create getattr
 #avc:  denied  { getattr } for  pid=2812 comm="dhardware" path="/data/xxx/gen_natural_store.db" dev="mmcblk0p11" ino=131327 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 #avc:  denied  { ioctl } for  pid=2593 comm="dhardware" path="/data/xxx/gen_natural_store.db" dev="mmcblk0p11" ino=784137 ioctlcmd=0xf50c scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 #avc:  denied  { lock } for  pid=2593 comm="dhardware" path="/data/xxx/gen_natural_store.db" dev="mmcblk0p11" ino=784137 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
-allow dhardware data_service_el1_file:file { create write open read getattr ioctl lock };
+#avc:  denied  { unlink } for  pid=2403 comm="dhardware" name="gen_natural_store.db-journal" dev="mmcblk0p11" ino=784138 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2403 comm="dhardware" path="/data/xxx//main/gen_natural_store.db-shm" dev="mmcblk0p11" ino=784139 scontext=u:r:dhardware:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow dhardware data_service_el1_file:file { create write open read getattr ioctl lock unlink map };
 
 #avc:  denied  { call } for  pid=2451 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow dhardware accesstoken_service:binder { call };
