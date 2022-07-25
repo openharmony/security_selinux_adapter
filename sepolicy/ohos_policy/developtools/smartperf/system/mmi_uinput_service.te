@@ -12,4 +12,4 @@
 # limitations under the License
 
 allow mmi_uinput_service dev_hdf_file:chr_file { ioctl };
-allowxperm mmi_uinput_service dev_hdf_file:chr_file ioctl 0x6202;
+allowxperm mmi_uinput_service dev_hdf_file:chr_file ioctl { 0x6202 };

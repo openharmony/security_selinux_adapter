@@ -11,19 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hidumper_service data_local_tmp:dir { add_name };
-allow hidumper_service data_local_tmp:dir { create };
-allow hidumper_service data_local_tmp:dir { open };
-allow hidumper_service data_local_tmp:dir { read };
-allow hidumper_service data_local_tmp:dir { remove_name };
-allow hidumper_service data_local_tmp:dir { rmdir };
-allow hidumper_service data_local_tmp:dir { search };
-allow hidumper_service data_local_tmp:dir { write };
-allow hidumper_service hidumper_service:capability { dac_read_search };
-allow hidumper_service hidumper_service:capability { sys_ptrace };
+allow hidumper_service data_local_tmp:dir { add_name create open read remove_name rmdir search write };
+allow hidumper_service hidumper_service:capability { dac_read_search sys_ptrace };
 allow hidumper_service limit_domain:dir { search };
 allow hidumper_service sh:dir { search };
 allow hidumper_service sh:fd { use };
 allow hidumper_service sh:fifo_file { write };
-allow hidumper_service sh:file { open };
-allow hidumper_service sh:file { read };
+allow hidumper_service sh:file { open read };

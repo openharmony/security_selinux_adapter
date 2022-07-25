@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hiview hiview:capability { dac_override };
-allow hiview hiview:capability { dac_read_search };
-allow hiview hiview_file:dir { add_name };
-allow hiview hiview_file:dir { write };
+allow hiview hiview:capability { dac_override dac_read_search };
+allow hiview hiview_file:dir { add_name write };
 allow hiview hiview_file:file { create };

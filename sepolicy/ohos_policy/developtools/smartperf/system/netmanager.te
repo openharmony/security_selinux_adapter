@@ -12,13 +12,8 @@
 # limitations under the License
 
 allow netmanager data_data_file:dir { search };
-allow netmanager data_data_file:file { append };
-allow netmanager data_data_file:file { ioctl };
-allow netmanager data_data_file:file { open };
-allow netmanager data_data_file:file { read };
+allow netmanager data_data_file:file { append ioctl open read };
 allow netmanager data_file:dir { search };
-allow netmanager sys_file:dir { open };
-allow netmanager sys_file:dir { read };
-allow netmanager sys_file:file { open };
-allow netmanager sys_file:file { read };
-allowxperm netmanager data_data_file:file ioctl 0x5413;
+allow netmanager sys_file:dir { open read };
+allow netmanager sys_file:file { open read };
+allowxperm netmanager data_data_file:file ioctl { 0x5413 };

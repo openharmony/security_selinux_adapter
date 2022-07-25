@@ -11,17 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow console dev_console_file:chr_file { ioctl };
-allow console dev_console_file:chr_file { read };
-allow console dev_console_file:chr_file { write };
+allow console dev_console_file:chr_file { ioctl read write };
 allow console lib_file:lnk_file { read };
 allow console system_bin_file:dir { search };
-allow console system_bin_file:file { execute };
-allow console system_bin_file:file { execute_no_trans };
-allow console system_bin_file:file { getattr };
-allow console system_bin_file:file { map };
-allow console system_bin_file:file { read open };
+allow console system_bin_file:file { execute execute_no_trans getattr map read open };
 allow console system_bin_file:lnk_file { read };
 allow console tty_device:chr_file { ioctl };
-allowxperm console dev_console_file:chr_file ioctl 0x5413;
-allowxperm console tty_device:chr_file ioctl 0x5403;
+allowxperm console dev_console_file:chr_file ioctl { 0x5413 };
+allowxperm console tty_device:chr_file ioctl { 0x5403 };

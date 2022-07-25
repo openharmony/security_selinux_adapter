@@ -12,10 +12,7 @@
 # limitations under the License
 
 allow accessibility data_file:dir { search };
-allow accessibility data_service_el1_file:dir { getattr };
-allow accessibility data_service_el1_file:dir { search };
-allow accessibility data_service_el1_file:file { getattr };
-allow accessibility data_service_el1_file:file { open };
-allow accessibility data_service_el1_file:file { read };
+allow accessibility data_service_el1_file:dir { getattr search };
+allow accessibility data_service_el1_file:file { getattr open read };
 allow accessibility data_service_file:dir { search };
 allow accessibility dev_unix_socket:dir { search };

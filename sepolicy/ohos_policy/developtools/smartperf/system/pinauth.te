@@ -14,8 +14,4 @@
 allow pinauth data_file:dir { search };
 allow pinauth dev_unix_socket:dir { search };
 allow pinauth system_bin_file:dir { search };
-allow pinauth vendor_file:file { execute };
-allow pinauth vendor_file:file { getattr };
-allow pinauth vendor_file:file { map };
-allow pinauth vendor_file:file { open };
-allow pinauth vendor_file:file { read };
+allow pinauth vendor_file:file { execute getattr map open read };

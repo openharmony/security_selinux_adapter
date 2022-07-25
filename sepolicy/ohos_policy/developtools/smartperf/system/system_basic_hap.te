@@ -11,25 +11,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow system_basic_hap dev_mali:chr_file { ioctl };
-allow system_basic_hap dev_mali:chr_file { map };
-allow system_basic_hap dev_mali:chr_file { read write };
+allow system_basic_hap dev_mali:chr_file { ioctl map read write };
 allow system_basic_hap dev_unix_socket:dir { search };
 allow system_basic_hap multimodalinput:unix_stream_socket { read };
-allow system_basic_hap proc_file:file { open };
-allow system_basic_hap proc_file:file { read };
-allow system_basic_hap proc_stat_file:file { open };
-allow system_basic_hap proc_stat_file:file { read };
+allow system_basic_hap proc_file:file { open read };
+allow system_basic_hap proc_stat_file:file { open read };
 allow system_basic_hap render_service:unix_stream_socket { read };
-allow system_basic_hap sys_file:file { open };
-allow system_basic_hap sys_file:file { read };
+allow system_basic_hap sa_net_conn_manager:samgr_class { get };
+allow system_basic_hap sys_file:file { open read };
+allow system_basic_hap sysfs_devices_system_cpu:dir { open read };
+allow system_basic_hap system_basic_hap:udp_socket { read };
 allow system_basic_hap system_basic_hap_data_file:dir { search };
 allow system_basic_hap system_basic_hap_data_file:file { lock };
 allow system_basic_hap system_usr_file:dir { search };
 allow system_basic_hap vendor_file:dir { search };
-allowxperm system_basic_hap dev_mali:chr_file ioctl 0x8002;
-allowxperm system_basic_hap dev_mali:chr_file ioctl 0x8016;
-allow system_basic_hap sa_net_conn_manager:samgr_class { get };
-allow system_basic_hap sysfs_devices_system_cpu:dir { open };
-allow system_basic_hap sysfs_devices_system_cpu:dir { read };
-allow system_basic_hap system_basic_hap:udp_socket { read };
+allowxperm system_basic_hap dev_mali:chr_file ioctl { 0x8002 0x8016 };

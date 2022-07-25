@@ -12,4 +12,4 @@
 # limitations under the License
 
 allow disp_gralloc_host dev_dri_file:chr_file { ioctl };
-allowxperm disp_gralloc_host dev_dri_file:chr_file ioctl 0x64b2;
+allowxperm disp_gralloc_host dev_dri_file:chr_file ioctl { 0x64b2 };

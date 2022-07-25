@@ -12,7 +12,6 @@
 # limitations under the License
 
 allow normal_hap dev_unix_socket:dir { search };
-allow normal_hap normal_hap:unix_dgram_socket { getopt };
-allow normal_hap normal_hap:unix_dgram_socket { setopt };
+allow normal_hap normal_hap:unix_dgram_socket { getopt setopt };
 allow normal_hap render_service:unix_stream_socket { read };
 allow normal_hap system_usr_file:dir { search };

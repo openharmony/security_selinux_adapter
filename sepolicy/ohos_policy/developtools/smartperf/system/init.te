@@ -11,20 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow init accessibility:process { noatsecure };
-allow init accessibility:process { rlimitinh };
-allow init accessibility:process { transition };
-allow init bluetooth_service:process { rlimitinh };
-allow init bluetooth_service:process { siginh };
-allow init data_service_el1_public_deviceauthService_file:dir { getattr };
-allow init data_service_el1_public_deviceauthService_file:dir { search };
-allow init data_service_el1_public_deviceauthService_file:dir { setattr };
-allow init dev_file:dir { open };
-allow init dev_file:dir { read };
-allow init dev_file:dir { relabelto };
+allow init accessibility:process { noatsecure rlimitinh transition };
+allow init bluetooth_service:process { rlimitinh siginh };
+allow init data_service_el1_public_deviceauthService_file:dir { getattr search setattr };
+allow init dev_file:dir { open read relabelto };
 allow init dev_kmsg_file:chr_file { write };
-allow init memmgrservice:process { rlimitinh };
-allow init memmgrservice:process { siginh };
+allow init memmgrservice:process { rlimitinh siginh };
 allow init samain_exec:file { execute };
 allow init tmpfs:chr_file { getattr };
 allow init tmpfs:dir { relabelfrom };
