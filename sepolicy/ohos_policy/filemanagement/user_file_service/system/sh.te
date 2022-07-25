@@ -12,20 +12,14 @@
 # limitations under the License.
 
 allow sh tmpfs:lnk_file { getattr };
-allow sh privacy_service:dir { getattr };
-allow sh privacy_service:dir { search };
-allow sh privacy_service:file { open };
-allow sh privacy_service:file { read };
+allow sh privacy_service:dir { getattr search };
+allow sh privacy_service:file { open read };
 allow sh system_core_hap:dir { getattr };
 allow sh dev_block_file:blk_file { getattr };
 allow sh dev_block_volfile:blk_file { getattr };
-allow sh media_service:dir { open };
-allow sh media_service:dir { read };
+allow sh media_service:dir { open read };
 allow sh media_service:file { getattr };
-allow sh media_service:lnk_file { getattr };
-allow sh media_service:lnk_file { read };
-allow sh normal_hap:dir { open };
-allow sh normal_hap:dir { read };
-allow sh normal_hap:lnk_file { getattr };
-allow sh normal_hap:lnk_file { read };
+allow sh media_service:lnk_file { getattr read };
+allow sh normal_hap:dir { open read };
+allow sh normal_hap:lnk_file { getattr read };
 allow sh samain_exec:file { getattr };

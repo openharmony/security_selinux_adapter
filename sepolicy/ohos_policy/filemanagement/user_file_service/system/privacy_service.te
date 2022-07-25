@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow privacy_service data_service_el1_file:file { ioctl };
-allow privacy_service data_service_el1_file:file { relabelfrom };
-allowxperm privacy_service data_service_el1_file:file ioctl 0xf50c;
+allow privacy_service data_service_el1_file:file { ioctl relabelfrom };

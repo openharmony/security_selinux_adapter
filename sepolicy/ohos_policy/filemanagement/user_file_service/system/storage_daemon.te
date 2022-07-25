@@ -12,11 +12,9 @@
 # limitations under the License.
 
 allow storage_daemon dev_block_file:lnk_file { read };
-allow storage_daemon dev_fuse_file:chr_file { open };
-allow storage_daemon proc_filesystems_file:file { open };
+allow storage_daemon dev_fuse_file:chr_file { open getattr };
+allow storage_daemon proc_filesystems_file:file { open read };
 allow storage_daemon dev_block_file:dir { search };
-allow storage_daemon dev_fuse_file:chr_file { getattr };
 allow storage_daemon dev_fuse_file:chr_file { read write };
-allow storage_daemon proc_filesystems_file:file { read };
 allow storage_daemon dev_block_file:blk_file { getattr }; 
 allow storage_daemon unlabeled:filesystem { mount };
