@@ -31,7 +31,7 @@ allow hdcd self:udp_socket { create setopt bind };
 allow hdcd port:udp_socket { name_bind };
 allow hdcd node:udp_socket { node_bind };
 allow hdcd sh:process { signal sigkill };
-allow hdcd self:capability { setuid setgid sys_admin };
+allow hdcd self:capability { setuid setgid };
 allow hdcd hdcd_exec:file { open execute_no_trans };
 
 allow hdcd kernel:system { syslog_read };
@@ -68,7 +68,7 @@ allow hdcd paramservice_socket:sock_file { write };
 
 allow hdcd dev_block_file:dir { search };
 allow hdcd dev_block_file:lnk_file { read };
-allow hdcd dev_block_file:blk_file { ioctl open read };
+allow hdcd dev_block_file:blk_file { ioctl };
 allow hdcd dev_block_volfile:dir { search };
 
 allow hdcd sys_param:parameter_service { set };
@@ -80,6 +80,7 @@ allow hdcd { normal_hap system_basic_hap system_core_hap sh }:unix_stream_socket
 
 allow hdcd hiprofiler_plugins:process signal;
 allow hdcd hiprofilerd:process signal;
+allow hdcd bytrace:process { signal };
 
 domain_auto_transition_pattern(hdcd, shell_exec, shell);
 domain_auto_transition_pattern(hdcd, sh_exec, sh);
