@@ -17,3 +17,6 @@ allow system_core_hap sa_sensor_service:samgr_class { get };
 #avc:  denied  { transfer } for  pid=2097 comm="jsThread-1" scontext=u:r:system_core_hap:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 #avc:  denied  { call } for  pid=2097 comm="jsThread-1" scontext=u:r:system_core_hap:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow system_core_hap sensors:binder { transfer call };
+
+#avc:  denied  { get } for service=3602 pid=2004 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_miscdevice_service:s0 tclass=samgr_class permissive=0
+allow system_core_hap sa_miscdevice_service:samgr_class { get };
