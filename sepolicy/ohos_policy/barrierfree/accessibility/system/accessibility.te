@@ -34,4 +34,5 @@ allow accessibility tracefs:dir { search };
 allow accessibility tracefs_trace_marker_file:file { open write };
 allow accessibility vendor_lib_file:dir { search };
 allow accessibility vendor_lib_file:file { execute getattr map open read };
+allow accessibility sa_foundation_abilityms:samgr_class { get };
 allowxperm accessibility data_service_el1_file:file ioctl { 0x5413 };
