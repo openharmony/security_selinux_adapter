@@ -142,3 +142,21 @@ allow sh hmdfs:dir { create rmdir unlink };
 # allow sh sh:capability { sys_ptrace };
 #avc:  denied  { search } for  pid=2058 comm="chmod" name="el2" dev="mmcblk0p11" ino=1175045 scontext=u:r:sh:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 #allow sh data_app_el2_file:dir { search };
+
+#avc:  denied  { get } for service=4700 pid=2591 scontext=u:r:sh:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=1
+allow sh sa_softbus_service:samgr_class { get };
+
+#avc:  denied  { get } for service=10 pid=2661 scontext=u:r:sh:s0 tcontext=u:object_r:sa_render_service:s0 tclass=samgr_class permissive=1
+allow sh sa_render_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3002 pid=2661 scontext=u:r:sh:s0 tcontext=u:object_r:sa_media_service:s0 tclass=samgr_class permissive=1
+allow sh sa_media_service:samgr_class { get };
+
+#avc:  denied  { read } for  pid=1731 comm="sh" name="system" dev="mmcblk0p6" ino=27 scontext=u:r:sh:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
+#avc:  denied  { open } for  pid=1731 comm="sh" path="/system" dev="mmcblk0p6" ino=27 scontext=u:r:sh:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
+allow sh system_file:dir { read open };
+
+#avc:  denied  { call } for  pid=2880 comm="distributedScre" scontext=u:r:sh:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2880 comm="distributedScre" scontext=u:r:sh:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
+allow sh softbus_server:binder { call transfer };
+

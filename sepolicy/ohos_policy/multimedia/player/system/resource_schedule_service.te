@@ -13,3 +13,5 @@
 
 #avc:  denied  { setsched } for  pid=270 comm="CgroupEventHand" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
 allow resource_schedule_service sh:process { setsched };
+#avc:  denied  { setsched } for  pid=268 comm="CgroupEventHand" scontext=u:r:resource_schedule_service:s0 tcontext=u:r:dscreen:s0 tclass=process permissive=0
+allow resource_schedule_service dscreen:process { setsched };

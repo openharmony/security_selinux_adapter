@@ -44,3 +44,7 @@ allow media_service sh:fd { use };
 allow media_service system_core_hap_data_file:file { getattr read };
 allow media_service media_service:udp_socket { create };
 allow media_service foundation:binder { call transfer };
+
+#avc:  denied  { add_name } for  pid=540 comm="media_service" name="check.config" scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+#avc:  denied  { write } for  pid=503 comm="media_service" name="log" dev="mmcblk0p11" ino=1305610 scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow media_service data_file:dir { write add_name };
