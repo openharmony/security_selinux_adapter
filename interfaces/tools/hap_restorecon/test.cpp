@@ -14,10 +14,18 @@
  */
 
 #include <getopt.h>
+#include <iosfwd>
 #include <iostream>
+#include <istream>
+#include <ostream>
 #include <sstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <streambuf>
+#include <string>
 #include <unistd.h>
 #include <vector>
+
 #include "hap_restorecon.h"
 #include "selinux_error.h"
 
