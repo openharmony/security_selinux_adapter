@@ -95,7 +95,7 @@
 /dev/watchdog[0-9]*          u:object_r:dev_watchdog_file:s0
 /dev/zero          u:object_r:dev_zero_file:s0
 /dev/HDF_PLATFORM_I2C_MANAGER       u:object_r:dev_hdf_i2c_mgr:s0
-/dev/HDF_TEST                       u:object_r:dev_hdf_test:s0
+/dev/khdf_ut                       u:object_r:dev_hdf_test:s0
 /dev/I2C_TEST                       u:object_r:dev_i2c_test:s0
 /dev/bbox                           u:object_r:dev_bbox:s0
 /dev/bus                            u:object_r:dev_bus:s0
@@ -122,7 +122,7 @@
 /dev/mali0                          u:object_r:dev_mali:s0
 /dev/mem                            u:object_r:dev_mem:s0
 /dev/mpp_service                    u:object_r:dev_mpp:s0
-/dev/pm_test_service                u:object_r:dev_pm_test:s0
+/dev/pm_ut_service                u:object_r:dev_pm_test:s0
 /dev/port                           u:object_r:dev_port:s0
 /dev/ptmx                           u:object_r:dev_ptmx:s0
 /dev/ptp[0-9]                       u:object_r:dev_ptp:s0
@@ -236,6 +236,8 @@
 /system/bin/ispserver        u:object_r:ispserver_exec:s0
 
 /system/bin/storage_daemon        u:object_r:storage_daemon_exec:s0
+
+/system/bin/sdc        u:object_r:sdc_exec:s0
 
 /system/bin/thermal_protector        u:object_r:thermal_protector_exec:s0
 

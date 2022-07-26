@@ -22,7 +22,7 @@ allow system_basic_hap accountmgr:binder { call };
 binder_call(accountmgr, system_basic_hap);
 
 binder_call(accountmgr, normal_hap);
-#allow normal_hap accountmgr:binder { call };
+allow normal_hap accountmgr:binder { call };
 
 allow accountmgr self:unix_dgram_socket{ getopt setopt };
 
@@ -30,12 +30,12 @@ allow accountmgr data_system:dir { getattr write add_name create read open setat
 allow accountmgr data_system:file { getattr write create read open setattr ioctl relabelfrom };
 
 allow accountmgr data_service_el1_file:dir { getattr write add_name create read open setattr search remove_name rmdir };
-allow accountmgr data_service_el1_file:file { getattr write create read open setattr ioctl relabelfrom };
+allow accountmgr data_service_el1_file:file { getattr write create read open setattr ioctl relabelfrom unlink };
 
 allow accountmgr data_service_file:dir { search };
 
 allow accountmgr account_data_file:file { getattr setattr open ioctl create write read relabelto unlink };
-allow accountmgr account_data_file:dir { search };
+allow accountmgr account_data_file:dir { getattr search read write };
 
 allow accountmgr vendor_lib_file:file { getattr open read map execute };
 allow accountmgr vendor_lib_file:lnk_file { read };

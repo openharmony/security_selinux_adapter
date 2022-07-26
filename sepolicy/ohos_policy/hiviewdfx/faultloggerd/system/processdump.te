@@ -32,6 +32,7 @@ processdump_cmd({
     dev_parameters_file
     exec_attr
     foundation
+    hap_file_attr
     vendor_bin_file
 })
 
@@ -68,6 +69,7 @@ allow processdump hidumper_service:fifo_file ioctl;
 #============ normal_hap =================
 allow processdump normal_hap:dir { getattr open read search };
 allow processdump normal_hap:file { getattr open read };
+allow processdump hap_file_attr:dir search;
 
 #============= for hdcd ================
 allow processdump hdcd:fd use;
@@ -119,7 +121,7 @@ allow processdump vendor_file:file { getattr map open read };
 allow processdump vendor_file:dir { getattr open read search };
 allow processdump vendor_bin_file:dir search;
 
-#============ proc_xxx & tmpfs & debugfs ===================
+#============ proc_file & tmpfs & debugfs ===================
 allow processdump proc_file:dir { search };
 allow processdump proc_file:lnk_file { read };
 allow processdump tmpfs:dir { search };

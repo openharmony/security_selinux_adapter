@@ -53,7 +53,16 @@ define(`hap_set', `
     neverallow { domain -$1 -processdump } $1:process ptrace;
 ')
 
-define(`debug_only', ifelse(build_with_debug, `true', $1, ))
+# policy only for debug version
+# debug_only(`
+#    debug_policy
+# ')
+#
+define(`debug_only', ifelse(build_with_debug, `enable', $1, ))
 
-define(`update_only', ifelse(build_with_update, `true', $1, ))
-
+# policy only for updater version
+# updater_only(`
+#    updater_policy
+# ')
+#
+define(`updater_only', ifelse(build_with_updater, `enable', $1, ))

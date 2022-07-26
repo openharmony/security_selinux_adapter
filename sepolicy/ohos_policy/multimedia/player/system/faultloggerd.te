@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { call } for  pid=244 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
-allow samgr normal_hap:binder { call };
+allow faultloggerd init:unix_stream_socket { getopt };

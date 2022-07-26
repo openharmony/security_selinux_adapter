@@ -43,6 +43,7 @@ type hdf_user_auth_interface_service, hdf_service_attr;
 type hdf_fingerprint_auth_interface_service, hdf_service_attr;
 type hdf_motion_interface_service, hdf_service_attr;
 
+type hdf_usb_interface_service, hdf_service_attr;
 type hdf_usb_pnp_sample_service, hdf_service_attr;
 type hdf_usbhost_acm_pnp_service, hdf_service_attr;
 type hdf_usbhost_acm_rawapi_service, hdf_service_attr;

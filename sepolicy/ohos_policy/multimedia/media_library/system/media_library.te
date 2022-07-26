@@ -33,7 +33,6 @@ neverallow {
     -system_basic_hap
     -system_core_hap
     -media_service
-    -processdump
 } data_user_file:{ file lnk_file } {
     create_file_perms
     never_rw_file

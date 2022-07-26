@@ -14,3 +14,7 @@
 type  wallpaper_service, sadomain, domain;
 
 allow wallpaper_service sa_foundation_dms:samgr_class { get };
+allow system_core_hap sa_wallpaper_manager_service:samgr_class { get };
+allow system_basic_hap sa_wallpaper_manager_service:samgr_class { get };
+allow normal_hap sa_wallpaper_manager_service:samgr_class { get };
+

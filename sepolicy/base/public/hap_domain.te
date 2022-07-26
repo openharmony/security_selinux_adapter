@@ -51,16 +51,7 @@ allow hap_domain hdf_devmgr:binder call;
 
 #neverallow
 #never use caps for haps.
-#todo
-#[OHOS ERROR]       (allow normal_hap normal_hap (capability (dac_override)))
-#[OHOS ERROR]       (allow normal_hap normal_hap (capability (setgid)))
-#[OHOS ERROR]       (allow normal_hap normal_hap (capability (setuid)))
-#[OHOS ERROR]       (allow normal_hap normal_hap (capability (sys_admin)))
-#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (dac_override)))
-#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (setgid)))
-#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (setuid)))
-#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (sys_admin)))
-#neverallow hap_domain self:{ capability capability2 } *;
+neverallow hap_domain self:{ capability capability2 } *;
 
 #haps can't modify files of other domain.
 neverallow hap_domain { domain -hap_domain }:file never_write_file;
@@ -109,25 +100,23 @@ neverallow hap_domain kernel:system { syslog_read syslog_mod syslog_console };
 neverallow { hap_domain } *:security { compute_av check_context };
 
 #Ability to perform any filesystem operation other than statfs(2).
-#to fix
+neverallow hap_domain fs_attr:filesystem ~getattr;
 
-#neverallow hap_domain fs_attr:filesystem ~getattr;
-
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_hap_file:dir *;
+neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata -processdump } data_hap_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
              -bgtaskmgr_service -nwebspawn -storage_daemon -accessibility -telephony_sa -processdump } data_app_el1_file:dir *;
 neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
-             -distributeddata -storage_daemon -nwebspawn } data_app_el2_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el3_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el4_file:dir *;
+             -distributeddata -storage_daemon -nwebspawn -processdump } data_app_el2_file:dir *;
+neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation -processdump } data_app_el3_file:dir *;
+neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation -processdump } data_app_el4_file:dir *;
 
 neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs -nwebspawn
              -accessibility -hdcd -telephony_sa -processdump } hap_file_attr:file open;
 
 # service can't modify hap sandbox
-neverallow { domain -hap_domain -installs -init -storage_daemon -appspawn -distributeddata -hdcd } hap_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -init -storage_daemon -appspawn -hdcd } hap_file_attr:dir_file_class_set { create unlink };
 
-neverallow { domain -init -hap_domain -installs -storage_daemon -appspawn -nwebspawn -distributeddata -hdcd } hap_file_attr:dir ~read_dir_perms;
+neverallow { domain -init -hap_domain -installs -storage_daemon -appspawn -nwebspawn -hdcd } hap_file_attr:dir ~read_dir_perms;
 
 neverallow hap_domain { domain -hap_domain -processdump }:process transition;
 neverallow hap_domain { domain -hap_domain }:process dyntransition;
@@ -151,8 +140,6 @@ neverallow hap_domain system_file:dir_file_class_set { create write setattr rela
 
 # limit access to /data/(*)? first level.todo
 #neverallow hap_domain data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
-
-neverallow { domain -hap_domain -installs -appspawn -init -storage_daemon -distributeddata -hdcd } hap_file_attr:dir_file_class_set { create unlink };
 
 neverallow { domain -installs } normal_hap_data_file:dir_file_class_set { relabelfrom relabelto };
 

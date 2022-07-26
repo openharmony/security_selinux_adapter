@@ -16,9 +16,6 @@ type storage_manager, sadomain, domain;
 #avc:  denied  { call } for  pid=241 comm="storage_manager" scontext=u:r:storage_manager:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow storage_manager accesstoken_service:binder { call };
 
-#audit: type=1400 audit(1656498571.014:89018): avc:  denied  { call } for  pid=247 comm="storage_manager" scontext=u:r:storage_manager:s0 tcontext=u:r:installs:s0 tclass=binder permissive=1
-allow storage_manager installs:binder { call };
-
 #avc:  denied  { call } for  pid=247 comm="storage_manager" scontext=u:r:storage_manager:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
 allow storage_manager foundation:binder { call };
 

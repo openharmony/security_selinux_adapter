@@ -145,3 +145,6 @@ allow dscreen multimodalinput:unix_stream_socket { read write };
 #avc:  denied  { setopt } for  pid=2404 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=unix_dgram_socket permissive=1
 allow dscreen dscreen:unix_dgram_socket { getopt setopt };
 
+#avc:  denied  { call } for  pid=2552 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
+allow dscreen sh:binder { call };
+

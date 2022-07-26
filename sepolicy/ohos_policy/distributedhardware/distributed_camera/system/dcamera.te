@@ -130,4 +130,6 @@ allow dcamera softbus_server:fd { use };
 
 #avc:  denied  { node_bind } for  pid=2166 comm="Fillp_core_210" scontext=u:r:dcamera:s0 tcontext=u:object_r:node:s0 tclass=udp_socket permissive=1
 allow dcamera node:udp_socket { node_bind };
+allow dcamera init:binder { call transfer };
+allow dcamera sh:binder { call transfer };
 

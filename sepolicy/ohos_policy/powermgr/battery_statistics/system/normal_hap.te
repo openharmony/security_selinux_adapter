@@ -13,3 +13,6 @@
 
 #avc:  denied  { get } for service=3304 pid=4207 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_batterystats_service:s0 tclass=samgr_class permissive=1
 allow normal_hap sa_batterystats_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=6155 comm="jsThread-1" scontext=u:r:normal_hap:s0 tcontext=u:r:battery_stats:s0 tclass=binder permissive=1
+allow normal_hap battery_stats:binder { call };

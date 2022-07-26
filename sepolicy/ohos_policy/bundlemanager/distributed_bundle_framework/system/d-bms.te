@@ -32,3 +32,4 @@ allow d-bms softbus_server:fd { use };
 allow d-bms softbus_server:tcp_socket { read write setopt shutdown };
 allow d-bms startup_param:file { map open };
 allow d-bms sa_distributed_bundle_mgr_service_service:samgr_class { get_remote };
+allow init data_udev:sock_file { relabelfrom };

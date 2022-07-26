@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { write } for  pid=2438 comm="jsThread-1" name="hilogInput" dev="tmpfs" ino=495 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=sock_file permissive=1
-allow system_core_hap dev_unix_socket:sock_file { write };
 #avc:  denied  { use } for  pid=475 comm="media_service" path="/dev/ashmem" dev="tmpfs" ino=178 scontext=u:r:system_core_hap:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=1
 allow system_core_hap media_service:fd { use };
 #avc:  denied  { getattr } for  pid=6124 comm="ohos.acts.multi" path="/data/service/el2/100/hmdfs/account/files/Pictures/SR001PRO/01.jpg" dev="mmcblk0p11" ino=1045005 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:data_user_file:s0 tclass=file permissive=1

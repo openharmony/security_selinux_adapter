@@ -34,3 +34,8 @@ allow media_service sa_audio_policy_service:samgr_class { get };
 
 #avc:  denied  { get } for service=3001 pid=512 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
 allow media_service sa_pulseaudio_audio_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=501 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for  pid=466 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
+allow media_service dcamera:binder { call transfer };
+

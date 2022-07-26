@@ -16,3 +16,8 @@ type  screenlock_server, sadomain, domain;
 allow screenlock_server dev_unix_socket:dir { search };
 allow screenlock_server system_basic_hap:binder { call };
 allow screenlock_server system_usr_file:file { map };
+allow system_core_hap sa_screenlock_service:samgr_class { get };
+allow system_basic_hap sa_screenlock_service:samgr_class { get };
+allow normal_hap sa_screenlock_service:samgr_class { get };
+
+

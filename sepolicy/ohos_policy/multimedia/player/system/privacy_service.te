@@ -37,3 +37,5 @@ allow privacy_service data_service_el1_file:file { lock };
 allow privacy_service data_service_file:dir { search };
 allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
 allow privacy_service data_service_el1_file:file { relabelfrom };
+allow privacy_service accesstoken_data_file:file { relabelto };
+allow privacy_service data_service_el1_file:file { ioctl };

@@ -13,3 +13,6 @@
 
 #avc:  denied  { get } for service=3301 pid=1399 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
 allow system_basic_hap sa_foundation_powermgr_service:samgr_class { get };
+
+#avc:  denied  { transfer } for  pid=1529 comm="com.ohos.settin" scontext=u:r:system_basic_hap:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+allow system_basic_hap sh:binder { transfer };
