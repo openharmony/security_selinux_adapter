@@ -177,3 +177,4 @@ allowxperm audio_policy data_init_agent:file ioctl { 0x5413 };
 
 #avc:  denied  { call } for  pid=456 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
 allow audio_policy normal_hap:binder { call };
+
