@@ -200,8 +200,11 @@ neverallow * self:process { execstack execheap };
 #    <root>
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14151
 #      (allow vibrator_host dev_file (chr_file (ioctl)))
+#    <root>
+#    allow at /home/cyyanl/code/OHOS/OpenHarmony_master/out/rk3568/obj/base/security/selinux/ohos.cil:14324
+#      (allow audio_hdi_server_host dev_file (chr_file (ioctl read write getattr map open)))
 #
-neverallow { domain -ueventd -udevd -riladapter_host -usb_host -usbfnMaster_host -sensor_host -light_host -vibrator_host -hdcd } dev_file:{ file chr_file blk_file } *;
+neverallow { domain -ueventd -udevd -riladapter_host -usb_host -usbfnMaster_host -sensor_host -light_host -vibrator_host -audio_hdi_server_host -hdcd } dev_file:{ file chr_file blk_file } *;
 
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon } dev_attr:blk_file { open read write };
 # only init can operate fs
