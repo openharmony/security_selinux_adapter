@@ -35,4 +35,7 @@ allow accessibility tracefs_trace_marker_file:file { open write };
 allow accessibility vendor_lib_file:dir { search };
 allow accessibility vendor_lib_file:file { execute getattr map open read };
 allow accessibility sa_foundation_abilityms:samgr_class { get };
+allow accessibility kernel:unix_stream_socket { connectto };
+allow accessibility paramservice_socket:sock_file { write };
+allow accessibility accessibility_param:parameter_service { set };
 allowxperm accessibility data_service_el1_file:file ioctl { 0x5413 };
