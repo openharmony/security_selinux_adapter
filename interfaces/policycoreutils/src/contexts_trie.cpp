@@ -13,10 +13,15 @@
  * limitations under the License.
  */
 
-#include <deque>
-#include <vector>
-#include "callbacks.h"
 #include "contexts_trie.h"
+
+#include <cstdlib>
+#include <deque>
+#include <new>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 namespace {
 static const char *DEFAULT_CONTEXT = "u:object_r:default_param:s0";

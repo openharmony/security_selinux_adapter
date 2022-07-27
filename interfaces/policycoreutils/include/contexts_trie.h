@@ -16,6 +16,7 @@
 #ifndef CONTEXTS_TRIE_H
 #define CONTEXTS_TRIE_H
 
+#include <iosfwd>
 #include <string>
 #include <unordered_map>
 
