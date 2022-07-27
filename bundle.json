@@ -18,13 +18,14 @@
     "rom": "3072KB",
     "ram": "3072KB",
     "deps": {
-      "components": [],
+      "components": [
+        "hilog_native"
+      ],
       "third_party": [
         "selinux",
         "pcre2",
         "FreeBSD",
-        "toybox",
-        "Linux_Kernel"
+        "bounds_checking_function"
       ]
     },
     "build": {

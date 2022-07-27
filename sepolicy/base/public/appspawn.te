@@ -28,7 +28,7 @@ neverallow appspawn { hap_file_attr -data_app_el1_file }:dir ~{ getattr search m
 
 neverallow { domain -appspawn -foundation } appspawn:unix_stream_socket connectto;
 
-neverallow appspawn { file_attr -processdump_exec }:file execute_no_trans;
+neverallow appspawn { file_attr }:file execute_no_trans;
 
 neverallow appspawn hap_file_attr:file { rw_file_perms exec_file_perms };
 

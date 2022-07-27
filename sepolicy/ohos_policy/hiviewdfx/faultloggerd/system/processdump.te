@@ -15,7 +15,7 @@
 ## Macro define: ##
 ###################
 define(`use_processdump', `
-    allow $1 processdump_exec:file { execute execute_no_trans getattr map open read };
+    allow $1 processdump_exec:file { execute getattr map open read };
 ')
 
 define(`processdump_cmd', `
@@ -32,12 +32,12 @@ processdump_cmd({
     dev_parameters_file
     exec_attr
     foundation
-    hap_file_attr
+    data_app_el1_file
     vendor_bin_file
 })
 
 #============= domain =================
-allow domain processdump:process { share };
+allow domain processdump:process { share sigchld };
 allow domain self:fifo_file { write };
 allow processdump { domain -processdump }:process ptrace; # conflict with neverallow
 allow processdump domain:fd use;
@@ -55,7 +55,6 @@ allow processdump faultloggerd:unix_stream_socket { connectto };
 allow processdump faultloggerd_socket:sock_file write;
 
 #============= processdump ==============
-allow processdump self:capability sys_ptrace; # conflict with neverallow
 allow processdump processdump_exec:file { entrypoint };
 allow processdump processdump:process { fork };
 allow processdump processdump:dir { search };
@@ -69,7 +68,7 @@ allow processdump hidumper_service:fifo_file ioctl;
 #============ normal_hap =================
 allow processdump normal_hap:dir { getattr open read search };
 allow processdump normal_hap:file { getattr open read };
-allow processdump hap_file_attr:dir search;
+allow processdump data_app_el1_file:dir search;
 
 #============= for hdcd ================
 allow processdump hdcd:fd use;
@@ -132,3 +131,5 @@ allow processdump debugfs:dir { search };
 ## neverallow assertions: ##
 ############################
 neverallow processdump self:process ptrace;
+neverallow domain processdump:process noatsecure;
+neverallow domain processdump_exec:file execute_no_trans;

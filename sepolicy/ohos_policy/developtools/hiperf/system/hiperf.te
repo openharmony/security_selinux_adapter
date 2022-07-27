@@ -17,7 +17,6 @@ allow hiperf const_build_param:file { map open read };
 allow hiperf const_param:file { map open read };
 allow hiperf const_postinstall_fstab_param:file { map open read };
 allow hiperf const_postinstall_param:file { map open read };
-#allow hiperf data_file:file { getattr ioctl map open read write };
 allow hiperf hiperf_file:file { write };
 allow hiperf data_file:file { getattr ioctl map open read };
 allow hiperf data_local_tmp:dir { add_name read remove_name search write };
@@ -132,8 +131,7 @@ allow hiperf domain:file { getattr map open read };
 allow hiperf camera_service:dir { open read };
 allow hiperf camera_service:process signull;
 allow hiperf data_file:dir { add_name getattr open read write };
-#allow hiperf data_file:file { create };
-#allow hiperf devpts:chr_file ioctl;
+
 allow hiperf dev_mali:chr_file { getattr open read };
 allow hiperf distributedfiledaemon:dir { open read };
 allow hiperf distributedfiledaemon:process signull;
@@ -151,3 +149,10 @@ allow hiperf system_basic_hap:process signull;
 allow hiperf system_bin_file:lnk_file read;
 allow hiperf ui_service:dir { open read };
 allow hiperf ui_service:process signull;
+allow hiperf hiview:process signull;
+allow hiperf domain:process signull;
+
+#allow hiperf data_local_tmp:file open;
+#allow hiperf data_local_tmp:dir { add_name remove_name search write };
+#allow hiperf data_file:file { create write };
+#allow hiperf devpts:chr_file ioctl;
