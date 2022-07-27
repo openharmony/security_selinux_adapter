@@ -15,15 +15,15 @@
 
 #include "hap_restorecon.h"
 
-#include <ctype.h>
-#include <errno.h>
+#include <cctype>
+#include <cerrno>
 #include <fstream>
 #include <istream>
-#include <limits.h>
-#include <locale.h>
+#include <climits>
+#include <clocale>
 #include <regex>
 #include <sstream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <streambuf>
 #include <string>
 #include <sys/stat.h>
@@ -32,9 +32,10 @@
 #include <utility>
 #include <vector>
 
-#include "callbacks.h"
 #include <include/fts.h>
 #include <pthread.h>
+
+#include "callbacks.h"
 #include "selinux/context.h"
 #include <selinux_internal.h>
 #include "selinux/selinux.h"

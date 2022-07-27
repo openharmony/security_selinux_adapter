@@ -15,21 +15,21 @@
 
 #include "service_checker.h"
 
-#include <ctype.h>
-#include <errno.h>
+#include <cctype>
+#include <cerrno>
 #include <fstream>
 #include <istream>
 #include <mutex>
 #include <sstream>
-#include <stdarg.h>
-#include <stddef.h>
+#include <cstdarg>
+#include <cstddef>
 #include <streambuf>
 #include <string>
 #include <unordered_map>
 #include <utility>
 
-#include "callbacks.h"
 #include <pthread.h>
+#include "callbacks.h"
 #include "securec.h"
 #include <selinux_internal.h>
 #include "selinux/selinux.h"

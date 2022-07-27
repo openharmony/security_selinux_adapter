@@ -19,8 +19,8 @@
 #include <istream>
 #include <ostream>
 #include <sstream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <streambuf>
 #include <string>
 #include <unistd.h>

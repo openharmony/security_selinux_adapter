@@ -17,7 +17,7 @@
 
 #include <deque>
 #include <new>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 #include <unordered_map>
 #include <utility>

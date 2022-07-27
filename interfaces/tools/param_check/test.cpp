@@ -19,18 +19,18 @@
 #include <istream>
 #include <memory>
 #include <ostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <string>
 #ifdef TIME_DISPLAY
 #include <sys/time.h>
 #endif
 #include <unistd.h>
 #include <sys/socket.h>
-
-#include "selinux_parameter.h"
 #include <selinux/selinux.h>
+
 #include "selinux_error.h"
+#include "selinux_parameter.h"
 
 using namespace Selinux;
 
