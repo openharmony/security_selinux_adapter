@@ -56,3 +56,5 @@ allow sh sensors:process { sigkill };
 #avc:  denied  { execute_no_trans } for  pid=3662 comm="sh" path="/system/bin/hisysevent" dev="mmcblk0p6" ino=228 scontext=u:r:sh:s0 tcontext=u:object_r:hisysevent_exec:s0 tclass=file permissive=1
 allow sh hisysevent_exec:file { getattr execute read open map execute_no_trans };
 
+#avc:  denied  { open } for  pid=2841 comm="SensorAgentTest" path="/proc/stat" dev="proc" ino=4026532112 scontext=u:r:sh:s0 tcontext=u:object_r:proc_stat_file:s0 tclass=file permissive=1
+allow sh proc_stat_file:file { open };
