@@ -52,3 +52,6 @@ allow normal_hap data_user_file:dir remove_name;
 allow normal_hap data_user_file:file { rename unlink };
 #audit: type=1400 audit(1501923711.886:16): avc:  denied  { call } for  pid=1676 comm="com.ohos.medial" scontext=u:r:normal_hap:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
 allow normal_hap privacy_service:binder call;
+
+#audit: type=1400 audit(1501925034.193:55): avc:  denied  { search } for  pid=551 comm="hdcd" name="device_view" dev="hmdfs" ino=2 scontext=u:r:hdcd:s0 tcontext=u:object_r:hmdfs:s0 tclass=dir permissive=0
+allow hdcd hmdfs:dir { search };
