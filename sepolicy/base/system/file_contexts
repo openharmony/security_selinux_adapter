@@ -198,7 +198,7 @@
 /data/nfc(/.*)?                 u:object_r:data_nfc:s0
 /data/ota(/.*)?                 u:object_r:data_ota:s0
 /data/ota_package(/.*)?                 u:object_r:data_ota_package:s0
-/data/parameters(/.*)?                 u:object_r:data_parameters:s0
+/data/service/el1/startup/parameters(/.*)?                 u:object_r:data_parameters:s0
 /data/preloads(/.*)?                 u:object_r:data_preloads:s0
 /data/resource-cache(/.*)?                 u:object_r:data_resourcecache:s0
 /data/sadata(/.*)?                 u:object_r:data_sadata:s0
