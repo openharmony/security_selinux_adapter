@@ -16,9 +16,9 @@
 #ifndef SERVICE_CHECKER_H
 #define SERVICE_CHECKER_H
 
-#include <unordered_map>
-#include <sys/types.h>
+#include <iosfwd>
 #include <string>
+#include <sys/types.h>
 
 struct ServiceInfo {
     std::string serviceName = "";

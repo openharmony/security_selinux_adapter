@@ -16,10 +16,11 @@
 #ifndef HAP_RESTORECON_H
 #define HAP_RESTORECON_H
 
-#include <selinux/context.h>
+#include <iosfwd>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <selinux/context.h>
 
 #define SELINUX_HAP_RESTORECON_RECURSE 1
 

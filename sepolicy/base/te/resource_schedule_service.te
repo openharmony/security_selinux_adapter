@@ -38,7 +38,6 @@ allow resource_schedule_service ohos_boot_param:file { map open read };
 allow resource_schedule_service ohos_param:file { map open read };
 allow resource_schedule_service persist_param:file { map open read };
 allow resource_schedule_service persist_sys_param:file { map open read };
-allow resource_schedule_service resource_schedule_service:capability { dac_override };
 allow resource_schedule_service sa_bgtaskmgr:samgr_class { get };
 allow resource_schedule_service sa_foundation_appms:samgr_class { get };
 allow resource_schedule_service sa_foundation_cesfwk_service:samgr_class { get };

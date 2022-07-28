@@ -66,6 +66,7 @@ allow power_host sa_device_service_manager:samgr_class { get };
 #avc:  denied  { map } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_param:s0" dev="tmpfs" ino=57 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=2666 comm="hdf_devhost" name="u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
+#avc:  denied  { call } for  pid=2582 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=0
 allow dcamera_host camera_service:binder { call transfer };
 allow dcamera_host dcamera:binder { call };
 allow dcamera_host dev_dri_file:chr_file { getattr read write open ioctl };
@@ -79,9 +80,10 @@ allow dcamera_host hdf_devmgr:binder { call };
 allow dcamera_host sa_device_service_manager:samgr_class { get };
 allow dcamera_host disp_gralloc_host:fd { use };
 allow dcamera_host samgr:binder { call };
-allow dcamera_host sh:binder { call };
+allow dcamera_host sh:binder { call transfer };
 allow dcamera_host const_param:file { open read };
 allow dcamera_host const_postinstall_param:file { open map };
+allow dcamera_host disp_gralloc_host:binder { call };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -90,6 +92,7 @@ allow vibrator_host hdf_vibrator_interface_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=camera_service pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_camera_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { call } for  pid=439 comm="PREVIEW#2" scontext=u:r:camera_host:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
 allow camera_host camera_host:netlink_kobject_uevent_socket { bind bind create read create };
 allow camera_host camera_host:process { ptrace };
 allow camera_host camera_service:binder { call transfer };
@@ -125,6 +128,7 @@ allow camera_host vendor_etc_file:dir { search };
 allow camera_host vendor_etc_file:file { getattr open read };
 allow camera_host vendor_file:file { execute execute getattr map open read getattr map open read };
 allow camera_host disp_gralloc_host:binder { call };
+allow camera_host dcamera:binder { call transfer };
 allowxperm camera_host dev_dri_file:chr_file ioctl {  0x641f 0x642d 0x642e 0x64b2 0x64b4  };
 allowxperm camera_host dev_hdf_kevent:chr_file ioctl {  0x6201 0x6202  };
 allowxperm camera_host dev_mpp:chr_file ioctl {  0x7601  };

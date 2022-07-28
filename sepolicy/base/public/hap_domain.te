@@ -102,21 +102,26 @@ neverallow { hap_domain } *:security { compute_av check_context };
 #Ability to perform any filesystem operation other than statfs(2).
 neverallow hap_domain fs_attr:filesystem ~getattr;
 
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata -processdump } data_hap_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
-             -bgtaskmgr_service -nwebspawn -storage_daemon -accessibility -telephony_sa -processdump } data_app_el1_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
-             -distributeddata -storage_daemon -nwebspawn -processdump } data_app_el2_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation -processdump } data_app_el3_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation -processdump } data_app_el4_file:dir *;
+#limit access to system_core_hap_data_file
+neverallow { domain -hap_domain -installs -hdcd -sh -processdump } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
-neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs -nwebspawn
-             -accessibility -hdcd -telephony_sa -processdump } hap_file_attr:file open;
+neverallow { system_basic_hap normal_hap } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
-# service can't modify hap sandbox
-neverallow { domain -hap_domain -installs -init -storage_daemon -appspawn -hdcd } hap_file_attr:dir_file_class_set { create unlink };
+#limit access to system_basic_hap_data_file
+neverallow { domain -hap_domain -installs -storage_daemon -hdcd -processdump } system_basic_hap_data_file:dir_file_class_set { create unlink open };
 
-neverallow { domain -init -hap_domain -installs -storage_daemon -appspawn -nwebspawn -hdcd } hap_file_attr:dir ~read_dir_perms;
+neverallow normal_hap system_basic_hap_data_file:dir_file_class_set { create unlink open };
+
+#limit access to normal_hap_data_file
+neverallow { domain -hap_domain -installs -hdcd } normal_hap_data_file:dir_file_class_set { create unlink };
+
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata -sh -processdump } normal_hap_data_file:dir *;
+
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd } normal_hap_data_file:dir ~read_dir_perms;
+
+neverallow { domain -hap_domain -installs -hdcd -distributeddata -processdump } normal_hap_data_file:file_class_set open;
+
+neverallow { domain -installs } normal_hap_data_file:dir_file_class_set { relabelfrom relabelto };
 
 neverallow hap_domain { domain -hap_domain -processdump }:process transition;
 neverallow hap_domain { domain -hap_domain }:process dyntransition;

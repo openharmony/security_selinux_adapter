@@ -61,4 +61,3 @@ neverallow normal_hap cgroup:file *;
 
 #todo closing for debug building.
 neverallow normal_hap debugfs_attr:{ file lnk_file } read;
-

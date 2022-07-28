@@ -84,3 +84,5 @@ allow sh bluetooth_service:unix_stream_socket { setopt };
 allow sh bluetooth_service:unix_stream_socket { shutdown };
 allow sh bluetooth_service:binder { call };
 allow sh bluetooth_service:binder { transfer };
+allow bluetooth_service normal_hap:binder { transfer };
+

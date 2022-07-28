@@ -63,3 +63,7 @@ allow media_service codec_host:binder { transfer };
 
 #avc:  denied  { get } for service=codec_hdi_omx_service pid=2247 scontext=u:r:media_service:s0 tcontext=u:object_r:hdf_codec_hdi_omx_service:s0 tclass=hdf_devmgr_class permissive=0
 allow media_service hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
+
+#avc:  denied  { add_name } for  pid=540 comm="media_service" name="check.config" scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+#avc:  denied  { write } for  pid=503 comm="media_service" name="log" dev="mmcblk0p11" ino=1305610 scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow media_service data_file:dir { write add_name };

@@ -46,3 +46,5 @@ allow foundation system_usr_file:file { getattr map open read };
 allow foundation ui_service:binder { call };
 allow foundation vendor_lib_file:dir { search };
 allow foundation vendor_lib_file:file { read };
+allow foundation render_service:unix_stream_socket { read write };
+

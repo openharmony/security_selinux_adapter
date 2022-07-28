@@ -28,9 +28,9 @@ neverallow init data_local_tmp:lnk_file read;
 
 neverallow init { file_attr fs_attr -init_exec }:file entrypoint;
 
-#todo 
-#neverallow init { file_attr fs_attr }:file execute_no_trans;
+#todo
+# system_bin_file need to fix
+neverallow init { file_attr fs_attr -system_bin_file -sdc_exec }:file execute_no_trans;
 
 #todo
 #neverallow init sys_file:file { open read write };
-

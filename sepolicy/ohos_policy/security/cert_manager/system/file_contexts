@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,9 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init data_ethernet:dir { getattr };
-allow init data_log:file { getattr };
-allow init data_parameters:file { getattr };
-allow init data_udev:dir { relabelfrom };
-allow init privacy_service:process { transition };
-allow init hisysevent_socket:sock_file { unlink setattr };
+/system/bin/cert_manager_service                            u:object_r:cert_manager_service_exec:s0
+/data/service/el1/public/cert_manager_service(/.*)?         u:object_r:data_service_el1_public_cert_managerService_file:s0

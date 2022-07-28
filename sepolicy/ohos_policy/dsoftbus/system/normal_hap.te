@@ -14,4 +14,4 @@
 allow normal_hap sa_softbus_service:samgr_class { get };
 allow normal_hap softbus_server:binder { transfer };
 allow normal_hap softbus_server:fd { use };
-allow normal_hap softbus_server:tcp_socket { read write };
+allow normal_hap softbus_server:tcp_socket { read write shutdown };

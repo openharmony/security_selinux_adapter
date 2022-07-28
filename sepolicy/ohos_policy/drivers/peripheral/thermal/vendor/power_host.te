@@ -15,3 +15,9 @@
 allow power_host sysfs_state:file { open };
 #avc:  denied  { read write } for  pid=403 comm="power_host" name="state" dev="sysfs" ino=4991 scontext=u:r:power_host:s0 tcontext=u:object_r:sysfs_state:s0 tclass=file permissive=1
 allow power_host sysfs_state:file { read write };
+
+#avc:  denied  { open } for  pid=478 comm="power_host" path="/data/log/thermal/thermal-log/" dev="sysfs" ino=4991 scontext=u:r:power_host:s0 tcontext=u:object_r:sysfs_state:s0 tclass=file permissive=1
+allow power_host data_log:file { getattr open read write unlink };
+
+#avc: denied { remove_name } for pid=436 comm="power_host" name="thermal.007.20220724-172607" dev="mmcblk0p11" ino=1436218 scontext=u:r:power_host:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
+allow power_host data_log:dir { open read remove_name search write open read remove_name write search };

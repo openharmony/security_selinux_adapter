@@ -17,7 +17,7 @@ config("selinux_unittest_config") {
   visibility = [ ":*" ]
   include_dirs = [
     "unittest/common",
-    "//utils/native/base/include",
+    "//commonlibrary/c_utils/base/include",
     "//third_party/googletest/include",
     "//base/security/selinux/interfaces/policycoreutils/include",
     "//third_party/selinux/libselinux/include",

@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
-#include <errno.h>
 #include <selinux/selinux.h>
 #include <policycoreutils.h>
 #include "selinux_klog.h"

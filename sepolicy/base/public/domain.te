@@ -180,7 +180,28 @@ neverallow * self:process { execstack execheap };
 #/dev/char
 #/dev/v4l
 #todo
-#neverallow { domain -ueventd } dev_file:{ file chr_file blk_file } *;
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:8534
+#      (allow udevd dev_file (chr_file (write getattr setattr)))
+#    <root>
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:11230
+#      (allow riladapter_host dev_file (chr_file (ioctl read write open)))
+#    <root>
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:13993
+#      (allow usb_host dev_file (chr_file (ioctl read write getattr open)))
+#    <root>
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14036
+#      (allow usbfnMaster_host dev_file (chr_file (ioctl read write getattr map open)))
+#    <root>
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14137
+#      (allow sensor_host dev_file (chr_file (ioctl)))
+#    <root>
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14142
+#      (allow light_host dev_file (chr_file (ioctl)))
+#    <root>
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14151
+#      (allow vibrator_host dev_file (chr_file (ioctl)))
+#
+neverallow { domain -ueventd -udevd -riladapter_host -usb_host -usbfnMaster_host -sensor_host -light_host -vibrator_host -hdcd } dev_file:{ file chr_file blk_file } *;
 
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon } dev_attr:blk_file { open read write };
 # only init can operate fs
@@ -216,6 +237,44 @@ neverallow { domain -samgr -init -installs -hap_domain -edm_sa -kernel -location
              -power_host -thermal -udevd -sh -foundation -hdcd -audio_hdi_server_host } data_file:file never_write_file;
 
 neverallow { domain -hdcd -hap_domain -hidumper_service -installs -power_host -sh -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf } data_local_tmp:file open;
+
+#forbid root process access network;
+#
+#[OHOS ERROR]       (allow init init (udp_socket (ioctl create)))
+#[OHOS ERROR]   (neverallow hdcd domain (udp_socket (ioctl read write create getattr setattr lock relabelfrom relabelto append map bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind node_bind)))
+#[OHOS ERROR]   (neverallow init domain (udp_socket (ioctl read write create getattr setattr lock relabelfrom relabelto append map bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind node_bind)))
+#[OHOS ERROR]       (allow hdcd self (udp_socket (create bind setopt)))
+#[OHOS ERROR]   (neverallow hdcd domain (tcp_socket (ioctl read write create getattr setattr lock relabelfrom relabelto append map bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind node_bind name_connect)))
+#[OHOS ERROR]       (allow hdcd hdcd (tcp_socket (connect getopt name_connect)))
+#[OHOS ERROR]       (allow hdcd self (tcp_socket (ioctl read write create getattr bind listen accept setopt)))
+#[OHOS ERROR]   (neverallow netsysnative domain (udp_socket (ioctl read write create getattr setattr lock relabelfrom relabelto append map bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind node_bind)))
+#[OHOS ERROR]       (allow netsysnative netsysnative (udp_socket (ioctl create)))
+#
+neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver console } domain:{ tcp_socket udp_socket rawip_socket } *;
+
+#ensure no write access to readonly filesystem.
+#  (neverallow base_typeattr_35 system_file_attr (file (write create setattr relabelfrom append unlink link rename)))
+#    <root>
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:10821
+#      (allow storage_daemon system_etc_file (file (ioctl write create setattr unlink link rename)))
+#
+#neverallow check failed at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:2428 from /home/last/bb/h1/cc/base/security/selinux/sepolicy/base/public/domain.te:235
+#  (neverallow base_typeattr_35 system_file_attr (dir (write create setattr relabelfrom link rename add_name remove_name reparent rmdir)))
+#    <root>
+#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:10820
+#      (allow storage_daemon system_etc_file (dir (write add_name remove_name)))
+#
+neverallow { domain -hdcd -sh -storage_daemon } { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
+neverallow { domain -hdcd -sh -storage_daemon } { rootfs system_file_attr vendor_file_attr }:file never_write_file;
+
+#limit domain access to sh_exec
+neverallow { domain -console -init -hdcd -sh -faultloggerd -input_user_host -udevd -riladapter_host
+    -hiview -hiperf -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative
+    -wifi_hal_service -usbfnMaster_host -processdump } sh_exec:file *;
+
+#limit execmem use
+neverallow { domain -hap_domain } self:process execmem;
+
 
 # limit capability use.
 # for exemption add rule like this:
@@ -267,7 +326,7 @@ neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -udevd -k
 neverallow { domain -appspawn -init -udevd -memmgrservice -blue_host -bluetooth_service -camera_host -codec_host -disp_gralloc_host
              -face_auth_host -faultloggerd -fingerprint_auth_host -hdcd -hiview -installs -location_host
              -misc -mmi_uinput_service -multimodalinput -netsysnative -pin_auth_host -power_host
-             -resource_schedule_service -storage_daemon -usb_host -usbfnMaster_host -user_auth_host
+             -storage_daemon -usb_host -usbfnMaster_host -user_auth_host
              -wifi_host -kernel -a2dp_host -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
 neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;

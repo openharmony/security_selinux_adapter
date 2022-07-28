@@ -50,3 +50,5 @@ allow bytrace const_param:file read;
 allow bytrace hw_sc_build_os_param:file { open read };
 allow bytrace init_param:file { map open read };
 allow bytrace init_svc_param:file { map open read };
+
+allow bytrace hdcd:fifo_file { ioctl write };
