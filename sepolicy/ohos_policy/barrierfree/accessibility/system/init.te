@@ -14,3 +14,4 @@
 allow init accessibility:dir { search };
 allow init accessibility:file { open read };
 allow init accessibility:process { getattr };
+allow init accessibility_param:file { relabelto };
