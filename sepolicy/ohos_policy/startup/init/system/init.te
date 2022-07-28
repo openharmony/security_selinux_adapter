@@ -16,3 +16,4 @@ allow init data_log:file { getattr };
 allow init data_parameters:file { getattr };
 allow init data_udev:dir { relabelfrom };
 allow init privacy_service:process { transition };
+allow init hisysevent_socket:sock_file { unlink setattr };
