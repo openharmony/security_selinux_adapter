@@ -17,7 +17,7 @@ allow hiperf const_build_param:file { map open read };
 allow hiperf const_param:file { map open read };
 allow hiperf const_postinstall_fstab_param:file { map open read };
 allow hiperf const_postinstall_param:file { map open read };
-allow hiperf hiperf_file:file { write };
+allow hiperf data_test_file:file { write };
 allow hiperf data_file:file { getattr ioctl map open read };
 allow hiperf data_local_tmp:dir { add_name read remove_name search write };
 allow hiperf data_local_tmp:file { create getattr ioctl open read rename unlink write };

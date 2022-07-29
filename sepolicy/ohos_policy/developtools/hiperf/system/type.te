@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-type hiperf_file, file_attr, data_file_attr;
+type data_test_file, file_attr, data_file_attr;
 
 type hiperf_exec, exec_attr, file_attr, system_file_attr;
 
