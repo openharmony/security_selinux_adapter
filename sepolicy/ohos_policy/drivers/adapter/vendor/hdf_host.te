@@ -600,3 +600,6 @@ allowxperm sample_host dev_hdf_kevent:chr_file ioctl { 0x6203 };
 
 allow sensor_host dev_hdf_sensor_mgr:chr_file { ioctl };
 allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6202;
+
+#avc:  denied  { ioctl } for  pid=468 comm="sensor_host" path="/dev/hdf_sensor_manager_ap" dev="tmpfs" ino=195 ioctlcmd=0x6206 scontext=u:r:sensor_host:s0 tcontext=u:object_r:dev_hdf_sensor_mgr:s0 tclass=chr_file permissive=0
+allow sensor_host dev_hdf_sensor_mgr:chr_file { ioctl };
