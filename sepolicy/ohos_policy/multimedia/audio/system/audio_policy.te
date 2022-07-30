@@ -181,3 +181,4 @@ allow audio_policy normal_hap:binder { call };
 allow audio_policy data_service_file:dir { search };
 allow audio_policy data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
 allow audio_policy data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
+
