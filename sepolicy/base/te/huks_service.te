@@ -46,4 +46,5 @@ allow huks_service startup_param:file { map open read };
 allow huks_service sys_param:file { map open read };
 allow huks_service sys_usb_param:file { map open read };
 allow huks_service tracefs:dir { search };
+allow huks_service huks_service:unix_dgram_socket { getopt setopt };
 allow huks_service tracefs_trace_marker_file:file { open write };

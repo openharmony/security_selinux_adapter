@@ -13,4 +13,5 @@
 
 allow watchdog_service dev_watchdog_file:chr_file { getattr ioctl open read write };
 allow watchdog_service watchdog_service_exec:file { entrypoint execute map read };
+allow watchdog_service dev_unix_socket:dir { search };
 allowxperm watchdog_service dev_watchdog_file:chr_file ioctl { 0x5705 0x5706 0x5707 };

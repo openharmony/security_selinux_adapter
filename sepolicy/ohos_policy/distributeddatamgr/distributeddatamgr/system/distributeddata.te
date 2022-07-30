@@ -54,7 +54,7 @@ allow distributeddata huks_service:binder { call };
 allow distributeddata normal_hap:binder { call transfer };
 allow distributeddata normal_hap:dir { search };
 allow distributeddata normal_hap:file { open read };
-allow distributeddata normal_hap_data_file:dir { getattr search };
+allow distributeddata normal_hap_data_file:dir { getattr search add_name write };
 allow distributeddata normal_hap_data_file:file { getattr lock setattr };
 allow distributeddata proc_file:file { open read };
 allow distributeddata sa_accesstoken_manager_service:samgr_class { get };

@@ -105,6 +105,7 @@ allow init data_service_el1_public_huksService_file:dir { add_name create getatt
 allow init data_service_el2_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_el2_hmdfs:dir { getattr open read relabelto setattr };
 allow init data_service_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+allow init data_service_file:file { create getattr unlink write write open };
 allow init data_ss:dir { getattr open read relabelto setattr };
 allow init data_storage:dir { getattr open read relabelto setattr };
 allow init data_system_ce:dir { getattr open read relabelto setattr };
@@ -337,7 +338,7 @@ allow init useriam:file { open read };
 allow init useriam:process { getattr rlimitinh siginh transition };
 allow init vendor_bin_file:dir { search };
 allow init vendor_bin_file:file { execute getattr read read open };
-allow init vendor_etc_file:dir { open read search };
+allow init vendor_etc_file:dir { open read search getattr };
 allow init vendor_etc_file:file { getattr open read };
 allow init vibrator_host:process { rlimitinh siginh transition };
 allow init wallpaper_service:process { rlimitinh siginh transition };
