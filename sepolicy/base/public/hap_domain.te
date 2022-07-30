@@ -117,7 +117,7 @@ neverallow { domain -hap_domain -installs -hdcd } normal_hap_data_file:dir_file_
 
 neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata -sh -processdump } normal_hap_data_file:dir *;
 
-neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd } normal_hap_data_file:dir ~read_dir_perms;
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata } normal_hap_data_file:dir ~read_dir_perms;
 
 neverallow { domain -hap_domain -installs -hdcd -distributeddata -processdump } normal_hap_data_file:file_class_set open;
 
