@@ -233,7 +233,11 @@ neverallow { domain -init -hidumper_service } debugfs:{ file lnk_file } never_rw
 
 neverallow { domain -init -appspawn -nwebspawn -normal_hap -sa_dialog } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
 
+<<<<<<< HEAD
 neverallow { domain -samgr -init -installs -hap_domain -kernel -locationhub -multimodalinput
+=======
+neverallow { domain -init -installs -hap_domain -edm_sa -kernel -locationhub -multimodalinput
+>>>>>>> upstream/master
              -power_host -thermal -udevd -sh -foundation -hdcd -audio_hdi_server_host } data_file:file never_write_file;
 
 neverallow { domain -hdcd -hap_domain -hidumper_service -installs -power_host -sh -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf } data_local_tmp:file open;
@@ -324,9 +328,9 @@ neverallow { domain -hap_domain } self:process execmem;
 
 neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -udevd -kernel } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -init -udevd -memmgrservice -blue_host -bluetooth_service -camera_host -codec_host -disp_gralloc_host
-             -face_auth_host -faultloggerd -fingerprint_auth_host -hdcd -hiview -installs -location_host
-             -misc -mmi_uinput_service -multimodalinput -netsysnative -pin_auth_host -power_host
-             -storage_daemon -usb_host -usbfnMaster_host -user_auth_host
+             -faultloggerd -hdcd -hiview -installs -location_host
+             -misc -mmi_uinput_service -multimodalinput -netsysnative -power_host
+             -storage_daemon -usb_host -usbfnMaster_host
              -wifi_host -kernel -a2dp_host -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
 neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;

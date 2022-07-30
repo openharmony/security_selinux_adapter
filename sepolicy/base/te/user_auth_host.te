@@ -51,7 +51,6 @@ allow user_auth_host startup_param:file { map open read };
 allow user_auth_host sys_param:file { map open read };
 allow user_auth_host system_bin_file:dir { search };
 allow user_auth_host sys_usb_param:file { map open read };
-allow user_auth_host user_auth_host:capability { dac_override };
 allow user_auth_host vendor_etc_file:dir { search };
 allow user_auth_host vendor_etc_file:file { getattr open read };
 allowxperm user_auth_host data_service_el1_file:file ioctl { 0x5413 };

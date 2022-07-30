@@ -46,7 +46,6 @@ allow pin_auth_host ohos_param:file { map open read };
 allow pin_auth_host persist_param:file { map open read };
 allow pin_auth_host persist_sys_param:file { map open read };
 allow pin_auth_host pinauth:binder { call transfer };
-allow pin_auth_host pin_auth_host:capability { dac_override };
 allow pin_auth_host samgr:binder { call };
 allow pin_auth_host security_param:file { map open read };
 allow pin_auth_host startup_param:file { map open read };
