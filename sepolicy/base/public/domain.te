@@ -233,7 +233,7 @@ neverallow { domain -init -hidumper_service } debugfs:{ file lnk_file } never_rw
 
 neverallow { domain -init -appspawn -nwebspawn -normal_hap -sa_dialog } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
 
-neverallow { domain -samgr -init -installs -hap_domain -edm_sa -kernel -locationhub -multimodalinput
+neverallow { domain -init -installs -hap_domain -edm_sa -kernel -locationhub -multimodalinput
              -power_host -thermal -udevd -sh -foundation -hdcd -audio_hdi_server_host } data_file:file never_write_file;
 
 neverallow { domain -hdcd -hap_domain -hidumper_service -installs -power_host -sh -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf } data_local_tmp:file open;
