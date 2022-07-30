@@ -74,6 +74,7 @@ allow normal_hap proc_max_user_watches:file { open read };
 allow normal_hap render_service:unix_stream_socket { read read write write };
 allow normal_hap sa_accessibleabilityms:samgr_class { get };
 allow normal_hap sa_accesstoken_manager_service:samgr_class { get };
+allow normal_hap sa_privacy_service:samgr_class { get };
 allow normal_hap sa_dataobs_mgr_service_service:samgr_class { get };
 allow normal_hap sa_device_auth_service:samgr_class { get };
 allow normal_hap sa_device_security_level_manager_service:samgr_class { get };
