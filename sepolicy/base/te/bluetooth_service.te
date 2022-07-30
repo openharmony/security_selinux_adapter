@@ -60,5 +60,6 @@ allow bluetooth_service sys_usb_param:file { map open read };
 allow bluetooth_service telephony_sa:binder { call };
 allow bluetooth_service tracefs:dir { search };
 allow bluetooth_service tracefs_trace_marker_file:file { open write };
+allow bluetooth_service normal_hap:binder { call };
 allowxperm bluetooth_service data_bluetooth:file ioctl { 0x5413 };
 allowxperm bluetooth_service data_log:file ioctl { 0x5413 };

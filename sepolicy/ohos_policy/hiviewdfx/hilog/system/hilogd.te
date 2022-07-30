@@ -74,8 +74,12 @@ allow hilogd data_init_agent:file { create ioctl open read append };
 
 allow hilogd dev_kmsg_file:chr_file { read };
 
+allow hilogd kernel:unix_stream_socket { connectto };
 allow hilogd init:unix_dgram_socket { getattr getopt read write };
 allow hilogd init:unix_stream_socket { accept getattr getopt listen };
+
+allow hilogd hilog_param:parameter_service { set };
+allow hilogd paramservice_socket:sock_file { write };
 
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
 

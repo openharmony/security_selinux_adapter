@@ -42,4 +42,8 @@ allow usb_host security_param:file { map open read };
 allow usb_host startup_param:file { map open read };
 allow usb_host sys_param:file { map open read };
 allow usb_host sys_usb_param:file { map open read };
+allow usb_host hdf_usbfn_cdcacm:hdf_devmgr_class { add };
+allow usb_host hdf_usbfn_cdcecm:hdf_devmgr_class { add };
+allow usb_host hdf_usbfn_master:hdf_devmgr_class { add };
+allow usb_host hdf_usb_pnp_manager:hdf_devmgr_class { add };
 allow usb_host usb_host:capability { dac_override };

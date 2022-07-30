@@ -49,6 +49,8 @@ allow foundation configfs:dir { search };
 allow foundation configfs:file { open write };
 allow foundation data_app_el1_file:dir { search };
 allow foundation data_app_el1_file:file { getattr read };
+allow foundation data_app_el2_file:dir { search };
+allow foundation data_app_el2_file:file { getattr read };
 allow foundation data_app_file:dir { search };
 allow foundation data_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
 allow foundation data_file:file { create getattr map read write open rename unlink };

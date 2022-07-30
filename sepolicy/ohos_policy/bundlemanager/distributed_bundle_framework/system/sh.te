@@ -58,3 +58,5 @@ allowxperm sh data_file:file ioctl { 0x5413 };
 allowxperm sh data_service_el1_file:file ioctl { 0x5413 };
 allow softbus_server normal_hap:binder { transfer };
 allow softbus_server normal_hap:fd { use };
+allow softbus_server softbus_server:capability { net_admin };
+allow watchdog_service dev_unix_socket:dir { search };

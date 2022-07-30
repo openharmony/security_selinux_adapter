@@ -33,6 +33,7 @@ security.                               u:object_r:security_param:s0
 hilog.                                  u:object_r:hilog_param:s0
 persist.                                u:object_r:persist_param:s0
 persist.sys.                            u:object_r:persist_sys_param:s0
+persist.sys.hilog.                      u:object_r:hilog_param:s0
 debug.                                  u:object_r:debug_param:s0
 startup.                                u:object_r:startup_param:s0
 bootevent.                              u:object_r:bootevent_param:s0

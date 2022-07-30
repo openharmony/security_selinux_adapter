@@ -67,3 +67,8 @@ allow media_service hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
 #avc:  denied  { add_name } for  pid=540 comm="media_service" name="check.config" scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
 #avc:  denied  { write } for  pid=503 comm="media_service" name="log" dev="mmcblk0p11" ino=1305610 scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
 allow media_service data_file:dir { write add_name };
+
+#avc:  denied  { write } for  pid=12844 comm="recorder_unit_t" path="/data/test/recorder_video_yuv_mpeg4.mp4" dev="mmcblk0p11" ino=391698 scontext=u:r:media_service:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=0
+#avc:  denied  { getattr } for  pid=507 comm="media_service" path="/data/test/recorder_video_yuv_mpeg4.mp4" dev="mmcblk0p11" ino=1175048 scontext=u:r:media_service:s0 tcontext=u:object_r:data_test_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=1968 comm="recorder_unit_t" path="/data/test/recorder_video_yuv_mpeg4.mp4" dev="mmcblk0p11" ino=1175048 scontext=u:r:media_service:s0 tcontext=u:object_r:data_test_file:s0 tclass=file permissive=0
+allow media_service data_test_file:file { write read getattr };
