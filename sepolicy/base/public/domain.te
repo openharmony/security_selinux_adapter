@@ -264,8 +264,8 @@ neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver c
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:10820
 #      (allow storage_daemon system_etc_file (dir (write add_name remove_name)))
 #
-neverallow { domain -hdcd -sh -storage_daemon } { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
-neverallow { domain -hdcd -sh -storage_daemon } { rootfs system_file_attr vendor_file_attr }:file never_write_file;
+neverallow { domain -hdcd -sh } { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
+neverallow { domain -hdcd -sh } { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -input_user_host -udevd -riladapter_host
