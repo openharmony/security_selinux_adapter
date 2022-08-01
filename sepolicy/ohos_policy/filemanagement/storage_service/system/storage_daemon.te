@@ -189,14 +189,6 @@ allow storage_daemon screenlock_server:dir { search };
 #avc:  denied  { read } for  pid=241 comm="storage_daemon" name="0" dev="proc" ino=32305 scontext=u:r:storage_daemon:s0 tcontext=u:r:screenlock_server:s0 tclass=lnk_file permissive=1
 allow storage_daemon screenlock_server:lnk_file { read };
 
-#avc:  denied  { write } for  pid=2483 comm="blkid" name="etc" dev="mmcblk0p6" ino=450 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=dir permissive=0
-#avc:  denied  { add_name } for  pid=2900 comm="blkid" name="blkid.tab" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=dir permissive=1
-#allow storage_daemon system_etc_file:dir { write add_name remove_name };
-
-#avc:  denied  { write } for  pid=2900 comm="blkid" path="/system/etc/blkid.tab" dev="mmcblk0p6" ino=2533 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
-#avc:  denied  { ioctl } for  pid=2900 comm="blkid" path="/system/etc/blkid.tab" dev="mmcblk0p6" ino=2533 ioctlcmd=0x5413 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_etc_file:s0 tclass=file permissive=1
-#allow storage_daemon system_etc_file:file { create write ioctl setattr unlink rename link };
-
 #avc:  denied  { setattr } for  pid=259 comm="storage_daemon" name="cmd" dev="sysfs" ino=33495 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sys_fs_hmdfs:s0 tclass=file permissive=1
 allow storage_daemon sys_fs_hmdfs:file { setattr };
 
