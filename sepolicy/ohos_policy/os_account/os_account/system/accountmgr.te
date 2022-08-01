@@ -30,7 +30,8 @@ allow accountmgr data_system:dir { getattr write add_name create read open setat
 allow accountmgr data_system:file { getattr write create read open setattr ioctl relabelfrom };
 
 allow accountmgr data_service_el1_file:dir { getattr write add_name create read open setattr search remove_name rmdir };
-allow accountmgr data_service_el1_file:file { getattr write create read open setattr ioctl relabelfrom unlink };
+allow accountmgr data_service_el1_file:file { getattr write create read open setattr ioctl relabelfrom unlink map lock };
+allowxperm accountmgr data_service_el1_file:file ioctl { 0xf50c };
 
 allow accountmgr data_service_file:dir { search };
 
