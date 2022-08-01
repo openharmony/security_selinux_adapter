@@ -12,3 +12,6 @@
 # limitations under the License.
 
 allow system_basic_hap normal_hap:binder { transfer };
+
+#avc:  denied  { use } for  pid=601 comm="media_service" path="/dev/ashmem" dev="tmpfs" ino=180 scontext=u:r:system_basic_hap:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=0
+allow system_basic_hap media_service:fd { use }; 
