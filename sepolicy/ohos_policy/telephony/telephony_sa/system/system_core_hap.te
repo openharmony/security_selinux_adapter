@@ -20,4 +20,7 @@ allow system_core_hap sa_telephony_tel_cellular_data:samgr_class get;
 allow system_core_hap sa_telephony_tel_core_service:samgr_class get;
 allow system_core_hap sa_telephony_tel_sms_mms:samgr_class get;
 allow system_core_hap telephony_sa:binder call;
+allow system_core_hap paramservice_socket:sock_file { write };
+allow system_core_hap kernel:unix_stream_socket { connectto };
+allow system_core_hap const_param:parameter_service { set };
 
