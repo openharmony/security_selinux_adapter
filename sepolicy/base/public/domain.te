@@ -188,9 +188,6 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:13993
 #      (allow usb_host dev_file (chr_file (ioctl read write getattr open)))
 #    <root>
-#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14036
-#      (allow usbfnMaster_host dev_file (chr_file (ioctl read write getattr map open)))
-#    <root>
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14137
 #      (allow sensor_host dev_file (chr_file (ioctl)))
 #    <root>
@@ -200,7 +197,7 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14151
 #      (allow vibrator_host dev_file (chr_file (ioctl)))
 #
-neverallow { domain -ueventd -udevd -riladapter_host -usb_host -usbfnMaster_host -sensor_host -light_host -vibrator_host -hdcd } dev_file:{ file chr_file blk_file } *;
+neverallow { domain -ueventd -udevd -riladapter_host -usb_host -sensor_host -light_host -vibrator_host -hdcd } dev_file:{ file chr_file blk_file } *;
 
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon } dev_attr:blk_file { open read write };
 # only init can operate fs
@@ -269,7 +266,7 @@ neverallow { domain -hdcd -sh } { rootfs system_file_attr vendor_file_attr }:fil
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -input_user_host -udevd -riladapter_host
     -hiview -hiperf -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative
-    -wifi_hal_service -usbfnMaster_host -processdump } sh_exec:file *;
+    -wifi_hal_service -usb_host -processdump } sh_exec:file *;
 
 #limit execmem use
 neverallow { domain -hap_domain } self:process execmem;
@@ -325,7 +322,7 @@ neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -udevd -k
 neverallow { domain -appspawn -init -udevd -memmgrservice -camera_host -codec_host -disp_gralloc_host
              -faultloggerd -hdcd -hiview -installs -location_host
              -misc -mmi_uinput_service -multimodalinput -netsysnative -power_host
-             -storage_daemon -usb_host -usbfnMaster_host
+             -storage_daemon -usb_host
              -wifi_host -kernel -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
 neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
