@@ -318,15 +318,15 @@ neverallow { domain -hap_domain } self:process execmem;
 #neverallow { domain -hdcd } self:{ capability2 cap2_userns } checkpoint_restore;
 #neverallow * self:{ capability2 cap2_userns } perfmon;
 
-neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -udevd -kernel } self:{ capability cap_userns } chown;
+neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -kernel } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -init -udevd -memmgrservice -camera_host -codec_host -disp_gralloc_host
              -faultloggerd -hdcd -hiview -installs -location_host
-             -misc -mmi_uinput_service -multimodalinput -netsysnative -power_host
+             -misc -multimodalinput -netsysnative -power_host
              -storage_daemon -usb_host
              -wifi_host -kernel -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
 neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -installs -kernel -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
-neverallow { domain -appspawn -init -ueventd -storage_daemon -udevd } self:{ capability cap_userns } fsetid;
+neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiperf -hiprofiler_cmd } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } setuid;
 neverallow { domain -init -ueventd -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } setgid;
