@@ -66,7 +66,9 @@ allow init privacy_service:process { rlimitinh siginh transition };
 allow privacy_service sa_privacy_service:samgr_class { add get };
 allow privacy_service sa_param_watcher:samgr_class { get };
 allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
+allow privacy_service sa_foundation_appms:samgr_class { get };
 
 binder_call(privacy_service, sh);
 binder_call(privacy_service, accesstoken_service);
+binder_call(privacy_service, foundation);
 binder_call(foundation, privacy_service);
