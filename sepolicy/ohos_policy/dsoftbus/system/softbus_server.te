@@ -49,3 +49,5 @@ allow softbus_server normal_hap:fd { use };
 
 #avc:  denied  { getopt } for  pid=482 comm="THREAD_POOL" scontext=u:r:softbus_server:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
 allow softbus_server softbus_server:tcp_socket { getopt };
+
+allow softbus_server sa_privacy_service:samgr_class { get };
