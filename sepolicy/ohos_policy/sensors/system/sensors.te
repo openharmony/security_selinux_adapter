@@ -88,3 +88,6 @@ allow sensors sh:unix_stream_socket { read write };
 
 #avc:  denied  { get } for service=3505 pid=575 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
 allow sensors sa_privacy_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=549 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=0
+allow sensors privacy_service:binder { call };
