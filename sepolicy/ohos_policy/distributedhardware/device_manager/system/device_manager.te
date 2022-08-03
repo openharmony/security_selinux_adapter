@@ -13,6 +13,8 @@
 
 type device_manager, sadomain, domain;
 
+allow device_manager sa_foundation_devicemanager_service:samgr_class { add get };
+
 #avc:  denied  { get } for service=801 pid=555 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_accessibleabilityms:s0 tclass=samgr_class permissive=0
 allow device_manager sa_accessibleabilityms:samgr_class { get };
 
