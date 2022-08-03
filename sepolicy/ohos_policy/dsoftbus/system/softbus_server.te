@@ -51,3 +51,5 @@ allow softbus_server normal_hap:fd { use };
 allow softbus_server softbus_server:tcp_socket { getopt };
 
 allow softbus_server sa_privacy_service:samgr_class { get };
+
+binder_call(softbus_server, privacy_service);
