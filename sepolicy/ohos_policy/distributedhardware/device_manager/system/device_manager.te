@@ -12,3 +12,5 @@
 # limitations under the License.
 
 type device_manager, sadomain, domain;
+
+allow device_manager sa_foundation_devicemanager_service:samgr_class { add get };
