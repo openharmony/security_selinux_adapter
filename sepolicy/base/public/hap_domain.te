@@ -103,23 +103,23 @@ neverallow { hap_domain } *:security { compute_av check_context };
 neverallow hap_domain fs_attr:filesystem ~getattr;
 
 #limit access to system_core_hap_data_file
-neverallow { domain -hap_domain -installs -hdcd -sh -processdump } system_core_hap_data_file:dir_file_class_set { create unlink open };
+neverallow { domain -hap_domain -installs -hdcd -sh } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
 neverallow { system_basic_hap normal_hap } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
 #limit access to system_basic_hap_data_file
-neverallow { domain -hap_domain -installs -storage_daemon -hdcd -processdump } system_basic_hap_data_file:dir_file_class_set { create unlink open };
+neverallow { domain -hap_domain -installs -storage_daemon -hdcd } system_basic_hap_data_file:dir_file_class_set { create unlink open };
 
 neverallow normal_hap system_basic_hap_data_file:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file
 neverallow { domain -hap_domain -installs -hdcd } normal_hap_data_file:dir_file_class_set { create unlink };
 
-neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata -sh -processdump } normal_hap_data_file:dir *;
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata -sh } normal_hap_data_file:dir *;
 
 neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata } normal_hap_data_file:dir ~read_dir_perms;
 
-neverallow { domain -hap_domain -installs -hdcd -distributeddata -processdump } normal_hap_data_file:file_class_set open;
+neverallow { domain -hap_domain -installs -hdcd -distributeddata } normal_hap_data_file:file_class_set open;
 
 neverallow { domain -installs } normal_hap_data_file:dir_file_class_set { relabelfrom relabelto };
 
