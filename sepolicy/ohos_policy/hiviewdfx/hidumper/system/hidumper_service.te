@@ -149,7 +149,7 @@ allow hidumper_service vendor_lib_file:file { getattr map open read };
 allow hidumper_service watchdog_service_exec:file { getattr map open read };
 allow hidumper_service wifi_hal_service_exec:file { getattr map open read };
 
-allow hidumper_service { sadomain }:binder call;
+allow hidumper_service { sadomain -installs }:binder call;
 allow hidumper_service { hdfdomain sadomain }:dir { getattr open read search };
 allow hidumper_service { hdfdomain sadomain }:file { getattr open read };
 allow hidumper_service { hdfdomain sadomain }:lnk_file read;
@@ -170,7 +170,6 @@ allow hidumper_service sa_foundation_displaymgr_service:samgr_class { get };
 #avc:  denied  { get } for service=3303 pid=553 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_thermal_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_thermal_service:samgr_class { get };
 
-allow hidumper_service debugfs:file { getattr open read };
 allow hidumper_service dev_at_file:chr_file ioctl;
 allow hidumper_service dev_block_volfile:dir search;
 allow hidumper_service dev_console_file:chr_file getattr;
@@ -271,3 +270,7 @@ allow hidumper_service sa_useriam_pinauth_service:samgr_class get;
 allow hidumper_service sa_useriam_useridm_service:samgr_class get;
 allow hidumper_service sa_wallpaper_manager_service:samgr_class get;
 allow hidumper_service samgr:samgr_class list;
+
+allow hidumper_service debugfs_failed_transaction_log:file { getattr open read };
+allow hidumper_service debugfs_used:file { getattr open read };
+allow hidumper_service debugfs_wakeup_sources:file { getattr open read };

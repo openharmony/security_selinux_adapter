@@ -15,6 +15,8 @@ type distributeddata, sadomain, domain;
 
 allow distributeddata accesstoken_service:binder { call };
 allow distributeddata accountmgr:binder { call };
+allow distributeddata accountmgr:dir { search };
+allow distributeddata accountmgr:file { open read };
 allow distributeddata audio_policy:binder { call transfer };
 allow distributeddata data_app_el1_database_file:dir { add_name create open read remove_name rmdir search setattr write };
 allow distributeddata data_app_el1_database_file:file { create getattr ioctl lock map open read rename setattr unlink write };
@@ -54,7 +56,7 @@ allow distributeddata huks_service:binder { call };
 allow distributeddata normal_hap:binder { call transfer };
 allow distributeddata normal_hap:dir { search };
 allow distributeddata normal_hap:file { open read };
-allow distributeddata normal_hap_data_file:dir { getattr search };
+allow distributeddata normal_hap_data_file:dir { getattr search add_name write };
 allow distributeddata normal_hap_data_file:file { getattr lock setattr };
 allow distributeddata proc_file:file { open read };
 allow distributeddata sa_accesstoken_manager_service:samgr_class { get };

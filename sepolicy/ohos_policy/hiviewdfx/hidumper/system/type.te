@@ -17,4 +17,10 @@ type hidumper_exec, exec_attr, file_attr, system_file_attr;
 
 type hidumper, nativedomain, domain;
 
+type debugfs_wakeup_sources, fs_attr, debugfs_attr;
+
+type debugfs_failed_transaction_log, fs_attr, debugfs_attr;
+
+type debugfs_used, fs_attr, debugfs_attr;
+
 domain_auto_transition_pattern({ nativedomain sadomain }, hidumper_exec, hidumper);

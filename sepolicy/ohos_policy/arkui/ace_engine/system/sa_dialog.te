@@ -21,6 +21,7 @@ allow sa_dialog sa_subsys_ace_service:samgr_class { get };
 allow sa_dialog tracefs:dir { search };
 allow sa_dialog data_file:dir { getattr open read  search };
 allow sa_dialog sa_dialog:unix_dgram_socket { getopt setopt };
+allow sa_dialog sa_inputmethod_service:samgr_class get;
 allow sa_dialog system_usr_file:file { getattr read open map };
 allow sa_dialog system_usr_file:dir { search mounton };
 allow sa_dialog sysfs_devices_system_cpu:file { open read };
@@ -49,5 +50,11 @@ binder_call(sa_dialog, ui_service);
 binder_call(sa_dialog, render_service);
 binder_call(sa_dialog, param_watcher);
 binder_call(sa_dialog, foundation);
+binder_call(sa_dialog, inputmethod_service);
+binder_call(sa_dialog, system_basic_hap);
+binder_call(system_basic_hap, sa_dialog);
 
-allowxperm sa_dialog dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x800e 0x8011 0x8016 0x8018 0x8019 0x801d 0x801e 0x8026 };
+
+allow inputmethod_service sa_dialog:binder { call transfer };
+
+allowxperm sa_dialog dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x8007 0x800e 0x800f 0x8011 0x8016 0x8018 0x8019 0x801d 0x801e 0x8026 };

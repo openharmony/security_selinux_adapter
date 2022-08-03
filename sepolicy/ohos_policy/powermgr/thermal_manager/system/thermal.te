@@ -34,3 +34,6 @@ allow thermal resource_schedule_service:binder { call };
 
 #avc:  denied  { add } for service=3303 pid=530 scontext=u:r:thermal:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 allow thermal vendor_etc_file:file { getattr open read };
+
+#avc:  denied  { get } for service=3308 pid=471 scontext=u:r:thermal:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
+allow thermal sa_foundation_displaymgr_service:samgr_class { get };

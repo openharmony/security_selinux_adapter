@@ -11,6 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow init hilog_input_socket:sock_file { getattr relabelto unlink };
+allow init hilog_output_socket:sock_file { getattr relabelto unlink };
+allow init hilog_control_socket:sock_file { getattr relabelto unlink };
+
 allow init hilogd:file { getattr open read relabelto setattr };
 allow init hilogd:dir { getattr open read relabelto setattr search };
 allow init hilogd:process { getattr rlimitinh siginh transition };

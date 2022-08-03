@@ -46,9 +46,12 @@ allow bytrace domain:file { open read };
 allow bytrace hw_sc_build_os_param:file { open read map };
 allow bytrace sh:fifo_file { read write };
 
-allow bytrace const_param:file read;
 allow bytrace hw_sc_build_os_param:file { open read };
 allow bytrace init_param:file { map open read };
 allow bytrace init_svc_param:file { map open read };
 
 allow bytrace hdcd:fifo_file { ioctl write };
+
+allow hitrace const_param:file { map open read };
+allow hitrace const_postinstall_fstab_param:file { map open read };
+allow hitrace const_postinstall_param:file { map open read };
