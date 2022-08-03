@@ -24,7 +24,7 @@ allow multimodalinput const_postinstall_fstab_param:file { map open read };
 allow multimodalinput const_postinstall_param:file { map open read };
 allow multimodalinput const_product_param:file { map open read };
 allow multimodalinput data_file:dir { add_name create write };
-allow multimodalinput data_file:file { create ioctl open read write };
+allow multimodalinput data_file:file { ioctl open read };
 allow multimodalinput data_libinput:dir { add_name search write };
 allow multimodalinput data_libinput:file { create ioctl open read write };
 allow multimodalinput data_udev:dir { search };
