@@ -197,7 +197,7 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14151
 #      (allow vibrator_host dev_file (chr_file (ioctl)))
 #
-neverallow { domain -ueventd -udevd -riladapter_host -usb_host -sensor_host -light_host -vibrator_host -hdcd } dev_file:{ file chr_file blk_file } *;
+neverallow { domain -ueventd -udevd -riladapter_host -usb_host -hdcd } dev_file:{ file chr_file blk_file } *;
 
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon } dev_attr:blk_file { open read write };
 # fs operation limit
