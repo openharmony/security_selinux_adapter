@@ -35,6 +35,14 @@ allow bgtaskmgr_service system_bin_file:file { execute execute_no_trans map open
 allow bgtaskmgr_service tracefs:dir { search };
 allow bgtaskmgr_service tracefs_trace_marker_file:file { open write };
 allow bgtaskmgr_service bgtaskmgr_service:unix_dgram_socket { getopt setopt };
+allow bgtaskmgr_service sa_pulseaudio_audio_service:samgr_class { get };
+allow bgtaskmgr_service sa_audio_policy_service:samgr_class { get };
+allow bgtaskmgr_service sa_distributeschedule:samgr_class { get };
+allow bgtaskmgr_service sa_sys_event_service:samgr_class { get };
+allow bgtaskmgr_service audio_policy:binder { call transfer };
+allow bgtaskmgr_service pulseaudio:binder { call transfer };
+allow pulseaudio bgtaskmgr_service:binder { call transfer };
+allow audio_policy bgtaskmgr_service:binder { call transfer };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
 
 binder_call(bgtaskmgr_service, accountmgr);
@@ -48,7 +56,12 @@ binder_call(bgtaskmgr_service, resource_schedule_service);
 binder_call(bgtaskmgr_service, sh);
 binder_call(bgtaskmgr_service, system_core_hap);
 binder_call(bgtaskmgr_service, thermal);
+binder_call(bgtaskmgr_service, hiview);
+binder_call(bgtaskmgr_service, distributedsche);
 binder_call(normal_hap, bgtaskmgr_service);
 binder_call(system_core_hap, bgtaskmgr_service);
 binder_call(param_watcher, bgtaskmgr_service);
 binder_call(foundation, bgtaskmgr_service);
+binder_call(hiview, bgtaskmgr_service);
+binder_call(distributedsche, bgtaskmgr_service);
+binder_call(system_basic_hap, bgtaskmgr_service);

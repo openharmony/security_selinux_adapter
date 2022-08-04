@@ -32,6 +32,8 @@ allow sh init:unix_stream_socket { connectto };
 allow sh kernel:system { syslog_read };
 allow sh normal_hap_data_file:dir { getattr open read };
 allow sh sa_accesstoken_manager_service:samgr_class { get };
+allow sh sa_distributeddata_service:samgr_class { get };
+allow sh sa_foundation_cesfwk_service:samgr_class { get };
 allow sh security:security { check_context };
 allow sh selinuxfs:dir { search };
 allow sh selinuxfs:file { open read write };
