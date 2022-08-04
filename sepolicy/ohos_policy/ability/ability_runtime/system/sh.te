@@ -98,3 +98,7 @@ allow sh wallpaper_service:file { read };
 allow sh watchdog_service:dir { getattr search };
 allow sh watchdog_service:file { open read };
 
+debug_only(`
+    allow sh time_service:binder { call };
+    allow sh time_service:binder { transfer };
+')
