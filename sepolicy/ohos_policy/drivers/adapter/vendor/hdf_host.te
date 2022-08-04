@@ -355,14 +355,8 @@ allow motion_host sa_device_service_manager:samgr_class { get };
 allow sh hdf_light_interface_service:hdf_devmgr_class { get };
 allow sh hdf_vibrator_interface_service:hdf_devmgr_class { get };
 
-allow sensor_host dev_file:chr_file { ioctl };
 allow sensor_host dev_unix_socket:dir { search };
-allowxperm sensor_host dev_file:chr_file ioctl 0x6202;
-allowxperm sensor_host dev_file:chr_file ioctl 0x6201;
 
-allow light_host dev_file:chr_file { ioctl };
-allowxperm light_host dev_file:chr_file ioctl 0x6202;
-allowxperm light_host dev_file:chr_file ioctl 0x6201;
 allow light_host dev_unix_socket:dir { search };
 allow light_host vendor_bin_file:file { entrypoint };
 dontaudit init light_host:process noatsecure;
@@ -370,10 +364,7 @@ dontaudit init light_host:process rlimitinh;
 dontaudit init light_host:process siginh;
 dontaudit init light_host:process transition;
 
-allow vibrator_host dev_file:chr_file { ioctl };
 allow vibrator_host dev_unix_socket:dir { search };
-allowxperm vibrator_host dev_file:chr_file ioctl 0x6202;
-allowxperm vibrator_host dev_file:chr_file ioctl 0x6201;
 
 allow rootfs labeledfs:filesystem { associate };
 
@@ -583,3 +574,5 @@ allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6202;
 allow sensor_host dev_hdf_sensor_mgr:chr_file { ioctl };
 allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6206;
 
+#avc:  denied  { call } for  pid=502 comm="sensor_host" scontext=u:r:sensor_host:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+allow sensor_host sh:binder { call };
