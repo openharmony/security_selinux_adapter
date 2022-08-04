@@ -45,7 +45,7 @@ allow installs hw_sc_param:file { map open read };
 allow installs init_param:file { map open read };
 allow installs init_svc_param:file { map open read };
 allow installs input_pointer_device_param:file { map open read };
-allow installs installs:capability { chown dac_override dac_read_search fowner };
+allow installs installs:capability { chown dac_override fowner };
 allow installs net_param:file { map open read };
 allow installs net_tcp_param:file { map open read };
 allow installs normal_hap_data_file:dir { open read relabelto search };
