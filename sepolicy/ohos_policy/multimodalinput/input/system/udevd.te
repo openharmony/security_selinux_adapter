@@ -25,6 +25,7 @@ allow udevd data_service_el1_file:dir { search write add_name create getattr rem
 allow udevd data_service_el1_file:file { create unlink write open ioctl read rename };
 allow udevd data_service_el1_file:sock_file { create unlink };
 allow udevd data_service_file:dir { search };
+allow udevd data_udev:dir { rmdir };
 allow udevd dev_bus_usb_file:chr_file { setattr };
 allow udevd dev_char_file:dir { search write remove_name };
 allow udevd dev_char_file:lnk_file { unlink };
