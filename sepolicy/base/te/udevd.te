@@ -45,7 +45,7 @@ allow udevd dev_dma_heap_file:chr_file { getattr write };
 allow udevd dev_dma_heap_file:dir { search };
 allow udevd dev_dri_file:dir { create getattr };
 allow udevd dev_dri_file:lnk_file { create getattr read write };
-allow udevd dev_file:chr_file { getattr setattr write };
+#allow udevd dev_file:chr_file { getattr setattr write };
 allow udevd dev_file:dir { getattr remove_name };
 allow udevd dev_file:lnk_file { getattr read unlink write };
 allow udevd dev_full:chr_file { getattr write };
