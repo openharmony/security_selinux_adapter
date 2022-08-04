@@ -359,7 +359,7 @@ allow sensor_host dev_file:chr_file { ioctl };
 allow sensor_host dev_unix_socket:dir { search };
 allowxperm sensor_host dev_file:chr_file ioctl 0x6202;
 allowxperm sensor_host dev_file:chr_file ioctl 0x6201;
-allow udevd data_file:file { create };
+#allow udevd data_file:file { create };
 
 allow light_host dev_file:chr_file { ioctl };
 allowxperm light_host dev_file:chr_file ioctl 0x6202;
