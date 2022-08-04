@@ -27,6 +27,7 @@ define(`use_hisysevent', `
 
 use_hisysevent({ domain -kernel })
 
+allow hiview hiview:capability2 { syslog };
 allow hiview hiview:dir { search };
 allow hiview hiview_exec:file { entrypoint execute map read };
 

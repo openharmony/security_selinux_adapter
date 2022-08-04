@@ -107,7 +107,7 @@ neverallow * hdcd:process dyntransition;
 
 neverallow * { file_attr fs_attr dev_attr }:{ lnk_file fifo_file sock_file } mounton;
 
-neverallow { domain -init -hiview } debugfs: { file lnk_file } never_rw_file;
+neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 
 #ioctl cmd TIOCSTI
 neverallowxperm * devpts:chr_file ioctl 0x5412;
@@ -326,11 +326,11 @@ neverallow { domain -hap_domain } self:process execmem;
 
 neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -udevd -kernel } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -init -udevd -memmgrservice -camera_host -codec_host -disp_gralloc_host
-             -faultloggerd -hdcd -hiview -installs -location_host
+             -faultloggerd -hdcd -installs -location_host
              -misc -mmi_uinput_service -multimodalinput -netsysnative -power_host
              -storage_daemon -usb_host
              -wifi_host -kernel -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init -hdcd -hidumper_service -hiview -kernel -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
+neverallow { domain -appspawn -init -hdcd -hidumper_service -kernel -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon -udevd } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiperf -hiprofiler_cmd } self:{ capability cap_userns } kill;
@@ -347,7 +347,7 @@ neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow { domain -netsysnative } self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
-neverallow { domain -hidumper_service -init -memmgrservice -storage_daemon -hiview -hiprofiler_plugins -hiperf -hiprofiler_cmd } self:{ capability cap_userns } sys_ptrace;
+neverallow { domain -hidumper_service -init -memmgrservice -storage_daemon -hiprofiler_plugins -hiperf -hiprofiler_cmd } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -init -storage_daemon -appspawn -nwebspawn } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
@@ -362,7 +362,7 @@ neverallow * self:{ capability cap_userns } audit_control;
 neverallow * self:{ capability cap_userns } setfcap;
 neverallow * self:{ capability2 cap2_userns } mac_override;
 neverallow * self:{ capability2 cap2_userns } mac_admin;
-neverallow * self:{ capability2 cap2_userns } syslog;
+neverallow { domain -hiview } self:{ capability2 cap2_userns } syslog;
 neverallow { domain -time_service } self:{ capability2 cap2_userns } wake_alarm;
 neverallow * self:{ capability2 cap2_userns } block_suspend;
 neverallow * self:{ capability2 cap2_userns } audit_read;
