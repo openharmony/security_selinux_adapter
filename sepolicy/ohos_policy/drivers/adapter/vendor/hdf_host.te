@@ -369,7 +369,6 @@ allow sh hdf_light_interface_service:hdf_devmgr_class { get };
 allow sh hdf_vibrator_interface_service:hdf_devmgr_class { get };
 
 allow sensor_host dev_unix_socket:dir { search };
-allow udevd data_file:file { create };
 
 allow light_host dev_unix_socket:dir { search };
 allow light_host vendor_bin_file:file { entrypoint };
