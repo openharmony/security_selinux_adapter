@@ -54,5 +54,6 @@ allow init distributedsche:process { getattr };
 allow sh distributedsche:binder { call transfer };
 allow sh distributedsche:process { sigkill };
 allow softbus_server distributedsche:binder { call };
+allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
 
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };
