@@ -330,7 +330,7 @@ neverallow { domain -appspawn -init -udevd -memmgrservice -camera_host -codec_ho
              -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
 neverallow { domain -appspawn -init -hdcd -hidumper_service -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -udevd -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
-neverallow { domain -appspawn -init -ueventd -storage_daemon -udevd } self:{ capability cap_userns } fsetid;
+neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiperf -hiprofiler_cmd } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } setuid;
 neverallow { domain -init -ueventd -appspawn -nwebspawn -hdcd } self:{ capability cap_userns } setgid;
