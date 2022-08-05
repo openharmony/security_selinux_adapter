@@ -180,7 +180,6 @@ allow hiprofiler_plugins disp_gralloc_host:file read;
 allow hiprofiler_plugins input_user_host:file read;
 allow hiprofiler_plugins power_host:file read;
 allow hiprofiler_plugins usb_host:file read;
-allow hiprofiler_plugins usbfnMaster_host:file read;
 allow hiprofiler_plugins wifi_host:file read;
 
 allow hiprofiler_plugins camera_service:file read;

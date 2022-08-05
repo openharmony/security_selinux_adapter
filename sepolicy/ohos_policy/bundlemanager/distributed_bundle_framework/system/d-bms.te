@@ -13,17 +13,20 @@
 
 type d-bms, sadomain, domain;
 
-allow d-bms accesstoken_service:binder { call };
-allow d-bms accountmgr:binder { call };
-allow d-bms data_app_el1_file:file { getattr read };
+allow d-bms accesstoken_service:binder { call transfer };
+allow d-bms accountmgr:binder { call transfer };
+allow d-bms data_app_el1_file:dir { search };
+allow d-bms data_app_el1_file:file { getattr open read };
 allow d-bms data_app_file:dir { search };
 allow d-bms data_file:dir { search };
 allow d-bms dev_unix_socket:dir { search };
 allow d-bms distributedsche_param:file { read };
+allow d-bms distributeddata:binder { call transfer };
 allow d-bms d-bms:unix_dgram_socket { getopt setopt };
-allow d-bms foundation:binder { call };
+allow d-bms foundation:binder { call transfer};
 allow d-bms sa_accesstoken_manager_service:samgr_class { get };
 allow d-bms sa_accountmgr:samgr_class { get };
+allow d-bms sa_distributeddata_service:samgr_class { get };
 allow d-bms sa_foundation_bms:samgr_class { get };
 allow d-bms sa_foundation_cesfwk_service:samgr_class { get };
 allow d-bms sa_param_watcher:samgr_class { get };
@@ -34,3 +37,6 @@ allow d-bms softbus_server:tcp_socket { read write setopt shutdown };
 allow d-bms startup_param:file { map open };
 allow d-bms sa_distributed_bundle_mgr_service_service:samgr_class { get_remote };
 allow init data_udev:sock_file { relabelfrom };
+allow accountmgr d-bms:binder { call transfer };
+allow distributeddata d-bms:binder { call transfer };
+allow foundation d-bms:binder { call transfer };

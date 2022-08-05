@@ -153,8 +153,6 @@ allow sh ueventd:file { read };
 allow sh ui_service:file { open read };
 allow sh updater_sa:dir { getattr search };
 allow sh updater_sa:file { open read };
-allow sh usbfnMaster_host:dir { getattr search };
-allow sh usbfnMaster_host:file { open read };
 allow sh usb_host:dir { getattr search };
 allow sh usb_host:file { open read };
 allow sh usb_service:dir { getattr search };

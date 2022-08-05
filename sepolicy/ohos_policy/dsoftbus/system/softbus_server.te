@@ -41,6 +41,7 @@ allow softbus_server sa_wifi_hotspot_ability:samgr_class { get };
 allow softbus_server sa_wifi_p2p_ability:samgr_class { get };
 allow softbus_server sa_wifi_scan_ability:samgr_class { get };
 allow softbus_server sh:binder { call };
+allow softbus_server sa_foundation_cesfwk_service:samgr_class { get };
 
 #avc:  denied  { call } for  pid=471 comm="softbus_server" scontext=u:r:softbus_server:s0 tcontext=u:r:dscreen:s0 tclass=binder permissive=0
 allow softbus_server dscreen:binder { call };

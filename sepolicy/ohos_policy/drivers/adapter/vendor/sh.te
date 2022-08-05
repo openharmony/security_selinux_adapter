@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow sh hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
+allow sh hdf_codec_component_manager_service:hdf_devmgr_class { get };
 allow sh hdf_codec_hdi_service:hdf_devmgr_class { get };
 allow sh codec_host:binder { transfer };
 allow sh proc_boot_id:file { read open };

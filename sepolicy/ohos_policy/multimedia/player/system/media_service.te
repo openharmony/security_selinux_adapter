@@ -72,3 +72,6 @@ allow media_service data_file:dir { write add_name };
 #avc:  denied  { getattr } for  pid=507 comm="media_service" path="/data/test/recorder_video_yuv_mpeg4.mp4" dev="mmcblk0p11" ino=1175048 scontext=u:r:media_service:s0 tcontext=u:object_r:data_test_file:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=1968 comm="recorder_unit_t" path="/data/test/recorder_video_yuv_mpeg4.mp4" dev="mmcblk0p11" ino=1175048 scontext=u:r:media_service:s0 tcontext=u:object_r:data_test_file:s0 tclass=file permissive=0
 allow media_service data_test_media_file:file { write read getattr };
+
+allow media_service system_basic_hap:fd { use };
+allow media_service system_basic_hap_data_file:file { getattr read write };

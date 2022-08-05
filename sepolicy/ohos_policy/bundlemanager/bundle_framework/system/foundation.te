@@ -108,6 +108,8 @@ allow foundation sys_file:dir { open read };
 allow foundation sys_file:file { ioctl open read };
 allow foundation system_basic_hap:binder { call };
 allow foundation system_basic_hap:fd { use };
+allow foundation system_basic_hap_data_file:dir { getattr };
+allow foundation system_core_hap_data_file:dir { getattr };
 allow foundation system_core_hap:binder { call };
 allow foundation system_core_hap:file { getattr read };
 allow foundation system_core_hap:process { sigkill };

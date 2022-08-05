@@ -329,7 +329,6 @@ allow init unlabeled:file { getattr open read relabelfrom };
 allow init updater_sa:dir { search };
 allow init updater_sa:file { open read };
 allow init updater_sa:process { getattr rlimitinh siginh transition };
-allow init usbfnMaster_host:process { rlimitinh siginh transition };
 allow init usb_host:process { rlimitinh siginh transition };
 allow init usb_service:process { rlimitinh siginh transition };
 allow init user_auth_host:process { rlimitinh siginh transition };

@@ -38,6 +38,7 @@ allow distributedsche foundation:binder { call transfer };
 allow distributedsche foundation:fd { use };
 allow distributedsche kernel:unix_stream_socket { connectto };
 allow distributedsche normal_hap:binder { call transfer };
+allow distributedsche system_basic_hap:binder { call transfer };
 allow distributedsche paramservice_socket:sock_file { write };
 allow distributedsche proc_cpuinfo_file:file { open read };
 allow distributedsche proc_file:file { open read };
