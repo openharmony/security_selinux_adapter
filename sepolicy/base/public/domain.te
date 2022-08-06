@@ -185,9 +185,7 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:11230
 #      (allow riladapter_host dev_file (chr_file (ioctl read write open)))
 #    <root>
-#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:13993
-#      (allow usb_host dev_file (chr_file (ioctl read write getattr open)))
-#    <root>
+
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14137
 #      (allow sensor_host dev_file (chr_file (ioctl)))
 #    <root>
@@ -197,7 +195,7 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14151
 #      (allow vibrator_host dev_file (chr_file (ioctl)))
 #
-neverallow { domain -ueventd -riladapter_host -usb_host -hdcd } dev_file:{ file chr_file blk_file } *;
+neverallow { domain -ueventd -riladapter_host -hdcd } dev_file:{ file chr_file blk_file } *;
 
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon } dev_attr:blk_file { open read write };
 # fs operation limit
@@ -272,7 +270,7 @@ neverallow { domain -hdcd -sh } { rootfs system_file_attr vendor_file_attr }:fil
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
     -hiview -hiperf -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative
-    -wifi_hal_service -usb_host -processdump } sh_exec:file *;
+    -wifi_hal_service -processdump } sh_exec:file *;
 
 #limit execmem use
 neverallow { domain -hap_domain } self:process execmem;
