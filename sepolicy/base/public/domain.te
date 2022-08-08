@@ -85,6 +85,7 @@ allow domain init:unix_dgram_socket { sendto };
 allow { domain -hap_domain } init:unix_stream_socket { read write };
 allow { domain -hap_domain } init:netlink_kobject_uevent_socket { read write };
 
+# deny access for noatsecure
 dontaudit domain domain:process noatsecure;
 # neverallow rules
 neverallow { domain -init } dev_parameters_file:file write;
@@ -95,10 +96,12 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #todo audio edm hidump installs location multimodalinput netmanager normal pwer thermal..
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
+# /data/local/tmp dir using for debug.
 neverallow { domain -hdcd -installs -init -power_host -hiprofilerd -hiprofiler_plugins -hiperf -hiprofiler_cmd } data_local_tmp:dir never_write_dir;
 
 neverallow { domain -hdcd -hap_domain -init -installs -foundation -power_host -sh -hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf } data_local_tmp:dir { open search };
 
+# only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
 
 neverallow { domain -init } hdcd:process transition;
@@ -109,13 +112,14 @@ neverallow * { file_attr fs_attr dev_attr }:{ lnk_file fifo_file sock_file } mou
 
 neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 
-#ioctl cmd TIOCSTI
+#ioctl cmd TIOCSTI, dangerous cmd.
 neverallowxperm * devpts:chr_file ioctl 0x5412;
 
 neverallow { domain } dev_port:chr_file ~{ create relabelto unlink setattr getattr };
 
 neverallow * *:{ blk_file chr_file } rename;
 
+# don't use system v IPC
 neverallow * *:{ shm sem msg msgq } *;
 
 neverallow domain self:lockdown integrity;
@@ -153,8 +157,13 @@ neverallow * ~samgr:samgr_class list;
 neverallow * ~hdf_service_attr:hdf_devmgr_class ~list;
 neverallow * ~hdf_devmgr:hdf_devmgr_class list;
 
+# Please set parammeter label in parameter_contexts
 neverallow domain default_param:parameter_service *;
+
+# Please set service label in service_contexts
 neverallow domain default_service:samgr_class *;
+
+# Please set hdf_service label in hdf_service_contexts
 neverallow domain default_hdf_service:hdf_devmgr_class *;
 
 # Please set secon field service's cfg file, don't use limit_domain!
@@ -270,7 +279,7 @@ neverallow { domain -hdcd -sh } { rootfs system_file_attr vendor_file_attr }:fil
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
     -hiview -hiperf -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative
-    -wifi_hal_service -processdump } sh_exec:file *;
+    -wifi_hal_service } sh_exec:file execute;
 
 #limit execmem use
 neverallow { domain -hap_domain } self:process execmem;
