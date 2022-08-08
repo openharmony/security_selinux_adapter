@@ -11,13 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#for debugging
-allow hdcd { file_attr -data_hilogd_file -data_parameters }:dir create_dir_perms;
-allow hdcd { file_attr -data_hilogd_file -dev_parameters_file -data_parameters }:file create_file_perms;
-#for debugging
-
-neverallow hdcd self:perf_event ~{ open read write kernel };
-
-neverallow hdcd dev_input_file:chr_file never_write_file;
-
-neverallow hdcd { dev_fuse_file dev_port }:chr_file ~getattr;
+allow hdcd hmdfs:dir create_dir_perms;
+allow hdcd hmdfs:file create_file_perms;
