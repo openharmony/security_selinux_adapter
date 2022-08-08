@@ -131,4 +131,7 @@ allow dhardware accesstoken_service:binder { call };
 #avc:  denied  { search } for  pid=2694 comm="dhardware" name="etc" dev="mmcblk0p7" ino=19 scontext=u:r:dhardware:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
 allow dhardware vendor_etc_file:dir { search };
 
+#avc:  denied  { read } for  pid=2490 comm="dhardware" name="distributed_hardware_components_cfg.json" dev="mmcblk0p7" ino=96 scontext=u:r:dhardware:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2490 comm="dhardware" path="/vendor/etc/distributedhardware/distributed_hardware_components_cfg.json" dev="mmcblk0p7" ino=96 scontext=u:r:dhardware:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+allow dhardware vendor_etc_file:file { read open };
 
