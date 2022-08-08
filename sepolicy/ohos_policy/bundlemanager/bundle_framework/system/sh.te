@@ -42,6 +42,7 @@ allow sh sysfs_hctosys:file { open read };
 allow sh sysfs_rtc:dir { open read };
 allow sh system_basic_hap_data_file:dir { getattr };
 allow sh system_core_hap_data_file:dir { getattr open read search };
+allow sh system_file:file { getattr };
 allow sh tmpfs:file { open write };
 allowxperm sh data_file:file ioctl 0x5413;
 allowxperm sh data_service_el1_file:file ioctl 0x5413;

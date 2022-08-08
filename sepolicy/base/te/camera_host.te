@@ -14,7 +14,6 @@
 allow camera_host bootevent_param:file { map open read };
 allow camera_host bootevent_samgr_param:file { map open read };
 allow camera_host build_version_param:file { map open read };
-allow camera_host camera_host:capability { dac_override };
 allow camera_host camera_host:netlink_kobject_uevent_socket { bind create read };
 allow camera_host const_allow_mock_param:file { map read open };
 allow camera_host const_allow_param:file { map open read };

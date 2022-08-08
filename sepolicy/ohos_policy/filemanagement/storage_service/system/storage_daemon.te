@@ -15,7 +15,7 @@ type storage_daemon, sadomain, domain;
 type storage_daemon_exec, exec_attr, file_attr, system_file_attr;
 type dev_block_volfile, dev_attr;
 
-allow storage_daemon hmdfs:dir { read search setattr getattr mounton };
+allow storage_daemon hmdfs:dir { open read search setattr getattr mounton };
 allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };

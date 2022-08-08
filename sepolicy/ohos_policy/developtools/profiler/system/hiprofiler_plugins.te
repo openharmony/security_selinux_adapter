@@ -247,6 +247,7 @@ allow hiprofiler_plugins rootfs:file getattr;
 allow hiprofiler_plugins hiprofiler_cmd:fd use;
 allow hiprofiler_plugins rootfs:file read;
 allow hiprofiler_plugins tty_device:chr_file ioctl;
+allow hiprofiler_plugins hilog_output_socket:sock_file write;
 
 allow hiprofiler_plugins proc_uptime_file:file { open read };
 allow hiprofiler_plugins tracefs:dir { open read };

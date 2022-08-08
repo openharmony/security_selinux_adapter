@@ -21,6 +21,7 @@ allow installs data_app_el1_file:dir { add_name getattr open read remove_name rm
 allow installs data_app_el1_file:file { create getattr ioctl setattr unlink };
 allow installs data_app_el2_file:dir { add_name create getattr open read remove_name search setattr write };
 allow installs data_app_file:dir { search };
+allow installs data_file:file { getattr open read };
 allow installs data_service_el1_file:dir { remove_name search };
 allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write };
 allow installs data_service_el2_file:dir { add_name create open read search setattr write getattr };

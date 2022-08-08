@@ -11,6 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_core_hap data_service_el1_file:file { read write };
-allow system_core_hap vfat:file { read write };
-allow system_core_hap exfat:file { read write };
+allow hdcd hmdfs:dir create_dir_perms;
+allow hdcd hmdfs:file create_file_perms;
