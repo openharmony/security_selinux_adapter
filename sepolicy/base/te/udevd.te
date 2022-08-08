@@ -65,7 +65,6 @@ allow udevd dev_mali:chr_file { getattr write };
 allow udevd dev_media_file:chr_file { getattr write };
 allow udevd dev_mem:chr_file { getattr write };
 allow udevd dev_mpp:chr_file { getattr write };
-allow udevd dev_port:chr_file { getattr write };
 allow udevd dev_ptp:chr_file { getattr setattr write };
 allow udevd dev_rfkill:chr_file { getattr write };
 allow udevd dev_rga:chr_file { getattr write };

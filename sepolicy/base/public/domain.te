@@ -112,7 +112,7 @@ neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 #ioctl cmd TIOCSTI
 neverallowxperm * devpts:chr_file ioctl 0x5412;
 
-neverallow { domain -udevd } dev_port:chr_file ~{ create relabelto unlink setattr getattr };
+neverallow { domain } dev_port:chr_file ~{ create relabelto unlink setattr getattr };
 
 neverallow * *:{ blk_file chr_file } rename;
 
