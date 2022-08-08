@@ -37,3 +37,10 @@ allow thermal vendor_etc_file:file { getattr open read };
 
 #avc:  denied  { get } for service=3308 pid=471 scontext=u:r:thermal:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
 allow thermal sa_foundation_displaymgr_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3009 pid=2003 scontext=u:r:thermal:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
+allow thermal sa_audio_policy_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=2298 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
+allow thermal audio_policy:binder { call };
+
