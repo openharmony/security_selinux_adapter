@@ -115,7 +115,7 @@ allow udevd sys_param:file { map open read };
 allow udevd system_etc_file:dir { watch };
 allow udevd sys_usb_param:file { map open read };
 allow udevd tty_device:chr_file { getattr };
-allow udevd udevd:capability { dac_override fowner net_admin };
+allow udevd udevd:capability { net_admin };
 allow udevd udevd_socket:sock_file { unlink };
 allow udevd udevd:unix_dgram_socket { setopt };
 allowxperm udevd data_file:file ioctl { 0x5413 };
