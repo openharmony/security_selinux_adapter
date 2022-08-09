@@ -31,6 +31,8 @@ allow softbus_server sa_accountmgr:samgr_class { get };
 allow softbus_server sa_bluetooth_server:samgr_class { get };
 allow softbus_server sa_foundation_abilityms:samgr_class { get };
 allow softbus_server sa_param_watcher:samgr_class { get };
+#avc:  denied  { get } for service=3505 pid=532 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
+allow softbus_server sa_privacy_service:samgr_class { get };
 allow softbus_server sa_softbus_service:samgr_class { add get };
 allow softbus_server sa_wifi_device_ability:samgr_class { get };
 allow softbus_server sa_wifi_hotspot_ability:samgr_class { get };
@@ -51,6 +53,7 @@ allow softbus_server normal_hap:fd { use };
 #avc:  denied  { getopt } for  pid=482 comm="THREAD_POOL" scontext=u:r:softbus_server:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
 allow softbus_server softbus_server:tcp_socket { getopt };
 
-allow softbus_server sa_privacy_service:samgr_class { get };
+#avc:  denied  { ioctl } for  pid=526 comm="softbus_server" path="socket:[36080]" dev="sockfs" ino=36080 ioctlcmd=0x8933 scontext=u:r:softbus_server:s0 tcontext=u:r:softbus_server:s0 tclass=socket permissive=0
+allowxperm softbus_server softbus_server:socket ioctl { 0x8933 };
 
 binder_call(softbus_server, privacy_service);
