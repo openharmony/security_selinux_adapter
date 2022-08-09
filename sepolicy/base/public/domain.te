@@ -335,7 +335,7 @@ neverallow { domain -processdump -download_server -netmanager -softbus_server -w
 
 neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -udevd } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -init -memmgrservice -disp_gralloc_host
-             -faultloggerd -hdcd -installs -location_host
+             -hdcd -installs -location_host
              -misc -mmi_uinput_service -multimodalinput -netsysnative -power_host
              -storage_daemon -usb_host
              -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
