@@ -11,12 +11,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow distributedsche bootevent_param:file { map open read };
+allow distributedsche bootevent_samgr_param:file { map open read };
+allow distributedsche build_version_param:file { map open read };
+allow distributedsche const_allow_mock_param:file { map open read };
+allow distributedsche const_allow_param:file { map open read };
+allow distributedsche const_build_param:file { map open read };
+allow distributedsche const_display_brightness_param:file { map open read };
+allow distributedsche const_param:file { map open read };
+allow distributedsche const_postinstall_fstab_param:file { map open read };
+allow distributedsche const_postinstall_param:file { map open read };
+allow distributedsche const_product_param:file { map open read };
+allow distributedsche debug_param:file { map open read };
+allow distributedsche default_param:file { map open read };
+allow distributedsche deviceauth_service:binder { transfer };
 allow distributedsche distributeddata:binder { transfer };
+allow distributedsche distributedsche_param:file { map open read };
 allow distributedsche distributedsche:unix_dgram_socket { getopt setopt };
+allow distributedsche hilog_param:file { map open read };
 allow distributedsche huks_service:binder { call };
+allow distributedsche hw_sc_build_os_param:file { map open read };
+allow distributedsche hw_sc_build_param:file { map open read };
+allow distributedsche hw_sc_param:file { map open read };
+allow distributedsche init_param:file { map open read };
+allow distributedsche init_svc_param:file { map open read };
+allow distributedsche input_pointer_device_param:file { map open read };
+allow distributedsche net_param:file { map open read };
+allow distributedsche net_tcp_param:file { map open read };
+allow distributedsche ohos_boot_param:file { map open read };
+allow distributedsche ohos_param:file { map open read };
 allow distributedsche param_watcher:binder { call transfer };
+allow distributedsche persist_param:file { map open read };
+allow distributedsche persist_sys_param:file { map open read };
+allow distributedsche sa_device_auth_service:samgr_class { get };
 allow distributedsche sa_huks_service:samgr_class { get };
+allow distributedsche security_param:file { map open read };
 allow distributedsche softbus_server:binder { transfer };
+allow distributedsche startup_param:file { map open read };
+allow distributedsche sys_param:file { map open read };
 allow distributedsche system_bin_file:dir { search };
+allow distributedsche sys_usb_param:file { map open read };
 allow distributedsche tracefs:dir { search };
 allow distributedsche tracefs_trace_marker_file:file { open write };

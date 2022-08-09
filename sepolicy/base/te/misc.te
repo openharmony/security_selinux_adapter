@@ -11,14 +11,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow misc bootevent_param:file { map open read };
+allow misc bootevent_samgr_param:file { map open read };
+allow misc build_version_param:file { map open read };
+allow misc const_allow_mock_param:file { map open read };
+allow misc const_allow_param:file { map open read };
+allow misc const_build_param:file { map open read };
+allow misc const_display_brightness_param:file { map open read };
+allow misc const_param:file { map open read };
+allow misc const_postinstall_fstab_param:file { map open read };
+allow misc const_postinstall_param:file { map open read };
+allow misc const_product_param:file { map open read };
+allow misc debug_param:file { map open read };
+allow misc default_param:file { map open read };
 allow misc dev_block_file:blk_file { open read write };
 allow misc dev_block_file:dir { search };
 allow misc dev_block_file:lnk_file { read };
 allow misc dev_block_volfile:dir { search };
 allow misc dev_unix_socket:dir { search };
+allow misc distributedsche_param:file { map open read };
+allow misc hilog_param:file { map open read };
+allow misc hw_sc_build_os_param:file { map open read };
+allow misc hw_sc_build_param:file { map open read };
+allow misc hw_sc_param:file { map open read };
+allow misc init_param:file { map open read };
+allow misc init_svc_param:file { map open read };
+allow misc input_pointer_device_param:file { map open read };
 allow misc misc:capability { dac_override };
+allow misc net_param:file { map open read };
+allow misc net_tcp_param:file { map open read };
+allow misc ohos_boot_param:file { map open read };
+allow misc ohos_param:file { map open read };
+allow misc persist_param:file { map open read };
+allow misc persist_sys_param:file { map open read };
 allow misc proc_cmdline_file:file { open read };
+allow misc security_param:file { map open read };
+allow misc startup_param:file { map open read };
+allow misc sys_param:file { map open read };
 allow misc system_bin_file:dir { search };
 allow misc system_bin_file:file { entrypoint execute map read };
+allow misc sys_usb_param:file { map open read };
 allow misc vendor_etc_file:dir { search };
 allow misc vendor_etc_file:file { getattr open read };

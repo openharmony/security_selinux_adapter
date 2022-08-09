@@ -11,7 +11,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow udevadm bootevent_param:file { map open read };
+allow udevadm bootevent_samgr_param:file { map open read };
+allow udevadm build_version_param:file { map open read };
+allow udevadm const_allow_mock_param:file { map open read };
+allow udevadm const_allow_param:file { map open read };
+allow udevadm const_build_param:file { map open read };
+allow udevadm const_display_brightness_param:file { map open read };
+allow udevadm const_param:file { map open read };
+allow udevadm const_postinstall_fstab_param:file { map open read };
+allow udevadm const_postinstall_param:file { map open read };
+allow udevadm const_product_param:file { map open read };
+allow udevadm debug_param:file { map open read };
+allow udevadm default_param:file { map open read };
 allow udevadm dev_unix_socket:dir { search };
+allow udevadm distributedsche_param:file { map open read };
+allow udevadm hilog_param:file { map open read };
+allow udevadm hw_sc_build_os_param:file { map open read };
+allow udevadm hw_sc_build_param:file { map open read };
+allow udevadm hw_sc_param:file { map open read };
+allow udevadm init_param:file { map open read };
+allow udevadm init_svc_param:file { map open read };
+allow udevadm input_pointer_device_param:file { map open read };
+allow udevadm net_param:file { map open read };
+allow udevadm net_tcp_param:file { map open read };
+allow udevadm ohos_boot_param:file { map open read };
+allow udevadm ohos_param:file { map open read };
+allow udevadm persist_param:file { map open read };
+allow udevadm persist_sys_param:file { map open read };
+allow udevadm security_param:file { map open read };
+allow udevadm startup_param:file { map open read };
 allow udevadm sys_file:dir { open read };
 allow udevadm sys_file:file { getattr open write };
 allow udevadm sysfs_android_usb:dir { open read };
@@ -26,4 +55,6 @@ allow udevadm sysfs_net:file { getattr open write };
 allow udevadm sysfs_rtc:dir { open read };
 allow udevadm sysfs_wakeup:dir { open read };
 allow udevadm sysfs_wakeup:file { getattr open write };
+allow udevadm sys_param:file { map open read };
 allow udevadm system_bin_file:dir { search };
+allow udevadm sys_usb_param:file { map open read };

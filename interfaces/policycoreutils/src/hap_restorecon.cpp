@@ -14,14 +14,31 @@
  */
 
 #include "hap_restorecon.h"
+
+#include <cctype>
+#include <cerrno>
+#include <climits>
+#include <clocale>
+#include <cstdlib>
 #include <fstream>
-#include <include/fts.h>
+#include <istream>
 #include <regex>
-#include <selinux/label.h>
-#include <selinux/restorecon.h>
-#include <selinux_internal.h>
 #include <sstream>
+#include <streambuf>
+#include <string>
+#include <sys/stat.h>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
+#include <include/fts.h>
+#include <pthread.h>
+#include "selinux/context.h"
+#include "selinux/selinux.h"
+
 #include "callbacks.h"
+#include <selinux_internal.h>
 #include "selinux_error.h"
 #include "selinux_log.h"
 

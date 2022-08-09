@@ -13,6 +13,9 @@
 
 init_daemon_domain(pulseaudio);
 
+#avc:  denied  { call } for  pid=288 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:a2dp_host:s0 tclass=binder permissive=1
+allow pulseaudio a2dp_host:binder { call };
+
 #avc:  denied  { call } for  pid=342 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow pulseaudio accesstoken_service:binder { call };
 
@@ -69,6 +72,9 @@ allow pulseaudio dev_unix_socket:dir { search };
 
 #avc:  denied  { write } for  pid=329 comm="sa_main" name="hilogInput" dev="tmpfs" ino=281 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=sock_file permissive=1
 allow pulseaudio dev_unix_socket:sock_file { write };
+
+#avc:  denied  { get } for service=audio_bluetooth_hdi_service pid=288 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:hdf_audio_bluetooth_hdi_service:s0 tclass=hdf_devmgr_class permissive=1
+allow pulseaudio hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { get };
 
 #avc:  denied  { get } for service=audio_hdi_a2dp_service pid=316 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:hdf_audio_hdi_a2dp_service:s0 tclass=hdf_devmgr_class permissive=1
 allow pulseaudio hdf_audio_hdi_a2dp_service:hdf_devmgr_class { get };

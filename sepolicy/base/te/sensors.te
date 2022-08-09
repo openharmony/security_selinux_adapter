@@ -11,11 +11,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow sensors bootevent_param:file { map open read };
+allow sensors bootevent_samgr_param:file { map open read };
+allow sensors build_version_param:file { map open read };
+allow sensors const_allow_mock_param:file { map open read };
+allow sensors const_allow_param:file { map open read };
+allow sensors const_build_param:file { map open read };
+allow sensors const_display_brightness_param:file { map open read };
+allow sensors const_param:file { map open read };
+allow sensors const_postinstall_fstab_param:file { map open read };
+allow sensors const_postinstall_param:file { map open read };
+allow sensors const_product_param:file { map open read };
+allow sensors debug_param:file { map open read };
+allow sensors default_param:file { map open read };
 allow sensors dev_unix_socket:dir { search };
+allow sensors distributedsche_param:file { map open read };
 allow sensors hdf_devmgr:binder { call };
+allow sensors hilog_param:file { map open read };
+allow sensors hw_sc_build_os_param:file { map open read };
+allow sensors hw_sc_build_param:file { map open read };
+allow sensors hw_sc_param:file { map open read };
+allow sensors init_param:file { map open read };
+allow sensors init_svc_param:file { map open read };
+allow sensors input_pointer_device_param:file { map open read };
+allow sensors net_param:file { map open read };
+allow sensors net_tcp_param:file { map open read };
+allow sensors ohos_boot_param:file { map open read };
+allow sensors ohos_param:file { map open read };
 allow sensors param_watcher:binder { call transfer };
+allow sensors persist_param:file { map open read };
+allow sensors persist_sys_param:file { map open read };
+allow sensors security_param:file { map open read };
 allow sensors sensor_host:binder { call transfer };
+allow sensors startup_param:file { map open read };
+allow sensors sys_param:file { map open read };
 allow sensors system_bin_file:dir { search };
+allow sensors sys_usb_param:file { map open read };
 allow sensors tracefs:dir { search };
 allow sensors tracefs_trace_marker_file:file { open write };
 allow sensors vibrator_host:binder { call };

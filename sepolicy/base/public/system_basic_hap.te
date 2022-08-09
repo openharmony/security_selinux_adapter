@@ -17,7 +17,5 @@ neverallow system_basic_hap domain:netlink_socket *;
 
 neverallow system_basic_hap domain:netlink_kobject_uevent_socket *;
 
-neverallow system_basic_hap init:unix_stream_socket connectto;
-
 neverallow system_basic_hap dev_kmsg_file:chr_file never_rw_file;
 

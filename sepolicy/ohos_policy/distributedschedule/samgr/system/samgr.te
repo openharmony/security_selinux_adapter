@@ -46,9 +46,11 @@ allow samgr dslm_service:file { getattr open read };
 
 allow samgr kernel:unix_stream_socket { connectto };
 
+allow samgr normal_hap:binder { call };
 allow samgr normal_hap:dir { search };
 allow samgr normal_hap:file { open read };
 allow samgr normal_hap:process { getattr };
+allow samgr ohos_param:parameter_service { set };
 
 allow samgr paramservice_socket:sock_file { write };
 
@@ -68,10 +70,15 @@ allow samgr selinuxfs:file { map open read write };
 allow samgr softbus_server:tcp_socket { read write setopt shutdown };
 allow samgr softbus_server:fd { use };
 
+#avc:  denied  { get } for service=4700 pid=245 scontext=u:r:samgr:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=1
+allow samgr sa_softbus_service:samgr_class { get };
+
+allow samgr system_basic_hap:binder { call };
 allow samgr system_basic_hap:dir { search };
 allow samgr system_basic_hap:file { open read };
 allow samgr system_basic_hap:process { getattr };
 
+allow samgr system_core_hap:binder { call };
 allow samgr system_core_hap:dir { search };
 allow samgr system_core_hap:file { open read };
 allow samgr system_core_hap:process { getattr };

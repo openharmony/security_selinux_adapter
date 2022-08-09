@@ -13,13 +13,22 @@
  * limitations under the License.
  */
 
+#include <cstdio>
+#include <cstdlib>
 #include <getopt.h>
+#include <iosfwd>
 #include <iostream>
-#include <selinux/selinux.h>
-#include <unistd.h>
+#include <istream>
+#include <memory>
+#include <ostream>
+#include <string>
 #ifdef TIME_DISPLAY
 #include <sys/time.h>
 #endif
+#include <unistd.h>
+#include <sys/socket.h>
+#include <selinux/selinux.h>
+
 #include "selinux_error.h"
 #include "selinux_parameter.h"
 

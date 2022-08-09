@@ -13,11 +13,19 @@
  * limitations under the License.
  */
 
+#include <cstdio>
+#include <cstdlib>
 #include <getopt.h>
+#include <iosfwd>
 #include <iostream>
+#include <istream>
+#include <ostream>
 #include <sstream>
+#include <streambuf>
+#include <string>
 #include <unistd.h>
 #include <vector>
+
 #include "hap_restorecon.h"
 #include "selinux_error.h"
 

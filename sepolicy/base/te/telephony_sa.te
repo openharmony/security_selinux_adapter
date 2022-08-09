@@ -11,13 +11,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow telephony_sa accesstoken_service:binder { call };
+allow telephony_sa bootevent_param:file { map open read };
+allow telephony_sa bootevent_samgr_param:file { map open read };
+allow telephony_sa build_version_param:file { map open read };
+allow telephony_sa const_allow_mock_param:file { map open read };
+allow telephony_sa const_allow_param:file { map open read };
+allow telephony_sa const_build_param:file { map open read };
+allow telephony_sa const_display_brightness_param:file { map open read };
+allow telephony_sa const_param:file { map open read };
+allow telephony_sa const_postinstall_fstab_param:file { map open read };
+allow telephony_sa const_postinstall_param:file { map open read };
+allow telephony_sa const_product_param:file { map open read };
+allow telephony_sa debug_param:file { map open read };
+allow telephony_sa default_param:file { map open read };
 allow telephony_sa dev_unix_socket:dir { search };
+allow telephony_sa distributedsche_param:file { map open read };
 allow telephony_sa foundation:binder { call };
-allow telephony_sa hdf_devmgr:binder { call };
+allow telephony_sa hdf_devmgr:binder { call transfer };
+allow telephony_sa hilog_param:file { map open read };
+allow telephony_sa hw_sc_build_os_param:file { map open read };
+allow telephony_sa hw_sc_build_param:file { map open read };
+allow telephony_sa hw_sc_param:file { map open read };
+allow telephony_sa init_param:file { map open read };
+allow telephony_sa init_svc_param:file { map open read };
+allow telephony_sa input_pointer_device_param:file { map open read };
+allow telephony_sa net_param:file { map open read };
+allow telephony_sa net_tcp_param:file { map open read };
+allow telephony_sa ohos_boot_param:file { map open read };
+allow telephony_sa ohos_param:file { map open read };
 allow telephony_sa param_watcher:binder { call transfer };
+allow telephony_sa persist_param:file { map open read };
+allow telephony_sa persist_sys_param:file { map open read };
+allow telephony_sa security_param:file { map open read };
+allow telephony_sa startup_param:file { map open read };
+allow telephony_sa sysfs_hctosys:file { open read };
 allow telephony_sa sysfs_rtc:dir { open read };
+allow telephony_sa sys_param:file { map open read };
 allow telephony_sa system_bin_file:dir { search };
 allow telephony_sa system_usr_file:dir { search };
 allow telephony_sa system_usr_file:file { getattr map open read };
+allow telephony_sa sys_usb_param:file { map open read };
 allow telephony_sa tracefs:dir { search };
 allow telephony_sa tracefs_trace_marker_file:file { open write };

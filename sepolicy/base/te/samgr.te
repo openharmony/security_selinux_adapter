@@ -11,6 +11,48 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow samgr bootevent_param:file { map open read };
+allow samgr bootevent_samgr_param:file { map open read };
+allow samgr build_version_param:file { map open read };
+allow samgr const_allow_mock_param:file { map open read };
+allow samgr const_allow_param:file { map open read };
+allow samgr const_build_param:file { map open read };
+allow samgr const_display_brightness_param:file { map open read };
+allow samgr const_param:file { map open read };
+allow samgr const_postinstall_fstab_param:file { map open read };
+allow samgr const_postinstall_param:file { map open read };
+allow samgr const_product_param:file { map open read };
+allow samgr debug_param:file { map open read };
+allow samgr default_param:file { map open read };
 allow samgr dev_kmsg_file:chr_file { open write };
 allow samgr dev_unix_socket:sock_file { write };
+allow samgr distributedsche_param:file { map open read };
+allow samgr hilog_param:file { map open read };
+allow samgr hw_sc_build_os_param:file { map open read };
+allow samgr hw_sc_build_param:file { map open read };
+allow samgr hw_sc_param:file { map open read };
+allow samgr init_param:file { map open read };
+allow samgr init_svc_param:file { map open read };
+allow samgr input_pointer_device_param:file { map open read };
+allow samgr net_param:file { map open read };
+allow samgr net_tcp_param:file { map open read };
+allow samgr normal_hap:binder { call };
+allow samgr ohos_boot_param:file { map open read };
+allow samgr ohos_param:file { map open read };
+allow samgr ohos_param:parameter_service { set };
+allow samgr persist_param:file { map open read };
+allow samgr persist_sys_param:file { map open read };
+allow samgr processdump:binder { transfer };
+allow samgr processdump:dir { search };
+allow samgr processdump:file { open read };
+allow samgr processdump:process { getattr };
 allow samgr samgr:unix_dgram_socket { getopt setopt };
+allow samgr sa_softbus_service:samgr_class { get };
+allow samgr security_param:file { map open read };
+allow samgr startup_param:file { map open read };
+allow samgr sys_param:file { map open read };
+allow samgr system_basic_hap:binder { call };
+allow samgr system_core_hap:binder { call };
+allow samgr sys_usb_param:file { map open read };
+allow samgr tracefs:dir { search };
+allow samgr tracefs_trace_marker_file:file { open write };

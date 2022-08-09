@@ -303,13 +303,30 @@ ohos_executable("service_check") {
   subsystem_name = "security"
 }
 
+build_env = true
+build_updater = false
+debug_version = "disable"
+updater_version = "disable"
+
 action("build_policy") {
+  if (build_env) {
+    debug_version = "enable"
+  }
+
+  if (build_updater) {
+    updater_version = "enable"
+  }
+
   script = "$SELINUX_ROOT_DIR/scripts/build_policy.py"
   args = [
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--tool-path",
     rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    "--debug-version",
+    debug_version,
+    "--updater-version",
+    updater_version,
   ]
   deps = [
     "$THIRD_PARTY_SELINUX_DIR:checkpolicy($host_toolchain)",

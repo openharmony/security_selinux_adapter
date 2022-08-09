@@ -51,3 +51,33 @@ allow hdf_devmgr telephony_sa:process { getattr };
 #avc:  denied  { ioctl } for  pid=245 comm="hdf_devmgr" path="/dev/hdf_kevent" dev="tmpfs" ino=199 ioctlcmd=0x6202 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=1
 allow hdf_devmgr dev_hdf_kevent:chr_file { ioctl };
 allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 };
+
+#avc:  denied  { create } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { setopt } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { bind } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { read } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow hdf_devmgr hdf_devmgr:netlink_kobject_uevent_socket { create bind setopt read };
+
+# for testcase start
+#avc:  denied  { call } for  pid=240 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
+#avc:  denied  { call } for  pid=240 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sample_host:s0 tclass=binder permissive=1
+#avc:  denied  { read } for  pid=241 comm="hdf_devmgr" name="current" dev="proc" ino=30596 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sample_host:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=246 comm="hdf_devmgr" path="/proc/2127/attr/current" dev="proc" ino=30142 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sample_host:s0 tclass=file permissive=0
+#avc:  denied  { getattr } for  pid=244 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sample_host:s0 tclass=process permissive=0
+#avc:  denied  { transfer } for  pid=238 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sample_host:s0 tclass=binder permissive=0
+#avc:  denied  { search } for  pid=241 comm="hdf_devmgr" name="2029" dev="proc" ino=32820 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sample_host:s0 tclass=dir permissive=1
+#avc:  denied  { transfer } for  pid=241 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
+#avc:  denied  { search } for  pid=241 comm="hdf_devmgr" name="1998" dev="proc" ino=31745 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sh:s0 tclass=dir permissive=1
+#avc:  denied  { read } for  pid=241 comm="hdf_devmgr" name="current" dev="proc" ino=31058 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sh:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=241 comm="hdf_devmgr" path="/proc/2125/attr/current" dev="proc" ino=31058 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sh:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=241 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
+allow hdf_devmgr sample_host:binder { call transfer };
+allow hdf_devmgr sh:binder { call };
+allow hdf_devmgr sample_host:file { read open };
+allow hdf_devmgr sample_host:process { getattr };
+allow hdf_devmgr sample_host:dir { search };
+allow hdf_devmgr sh:binder { transfer };
+allow hdf_devmgr sh:dir { search };
+allow hdf_devmgr sh:file { open read };
+allow hdf_devmgr sh:process { getattr };
+# for testcase end

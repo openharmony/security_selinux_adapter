@@ -34,6 +34,7 @@ allow hap_domain data_app_el1_file:file { getattr map open read };
 allow hap_domain data_app_el2_file:dir search;
 allow hap_domain data_app_file:dir search;
 allow hap_domain data_file:dir { getattr open read  search };
+#to remove
 allow hap_domain data_file:file { create getattr ioctl lock map open read write rename setattr unlink write };
 allow hap_domain data_log:file { read write };
 
@@ -50,19 +51,12 @@ allow hap_domain hdf_devmgr:binder call;
 
 #neverallow
 #never use caps for haps.
-#todo
-#[OHOS ERROR]       (allow normal_hap normal_hap (capability (dac_override)))
-#[OHOS ERROR]       (allow normal_hap normal_hap (capability (setgid)))
-#[OHOS ERROR]       (allow normal_hap normal_hap (capability (setuid)))
-#[OHOS ERROR]       (allow normal_hap normal_hap (capability (sys_admin)))
-#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (dac_override)))
-#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (setgid)))
-#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (setuid)))
-#[OHOS ERROR]       (allow system_basic_hap system_basic_hap (capability (sys_admin)))
-#neverallow hap_domain self:{ capability capability2 } *;
+neverallow hap_domain self:{ capability capability2 } *;
 
 #haps can't modify files of other domain.
-neverallow hap_domain { domain -hap_domain }:file { append create link unlink relabelfrom rename setattr write };
+neverallow hap_domain { domain -hap_domain }:file never_write_file;
+
+neverallow hap_domain { domain -hap_domain }:file never_rw_file;
 
 neverallow hap_domain vendor_file_attr:dir never_write_dir;
 #limit hap access vendor.
@@ -80,7 +74,7 @@ neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };
 
 #no use ptrace
 neverallow hap_domain { domain -hap_domain }:process ptrace;
-neverallow { domain -hap_domain } hap_domain:process ptrace;
+neverallow { domain -hap_domain -processdump } hap_domain:process ptrace;
 
 #hap don't bother other domain.
 neverallow hap_domain { domain -hap_domain }:process { sigkill sigstop signal };
@@ -106,27 +100,30 @@ neverallow hap_domain kernel:system { syslog_read syslog_mod syslog_console };
 neverallow { hap_domain } *:security { compute_av check_context };
 
 #Ability to perform any filesystem operation other than statfs(2).
-#to fix
+neverallow hap_domain fs_attr:filesystem ~getattr;
 
-#neverallow hap_domain fs_attr:filesystem ~getattr;
+#limit access to system_core_hap_data_file
+neverallow { domain -hap_domain -installs -hdcd -sh } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
-neverallow { domain -hdcd -hap_domain -appspawn -installs -foundation -distributeddata } data_hap_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
-             -bgtaskmgr_service -nwebspawn -storage_daemon -accessibility } data_app_el1_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation
-             -distributeddata -storage_daemon } data_app_el2_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el3_file:dir *;
-neverallow { domain -init -hdcd -hap_domain -appspawn -installs -foundation } data_app_el4_file:dir *;
+neverallow { system_basic_hap normal_hap } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
-neverallow { domain -hap_domain -bgtaskmgr_service -distributeddata -foundation -installs -nwebspawn
-             -accessibility } hap_file_attr:file open;
+#limit access to system_basic_hap_data_file
+neverallow { domain -hap_domain -installs -storage_daemon -hdcd } system_basic_hap_data_file:dir_file_class_set { create unlink open };
 
-# service can't modify hap sandbox
-neverallow { domain -hap_domain -installs -init -storage_daemon } hap_file_attr:dir_file_class_set { create unlink };
+neverallow normal_hap system_basic_hap_data_file:dir_file_class_set { create unlink open };
 
-neverallow { domain -init -hap_domain -installs -storage_daemon } hap_file_attr:dir ~read_dir_perms;
+#limit access to normal_hap_data_file
+neverallow { domain -hap_domain -installs -hdcd } normal_hap_data_file:dir_file_class_set { create unlink };
 
-neverallow hap_domain { domain -hap_domain }:process transition;
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata -sh } normal_hap_data_file:dir *;
+
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata } normal_hap_data_file:dir ~read_dir_perms;
+
+neverallow { domain -hap_domain -installs -hdcd -distributeddata } normal_hap_data_file:file_class_set open;
+
+neverallow { domain -installs } normal_hap_data_file:dir_file_class_set { relabelfrom relabelto };
+
+neverallow hap_domain { domain -hap_domain -processdump }:process transition;
 neverallow hap_domain { domain -hap_domain }:process dyntransition;
 
 neverallow hap_domain domain:{ netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_audit_socket netlink_dnrt_socket } *;
@@ -140,4 +137,21 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn } data_file_attr:file { execute execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -hiprofiler_plugins } data_file_attr:file { execute execute_no_trans };
+
+neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow hap_domain system_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+# limit access to /data/(*)? first level.todo
+#neverallow hap_domain data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow { domain -installs } normal_hap_data_file:dir_file_class_set { relabelfrom relabelto };
+
+neverallow { hap_domain -system_basic_hap } data_app_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow hap_domain proc_file:dir_file_class_set write;
+
+neverallow * { file_attr -hap_file_attr }:file execmod;
+
+neverallow hap_domain exec_attr:file { create write setattr relabelfrom relabelto append unlink link rename };

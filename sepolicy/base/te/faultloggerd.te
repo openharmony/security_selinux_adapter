@@ -11,11 +11,47 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow faultloggerd bootevent_param:file { map open read };
+allow faultloggerd bootevent_samgr_param:file { map open read };
+allow faultloggerd build_version_param:file { map open read };
+allow faultloggerd const_allow_mock_param:file { map open read };
+allow faultloggerd const_allow_param:file { map open read };
+allow faultloggerd const_build_param:file { map open read };
+allow faultloggerd const_display_brightness_param:file { map open read };
+allow faultloggerd const_param:file { map open read };
+allow faultloggerd const_postinstall_fstab_param:file { map open read };
+allow faultloggerd const_postinstall_param:file { map open read };
+allow faultloggerd const_product_param:file { map open read };
 allow faultloggerd data_file:dir { search };
 allow faultloggerd data_log:dir { add_name open read search write };
 allow faultloggerd data_log:file { create read write open setattr };
+allow faultloggerd debug_param:file { map open read };
+allow faultloggerd default_param:file { map open read };
+allow faultloggerd dev_kmsg_file:chr_file { open write };
 allow faultloggerd dev_unix_socket:dir { add_name remove_name search write };
 allow faultloggerd dev_unix_socket:sock_file { create setattr };
-allow faultloggerd faultloggerd:capability { dac_override };
+allow faultloggerd distributedsche_param:file { map open read };
+allow faultloggerd faultloggerd:capability { dac_override kill };
 allow faultloggerd faultloggerd_exec:file { entrypoint execute map read };
+allow faultloggerd faultloggerd_socket:sock_file { setattr };
+allow faultloggerd foundation:process { signal };
+allow faultloggerd hilog_param:file { map open read };
+allow faultloggerd hw_sc_build_os_param:file { map open read };
+allow faultloggerd hw_sc_build_param:file { map open read };
+allow faultloggerd hw_sc_param:file { map open read };
+allow faultloggerd init_param:file { map open read };
+allow faultloggerd init_svc_param:file { map open read };
+allow faultloggerd input_pointer_device_param:file { map open read };
+allow faultloggerd net_param:file { map open read };
+allow faultloggerd net_tcp_param:file { map open read };
+allow faultloggerd ohos_boot_param:file { map open read };
+allow faultloggerd ohos_param:file { map open read };
+allow faultloggerd persist_param:file { map open read };
+allow faultloggerd persist_sys_param:file { map open read };
+allow faultloggerd security_param:file { map open read };
+allow faultloggerd startup_param:file { map open read };
+allow faultloggerd sys_param:file { map open read };
+allow faultloggerd system_basic_hap:process { signal };
 allow faultloggerd system_bin_file:dir { search };
+allow faultloggerd system_core_hap:process { signal };
+allow faultloggerd sys_usb_param:file { map open read };

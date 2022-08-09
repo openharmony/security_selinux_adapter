@@ -11,7 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow system_core_hap sa_comm_ethernet_manager_service:samgr_class get;
 allow system_core_hap sa_foundation_tel_call_manager:samgr_class get;
+allow system_core_hap sa_foundation_tel_state_registry:samgr_class get;
+allow system_core_hap sa_net_policy_manager:samgr_class get;
+allow system_core_hap sa_netsys_native_manager:samgr_class get;
+allow system_core_hap sa_telephony_tel_cellular_data:samgr_class get;
 allow system_core_hap sa_telephony_tel_core_service:samgr_class get;
+allow system_core_hap sa_telephony_tel_sms_mms:samgr_class get;
 allow system_core_hap telephony_sa:binder call;
+allow system_core_hap paramservice_socket:sock_file { write };
+allow system_core_hap kernel:unix_stream_socket { connectto };
+allow system_core_hap const_param:parameter_service { set };
 

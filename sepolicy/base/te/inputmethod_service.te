@@ -11,14 +11,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow inputmethod_service bootevent_param:file { map open read };
+allow inputmethod_service bootevent_samgr_param:file { map read open };
+allow inputmethod_service build_version_param:file { map open read };
+allow inputmethod_service const_allow_mock_param:file { map open read };
+allow inputmethod_service const_allow_param:file { map open read };
+allow inputmethod_service const_build_param:file { map open read };
+allow inputmethod_service const_display_brightness_param:file { map open read };
+allow inputmethod_service const_param:file { map open read };
+allow inputmethod_service const_postinstall_fstab_param:file { map open read };
+allow inputmethod_service const_postinstall_param:file { map open read };
+allow inputmethod_service const_product_param:file { map open read };
+allow inputmethod_service debug_param:file { map open read };
+allow inputmethod_service default_param:file { map open read };
+allow inputmethod_service distributedsche_param:file { map open read };
 allow inputmethod_service foundation:binder { call transfer };
+allow inputmethod_service hilog_param:file { map open read };
+allow inputmethod_service hw_sc_build_os_param:file { map open read };
+allow inputmethod_service hw_sc_build_param:file { map open read };
+allow inputmethod_service hw_sc_param:file { map open read };
+allow inputmethod_service init_param:file { map open read };
+allow inputmethod_service init_svc_param:file { map open read };
+allow inputmethod_service input_pointer_device_param:file { map open read };
+allow inputmethod_service net_param:file { map open read };
+allow inputmethod_service net_tcp_param:file { map open read };
+allow inputmethod_service ohos_boot_param:file { map open read };
+allow inputmethod_service ohos_param:file { map open read };
 allow inputmethod_service param_watcher:binder { call transfer };
+allow inputmethod_service persist_param:file { map open read };
+allow inputmethod_service persist_sys_param:file { map open read };
 allow inputmethod_service sa_foundation_abilityms:samgr_class { get };
 allow inputmethod_service sa_foundation_cesfwk_service:samgr_class { get };
 allow inputmethod_service sa_inputmethod_service:samgr_class { add };
 allow inputmethod_service sa_param_watcher:samgr_class { get };
+allow inputmethod_service security_param:file { map open read };
+allow inputmethod_service startup_param:file { map open read };
+allow inputmethod_service sys_param:file { map open read };
 allow inputmethod_service system_bin_file:dir { search };
 allow inputmethod_service system_usr_file:dir { search };
 allow inputmethod_service system_usr_file:file { getattr map open read };
+allow inputmethod_service sys_usb_param:file { map open read };
 allow inputmethod_service tracefs:dir { search };
 allow inputmethod_service tracefs_trace_marker_file:file { open write };
+allow inputmethod_service ui_service:binder { call transfer };

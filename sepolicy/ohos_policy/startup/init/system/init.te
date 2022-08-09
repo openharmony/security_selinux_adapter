@@ -11,4 +11,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow init data_ethernet:dir { getattr };
+allow init data_log:file { getattr };
+allow init data_parameters:file { getattr };
+allow init data_udev:dir { relabelfrom };
+allow init privacy_service:process { transition };
+allow init hisysevent_socket:sock_file { unlink setattr };
+allow init system_core_hap:file { read open };
+allow init system_core_hap:dir { search };
+allow init system_core_hap:process { getattr };
 
+allow init accessibility_param:file { map open read relabelto relabelfrom };
+allow init const_postinstall_param:file { map open read relabelto relabelfrom };
+allow init hilog_param:file { map open read relabelto relabelfrom };
+
+allow accessibility_param tmpfs:filesystem associate;
+allow init sh:file { map open read relabelto relabelfrom };
+allow init sh:dir { search };
+allow init sh:process { getattr };
+allow init data_service_file:file { ioctl rename relabelfrom };
+allow init data_service_file:dir { remove_name };

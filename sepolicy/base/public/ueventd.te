@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow * ueventd:process ptrace;
+neverallow { domain -processdump } ueventd:process ptrace;
 
 neverallow ueventd dev_port:chr_file ~{ getattr create setattr unlink relabelto };
+
+neverallow ueventd { file_attr fs_attr }:file execute_no_trans;

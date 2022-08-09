@@ -134,4 +134,13 @@ allow dhardware vendor_etc_file:dir { search };
 #avc:  denied  { read } for  pid=2490 comm="dhardware" name="distributed_hardware_components_cfg.json" dev="mmcblk0p7" ino=96 scontext=u:r:dhardware:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2490 comm="dhardware" path="/vendor/etc/distributedhardware/distributed_hardware_components_cfg.json" dev="mmcblk0p7" ino=96 scontext=u:r:dhardware:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 allow dhardware vendor_etc_file:file { read open };
+#avc:  denied  { call } for  pid=2000 comm="DistributedHard" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2000 comm="DistributedHard" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=1
+allow sh dhardware:binder { call transfer };
+
+#avc:  denied  { call } for  pid=2003 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+allow dhardware sh:binder { call };
+
+#avc:  denied  { sigkill } for  pid=2114 comm="sh" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=process permissive=1
+allow sh dhardware:process { sigkill };
 

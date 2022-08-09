@@ -28,6 +28,7 @@ allow foundation dev_mali:chr_file { ioctl map read write };
 allow foundation deviceauth_service:binder { call };
 allow foundation distributeddata:binder { call transfer };
 allow foundation distributedsche:binder { call transfer };
+allow foundation distributedsche:fd { use };
 allow foundation dscreen:binder { call };
 allow foundation edm_sa:binder { call };
 allow foundation foundation:unix_dgram_socket { getopt setopt };

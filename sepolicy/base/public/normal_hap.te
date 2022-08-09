@@ -34,3 +34,30 @@ neverallow normal_hap *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 neverallow normal_hap dev_kmsg_file:chr_file never_rw_file;
 
 neverallow normal_hap dev_fuse_file:chr_file *;
+
+neverallow normal_hap debugfs_attr:file read;
+
+neverallow normal_hap { normal_hap_data_file system_core_hap_data_file }:file execute_no_trans;
+
+neverallow normal_hap file_attr:file link;
+
+neverallow normal_hap sysfs_attr:file { never_write_file never_execute_file };
+
+neverallow normal_hap sys_file:file never_rw_file;
+
+neverallow normal_hap { proc_file proc_asound_file proc_kmsg_file proc_loadavg_file proc_mounts_file proc_pagetypeinfo_file proc_slabinfo_file
+    proc_stat_file proc_swaps_file proc_uptime_file proc_version_file proc_vmallocinfo_file proc_vmstat_file }:file { never_rwx_file };
+
+neverallow normal_hap proc_filesystems_file:file { never_rwx_file };
+
+neverallow normal_hap proc_config_gz_file:file { never_rwx_file };
+
+#expand to system_file_attr
+neverallow normal_hap system_file_attr:file lock;
+
+neverallow normal_hap selinuxfs:file never_rw_file;
+
+neverallow normal_hap cgroup:file *;
+
+#todo closing for debug building.
+neverallow normal_hap debugfs_attr:{ file lnk_file } read;

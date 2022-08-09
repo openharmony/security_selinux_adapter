@@ -1,0 +1,27 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow multimodalinput render_service:binder { call };
+allow multimodalinput render_service:binder { transfer };
+allow multimodalinput foundation:binder { transfer };
+allow multimodalinput disp_gralloc_host:fd { use };
+allow multimodalinput system_core_hap:fd { use };
+allow multimodalinput dev_dri_file:dir { search };
+allow multimodalinput dev_dri_file:chr_file { getattr };
+allow multimodalinput hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
+allow multimodalinput sa_device_service_manager:samgr_class { get };
+allow multimodalinput sa_foundation_dms:samgr_class { get };
+allow multimodalinput sa_foundation_wms:samgr_class { get };
+allow multimodalinput sa_multimodalinput_service:samgr_class { get };
+allow multimodalinput sa_render_service:samgr_class { get };
+

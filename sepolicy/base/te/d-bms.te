@@ -1,0 +1,51 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow d-bms bootevent_param:file { map open read };
+allow d-bms bootevent_samgr_param:file { map open read };
+allow d-bms build_version_param:file { map open read };
+allow d-bms const_allow_mock_param:file { map open read };
+allow d-bms const_allow_param:file { map open read };
+allow d-bms const_build_param:file { map open read };
+allow d-bms const_display_brightness_param:file { map open read };
+allow d-bms const_param:file { map open read };
+allow d-bms const_postinstall_fstab_param:file { map open read };
+allow d-bms const_postinstall_param:file { map open read };
+allow d-bms const_product_param:file { map open read };
+allow d-bms debug_param:file { map open read };
+allow d-bms default_param:file { map open read };
+allow d-bms distributedsche_param:file { map open read };
+allow d-bms hilog_param:file { map open read };
+allow d-bms hw_sc_build_os_param:file { map open read };
+allow d-bms hw_sc_build_param:file { map open read };
+allow d-bms hw_sc_param:file { map open read };
+allow d-bms init_param:file { map open read };
+allow d-bms init_svc_param:file { map open read };
+allow d-bms input_pointer_device_param:file { map open read };
+allow d-bms net_param:file { map open read };
+allow d-bms net_tcp_param:file { map open read };
+allow d-bms ohos_boot_param:file { map open read };
+allow d-bms ohos_param:file { map open read };
+allow d-bms param_watcher:binder { call transfer };
+allow d-bms persist_param:file { map open read };
+allow d-bms persist_sys_param:file { map open read };
+allow d-bms sa_distributed_bundle_mgr_service_service:samgr_class { add };
+allow d-bms security_param:file { map open read };
+allow d-bms startup_param:file { map open read };
+allow d-bms sys_param:file { map open read };
+allow d-bms system_bin_file:dir { search };
+allow d-bms system_usr_file:dir { search };
+allow d-bms system_usr_file:file { getattr map open read };
+allow d-bms sys_usb_param:file { map open read };
+allow d-bms tracefs:dir { search };
+allow d-bms tracefs_trace_marker_file:file { open write };

@@ -15,3 +15,6 @@
 
 #allow kernel tmpfs:chr_file read_file_perms;
 #allow kernel kernel:process setsched;
+allow kernel debugfs_usb:dir { search };
+allow kernel device:dir { create };
+allow kernel sys_file:dir { open };

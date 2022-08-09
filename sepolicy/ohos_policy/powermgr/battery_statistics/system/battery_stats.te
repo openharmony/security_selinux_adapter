@@ -28,3 +28,7 @@ allow battery_stats sa_sys_event_service:samgr_class { get };
 
 #avc:  denied  { get } for service=3299 pid=557 scontext=u:r:battery_stats:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
 allow battery_stats sa_foundation_cesfwk_service:samgr_class { get };
+
+#avc:  denied  { read } for  pid=555 comm="battery_stats" name="power_average.json" dev="mmcblk0p7" ino=202 scontext=u:r:battery_stats:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=0
+allow battery_stats vendor_etc_file:file { open read };
+

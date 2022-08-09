@@ -11,7 +11,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow huks_service bootevent_param:file { map open read };
+allow huks_service bootevent_samgr_param:file { map open read };
+allow huks_service build_version_param:file { map open read };
+allow huks_service const_allow_mock_param:file { map open read };
+allow huks_service const_allow_param:file { map open read };
+allow huks_service const_build_param:file { map open read };
+allow huks_service const_display_brightness_param:file { map open read };
+allow huks_service const_param:file { map open read };
+allow huks_service const_postinstall_fstab_param:file { map open read };
+allow huks_service const_postinstall_param:file { map open read };
+allow huks_service const_product_param:file { map open read };
+allow huks_service debug_param:file { map open read };
+allow huks_service default_param:file { map open read };
+allow huks_service distributedsche_param:file { map open read };
+allow huks_service hilog_param:file { map open read };
+allow huks_service hw_sc_build_os_param:file { map open read };
+allow huks_service hw_sc_build_param:file { map open read };
+allow huks_service hw_sc_param:file { map open read };
+allow huks_service init_param:file { map open read };
+allow huks_service init_svc_param:file { map open read };
+allow huks_service input_pointer_device_param:file { map open read };
+allow huks_service net_param:file { map open read };
+allow huks_service net_tcp_param:file { map open read };
+allow huks_service ohos_boot_param:file { map open read };
+allow huks_service ohos_param:file { map open read };
 allow huks_service param_watcher:binder { call transfer };
+allow huks_service persist_param:file { map open read };
+allow huks_service persist_sys_param:file { map open read };
+allow huks_service sa_accesstoken_manager_service:samgr_class { get };
 allow huks_service sa_param_watcher:samgr_class { get };
+allow huks_service security_param:file { map open read };
+allow huks_service startup_param:file { map open read };
+allow huks_service sys_param:file { map open read };
+allow huks_service sys_usb_param:file { map open read };
 allow huks_service tracefs:dir { search };
+allow huks_service huks_service:unix_dgram_socket { getopt setopt };
 allow huks_service tracefs_trace_marker_file:file { open write };

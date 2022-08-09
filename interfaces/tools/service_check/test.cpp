@@ -13,12 +13,19 @@
  * limitations under the License.
  */
 
+#include <cstdlib>
 #include <getopt.h>
+#include <iosfwd>
 #include <iostream>
+#include <istream>
+#include <memory>
+#include <ostream>
+#include <string>
 #include <unistd.h>
-#include "service_checker.h"
+
 #include "hdf_service_checker.h"
 #include "selinux_error.h"
+#include "service_checker.h"
 
 using namespace Selinux;
 

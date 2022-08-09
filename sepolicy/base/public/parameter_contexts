@@ -33,10 +33,11 @@ security.                               u:object_r:security_param:s0
 hilog.                                  u:object_r:hilog_param:s0
 persist.                                u:object_r:persist_param:s0
 persist.sys.                            u:object_r:persist_sys_param:s0
+persist.sys.hilog.                      u:object_r:hilog_param:s0
 debug.                                  u:object_r:debug_param:s0
 startup.                                u:object_r:startup_param:s0
 bootevent.                              u:object_r:bootevent_param:s0
-
+accessibility.config.ready              u:object_r:accessibility_param:s0
 build_version                           u:object_r:build_version_param:s0
 bootevent.samgr.ready                   u:object_r:bootevent_samgr_param:s0
 9                                       u:object_r:ohos_param:s0

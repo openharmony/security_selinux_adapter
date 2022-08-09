@@ -15,6 +15,7 @@ allow init normal_hap:dir { getattr search };
 allow init normal_hap:file { open read };
 allow init normal_hap:lnk_file read;
 allow init normal_hap:process getattr;
+allow init riladapter_host:process { rlimitinh siginh transition };
 allow init telephony_sa:binder { call transfer };
 allow init telephony_sa:dir { getattr search };
 allow init telephony_sa:file { open read };

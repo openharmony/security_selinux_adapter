@@ -13,3 +13,7 @@
 
 neverallow * kernel:process { transition dyntransition };
 neverallow * kernel:process ptrace;
+
+neverallow kernel *:file { entrypoint execute_no_trans };
+
+

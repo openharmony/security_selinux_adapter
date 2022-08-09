@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+type distributedsche_param, parameter_attr;
+
 #avc:  denied  { add } for service=1401 pid=406 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_1401_service:s0 tclass=samgr_class permissive=1
 allow distributedsche sa_distributeschedule:samgr_class { add get_remote };
 allow distributedsche sa_distributeddata_service:samgr_class { get };
@@ -22,18 +24,36 @@ allow distributedsche sa_accountmgr:samgr_class { get };
 allow distributedsche sa_foundation_abilityms:samgr_class { get };
 allow distributedsche accesstoken_service:binder { call };
 allow distributedsche accountmgr:binder { call };
+allow distributedsche data_file:dir { search };
+allow distributedsche data_service_file:dir { search };
+allow distributedsche data_service_el1_file:dir { add_name open read search write getattr create remove_name rmdir };
+allow distributedsche data_service_el1_file:file { create getattr ioctl open read write lock map unlink };
 allow distributedsche deviceauth_service:binder { call };
 allow distributedsche dev_ashmem_file:chr_file { open };
 allow distributedsche dev_unix_socket:dir { search };
 allow distributedsche distributeddata:binder { call transfer };
+allow distributedsche distributedsche_param:parameter_service { set };
 allow distributedsche distributedsche:unix_dgram_socket { getopt setopt };
 allow distributedsche foundation:binder { call transfer };
-allow distributedsche normal_hap:binder { call };
-allow distributedsche proc_cpuinfo_file:file { read };
+allow distributedsche foundation:fd { use };
+allow distributedsche kernel:unix_stream_socket { connectto };
+allow distributedsche normal_hap:binder { call transfer };
+allow distributedsche system_basic_hap:binder { call transfer };
+allow distributedsche paramservice_socket:sock_file { write };
+allow distributedsche proc_cpuinfo_file:file { open read };
 allow distributedsche proc_file:file { open read };
+allow distributedsche sh:binder { call };
 allow distributedsche softbus_server:binder { call transfer };
 allow distributedsche softbus_server:fd { use };
 allow distributedsche softbus_server:tcp_socket { read setopt shutdown write };
 
+allow accountmgr distributedsche:binder { transfer };
+allow init distributedsche:dir { search };
+allow init distributedsche:file { open read };
+allow init distributedsche:process { getattr };
+allow sh distributedsche:binder { call transfer };
 allow sh distributedsche:process { sigkill };
 allow softbus_server distributedsche:binder { call };
+allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
+
+neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };

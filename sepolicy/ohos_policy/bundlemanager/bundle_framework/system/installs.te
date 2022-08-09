@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Copyright (c) 2022 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -16,20 +16,28 @@ type installs_exec, system_file_attr, exec_attr, file_attr;
 
 init_daemon_domain(installs);
 
+allow installs accesstoken_service:binder { call };
 allow installs data_app_el1_file:dir { add_name getattr open read remove_name rmdir search write };
 allow installs data_app_el1_file:file { create getattr ioctl setattr unlink };
 allow installs data_app_el2_file:dir { add_name create getattr open read remove_name search setattr write };
 allow installs data_app_file:dir { search };
-allow installs data_file:dir { search };
-allow installs data_service_el1_file:dir { search };
-allow installs data_service_el2_file:dir { add_name create open read search setattr write };
+allow installs data_file:file { getattr open read };
+allow installs data_service_el1_file:dir { remove_name search };
+allow installs data_service_el1_file:file { create setattr unlink getattr open read rename write };
+allow installs data_service_el2_file:dir { add_name create open read search setattr write getattr };
+allow installs data_service_el2_hmdfs:dir { getattr };
 allow installs data_service_file:dir { search };
 allow installs dev_unix_socket:dir { search };
-allow installs normal_hap_data_file:dir { getattr open read relabelto remove_name rmdir search write };
+allow installs normal_hap_data_file:dir { getattr open read relabelto remove_name rmdir search setattr write };
+allow installs normal_hap_data_file:file { getattr setattr };
 allow installs security:security { check_context };
 allow installs selinuxfs:dir { search };
 allow installs selinuxfs:file { open read write };
-allow installs system_basic_hap_data_file:dir { open read relabelto search };
+allow installs system_basic_hap_data_file:file { getattr setattr unlink };
+allow installs system_basic_hap_data_file:dir { open read relabelto search getattr setattr };
+allow installs system_core_hap_data_file:dir { getattr open read relabelfrom relabelto remove_name rmdir search setattr write };
+allow installs system_core_hap_data_file:file { create open read getattr unlink };
 allow installs system_file:file { getattr open read };
 allowxperm installs data_app_el1_file:file ioctl { 0x5413 };
-
+allow installs sa_accesstoken_manager_service:samgr_class { get };
+allow installs accesstoken_service:binder { call };

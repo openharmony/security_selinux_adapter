@@ -11,4 +11,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow bootevent_param tmpfs:filesystem { associate };
+allow bootevent_samgr_param tmpfs:filesystem { associate };
+allow build_version_param tmpfs:filesystem { associate };
+allow const_allow_mock_param tmpfs:filesystem { associate };
+allow const_allow_param tmpfs:filesystem { associate };
+allow const_build_param tmpfs:filesystem { associate };
+allow const_display_brightness_param tmpfs:filesystem { associate };
+allow const_param tmpfs:filesystem { associate };
+allow const_postinstall_fstab_param tmpfs:filesystem { associate };
+allow const_postinstall_param tmpfs:filesystem { associate };
+allow const_product_param tmpfs:filesystem { associate };
+allow debug_param tmpfs:filesystem { associate };
+allow default_param tmpfs:filesystem { associate };
 allow dev_pts_file devpts:filesystem { associate };
+allow distributedsche_param tmpfs:filesystem { associate };
+allow hilog_param tmpfs:filesystem { associate };
+allow hw_sc_build_os_param tmpfs:filesystem { associate };
+allow hw_sc_build_param tmpfs:filesystem { associate };
+allow hw_sc_param tmpfs:filesystem { associate };
+allow init_param tmpfs:filesystem { associate };
+allow init_svc_param tmpfs:filesystem { associate };
+allow input_pointer_device_param tmpfs:filesystem { associate };
+allow net_param tmpfs:filesystem { associate };
+allow net_tcp_param tmpfs:filesystem { associate };
+allow ohos_boot_param tmpfs:filesystem { associate };
+allow ohos_param tmpfs:filesystem { associate };
+allow persist_param tmpfs:filesystem { associate };
+allow persist_sys_param tmpfs:filesystem { associate };
+allow security_param tmpfs:filesystem { associate };
+allow startup_param tmpfs:filesystem { associate };
+allow sys_param tmpfs:filesystem { associate };
+allow sys_usb_param tmpfs:filesystem { associate };

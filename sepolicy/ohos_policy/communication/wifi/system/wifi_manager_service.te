@@ -36,12 +36,13 @@ allow wifi_manager_service system_bin_file:dir { search };
 allow wifi_manager_service system_bin_file:file { execute execute_no_trans map read open };
 allow wifi_manager_service wifi_hal_service:unix_stream_socket { connectto };
 #allow wifi_manager_service wifi_manager_service:capability { net_admin net_raw };
+allow wifi_manager_service sa_netsys_native_manager:samgr_class { get };
 allow wifi_manager_service wifi_manager_service:netlink_route_socket { create nlmsg_read read write };
 allow wifi_manager_service wifi_manager_service:packet_socket { bind create read write };
 allow wifi_manager_service wifi_manager_service:udp_socket { bind create ioctl setopt };
 allow wifi_manager_service wifi_manager_service:unix_dgram_socket { ioctl };
 allowxperm wifi_manager_service data_dhcp:file ioctl { 0x5413 };
 allowxperm wifi_manager_service data_misc:file ioctl { 0x5413 };
-allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x8916 0x891c 0x8927 0x8933 };
+allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x890B 0x8913 0x8915 0x8916 0x891b 0x891c 0x8927 0x8933 };
 allowxperm wifi_manager_service wifi_manager_service:unix_dgram_socket ioctl { 0x8910 };
 

@@ -11,15 +11,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow screenlock_server bootevent_param:file { map open read };
+allow screenlock_server bootevent_samgr_param:file { map open read };
+allow screenlock_server build_version_param:file { map open read };
+allow screenlock_server const_allow_mock_param:file { map open read };
+allow screenlock_server const_allow_param:file { map open read };
+allow screenlock_server const_build_param:file { map open read };
+allow screenlock_server const_display_brightness_param:file { map open read };
+allow screenlock_server const_param:file { map open read };
+allow screenlock_server const_postinstall_fstab_param:file { map open read };
+allow screenlock_server const_postinstall_param:file { map open read };
+allow screenlock_server const_product_param:file { map open read };
+allow screenlock_server debug_param:file { map open read };
+allow screenlock_server default_param:file { map open read };
+allow screenlock_server distributedsche_param:file { map open read };
 allow screenlock_server foundation:binder { call transfer };
+allow screenlock_server hilog_param:file { map open read };
+allow screenlock_server hw_sc_build_os_param:file { map open read };
+allow screenlock_server hw_sc_build_param:file { map open read };
+allow screenlock_server hw_sc_param:file { map open read };
+allow screenlock_server init_param:file { map open read };
+allow screenlock_server init_svc_param:file { map open read };
+allow screenlock_server input_pointer_device_param:file { map open read };
+allow screenlock_server net_param:file { map open read };
+allow screenlock_server net_tcp_param:file { map open read };
+allow screenlock_server ohos_boot_param:file { map open read };
+allow screenlock_server ohos_param:file { map open read };
 allow screenlock_server param_watcher:binder { call transfer };
+allow screenlock_server persist_param:file { map open read };
+allow screenlock_server persist_sys_param:file { map open read };
 allow screenlock_server sa_foundation_bms:samgr_class { get };
 allow screenlock_server sa_foundation_dms:samgr_class { get };
 allow screenlock_server sa_foundation_wms:samgr_class { get };
 allow screenlock_server sa_param_watcher:samgr_class { get };
 allow screenlock_server sa_screenlock_service:samgr_class { add };
+allow screenlock_server security_param:file { map open read };
+allow screenlock_server startup_param:file { map open read };
+allow screenlock_server sys_param:file { map open read };
 allow screenlock_server system_bin_file:dir { search };
 allow screenlock_server system_usr_file:dir { search };
 allow screenlock_server system_usr_file:file { getattr open read };
+allow screenlock_server sys_usb_param:file { map open read };
 allow screenlock_server tracefs:dir { search };
 allow screenlock_server tracefs_trace_marker_file:file { open write };

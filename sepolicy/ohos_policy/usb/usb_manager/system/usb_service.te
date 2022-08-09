@@ -13,6 +13,7 @@
 
 type sa_usb_service, sa_service_attr;
 
+allow usb_service accessibility_param:file { map open read };
 allow usb_service console:binder { call };
 allow usb_service console:fd { use };
 allow usb_service data_file:dir { search };
@@ -21,6 +22,7 @@ allow usb_service dev_unix_socket:sock_file { write };
 allow usb_service foundation:binder { call };
 allow usb_service hdf_devmgr:binder { call };
 allow usb_service hdf_usbd:hdf_devmgr_class { get };
+allow usb_service hdf_usb_interface_service:hdf_devmgr_class { get };
 allow usb_service init:binder { call transfer };
 allow usb_service param_watcher:binder { call transfer };
 allow usb_service sa_device_service_manager:samgr_class { get };

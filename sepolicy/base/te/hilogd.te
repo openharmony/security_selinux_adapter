@@ -11,5 +11,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow hilogd bootevent_param:file { map open read };
+allow hilogd bootevent_samgr_param:file { map open read };
+allow hilogd build_version_param:file { map open read };
+allow hilogd const_allow_mock_param:file { map open read };
+allow hilogd const_allow_param:file { map open read };
+allow hilogd const_build_param:file { map open read };
+allow hilogd const_display_brightness_param:file { map open read };
+allow hilogd const_param:file { map open read };
+allow hilogd const_postinstall_fstab_param:file { map open read };
+allow hilogd const_postinstall_param:file { map open read };
+allow hilogd const_product_param:file { map open read };
+allow hilogd debug_param:file { map open read };
+allow hilogd default_param:file { map open read };
 allow hilogd dev_unix_socket:dir { search };
+allow hilogd distributedsche_param:file { map open read };
+allow hilogd hilog_param:file { map open read };
+allow hilogd hw_sc_build_os_param:file { map open read };
+allow hilogd hw_sc_build_param:file { map open read };
+allow hilogd hw_sc_param:file { map open read };
+allow hilogd init_param:file { map open read };
+allow hilogd init_svc_param:file { map open read };
+allow hilogd input_pointer_device_param:file { map open read };
+allow hilogd net_param:file { map open read };
+allow hilogd net_tcp_param:file { map open read };
+allow hilogd ohos_boot_param:file { map open read };
+allow hilogd ohos_param:file { map open read };
+allow hilogd persist_param:file { map open read };
+allow hilogd persist_sys_param:file { map open read };
+allow hilogd security_param:file { map open read };
+allow hilogd startup_param:file { map open read };
+allow hilogd sys_param:file { map open read };
 allow hilogd system_bin_file:dir { search };
+allow hilogd sys_usb_param:file { map open read };

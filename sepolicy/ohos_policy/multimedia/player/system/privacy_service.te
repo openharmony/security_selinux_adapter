@@ -1,0 +1,41 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { search } for  pid=507 comm="sa_main" name="socket" dev="tmpfs" ino=24 scontext=u:r:privacy_service:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow privacy_service dev_unix_socket:dir { search };
+#avc:  denied  { read } for  pid=507 comm="sa_main" name="u:object_r:ohos_param:s0" dev="tmpfs" ino=30 scontext=u:r:privacy_service:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=1
+allow privacy_service ohos_param:file { read };
+#avc:  denied  { search } for  pid=507 comm="sa_main" name="bin" dev="mmcblk0p6" ino=106 scontext=u:r:privacy_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+allow privacy_service system_bin_file:dir { search };
+#avc:  denied  { call } for  pid=507 comm="privacy_service" scontext=u:r:privacy_service:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow privacy_service accesstoken_service:binder { call };
+#avc:  denied  { search } for  pid=507 comm="privacy_service" name="/" dev="mmcblk0p11" ino=2 scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+allow privacy_service data_file:dir { search };
+#avc:  denied  { add_name } for  pid=507 comm="privacy_service" name="permission_used_record.db" scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow privacy_service data_service_el1_file:dir { add_name };
+#avc:  denied  { search } for  pid=507 comm="privacy_service" name="el1" dev="mmcblk0p11" ino=1044485 scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow privacy_service data_service_el1_file:dir { search };
+#avc:  denied  { write } for  pid=507 comm="privacy_service" name="access_token" dev="mmcblk0p11" ino=1044488 scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow privacy_service data_service_el1_file:dir { write };
+#avc:  denied  { create } for  pid=507 comm="privacy_service" name="permission_used_record.db" scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow privacy_service data_service_el1_file:file { create };
+#avc:  denied  { getattr } for  pid=507 comm="privacy_service" path="/data/service/el1/public/access_token/permission_used_record.db" dev="mmcblk0p11" ino=1044799 scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow privacy_service data_service_el1_file:file { getattr };
+#avc:  denied  { lock } for  pid=507 comm="privacy_service" path="/data/service/el1/public/access_token/permission_used_record.db" dev="mmcblk0p11" ino=1044799 scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow privacy_service data_service_el1_file:file { lock };
+#avc:  denied  { search } for  pid=507 comm="privacy_service" name="service" dev="mmcblk0p11" ino=1044481 scontext=u:r:privacy_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow privacy_service data_service_file:dir { search };
+allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
+allow privacy_service data_service_el1_file:file { relabelfrom };
+allow privacy_service accesstoken_data_file:file { relabelto };
+allow privacy_service data_service_el1_file:file { ioctl };

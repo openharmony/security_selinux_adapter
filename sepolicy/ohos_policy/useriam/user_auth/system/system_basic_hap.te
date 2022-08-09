@@ -20,3 +20,8 @@ allow system_basic_hap sa_useriam_userauth_service:samgr_class { get };
 #avc:  denied  { get } for service=931 pid=573 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_useriam_authexecutormgr_service:s0 tclass=samgr_class permissive=1
 allow system_basic_hap sa_useriam_authexecutormgr_service:samgr_class { get };
 
+#avc:  denied  { get } for service=942 pid=920 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_useriam_faceauth_service:s0 tclass=samgr_class permissive=1
+allow system_basic_hap sa_useriam_faceauth_service:samgr_class { get };
+
+#avc:  denied  { get } for service=943 pid=918 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_useriam_fingerprintauth_service:s0 tclass=samgr_class permissive=1
+allow system_basic_hap sa_useriam_fingerprintauth_service:samgr_class { get };

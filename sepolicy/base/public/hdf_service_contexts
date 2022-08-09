@@ -23,6 +23,7 @@ agnss_interface_service                 u:object_r:hdf_agnss_interface_service:s
 geofence_interface_service              u:object_r:hdf_geofence_interface_service:s0
 input_service                           u:object_r:hdf_input_service:s0
 codec_hdi_omx_service                   u:object_r:hdf_codec_hdi_omx_service:s0
+codec_component_manager_service         u:object_r:hdf_codec_component_manager_service:s0
 codec_hdi_service                       u:object_r:hdf_codec_hdi_service:s0
 battery_interface_service               u:object_r:hdf_battery_interface_service:s0
 power_interface_service                 u:object_r:hdf_power_interface_service:s0
@@ -44,6 +45,7 @@ user_auth_interface_service             u:object_r:hdf_user_auth_interface_servi
 input_interfaces_service                u:object_r:hdf_input_interfaces_service:s0
 fingerprint_auth_interface_service      u:object_r:hdf_fingerprint_auth_interface_service:s0
 motion_interface_service                u:object_r:hdf_motion_interface_service:s0
+activity_interface_service              u:object_r:hdf_activity_interface_service:s0
 cellular_radio1                         u:object_r:hdf_cellular_radio1:s0
 cellular_radio_ext                      u:object_r:hdf_cellular_radio_ext:s0
 
@@ -57,3 +59,7 @@ audio_bluetooth_hdi_service             u:object_r:hdf_audio_bluetooth_hdi_servi
 wlan_hal_c_service                      u:object_r:hdf_wlan_hal_c_service:s0
 audio_hdi_pnp_service                   u:object_r:hdf_audio_hdi_pnp_service:s0
 hdi_media_layer_service                 u:object_r:hdf_hdi_media_layer_service:s0
+
+# for testcase start
+sample_driver_service2                  u:object_r:hdf_sample_service:s0
+# for testcase end

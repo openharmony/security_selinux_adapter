@@ -45,7 +45,6 @@
 /dev/unix/socket                u:object_r:dev_unix_socket:s0
 /dev/unix/socket/AppSpawn       u:object_r:appspawn_socket:s0
 /dev/unix/socket/NWebSpawn      u:object_r:nwebspawn_socket:s0
-/dev/unix/socket/faultloggerd.server        u:object_r:faultloggerd_socket:s0
 /dev/unix/socket/fd_holder      u:object_r:fd_holder_socket:s0
 /dev/unix/socket/hdcd           u:object_r:hdcd_socket:s0
 /dev/unix/socket/native         u:object_r:native_socket:s0
@@ -96,7 +95,7 @@
 /dev/watchdog[0-9]*          u:object_r:dev_watchdog_file:s0
 /dev/zero          u:object_r:dev_zero_file:s0
 /dev/HDF_PLATFORM_I2C_MANAGER       u:object_r:dev_hdf_i2c_mgr:s0
-/dev/HDF_TEST                       u:object_r:dev_hdf_test:s0
+/dev/khdf_ut                       u:object_r:dev_hdf_test:s0
 /dev/I2C_TEST                       u:object_r:dev_i2c_test:s0
 /dev/bbox                           u:object_r:dev_bbox:s0
 /dev/bus                            u:object_r:dev_bus:s0
@@ -123,7 +122,7 @@
 /dev/mali0                          u:object_r:dev_mali:s0
 /dev/mem                            u:object_r:dev_mem:s0
 /dev/mpp_service                    u:object_r:dev_mpp:s0
-/dev/pm_test_service                u:object_r:dev_pm_test:s0
+/dev/pm_ut_service                u:object_r:dev_pm_test:s0
 /dev/port                           u:object_r:dev_port:s0
 /dev/ptmx                           u:object_r:dev_ptmx:s0
 /dev/ptp[0-9]                       u:object_r:dev_ptp:s0
@@ -165,7 +164,6 @@
 /data/service/el0(/.*)?       u:object_r:data_service_el0_file:s0
 /data/service/el1(/.*)?       u:object_r:data_service_el1_file:s0
 /data/service/el2(/.*)?       u:object_r:data_service_el2_file:s0
-/data/service/el2/[0-9]+/hmdfs/account/files(/.*)?       u:object_r:data_user_file:s0
 /data/chipset(/.*)?           u:object_r:data_chipset_file:s0
 /data/chipset/el1(/.*)?       u:object_r:data_chipset_el1_file:s0
 /data/chipset/el2(/.*)?       u:object_r:data_chipset_el2_file:s0
@@ -187,7 +185,7 @@
 /data/ethernet(/.*)?                 u:object_r:data_ethernet:s0
 /data/file.log                 u:object_r:data_filelog:s0
 /data/init_agent(/.*)?                 u:object_r:data_init_agent:s0
-/data/libinput(/.*)?                 u:object_r:data_libinput:s0
+/data/log/libinput(/.*)?                 u:object_r:data_libinput:s0
 /data/local(/.*)?                 u:object_r:data_local:s0
 /data/local/traces(/.*)?                 u:object_r:data_local_traces:s0
 /data/local/tmp(/.*)?                 u:object_r:data_local_tmp:s0
@@ -200,7 +198,7 @@
 /data/nfc(/.*)?                 u:object_r:data_nfc:s0
 /data/ota(/.*)?                 u:object_r:data_ota:s0
 /data/ota_package(/.*)?                 u:object_r:data_ota_package:s0
-/data/parameters(/.*)?                 u:object_r:data_parameters:s0
+/data/service/el1/startup/parameters(/.*)?                 u:object_r:data_parameters:s0
 /data/preloads(/.*)?                 u:object_r:data_preloads:s0
 /data/resource-cache(/.*)?                 u:object_r:data_resourcecache:s0
 /data/sadata(/.*)?                 u:object_r:data_sadata:s0
@@ -209,7 +207,7 @@
 /data/system(/.*)?                 u:object_r:data_system:s0
 /data/system_ce(/.*)?                 u:object_r:data_system_ce:s0
 /data/system_de(/.*)?                 u:object_r:data_system_de:s0
-/data/udev(/.*)?                 u:object_r:data_udev:s0
+/data/service/el1/public/udev(/.*)?                 u:object_r:data_udev:s0
 /data/update_service_log.txt     u:object_r:data_update_service_log:s0
 /data/user(/.*)?                 u:object_r:data_user:s0
 /data/user_de(/.*)?                 u:object_r:data_user_de:s0
@@ -225,6 +223,7 @@
 /vendor/lib64(/.*)?       u:object_r:vendor_lib_file:s0
 /vendor/etc(/.*)?       u:object_r:vendor_etc_file:s0
 
+/system/bin/init                u:object_r:init_exec:s0
 
 /system/bin/watchdog_service        u:object_r:watchdog_service_exec:s0
 
@@ -234,11 +233,11 @@
 
 /system/bin/wifi_hal_service        u:object_r:wifi_hal_service_exec:s0
 
-/system/bin/faultloggerd        u:object_r:faultloggerd_exec:s0
-
 /system/bin/ispserver        u:object_r:ispserver_exec:s0
 
 /system/bin/storage_daemon        u:object_r:storage_daemon_exec:s0
+
+/system/bin/sdc        u:object_r:sdc_exec:s0
 
 /system/bin/thermal_protector        u:object_r:thermal_protector_exec:s0
 

@@ -48,7 +48,7 @@ allow dscreen foundation:binder { call transfer };
 
 #avc:  denied  { get_remote } for service=4808 pid=2117 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_dscreen_sink_service:s0 tclass=samgr_class permissive=1
 #avc:  denied  { add } for service=4808 pid=2067 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_dscreen_sink_service:s0 tclass=samgr_class permissive=1
-allow dscreen sa_dscreen_sink_service:samgr_class { get_remote add };
+allow dscreen sa_dscreen_sink_service:samgr_class { get_remote add get };
 
 #avc:  denied  { search } for  pid=1925 comm="dscreen" name="/" dev="tracefs" ino=1 scontext=u:r:dscreen:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
 allow dscreen tracefs:dir { search };
@@ -76,7 +76,7 @@ allow dscreen dscreen:udp_socket { read write };
 
 #avc:  denied  { add } for service=4807 pid=2067 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_dscreen_source_service:s0 tclass=samgr_class permissive=1
 #avc:  denied  { get_remote } for service=4807 pid=2325 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_dscreen_source_service:s0 tclass=samgr_class permissive=1
-allow dscreen sa_dscreen_source_service:samgr_class { add get_remote };
+allow dscreen sa_dscreen_source_service:samgr_class { add get_remote get };
 
 #avc:  denied  { get } for service=4607 pid=2067 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
 allow dscreen sa_foundation_dms:samgr_class { get };
@@ -144,4 +144,14 @@ allow dscreen multimodalinput:unix_stream_socket { read write };
 #avc:  denied  { getopt } for  pid=2404 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=unix_dgram_socket permissive=1
 #avc:  denied  { setopt } for  pid=2404 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:dscreen:s0 tclass=unix_dgram_socket permissive=1
 allow dscreen dscreen:unix_dgram_socket { getopt setopt };
+
+#avc:  denied  { call } for  pid=2552 comm="dscreen" scontext=u:r:dscreen:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
+allow dscreen sh:binder { call transfer };
+allow dscreen init:binder { call transfer };
+
+#avc:  denied  { use } for   scontext=u:r:dscreen:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=0
+allow dscreen render_service:fd { use };
+
+#avc:  denied  { read write } for   scontext=u:r:dscreen:s0 tcontext=u:r:render_service:s0 tclass=unix_stream_socket permissive=1
+allow dscreen render_service:unix_stream_socket { read write };
 

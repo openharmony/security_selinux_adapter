@@ -15,6 +15,7 @@
 
 #include "selinux_error.h"
 #include <cmath>
+#include <cstdlib>
 
 namespace Selinux {
 static const char *g_selinuxErrMsg[SELINUX_ERROR_MAX] = {

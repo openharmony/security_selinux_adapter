@@ -15,7 +15,6 @@ type blue_host, hdfdomain, domain;
 type a2dp_host, hdfdomain, domain;
 type sample_host, hdfdomain, domain;
 type usb_host, hdfdomain, domain;
-type usbfnMaster_host, hdfdomain, domain;
 type power_host, hdfdomain, domain;
 type wifi_host, hdfdomain, domain;
 type audio_hdi_server_host, hdfdomain, domain;
@@ -36,3 +35,5 @@ type user_auth_host, hdfdomain, domain;
 type fingerprint_auth_host, hdfdomain, domain;
 type motion_host, hdfdomain, domain;
 
+type dev_usbfn_file, dev_attr, file_attr;
+type dev_functionfs_file, dev_attr, file_attr;

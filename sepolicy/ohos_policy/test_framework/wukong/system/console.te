@@ -1,0 +1,29 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow console system_bin_file:lnk_file { read };
+allow console system_bin_file:file { execute };
+allow console system_bin_file:file { getattr };
+allow console tty_device:chr_file { ioctl };
+allow console system_bin_file:file { read open };
+allow console system_bin_file:file { execute_no_trans };
+allow console system_bin_file:file { map };
+allow console rootfs:dir { read };
+allow console rootfs:dir { open };
+allow console lib_file:lnk_file { getattr };
+allowxperm console tty_device:chr_file ioctl 0x5410;
+allow console data_file:dir { getattr };
+allow console etc_file:lnk_file { getattr };
+allow console system_file:dir { getattr };
+allow console updater_file:dir { getattr };
+

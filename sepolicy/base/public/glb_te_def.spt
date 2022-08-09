@@ -50,6 +50,19 @@ define(`hap_set', `
     typeattribute $1 hap_domain;
     neverallow $1 { domain -$1 }:file never_rw_file;
     neverallow { hap_domain -$1 } $1:file never_rw_file;
-    neverallow { domain -$1 } $1:process ptrace;
+    neverallow { domain -$1 -processdump } $1:process ptrace;
 ')
 
+# policy only for debug version
+# debug_only(`
+#    debug_policy
+# ')
+#
+define(`debug_only', ifelse(build_with_debug, `enable', $1, ))
+
+# policy only for updater version
+# updater_only(`
+#    updater_policy
+# ')
+#
+define(`updater_only', ifelse(build_with_updater, `enable', $1, ))

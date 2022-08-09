@@ -11,16 +11,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type debugfs_usb,file_attr,sysfs_attr;
+type debugfs_usb, fs_attr, debugfs_attr;
 
 #avc:  denied  { get } for service=hdf_device_manager pid=343 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
 #avc:  denied  { add } for service=codec_hdi_omx_service pid=343 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_codec_hdi_omx_service:s0 tclass=hdf_devmgr_class
 #avc:  denied  { add } for service=codec_hdi_service pid=354 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_codec_hdi_service:s0 tclass=hdf_devmgr_class
 allow codec_host hdf_device_manager:hdf_devmgr_class { get };
 allow codec_host hdf_codec_hdi_omx_service:hdf_devmgr_class { add get };
+allow codec_host hdf_codec_component_manager_service:hdf_devmgr_class { add get };
 allow codec_host hdf_codec_hdi_service:hdf_devmgr_class { add get };
 allow codec_host sa_device_service_manager:samgr_class { get };
-
+allow codec_host dev_dri_file:dir { search read write };
+allow codec_host sh:binder { transfer call };
+allow codec_host sh:fd { use };
+allow codec_host disp_gralloc_host:fd { use };
+allow codec_host dev_dri_file:chr_file { read write open ioctl };
+allow codec_host dev_mpp:chr_file { read write open ioctl };
+allow codec_host proc_version_file:file { read open };
+allow codec_host sys_file:file { read open };
+allow codec_host dev_rga:chr_file { read write open ioctl };
+allowxperm codec_host dev_mpp:chr_file ioctl 0x7601;
+allowxperm codec_host dev_rga:chr_file ioctl { 0x64b2 0x642d 0x641f 0x642e 0x64b4 0x601b 0x5017 };
+allowxperm codec_host dev_dri_file:chr_file ioctl { 0x64b2 0x642d 0x641f 0x642e 0x64b4 };
+allow codec_host hdcd:fd { use };
+allow codec_host devpts:chr_file { read write };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=344 scontext=u:r:light_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
 #avc:  denied  { add } for service=light_interface_service pid=344 scontext=u:r:light_host:s0 tcontext=u:object_r:hdf_light_interface_service:s0 tclass=hdf_devmgr_class
@@ -61,6 +75,11 @@ allow power_host sa_device_service_manager:samgr_class { get };
 #avc:  denied  { use } for  pid=2059 comm="dcamera_host" path="/dmabuf:" dev="dmabuf" ino=30969 ioctlcmd=0x6200 scontext=u:r:dcamera_host:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
 #avc:  denied  { call } for  pid=2059 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
 #avc:  denied  { call } for  pid=2059 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
+#avc:  denied  { open } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_param:s0" dev="tmpfs" ino=57 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_param:s0" dev="tmpfs" ino=57 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2666 comm="hdf_devhost" name="u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
+#avc:  denied  { call } for  pid=2582 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=0
 allow dcamera_host camera_service:binder { call transfer };
 allow dcamera_host dcamera:binder { call };
 allow dcamera_host dev_dri_file:chr_file { getattr read write open ioctl };
@@ -74,7 +93,10 @@ allow dcamera_host hdf_devmgr:binder { call };
 allow dcamera_host sa_device_service_manager:samgr_class { get };
 allow dcamera_host disp_gralloc_host:fd { use };
 allow dcamera_host samgr:binder { call };
-allow dcamera_host sh:binder { call };
+allow dcamera_host sh:binder { call transfer };
+allow dcamera_host const_param:file { open read };
+allow dcamera_host const_postinstall_param:file { open map };
+allow dcamera_host disp_gralloc_host:binder { call };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -83,6 +105,7 @@ allow vibrator_host hdf_vibrator_interface_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=camera_service pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_camera_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { call } for  pid=439 comm="PREVIEW#2" scontext=u:r:camera_host:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
 allow camera_host camera_host:netlink_kobject_uevent_socket { bind bind create read create };
 allow camera_host camera_host:process { ptrace };
 allow camera_host camera_service:binder { call transfer };
@@ -117,6 +140,8 @@ allow camera_host vendor_bin_file:file { entrypoint entrypoint execute map read 
 allow camera_host vendor_etc_file:dir { search };
 allow camera_host vendor_etc_file:file { getattr open read };
 allow camera_host vendor_file:file { execute execute getattr map open read getattr map open read };
+allow camera_host disp_gralloc_host:binder { call };
+allow camera_host dcamera:binder { call transfer };
 allowxperm camera_host dev_dri_file:chr_file ioctl {  0x641f 0x642d 0x642e 0x64b2 0x64b4  };
 allowxperm camera_host dev_hdf_kevent:chr_file ioctl {  0x6201 0x6202  };
 allowxperm camera_host dev_mpp:chr_file ioctl {  0x7601  };
@@ -125,6 +150,10 @@ allowxperm camera_host dev_video_file:chr_file ioctl {  0x5600 0x5605 0x5608 0x5
 
 #avc:  denied  { get } for service=hdf_device_manager pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=usbd pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_usbd:s0 tclass=hdf_devmgr_class permissive=1
+allow usb_host accessibility_param:file { map open read open read };
+allow usb_host configfs:dir { add_name create open read search write remove_name rmdir };
+allow usb_host configfs:file { create ioctl open read write };
+allow usb_host configfs:lnk_file { create unlink };
 allow usb_host console:binder { call };
 allow usb_host console:fd { use };
 allow usb_host data_file:dir { search };
@@ -134,11 +163,13 @@ allow usb_host data_log:file { read write };
 allow usb_host debugfs_usb:dir { search };
 allow usb_host debugfs_usb:file { open write };
 allow usb_host dev_bus:dir { search };
-allow usb_host dev_bus_usb_file:chr_file { ioctl map open read write };
+allow usb_host dev_bus_usb_file:chr_file { ioctl map open read write getattr};
 allow usb_host dev_bus_usb_file:dir { search };
-allow usb_host dev_file:chr_file { getattr ioctl read write  open };
+allow usb_host dev_functionfs_file:chr_file { ioctl map open read write };
+allow usb_host dev_functionfs_file:dir { search };
 allow usb_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow usb_host dev_hdf_usb_pnp:chr_file { getattr ioctl open read write };
+allow usb_host dev_usbfn_file:chr_file { getattr ioctl read write open map };
 allow usb_host dev_unix_socket:dir { search };
 allow usb_host dev_unix_socket:sock_file { write };
 allow usb_host faultloggerd:fd { use };
@@ -146,10 +177,12 @@ allow usb_host faultloggerd:unix_stream_socket { connectto };
 allow usb_host faultloggerd_socket:sock_file { write };
 allow usb_host hdf_device_manager:hdf_devmgr_class { get };
 allow usb_host hdf_devmgr:binder { call transfer };
+allow usb_host hdf_usb_interface_service:hdf_devmgr_class { add };
+allow usb_host hdf_usb_pnp_manager:hdf_devmgr_class { add };
 allow usb_host hdf_usbd:hdf_devmgr_class { add };
-allow usb_host hdf_usbfn_cdcacm:hdf_devmgr_class { get };
-allow usb_host hdf_usbfn_cdcecm:hdf_devmgr_class { get };
-allow usb_host hdf_usbfn_master:hdf_devmgr_class { get };
+allow usb_host hdf_usbfn_cdcacm:hdf_devmgr_class { add get };
+allow usb_host hdf_usbfn_cdcecm:hdf_devmgr_class { add get };
+allow usb_host hdf_usbfn_master:hdf_devmgr_class { add get };
 allow usb_host hiview:binder { call };
 allow usb_host kernel:unix_stream_socket { connectto };
 allow usb_host paramservice_socket:sock_file { write };
@@ -159,66 +192,38 @@ allow usb_host samgr:binder { call };
 allow usb_host sys_param:parameter_service { set };
 allow usb_host system_bin_file:dir { search };
 allow usb_host system_bin_file:file { execute execute_no_trans map read open };
-allow usb_host usb_host:process { ptrace };
+allow usb_host tty_device:chr_file { open read write };
 allow usb_host usb_service:binder { call };
-allow usb_host usbfnMaster_host:binder { call };
 allow usb_host vendor_bin_file:file { entrypoint execute map read };
 allow usb_host vendor_etc_file:dir { search };
 allow usb_host vendor_etc_file:file { getattr open read };
 allow usb_host vendor_lib_file:dir { search };
 allow usb_host vendor_lib_file:file { execute getattr map open read };
+allowxperm usb_host configfs:file ioctl { 0x5413 };
 allowxperm usb_host data_init_agent:file ioctl { 0x5413 };
 allowxperm usb_host dev_bus_usb_file:chr_file ioctl { 0x5500 0x550b 0x550c 0x550f 0x5510 0x550a 0x551a };
-allowxperm usb_host dev_file:chr_file ioctl { 0x6201 0x6202 0x6203 };
+allowxperm usb_host dev_file:chr_file ioctl { 0x6201 0x6202 0x6203 0x6731 0x6732 0x6734 0x673c 0x6782 0x6736 0x673d 0x6735 0x6738 };
 allowxperm usb_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6201 0x6203 };
-allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 };
-
-#avc:  denied  { get } for service=hdf_device_manager pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=usb_pnp_manager pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usb_pnp_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=usbfn_master pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_master:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=usbfn_cdcecm pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_cdcecm:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=usbfn_cdcacm pid=360 scontext=u:r:usbfnMaster_host:s0 tcontext=u:object_r:hdf_usbfn_cdcacm:s0 tclass=hdf_devmgr_class permissive=1
-allow usbfnMaster_host configfs:dir { add_name create open read remove_name rmdir search write };
-allow usbfnMaster_host configfs:file { create ioctl open read write };
-allow usbfnMaster_host configfs:lnk_file { create unlink };
-allow usbfnMaster_host data_file:dir { search };
-allow usbfnMaster_host data_init_agent:dir { search };
-allow usbfnMaster_host data_init_agent:file { ioctl open read append };
-allow usbfnMaster_host dev_file:chr_file { getattr ioctl open read write map };
-allow usbfnMaster_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
-allow usbfnMaster_host dev_hdf_usb_pnp:chr_file { getattr ioctl open read write };
-allow usbfnMaster_host dev_unix_socket:dir { search };
-allow usbfnMaster_host dev_unix_socket:sock_file { write };
-allow usbfnMaster_host hdf_device_manager:hdf_devmgr_class { get };
-allow usbfnMaster_host hdf_devmgr:binder { call transfer };
-allow usbfnMaster_host hdf_usb_pnp_manager:hdf_devmgr_class { add };
-allow usbfnMaster_host hdf_usbfn_cdcacm:hdf_devmgr_class { add };
-allow usbfnMaster_host hdf_usbfn_cdcecm:hdf_devmgr_class { add };
-allow usbfnMaster_host hdf_usbfn_master:hdf_devmgr_class { add };
-allow usbfnMaster_host sa_device_service_manager:samgr_class { get };
-allow usbfnMaster_host samgr:binder { call };
-allow usbfnMaster_host sh_exec:file { execute execute_no_trans map read open };
-allow usbfnMaster_host system_bin_file:dir { search };
-allow usbfnMaster_host tty_device:chr_file { open read write };
-allow usbfnMaster_host vendor_bin_file:file { entrypoint execute map read };
-allow usbfnMaster_host vendor_etc_file:dir { search };
-allow usbfnMaster_host vendor_etc_file:file { getattr open read };
-allow usbfnMaster_host vendor_lib_file:dir { search };
-allow usbfnMaster_host vendor_lib_file:file { execute getattr map open read };
-allow usbfnMaster_host dev_hdf_kevent:chr_file { ioctl };
-allowxperm usbfnMaster_host dev_hdf_kevent:chr_file ioctl { 0x6201 };
-allowxperm usbfnMaster_host configfs:file ioctl { 0x5413 };
-allowxperm usbfnMaster_host data_init_agent:file ioctl { 0x5413 };
-allowxperm usbfnMaster_host dev_file:chr_file ioctl { 0x6201 0x6203 0x6202 0x6731 0x6732 0x6734 0x6735 0x6736 0x673c 0x673d 0x6782 0x6738 };
-allowxperm usbfnMaster_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6203 };
-allowxperm usbfnMaster_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6203 0x6202 };
+allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=input_service pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_input_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { getattr } for  pid=477 comm="input_user_host" path="/dev/hdf_input_event3" dev="tmpfs" ino=498 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { ioctl } for  pid=477 comm="input_user_host" path="/dev/hdf_input_event1" dev="tmpfs" ino=199 ioctlcmd=0x6202 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
+#avc:  denied  { ioctl } for  pid=420 comm="input_user_host" path="/dev/hdf_input_host" dev="tmpfs" ino=192 ioctlcmd=0x6201 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { getattr } for  pid=420 comm="input_user_host" path="/dev/dev_mgr" dev="tmpfs" ino=189 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_mgr_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { read write } for  pid=420 comm="input_user_host" name="hdf_input_event1" dev="tmpfs" ino=200 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
 allow input_user_host hdf_device_manager:hdf_devmgr_class { get };
 allow input_user_host hdf_input_service:hdf_devmgr_class { add };
 allow input_user_host hdf_input_interfaces_service:hdf_devmgr_class { add };
 allow input_user_host sa_device_service_manager:samgr_class { get };
+allow input_user_host dev_hdf_file:chr_file { ioctl };
+allow input_user_host dev_hdf_input:chr_file { ioctl open read write };
+allow input_user_host dev_mgr_file:chr_file { getattr ioctl open read write };
+allow input_user_host sh:binder { call };
+allowxperm input_user_host dev_hdf_file:chr_file ioctl 0x6201;
+allowxperm input_user_host dev_hdf_input:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
+allowxperm input_user_host dev_mgr_file:chr_file ioctl 0x6201;
 
 #avc:  denied  { get } for service=hdf_device_manager pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=wlan_hal_service pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_wlan_hal_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -251,7 +256,7 @@ allow disp_gralloc_host hdf_hdi_display_gralloc_service:hdf_devmgr_class { add }
 #avc:  denied  { ioctl  getattr read write open} for  pid=547 comm="audio_hdi_serve" path="/dev/hdf_audio_render" dev="tmpfs" ino=190 ioctlcmd=0x6201 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_hdf_audio_render:s0 tclass=chr_file permissive=1
 #avc:  denied  { read write } for  pid=1936 comm="hdf_audio_hdi_c" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
 #avc:  denied  { use } for  pid=1936 comm="hdf_audio_hdi_c" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=1
-#avc:  denied  { add } for service=audio_hdi_usb_service pid=577 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_hdi_usb_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add get } for service=audio_hdi_usb_service pid=577 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_hdi_usb_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { get } for service=5100 pid=547 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 #avc:  denied  { use } for  pid=1936 comm="hdf_audio_hdi_c" path="/data/lowlatencycapturetest.wav" dev="mmcblk0p11" ino=15 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
 #avc:  denied  { dac_read_search } for  pid=1938 comm="processdump" capability=2  scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:audio_hdi_server_host:s0 tclass=capability permissive=1
@@ -283,7 +288,7 @@ allow audio_hdi_server_host data_file:file { map open read append write };
 allow audio_hdi_server_host dev_hdf_audio_render:chr_file { getattr ioctl open read write };
 allow audio_hdi_server_host devpts:chr_file { read write };
 allow audio_hdi_server_host hdcd:fd { use };
-allow audio_hdi_server_host hdf_audio_hdi_usb_service:hdf_devmgr_class { add };
+allow audio_hdi_server_host hdf_audio_hdi_usb_service:hdf_devmgr_class { add get };
 allow audio_hdi_server_host sa_device_service_manager:samgr_class { get };
 allow audio_hdi_server_host sh:fd { use };
 allow audio_hdi_server_host audio_hdi_server_host:netlink_kobject_uevent_socket { read };
@@ -362,3 +367,226 @@ allow motion_host sa_device_service_manager:samgr_class { get };
 
 allow sh hdf_light_interface_service:hdf_devmgr_class { get };
 allow sh hdf_vibrator_interface_service:hdf_devmgr_class { get };
+
+allow sensor_host dev_unix_socket:dir { search };
+
+allow light_host dev_unix_socket:dir { search };
+allow light_host vendor_bin_file:file { entrypoint };
+dontaudit init light_host:process noatsecure;
+dontaudit init light_host:process rlimitinh;
+dontaudit init light_host:process siginh;
+dontaudit init light_host:process transition;
+
+allow vibrator_host dev_unix_socket:dir { search };
+
+allow rootfs labeledfs:filesystem { associate };
+
+allow init dev_hdf_misc_vibrator:chr_file { setattr };
+allow init dev_hdf_sensor_mgr:chr_file { setattr };
+
+allow light_host dev_hdf_light:chr_file { getattr };
+allow light_host dev_hdf_light:chr_file { ioctl };
+allow light_host dev_hdf_light:chr_file { open };
+allow light_host dev_hdf_light:chr_file { read write };
+allowxperm light_host dev_hdf_light:chr_file ioctl 0x6201;
+
+allow vibrator_host dev_hdf_misc_vibrator:chr_file { getattr };
+allow vibrator_host dev_hdf_misc_vibrator:chr_file { ioctl };
+allow vibrator_host dev_hdf_misc_vibrator:chr_file { open };
+allow vibrator_host dev_hdf_misc_vibrator:chr_file { read write };
+allowxperm vibrator_host dev_hdf_misc_vibrator:chr_file ioctl 0x6201;
+
+# for testcase start
+#avc:  denied  { remove_name } for  pid=2085 comm="ueventd" name="sample_service1" dev="tmpfs" ino=491 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
+#avc:  denied  { unlink } for  pid=2085 comm="ueventd" name="sample_service1" dev="tmpfs" ino=491 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { setattr } for  pid=2098 comm="ueventd" name="khdf_ut" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
+#avc:  denied  { getattr } for  pid=2098 comm="ueventd" path="/dev/khdf_ut" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
+#avc:  denied  { unlink } for  pid=2060 comm="ueventd" name="khdf_ut" dev="tmpfs" ino=212 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdf_test:s0 tclass=chr_file permissive=1
+#avc:  denied  { create } for  pid=227 comm="ueventd" name="=9" scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_file:s0 tclass=dir permissive=1
+allow ueventd dev_file:dir { remove_name };
+allow ueventd dev_file:chr_file { unlink };
+allow ueventd dev_hdf_test:chr_file { getattr setattr unlink };
+allow ueventd dev_block_file:dir { create };
+
+#avc:  denied  { transition } for  pid=1970 comm="init" path="/vendor/bin/hdf_devhost" dev="mmcblk0p7" ino=14 scontext=u:r:init:s0 tcontext=u:r:sample_host:s0 tclass=process permissive=1
+#avc:  denied  { rlimitinh } for  pid=1970 comm="hdf_devhost" scontext=u:r:init:s0 tcontext=u:r:sample_host:s0 tclass=process permissive=1
+#avc:  denied  { siginh } for  pid=1970 comm="hdf_devhost" scontext=u:r:init:s0 tcontext=u:r:sample_host:s0 tclass=process permissive=1
+#avc:  denied  { sigkill } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:sample_host:s0 tclass=process permissive=1
+allow init sample_host:process { rlimitinh siginh transition sigkill };
+
+#avc:  denied  { call } for  pid=1967 comm="HdiServiceManag" scontext=u:r:sh:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2007 comm="HdiServiceManag" scontext=u:r:sh:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+#avc:  denied  { open } for  pid=2103 comm="sh" path="/sys/devices/virtual/hdf/khdf_ut/uevent" dev="sysfs" ino=32554 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+#avc:  denied  { write } for  pid=2103 comm="sh" name="uevent" dev="sysfs" ino=32554 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+#avc:  denied  { get } for service=sample_driver_service2 pid=1998 scontext=u:r:sh:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { get } for service=hdf_device_manager pid=1998 scontext=u:r:sh:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { get } for service=sample_driver_service pid=1998 scontext=u:r:sh:s0 tcontext=u:object_r:hdf_sample_driver_service:s0 tclass=hdf_devmgr_class permissive=1
+allow sh hdf_devmgr:binder { call transfer };
+allow sh sys_file:file { open write };
+allow sh hdf_sample_service:hdf_devmgr_class { get };
+allow sh hdf_device_manager:hdf_devmgr_class { get };
+allow sh hdf_sample_driver_service:hdf_devmgr_class { get };
+
+#avc:  denied  { read } for  pid=1992 comm="hdf_devhost" name="u:object_r:security_param:s0" dev="tmpfs" ino=64 scontext=u:r:sample_host:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=1992 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:security_param:s0" dev="tmpfs" ino=64 scontext=u:r:sample_host:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=1992 comm="hdf_devhost" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=65 scontext=u:r:sample_host:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=1992 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=65 scontext=u:r:sample_host:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=1992 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=65 scontext=u:r:sample_host:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=1992 comm="hdf_devhost" name="u:object_r:persist_param:s0" dev="tmpfs" ino=66 scontext=u:r:sample_host:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=1992 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=66 scontext=u:r:sample_host:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=1992 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=66 scontext=u:r:sample_host:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=1992 comm="hdf_devhost" name="u:object_r:persist_sys_param:s0" dev="tmpfs" ino=67 scontext=u:r:sample_host:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+#avc:  denied  { use } for  pid=1997 comm="HdiServiceManag" path="/dev/ashmem" dev="tmpfs" ino=185 scontext=u:r:sample_host:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
+#avc:  denied  { read } for  pid=2106 comm="hdf_devhost" name="u:object_r:ohos_param:s0" dev="tmpfs" ino=46 scontext=u:r:sample_host:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2106 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:ohos_param:s0" dev="tmpfs" ino=46 scontext=u:r:sample_host:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2106 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:ohos_param:s0" dev="tmpfs" ino=46 scontext=u:r:sample_host:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2106 comm="hdf_devhost" name="u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=47 scontext=u:r:sample_host:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2106 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=47 scontext=u:r:sample_host:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2119 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=47 scontext=u:r:sample_host:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2010 comm="hdf_devhost" name="u:object_r:net_param:s0" dev="tmpfs" ino=50 scontext=u:r:sample_host:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2010 comm="hdf_devhost" name="u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sample_host:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2010 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sample_host:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2010 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:sample_host:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2119 comm="hdf_devhost" name="u:object_r:sys_usb_param:s0" dev="tmpfs" ino=49 scontext=u:r:sample_host:s0 tcontext=u:object_r:sys_usb_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2119 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:sys_usb_param:s0" dev="tmpfs" ino=49 scontext=u:r:sample_host:s0 tcontext=u:object_r:sys_usb_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2119 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:sys_usb_param:s0" dev="tmpfs" ino=49 scontext=u:r:sample_host:s0 tcontext=u:object_r:sys_usb_param:s0 tclass=file permissive=1
+#avc:  denied  { search } for  pid=2038 comm="sample_host" name="etc" dev="mmcblk0p7" ino=19 scontext=u:r:sample_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=2063 comm="sample_host" path="/vendor/etc/hdfconfig/hdf_default.hcb" dev="mmcblk0p7" ino=36 scontext=u:r:sample_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2063 comm="sample_host" name="hdf_default.hcb" dev="mmcblk0p7" ino=36 scontext=u:r:sample_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2063 comm="sample_host" path="/vendor/etc/hdfconfig/hdf_default.hcb" dev="mmcblk0p7" ino=36 scontext=u:r:sample_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2221 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:net_param:s0" dev="tmpfs" ino=50 scontext=u:r:sample_host:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=2056 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:net_param:s0" dev="tmpfs" ino=50 scontext=u:r:sample_host:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2005 comm="hdf_devhost" name="u:object_r:bootevent_samgr_param:s0" dev="tmpfs" ino=72 scontext=u:r:sample_host:s0 tcontext=u:object_r:bootevent_samgr_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2005 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:bootevent_samgr_param:s0" dev="tmpfs" ino=72 scontext=u:r:sample_host:s0 tcontext=u:object_r:bootevent_samgr_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2005 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:bootevent_samgr_param:s0" dev="tmpfs" ino=72 scontext=u:r:sample_host:s0 tcontext=u:object_r:bootevent_samgr_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2221 comm="hdf_devhost" name="u:object_r:const_param:s0" dev="tmpfs" ino=57 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2221 comm="hdf_devhost" name="u:object_r:const_postinstall_fstab_param:s0" dev="tmpfs" ino=59 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_postinstall_fstab_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2221 comm="hdf_devhost" name="u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2005 comm="hdf_devhost" name="u:object_r:default_param:s0" dev="tmpfs" ino=75 scontext=u:r:sample_host:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2005 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:default_param:s0" dev="tmpfs" ino=75 scontext=u:r:sample_host:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2005 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:default_param:s0" dev="tmpfs" ino=75 scontext=u:r:sample_host:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2221 comm="hdf_devhost" name="u:object_r:hw_sc_build_os_param:s0" dev="tmpfs" ino=54 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_build_os_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2056 comm="hdf_devhost" name="u:object_r:hw_sc_build_param:s0" dev="tmpfs" ino=53 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_build_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2056 comm="hdf_devhost" name="u:object_r:hw_sc_param:s0" dev="tmpfs" ino=52 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2056 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hw_sc_param:s0" dev="tmpfs" ino=52 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2056 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hw_sc_param:s0" dev="tmpfs" ino=52 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2221 comm="hdf_devhost" name="u:object_r:init_param:s0" dev="tmpfs" ino=55 scontext=u:r:sample_host:s0 tcontext=u:object_r:init_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2221 comm="hdf_devhost" name="u:object_r:init_svc_param:s0" dev="tmpfs" ino=56 scontext=u:r:sample_host:s0 tcontext=u:object_r:init_svc_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2005 comm="hdf_devhost" name="u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=73 scontext=u:r:sample_host:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2005 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=73 scontext=u:r:sample_host:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2005 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=73 scontext=u:r:sample_host:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2056 comm="hdf_devhost" name="u:object_r:net_tcp_param:s0" dev="tmpfs" ino=51 scontext=u:r:sample_host:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2056 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:net_tcp_param:s0" dev="tmpfs" ino=51 scontext=u:r:sample_host:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2056 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:net_tcp_param:s0" dev="tmpfs" ino=51 scontext=u:r:sample_host:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2031 comm="hdf_devhost" name="u:object_r:bootevent_param:s0" dev="tmpfs" ino=70 scontext=u:r:sample_host:s0 tcontext=u:object_r:bootevent_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2031 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:bootevent_param:s0" dev="tmpfs" ino=70 scontext=u:r:sample_host:s0 tcontext=u:object_r:bootevent_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2031 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:bootevent_param:s0" dev="tmpfs" ino=70 scontext=u:r:sample_host:s0 tcontext=u:object_r:bootevent_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2204 comm="hdf_devhost" name="u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=61 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2204 comm="hdf_devhost" name="u:object_r:const_allow_param:s0" dev="tmpfs" ino=60 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2058 comm="hdf_devhost" name="u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=74 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2058 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=74 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2058 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=74 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2195 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_param:s0" dev="tmpfs" ino=57 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2195 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_fstab_param:s0" dev="tmpfs" ino=59 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_postinstall_fstab_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2195 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2069 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hw_sc_build_os_param:s0" dev="tmpfs" ino=54 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_build_os_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2069 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hw_sc_build_os_param:s0" dev="tmpfs" ino=54 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_build_os_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2069 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hw_sc_build_param:s0" dev="tmpfs" ino=53 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_build_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2069 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:hw_sc_build_param:s0" dev="tmpfs" ino=53 scontext=u:r:sample_host:s0 tcontext=u:object_r:hw_sc_build_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2155 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:init_param:s0" dev="tmpfs" ino=55 scontext=u:r:sample_host:s0 tcontext=u:object_r:init_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2173 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:init_svc_param:s0" dev="tmpfs" ino=56 scontext=u:r:sample_host:s0 tcontext=u:object_r:init_svc_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2031 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=67 scontext=u:r:sample_host:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2031 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=67 scontext=u:r:sample_host:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2043 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=61 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2043 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=61 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=1972 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_allow_param:s0" dev="tmpfs" ino=60 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=1972 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_allow_param:s0" dev="tmpfs" ino=60 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2043 comm="hdf_devhost" name="u:object_r:const_build_param:s0" dev="tmpfs" ino=62 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_build_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=1972 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_param:s0" dev="tmpfs" ino=57 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=1972 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_fstab_param:s0" dev="tmpfs" ino=59 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_postinstall_fstab_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=1972 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=2148 comm="hdf_devhost" name="u:object_r:const_product_param:s0" dev="tmpfs" ino=63 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_product_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2148 comm="hdf_devhost" name="u:object_r:debug_param:s0" dev="tmpfs" ino=68 scontext=u:r:sample_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=2167 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:init_param:s0" dev="tmpfs" ino=55 scontext=u:r:sample_host:s0 tcontext=u:object_r:init_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=2167 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:init_svc_param:s0" dev="tmpfs" ino=56 scontext=u:r:sample_host:s0 tcontext=u:object_r:init_svc_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=2064 comm="hdf_devhost" name="u:object_r:build_version_param:s0" dev="tmpfs" ino=71 scontext=u:r:sample_host:s0 tcontext=u:object_r:build_version_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2064 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_build_param:s0" dev="tmpfs" ino=62 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_build_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2064 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_product_param:s0" dev="tmpfs" ino=63 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_product_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2064 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=68 scontext=u:r:sample_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+#avc:  denied  { call } for  pid=2064 comm="sample_host" scontext=u:r:sample_host:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=0
+#avc:  denied  { read } for  pid=2064 comm="hdf_devhost" name="u:object_r:startup_param:s0" dev="tmpfs" ino=69 scontext=u:r:sample_host:s0 tcontext=u:object_r:startup_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2072 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:build_version_param:s0" dev="tmpfs" ino=71 scontext=u:r:sample_host:s0 tcontext=u:object_r:build_version_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=2066 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_build_param:s0" dev="tmpfs" ino=62 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_build_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=2066 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_product_param:s0" dev="tmpfs" ino=63 scontext=u:r:sample_host:s0 tcontext=u:object_r:const_product_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=2072 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=68 scontext=u:r:sample_host:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+#avc:  denied  { call } for  pid=2063 comm="sample_host" scontext=u:r:sample_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=0
+#avc:  denied  { open } for  pid=2072 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:startup_param:s0" dev="tmpfs" ino=69 scontext=u:r:sample_host:s0 tcontext=u:object_r:startup_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=2030 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:build_version_param:s0" dev="tmpfs" ino=71 scontext=u:r:sample_host:s0 tcontext=u:object_r:build_version_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=2033 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:startup_param:s0" dev="tmpfs" ino=69 scontext=u:r:sample_host:s0 tcontext=u:object_r:startup_param:s0 tclass=file permissive=0
+#avc:  denied  { transfer } for  pid=2007 comm="sample_host" scontext=u:r:sample_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=0
+#avc:  denied  { call } for  pid=2011 comm="sample_host" scontext=u:r:sample_host:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+#avc:  denied  { getattr } for  pid=2029 comm="sample_host" path="/dev/hdf_kevent" dev="tmpfs" ino=204 scontext=u:r:sample_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
+#avc:  denied  { read write } for  pid=2029 comm="sample_host" name="hdf_kevent" dev="tmpfs" ino=204 scontext=u:r:sample_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
+#avc:  denied  { open } for  pid=2029 comm="sample_host" path="/dev/hdf_kevent" dev="tmpfs" ino=204 scontext=u:r:sample_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
+#avc:  denied  { search } for  pid=2001 comm="hdf_devhost" name="socket" dev="tmpfs" ino=40 scontext=u:r:sample_host:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+#avc:  denied  { add } for service=sample_driver_service2 pid=2005 scontext=u:r:sample_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { get } for service=hdf_device_manager pid=2001 scontext=u:r:sample_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=sample_driver_service pid=2001 scontext=u:r:sample_host:s0 tcontext=u:object_r:hdf_sample_driver_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { get } for service=5100 pid=2001 scontext=u:r:sample_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+#avc:  denied  { ioctl } for  pid=2029 comm="sample_host" path="/dev/hdf_kevent" dev="tmpfs" ino=204 ioctlcmd=0x6203 scontext=u:r:sample_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
+allow sample_host hilog_param:file { map open read };
+allow sample_host ohos_boot_param:file { open read map };
+allow sample_host ohos_param:file { map open read };
+allow sample_host persist_param:file { map open read };
+allow sample_host persist_sys_param:file { read map open };
+allow sample_host security_param:file { map open read };
+allow sample_host sh:fd { use };
+allow sample_host system_bin_file:dir { search };
+allow sample_host net_param:file { read map open };
+allow sample_host sys_param:file { map open read };
+allow sample_host sys_usb_param:file { map open read };
+allow sample_host vendor_etc_file:dir { search };
+allow sample_host vendor_etc_file:file { getattr open read };
+allow sample_host bootevent_samgr_param:file { map open read };
+allow sample_host const_param:file { read open map };
+allow sample_host const_postinstall_fstab_param:file { read open map };
+allow sample_host const_postinstall_param:file { read open map };
+allow sample_host default_param:file { map open read };
+allow sample_host hw_sc_build_os_param:file { read map open };
+allow sample_host hw_sc_build_param:file { read map open };
+allow sample_host hw_sc_param:file { map open read };
+allow sample_host init_param:file { read open map };
+allow sample_host init_svc_param:file { read open map };
+allow sample_host input_pointer_device_param:file { map open read };
+allow sample_host net_tcp_param:file { map open read };
+allow sample_host bootevent_param:file { map open read };
+allow sample_host const_allow_mock_param:file { read map open };
+allow sample_host const_allow_param:file { read map open };
+allow sample_host const_display_brightness_param:file { map open read };
+allow sample_host const_build_param:file { read open map };
+allow sample_host const_product_param:file { read open map };
+allow sample_host debug_param:file { read open map };
+allow sample_host build_version_param:file { read open map };
+allow sample_host samgr:binder { call };
+allow sample_host startup_param:file { read open map };
+allow sample_host hdf_devmgr:binder { call transfer };
+allow sample_host sh:binder { call };
+allow sample_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow sample_host dev_unix_socket:dir { search };
+allow sample_host hdf_sample_service:hdf_devmgr_class { add };
+allow sample_host hdf_device_manager:hdf_devmgr_class { get };
+allow sample_host hdf_sample_driver_service:hdf_devmgr_class { add };
+allow sample_host sa_device_service_manager:samgr_class { get };
+allowxperm sample_host dev_hdf_kevent:chr_file ioctl { 0x6203 };
+# for testcase end
+
+allow sensor_host dev_hdf_sensor_mgr:chr_file { ioctl };
+allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6202;
+
+#avc:  denied  { ioctl } for  pid=468 comm="sensor_host" path="/dev/hdf_sensor_manager_ap" dev="tmpfs" ino=195 ioctlcmd=0x6206 scontext=u:r:sensor_host:s0 tcontext=u:object_r:dev_hdf_sensor_mgr:s0 tclass=chr_file permissive=0
+allow sensor_host dev_hdf_sensor_mgr:chr_file { ioctl };
+allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6206;
+
+#avc:  denied  { call } for  pid=502 comm="sensor_host" scontext=u:r:sensor_host:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+allow sensor_host sh:binder { call };
+

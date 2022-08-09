@@ -12,7 +12,9 @@
 # limitations under the License.
 
 allow netsysnative dev_unix_socket:dir { search };
+allow netsysnative netsysnative:capability { net_admin };
 allow netsysnative netsysnative:netlink_route_socket { create nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
+allow netsysnative sh_exec:file { execute };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 

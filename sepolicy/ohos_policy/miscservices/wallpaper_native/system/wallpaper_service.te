@@ -1,0 +1,30 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type  wallpaper_service, sadomain, domain;
+
+allow wallpaper_service sa_foundation_dms:samgr_class { get };
+allow wallpaper_service system_core_hap:binder { call transfer };
+allow wallpaper_service system_basic_hap:binder { call transfer };
+allow wallpaper_service normal_hap:binder { call transfer };
+allow wallpaper_service data_service_el1_file:dir { getattr remove_name };
+allow wallpaper_service data_service_el1_file:file { getattr unlink };
+allow wallpaper_service proc_cpuinfo_file:file { open read };
+allow wallpaper_service system_basic_hap:fd { use };
+allow system_core_hap sa_wallpaper_manager_service:samgr_class { get };
+allow system_basic_hap sa_wallpaper_manager_service:samgr_class { get };
+allow normal_hap sa_wallpaper_manager_service:samgr_class { get };
+allow system_core_hap wallpaper_service:binder { call transfer };
+allow system_basic_hap wallpaper_service:binder { call transfer };
+allow normal_hap wallpaper_service:binder { call transfer };
+

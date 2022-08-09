@@ -13,6 +13,8 @@
 
 type  time_service, sadomain, domain;
 
+allow time_service sh:binder { call };
+allow sh time_service:binder { call transfer };
 allow time_service foundation:binder { call };
 allow time_service accesstoken_service:binder { call };
 allow time_service time_service:capability { sys_time };
@@ -24,3 +26,6 @@ allow time_service node:udp_socket { node_bind };
 allow time_service time_service:capability2 { wake_alarm };
 allow time_service time_service:udp_socket { bind connect create read setopt write};
 allow time_service dev_unix_socket:dir { search };
+allow system_basic_hap sa_time_service:samgr_class { get };
+allow normal_hap sa_time_service:samgr_class { get };
+

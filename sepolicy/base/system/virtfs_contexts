@@ -39,6 +39,7 @@ genfscon proc /iomem  u:object_r:proc_iomem_file:s0
 genfscon proc /keys  u:object_r:proc_keys_file:s0
 genfscon proc /kmsg  u:object_r:proc_kmsg_file:s0
 genfscon proc /loadavg  u:object_r:proc_loadavg_file:s0
+genfscon proc /mounts u:object_r:proc_mounts_file:s0
 genfscon proc /meminfo  u:object_r:proc_meminfo_file:s0
 genfscon proc /misc  u:object_r:proc_misc_file:s0
 genfscon proc /modules  u:object_r:proc_modules_file:s0
@@ -57,6 +58,8 @@ genfscon proc /version  u:object_r:proc_version_file:s0
 genfscon proc /vmallocinfo  u:object_r:proc_vmallocinfo_file:s0
 genfscon proc /vmstat  u:object_r:proc_vmstat_file:s0
 genfscon proc /zoneinfo  u:object_r:proc_zoneinfo_file:s0
+genfscon proc /sys/kernel/random/boot_id  u:object_r:proc_boot_id:s0
+genfscon proc /sys/fs/inotify/max_user_watches  u:object_r:proc_max_user_watches:s0
 
 genfscon selinuxfs / u:object_r:selinuxfs:s0
 
@@ -90,8 +93,12 @@ genfscon sysfs /power/wake_unlock       u:object_r:sysfs_wake_lck:s0
 genfscon sysfs /kernel/notes            u:object_r:sysfs_kernel_notes:s0
 genfscon sysfs /kernel/wakeup_reasons       u:object_r:sysfs_wakeup_reasons:s0
 genfscon sysfs /module/tcp_cubic/parameters u:object_r:sysfs_net:s0
+genfscon sysfs /devices/platform/fdd40000.i2c/i2c-0/0-0020/rk808-rtc/rtc/rtc0/hctosys       u:object_r:sysfs_hctosys:s0
+genfscon sysfs /devices/platform/fe5e0000.i2c/i2c-5/5-0051/rtc/rtc1/hctosys    u:object_r:sysfs_hctosys:s0
+
 
 genfscon debugfs / u:object_r:debugfs:s0
+genfscon debugfs /kprobes u:object_r:debugfs_kprobes:s0
 
 genfscon tracefs / u:object_r:tracefs:s0
 

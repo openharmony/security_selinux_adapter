@@ -49,6 +49,10 @@ def parse_args():
         '--dst-file', help='the policy dest path', required=True)
     parser.add_argument('--tool-path',
                         help='the policy tool bin path', required=True)
+    parser.add_argument('--debug-version',
+                        help='build for debug target', required=True)
+    parser.add_argument('--updater-version',
+                        help='build for updater target', required=True)
     return parser.parse_args()
 
 
@@ -86,10 +90,14 @@ def run_command(in_cmd):
         raise Exception(rc)
 
 
-def build_conf(output_conf, input_policy_file_list):
+def build_conf(args, output_conf, input_policy_file_list):
+    m4_args = "-D build_with_debug=" + args.debug_version + " "
+    m4_args += "-D build_with_updater=" + args.updater_version + " "
+
     build_conf_cmd = ["m4",
-                      "--fatal-warnings",
+                      "--fatal-warnings", m4_args,
                       "-s", input_policy_file_list, ">", output_conf]
+
     run_command(build_conf_cmd)
 
 
@@ -127,7 +135,7 @@ def main(args):
 
     # build ohos.conf
     output_ohos_conf = output_path + "/ohos.conf"
-    build_conf(output_ohos_conf, policy_file_list)
+    build_conf(args, output_ohos_conf, policy_file_list)
 
     # build ohos.cil
     ohos_cil_path = output_path + "/ohos.cil"

@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/data/system/access_token/access_token.db    u:object_r:accesstoken_data_file:s0
+/data/service/el1/public/access_token/access_token.db    u:object_r:accesstoken_data_file:s0
+/data/service/el1/public/access_token/permission_used_record.db    u:object_r:accesstoken_data_file:s0
 /data/service/el0/access_token/nativetoken.json u:object_r:accesstoken_data_file:s0

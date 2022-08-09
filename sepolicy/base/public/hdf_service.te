@@ -25,6 +25,7 @@ type hdf_agnss_interface_service, hdf_service_attr;
 type hdf_geofence_interface_service, hdf_service_attr;
 type hdf_input_service, hdf_service_attr;
 type hdf_codec_hdi_omx_service, hdf_service_attr;
+type hdf_codec_component_manager_service, hdf_service_attr;
 type hdf_codec_hdi_service, hdf_service_attr;
 type hdf_battery_interface_service, hdf_service_attr;
 type hdf_power_interface_service, hdf_service_attr;
@@ -42,7 +43,9 @@ type hdf_pin_auth_interface_service, hdf_service_attr;
 type hdf_user_auth_interface_service, hdf_service_attr;
 type hdf_fingerprint_auth_interface_service, hdf_service_attr;
 type hdf_motion_interface_service, hdf_service_attr;
+type hdf_activity_interface_service, hdf_service_attr;
 
+type hdf_usb_interface_service, hdf_service_attr;
 type hdf_usb_pnp_sample_service, hdf_service_attr;
 type hdf_usbhost_acm_pnp_service, hdf_service_attr;
 type hdf_usbhost_acm_rawapi_service, hdf_service_attr;
@@ -54,3 +57,6 @@ type hdf_wlan_hal_c_service, hdf_service_attr;
 type hdf_audio_hdi_pnp_service, hdf_service_attr;
 type hdf_hdi_media_layer_service, hdf_service_attr;
 
+# for testcase start
+type hdf_sample_service, hdf_service_attr;
+# for testcase end

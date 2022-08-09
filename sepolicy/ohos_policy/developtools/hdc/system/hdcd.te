@@ -11,14 +11,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+allow hdcd data_local:file { create write };
+allow hdcd data_local:dir { search getattr write add_name create };
 allow hdcd data_local_tmp:file { write create setattr  read append open getattr };
-allow hdcd data_local_tmp:dir { add_name write create setattr search getattr };
+allow hdcd data_local_tmp:dir { add_name write create setattr search getattr read open };
+allow hdcd data_local_traces:dir { read open getattr };
+allow hdcd system_core_hap_data_file:file { create write open };
+allow hdcd system_core_hap_data_file:dir { add_name search write getattr open };
+allow hdcd system_basic_hap_data_file:dir { read open getattr };
+allow hdcd normal_hap_data_file:dir{ read open search};
 
 allow hdcd vendor_lib_file:file { read write getattr };
 allow hdcd vendor_lib_file:dir { read write getattr search };
 
-allow hdcd self:tcp_socket { accept ioctl setopt read };
+allow hdcd self:tcp_socket { accept ioctl setopt read write create bind listen getattr };
+allow hdcd port:tcp_socket { name_bind };
+allow hdcd node:tcp_socket { node_bind };
+allow hdcd self:udp_socket { create setopt bind };
+allow hdcd port:udp_socket { name_bind };
+allow hdcd node:udp_socket { node_bind };
 allow hdcd sh:process { signal sigkill };
+allow hdcd self:capability { setuid setgid };
+allow hdcd hdcd_exec:file { open execute_no_trans };
 
 allow hdcd kernel:system { syslog_read };
 allow hdcd kernel:unix_stream_socket { connectto };
@@ -26,8 +40,12 @@ allow hdcd kernel:process { setsched };
 
 allow hdcd dev_rtc_file:chr_file { write open ioctl };
 
-allow hdcd data_file:dir { read open create getattr search rmdir };
-allow hdcd data_file:file { unlink };
+allow hdcd vendor_file:dir { getattr };
+allow hdcd tmpfs:file { getattr read };
+allow hdcd data_file:dir { read write open create getattr search rmdir add_name };
+allow hdcd data_file:file { unlink read write create getattr open setattr };
+allow hdcd system_file:dir { add_name getattr write };
+allow hdcd system_file:file { create write open };
 
 allow hdcd tty_device:chr_file { ioctl read write open };
 allow hdcd system_bin_file:lnk_file { read };
@@ -35,7 +53,6 @@ allow hdcd system_bin_file:dir { search };
 
 allow hdcd lib_file:lnk_file { read };
 allow hdcd dev_kmsg_file:chr_file { read open };
-allow hdcd data_local:dir { search };
 allow hdcd vendor_lib_file:file { open map execute };
 
 allow hdcd dev_unix_socket:dir { search };
@@ -52,8 +69,18 @@ allow hdcd paramservice_socket:sock_file { write };
 allow hdcd dev_block_file:dir { search };
 allow hdcd dev_block_file:lnk_file { read };
 allow hdcd dev_block_file:blk_file { ioctl };
+allow hdcd dev_block_volfile:dir { search };
+
+allow hdcd sys_param:parameter_service { set };
+allow hdcd persist_param:parameter_service { set };
 
 allow hdcd labeledfs:filesystem { remount };
+
+allow hdcd { normal_hap system_basic_hap system_core_hap sh }:unix_stream_socket { connectto };
+
+allow hdcd hiprofiler_plugins:process signal;
+allow hdcd hiprofilerd:process signal;
+allow hdcd bytrace:process { signal };
 
 domain_auto_transition_pattern(hdcd, shell_exec, shell);
 domain_auto_transition_pattern(hdcd, sh_exec, sh);

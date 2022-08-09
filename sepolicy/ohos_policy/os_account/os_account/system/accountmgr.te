@@ -22,15 +22,21 @@ allow system_basic_hap accountmgr:binder { call };
 binder_call(accountmgr, system_basic_hap);
 
 binder_call(accountmgr, normal_hap);
-#allow normal_hap accountmgr:binder { call };
+allow normal_hap accountmgr:binder { call };
 
 allow accountmgr self:unix_dgram_socket{ getopt setopt };
 
 allow accountmgr data_system:dir { getattr write add_name create read open setattr search remove_name rmdir };
 allow accountmgr data_system:file { getattr write create read open setattr ioctl relabelfrom };
 
+allow accountmgr data_service_el1_file:dir { getattr write add_name create read open setattr search remove_name rmdir };
+allow accountmgr data_service_el1_file:file { getattr write create read open setattr ioctl relabelfrom unlink map lock };
+allowxperm accountmgr data_service_el1_file:file ioctl { 0xf50c };
+
+allow accountmgr data_service_file:dir { search };
+
 allow accountmgr account_data_file:file { getattr setattr open ioctl create write read relabelto unlink };
-allow accountmgr account_data_file:dir { search };
+allow accountmgr account_data_file:dir { getattr search read write };
 
 allow accountmgr vendor_lib_file:file { getattr open read map execute };
 allow accountmgr vendor_lib_file:lnk_file { read };
@@ -57,7 +63,6 @@ allow accountmgr storage_manager:binder { call };
 
 allow accountmgr distributeddata:binder { call };
 
-#avc:  denied  { add } for service=200 pid=420 scontext=u:r:accountmgr:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
 allow accountmgr sa_accountmgr:samgr_class { add };
 
 allow accountmgr sa_param_watcher:samgr_class { get };
@@ -68,8 +73,17 @@ allow accountmgr sa_foundation_abilityms:samgr_class { get };
 allow accountmgr sa_distributeddata_service:samgr_class { get };
 allow accountmgr sa_accesstoken_manager_service:samgr_class { get };
 allow accountmgr sa_foundation_bms:samgr_class { get };
+allow accountmgr sa_useriam_useridm_service:samgr_class { get };
 
 allow accountmgr data_init_agent:dir { search };
 allow accountmgr data_init_agent:file { read append ioctl open };
 
 allow accountmgr param_watcher:binder { transfer };
+
+# add for xts
+allow sh sa_accountmgr:samgr_class { get };
+allow system_core_hap sa_accountmgr:samgr_class { get };
+allow normal_hap sa_accountmgr:samgr_class { get };
+allow hiview sa_accountmgr:samgr_class { get };
+allow sh accountmgr:binder { transfer };
+allow accountmgr sh:binder { call };

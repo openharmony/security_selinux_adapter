@@ -1,0 +1,73 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { ioctl } for  pid=413 comm="omx_enc_input" path="/dev/dri/card0" dev="tmpfs" ino=77 ioctlcmd=0x642e scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+allow codec_host dev_dri_file:chr_file { ioctl };
+allowxperm codec_host dev_dri_file:chr_file ioctl { 0x642e 0x64b4 };
+
+#avc:  denied  { ioctl } for  pid=428 comm="omx_dec_input" path="/dev/dri/card0" dev="tmpfs" ino=77 ioctlcmd=0x64b2 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+allow codec_host dev_dri_file:chr_file { ioctl };
+allowxperm codec_host dev_dri_file:chr_file ioctl { 0x64b2 0x642d };
+
+#avc:  denied  { open } for  pid=413 comm="codec_host" path="/dev/dri/card0" dev="tmpfs" ino=77 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+allow codec_host dev_dri_file:chr_file { open };
+
+#avc:  denied  { read write } for  pid=413 comm="codec_host" name="card0" dev="tmpfs" ino=77 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+allow codec_host dev_dri_file:chr_file { read write };
+
+#avc:  denied  { search } for  pid=413 comm="codec_host" name="dri" dev="tmpfs" ino=75 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=dir permissive=1
+allow codec_host dev_dri_file:dir { search };
+
+#avc:  denied  { ioctl } for  pid=413 comm="omx_dec_input" path="/dev/mpp_service" dev="tmpfs" ino=115 ioctlcmd=0x7601 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_mpp:s0 tclass=chr_file permissive=1
+allow codec_host dev_mpp:chr_file { ioctl };
+allowxperm codec_host dev_mpp:chr_file ioctl { 0x7601 };
+
+#avc:  denied  { read write } for  pid=413 comm="omx_dec_input" name="mpp_service" dev="tmpfs" ino=115 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_mpp:s0 tclass=chr_file permissive=1
+allow codec_host dev_mpp:chr_file { read write };
+
+#avc:  denied  { ioctl } for  pid=413 comm="omx_dec_output" path="/dev/rga" dev="tmpfs" ino=169 ioctlcmd=0x5017 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_rga:s0 tclass=chr_file permissive=1
+allow codec_host dev_rga:chr_file { ioctl };
+allowxperm codec_host dev_rga:chr_file ioctl { 0x5017 0x601b };
+
+#avc:  denied  { use } for  pid=2003 comm="src:src" path="/dmabuf:" dev="dmabuf" ino=37677 scontext=u:r:codec_host:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
+allow codec_host disp_gralloc_host:fd { use };
+
+#avc:  denied  { call } for  pid=413 comm="codec_host" scontext=u:r:codec_host:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+allow codec_host media_service:binder { call };
+
+#avc:  denied  { transfer } for  pid=413 comm="codec_host" scontext=u:r:codec_host:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+allow codec_host media_service:binder { transfer };
+
+#avc:  denied  { use } for  pid=2003 comm="src:src" path="/dev/ashmem" dev="tmpfs" ino=166 scontext=u:r:codec_host:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=1
+allow codec_host media_service:fd { use };
+
+#avc:  denied  { open } for  pid=413 comm="omx_dec_input" path="/sys/firmware/devicetree/base/compatible" dev="sysfs" ino=15 scontext=u:r:codec_host:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow codec_host sys_file:file { open };
+
+#avc:  denied  { read } for  pid=413 comm="omx_dec_input" name="compatible" dev="sysfs" ino=15 scontext=u:r:codec_host:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow codec_host sys_file:file { read };
+
+#avc:  denied  { open } for  pid=449 comm="omx_dec_input" path="/dev/mpp_service" dev="tmpfs" ino=115 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_mpp:s0 tclass=chr_file permissive=1
+allow codec_host dev_mpp:chr_file { open };
+
+#avc:  denied  { open } for  pid=449 comm="omx_dec_output" path="/dev/rga" dev="tmpfs" ino=169 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_rga:s0 tclass=chr_file permissive=1
+allow codec_host dev_rga:chr_file { open };
+
+#avc:  denied  { read write } for  pid=449 comm="omx_dec_output" name="rga" dev="tmpfs" ino=169 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_rga:s0 tclass=chr_file permissive=1
+allow codec_host dev_rga:chr_file { read write };
+
+#avc:  denied  { open } for  pid=449 comm="omx_dec_input" path="/proc/version" dev="proc" ino=4026532114 scontext=u:r:codec_host:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
+allow codec_host proc_version_file:file { open };
+
+#avc:  denied  { read } for  pid=449 comm="omx_dec_input" name="version" dev="proc" ino=4026532114 scontext=u:r:codec_host:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
+allow codec_host proc_version_file:file { read };

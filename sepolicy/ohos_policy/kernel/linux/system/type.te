@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type f2fs_hc_file, fs_attr, sysfs_attr, file_attr;
+type f2fs_hc_file, fs_attr, sysfs_attr;

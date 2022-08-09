@@ -14,5 +14,16 @@
 type  screenlock_server, sadomain, domain;
 
 allow screenlock_server dev_unix_socket:dir { search };
-allow screenlock_server system_basic_hap:binder { call };
+allow screenlock_server system_core_hap:binder { call transfer };
+allow screenlock_server system_basic_hap:binder { call transfer };
+allow screenlock_server normal_hap:binder { call transfer };
 allow screenlock_server system_usr_file:file { map };
+allow screenlock_server sh:binder { call transfer };
+allow system_core_hap sa_screenlock_service:samgr_class { get };
+allow system_core_hap screenlock_server:binder { call transfer };
+allow system_basic_hap sa_screenlock_service:samgr_class { get };
+allow system_basic_hap screenlock_server:binder { call transfer };
+allow normal_hap sa_screenlock_service:samgr_class { get };
+allow normal_hap screenlock_server:binder { call transfer };
+allow sh screenlock_server:binder { call transfer };
+

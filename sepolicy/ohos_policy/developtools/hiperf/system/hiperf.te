@@ -1,0 +1,158 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+allow hiperf const_allow_mock_param:file { map open read };
+allow hiperf const_allow_param:file { map open read };
+allow hiperf const_build_param:file { map open read };
+allow hiperf const_param:file { map open read };
+allow hiperf const_postinstall_fstab_param:file { map open read };
+allow hiperf const_postinstall_param:file { map open read };
+allow hiperf data_test_file:file { write };
+allow hiperf data_file:file { getattr ioctl map open read };
+allow hiperf data_local_tmp:dir { add_name read remove_name search write };
+allow hiperf data_local_tmp:file { create getattr ioctl open read rename unlink write };
+allow hiperf default_param:file { map open read };
+allow hiperf distributedsche_param:file { map open read };
+allow hiperf hdcd:fd use;
+allow hiperf hdcd_exec:file { getattr map open read };
+allow hiperf hw_sc_build_os_param:file { map open read };
+allow hiperf hw_sc_build_param:file { map open read };
+allow hiperf hw_sc_param:file { map open read };
+allow hiperf init_param:file { map open read };
+allow hiperf init_svc_param:file { map open read };
+allow hiperf input_pointer_device_param:file { map open read };
+allow hiperf net_param:file { map open read };
+allow hiperf net_tcp_param:file { map open read };
+allow hiperf normal_hap:dir { getattr open read search };
+allow hiperf normal_hap:process signull;
+allow hiperf ohos_boot_param:file { map open read };
+allow hiperf ohos_param:file { map open read };
+allow hiperf proc_buddyinfo_file:file getattr;
+allow hiperf proc_cgroups_file:file getattr;
+allow hiperf proc_cmdline_file:file getattr;
+allow hiperf proc_config_gz_file:file getattr;
+allow hiperf proc_cpuinfo_file:file getattr;
+allow hiperf proc_diskstats_file:file getattr;
+allow hiperf proc_file:file { ioctl write };
+allow hiperf proc_filesystems_file:file getattr;
+allow hiperf proc_interrupts_file:file getattr;
+allow hiperf proc_iomem_file:file getattr;
+allow hiperf proc_keys_file:file getattr;
+allow hiperf proc_kmsg_file:file getattr;
+allow hiperf proc_loadavg_file:file getattr;
+allow hiperf proc_meminfo_file:file { getattr open read };
+allow hiperf proc_misc_file:file getattr;
+allow hiperf proc_modules_file:file { getattr open read };
+allow hiperf proc_pagetypeinfo_file:file getattr;
+allow hiperf proc_partitions_file:file getattr;
+allow hiperf proc_rkisp_vir0_file:file getattr;
+allow hiperf proc_slabinfo_file:file getattr;
+allow hiperf proc_softirqs_file:file getattr;
+allow hiperf proc_stat_file:file getattr;
+allow hiperf proc_swaps_file:file getattr;
+allow hiperf proc_sysrq_trigger_file:file getattr;
+allow hiperf proc_timer_list_file:file getattr;
+allow hiperf proc_uptime_file:file getattr;
+allow hiperf proc_version_file:file getattr;
+allow hiperf proc_vmallocinfo_file:file getattr;
+allow hiperf proc_vmstat_file:file getattr;
+allow hiperf proc_zoneinfo_file:file getattr;
+allow hiperf samain_exec:file { getattr map open read };
+allow hiperf self:capability { dac_override dac_read_search ipc_lock kill sys_ptrace };
+allow hiperf self:capability2 perfmon;
+allow hiperf sh:dir { getattr open read search };
+allow hiperf sh:fd use;
+allow hiperf sh:fifo_file { read write };
+allow hiperf sys_param:file { map open read };
+allow hiperf sys_usb_param:file { map open read };
+allow hiperf tracefs:dir { open read search };
+allow hiperf tracefs:file { getattr open read };
+allow hiperf tty_device:chr_file { read write };
+
+allow hiperf appspawn_exec:file { getattr map open read };
+allow hiperf bootevent_param:file { map open read };
+allow hiperf bootevent_samgr_param:file { map open read };
+allow hiperf build_version_param:file { map open read };
+allow hiperf const_display_brightness_param:file { map open read };
+allow hiperf const_product_param:file { map open read };
+allow hiperf debug_param:file { map open read };
+allow hiperf devpts:chr_file { read write };
+allow hiperf hdcd:unix_stream_socket { read write };
+allow hiperf hilog_param:file { map open read };
+allow hiperf hilogd_exec:file { getattr map open read };
+allow hiperf persist_param:file { map open read };
+allow hiperf persist_sys_param:file { map open read };
+allow hiperf proc_file:file { getattr open read };
+allow hiperf security_param:file { map open read };
+allow hiperf self:perf_event { cpu kernel open read write };
+allow hiperf sh:process signull;
+allow hiperf startup_param:file { map open read };
+allow hiperf wifi_hal_service_exec:file { getattr map open read };
+allow hiperf hiview_exec:file { getattr map open read };
+allow hiperf storage_daemon_exec:file { getattr map open read };
+
+allow hiperf data_file:dir search;
+allow hiperf dev_unix_socket:dir search;
+allow hiperf system_bin_file:dir search;
+allow hiperf data_local:dir search;
+
+allow hiperf hiprofiler_plugins:unix_stream_socket { read write };
+allow hiperf rootfs:file read;
+allow hiperf sh_exec:file { getattr map open read };
+allow hiperf sysfs_kernel_notes:file { open read };
+allow hiperf system_bin_file:file { execute execute_no_trans getattr map open read };
+allow hiperf tmpfs:file { read write };
+
+allow hiperf hiprofiler_plugins:fd use;
+allow hiperf hiprofilerd:fd use;
+allow hiperf hiprofiler_plugins:fifo_file { ioctl write };
+allow hiperf watchdog_service_exec:file { getattr map open read };
+
+allow hiperf data_local_tmp:fifo_file { create open read unlink write };
+allow hiperf hdf_devmgr_exec:file { getattr map open read };
+allow hiperf proc_cpuinfo_file:file { open read };
+allow hiperf sysfs_devices_system_cpu:file { open read };
+allow hiperf uinput_inject_exec:file { getattr map open read };
+allow hiperf vendor_bin_file:dir search;
+
+allow hiperf domain:dir { add_name getattr search open read write };
+allow hiperf domain:file { getattr map open read };
+
+allow hiperf camera_service:dir { open read };
+allow hiperf camera_service:process signull;
+allow hiperf data_file:dir { add_name getattr open read write };
+
+allow hiperf dev_mali:chr_file { getattr open read };
+allow hiperf distributedfiledaemon:dir { open read };
+allow hiperf distributedfiledaemon:process signull;
+allow hiperf hdcd:dir { open read };
+allow hiperf hdcd:process signull;
+allow hiperf init:dir { open read };
+allow hiperf init:process signull;
+allow hiperf render_service:dir { open read };
+allow hiperf render_service:process signull;
+allow hiperf render_service_exec:file { getattr map open read };
+allow hiperf rootfs:dir read;
+allow hiperf self:perf_event tracepoint;
+allow hiperf system_basic_hap:dir { open read };
+allow hiperf system_basic_hap:process signull;
+allow hiperf system_bin_file:lnk_file read;
+allow hiperf ui_service:dir { open read };
+allow hiperf ui_service:process signull;
+allow hiperf hiview:process signull;
+allow hiperf domain:process signull;
+
+#allow hiperf data_local_tmp:file open;
+#allow hiperf data_local_tmp:dir { add_name remove_name search write };
+#allow hiperf data_file:file { create write };
+#allow hiperf devpts:chr_file ioctl;

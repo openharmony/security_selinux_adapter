@@ -1,0 +1,39 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { getattr } for  pid=2456 comm="ls" path="/dev/usbfn" dev="tmpfs" ino=570 scontext=u:r:console:s0 tcontext=u:object_r:dev_usbfn_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { get } for service=usb_interface_service pid=1961 scontext=u:r:console:s0 tcontext=u:object_r:hdf_usb_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+# avc:  denied  { get } for service=usbfn_cdcacm pid=2232 scontext=u:r:console:s0 tcontext=u:object_r:hdf_usbfn_cdcacm:s0 tclass=hdf_devmgr_class permissive=1
+# avc:  denied  { get } for service=4201 pid=2210 scontext=u:r:console:s0 tcontext=u:object_r:sa_usb_service:s0 tclass=samgr_class permissive=1
+# avc:  denied  { call } for  pid=2232 comm="usb_dev_test" scontext=u:r:console:s0 tcontext=u:r:usb_host:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=1959 comm="test_device" scontext=u:r:console:s0 tcontext=u:r:usb_host:s0 tclass=binder permissive=1
+# avc:  denied  { call } for  pid=2146 comm="usb_function_po" scontext=u:r:console:s0 tcontext=u:r:usb_service:s0 tclass=binder permissive=1
+allow console dev_usbfn_file:chr_file { getattr };
+allow console hdf_usb_interface_service:hdf_devmgr_class { get };
+allow console hdf_usbfn_cdcacm:hdf_devmgr_class { get };
+allow console sa_usb_service:samgr_class { get };
+allow console sys_usb_param:file { map open read };
+allow console usb_host:binder { call transfer };
+allow console usb_service:binder { call };
+
+# avc:  denied  { remove_name } for  pid=1 comm="init" name="f1" dev="configfs" ino=28392 scontext=u:r:init:s0 tcontext=u:object_r:configfs:s0 tclass=dir permissive=1
+# avc:  denied  { unlink } for  pid=1 comm="init" name="f1" dev="configfs" ino=28392 scontext=u:r:init:s0 tcontext=u:object_r:configfs:s0 tclass=lnk_file permissive=1
+# avc:  denied  { search } for  pid=1 comm="init" name="487" dev="proc" ino=35514 scontext=u:r:init:s0 tcontext=u:r:usb_host:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:usb_host:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1 comm="init" path="/proc/487/attr/current" dev="proc" ino=37192 scontext=u:r:init:s0 tcontext=u:r:usb_host:s0 tclass=file permissive=1
+# avc:  denied  { getattr } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:usb_host:s0 tclass=process permissive=1
+allow init configfs:dir { add_name create mounton open read search setattr write remove_name };
+allow init configfs:lnk_file { create unlink };
+allow init usb_host:dir { search };
+allow init usb_host:file { open read };
+allow init usb_host:process { rlimitinh siginh transition getattr };
