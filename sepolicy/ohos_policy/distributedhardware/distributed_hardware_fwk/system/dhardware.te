@@ -128,3 +128,13 @@ allow dhardware data_service_el1_file:file { create write open read getattr ioct
 #avc:  denied  { call } for  pid=2451 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow dhardware accesstoken_service:binder { call };
 
+#avc:  denied  { call } for  pid=2000 comm="DistributedHard" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2000 comm="DistributedHard" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=1
+allow sh dhardware:binder { call transfer };
+
+#avc:  denied  { call } for  pid=2003 comm="dhardware" scontext=u:r:dhardware:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+allow dhardware sh:binder { call };
+
+#avc:  denied  { sigkill } for  pid=2114 comm="sh" scontext=u:r:sh:s0 tcontext=u:r:dhardware:s0 tclass=process permissive=1
+allow sh dhardware:process { sigkill };
+

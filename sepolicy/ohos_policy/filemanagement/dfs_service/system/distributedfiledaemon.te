@@ -46,3 +46,6 @@ allow distributedfiledaemon dev_unix_socket:dir { search };
 
 #avc:  denied  { call } for  pid=548 comm="distributedfile" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:dslm_service:s0 tclass=binder permissive=1
 allow distributedfiledaemon dslm_service:binder { call };
+
+#avc:  denied  { get } for service=3299 pid=609 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow distributedfiledaemon sa_foundation_cesfwk_service:samgr_class { get };

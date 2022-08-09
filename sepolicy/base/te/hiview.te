@@ -39,7 +39,6 @@ allow hiview foundation:file { open read };
 allow hiview hidumper_exec:file { execute execute_no_trans getattr map read open };
 allow hiview hidumper_service:binder { call transfer };
 allow hiview hilog_param:file { map open read };
-allow hiview hiview:capability { dac_override dac_read_search sys_ptrace };
 allow hiview hiview_file:dir { create };
 allow hiview hiview_file:file { create };
 allow hiview hw_sc_build_os_param:file { map open read };

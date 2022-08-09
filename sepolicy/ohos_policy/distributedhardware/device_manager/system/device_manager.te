@@ -1,0 +1,284 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type device_manager, sadomain, domain;
+
+allow device_manager sa_foundation_devicemanager_service:samgr_class { add get };
+
+#avc:  denied  { search } for  pid=594 comm="sa_main" name="bin" dev="mmcblk0p6" ino=107 scontext=u:r:device_manager:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
+allow device_manager system_bin_file:dir { search };
+
+#avc:  denied  { read } for  pid=594 comm="sa_main" name="u:object_r:ohos_param:s0" dev="tmpfs" ino=27 scontext=u:r:device_manager:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=525 comm="sa_main" path="/dev/__parameters__/u:object_r:ohos_param:s0" dev="tmpfs" ino=27 scontext=u:r:device_manager:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:ohos_param:s0" dev="tmpfs" ino=27 scontext=u:r:device_manager:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=0
+allow device_manager ohos_param:file { read open map };
+
+#avc:  denied  { search } for  pid=594 comm="sa_main" name="socket" dev="tmpfs" ino=21 scontext=u:r:device_manager:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
+#avc:  denied  { search } for  pid=594 comm="device_manager" name="socket" dev="tmpfs" ino=21 scontext=u:r:device_manager:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
+allow device_manager dev_unix_socket:dir { search };
+
+#avc:  denied  { read } for  pid=479 comm="device_manager" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=46 scontext=u:r:device_manager:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=496 comm="device_manager" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=46 scontext=u:r:device_manager:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=525 comm="device_manager" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=46 scontext=u:r:device_manager:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+allow device_manager hilog_param:file { read open map };
+
+#avc:  denied  { set } for parameter=persist.distributed_hardware.device_manager.discover_status pid=506 uid=3062 gid=1000 scontext=u:r:device_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=parameter_service permissive=1
+allow device_manager persist_param:parameter_service { set };
+
+#avc:  denied  { read } for  pid=675 comm="sa_main" name="u:object_r:persist_param:s0" dev="tmpfs" ino=47 scontext=u:r:device_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=496 comm="sa_main" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=47 scontext=u:r:device_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=47 scontext=u:r:device_manager:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+allow device_manager persist_param:file { read open map };
+
+#avc:  denied  { call } for  pid=506 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+allow device_manager system_basic_hap:binder { call };
+
+#avc:  denied  { get } for service=3510 pid=559 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_huks_service:s0 tclass=samgr_class permissive=1
+allow device_manager sa_huks_service:samgr_class { get };
+
+#avc:  denied  { get } for service=200 pid=559 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
+allow device_manager sa_accountmgr:samgr_class { get };
+
+#avc:  denied  { get } for service=3299 pid=559 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow device_manager sa_foundation_cesfwk_service:samgr_class { get };
+
+#avc:  denied  { get } for service=7001 pid=559 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_subsys_ace_service:s0 tclass=samgr_class permissive=1
+allow device_manager sa_subsys_ace_service:samgr_class { get };
+
+#avc:  denied  { get } for service=4701 pid=530 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_device_auth_service:s0 tclass=samgr_class permissive=1
+allow device_manager sa_device_auth_service:samgr_class { get };
+
+#avc:  denied  { get } for service=401 pid=518 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
+allow device_manager sa_foundation_bms:samgr_class { get };
+
+#avc:  denied  { get } for service=4801 pid=518 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_dhardware_service:s0 tclass=samgr_class permissive=1
+allow device_manager sa_dhardware_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=724 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=0
+allow device_manager dhardware:binder { call };
+
+#avc:  denied  { get } for service=6001 pid=518 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_device_profile_service:s0 tclass=samgr_class permissive=1
+allow device_manager sa_device_profile_service:samgr_class { get };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=28 scontext=u:r:device_manager:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=28 scontext=u:r:device_manager:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=489 comm="sa_main" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=28 scontext=u:r:device_manager:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+allow device_manager ohos_boot_param:file { read open map };
+
+#denied  { read } for  pid=525 comm="sa_main" name="u:object_r:sys_param:s0" dev="tmpfs" ino=29 scontext=u:r:device_manager:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:sys_param:s0" dev="tmpfs" ino=29 scontext=u:r:device_manager:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=489 comm="sa_main" path="/dev/__parameters__/u:object_r:sys_param:s0" dev="tmpfs" ino=29 scontext=u:r:device_manager:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=0
+allow device_manager sys_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:sys_usb_param:s0" dev="tmpfs" ino=30 scontext=u:r:device_manager:s0 tcontext=u:object_r:sys_usb_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:sys_usb_param:s0" dev="tmpfs" ino=30 scontext=u:r:device_manager:s0 tcontext=u:object_r:sys_usb_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=489 comm="sa_main" path="/dev/__parameters__/u:object_r:sys_usb_param:s0" dev="tmpfs" ino=30 scontext=u:r:device_manager:s0 tcontext=u:object_r:sys_usb_param:s0 tclass=file permissive=0
+allow device_manager sys_usb_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:net_param:s0" dev="tmpfs" ino=31 scontext=u:r:device_manager:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:net_param:s0" dev="tmpfs" ino=31 scontext=u:r:device_manager:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:net_param:s0" dev="tmpfs" ino=31 scontext=u:r:device_manager:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=0
+allow device_manager net_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:net_tcp_param:s0" dev="tmpfs" ino=32 scontext=u:r:device_manager:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:net_tcp_param:s0" dev="tmpfs" ino=32 scontext=u:r:device_manager:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:net_tcp_param:s0" dev="tmpfs" ino=32 scontext=u:r:device_manager:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=0
+allow device_manager net_tcp_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:hw_sc_param:s0" dev="tmpfs" ino=33 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:hw_sc_param:s0" dev="tmpfs" ino=33 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:hw_sc_param:s0" dev="tmpfs" ino=33 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_param:s0 tclass=file permissive=0
+allow device_manager hw_sc_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:hw_sc_build_param:s0" dev="tmpfs" ino=34 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_build_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:hw_sc_build_param:s0" dev="tmpfs" ino=34 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_build_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:hw_sc_build_param:s0" dev="tmpfs" ino=34 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_build_param:s0 tclass=file permissive=0
+allow device_manager hw_sc_build_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:hw_sc_build_os_param:s0" dev="tmpfs" ino=35 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_build_os_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:hw_sc_build_os_param:s0" dev="tmpfs" ino=35 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_build_os_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:hw_sc_build_os_param:s0" dev="tmpfs" ino=35 scontext=u:r:device_manager:s0 tcontext=u:object_r:hw_sc_build_os_param:s0 tclass=file permissive=0
+allow device_manager hw_sc_build_os_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:init_param:s0" dev="tmpfs" ino=36 scontext=u:r:device_manager:s0 tcontext=u:object_r:init_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=469 comm="sa_main" path="/dev/__parameters__/u:object_r:init_param:s0" dev="tmpfs" ino=36 scontext=u:r:device_manager:s0 tcontext=u:object_r:init_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:init_param:s0" dev="tmpfs" ino=36 scontext=u:r:device_manager:s0 tcontext=u:object_r:init_param:s0 tclass=file permissive=0
+allow device_manager init_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:init_svc_param:s0" dev="tmpfs" ino=37 scontext=u:r:device_manager:s0 tcontext=u:object_r:init_svc_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:init_svc_param:s0" dev="tmpfs" ino=37 scontext=u:r:device_manager:s0 tcontext=u:object_r:init_svc_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=675 comm="sa_main" path="/dev/__parameters__/u:object_r:init_svc_param:s0" dev="tmpfs" ino=37 scontext=u:r:device_manager:s0 tcontext=u:object_r:init_svc_param:s0 tclass=file permissive=0
+allow device_manager init_svc_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:const_param:s0" dev="tmpfs" ino=38 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:const_param:s0" dev="tmpfs" ino=38 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=675 comm="sa_main" path="/dev/__parameters__/u:object_r:const_param:s0" dev="tmpfs" ino=38 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=0
+allow device_manager const_param:file { read open map };
+
+#avc:  denied  { read } for  pid=525 comm="sa_main" name="u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=39 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=570 comm="sa_main" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=39 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=675 comm="sa_main" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=39 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=0
+allow device_manager const_postinstall_param:file { read open map };
+
+#avc:  denied  { read } for  pid=570 comm="sa_main" name="u:object_r:const_postinstall_fstab_param:s0" dev="tmpfs" ino=40 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_postinstall_fstab_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=675 comm="sa_main" path="/dev/__parameters__/u:object_r:const_postinstall_fstab_param:s0" dev="tmpfs" ino=40 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_postinstall_fstab_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:const_postinstall_fstab_param:s0" dev="tmpfs" ino=40 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_postinstall_fstab_param:s0 tclass=file permissive=0
+allow device_manager const_postinstall_fstab_param:file { read open map };
+
+#avc:  denied  { get } for service=4700 pid=609 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=1
+allow device_manager sa_softbus_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
+allow device_manager huks_service:binder { call };
+
+#avc:  denied  { call } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:deviceauth_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:deviceauth_service:s0 tclass=binder permissive=1
+allow device_manager deviceauth_service:binder { call transfer };
+
+#avc:  denied  { call } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=1
+allow device_manager accountmgr:binder { call };
+
+#avc:  denied  { call } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=724 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
+allow device_manager foundation:binder { call transfer };
+
+#avc:  denied  { call } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=1
+allow device_manager ui_service:binder { call transfer };
+
+#avc:  denied  { getopt } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:device_manager:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { setopt } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:device_manager:s0 tclass=unix_dgram_socket permissive=1
+allow device_manager device_manager:unix_dgram_socket { getopt setopt };
+
+#avc:  denied  { call } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=675 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
+allow device_manager softbus_server:binder { call transfer };
+
+#avc:  denied  { call } for  pid=599 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
+allow device_manager normal_hap:binder { call };
+
+#avc:  denied  { read } for  pid=675 comm="sa_main" name="u:object_r:const_allow_param:s0" dev="tmpfs" ino=41 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:const_allow_param:s0" dev="tmpfs" ino=41 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=462 comm="sa_main" path="/dev/__parameters__/u:object_r:const_allow_param:s0" dev="tmpfs" ino=41 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=0
+allow device_manager const_allow_param:file { read open map };
+
+#avc:  denied  { read } for  pid=675 comm="sa_main" name="u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=42 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=42 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=462 comm="sa_main" path="/dev/__parameters__/u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=42 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=0
+allow device_manager const_allow_mock_param:file { read open map };
+
+#avc:  denied  { read } for  pid=675 comm="sa_main" name="u:object_r:const_build_param:s0" dev="tmpfs" ino=43 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_build_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=496 comm="sa_main" path="/dev/__parameters__/u:object_r:const_build_param:s0" dev="tmpfs" ino=43 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_build_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:const_build_param:s0" dev="tmpfs" ino=43 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_build_param:s0 tclass=file permissive=0
+allow device_manager const_build_param:file { read open map };
+
+#avc:  denied  { read } for  pid=675 comm="sa_main" name="u:object_r:const_product_param:s0" dev="tmpfs" ino=44 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_product_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=496 comm="sa_main" path="/dev/__parameters__/u:object_r:const_product_param:s0" dev="tmpfs" ino=44 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_product_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:const_product_param:s0" dev="tmpfs" ino=44 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_product_param:s0 tclass=file permissive=0
+allow device_manager const_product_param:file { read open map };
+
+#avc:  denied  { read } for  pid=675 comm="sa_main" name="u:object_r:security_param:s0" dev="tmpfs" ino=45 scontext=u:r:device_manager:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=496 comm="sa_main" path="/dev/__parameters__/u:object_r:security_param:s0" dev="tmpfs" ino=45 scontext=u:r:device_manager:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:security_param:s0" dev="tmpfs" ino=45 scontext=u:r:device_manager:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=0
+allow device_manager security_param:file { read open map };
+
+#avc:  denied  { read } for  pid=496 comm="sa_main" name="u:object_r:persist_sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:device_manager:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:device_manager:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=462 comm="sa_main" path="/dev/__parameters__/u:object_r:persist_sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:device_manager:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
+allow device_manager persist_sys_param:file { read open map };
+
+#avc:  denied  { read } for  pid=496 comm="sa_main" name="u:object_r:debug_param:s0" dev="tmpfs" ino=49 scontext=u:r:device_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=49 scontext=u:r:device_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=462 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=49 scontext=u:r:device_manager:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+allow device_manager debug_param:file { read open map };
+
+#avc:  denied  { read } for  pid=496 comm="sa_main" name="u:object_r:startup_param:s0" dev="tmpfs" ino=50 scontext=u:r:device_manager:s0 tcontext=u:object_r:startup_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=647 comm="sa_main" path="/dev/__parameters__/u:object_r:startup_param:s0" dev="tmpfs" ino=50 scontext=u:r:device_manager:s0 tcontext=u:object_r:startup_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=462 comm="sa_main" path="/dev/__parameters__/u:object_r:startup_param:s0" dev="tmpfs" ino=50 scontext=u:r:device_manager:s0 tcontext=u:object_r:startup_param:s0 tclass=file permissive=0
+allow device_manager startup_param:file { read open map };
+
+#avc:  denied  { read } for  pid=496 comm="sa_main" name="u:object_r:bootevent_param:s0" dev="tmpfs" ino=51 scontext=u:r:device_manager:s0 tcontext=u:object_r:bootevent_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=462 comm="sa_main" path="/dev/__parameters__/u:object_r:bootevent_param:s0" dev="tmpfs" ino=51 scontext=u:r:device_manager:s0 tcontext=u:object_r:bootevent_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=554 comm="sa_main" path="/dev/__parameters__/u:object_r:bootevent_param:s0" dev="tmpfs" ino=51 scontext=u:r:device_manager:s0 tcontext=u:object_r:bootevent_param:s0 tclass=file permissive=0
+allow device_manager bootevent_param:file { read open map };
+
+#avc:  denied  { read } for  pid=496 comm="sa_main" name="u:object_r:build_version_param:s0" dev="tmpfs" ino=53 scontext=u:r:device_manager:s0 tcontext=u:object_r:build_version_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=462 comm="sa_main" path="/dev/__parameters__/u:object_r:build_version_param:s0" dev="tmpfs" ino=53 scontext=u:r:device_manager:s0 tcontext=u:object_r:build_version_param:s0 tclass=file permissive=0
+allow device_manager build_version_param:file { read open };
+#avc:  denied  { map } for  pid=554 comm="sa_main" path="/dev/__parameters__/u:object_r:build_version_param:s0" dev="tmpfs" ino=53 scontext=u:r:device_manager:s0 tcontext=u:object_r:build_version_param:s0 tclass=file permissive=0
+allow device_manager build_version_param:file { map };
+
+#avc:  denied  { read } for  pid=496 comm="sa_main" name="u:object_r:bootevent_samgr_param:s0" dev="tmpfs" ino=54 scontext=u:r:device_manager:s0 tcontext=u:object_r:bootevent_samgr_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=462 comm="sa_main" path="/dev/__parameters__/u:object_r:bootevent_samgr_param:s0" dev="tmpfs" ino=54 scontext=u:r:device_manager:s0 tcontext=u:object_r:bootevent_samgr_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=554 comm="sa_main" path="/dev/__parameters__/u:object_r:bootevent_samgr_param:s0" dev="tmpfs" ino=54 scontext=u:r:device_manager:s0 tcontext=u:object_r:bootevent_samgr_param:s0 tclass=file permissive=0
+allow device_manager bootevent_samgr_param:file { read open map };
+
+#avc:  denied  { call } for  pid=525 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=0
+allow device_manager accesstoken_service:binder { call };
+
+#avc:  denied  { call } for  pid=525 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:distributedfiledaemon:s0 tclass=binder permissive=0
+allow device_manager distributedfiledaemon:binder { call };
+
+#avc:  denied  { read } for  pid=462 comm="sa_main" name="u:object_r:distributedsche_param:s0" dev="tmpfs" ino=55 scontext=u:r:device_manager:s0 tcontext=u:object_r:distributedsche_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=554 comm="sa_main" path="/dev/__parameters__/u:object_r:distributedsche_param:s0" dev="tmpfs" ino=55 scontext=u:r:device_manager:s0 tcontext=u:object_r:distributedsche_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=557 comm="sa_main" path="/dev/__parameters__/u:object_r:distributedsche_param:s0" dev="tmpfs" ino=55 scontext=u:r:device_manager:s0 tcontext=u:object_r:distributedsche_param:s0 tclass=file permissive=0
+allow device_manager distributedsche_param:file { read open map };
+
+#avc:  denied  { call } for  pid=724 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for  pid=657 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=1
+allow device_manager distributedsche:binder { call transfer };
+
+#avc:  denied  { read } for  pid=462 comm="sa_main" name="u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=56 scontext=u:r:device_manager:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=554 comm="sa_main" path="/dev/__parameters__/u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=56 scontext=u:r:device_manager:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=0
+allow device_manager input_pointer_device_param:file { read open };
+#avc:  denied  { map } for  pid=557 comm="sa_main" path="/dev/__parameters__/u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=56 scontext=u:r:device_manager:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=0
+allow device_manager input_pointer_device_param:file { read open map };
+
+#avc:  denied  { write } for  pid=427 comm="device_manager" name="paramservice" dev="tmpfs" ino=26 scontext=u:r:device_manager:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow device_manager paramservice_socket:sock_file { write };
+
+#avc:  denied  { read } for  pid=554 comm="sa_main" name="u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=57 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=557 comm="sa_main" path="/dev/__parameters__/u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=57 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=536 comm="sa_main" path="/dev/__parameters__/u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=57 scontext=u:r:device_manager:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=0
+allow device_manager const_display_brightness_param:file { read open map };
+
+#avc:  denied  { read } for  pid=554 comm="sa_main" name="u:object_r:default_param:s0" dev="tmpfs" ino=58 scontext=u:r:device_manager:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=557 comm="sa_main" path="/dev/__parameters__/u:object_r:default_param:s0" dev="tmpfs" ino=58 scontext=u:r:device_manager:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=536 comm="sa_main" path="/dev/__parameters__/u:object_r:default_param:s0" dev="tmpfs" ino=58 scontext=u:r:device_manager:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=0
+allow device_manager default_param:file { read open map };
+
+#avc:  denied  { search } for  pid=554 comm="device_manager" name="/" dev="tracefs" ino=1 scontext=u:r:device_manager:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=0
+allow device_manager tracefs:dir { search };
+
+#avc:  denied  { connectto } for  pid=554 comm="device_manager" path="/dev/unix/socket/paramservice" scontext=u:r:device_manager:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=0
+allow device_manager kernel:unix_stream_socket { connectto };
+
+#avc:  denied  { get } for service=3901 pid=647 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=0
+allow device_manager sa_param_watcher:samgr_class { get };
+
+#avc:  denied  { call } for  pid=557 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for  pid=536 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=0
+allow device_manager param_watcher:binder { call transfer };
+
+#avc:  denied  { write } for  pid=557 comm="device_manager" name="trace_marker" dev="tracefs" ino=14932 scontext=u:r:device_manager:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=536 comm="device_manager" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=15109 scontext=u:r:device_manager:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=0
+allow device_manager tracefs_trace_marker_file:file { write open };
+
+#avc:  denied  { call } for  pid=657 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:token_sync_service:s0 tclass=binder permissive=1
+allow device_manager token_sync_service:binder { call };
+
+#avc:  denied  { call } for  pid=686 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+allow device_manager sh:binder { call };
+
+#avc:  denied  { get } for service=3503 pid=615 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=0
+allow device_manager sa_accesstoken_manager_service:samgr_class { get };

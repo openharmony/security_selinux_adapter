@@ -35,7 +35,6 @@ allow mmi_uinput_service hw_sc_param:file { map open read };
 allow mmi_uinput_service init_param:file { map open read };
 allow mmi_uinput_service init_svc_param:file { map open read };
 allow mmi_uinput_service input_pointer_device_param:file { map open read };
-allow mmi_uinput_service mmi_uinput_service:capability { dac_override };
 allow mmi_uinput_service net_param:file { map open read };
 allow mmi_uinput_service net_tcp_param:file { map open read };
 allow mmi_uinput_service ohos_boot_param:file { map open read };

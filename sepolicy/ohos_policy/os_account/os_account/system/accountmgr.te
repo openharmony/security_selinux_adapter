@@ -85,3 +85,5 @@ allow sh sa_accountmgr:samgr_class { get };
 allow system_core_hap sa_accountmgr:samgr_class { get };
 allow normal_hap sa_accountmgr:samgr_class { get };
 allow hiview sa_accountmgr:samgr_class { get };
+allow sh accountmgr:binder { transfer };
+allow accountmgr sh:binder { call };

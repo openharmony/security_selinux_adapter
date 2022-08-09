@@ -32,14 +32,14 @@ processdump_cmd({
     dev_parameters_file
     exec_attr
     foundation
-    data_app_el1_file
+    app_el1_bundle_public
     vendor_bin_file
 })
 
 #============= domain =================
 allow domain processdump:process { share sigchld };
 allow domain self:fifo_file { write };
-allow processdump { domain -processdump }:process ptrace; # conflict with neverallow
+allow processdump { domain -processdump -kernel }:process ptrace;
 allow processdump domain:fd use;
 allow processdump domain:fifo_file { read write };
 allow processdump domain:dir { getattr open read search };
@@ -68,7 +68,7 @@ allow processdump hidumper_service:fifo_file ioctl;
 #============ normal_hap =================
 allow processdump normal_hap:dir { getattr open read search };
 allow processdump normal_hap:file { getattr open read };
-allow processdump data_app_el1_file:dir search;
+allow processdump app_el1_bundle_public:dir search;
 
 #============= for hdcd ================
 allow processdump hdcd:fd use;

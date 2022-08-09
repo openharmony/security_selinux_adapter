@@ -18,6 +18,7 @@ type debugfs_usb, fs_attr, debugfs_attr;
 #avc:  denied  { add } for service=codec_hdi_service pid=354 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_codec_hdi_service:s0 tclass=hdf_devmgr_class
 allow codec_host hdf_device_manager:hdf_devmgr_class { get };
 allow codec_host hdf_codec_hdi_omx_service:hdf_devmgr_class { add get };
+allow codec_host hdf_codec_component_manager_service:hdf_devmgr_class { add get };
 allow codec_host hdf_codec_hdi_service:hdf_devmgr_class { add get };
 allow codec_host sa_device_service_manager:samgr_class { get };
 allow codec_host dev_dri_file:dir { search read write };
@@ -162,11 +163,13 @@ allow usb_host data_log:file { read write };
 allow usb_host debugfs_usb:dir { search };
 allow usb_host debugfs_usb:file { open write };
 allow usb_host dev_bus:dir { search };
-allow usb_host dev_bus_usb_file:chr_file { ioctl map open read write };
+allow usb_host dev_bus_usb_file:chr_file { ioctl map open read write getattr};
 allow usb_host dev_bus_usb_file:dir { search };
-allow usb_host dev_file:chr_file { getattr ioctl read write open map };
+allow usb_host dev_functionfs_file:chr_file { ioctl map open read write };
+allow usb_host dev_functionfs_file:dir { search };
 allow usb_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow usb_host dev_hdf_usb_pnp:chr_file { getattr ioctl open read write };
+allow usb_host dev_usbfn_file:chr_file { getattr ioctl read write open map };
 allow usb_host dev_unix_socket:dir { search };
 allow usb_host dev_unix_socket:sock_file { write };
 allow usb_host faultloggerd:fd { use };
@@ -186,12 +189,10 @@ allow usb_host paramservice_socket:sock_file { write };
 allow usb_host rootfs:chr_file { read write };
 allow usb_host sa_device_service_manager:samgr_class { get };
 allow usb_host samgr:binder { call };
-allow usb_host sh_exec:file { execute execute_no_trans map read open };
 allow usb_host sys_param:parameter_service { set };
 allow usb_host system_bin_file:dir { search };
 allow usb_host system_bin_file:file { execute execute_no_trans map read open };
 allow usb_host tty_device:chr_file { open read write };
-allow usb_host usb_host:process { ptrace };
 allow usb_host usb_service:binder { call };
 allow usb_host vendor_bin_file:file { entrypoint execute map read };
 allow usb_host vendor_etc_file:dir { search };
@@ -207,10 +208,22 @@ allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206
 
 #avc:  denied  { get } for service=hdf_device_manager pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=input_service pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_input_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { getattr } for  pid=477 comm="input_user_host" path="/dev/hdf_input_event3" dev="tmpfs" ino=498 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { ioctl } for  pid=477 comm="input_user_host" path="/dev/hdf_input_event1" dev="tmpfs" ino=199 ioctlcmd=0x6202 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
+#avc:  denied  { ioctl } for  pid=420 comm="input_user_host" path="/dev/hdf_input_host" dev="tmpfs" ino=192 ioctlcmd=0x6201 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { getattr } for  pid=420 comm="input_user_host" path="/dev/dev_mgr" dev="tmpfs" ino=189 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_mgr_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { read write } for  pid=420 comm="input_user_host" name="hdf_input_event1" dev="tmpfs" ino=200 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
 allow input_user_host hdf_device_manager:hdf_devmgr_class { get };
 allow input_user_host hdf_input_service:hdf_devmgr_class { add };
 allow input_user_host hdf_input_interfaces_service:hdf_devmgr_class { add };
 allow input_user_host sa_device_service_manager:samgr_class { get };
+allow input_user_host dev_hdf_file:chr_file { ioctl };
+allow input_user_host dev_hdf_input:chr_file { ioctl open read write };
+allow input_user_host dev_mgr_file:chr_file { getattr ioctl open read write };
+allow input_user_host sh:binder { call };
+allowxperm input_user_host dev_hdf_file:chr_file ioctl 0x6201;
+allowxperm input_user_host dev_hdf_input:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
+allowxperm input_user_host dev_mgr_file:chr_file ioctl 0x6201;
 
 #avc:  denied  { get } for service=hdf_device_manager pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=wlan_hal_service pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_wlan_hal_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -355,15 +368,8 @@ allow motion_host sa_device_service_manager:samgr_class { get };
 allow sh hdf_light_interface_service:hdf_devmgr_class { get };
 allow sh hdf_vibrator_interface_service:hdf_devmgr_class { get };
 
-allow sensor_host dev_file:chr_file { ioctl };
 allow sensor_host dev_unix_socket:dir { search };
-allowxperm sensor_host dev_file:chr_file ioctl 0x6202;
-allowxperm sensor_host dev_file:chr_file ioctl 0x6201;
-allow udevd data_file:file { create };
 
-allow light_host dev_file:chr_file { ioctl };
-allowxperm light_host dev_file:chr_file ioctl 0x6202;
-allowxperm light_host dev_file:chr_file ioctl 0x6201;
 allow light_host dev_unix_socket:dir { search };
 allow light_host vendor_bin_file:file { entrypoint };
 dontaudit init light_host:process noatsecure;
@@ -371,10 +377,7 @@ dontaudit init light_host:process rlimitinh;
 dontaudit init light_host:process siginh;
 dontaudit init light_host:process transition;
 
-allow vibrator_host dev_file:chr_file { ioctl };
 allow vibrator_host dev_unix_socket:dir { search };
-allowxperm vibrator_host dev_file:chr_file ioctl 0x6202;
-allowxperm vibrator_host dev_file:chr_file ioctl 0x6201;
 
 allow rootfs labeledfs:filesystem { associate };
 

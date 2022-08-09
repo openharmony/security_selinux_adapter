@@ -43,6 +43,6 @@ allow wifi_manager_service wifi_manager_service:udp_socket { bind create ioctl s
 allow wifi_manager_service wifi_manager_service:unix_dgram_socket { ioctl };
 allowxperm wifi_manager_service data_dhcp:file ioctl { 0x5413 };
 allowxperm wifi_manager_service data_misc:file ioctl { 0x5413 };
-allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x8916 0x891c 0x8927 0x8933 };
+allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x890B 0x8913 0x8915 0x8916 0x891b 0x891c 0x8927 0x8933 };
 allowxperm wifi_manager_service wifi_manager_service:unix_dgram_socket ioctl { 0x8910 };
 

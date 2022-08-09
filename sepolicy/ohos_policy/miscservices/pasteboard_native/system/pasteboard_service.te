@@ -13,10 +13,16 @@
 
 type  pasteboard_service, sadomain, domain;
 
-allow pasteboard_service system_core_hap:binder { call };
+allow pasteboard_service system_core_hap:binder { call transfer };
+allow pasteboard_service system_basic_hap:binder { call transfer };
+allow pasteboard_service normal_hap:binder { call transfer };
+allow pasteboard_service sh:binder { call transfer };
 allow pasteboard_service dev_unix_socket:dir { search };
 allow system_core_hap sa_pasteboard_service:samgr_class { get };
 allow system_basic_hap sa_pasteboard_service:samgr_class { get };
 allow normal_hap sa_pasteboard_service:samgr_class { get };
-
+allow system_core_hap pasteboard_service:binder { call transfer };
+allow system_basic_hap pasteboard_service:binder { call transfer };
+allow normal_hap pasteboard_service:binder { call transfer };
+allow sh pasteboard_service:binder { call transfer };
 
