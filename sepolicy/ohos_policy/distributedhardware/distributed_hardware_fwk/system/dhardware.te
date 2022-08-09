@@ -145,3 +145,11 @@ allow dhardware vendor_etc_file:dir { search };
 #avc:  denied  { open } for  pid=2490 comm="dhardware" path="/vendor/etc/distributedhardware/distributed_hardware_components_cfg.json" dev="mmcblk0p7" ino=96 scontext=u:r:dhardware:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 allow dhardware vendor_etc_file:file { read open };
 
+#avc:  denied  { read } for  pid=2128 comm="sa_main" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=52 scontext=u:r:dhardware:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2128 comm="sa_main" path="/dev/__parameters__/u:object_r:accessibility_param:s0" dev="tmpfs" ino=52 scontext=u:r:dhardware:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2128 comm="sa_main" path="/dev/__parameters__/u:object_r:accessibility_param:s0" dev="tmpfs" ino=52 scontext=u:r:dhardware:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
+allow dhardware accessibility_param:file { read open map };
+
+#avc:  denied  { get } for service=4801 pid=551 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_dhardware_service:s0 tclass=samgr_class permissive=1
+allow hidumper_service sa_dhardware_service:samgr_class { get };
+
