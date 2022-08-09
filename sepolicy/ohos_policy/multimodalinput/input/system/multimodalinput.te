@@ -38,7 +38,7 @@ allow multimodalinput hdf_devmgr:binder { call };
 allow multimodalinput input_pointer_device_param:parameter_service { set };
 allow multimodalinput multimodalinput:capability { dac_override };
 allow multimodalinput multimodalinput:netlink_kobject_uevent_socket { bind create getattr setopt read };
-allow multimodalinput multimodalinput:process { ptrace };
+#allow multimodalinput multimodalinput:process { ptrace };
 allow multimodalinput param_watcher:binder { call transfer };
 allow multimodalinput render_service:binder { call transfer };
 allow multimodalinput resource_schedule_service:binder { call };
