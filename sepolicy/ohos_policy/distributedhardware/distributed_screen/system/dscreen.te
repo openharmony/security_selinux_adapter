@@ -155,3 +155,6 @@ allow dscreen render_service:fd { use };
 #avc:  denied  { read write } for   scontext=u:r:dscreen:s0 tcontext=u:r:render_service:s0 tclass=unix_stream_socket permissive=1
 allow dscreen render_service:unix_stream_socket { read write };
 
+#avc:  denied  { get } for service=4801 pid=2892 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_dhardware_service:s0 tclass=samgr_class permissive=0
+allow dscreen sa_dhardware_service:samgr_class { get };
+
