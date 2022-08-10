@@ -107,7 +107,6 @@ allow vibrator_host hdf_vibrator_interface_service:hdf_devmgr_class { add };
 #avc:  denied  { add } for service=camera_service pid=348 scontext=u:r:camera_host:s0 tcontext=u:object_r:hdf_camera_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { call } for  pid=439 comm="PREVIEW#2" scontext=u:r:camera_host:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
 allow camera_host camera_host:netlink_kobject_uevent_socket { bind bind create read create };
-allow camera_host camera_host:process { ptrace };
 allow camera_host camera_service:binder { call transfer };
 allow camera_host data_log:file { read write };
 allow camera_host dev_dri_file:chr_file { getattr ioctl open read write };
