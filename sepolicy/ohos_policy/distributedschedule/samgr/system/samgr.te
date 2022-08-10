@@ -93,5 +93,8 @@ allow samgr system_profile_file:dir { open read };
 #avc:  denied  { setopt } for  pid=245 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:samgr:s0 tclass=unix_dgram_socket permissive=1
 allow samgr samgr:unix_dgram_socket { getopt setopt };
 
+#avc:  denied  { set } for parameter=bootevent.samgr.ready.true pid=254 uid=5555 gid=5555 scontext=u:r:samgr:s0 tcontext=u:object_r:bootevent_param:s0 tclass=parameter_service permissive=0
+allow samgr bootevent_param:parameter_service { set };
+
 allowxperm samgr dev_binder_file:chr_file ioctl { 0x6207 };
 
