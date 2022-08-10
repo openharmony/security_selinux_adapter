@@ -13,4 +13,4 @@
 
 neverallow { domain -samgr -foundation } installs:binder call;
 
-neverallow installs { domain -samgr -accesstoken_service }:binder call;
+neverallow installs { domain -samgr }:binder call;
