@@ -47,7 +47,6 @@ allow faultloggerd dev_unix_socket:dir search;
 allow faultloggerd data_log:dir search;
 
 allow faultloggerd tty_device:chr_file { open read write };
-allow faultloggerd sh_exec:file { execute execute_no_trans map open read };
 allow faultloggerd system_bin_file:file { execute execute_no_trans getattr map open read };
 allow faultloggerd system_bin_file:lnk_file read;
 
@@ -58,6 +57,9 @@ allow faultloggerd faultloggerd_temp_file:dir { add_name remove_name write open 
 allow faultloggerd faultloggerd_temp_file:file { create getattr setattr write open read unlink };
 
 allow faultloggerd_temp_file labeledfs:filesystem { associate };
+
+# hap apply fd for jsheap
+allow hap_domain init:unix_stream_socket { read write connectto };
 
 allow sh faultloggerd:dir { getattr search };
 allow sh faultloggerd:fifo_file read;
