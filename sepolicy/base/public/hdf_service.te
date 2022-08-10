@@ -14,7 +14,6 @@
 type default_hdf_service, hdf_service_attr;
 type hdf_usbd_service, hdf_service_attr;
 type hdf_device_manager, hdf_service_attr;
-type hdf_hci_interface_service, hdf_service_attr;
 type hdf_thermal_interface_service, hdf_service_attr;
 type hdf_vibrator_interface_service, hdf_service_attr;
 type hdf_distributed_camera_provider_service, hdf_service_attr;
