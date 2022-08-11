@@ -15,6 +15,7 @@ allow foundation accessibility:binder { call };
 allow foundation accesstoken_service:binder { call };
 allow foundation accountmgr:binder { call };
 allow foundation appspawn_socket:sock_file { write };
+allow foundation appspawn:fd { use };
 allow foundation appspawn:unix_stream_socket { connectto };
 allow foundation bootevent_param:file { map open read };
 allow foundation bootevent_param:parameter_service { set };
