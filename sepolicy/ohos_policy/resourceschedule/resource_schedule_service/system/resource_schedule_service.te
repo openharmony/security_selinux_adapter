@@ -65,8 +65,6 @@ allow resource_schedule_service data_log:file { read write };
 #faultloggerd
 allow resource_schedule_service faultloggerd:fd { use };
 allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
-#resource_schedule_service
-allow resource_schedule_service resource_schedule_service:process { ptrace };
 #lib_file
 allow resource_schedule_service lib_file:lnk_file { read };
 #sys_file
