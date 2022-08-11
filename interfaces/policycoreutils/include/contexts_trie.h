@@ -16,24 +16,25 @@
 #ifndef CONTEXTS_TRIE_H
 #define CONTEXTS_TRIE_H
 
-#include <iosfwd>
-#include <string>
-#include <unordered_map>
+#pragma once
 
-class ParamContextsTrie {
-public:
-    ParamContextsTrie() {}
-    ~ParamContextsTrie() {}
+#include <stdbool.h>
+#include "selinux_map.h"
+#include "selinux_parameter.h"
 
-    ParamContextsTrie *FindChild(std::string element);
-    bool Insert(const std::string &paramPrefix, const std::string &contexts);
-    const char *Search(const std::string &paraName);
-    void Clear();
+#ifdef __cplusplus
+#if __cplusplus
+extern "C" {
+#endif
+#endif // __cplusplus
 
-private:
-    char *prefixLabel = nullptr;
-    char *matchLabel = nullptr;
-    std::unordered_map<std::string, ParamContextsTrie *> childen;
-};
+int LoadParameterContextsToSharedMem(void);
+bool ReadParamFromSharedMem(ParamContextsTrie **trieRoot, ParamContextsList **listHead);
+const char* SearchFromParamTrie(ParamContextsTrie *root, const char *paraName);
 
+#ifdef __cplusplus
+#if __cplusplus
+}
+#endif
+#endif // __cplusplus
 #endif // CONTEXTS_TRIE_H

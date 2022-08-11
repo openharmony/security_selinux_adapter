@@ -17,7 +17,7 @@
 #include <cmath>
 #include <cstdlib>
 
-namespace Selinux {
+namespace selinux {
 static const char *g_selinuxErrMsg[SELINUX_ERROR_MAX] = {
     [SELINUX_SUCC] = "success",
     [SELINUX_ARG_INVALID] = "argument is invalid",
@@ -43,4 +43,4 @@ const char *GetErrStr(int errNo)
     errIndex = errIndex >= SELINUX_ERROR_MAX ? SELINUX_UNKNOWN_ERROR : errIndex;
     return g_selinuxErrMsg[errIndex];
 }
-} // namespace Selinux
+} // namespace selinux

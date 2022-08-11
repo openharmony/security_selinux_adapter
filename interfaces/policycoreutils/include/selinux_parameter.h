@@ -16,6 +16,8 @@
 #ifndef SELINUX_PARAMETER_H
 #define SELINUX_PARAMETER_H
 
+#pragma once
+
 #include <sys/socket.h>
 
 #ifdef __cplusplus
@@ -25,8 +27,8 @@ extern "C" {
 #endif
 
 typedef struct ParameterNode {
-    char *paraName;
-    char *paraContext;
+    const char *paraName;
+    const char *paraContext;
 } ParameterNode;
 
 typedef struct ParamContextsList {
@@ -37,7 +39,7 @@ typedef struct ParamContextsList {
 /**
  * @brief init param selinux
  */
-void InitParamSelinux(void);
+int InitParamSelinux(void);
 
 /**
  * @brief get param context list, for context-named files generate
@@ -62,15 +64,6 @@ void DestroyParamList(ParamContextsList **list);
  * @return context for given paraName
  */
 const char *GetParamLabel(const char *paraName);
-
-/**
- * @brief for write particular paraName, get its context
- *
- * @param paraName the name of param
- * @param uc contains pid, uid, gid info
- * @return 0 for success, or an error code
- */
-int SetParamCheck(const char *paraName, struct ucred *uc);
 
 #ifdef __cplusplus
 #if __cplusplus

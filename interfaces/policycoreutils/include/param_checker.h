@@ -13,15 +13,37 @@
  * limitations under the License.
  */
 
-#ifndef PARAPERM_CHECKER_H
-#define PARAPERM_CHECKER_H
+#ifndef PARAM_CHECKER_H
+#define PARAM_CHECKER_H
 
-#include <iosfwd>
-#include <string>
+#pragma once
 
-typedef struct ParameterInfo {
-    std::string paraName;
-    std::string paraContext;
-} ParameterInfo;
+#include <sys/socket.h>
 
-#endif // PARAPERM_CHECKER_H
+#ifdef __cplusplus
+#if __cplusplus
+extern "C" {
+#endif
+#endif
+
+/**
+ * @brief set selinux log, only be called by init
+ */
+void SetInitSelinuxLog(void);
+
+/**
+ * @brief for write particular paraName, check permission
+ *
+ * @param paraName the name of param
+ * @param uc contains pid, uid, gid info
+ * @return 0 for success, or an error code
+ */
+int SetParamCheck(const char *paraName, struct ucred *uc);
+
+#ifdef __cplusplus
+#if __cplusplus
+}
+#endif /* __cplusplus */
+#endif /* __cplusplus */
+
+#endif // PARAM_CHECKER_H

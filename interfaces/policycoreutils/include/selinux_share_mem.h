@@ -13,43 +13,35 @@
  * limitations under the License.
  */
 
-#ifndef SELINUX_ERROR_H
-#define SELINUX_ERROR_H
+#ifndef SELINUX_PARAM_H
+#define SELINUX_PARAM_H
 
 #pragma once
 
-#ifdef __cplusplus
-#if __cplusplus
-namespace selinux {
-#endif
-#endif
-
-enum Errno {
-    SELINUX_SUCC,
-    SELINUX_ARG_INVALID,
-    SELINUX_PATH_INVAILD,
-    SELINUX_STAT_INVAILD,
-    SELINUX_PTR_NULL,
-    SELINUX_KEY_NOT_FOUND,
-    SELINUX_GET_CONTEXT_ERROR,
-    SELINUX_SET_CONTEXT_ERROR,
-    SELINUX_SET_CONTEXT_TYPE_ERROR,
-    SELINUX_CHECK_CONTEXT_ERROR,
-    SELINUX_CONTEXTS_FILE_LOAD_ERROR,
-    SELINUX_FTS_OPEN_ERROR,
-    SELINUX_FTS_ELOOP,
-    SELINUX_RESTORECON_ERROR,
-    SELINUX_UNKNOWN_ERROR,
-    SELINUX_PERMISSION_DENY,
-    SELINUX_ERROR_MAX,
-};
-
-const char *GetErrStr(int errNo);
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef __cplusplus
 #if __cplusplus
-} // namespace selinux
+extern "C" {
 #endif
-#endif
+#endif // __cplusplus
 
-#endif // SELINUX_ERROR_H
+typedef struct SharedMem {
+    uint8_t paramNameSize;
+    uint8_t paramLabelSize;
+    char data[0];
+} SharedMem;
+
+void *InitSharedMem(const char *fileName, uint32_t spaceSize, int readOnly);
+void WriteSharedMem(char *sharedMem, char *data, uint32_t length);
+char *ReadSharedMem(char *sharedMem, uint32_t length);
+void UnmapSharedMem(char *sharedMem, uint32_t dataSize);
+
+#ifdef __cplusplus
+#if __cplusplus
+}
+#endif
+#endif // __cplusplus
+#endif // SELINUX_PARAM_H
