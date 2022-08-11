@@ -28,7 +28,6 @@ allow download_server default_param:file { map open read };
 allow download_server dev_unix_socket:dir { search };
 allow download_server dev_unix_socket:sock_file { write };
 allow download_server distributedsche_param:file { map open read };
-allow download_server download_server:process { ptrace };
 allow download_server download_server:unix_dgram_socket { getopt setopt };
 allow download_server faultloggerd:fd { use };
 allow download_server faultloggerd:unix_stream_socket { connectto };
