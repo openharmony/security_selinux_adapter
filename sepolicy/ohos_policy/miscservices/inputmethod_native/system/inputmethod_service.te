@@ -26,4 +26,5 @@ allow inputmethod_service persist_sys_param:parameter_service { set };
 allow inputmethod_service data_app_file:dir { search };
 allow inputmethod_service kernel:unix_stream_socket { connectto };
 allow inputmethod_service paramservice_socket:sock_file { write };
+allow inputmethod_service system_etc_file:file { write };
 
