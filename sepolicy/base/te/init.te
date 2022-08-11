@@ -348,8 +348,6 @@ allow init wifi_hal_service:process { rlimitinh siginh transition };
 allow init wifi_host:process { rlimitinh siginh transition };
 allow init wifi_manager_service:process { rlimitinh siginh transition };
 allow init kernel:unix_dgram_socket { sendto };
-allow init inputmethod_etc_file:file { getattr };
-allow init inputmethod_service:file { read };
 allowxperm init data_file:file ioctl { 0x5413 };
 allowxperm init data_parameters:file ioctl { 0x5413 };
 allowxperm init dev_at_file:chr_file ioctl { 0x4102 };

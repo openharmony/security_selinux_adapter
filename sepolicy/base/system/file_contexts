@@ -148,7 +148,6 @@
 /system/hap(/.*)?       u:object_r:system_hap_file:s0
 /system/bin(/.*)?       u:object_r:system_bin_file:s0
 /system/etc(/.*)?       u:object_r:system_etc_file:s0
-/system/etc/param/inputmethod.para       u:object_r:inputmethod_etc_file:s0
 /system/fonts(/.*)?       u:object_r:system_fonts_file:s0
 /system/lib(/.*)?       u:object_r:system_lib_file:s0
 /system/profile(/.*)?       u:object_r:system_profile_file:s0
