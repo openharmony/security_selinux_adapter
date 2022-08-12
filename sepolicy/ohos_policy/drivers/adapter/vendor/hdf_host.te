@@ -151,7 +151,7 @@ allowxperm camera_host dev_video_file:chr_file ioctl {  0x5600 0x5605 0x5608 0x5
 #avc:  denied  { add } for service=usbd pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_usbd:s0 tclass=hdf_devmgr_class permissive=1
 allow usb_host accessibility_param:file { map open read open read };
 allow usb_host configfs:dir { add_name create open read search write remove_name rmdir };
-allow usb_host configfs:file { create ioctl open read write };
+allow usb_host configfs:file { create ioctl open read write getattr };
 allow usb_host configfs:lnk_file { create unlink };
 allow usb_host console:binder { call };
 allow usb_host console:fd { use };
@@ -164,11 +164,12 @@ allow usb_host debugfs_usb:file { open write };
 allow usb_host dev_bus:dir { search };
 allow usb_host dev_bus_usb_file:chr_file { ioctl map open read write getattr};
 allow usb_host dev_bus_usb_file:dir { search };
-allow usb_host dev_functionfs_file:chr_file { ioctl map open read write };
+allow usb_host dev_functionfs_file:chr_file { ioctl map open read write getattr };
 allow usb_host dev_functionfs_file:dir { search };
 allow usb_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow usb_host dev_hdf_usb_pnp:chr_file { getattr ioctl open read write };
 allow usb_host dev_usbfn_file:chr_file { getattr ioctl read write open map };
+allow usb_host dev_usbfn_file:dir { search };
 allow usb_host dev_unix_socket:dir { search };
 allow usb_host dev_unix_socket:sock_file { write };
 allow usb_host faultloggerd:fd { use };
