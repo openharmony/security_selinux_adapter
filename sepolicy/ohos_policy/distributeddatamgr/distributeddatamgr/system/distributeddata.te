@@ -56,8 +56,8 @@ allow distributeddata huks_service:binder { call };
 allow distributeddata normal_hap:binder { call transfer };
 allow distributeddata normal_hap:dir { search };
 allow distributeddata normal_hap:file { open read };
-allow distributeddata normal_hap_data_file:dir { getattr search add_name write };
-allow distributeddata normal_hap_data_file:file { getattr lock setattr };
+allow distributeddata normal_hap_data_file:dir { add_name create getattr remove_name rmdir search write };
+allow distributeddata normal_hap_data_file:file { create getattr ioctl lock setattr unlink };
 allow distributeddata proc_file:file { open read };
 allow distributeddata sa_accesstoken_manager_service:samgr_class { get };
 allow distributeddata sa_accountmgr:samgr_class { get };
@@ -85,3 +85,4 @@ allowxperm distributeddata data_app_el1_database_file:file ioctl { 0xf50c 0x5413
 allowxperm distributeddata data_app_el2_database_file:file ioctl { 0xf50c 0x5413};
 allowxperm distributeddata data_app_el3_database_file:file ioctl { 0xf50c 0x5413};
 allowxperm distributeddata data_app_el4_database_file:file ioctl { 0xf50c 0x5413};
+allowxperm distributeddata normal_hap_data_file:file ioctl { 0x5413 };

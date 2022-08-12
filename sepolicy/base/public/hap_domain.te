@@ -113,7 +113,7 @@ neverallow { domain -hap_domain -installs -storage_daemon -hdcd } system_basic_h
 neverallow normal_hap system_basic_hap_data_file:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file
-neverallow { domain -hap_domain -installs -hdcd } normal_hap_data_file:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -hdcd -distributeddata } normal_hap_data_file:dir_file_class_set { create unlink };
 
 neverallow { domain -hap_domain -installs -appspawn -nwebspawn -hdcd -distributeddata -sh } normal_hap_data_file:dir *;
 
