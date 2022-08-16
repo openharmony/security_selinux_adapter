@@ -130,7 +130,7 @@ static void TestSetPara(std::string &paraName, struct ucred *uc)
     struct timeval start, end, diff;
     gettimeofday(&start, nullptr);
 #endif
-    std::cout << GetErrStr(SetParamCheck(paraName.c_str(), uc)) << std::endl;
+    std::cout << GetErrStr(SetParamCheck(paraName.c_str(), GetParamLabel(paraName.c_str()), uc)) << std::endl;
 #ifdef TIME_DISPLAY
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);

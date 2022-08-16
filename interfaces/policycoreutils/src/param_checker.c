@@ -19,7 +19,6 @@
 #include <unistd.h>
 #include "callbacks.h"
 #include "errno.h"
-#include "selinux_parameter.h"
 #include "selinux_error.h"
 #include "selinux_klog.h"
 
@@ -109,9 +108,9 @@ void SetInitSelinuxLog(void)
     }
 }
 
-int SetParamCheck(const char *paraName, const struct ucred *uc)
+int SetParamCheck(const char *paraName, const char *destContext, const struct ucred *uc)
 {
-    if (paraName == NULL || uc == NULL) {
+    if (paraName == NULL || destContext == NULL || uc == NULL) {
         selinux_log(SELINUX_ERROR, "input param is null!\n");
         return -SELINUX_PTR_NULL;
     }
@@ -123,7 +122,6 @@ int SetParamCheck(const char *paraName, const struct ucred *uc)
         return -SELINUX_GET_CONTEXT_ERROR;
     }
 
-    const char *destContext = GetParamLabel(paraName);
     int res = CheckPerm(paraName, srcContext, destContext, *uc);
     freecon(srcContext);
     return res;
