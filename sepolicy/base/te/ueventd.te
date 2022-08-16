@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow ueventd accessibility_param:file { map open read };
 allow ueventd bootevent_param:file { map open read };
 allow ueventd bootevent_samgr_param:file { map open read };
 allow ueventd build_version_param:file { map open read };
@@ -149,7 +150,8 @@ allow ueventd system_bin_file:dir { search };
 allow ueventd sys_usb_param:file { map open read };
 allow ueventd tmpfs:dir { relabelfrom write };
 allow ueventd tty_device:chr_file { getattr relabelto setattr };
-allow ueventd ueventd:capability { chown fowner fsetid mknod setgid };
+allow ueventd ueventd:capability { chown fowner fsetid mknod setgid net_admin dac_override };
+allow ueventd ueventd:netlink_kobject_uevent_socket { create setopt bind read };
 allow ueventd vendor_etc_file:dir { search };
 allow ueventd init:unix_dgram_socket { read write };
 allow ueventd paramservice_socket:sock_file { write };
