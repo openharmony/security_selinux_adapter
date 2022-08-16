@@ -44,3 +44,6 @@ allow thermal sa_audio_policy_service:samgr_class { get };
 #avc:  denied  { call } for  pid=2298 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
 allow thermal audio_policy:binder { call };
 
+#avc:  denied  { get } for service=3301 pid=599 scontext=u:r:thermal:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
+allow thermal sa_foundation_powermgr_service:samgr_class { get };
+
