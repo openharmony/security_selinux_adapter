@@ -12,6 +12,4 @@
 # limitations under the License
 
 allow thermal data_file:dir { search };
-allow thermal data_file:file { ioctl open read write };
 allow thermal dev_unix_socket:dir { search };
-allowxperm thermal data_file:file ioctl { 0x5413 };

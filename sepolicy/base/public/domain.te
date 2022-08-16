@@ -97,9 +97,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -hdcd -installs -init -power_host -hiprofilerd -hiprofiler_plugins -hiperf -hiprofiler_cmd } data_local_tmp:dir never_write_dir;
+neverallow { domain -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -hiperf -hiprofiler_cmd } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation -power_host -sh -hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf } data_local_tmp:dir { open search };
+neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh -hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -243,9 +243,9 @@ neverallow { domain -init } debugfs:{ file lnk_file } never_rw_file;
 neverallow { domain -init -appspawn -nwebspawn -normal_hap -sa_dialog } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
 
 neverallow { domain -hap_domain -locationhub
-             -power_host -thermal -sh debug_only(`-hdcd') -audio_hdi_server_host } data_file:file never_write_file;
+             -sh debug_only(`-hdcd') -audio_hdi_server_host } data_file:file never_write_file;
 
-neverallow { domain -hdcd -hap_domain -power_host -sh -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf } data_local_tmp:file open;
+neverallow { domain -hdcd -hap_domain -sh -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -335,10 +335,9 @@ neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend
 neverallow { domain -appspawn -init -ueventd -installs -storage_daemon } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -init -ueventd -memmgrservice -disp_gralloc_host
              -hdcd -installs -location_host
-             -netsysnative -power_host
-             -storage_daemon -usb_host
+             -netsysnative -storage_daemon -usb_host
              -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init debug_only(`-hdcd') -hidumper_service -power_host -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
+neverallow { domain -appspawn -init debug_only(`-hdcd') -hidumper_service -storage_daemon -hiprofiler_plugins -hiperf } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiperf -hiprofiler_cmd } self:{ capability cap_userns } kill;
