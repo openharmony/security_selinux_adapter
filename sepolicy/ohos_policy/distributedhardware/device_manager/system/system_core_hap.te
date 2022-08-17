@@ -12,4 +12,5 @@
 # limitations under the License.
 
 #avc:  denied  { call } for  pid=3081 comm="1.ui" scontext=u:r:system_core_hap:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
-allow system_core_hap device_manager:binder { call };
+#avc:  denied  { transfer } for  pid=3081 comm="1.ui" scontext=u:r:system_core_hap:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+allow system_core_hap device_manager:binder { call transfer };
