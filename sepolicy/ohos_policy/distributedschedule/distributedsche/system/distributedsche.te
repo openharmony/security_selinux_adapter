@@ -56,4 +56,11 @@ allow sh distributedsche:process { sigkill };
 allow softbus_server distributedsche:binder { call };
 allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
 
+#avc:  denied  { get } for service=1903 pid=469 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=1
+allow distributedsche sa_bgtaskmgr:samgr_class { get };
+#avc:  denied  { read open } for  pid=551 comm="foundation" scontext=u:r:foundation:s0 tcontext=u:r:distributedsche:s0 tclass=file permissive=1
+allow foundation distributedsche:file { read open };
+#avc:  denied  { search } for  pid=551 comm="foundation" name="469" dev="proc" ino=17886 scontext=u:r:foundation:s0 tcontext=u:r:distributedsche:s0 tclass=dir permissive=1
+allow foundation distributedsche:dir { search };
+
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };
