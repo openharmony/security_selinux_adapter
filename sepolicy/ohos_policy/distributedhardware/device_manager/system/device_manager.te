@@ -282,3 +282,5 @@ allow device_manager sh:binder { call };
 
 #avc:  denied  { get } for service=3503 pid=615 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=0
 allow device_manager sa_accesstoken_manager_service:samgr_class { get };
+
+allow device_manager system_core_hap:binder { call transfer };
