@@ -47,4 +47,5 @@ allow foundation ui_service:binder { call };
 allow foundation vendor_lib_file:dir { search };
 allow foundation vendor_lib_file:file { read };
 allow foundation render_service:unix_stream_socket { read write };
+allow foundation pasteboard_service:binder { call transfer };
 

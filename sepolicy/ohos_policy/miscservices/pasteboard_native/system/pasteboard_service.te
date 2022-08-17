@@ -25,4 +25,9 @@ allow system_core_hap pasteboard_service:binder { call transfer };
 allow system_basic_hap pasteboard_service:binder { call transfer };
 allow normal_hap pasteboard_service:binder { call transfer };
 allow sh pasteboard_service:binder { call transfer };
+allow pasteboard_service foundation:binder { call transfer };
+allow pasteboard_service sa_foundation_bms:samgr_class { get };
+allow pasteboard_service accessibility_param:file { read };
+allow pasteboard_service system_usr_file:dir { search };
+allow pasteboard_service sa_foundation_wms:samgr_class { get };
 
