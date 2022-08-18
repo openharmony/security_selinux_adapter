@@ -35,10 +35,11 @@ void SetInitSelinuxLog(void);
  * @brief for write particular paraName, check permission
  *
  * @param paraName the name of param
+ * @param destContext the context of paraName
  * @param uc contains pid, uid, gid info
  * @return 0 for success, or an error code
  */
-int SetParamCheck(const char *paraName, const struct ucred *uc);
+int SetParamCheck(const char *paraName, const char *destContext, const struct ucred *uc);
 
 #ifdef __cplusplus
 #if __cplusplus
