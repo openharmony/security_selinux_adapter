@@ -147,24 +147,26 @@ ohos_static_library("libselinux_hilog_static") {
   subsystem_name = "security"
 }
 
-inherited_configs = [
-  "//build/config/compiler:afdo",
-  "//build/config/compiler:afdo_optimize_size",
-  "//build/config/compiler:compiler",
-  "//build/config/compiler:compiler_arm_fpu",
-  "//build/config/compiler:compiler_arm_thumb",
-  "//build/config/compiler:chromium_code",
-  "//build/config/compiler:default_include_dirs",
-  "//build/config/compiler:default_optimization",
-  "//build/config/compiler:default_stack_frames",
-  "//build/config/compiler:default_symbols",
-  "//build/config/compiler:export_dynamic",
-  "//build/config/compiler:no_exceptions",
-  "//build/config/compiler:no_rtti",
-  "//build/config/compiler:runtime_library",
-  "//build/config/compiler:thin_archive",
-  "//build/config/sanitizers:default_sanitizer_flags",
-]
+if (use_musl) {
+  inherited_configs = [
+    "//build/config/compiler:afdo",
+    "//build/config/compiler:afdo_optimize_size",
+    "//build/config/compiler:compiler",
+    "//build/config/compiler:compiler_arm_fpu",
+    "//build/config/compiler:compiler_arm_thumb",
+    "//build/config/compiler:chromium_code",
+    "//build/config/compiler:default_include_dirs",
+    "//build/config/compiler:default_optimization",
+    "//build/config/compiler:default_stack_frames",
+    "//build/config/compiler:default_symbols",
+    "//build/config/compiler:export_dynamic",
+    "//build/config/compiler:no_exceptions",
+    "//build/config/compiler:no_rtti",
+    "//build/config/compiler:runtime_library",
+    "//build/config/compiler:thin_archive",
+    "//build/config/sanitizers:default_sanitizer_flags",
+  ]
+}
 
 source_set("libselinux_parameter_static") {
   output_name = "libselinux_parameter_static"
@@ -180,9 +182,11 @@ source_set("libselinux_parameter_static") {
     "-Wall",
     "-Werror",
   ]
-  ldflags = [ "-nostdlib" ]
-  configs -= inherited_configs
-  configs += [ "//build/config/compiler:compiler" ]
+  if (use_musl) {
+    ldflags = [ "-nostdlib" ]
+    configs -= inherited_configs
+    configs += [ "//build/config/compiler:compiler" ]
+  }
 }
 
 ohos_shared_library("libparaperm_checker") {
