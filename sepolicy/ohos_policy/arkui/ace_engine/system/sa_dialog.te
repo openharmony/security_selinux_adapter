@@ -53,6 +53,8 @@ binder_call(sa_dialog, foundation);
 binder_call(sa_dialog, inputmethod_service);
 binder_call(sa_dialog, system_basic_hap);
 binder_call(system_basic_hap, sa_dialog);
+binder_call(sa_dialog, normal_hap);
+binder_call(normal_hap, sa_dialog);
 
 
 allow inputmethod_service sa_dialog:binder { call transfer };
