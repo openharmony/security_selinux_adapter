@@ -36,6 +36,11 @@ typedef struct ParamContextsList {
     struct ParamContextsList *next;
 } ParamContextsList;
 
+typedef struct SrcInfo {
+    int sockFd;
+    struct ucred uc;
+} SrcInfo;
+
 /**
  * @brief init param selinux
  */

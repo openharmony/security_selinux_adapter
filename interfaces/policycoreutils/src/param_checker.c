@@ -86,17 +86,17 @@ static void SelinuxSetCallback(void)
     selinux_set_callback(SELINUX_CB_AUDIT, cb);
 }
 
-static int CheckPerm(const char *paraName, const char *srcContext, const char *destContext, const struct ucred uc)
+static int CheckPerm(const char *paraName, const char *srcContext, const char *destContext, const struct ucred *uc)
 {
-    if (paraName == NULL || srcContext == NULL || destContext == NULL) {
-        selinux_log(SELINUX_ERROR, "context empty!\n");
+    if (srcContext == NULL || uc == NULL) {
+        selinux_log(SELINUX_ERROR, "args empty!\n");
         return -SELINUX_PTR_NULL;
     }
     selinux_log(SELINUX_INFO, "srcContext[%s] is setting param[%s] destContext[%s]\n", srcContext, paraName,
                 destContext);
     AuditMsg msg;
     msg.name = paraName;
-    msg.ucred = &uc;
+    msg.ucred = uc;
     int res = selinux_check_access(srcContext, destContext, "parameter_service", "set", &msg);
     return res == 0 ? SELINUX_SUCC : -SELINUX_PERMISSION_DENY;
 }
@@ -108,21 +108,21 @@ void SetInitSelinuxLog(void)
     }
 }
 
-int SetParamCheck(const char *paraName, const char *destContext, const struct ucred *uc)
+int SetParamCheck(const char *paraName, const char *destContext, const SrcInfo *info)
 {
-    if (paraName == NULL || destContext == NULL || uc == NULL) {
+    if (paraName == NULL || destContext == NULL || info == NULL) {
         selinux_log(SELINUX_ERROR, "input param is null!\n");
         return -SELINUX_PTR_NULL;
     }
 
     char *srcContext = NULL;
-    int rc = getpidcon(uc->pid, &srcContext);
+    int rc = getpeercon(info->sockFd, &srcContext);
     if (rc < 0) {
-        selinux_log(SELINUX_ERROR, "getpidcon failed: %s\n", strerror(errno));
+        selinux_log(SELINUX_ERROR, "getpeercon failed: %s\n", strerror(errno));
         return -SELINUX_GET_CONTEXT_ERROR;
     }
 
-    int res = CheckPerm(paraName, srcContext, destContext, *uc);
+    int res = CheckPerm(paraName, srcContext, destContext, &(info->uc));
     freecon(srcContext);
     return res;
 }
