@@ -58,3 +58,5 @@ allow telephony_sa sys_file:dir { open read };
 allow telephony_sa sys_file:file { open read };
 allow telephony_sa time_service:binder call;
 
+#avc:  denied  { get } for service=ril_interface_service pid=317 scontext=u:r:telephony_sa:s0 tcontext=u:object_r:hdf_ril_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow telephony_sa hdf_ril_interface_service:hdf_devmgr_class get;
