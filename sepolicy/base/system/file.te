@@ -242,6 +242,7 @@ type dev_rtc_file, dev_attr;
 type dev_tee_file, dev_attr;
 type dev_ubi_file, dev_attr;
 type dev_uhid_file, dev_attr;
+type dev_tun_file, dev_attr;
 type dev_vcs_file, dev_attr;
 type dev_vhci_file, dev_attr;
 type dev_video_file, dev_attr;
