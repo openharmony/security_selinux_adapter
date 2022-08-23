@@ -12,9 +12,17 @@
 # limitations under the License.
 
 allow netsysnative dev_unix_socket:dir { search };
-allow netsysnative netsysnative:capability { net_admin };
+allow netsysnative netsysnative:capability { net_admin net_raw net_bind_service };
 allow netsysnative netsysnative:netlink_route_socket { create nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
 allow netsysnative sh_exec:file { execute };
+allow netsysnative netsysnative:netlink_nflog_socket { bind getopt setopt };
+allow netsysnative netsysnative:rawip_socket { create getopt setopt };
+allow netsysnative proc_file:file { read };
+allow netsysnative proc_net:file { getattr };
+allow netsysnative sh_exec:file { execute execute_no_trans map open read };
+allow netsysnative system_bin_file:file { execute execute_no_trans getattr map open read };
+allow netsysnative system_etc_file:file { lock };
+allow netsysnative tty_device:chr_file { open read write };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
