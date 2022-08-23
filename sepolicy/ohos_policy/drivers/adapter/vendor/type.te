@@ -34,5 +34,6 @@ type pin_auth_host, hdfdomain, domain;
 type user_auth_host, hdfdomain, domain;
 type fingerprint_auth_host, hdfdomain, domain;
 type motion_host, hdfdomain, domain;
+type partitionslot_host, hdfdomain, domain;
 type dev_usbfn_file, dev_attr, file_attr;
 type dev_functionfs_file, dev_attr, file_attr;

@@ -14,6 +14,7 @@
 type  wallpaper_service, sadomain, domain;
 
 allow wallpaper_service sa_foundation_dms:samgr_class { get };
+allow wallpaper_service sa_foundation_bms:samgr_class { get };
 allow wallpaper_service system_core_hap:binder { call transfer };
 allow wallpaper_service system_basic_hap:binder { call transfer };
 allow wallpaper_service normal_hap:binder { call transfer };

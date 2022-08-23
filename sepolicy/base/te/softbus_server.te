@@ -79,7 +79,6 @@ allow softbus_server sa_wifi_p2p_ability:samgr_class { get };
 allow softbus_server sa_wifi_scan_ability:samgr_class { get };
 allow softbus_server security_param:file { map open read };
 allow softbus_server softbus_server:netlink_route_socket { bind create nlmsg_read read setopt write };
-allow softbus_server softbus_server:process { ptrace };
 allow softbus_server softbus_server:tcp_socket { accept bind connect create getattr listen read setopt shutdown write };
 allow softbus_server softbus_server:udp_socket { bind connect create getattr ioctl read setopt write };
 allow softbus_server softbus_server:unix_dgram_socket { getopt ioctl setopt };

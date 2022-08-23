@@ -21,6 +21,9 @@ allow telephony_sa data_file:dir search;
 allow telephony_sa data_app_el1_file:dir search;
 allow telephony_sa data_app_el1_file:file { getattr open read };
 allow telephony_sa data_app_file:dir search;
+allow telephony_sa data_service_el1_file:dir search;
+allow telephony_sa data_service_el1_file:file { open read write };
+allow telephony_sa data_service_file:dir search;
 allow telephony_sa foundation:binder { call transfer };
 allow telephony_sa hdf_cellular_radio1:hdf_devmgr_class get;
 allow telephony_sa hdf_cellular_radio_ext:hdf_devmgr_class get;
@@ -36,6 +39,7 @@ allow telephony_sa riladapter_host:binder { call transfer };
 allow telephony_sa sa_accesstoken_manager_service:samgr_class get;
 allow telephony_sa sa_device_service_manager:samgr_class get;
 allow telephony_sa sa_foundation_abilityms:samgr_class get;
+allow telephony_sa sa_foundation_bms:samgr_class get;
 allow telephony_sa sa_foundation_cesfwk_service:samgr_class get;
 allow telephony_sa sa_foundation_powermgr_service:samgr_class get;
 allow telephony_sa sa_foundation_tel_state_registry:samgr_class get;
@@ -57,4 +61,7 @@ allow telephony_sa system_basic_hap:fd use;
 allow telephony_sa sys_file:dir { open read };
 allow telephony_sa sys_file:file { open read };
 allow telephony_sa time_service:binder call;
+allow telephony_sa vendor_etc_file:dir search;
 
+#avc:  denied  { get } for service=ril_interface_service pid=317 scontext=u:r:telephony_sa:s0 tcontext=u:object_r:hdf_ril_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+allow telephony_sa hdf_ril_interface_service:hdf_devmgr_class get;

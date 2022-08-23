@@ -175,15 +175,22 @@ HWTEST_F(SelinuxUnitTest, ReadParamCheck002, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, SetParamCheck001, TestSize.Level1)
 {
-    struct ucred uc;
-    uc.pid = getpid();
-    uc.uid = getuid();
-    uc.gid = getgid();
-    ASSERT_EQ(-SELINUX_PTR_NULL, SetParamCheck(nullptr, &uc));
+    SrcInfo info;
+    info.uc.pid = getpid();
+    info.uc.uid = getuid();
+    info.uc.gid = getgid();
+    int fd[2];
+    if (socketpair(AF_UNIX, SOCK_DGRAM, 0, fd) < 0) {
+        perror("socketpair");
+        exit(EXIT_FAILURE);
+    }
+    info.sockFd = fd[0]
+
+    ASSERT_EQ(-SELINUX_PTR_NULL, SetParamCheck(nullptr, &info));
 
     ASSERT_EQ(-SELINUX_PTR_NULL, SetParamCheck(TEST_NOT_EXIST_PARA_NAME.c_str(), nullptr));
 
-    ASSERT_EQ(SELINUX_SUCC, SetParamCheck(TEST_NOT_EXIST_PARA_NAME.c_str(), &uc));
+    ASSERT_EQ(SELINUX_SUCC, SetParamCheck(TEST_NOT_EXIST_PARA_NAME.c_str(), &info));
     std::string cmd = "dmesg | grep 'avc:  denied  { set } for parameter=" + TEST_NOT_EXIST_PARA_NAME +
                       " pid=" + std::to_string(getpid()) + "' | grep 'tcontext=" + DEFAULT_PARA_CONTEXT +
                       " tclass=parameter_service'";
@@ -191,8 +198,10 @@ HWTEST_F(SelinuxUnitTest, SetParamCheck001, TestSize.Level1)
     ASSERT_TRUE(cmdRes.find(TEST_NOT_EXIST_PARA_NAME) != std::string::npos);
 
     for (auto para : TEST_INVALID_PARA) {
-        ASSERT_EQ(SELINUX_SUCC, SetParamCheck(para.c_str(), &uc));
+        ASSERT_EQ(SELINUX_SUCC, SetParamCheck(para.c_str(), &info));
     }
+    close(fd[0]);
+    close(fd[1]);
 }
 
 /**

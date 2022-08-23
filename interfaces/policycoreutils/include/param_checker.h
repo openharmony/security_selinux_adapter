@@ -19,6 +19,7 @@
 #pragma once
 
 #include <sys/socket.h>
+#include "selinux_parameter.h"
 
 #ifdef __cplusplus
 #if __cplusplus
@@ -35,10 +36,11 @@ void SetInitSelinuxLog(void);
  * @brief for write particular paraName, check permission
  *
  * @param paraName the name of param
- * @param uc contains pid, uid, gid info
+ * @param destContext the context of paraName
+ * @param info contains sockfd, pid, uid, gid info
  * @return 0 for success, or an error code
  */
-int SetParamCheck(const char *paraName, const struct ucred *uc);
+int SetParamCheck(const char *paraName, const char *destContext, const SrcInfo *info);
 
 #ifdef __cplusplus
 #if __cplusplus

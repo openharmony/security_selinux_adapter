@@ -22,6 +22,7 @@ allow distributedsche sa_accesstoken_manager_service:samgr_class { get };
 allow distributedsche sa_foundation_bms:samgr_class { get };
 allow distributedsche sa_accountmgr:samgr_class { get };
 allow distributedsche sa_foundation_abilityms:samgr_class { get };
+allow distributedsche accessibility_param:file { map open read };
 allow distributedsche accesstoken_service:binder { call };
 allow distributedsche accountmgr:binder { call };
 allow distributedsche data_file:dir { search };
@@ -29,6 +30,7 @@ allow distributedsche data_service_file:dir { search };
 allow distributedsche data_service_el1_file:dir { add_name open read search write getattr create remove_name rmdir };
 allow distributedsche data_service_el1_file:file { create getattr ioctl open read write lock map unlink };
 allow distributedsche deviceauth_service:binder { call };
+allow distributedsche device_manager:binder { transfer };
 allow distributedsche dev_ashmem_file:chr_file { open };
 allow distributedsche dev_unix_socket:dir { search };
 allow distributedsche distributeddata:binder { call transfer };
@@ -55,5 +57,14 @@ allow sh distributedsche:binder { call transfer };
 allow sh distributedsche:process { sigkill };
 allow softbus_server distributedsche:binder { call };
 allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
+
+#avc:  denied  { get } for service=1903 pid=469 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=1
+allow distributedsche sa_bgtaskmgr:samgr_class { get };
+#avc:  denied  { read open } for  pid=551 comm="foundation" scontext=u:r:foundation:s0 tcontext=u:r:distributedsche:s0 tclass=file permissive=1
+allow foundation distributedsche:file { read open };
+#avc:  denied  { search } for  pid=551 comm="foundation" name="469" dev="proc" ino=17886 scontext=u:r:foundation:s0 tcontext=u:r:distributedsche:s0 tclass=dir permissive=1
+allow foundation distributedsche:dir { search };
+#avc:  denied  { get } for service=1909 pid=560 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=0
+allow distributedsche sa_memory_manager_service:samgr_class { get };
 
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };

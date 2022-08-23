@@ -44,9 +44,17 @@ attribute rootfs_file_attr;
 # i.e. /system/*
 attribute system_file_attr;
 
+# Type of all sys_prod files.
+# i.e. /sys_prod/*
+attribute sys_prod_file_attr;
+
 # Type of all vendor files.
 # i.e. /vendor/*
 attribute vendor_file_attr;
+
+# Type of all chip_prod files.
+# i.e. /chip_prod/*
+attribute chip_prod_file_attr;
 
 # Type of all domain access points, which is used in domain trasition.
 # i.e. vold_exec,

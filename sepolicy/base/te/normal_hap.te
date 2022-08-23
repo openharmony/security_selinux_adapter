@@ -65,6 +65,8 @@ allow normal_hap normal_hap_data_file:file { getattr ioctl lock map read write o
 allow normal_hap normal_hap:netlink_route_socket { bind nlmsg_read };
 allow normal_hap normal_hap:process { ptrace };
 allow normal_hap normal_hap:unix_dgram_socket { getopt setopt };
+allow normal_hap normal_hap:tcp_socket { getattr bind listen accept };
+allow normal_hap node:tcp_socket { node_bind };
 allow normal_hap nwebspawn:fifo_file { write };
 allow normal_hap ohos_boot_param:file { map open read };
 allow normal_hap ohos_param:file { map open read };

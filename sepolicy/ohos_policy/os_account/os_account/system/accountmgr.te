@@ -14,6 +14,8 @@
 #type accountmgr, sadomain, domain, samgr_type;
 
 binder_call(accountmgr, useriam);
+binder_call(accountmgr, pinauth);
+allow pinauth accountmgr:binder { call };
 
 binder_call(accountmgr, system_core_hap);
 allow system_core_hap accountmgr:binder { call };
@@ -74,6 +76,8 @@ allow accountmgr sa_distributeddata_service:samgr_class { get };
 allow accountmgr sa_accesstoken_manager_service:samgr_class { get };
 allow accountmgr sa_foundation_bms:samgr_class { get };
 allow accountmgr sa_useriam_useridm_service:samgr_class { get };
+allow accountmgr sa_useriam_userauth_service:samgr_class { get };
+allow accountmgr sa_useriam_pinauth_service:samgr_class { get };
 
 allow accountmgr data_init_agent:dir { search };
 allow accountmgr data_init_agent:file { read append ioctl open };

@@ -25,3 +25,8 @@ allow download_server port:tcp_socket { name_connect };
 allow download_server node:udp_socket { node_bind };
 allow download_server port:udp_socket { name_bind };
 allow download_server netsysnative:unix_stream_socket { connectto };
+allow download_server accessibility_param:file { map open read };
+allow download_server foundation:binder { call };
+allow download_server sysfs_hctosys:file { open read };
+allow download_server sysfs_rtc:dir { open read };
+allow download_server sa_foundation_ans:samgr_class { get };

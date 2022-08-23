@@ -13,9 +13,10 @@
 
 type  time_service, sadomain, domain;
 
+allow time_service sa_foundation_abilityms:samgr_class { get };
 allow time_service sh:binder { call };
 allow sh time_service:binder { call transfer };
-allow time_service foundation:binder { call };
+allow time_service foundation:binder { call transfer };
 allow time_service accesstoken_service:binder { call };
 allow time_service time_service:capability { sys_time };
 allow time_service sa_accesstoken_manager_service:samgr_class { get };
