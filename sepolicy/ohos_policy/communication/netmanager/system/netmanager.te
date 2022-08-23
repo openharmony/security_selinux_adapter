@@ -47,4 +47,5 @@ allowxperm netmanager data_dhcp:file ioctl { 0x5413 };
 allowxperm netmanager data_init_agent:file ioctl { 0x5413 };
 allowxperm netmanager netmanager:udp_socket ioctl { 0x8916 0x891c 0x8933 };
 allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 };
+allow netmanager sa_comm_net_tethering_manager_service:samgr_class { add };
 
