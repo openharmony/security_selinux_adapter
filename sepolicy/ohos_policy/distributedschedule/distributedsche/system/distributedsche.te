@@ -62,5 +62,7 @@ allow distributedsche sa_bgtaskmgr:samgr_class { get };
 allow foundation distributedsche:file { read open };
 #avc:  denied  { search } for  pid=551 comm="foundation" name="469" dev="proc" ino=17886 scontext=u:r:foundation:s0 tcontext=u:r:distributedsche:s0 tclass=dir permissive=1
 allow foundation distributedsche:dir { search };
+#avc:  denied  { get } for service=1909 pid=560 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=0
+allow distributedsche sa_memory_manager_service:samgr_class { get };
 
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };
