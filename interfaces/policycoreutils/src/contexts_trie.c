@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include "selinux_error.h"
 #include "selinux_share_mem.h"
+#include "securec.h"
 
 static const char *DEFAULT_CONTEXT = "u:object_r:default_param:s0";
 static const char *EMPTY_STRING = "";
@@ -53,7 +54,11 @@ static ParamHashNode *AddGroupNode(ParamContextsTrie *root, const char *name, Pa
         free(groupNode);
         return NULL;
     }
-    memcpy(groupNode->name, name, nameLen + 1);
+    if (memcpy_s(groupNode->name, nameLen, name, nameLen) != EOK) {
+        free(groupNode->name);
+        free(groupNode);
+        return NULL;
+    }
     groupNode->childPtr = child;
 
     HashMapAdd(root->handle, &groupNode->hashNode);
