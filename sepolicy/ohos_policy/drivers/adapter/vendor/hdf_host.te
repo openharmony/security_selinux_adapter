@@ -80,6 +80,9 @@ allow power_host sa_device_service_manager:samgr_class { get };
 #avc:  denied  { read } for  pid=2666 comm="hdf_devhost" name="u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
 #avc:  denied  { call } for  pid=2582 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=0
+#avc:  denied  { read } for  pid=3798 comm="hdf_devhost" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=0
+#avc:  denied  { call } for  pid=2850 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
+#avc:  denied  { call } for  pid=2850 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
 allow dcamera_host camera_service:binder { call transfer };
 allow dcamera_host dcamera:binder { call };
 allow dcamera_host dev_dri_file:chr_file { getattr read write open ioctl };
@@ -97,6 +100,9 @@ allow dcamera_host sh:binder { call transfer };
 allow dcamera_host const_param:file { open read };
 allow dcamera_host const_postinstall_param:file { open map };
 allow dcamera_host disp_gralloc_host:binder { call };
+allow dcamera_host accessibility_param:file { read open map };
+allow dcamera_host system_core_hap:binder { call };
+allow dcamera_host render_service:binder { call };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
