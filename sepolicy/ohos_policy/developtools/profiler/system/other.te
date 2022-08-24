@@ -23,3 +23,6 @@ allow udevd dev_port:chr_file getattr;
 allow hdcd hiperf:process signal;
 allow hiperf hdcd:fifo_file { ioctl write };
 allow usb_service self:unix_dgram_socket { getopt setopt };
+
+allow init dev_block_file:blk_file ioctl;
+allow normal_hap normal_hap_data_file:file ioctl;
