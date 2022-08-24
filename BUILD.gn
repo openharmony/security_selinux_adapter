@@ -128,7 +128,6 @@ ohos_static_library("libselinux_klog_static") {
     "-Wall",
     "-Werror",
   ]
-  deps = [ "//third_party/bounds_checking_function:libsec_static" ]
   part_name = "selinux"
   subsystem_name = "security"
 }
@@ -177,10 +176,7 @@ source_set("libselinux_parameter_static") {
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_parameter.c",
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_share_mem.c",
   ]
-  include_dirs = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "//third_party/bounds_checking_function/include",
-  ]
+  include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -191,7 +187,6 @@ source_set("libselinux_parameter_static") {
     configs -= inherited_configs
     configs += [ "//build/config/compiler:compiler" ]
   }
-  deps = [ "//third_party/bounds_checking_function:libsec_static" ]
 }
 
 ohos_shared_library("libparaperm_checker") {
@@ -201,13 +196,11 @@ ohos_shared_library("libparaperm_checker") {
   include_dirs = [
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
     "$LIBSELINUX_ROOT_DIR/src",
-    "//third_party/bounds_checking_function/include",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_klog_static",
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
-    "//third_party/bounds_checking_function:libsec_static",
   ]
   cflags = [
     "-D_GNU_SOURCE",

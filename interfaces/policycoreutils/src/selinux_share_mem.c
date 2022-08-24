@@ -19,7 +19,6 @@
 #include <sys/shm.h>
 #include <unistd.h>
 #include <stdio.h>
-#include "securec.h"
 
 void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)
 {
@@ -59,9 +58,7 @@ void WriteSharedMem(char *sharedMem, const char *data, uint32_t length)
     if (sharedMem == NULL || data == NULL || length == 0) {
         return;
     }
-    if (memcpy_s(sharedMem, length, data, length) != EOK) {
-        return;
-    }
+    memcpy(sharedMem, data, length);
     msync(sharedMem, length, MS_SYNC);
 }
 
