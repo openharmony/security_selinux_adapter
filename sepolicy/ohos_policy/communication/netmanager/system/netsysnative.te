@@ -24,5 +24,9 @@ allow netsysnative sh_exec:file { execute execute_no_trans map open read };
 allow netsysnative system_bin_file:file { execute execute_no_trans getattr map open read };
 allow netsysnative system_etc_file:file { lock };
 allow netsysnative tty_device:chr_file { open read write };
+allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect };
+allow netsysnative netsysnative:udp_socket { write };
+allow netsysnative node:udp_socket { node_bind };
+allow netsysnative dev_file:sock_file { write };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
