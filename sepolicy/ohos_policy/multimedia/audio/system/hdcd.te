@@ -28,9 +28,9 @@ allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
 #avc:  denied  { write } for  pid=585 comm="hdcd" name="bin" dev="mmcblk0p6" ino=106 scontext=u:r:hdcd:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
 #avc:  denied  { add_name } for  pid=561 comm="hdcd" name="audio_renderer_test" scontext=u:r:hdcd:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=0
 #avc:  denied  { create } for  pid=539 comm="hdcd" name="audio_renderer_test" scontext=u:r:hdcd:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
-allow hdcd system_bin_file:dir { add_name create getattr write };
+allow hdcd system_bin_file:dir { getattr };
 
 #avc:  denied  { create } for  pid=584 comm="hdcd" name="audio_renderer_test" scontext=u:r:hdcd:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
 #avc:  denied  { write open } for  pid=632 comm="hdcd" path="/system/bin/audio_renderer_test" dev="mmcblk0p6" ino=917 scontext=u:r:hdcd:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
-allow hdcd system_bin_file:file { create write open };
+allow hdcd system_bin_file:file { open };
 
