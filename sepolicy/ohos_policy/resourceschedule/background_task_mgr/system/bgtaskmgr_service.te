@@ -13,7 +13,7 @@
 
 type bgtaskmgr_service, sadomain, domain;
 
-allow bgtaskmgr_service accessibility_param:file { read };
+allow bgtaskmgr_service accessibility_param:file { map open read };
 allow bgtaskmgr_service app_el1_bundle_public:dir { search };
 allow bgtaskmgr_service app_el1_bundle_public:file { open };
 allow bgtaskmgr_service data_app_el1_file:file { getattr read };
