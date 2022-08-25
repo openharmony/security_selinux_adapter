@@ -88,4 +88,5 @@ allowxperm foundation data_service_el1_file:file ioctl {  0x5413  };
 allowxperm foundation data_system_ce:file ioctl {  0xf50c  };
 allowxperm foundation dev_mali:chr_file ioctl {  0x8002  };
 allowxperm foundation sys_file:file ioctl {  0x5413  };
-
+allow foundation foundation:capability { sys_ptrace };
+neverallow foundation *:process ptrace;

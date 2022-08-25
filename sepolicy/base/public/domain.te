@@ -355,7 +355,7 @@ neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow { domain -netsysnative } self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
-neverallow { domain -hidumper_service -init -memmgrservice -storage_daemon -hiprofiler_plugins -hiperf -hiprofiler_cmd } self:{ capability cap_userns } sys_ptrace;
+neverallow { domain -hidumper_service -init -memmgrservice -storage_daemon -hiprofiler_plugins -hiperf -hiprofiler_cmd -foundation } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -init -storage_daemon -appspawn -nwebspawn } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
