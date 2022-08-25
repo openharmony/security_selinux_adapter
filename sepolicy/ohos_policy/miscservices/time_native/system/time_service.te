@@ -29,4 +29,5 @@ allow time_service time_service:udp_socket { bind connect create read setopt wri
 allow time_service dev_unix_socket:dir { search };
 allow system_basic_hap sa_time_service:samgr_class { get };
 allow normal_hap sa_time_service:samgr_class { get };
+allow system_core_hap sa_time_service:samgr_class { get };
 
