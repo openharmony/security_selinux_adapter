@@ -20,3 +20,5 @@ allow normal_hap storage_manager:binder { call };
 allow normal_hap exfat:dir { create read open rename reparent search write rmdir getattr remove_name add_name };
 allow normal_hap exfat:file { create read open write unlink getattr rename };
 allow normal_hap data_user_file:dir { rename reparent };
+allow normal_hap ntfs:dir { create read open rename reparent search write rmdir getattr remove_name add_name };
+allow normal_hap ntfs:file { create read open write unlink getattr rename };
