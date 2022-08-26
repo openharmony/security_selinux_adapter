@@ -31,7 +31,6 @@ allow sh hdcd:file getattr;
 allow sh hdf_devmgr:file getattr;
 allow sh hilogd:file getattr;
 allow sh hiprofilerd:unix_stream_socket connectto;
-allow sh hook_param:file { map open read };
 allow sh init:dir { open read };
 allow sh init:file getattr;
 allow sh kernel:file getattr;
