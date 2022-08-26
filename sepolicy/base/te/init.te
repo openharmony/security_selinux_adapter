@@ -304,7 +304,6 @@ allow init system_bin_file:file { execute execute_no_trans getattr map open read
 allow init system_bin_file:lnk_file { read };
 allow init sys_usb_param:file { map open read relabelto };
 allow init telephony_sa:process { rlimitinh siginh transition };
-allow init thermal:process { rlimitinh siginh transition };
 allow init thermal_protector_exec:file { execute getattr read open };
 allow init time_service:process { rlimitinh siginh transition };
 allow init tmpfs:blk_file { getattr relabelfrom };

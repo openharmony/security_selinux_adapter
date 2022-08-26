@@ -141,7 +141,6 @@ allow sh storage_manager:file { open read };
 allow sh system_basic_hap:file { read };
 allow sh telephony_sa:dir { getattr search };
 allow sh telephony_sa:file { open read };
-allow sh thermal:file { read };
 allow sh time_service:dir { getattr search };
 allow sh time_service:file { open read };
 allow sh tmpfs:dir { add_name write };

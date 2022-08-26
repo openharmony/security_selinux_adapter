@@ -174,8 +174,6 @@ allow sh system_usr_file:dir { search };
 allow sh system_usr_file:file { getattr map open read getattr map open read };
 allow sh telephony_sa:dir { getattr search };
 allow sh telephony_sa:file { open read };
-allow sh thermal:dir { getattr search };
-allow sh thermal:file { open read };
 allow sh time_service:dir { getattr search };
 allow sh time_service:file { open read };
 allow sh udevd:dir { getattr search };

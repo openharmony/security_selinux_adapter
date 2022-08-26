@@ -51,7 +51,6 @@ type netsysnative, sadomain, domain;
 type hidumper_service, sadomain, domain;
 type console, sadomain, domain;
 type bootanimation, sadomain, domain;
-type thermal, sadomain, domain;
 type limit_domain, domain;
 type device_usage_statistics_service, sadomain, domain;
 type thermal_sa, sadomain, domain;

@@ -187,7 +187,6 @@ allow hiprofiler_plugins faultloggerd:file read;
 allow hiprofiler_plugins fms_service:file read;
 allow hiprofiler_plugins media_service:file read;
 allow hiprofiler_plugins render_service:file read;
-allow hiprofiler_plugins thermal:file read;
 allow hiprofiler_plugins useriam:file read;
 allow hiprofiler_plugins wifi_hal_service:file read;
 

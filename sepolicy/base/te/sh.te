@@ -304,8 +304,6 @@ allow sh sys_usb_param:file { map open read };
 allow sh telephony_sa:dir { getattr search };
 allow sh telephony_sa:file { open read };
 allow sh telephony_sa:process { getattr };
-allow sh thermal:dir { getattr search };
-allow sh thermal:file { open read };
 allow sh time_service:dir { getattr search };
 allow sh time_service:file { open read };
 allow sh tracefs:dir { search };

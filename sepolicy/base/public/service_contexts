@@ -153,7 +153,7 @@
 3300	                               u:object_r:sa_subsys_powermng_service:s0
 3301                                   u:object_r:sa_foundation_powermgr_service:s0
 3302                                   u:object_r:sa_foundation_battery_service:s0
-3303                                   u:object_r:sa_thermal_service:s0
+3303                                   u:object_r:sa_foundation_thermal_service:s0
 3304                                   u:object_r:sa_batterystats_service:s0
 3308                                   u:object_r:sa_foundation_displaymgr_service:s0
 3309	                               u:object_r:sa_ivipower_enhanced_service:s0

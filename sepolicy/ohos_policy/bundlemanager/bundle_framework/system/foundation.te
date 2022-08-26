@@ -111,7 +111,6 @@ allow foundation system_core_hap:binder { call };
 allow foundation system_core_hap:file { getattr read };
 allow foundation system_core_hap:process { sigkill };
 allow foundation system_file:file { getattr map open read };
-allow foundation thermal:binder { call };
 allow foundation time_service:binder { call transfer };
 allow foundation vendor_lib_file:dir { search };
 allow foundation work_scheduler_service:binder { call };
