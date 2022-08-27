@@ -25,4 +25,6 @@ allow hiperf hdcd:fifo_file { ioctl write };
 allow usb_service self:unix_dgram_socket { getopt setopt };
 
 allow init dev_block_file:blk_file ioctl;
+allow init hook_param:file relabelto;
+allow { sadomain hdfdomain hap_domain nativedomain } hook_param:file { map open read };
 allow normal_hap normal_hap_data_file:file ioctl;
