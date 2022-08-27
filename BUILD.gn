@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import("//base/security/selinux/selinux.gni")
 import("//build/ohos.gni")
 
 SELINUX_ROOT_DIR = "//base/security/selinux"
@@ -359,6 +360,10 @@ action("build_policy") {
     rebase_path(target_out_dir + "/policy.31"),
     "--tool-path",
     rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--policy_dir_list",
+    selinux_build_path,
     "--debug-version",
     debug_version,
     "--updater-version",
@@ -380,6 +385,10 @@ action("build_contexts") {
     rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
     "--policy-file",
     rebase_path(target_out_dir + "/policy.31"),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--policy_dir_list",
+    selinux_build_path,
   ]
   deps = [
     ":build_policy",

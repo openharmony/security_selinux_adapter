@@ -25,8 +25,7 @@ from collections import defaultdict
 
 SCRIPT_PATH = os.path.abspath(os.path.dirname(__file__))
 LOCAL_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, "../"))
-POLICY_PATH = LOCAL_PATH + "/sepolicy"
-
+POLICY_PATH = []
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -36,6 +35,10 @@ def parse_args():
                         help='the sefcontext_compile bin path', required=True)
     parser.add_argument('--policy-file',
                         help='the policy.31 file', required=True)
+    parser.add_argument('--source-root-dir',
+                        help='prj root path', required=True)
+    parser.add_argument('--policy_dir_list',
+                        help='policy dirs need to be included', required=True)
     return parser.parse_args()
 
 
@@ -46,19 +49,21 @@ def run_command(in_cmd):
         raise Exception(rc)
 
 
-def traverse_folder_in_type(search_dir, file_suffix):
+def traverse_folder_in_type(search_dir_list, file_suffix):
     """
     for special folder search_dir, find all files endwith file_suffix.
     :param search_dir: path to search
     :param file_suffix: postfix of file name
     :return: file list
     """
+
     policy_file_list = []
-    for root, _, files in os.walk(search_dir):
-        for each_file in files:
-            file_name = os.path.basename(each_file)
-            if file_name == file_suffix:
-                policy_file_list.append(os.path.join(root, each_file))
+    for item in search_dir_list:
+        for root, _, files in os.walk(item):
+            for each_file in files:
+                file_name = os.path.basename(each_file)
+                if file_name == file_suffix:
+                    policy_file_list.append(os.path.join(root, each_file))
     policy_file_list.sort()
     return " ".join(str(x) for x in policy_file_list)
 
@@ -235,9 +240,25 @@ def build_sehap_contexts(args, output_path):
     check_sehap_contexts(args, combined_contexts, 1)
     check_sehap_contexts(args, combined_contexts, 0)
 
+def prepare_build_path(dir_list, root_dir, build_dir_list):
+    list = ["base/security/selinux/sepolicy/base", "base/security/selinux/sepolicy/ohos_policy"]
+    list += dir_list.split(":")
+
+    for i in list:
+        if i == "" or i == "default":
+            continue
+        path = os.path.join(root_dir, i)
+        if (os.path.exists(path)):
+            build_dir_list.append(path)
+        else:
+            print("following path not exists!! " + path)
+            exit(-1)
 
 def main(args):
     output_path = args.dst_dir
+
+    prepare_build_path(args.policy_dir_list, args.source_root_dir, POLICY_PATH)
+
     build_file_contexts(args, output_path)
     build_common_contexts(args, output_path, "service_contexts")
     build_common_contexts(args, output_path, "hdf_service_contexts")
