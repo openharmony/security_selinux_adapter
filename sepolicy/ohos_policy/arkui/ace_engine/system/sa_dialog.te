@@ -45,6 +45,7 @@ allow sa_dialog dev_kmsg_file:chr_file { open write };
 allow sa_dialog accessibility:binder { call transfer };
 allow sa_dialog dev_mali:chr_file { getattr ioctl map open read write };
 allow sa_dialog disp_gralloc_host:fd { use };
+allow sa_dialog sa_foundation_bms:samgr_class { get };
 binder_call(sa_dialog, samgr);
 binder_call(sa_dialog, ui_service);
 binder_call(sa_dialog, render_service);
@@ -53,6 +54,8 @@ binder_call(sa_dialog, foundation);
 binder_call(sa_dialog, inputmethod_service);
 binder_call(sa_dialog, system_basic_hap);
 binder_call(system_basic_hap, sa_dialog);
+binder_call(sa_dialog, normal_hap);
+binder_call(normal_hap, sa_dialog);
 
 
 allow inputmethod_service sa_dialog:binder { call transfer };
