@@ -47,3 +47,4 @@ allow pasteboard_service pasteboard_service:unix_dgram_socket { getopt setopt };
 allow pasteboard_service kernel:unix_stream_socket { connectto };
 allow pasteboard_service persist_sys_param:parameter_service { set };
 allow pasteboard_service sa_inputmethod_service:samgr_class { get };
+allow pasteboard_service inputmethod_service:binder { call transfer };
