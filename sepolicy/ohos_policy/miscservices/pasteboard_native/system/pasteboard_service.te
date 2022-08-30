@@ -27,7 +27,7 @@ allow normal_hap pasteboard_service:binder { call transfer };
 allow sh pasteboard_service:binder { call transfer };
 allow pasteboard_service foundation:binder { call transfer };
 allow pasteboard_service sa_foundation_bms:samgr_class { get };
-allow pasteboard_service accessibility_param:file { read };
+allow pasteboard_service accessibility_param:file { read open map };
 allow pasteboard_service system_usr_file:dir { search };
 allow pasteboard_service sa_foundation_wms:samgr_class { get };
 
@@ -36,4 +36,16 @@ allow pasteboard_service data_service_el1_file:file { create ioctl open unlink w
 allow pasteboard_service distributeddata:binder { call transfer };
 allow pasteboard_service sa_distributeddata_service:samgr_class { get };
 allow distributeddata pasteboard_service:binder { call transfer };
+allow pasteboard_service sa_foundation_devicemanager_service:samgr_class { get };
+allow pasteboard_service sa_device_profile_service:samgr_class { get };
+allow pasteboard_service device_manager:binder { call transfer };
+allow pasteboard_service distributedsche:binder { call transfer };
+allow pasteboard_service system_usr_file:file { getattr read open map };
+allow sh pasteboard_service:process { signal };
+allow pasteboard_service paramservice_socket:sock_file { write };
+allow pasteboard_service pasteboard_service:unix_dgram_socket { getopt setopt };
+allow pasteboard_service kernel:unix_stream_socket { connectto };
+allow pasteboard_service persist_sys_param:parameter_service { set };
+allow pasteboard_service sa_inputmethod_service:samgr_class { get };
+allow pasteboard_service inputmethod_service:binder { call transfer };
 

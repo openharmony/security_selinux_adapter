@@ -15,3 +15,5 @@ type sa_device_profile_service, sa_service_attr;
 
 allow sh sa_device_profile_service:samgr_class { add get };
 allow distributedsche sa_device_profile_service:samgr_class { add get };
+allow distributedsche pasteboard_service:binder { call transfer };
+
