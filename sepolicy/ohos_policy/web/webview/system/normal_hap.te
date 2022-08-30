@@ -209,3 +209,5 @@ allow normal_hap dev_file:dir { mounton };
 
 #avc:  denied  { search } for  pid=8454 comm="com.example.web" name="dri" dev="tmpfs" ino=94 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=dir permissive=1
 allow normal_hap dev_dri_file:dir { search };
+
+allow normal_hap pasteboard_service:fd { use };
