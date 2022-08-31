@@ -72,6 +72,8 @@ allow power_host vendor_etc_file:file { getattr open read };
 allow power_host vendor_etc_thermal_hdi_config_file:file { getattr open read };
 allow power_host hdf_light_interface_service:hdf_devmgr_class { get };
 allow power_host light_host:binder { call };
+#avc:  denied  { block_suspend } for  pid=424 comm="power_host" capability=36  scontext=u:r:power_host:s0 tcontext=u:r:power_host:s0 tclass=capability2 permissive=0
+allow power_host power_host:capability2 { block_suspend };
 allowxperm power_host data_local_tmp:file ioctl { 0x5413 };
 allowxperm power_host data_log:file ioctl { 0x5413 };
 allowxperm power_host data_service_el0_file:file ioctl { 0x5413 };
