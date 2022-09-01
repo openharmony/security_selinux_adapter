@@ -30,3 +30,4 @@ allow download_server foundation:binder { call };
 allow download_server sysfs_hctosys:file { open read };
 allow download_server sysfs_rtc:dir { open read };
 allow download_server sa_foundation_ans:samgr_class { get };
+allow system_core_hap sa_download_service:samgr_class { get };
