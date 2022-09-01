@@ -12,10 +12,6 @@
 # limitations under the License
 
 allow power_host data_file:dir { search };
-allow power_host data_file:file { open read };
-allow power_host data_local:dir { search };
-allow power_host data_local_tmp:dir { search };
-allow power_host data_local_tmp:file { open read };
 allow power_host dev_unix_socket:dir { search };
 allow power_host foundation:binder { call };
 allow power_host sys_file:file { open read };
