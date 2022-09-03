@@ -11,5 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow privacy_service system_basic_hap:binder {call};
+allow privacy_service system_core_hap:binder {call};
+
+allow system_basic_hap sa_privacy_service:samgr_class { get };
 allow system_core_hap sa_privacy_service:samgr_class { get };
+
+binder_call(system_basic_hap, privacy_service);
 binder_call(system_core_hap, privacy_service);
