@@ -16,9 +16,7 @@
 #include "selinux_klog.h"
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
+#include "securec.h"
 
 #define MAX_LOG_SIZE 1024
 
@@ -59,7 +57,7 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
     va_list vargs;
     va_start(vargs, fmt);
     char tmpFmt[MAX_LOG_SIZE];
-    if (vsnprintf(tmpFmt, MAX_LOG_SIZE - 1, fmt, vargs) == -1) {
+    if (vsnprintf_s(tmpFmt, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, fmt, vargs) == -1) {
         close(g_fd);
         g_fd = -1;
         va_end(vargs);
@@ -69,10 +67,10 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
     char logInfo[MAX_LOG_SIZE];
     int res = 0;
     if (logLevel != SELINUX_KAVC) {
-        res = snprintf(logInfo, MAX_LOG_SIZE - 1, "[pid=%d][%s][%s] %s", getpid(), "SELINUX", LOG_LEVEL_STR[logLevel],
-                       tmpFmt);
+        res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, "[pid=%d][%s][%s] %s", getpid(), "SELINUX",
+                         LOG_LEVEL_STR[logLevel], tmpFmt);
     } else {
-        res = snprintf(logInfo, MAX_LOG_SIZE, "%s", tmpFmt);
+        res = snprintf_s(logInfo, MAX_LOG_SIZE, MAX_LOG_SIZE - 1, "%s", tmpFmt);
     }
     if (res == -1) {
         close(g_fd);

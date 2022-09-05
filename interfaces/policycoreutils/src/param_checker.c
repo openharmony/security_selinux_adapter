@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include "callbacks.h"
 #include "errno.h"
+#include "securec.h"
 #include "selinux_error.h"
 #include "selinux_klog.h"
 
@@ -35,7 +36,7 @@ static int GetProcessNameFromPid(pid_t pid, char *processName)
     char filename[BUF_SIZE];
     char buff[BUF_SIZE];
 
-    if (snprintf(filename, BUF_SIZE, "/proc/%d/status", pid) <= 0) {
+    if (snprintf_s(filename, BUF_SIZE, BUF_SIZE - 1, "/proc/%d/status", pid) <= 0) {
         return -1;
     }
     FILE *fp = fopen(filename, "r");
@@ -45,9 +46,11 @@ static int GetProcessNameFromPid(pid_t pid, char *processName)
 
     while (fgets(buff, BUF_SIZE - 1, fp) != NULL) {
         if (strstr(buff, "Name:") != NULL) {
-            if (sscanf(buff, "%*s %s", processName) == EOF) {
+            if (sscanf_s(buff, "%*s %s", processName) <= 0) {
+                (void)fclose(fp);
                 return -1;
             }
+            (void)fclose(fp);
             return 0;
         }
     }
@@ -69,8 +72,8 @@ static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, siz
     if (GetProcessNameFromPid(msg->ucred->pid, processName) != 0) {
         (void)snprintf(processName, BUF_SIZE, "unknown process");
     }
-    if (snprintf(buf, len, "process=\"%s\" parameter=%s pid=%d uid=%d gid=%d", processName, msg->name, msg->ucred->pid,
-                 msg->ucred->uid, msg->ucred->gid) <= 0) {
+    if (snprintf_s(buf, len, len - 1, "process=\"%s\" parameter=%s pid=%d uid=%d gid=%d", processName, msg->name,
+                   msg->ucred->pid, msg->ucred->uid, msg->ucred->gid) <= 0) {
         return -1;
     }
     return 0;
