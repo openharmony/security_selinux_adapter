@@ -97,6 +97,10 @@ allow sh vibrator_host:file { read };
 allow sh wallpaper_service:file { read };
 allow sh watchdog_service:dir { getattr search };
 allow sh watchdog_service:file { open read };
+allow sh sa_quick_fix_mgr_service:samgr_class { get };
+allow sh quick_fix:dir { getattr search };
+allow sh quick_fix:file { open read};
+allow sh quick_fix:binder { call };
 
 debug_only(`
     allow sh time_service:binder { call };
