@@ -124,6 +124,7 @@ ohos_static_library("libselinux_klog_static") {
   sources =
       [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_klog.c" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
+  deps = [ "//third_party/bounds_checking_function:libsec_static" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -197,11 +198,13 @@ ohos_shared_library("libparaperm_checker") {
   include_dirs = [
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
     "$LIBSELINUX_ROOT_DIR/src",
+    "//third_party/bounds_checking_function/include",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_klog_static",
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
+    "//third_party/bounds_checking_function:libsec_static",
   ]
   cflags = [
     "-D_GNU_SOURCE",
