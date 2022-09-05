@@ -29,4 +29,12 @@ allow system_core_hap wallpaper_service:binder { call transfer };
 allow system_basic_hap wallpaper_service:binder { call transfer };
 allow normal_hap wallpaper_service:binder { call transfer };
 allow wallpaper_service system_basic_hap:fifo_file { read };
-
+allow wallpaper_service accessibility_param:file { map };
+allow wallpaper_service accessibility_param:file { open };
+allow wallpaper_service accessibility_param:file { read };
+allow wallpaper_service accountmgr:binder { call };
+allow wallpaper_service ohos_dev_param:file { map };
+allow wallpaper_service ohos_dev_param:file { open };
+allow wallpaper_service ohos_dev_param:file { read };
+allow accountmgr wallpaper_service:binder { transfer };
+allow sh wallpaper_service:process { signal };
