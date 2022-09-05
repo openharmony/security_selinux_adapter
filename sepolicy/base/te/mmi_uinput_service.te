@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow mmi_uinput_service accessibility_param:file { map };
+allow mmi_uinput_service accessibility_param:file { open };
+allow mmi_uinput_service accessibility_param:file { read };
 allow mmi_uinput_service bootevent_param:file { map open read };
 allow mmi_uinput_service bootevent_samgr_param:file { map open read };
 allow mmi_uinput_service build_version_param:file { map open read };
@@ -28,6 +31,8 @@ allow mmi_uinput_service dev_hdf_input:chr_file { getattr ioctl open read write 
 allow mmi_uinput_service dev_uinput:chr_file { ioctl open write };
 allow mmi_uinput_service dev_unix_socket:dir { search };
 allow mmi_uinput_service distributedsche_param:file { map open read };
+allow mmi_uinput_service hdf_devmgr:binder { call };
+allow mmi_uinput_service hdf_input_interfaces_service:hdf_devmgr_class { get };
 allow mmi_uinput_service hilog_param:file { map open read };
 allow mmi_uinput_service hw_sc_build_os_param:file { map open read };
 allow mmi_uinput_service hw_sc_build_param:file { map open read };
@@ -35,12 +40,15 @@ allow mmi_uinput_service hw_sc_param:file { map open read };
 allow mmi_uinput_service init_param:file { map open read };
 allow mmi_uinput_service init_svc_param:file { map open read };
 allow mmi_uinput_service input_pointer_device_param:file { map open read };
+allow mmi_uinput_service input_user_host:binder { call };
+allow mmi_uinput_service input_user_host:binder { transfer };
 allow mmi_uinput_service net_param:file { map open read };
 allow mmi_uinput_service net_tcp_param:file { map open read };
 allow mmi_uinput_service ohos_boot_param:file { map open read };
 allow mmi_uinput_service ohos_param:file { map open read };
 allow mmi_uinput_service persist_param:file { map open read };
 allow mmi_uinput_service persist_sys_param:file { map open read };
+allow mmi_uinput_service sa_device_service_manager:samgr_class { get };
 allow mmi_uinput_service security_param:file { map open read };
 allow mmi_uinput_service startup_param:file { map open read };
 allow mmi_uinput_service sys_param:file { map open read };

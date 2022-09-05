@@ -13,6 +13,7 @@
 
 type multimodalinput, sadomain, domain;
 
+allow multimodalinput accessibility_param:file { read };
 allow multimodalinput bootanimation:fd { use };
 allow multimodalinput data_file:dir { search };
 allow multimodalinput data_init_agent:dir { search };
