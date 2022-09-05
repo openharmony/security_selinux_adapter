@@ -37,3 +37,5 @@ allow init configfs:lnk_file { create unlink };
 allow init usb_host:dir { search };
 allow init usb_host:file { open read };
 allow init usb_host:process { rlimitinh siginh transition getattr };
+
+allow samgr usb_host:binder { call };

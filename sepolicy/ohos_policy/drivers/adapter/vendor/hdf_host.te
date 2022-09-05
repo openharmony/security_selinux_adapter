@@ -205,6 +205,8 @@ allow usb_host vendor_etc_file:dir { search };
 allow usb_host vendor_etc_file:file { getattr open read };
 allow usb_host vendor_lib_file:dir { search };
 allow usb_host vendor_lib_file:file { execute getattr map open read };
+allow usb_host samgr:binder { transfer };
+allow usb_host sa_usb_service:samgr_class { get };
 allowxperm usb_host configfs:file ioctl { 0x5413 };
 allowxperm usb_host data_init_agent:file ioctl { 0x5413 };
 allowxperm usb_host dev_bus_usb_file:chr_file ioctl { 0x5500 0x550b 0x550c 0x550f 0x5510 0x550a 0x551a };
