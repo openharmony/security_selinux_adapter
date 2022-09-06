@@ -78,6 +78,7 @@ allow accountmgr sa_foundation_bms:samgr_class { get };
 allow accountmgr sa_useriam_useridm_service:samgr_class { get };
 allow accountmgr sa_useriam_userauth_service:samgr_class { get };
 allow accountmgr sa_useriam_pinauth_service:samgr_class { get };
+allow accountmgr sa_foundation_devicemanager_service:samgr_class { get };
 
 allow accountmgr data_init_agent:dir { search };
 allow accountmgr data_init_agent:file { read append ioctl open };
