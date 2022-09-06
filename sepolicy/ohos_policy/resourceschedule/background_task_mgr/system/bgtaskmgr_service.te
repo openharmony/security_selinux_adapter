@@ -43,6 +43,7 @@ allow bgtaskmgr_service sa_sys_event_service:samgr_class { get };
 allow bgtaskmgr_service sa_bluetooth_server:samgr_class { get };
 allow bgtaskmgr_service audio_policy:binder { call transfer };
 allow bgtaskmgr_service pulseaudio:binder { call transfer };
+allow bgtaskmgr_service sa_bgtaskmgr:samgr_class { get };
 allow pulseaudio bgtaskmgr_service:binder { call transfer };
 allow audio_policy bgtaskmgr_service:binder { call transfer };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
