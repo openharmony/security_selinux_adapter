@@ -22,4 +22,5 @@ allow system_core_hap sa_form_mgr_service:samgr_class { get };
 allow system_core_hap sa_dataobs_mgr_service_service:samgr_class { get };
 allow system_core_hap system_file:file { getattr open read };
 allow system_core_hap data_service_el1_file:file { getattr open read };
-
+allow system_core_hap sa_quick_fix_mgr_service:samgr_class { get };
+allow system_core_hap quick_fix:binder { call };
