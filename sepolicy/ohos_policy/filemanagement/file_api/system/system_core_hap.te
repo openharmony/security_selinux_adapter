@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap normal_hap_data_file:file { create_file_perms execute };
-allow normal_hap normal_hap_data_file:dir { create_dir_perms };
-allow normal_hap normal_hap_data_file:lnk_file { create_file_perms };
+allow system_core_hap system_core_hap_data_file:file { create_file_perms execute };
+allow system_core_hap system_core_hap_data_file:dir { create_dir_perms };
+allow system_core_hap system_core_hap_data_file:lnk_file { create_file_perms };

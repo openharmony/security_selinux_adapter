@@ -15,7 +15,7 @@ type storage_daemon, sadomain, domain;
 type storage_daemon_exec, exec_attr, file_attr, system_file_attr;
 type dev_block_volfile, dev_attr;
 
-allow storage_daemon hmdfs:dir { open read search setattr getattr mounton };
+allow storage_daemon hmdfs:dir { create_dir_perms };
 allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
@@ -63,8 +63,8 @@ allow storage_daemon data_service_el0_file:file { create write open ioctl setatt
 #avc:  denied  { getattr } for  pid=3372 comm="kworker/u8:4" path="/data/service/el2/100/hmdfs/account/data" dev="mmcblk0p11" ino=130644 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
 #avc:  denied  { search } for  pid=7 comm="kworker/u8:0" name="account" dev="mmcblk0p11" ino=130642 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=dir permissive=1
 #avc:  denied  { write } for  pid=7 comm="kworker/u8:0" path=2F646174612F736572766963652F656C322F3130302F686D6466732F63616368652F6163636F756E745F63616368652F23313330373335202864656C6574656429 dev="mmcblk0p11" ino=130735 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=file permissive=1
-allow storage_daemon data_service_el2_hmdfs:dir { rw_dir_perms rmdir };
-allow storage_daemon data_service_el2_hmdfs:file { rw_file_perms };
+allow storage_daemon data_service_el2_hmdfs:dir { create_dir_perms };
+allow storage_daemon data_service_el2_hmdfs:file { create_file_perms };
 
 #avc:  denied  { search } for  pid=257 comm="storage_daemon" name="huks_service" dev="mmcblk0p11" ino=1044496 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el1_public_huksService_file:s0 tclass=dir permissive=1
 #avc:  denied  { getattr } for  pid=257 comm="storage_daemon" path="/data/service/el1/public/huks_service/maindata/root_encrypt_key" dev="mmcblk0p11" ino=1044535 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el1_public_huksService_file:s0 tclass=file permissive=1
@@ -72,8 +72,8 @@ allow storage_daemon data_service_el1_public_huksService_file:dir { search };
 allow storage_daemon data_service_el1_public_huksService_file:file { getattr read open };
 
 #avc:  denied  { read open } for  pid=1789 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=913996 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
-allow storage_daemon data_user_file:file { rw_file_perms };
-allow storage_daemon data_user_file:dir { rw_dir_perms rmdir };
+allow storage_daemon data_user_file:file { create_file_perms };
+allow storage_daemon data_user_file:dir { create_dir_perms };
 
 #avc:  denied  { read } for  pid=246 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:device_usage_stats_service:s0 tclass=file permissive=1
 allow storage_daemon device_usage_stats_service:file { read };
@@ -144,7 +144,7 @@ allow storage_daemon huks_service:binder { call };
 #avc:  denied  { read } for  pid=179 comm="kworker/u8:3" name="IMG_2022629_152726.jpg" dev="hmdfs" ino=2305843009213824715 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 #avc:  denied  { read write } for  pid=179 comm="kworker/u8:3" name="IMG_2022629_152726.jpg" dev="hmdfs" ino=2305843009213824715 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 #avc:  denied  { read write open } for  pid=179 comm="kworker/u8:3" path="/mnt/hmdfs/100/account/device_view/local/files/Camera/IMG_2022629_152726.jpg" dev="hmdfs" ino=2305843009213824715 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
-allow storage_daemon hmdfs:file { read write open getattr };
+allow storage_daemon hmdfs:file { create_file_perms };
 
 #avc:  denied  { read } for  pid=253 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:init:s0 tclass=file permissive=0
 allow storage_daemon init:file { open read };
