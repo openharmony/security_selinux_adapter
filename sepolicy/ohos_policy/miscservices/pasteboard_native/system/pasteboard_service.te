@@ -63,3 +63,4 @@ allow pasteboard_service sa_foundation_dms:samgr_class { get };
 
 #avc:  denied  { get } for service=7001 pid=533 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_subsys_ace_service:s0 tclass=samgr_class permissive=1
 allow pasteboard_service sa_subsys_ace_service:samgr_class { get };
+
