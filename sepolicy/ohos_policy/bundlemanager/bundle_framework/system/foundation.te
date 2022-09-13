@@ -51,7 +51,6 @@ allow foundation data_file:dir { getattr open read search };
 allow foundation data_file:file { getattr map read open };
 allow foundation data_app_el1_file:dir { search };
 allow foundation data_app_el1_file:file { getattr read };
-allow foundation data_app_el2_file:dir { search };
 allow foundation data_app_el2_file:file { getattr read };
 allow foundation data_app_file:dir { search };
 allow foundation data_service_el1_file:dir { add_name remove_name search write };
