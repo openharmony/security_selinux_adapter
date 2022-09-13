@@ -14,8 +14,8 @@
 type init, nativedomain, domain;
 type init_exec, exec_attr, file_attr, system_file_attr;
 allow init console:process { rlimitinh siginh transition getattr };
-allow init data_bootchart:dir { create getattr open read relabelfrom relabelto remove_name search setattr write add_name };
-allow init data_bootchart:file { create ioctl open read append relabelto rename unlink write open };
+allow init data_startup:dir { create getattr open read relabelfrom relabelto remove_name search setattr write add_name };
+allow init data_startup:file { create ioctl open read append relabelto rename unlink write open };
 allow init proc_stat_file:file { setattr read open };
 allow init proc_diskstats_file:file { read open };
 allow init kernel:file { read open };

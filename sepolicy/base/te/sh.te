@@ -67,7 +67,7 @@ allow sh data_appstaging:dir { getattr open read rmdir search };
 allow sh data_backup:dir { getattr };
 allow sh data_bluetooth:dir { getattr open read remove_name search write };
 allow sh data_bluetooth:file { getattr };
-allow sh data_bootchart:dir { getattr };
+allow sh data_startup:dir { getattr };
 allow sh data_cache:dir { getattr };
 allow sh data_chipset_file:dir { getattr };
 allow sh data_data_file:dir { getattr search };

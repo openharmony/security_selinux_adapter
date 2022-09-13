@@ -181,7 +181,7 @@
 /data/app-staging(/.*)?                 u:object_r:data_appstaging:s0
 /data/backup(/.*)?                 u:object_r:data_backup:s0
 /data/bluetooth(/.*)?                 u:object_r:data_bluetooth:s0
-/data/bootchart(/.*)?                 u:object_r:data_bootchart:s0
+/data/service/el0/startup(/.*)?                 u:object_r:data_startup:s0
 /data/cache(/.*)?                 u:object_r:data_cache:s0
 /data/data(/.*)?                 u:object_r:data_data_file:s0
 /data/dhcp(/.*)?                 u:object_r:data_dhcp:s0

@@ -116,7 +116,7 @@ type data_appprivate, file_attr, data_file_attr;
 type data_appstaging, file_attr, data_file_attr;
 type data_backup, file_attr, data_file_attr;
 type data_bluetooth, file_attr, data_file_attr;
-type data_bootchart, file_attr, data_file_attr;
+type data_startup, file_attr, data_file_attr;
 type data_cache, file_attr, data_file_attr;
 type data_data_file, file_attr, data_file_attr;
 type data_dhcp, file_attr, data_file_attr;
