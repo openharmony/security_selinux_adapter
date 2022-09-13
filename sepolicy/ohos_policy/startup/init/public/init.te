@@ -24,8 +24,3 @@ allow init kernel:dir { search };
 #for bootchart to read
 allow init { domain }:file { open read };
 allow init { domain }:dir { search };
-
-# for create map file
-allow ohos_dev_param tmpfs:filesystem associate;
-
-allow init ohos_dev_param:file { map open read relabelto relabelfrom };

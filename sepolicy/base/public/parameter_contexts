@@ -11,25 +11,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ohos.                                   u:object_r:ohos_param:s0
-ohos.boot.                              u:object_r:ohos_boot_param:s0
-ohos.dev.                               u:object_r:ohos_dev_param:s0
+ohos.servicectrl.           u:object_r:servicectrl_param:s0
+ohos.servicectrl.reboot.    u:object_r:servicectrl_reboot_param:s0
+ohos.boot.                  u:object_r:ohos_boot_param:s0
+bootevent.                  u:object_r:bootevent_param:s0
+startup.device.             u:object_r:servicectrl_reboot_param:s0
+
+const.build.                u:object_r:devinfo_public_param:s0
+const.SystemCapability.     u:object_r:devinfo_public_param:s0
+const.product.              u:object_r:devinfo_public_param:s0
+
+startup.service.ctl.        u:object_r:startup_init_param:s0
+const.debuggable            u:object_r:startup_init_param:s0
+persist.init.               u:object_r:startup_init_param:s0
+startup.appspawn.           u:object_r:startup_appspawn_param:s0
+startup.uevent.             u:object_r:startup_uevent_param:s0
+ohos.boot.sn                u:object_r:devinfo_private_param:s0
+persist.appspawn.           u:object_r:startup_appspawn_param:s0
+
 sys.                                    u:object_r:sys_param:s0
 sys.usb                                 u:object_r:sys_usb_param:s0
 net.                                    u:object_r:net_param:s0
 net.tcp.                                u:object_r:net_tcp_param:s0
-hw_sc.                                  u:object_r:hw_sc_param:s0
-hw_sc.build.                            u:object_r:hw_sc_build_param:s0
-hw_sc.build.os.                         u:object_r:hw_sc_build_os_param:s0
-init.                                   u:object_r:init_param:s0
-init.svc.                               u:object_r:init_svc_param:s0
-const.                                  u:object_r:const_param:s0
 const.postinstall.                      u:object_r:const_postinstall_param:s0
 const.postinstall.fstab.                u:object_r:const_postinstall_fstab_param:s0
 const.allow.                            u:object_r:const_allow_param:s0
 const.allow.mock.                       u:object_r:const_allow_mock_param:s0
-const.build.                            u:object_r:const_build_param:s0
-const.product.                          u:object_r:const_product_param:s0
 security.                               u:object_r:security_param:s0
 hilog.                                  u:object_r:hilog_param:s0
 libc.hook_mode                          u:object_r:hook_param:s0
@@ -37,9 +44,4 @@ persist.                                u:object_r:persist_param:s0
 persist.sys.                            u:object_r:persist_sys_param:s0
 persist.sys.hilog.                      u:object_r:hilog_param:s0
 debug.                                  u:object_r:debug_param:s0
-startup.                                u:object_r:startup_param:s0
-bootevent.                              u:object_r:bootevent_param:s0
 accessibility.config.ready              u:object_r:accessibility_param:s0
-build_version                           u:object_r:build_version_param:s0
-bootevent.samgr.ready                   u:object_r:bootevent_samgr_param:s0
-9                                       u:object_r:ohos_param:s0

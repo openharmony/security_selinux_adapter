@@ -122,7 +122,6 @@ allow ueventd net_param:file { map open read };
 allow ueventd net_tcp_param:file { map open read };
 allow ueventd ohos_boot_param:file { map open read };
 allow ueventd ohos_param:file { map open read };
-allow ueventd ohos_dev_param:parameter_service { set };
 allow ueventd persist_param:file { map open read };
 allow ueventd persist_sys_param:file { map open read };
 allow ueventd proc_cmdline_file:file { open read };
