@@ -31,6 +31,7 @@ allow init sh:dir { search };
 allow init sh:process { getattr };
 allow init data_service_file:file { ioctl rename relabelfrom };
 allow init data_service_file:dir { remove_name };
+allow init dev_console_file:chr_file { relabelto };
 
 # for create map file
 allow servicectrl_param tmpfs:filesystem associate;
