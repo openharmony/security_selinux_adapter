@@ -61,3 +61,6 @@ binder_call(normal_hap, sa_dialog);
 allow inputmethod_service sa_dialog:binder { call transfer };
 
 allowxperm sa_dialog dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x8007 0x800e 0x800f 0x8011 0x8016 0x8018 0x8019 0x801d 0x801e 0x8026 };
+
+#avc:  denied  { read } for  pid=2220 comm="pasting_dialog9" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=47 scontext=u:r:sa_dialog:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+allow sa_dialog hilog_param:file { read open map };
