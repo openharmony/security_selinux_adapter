@@ -67,8 +67,9 @@ allow { domain -limit_domain } startup_init_param:file { map open read };
 allow { domain -limit_domain } startup_appspawn_param:file { map open read };
 allow { domain -limit_domain } startup_uevent_param:file { map open read };
 allow { domain -limit_domain } devinfo_public_param:file { map open read };
-allow { init deviceinfoservice sh } devinfo_private_param:file { map open read };
-allow { samgr hdf_devmgr softbus_server distributedsche accountmgr } devinfo_private_param:file { map open read };
+allow { domain -limit_domain } devinfo_private_param:file { map open read };
+#allow { init deviceinfoservice sh } devinfo_private_param:file { map open read };
+#allow { samgr hdf_devmgr softbus_server distributedsche accountmgr } devinfo_private_param:file { map open read };
 
 #for connect to param service
 allow deviceinfoservice paramservice_socket:sock_file { write };
