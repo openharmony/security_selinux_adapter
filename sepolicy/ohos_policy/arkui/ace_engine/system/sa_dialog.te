@@ -57,6 +57,10 @@ binder_call(system_basic_hap, sa_dialog);
 binder_call(sa_dialog, normal_hap);
 binder_call(normal_hap, sa_dialog);
 
+allow sa_dialog debug_param:file { map open read };
+allow sa_dialog persist_param:file { map open read };
+allow sa_dialog persist_sys_param:file { map open read };
+allow sa_dialog default_param:file { map open read };
 
 allow inputmethod_service sa_dialog:binder { call transfer };
 
