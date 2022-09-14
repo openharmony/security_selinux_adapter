@@ -144,6 +144,5 @@ allow hiprofiler_cmd self:capability kill;
 
 allow domain hiprofiler_cmd:fd use;
 allow domain hiprofiler_cmd:unix_stream_socket connectto;
-allow hiprofiler_cmd ohos_dev_param:file { map open read };
-
 allow { domain -limit_domain } tmpfs:file { map read write };
+allow hiprofiler_cmd ohos_dev_param:file { map open read };
