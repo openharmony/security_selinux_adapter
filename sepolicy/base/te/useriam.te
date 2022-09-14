@@ -63,6 +63,7 @@ allowxperm useriam dev_at_file:chr_file ioctl { 0x4103 };
 allow useriam face_auth_host:binder { call transfer };
 allow useriam fingerprint_auth_host:binder { call transfer };
 allow useriam render_service:binder { call };
+allow useriam normal_hap:binder { call };
 
 # avc:  denied  { call } for  pid=466 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
 allow useriam huks_service:binder { call };
