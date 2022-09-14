@@ -65,5 +65,5 @@ allow telephony_sa sys_file:file { open read };
 allow telephony_sa time_service:binder call;
 allow telephony_sa vendor_etc_file:dir search;
 
-#avc:  denied  { get } for service=ril_interface_service pid=317 scontext=u:r:telephony_sa:s0 tcontext=u:object_r:hdf_ril_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-allow telephony_sa hdf_ril_interface_service:hdf_devmgr_class get;
+#avc:  denied  { get } for service=ril_service pid=317 scontext=u:r:telephony_sa:s0 tcontext=u:object_r:hdf_ril_service:s0 tclass=hdf_devmgr_class permissive=1
+allow telephony_sa hdf_ril_service:hdf_devmgr_class get;
