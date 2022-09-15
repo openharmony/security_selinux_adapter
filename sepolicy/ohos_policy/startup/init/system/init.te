@@ -73,6 +73,9 @@ allow { domain -limit_domain } devinfo_private_param:file { map open read };
 
 allow { domain -limit_domain } accessibility_param:file { map open read };
 
+#allow all param can be read temporarily
+allow { domain -limit_domain } parameter_attr:file { open map read };
+
 #for connect to param service
 allow deviceinfoservice paramservice_socket:sock_file { write };
 allow deviceinfoservice kernel:unix_stream_socket { connectto };
