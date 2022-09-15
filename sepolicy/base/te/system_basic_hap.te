@@ -38,6 +38,7 @@ allow system_basic_hap dev_unix_socket:sock_file { write };
 allow system_basic_hap disp_gralloc_host:fd { use };
 allow system_basic_hap distributedsche_param:file { map open read };
 allow system_basic_hap download_server:binder { call transfer };
+allow system_basic_hap print_service:binder { call transfer };
 allow system_basic_hap faultloggerd_temp_file:file { read };
 allow system_basic_hap hilog_param:file { map open read };
 allow system_basic_hap hmdfs:dir { search };

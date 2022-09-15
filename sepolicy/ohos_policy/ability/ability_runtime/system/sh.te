@@ -30,6 +30,7 @@ allow sh dev_unix_socket:sock_file { write };
 allow sh deviceauth_service:dir { getattr search };
 allow sh deviceauth_service:file { read };
 allow sh download_server:file { read };
+allow sh print_service:file { read };
 allow sh edm_sa:dir { getattr search };
 allow sh edm_sa:file { open read };
 allow sh face_auth_host:file { read };

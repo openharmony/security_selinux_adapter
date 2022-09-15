@@ -175,6 +175,7 @@
 3704	                               u:object_r:sa_screenlock_service:s0
 3705	                               u:object_r:sa_wallpaper_manager_service:s0
 3706	                               u:object_r:sa_download_service:s0
+3707	                               u:object_r:sa_print_service:s0
 3800	                               u:object_r:sa_subsys_sourcecodetransformer_service:s0
 3900	                               u:object_r:sa_subsys_startup_service:s0
 3901                                   u:object_r:sa_param_watcher:s0

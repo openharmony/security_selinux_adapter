@@ -45,6 +45,7 @@ type upms, sadomain, domain;
 type mmi_uinput_service, sadomain, domain;
 type edm_sa, sadomain, domain;
 type download_server, sadomain, domain;
+type print_service, sadomain, domain;
 type msdp_sa, sadomain, domain;
 type misc, sadomain, domain;
 type netsysnative, sadomain, domain;

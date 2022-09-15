@@ -96,6 +96,7 @@ allow system_core_hap sa_uri_permission_mgr_service:samgr_class { get };
 allow system_core_hap security_param:file { map open read };
 allow system_core_hap startup_param:file { map open read };
 allow system_core_hap storage_manager:binder { call };
+allow system_core_hap print_service:binder { call transfer };
 allow system_core_hap sys_file:dir { open read };
 allow system_core_hap sys_file:file { open read };
 allow system_core_hap sysfs_devices_system_cpu:file { open read };
