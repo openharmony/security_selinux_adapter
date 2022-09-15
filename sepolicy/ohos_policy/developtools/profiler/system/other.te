@@ -20,7 +20,6 @@ allow telephony_sa vendor_etc_file:dir search;
 allow time_service data_file:dir getattr;
 allow time_service data_service_el1_file:dir getattr;
 allow udevd dev_port:chr_file getattr;
-allow hdcd hiperf:process signal;
 allow hiperf hdcd:fifo_file { ioctl write };
 allow usb_service self:unix_dgram_socket { getopt setopt };
 

@@ -36,9 +36,6 @@ allow hiview init:unix_dgram_socket { getattr getopt read write setopt };
 allow hiview init:unix_stream_socket { connectto };
 allow hiview faultloggerd:unix_stream_socket { connectto };
 
-allow hdcd hiview_exec:file { execute read open getattr execute_no_trans map };
-allow hdcd hisysevent_exec:file { execute read open getattr execute_no_trans map };
-
 allow hiview hiview_file:dir { search getattr read open write add_name remove_name };
 allow hiview hiview_file:file { append ioctl unlink map read write getattr open lock };
 
