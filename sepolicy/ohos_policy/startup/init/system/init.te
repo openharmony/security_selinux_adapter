@@ -85,5 +85,5 @@ allow init deviceinfoservice:dir { getattr search open read };
 allow hidumper_service sa_sysparam_device_service:samgr_class { get };
 
 #for param watcher to watch, must allow read
-allow { param_watcher pin_auth_host } devinfo_private_param:file { map open read };
+allow { param_watcher pin_auth_host softbus_server } devinfo_private_param:file { map open read };
 allow { param_watcher } accessibility_param:file { map open read };
