@@ -85,6 +85,8 @@ allow accountmgr data_init_agent:file { read append ioctl open };
 
 allow accountmgr param_watcher:binder { transfer };
 
+allow accountmgr devinfo_private_param:file { map open read };
+
 # add for xts
 allow sh sa_accountmgr:samgr_class { get };
 allow system_core_hap sa_accountmgr:samgr_class { get };
