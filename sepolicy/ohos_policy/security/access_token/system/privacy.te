@@ -22,6 +22,8 @@ allow privacy_service data_service_el1_file:file { create getattr ioctl lock rea
 allow privacy_service data_service_file:dir { search };
 
 allow privacy_service system_bin_file:dir { search };
+  
+allow privacy_service devinfo_private_param:file { map open read };
 
 allow privacy_service dev_unix_socket:dir { search };
 

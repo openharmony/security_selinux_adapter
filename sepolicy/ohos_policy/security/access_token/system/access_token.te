@@ -20,6 +20,8 @@ allow accesstoken_service data_file:dir { search };
 allow accesstoken_service data_system:dir { add_name getattr open read remove_name search write };
 allow accesstoken_service data_system:file { create getattr open read unlink write };
 
+allow accesstoken_service devinfo_private_param:file { map open read };
+
 allow accesstoken_service dev_unix_socket:dir { search };
 
 allow accesstoken_service sa_softbus_service:samgr_class { get };
