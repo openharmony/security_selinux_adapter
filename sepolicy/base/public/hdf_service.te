@@ -55,6 +55,7 @@ type hdf_sample_driver_service, hdf_service_attr;
 type hdf_audio_bluetooth_hdi_service, hdf_service_attr;
 type hdf_wlan_hal_c_service, hdf_service_attr;
 type hdf_audio_hdi_pnp_service, hdf_service_attr;
+type hdf_idl_audio_service, hdf_service_attr;
 type hdf_hdi_media_layer_service, hdf_service_attr;
 
 # for testcase start
