@@ -153,8 +153,8 @@ allow hiperf domain:process signull;
 
 allow hiperf accessibility_param:file { map open read };
 allow hiperf ohos_dev_param:file { map open read };
-allow hiperf data_local_tmp_hiperf_file:dir { add_name read remove_name search write };
-allow hiperf data_local_tmp_hiperf_file:file { create getattr ioctl open read rename unlink write };
+allow hiperf data_local_tmp_hiperf_file:dir { create_dir_perms };
+allow hiperf data_local_tmp_hiperf_file:file { create_file_perms };
 allow hiperf data_local_tmp_hiperf_file:fifo_file { create open read unlink write };
 
 #allow hiperf data_local_tmp:file open;
