@@ -147,8 +147,9 @@ static bool HapContextsLoad()
         std::string line;
         while (getline(contextsFile, line)) {
             lineNum++;
-            if (CouldSkip(line))
+            if (CouldSkip(line)) {
                 continue;
+            }
             struct SehapInfo tmpInfo = DecodeString(line);
             if (!tmpInfo.apl.empty()) {
                 sehapContextsBuff.emplace(tmpInfo.apl + tmpInfo.name, tmpInfo);

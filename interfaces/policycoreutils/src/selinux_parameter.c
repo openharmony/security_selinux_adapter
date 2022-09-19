@@ -23,7 +23,7 @@
 #include "contexts_trie.h"
 
 static pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
-static const char *DEFAULT_CONTEXT = "u:object_r:default_param:s0";
+static const char DEFAULT_CONTEXT[] = "u:object_r:default_param:s0";
 static ParamContextsTrie *g_contextsTrie = NULL;
 static ParamContextsList *g_contextsList = NULL;
 

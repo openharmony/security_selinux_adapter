@@ -163,8 +163,9 @@ static bool ServiceContextsLoad(const std::string &name)
         std::string line;
         while (getline(contextsFile, line)) {
             lineNum++;
-            if (CouldSkip(line))
+            if (CouldSkip(line)) {
                 continue;
+            }
             struct ServiceInfo tmpInfo = DecodeString(line);
             if (!tmpInfo.serviceContext.empty() && !tmpInfo.serviceName.empty()) {
                 g_serviceMap.emplace(tmpInfo.serviceName, tmpInfo);
