@@ -20,8 +20,8 @@
 #include "selinux_error.h"
 #include "selinux_share_mem.h"
 
-static const char *DEFAULT_CONTEXT = "u:object_r:default_param:s0";
-static const char *EMPTY_STRING = "";
+static const char DEFAULT_CONTEXT[] = "u:object_r:default_param:s0";
+static const char EMPTY_STRING[] = "";
 static const size_t CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const size_t CONTEXTS_LENGTH_MAX = 1024;
 static const uint32_t SELINUX_PARAM_SPACE = 1024 * 80;
