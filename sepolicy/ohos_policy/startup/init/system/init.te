@@ -67,11 +67,13 @@ allow { domain -limit_domain } startup_init_param:file { map open read };
 allow { domain -limit_domain } startup_appspawn_param:file { map open read };
 allow { domain -limit_domain } startup_uevent_param:file { map open read };
 allow { domain -limit_domain } devinfo_public_param:file { map open read };
-allow { domain -limit_domain } devinfo_private_param:file { map open read };
-#allow { init deviceinfoservice sh } devinfo_private_param:file { map open read };
-#allow { samgr hdf_devmgr softbus_server distributedsche accountmgr } devinfo_private_param:file { map open read };
+
+#for udid
+allow { init deviceinfoservice sh samgr hdf_devmgr softbus_server } devinfo_private_param:file { map open read };
+allow { distributedsche accountmgr device_manager foundation d-bms } devinfo_private_param:file { map open read };
 
 allow { domain -limit_domain } accessibility_param:file { map open read };
+allow { domain -limit_domain } default_param:file { map open read };
 
 #allow all param can be read temporarily
 allow { domain -limit_domain } parameter_attr:file { open map read };
@@ -86,5 +88,5 @@ allow init deviceinfoservice:process { getattr };
 allow init deviceinfoservice:dir { getattr search open read };
 
 #for param watcher to watch, must allow read
-allow { param_watcher pin_auth_host softbus_server } devinfo_private_param:file { map open read };
+allow { param_watcher pin_auth_host } devinfo_private_param:file { map open read };
 allow { param_watcher } accessibility_param:file { map open read };
