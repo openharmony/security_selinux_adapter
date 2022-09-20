@@ -96,3 +96,9 @@ allow sh bluetooth_service:binder { transfer };
 allow bluetooth_service normal_hap:binder { call transfer };
 allow normal_hap bluetooth_service:fd { use };
 
+#avc:  denied  { call } for  pid=1934 comm="jsThread-1" scontext=u:r:system_core_hap:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=0
+allow system_core_hap bluetooth_service:binder { call transfer };
+
+#avc:  denied  { call } for  pid=380 comm="1IPC_450" scontext=u:r:bluetooth_service:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
+allow bluetooth_service system_core_hap:binder { call transfer };
+
