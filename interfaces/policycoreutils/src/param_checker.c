@@ -70,7 +70,9 @@ static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, siz
     }
     char processName[BUF_SIZE];
     if (GetProcessNameFromPid(msg->ucred->pid, processName) != 0) {
-        (void)snprintf(processName, BUF_SIZE, "unknown process");
+        if (strcpy_s(processName, BUF_SIZE, "unknown process") != EOK) {
+            return -1;
+        }
     }
     if (snprintf_s(buf, len, len - 1, "process=\"%s\" parameter=%s pid=%d uid=%d gid=%d", processName, msg->name,
                    msg->ucred->pid, msg->ucred->uid, msg->ucred->gid) <= 0) {
