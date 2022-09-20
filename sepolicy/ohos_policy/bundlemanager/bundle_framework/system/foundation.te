@@ -58,6 +58,7 @@ allow foundation data_system_ce:file { lock };
 allow foundation dev_ashmem_file:chr_file { open };
 allow foundation device_usage_stats_service:binder { call transfer };
 allow foundation deviceauth_service:binder { call transfer };
+allow foundation devinfo_private_param:file { map open read };
 allow foundation dev_unix_socket:dir { search };
 allow foundation dev_unix_socket:sock_file { write };
 allow foundation dev_mali:chr_file { ioctl map read write };
