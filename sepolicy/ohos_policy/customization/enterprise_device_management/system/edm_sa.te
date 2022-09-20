@@ -14,7 +14,7 @@
 allow edm_sa accesstoken_service:binder { call };
 allow edm_sa accountmgr:binder { call };
 allow edm_sa data_service_el1_file:dir { search read write open add_name remove_name };
-allow edm_sa data_service_el1_file:file { create write open ioctl rename read unlink };
+allow edm_sa data_service_el1_file:file { create write open ioctl rename read unlink setattr };
 allow edm_sa data_service_file:dir { search };
 allow edm_sa normal_hap:binder { call };
 allow edm_sa sa_accesstoken_manager_service:samgr_class { get };
