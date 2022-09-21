@@ -22,6 +22,8 @@ allow accesstoken_service data_system:file { create getattr open read unlink wri
 
 allow accesstoken_service dev_unix_socket:dir { search };
 
+allow accesstoken_service devinfo_private_param:file { map open read };
+
 allow accesstoken_service sa_softbus_service:samgr_class { get };
 
 allow accesstoken_service sa_token_sync_manager_service:samgr_class { get };

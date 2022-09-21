@@ -86,5 +86,5 @@ allow init deviceinfoservice:process { getattr };
 allow init deviceinfoservice:dir { getattr search open read };
 
 #for param watcher to watch, must allow read
-allow { param_watcher } devinfo_private_param:file { map open read };
+allow { param_watcher pin_auth_host softbus_server } devinfo_private_param:file { map open read };
 allow { param_watcher } accessibility_param:file { map open read };
