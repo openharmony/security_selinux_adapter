@@ -46,7 +46,7 @@ neverallow {
 
 allow normal_hap hmdfs:dir create_dir_perms;
 allow normal_hap hmdfs:{file lnk_file} create_file_perms;
-allow normal_hap data_user_file:dir remove_name;
-allow normal_hap data_user_file:file { rename unlink };
+allow normal_hap data_user_file:dir create_dir_perms;
+allow normal_hap data_user_file:file create_file_perms;
 allow normal_hap privacy_service:binder call;
 
