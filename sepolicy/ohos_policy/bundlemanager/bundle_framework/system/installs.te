@@ -27,13 +27,13 @@ allow installs data_service_el2_file:dir { add_name create open read search seta
 allow installs data_service_el2_hmdfs:dir { getattr };
 allow installs data_service_file:dir { search };
 allow installs dev_unix_socket:dir { search };
-allow installs normal_hap_data_file:dir { getattr open read relabelto remove_name rmdir search setattr write };
-allow installs normal_hap_data_file:file { getattr setattr };
+allow installs normal_hap_data_file:dir { getattr open read relabelfrom relabelto remove_name rmdir search setattr write };
+allow installs normal_hap_data_file:file { open read getattr setattr unlink };
 allow installs security:security { check_context };
 allow installs selinuxfs:dir { search };
 allow installs selinuxfs:file { open read write };
-allow installs system_basic_hap_data_file:file { getattr setattr unlink };
-allow installs system_basic_hap_data_file:dir { open read relabelto search getattr setattr };
+allow installs system_basic_hap_data_file:file { open read getattr setattr unlink };
+allow installs system_basic_hap_data_file:dir { open read relabelfrom relabelto remove_name rmdir search getattr setattr write };
 allow installs system_core_hap_data_file:dir { getattr open read relabelfrom relabelto remove_name rmdir search setattr write };
 allow installs system_core_hap_data_file:file { create open read getattr unlink };
 allow installs system_file:file { getattr open read };
