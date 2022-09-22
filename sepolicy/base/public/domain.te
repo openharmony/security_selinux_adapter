@@ -97,9 +97,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -hiperf -hiprofiler_cmd } data_local_tmp:dir never_write_dir;
+neverallow { domain -hdcd -installs -init debug_only(`-hiprofilerd -hiprofiler_plugins -hiprofiler_cmd') -hiperf } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh -hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf } data_local_tmp:dir { open search };
+neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh debug_only(`-hiprofiler_plugins -hiprofiler_cmd -hiprofilerd') -hiperf } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -245,7 +245,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap -sa_dialog } { system
 neverallow { domain -hap_domain -locationhub
              -sh debug_only(`-hdcd') -audio_hdi_server_host } data_file:file never_write_file;
 
-neverallow { domain -hdcd -hap_domain -sh -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf } data_local_tmp:file open;
+neverallow { domain -hdcd -hap_domain -sh debug_only(`-hiprofiler_plugins') -hiperf } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -335,11 +335,11 @@ neverallow { domain -appspawn -init -ueventd -installs -storage_daemon } self:{ 
 neverallow { domain -appspawn -init -ueventd -memmgrservice
              debug_only(`-hdcd') -installs
              -netsysnative -storage_daemon -usb_host
-             -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init debug_only(`-hdcd') -hidumper_service -storage_daemon -hiprofiler_plugins debug_only(`-hiperf') } self:{ capability cap_userns } dac_read_search;
+              -hiperf } self:{ capability cap_userns } dac_override;
+neverallow { domain -appspawn -init -hidumper_service -storage_daemon debug_only(`-hdcd -hiprofiler_plugins -hiperf') } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
-neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiprofiler_cmd } self:{ capability cap_userns } kill;
+neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setuid;
 neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
@@ -353,9 +353,9 @@ neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow { domain -netsysnative } self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
-neverallow { domain -hidumper_service -memmgrservice -storage_daemon -hiprofiler_plugins debug_only(`-hiperf') -hiprofiler_cmd -foundation } self:{ capability cap_userns } sys_ptrace;
+neverallow { domain -hidumper_service -memmgrservice -storage_daemon debug_only(`-hiperf -hiprofiler_plugins -hiprofiler_cmd') -foundation } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
-neverallow { domain -init -storage_daemon -appspawn -nwebspawn debug_only(`-hdcd') } self:{ capability cap_userns } sys_admin;
+neverallow { domain -init -storage_daemon -appspawn -nwebspawn debug_only(`-hdcd -hiprofiler_plugins') } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
 neverallow { domain -render_service } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -memmgrservice } self:{ capability cap_userns } sys_resource;

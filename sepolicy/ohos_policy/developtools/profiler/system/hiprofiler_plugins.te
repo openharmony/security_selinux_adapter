@@ -24,7 +24,6 @@ allow hiprofiler_plugins dev_unix_socket:dir search;
 allow hiprofiler_plugins proc_cpuinfo_file:file { open read };
 allow hiprofiler_plugins system_bin_file:dir search;
 allow hiprofiler_plugins data_local:dir search;
-allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads };
 allow hiprofiler_plugins hiprofilerd:unix_stream_socket connectto;
 allow hiprofiler_plugins hiprofilerd:fd { use }; 
 
@@ -106,14 +105,7 @@ allow hiprofiler_plugins const_display_brightness_param:file { map open read };
 allow hiprofiler_plugins distributedsche_param:file { map open read };
 allow hiprofiler_plugins input_pointer_device_param:file { map open read };
 
-allow hiprofiler_plugins data_local_tmp:file { create write };
 allow hiprofiler_plugins default_param:file { map open read };
-
-allow hiprofiler_plugins data_local_tmp:file { lock };
-
-allow hiprofiler_plugins data_local_tmp:dir { open search };
-allow hiprofiler_plugins data_local_tmp:file open;
-allow hiprofiler_plugins self:capability { dac_override dac_read_search };
 
 allow hiprofiler_plugins accessibility:file { getattr open read };
 allow hiprofiler_plugins distributeddata:file { getattr read };
@@ -237,10 +229,6 @@ allow hiprofiler_plugins proc_file:file { getattr open read };
 allow hiprofiler_plugins pulseaudio:file getattr;
 allow hiprofiler_plugins tracefs:file open;
 
-allow hiprofiler_plugins data_local_tmp:dir { add_name write };
-allow hiprofiler_plugins data_local_tmp:file { execute getattr ioctl map read };
-allow hiprofiler_plugins self:capability sys_ptrace;
-
 allow hiprofiler_plugins proc_diskstats_file:file { open read };
 allow hiprofiler_plugins rootfs:file getattr;
 
@@ -254,5 +242,15 @@ allow hiprofiler_plugins tracefs:dir { open read };
 
 allow hiprofiler_plugins tracefs:file append;
 
+allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads };
+
+debug_only(`
+	allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search };
+	allow hiprofiler_plugins data_local_tmp:dir { add_name write open search };
+	allow hiprofiler_plugins data_local_tmp:file { read open };
+')
+
 allow hiprofiler_plugins domain:dir { open read getattr search };
 allow hiprofiler_plugins domain:file { open read getattr };
+
+neverallow hiprofiler_plugins domain:process ptrace;

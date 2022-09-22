@@ -137,7 +137,7 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -hiprofiler_plugins } data_file_attr:file { execute execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn } data_file_attr:file { execute execute_no_trans };
 
 neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
