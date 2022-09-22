@@ -103,3 +103,6 @@ debug_only(`
 allow hiprofilerd dev_unix_socket:sock_file write;
 allow hiprofilerd hiprofiler_cmd:unix_stream_socket connectto;
 allow hiprofilerd ohos_dev_param:file { open read map};
+allow hiprofilerd system_bin_file:file getattr;
+allow hiprofilerd system_bin_file:lnk_file read;
+allow hiprofilerd tty_device:chr_file { ioctl open };

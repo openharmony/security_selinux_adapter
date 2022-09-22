@@ -143,4 +143,10 @@ allow { domain -limit_domain } tmpfs:file { map read write };
 allow hiprofiler_cmd ohos_dev_param:file { map open read };
 allow hiprofiler_cmd dev_unix_file:sock_file unlink;
 allow hiprofiler_cmd paramservice_socket:sock_file write;
+
+allow hiprofiler_cmd appspawn_exec:file { open read };
+allow hiprofiler_cmd normal_hap:lnk_file read;
+allow hiprofiler_cmd data_app_el1_file:dir search;
+allow hiprofiler_cmd data_app_el1_file:file { getattr map open read };
+
 neverallow hiprofiler_cmd domain:process ptrace;
