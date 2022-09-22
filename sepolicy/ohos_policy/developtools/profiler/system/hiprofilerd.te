@@ -102,8 +102,6 @@ allow hiprofilerd data_local_tmp:file read;
 allow hiprofilerd dev_unix_socket:sock_file write;
 allow hiprofilerd hiprofiler_cmd:unix_stream_socket connectto;
 allow hiprofilerd ohos_dev_param:file { open read map};
-
-allow hiprofilerd sh_exec:file { execute execute_no_trans map open read };
 allow hiprofilerd system_bin_file:file getattr;
 allow hiprofilerd system_bin_file:lnk_file read;
 allow hiprofilerd tty_device:chr_file { ioctl open };
