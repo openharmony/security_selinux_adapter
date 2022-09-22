@@ -37,3 +37,4 @@ type motion_host, hdfdomain, domain;
 type partitionslot_host, hdfdomain, domain;
 type dev_usbfn_file, dev_attr, file_attr;
 type dev_functionfs_file, dev_attr, file_attr;
+type data_usb, file_attr, data_file_attr;
