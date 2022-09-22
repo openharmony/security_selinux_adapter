@@ -46,7 +46,6 @@ allow wifi_hal_service ohos_param:file { map open read };
 allow wifi_hal_service persist_param:file { map open read };
 allow wifi_hal_service persist_sys_param:file { map open read };
 allow wifi_hal_service security_param:file { map open read };
-allow wifi_hal_service sh_exec:file { execute execute_no_trans map read read open };
 allow wifi_hal_service startup_param:file { map open read };
 allow wifi_hal_service sys_param:file { map open read };
 allow wifi_hal_service system_bin_file:dir { search };

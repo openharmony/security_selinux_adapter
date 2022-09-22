@@ -278,8 +278,7 @@ neverallow { domain debug_only(`-hdcd') -sh } { rootfs system_file_attr vendor_f
 
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
-    -hiview -hiperf -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative
-    -wifi_hal_service } sh_exec:file execute;
+    -hiview -hiperf -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative } sh_exec:file execute;
 
 #limit execmem use
 neverallow { domain -hap_domain } self:process execmem;
