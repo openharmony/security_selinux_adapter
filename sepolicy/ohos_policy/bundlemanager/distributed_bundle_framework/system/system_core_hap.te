@@ -18,3 +18,4 @@ allow system_core_hap data_service_el1_file:file { read write };
 allow system_core_hap sa_distributed_bundle_mgr_service_service:samgr_class { get };
 allow system_core_hap sa_foundation_devicemanager_service:samgr_class { get };
 allow system_basic_hap d-bms:binder { call transfer };
+allow system_basic_hap sa_distributed_bundle_mgr_service_service:samgr_class { get };
