@@ -27,9 +27,9 @@ static const size_t CONTEXTS_LENGTH_MAX = 1024;
 static const uint32_t SELINUX_PARAM_SPACE = 1024 * 80;
 static const uint32_t MAX_LEN = 255;
 
-static ParamHashNode *GetGroupNode(ParamContextsTrie *root, const char *name)
+static ParamHashNode *GetGroupNode(ParamContextsTrie *root, const char *name, uint32_t len)
 {
-    HashNode *node = HashMapGet(root->handle, name);
+    HashNode *node = HashMapGet(root->handle, name, len);
     if (node == NULL) {
         return NULL;
     }
@@ -38,16 +38,17 @@ static ParamHashNode *GetGroupNode(ParamContextsTrie *root, const char *name)
 
 static ParamHashNode *AddGroupNode(ParamContextsTrie *root, const char *name, ParamContextsTrie *child)
 {
-    ParamHashNode *groupNode = GetGroupNode(root, name);
+    uint32_t nameLen = (uint32_t)strlen(name);
+    ParamHashNode *groupNode = GetGroupNode(root, name, nameLen);
     if (groupNode != NULL) {
         return groupNode;
     }
 
-    uint32_t nameLen = (uint32_t)strlen(name);
     groupNode = (ParamHashNode *)calloc(1, sizeof(ParamHashNode));
     if (groupNode == NULL) {
         return NULL;
     }
+    groupNode->nameLen = nameLen;
     groupNode->name = (char *)calloc(1, nameLen + 1);
     if (groupNode->name == NULL) {
         free(groupNode);
@@ -74,7 +75,8 @@ static void ReleaseParamContextsTrieNode(ParamContextsTrie **node)
 
 static bool InsertElementToTrie(ParamContextsTrie *root, const char *element, ParamContextsTrie **child)
 {
-    ParamHashNode *childNode = GetGroupNode(root, element);
+    uint32_t nameLen = (uint32_t)strlen(element);
+    ParamHashNode *childNode = GetGroupNode(root, element, nameLen);
     if (childNode != NULL) {
         *child = childNode->childPtr;
         return true;
@@ -85,6 +87,7 @@ static bool InsertElementToTrie(ParamContextsTrie *root, const char *element, Pa
     }
     childPtr->prefixLabel = EMPTY_STRING;
     childPtr->matchLabel = EMPTY_STRING;
+    childPtr->labeled = UNLABELED;
     if (HashMapCreate(&childPtr->handle) != 0) {
         ReleaseParamContextsTrieNode(&childPtr);
         return false;
@@ -119,46 +122,48 @@ static bool InsertParamToTrie(ParamContextsTrie *root, const char *paramPrefix, 
     }
     if (paramPrefix[strlen(paramPrefix) - 1] == '.') {
         root->prefixLabel = contexts;
+        root->labeled = PREFIX_LABELED;
     } else {
         root->matchLabel = contexts;
+        root->labeled = MATCH_LABELED;
     }
+
     free(tmpPrefix);
     return true;
 }
 
 const char *SearchFromParamTrie(ParamContextsTrie *root, const char *paraName)
 {
-    if (paraName[strlen(paraName) - 1] == '.') {
-        return DEFAULT_CONTEXT;
-    }
     const char *updateCurLabel = EMPTY_STRING;
-    char *tmpName = strdup(paraName);
-    if (tmpName == NULL) {
-        return DEFAULT_CONTEXT;
-    }
-    char *rest = NULL;
-    char *element = strtok_r(tmpName, ".", &rest);
-    while (element != NULL) {
-        ParamHashNode *childNode = GetGroupNode(root, element);
+    const char *tmpName = paraName;
+    ParamHashNode *childNode = NULL;
+
+    const char *bar = strchr(tmpName, '.');
+    while (bar != NULL) {
+        childNode = GetGroupNode(root, tmpName, bar - tmpName);
         if (childNode == NULL) {
-            free(tmpName);
-            if (strcmp(root->prefixLabel, EMPTY_STRING) != 0) {
-                return root->prefixLabel;
-            } else if (strcmp(updateCurLabel, EMPTY_STRING) != 0) {
-                return updateCurLabel;
-            } else {
-                return DEFAULT_CONTEXT;
-            }
+            goto nomatch;
         }
-        if (strcmp(root->prefixLabel, EMPTY_STRING) != 0)
+        if (root->labeled == PREFIX_LABELED) {
             updateCurLabel = root->prefixLabel;
+        }
+
         root = childNode->childPtr;
-        element = strtok_r(NULL, ".", &rest);
+        tmpName = bar + 1;
+        bar = strchr(tmpName, '.');
     }
 
-    free(tmpName);
-    if (strcmp(root->matchLabel, EMPTY_STRING) != 0) {
-        return root->matchLabel;
+    childNode = GetGroupNode(root, tmpName, strlen(tmpName));
+    if (childNode != NULL) {
+        ParamContextsTrie *match = childNode->childPtr;
+        if (match->labeled == MATCH_LABELED) {
+            return match->matchLabel;
+        }
+    }
+
+nomatch:
+    if (root->labeled == PREFIX_LABELED) {
+        return root->prefixLabel;
     } else if (strcmp(updateCurLabel, EMPTY_STRING) != 0) {
         return updateCurLabel;
     } else {

@@ -213,7 +213,7 @@ int ServiceChecker::GetServiceContext(const std::string &serviceName, std::strin
     } else {
         context = isHdf_ ? DEFAULT_HDF_CONTEXT : DEFAULT_CONTEXT;
     }
-    selinux_log(SELINUX_INFO, "find context: %s\n", context.c_str());
+
     return SELINUX_SUCC;
 }
 
@@ -271,8 +271,6 @@ int ServiceChecker::CheckPerm(const pid_t callingPid, const std::string &service
     AuditMsg msg;
     msg.name = serviceName.c_str();
     msg.pid = callingPid;
-    selinux_log(SELINUX_INFO, "srcContext[%s] %s service[%s] destContext[%s]\n", srcContext.c_str(), action.c_str(),
-                msg.name, destContext.c_str());
     {
         std::lock_guard<std::mutex> lock(g_selinuxLock);
         ret =  selinux_check_access(srcContext.c_str(), destContext.c_str(),
