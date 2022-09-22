@@ -37,12 +37,18 @@ typedef struct {
 typedef struct {
     const char *prefixLabel;
     const char *matchLabel;
+    uint32_t labeled;
     HashTab *handle;
 } ParamContextsTrie;
+
+#define PREFIX_LABELED (1)
+#define MATCH_LABELED (2)
+#define UNLABELED (0)
 
 typedef struct ParamHashNode {
     HashNode hashNode;
     ParamContextsTrie *childPtr;
+    uint32_t nameLen;
     char* name;
 } ParamHashNode;
 
@@ -52,7 +58,7 @@ int32_t HashMapCreate(HashTab **handle);
 void HashMapDestroy(HashTab *handle);
 int32_t HashMapAdd(HashTab *handle, HashNode *hashNode);
 void HashMapRemove(HashTab *handle, const char *key);
-HashNode *HashMapGet(HashTab *handle, const char *key);
+HashNode *HashMapGet(HashTab *handle, const char *key, uint32_t len);
 HashNode *HashMapFind(HashTab *handle, int hashCode, const char *key);
 #ifdef __cplusplus
 #if __cplusplus
