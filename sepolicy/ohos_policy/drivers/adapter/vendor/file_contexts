@@ -15,3 +15,4 @@
 /dev/hdf_kevent             u:object_r:dev_hdf_kevent:s0
 /dev/usbfn                  u:object_r:dev_usbfn_file:s0
 /dev/functionfs(/.*)?       u:object_r:dev_functionfs_file:s0
+/data/usb(/.*)?             u:object_r:data_usb:s0
