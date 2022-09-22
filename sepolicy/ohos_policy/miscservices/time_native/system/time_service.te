@@ -35,4 +35,3 @@ allow time_service normal_hap:binder { call transfer };
 allow time_service system_core_hap:binder { call transfer };
 allow time_service system_basic_hap:binder { call transfer };
 
-
