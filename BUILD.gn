@@ -246,7 +246,7 @@ ohos_shared_library("libservice_checker") {
 }
 
 ohos_executable("load_policy") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/load_policy/load_policy.c" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [ ":libload_policy" ]
@@ -282,7 +282,7 @@ ohos_executable("restorecon") {
 }
 
 ohos_executable("hap_restorecon") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/hap_restorecon/test.cpp" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [
@@ -300,7 +300,7 @@ ohos_executable("hap_restorecon") {
 }
 
 ohos_executable("param_check") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/param_check/test.cpp" ]
   include_dirs = [
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
@@ -323,7 +323,7 @@ ohos_executable("param_check") {
 }
 
 ohos_executable("service_check") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/service_check/test.cpp" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [
