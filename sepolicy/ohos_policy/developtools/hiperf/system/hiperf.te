@@ -66,7 +66,7 @@ allow hiperf proc_vmallocinfo_file:file getattr;
 allow hiperf proc_vmstat_file:file getattr;
 allow hiperf proc_zoneinfo_file:file getattr;
 allow hiperf samain_exec:file { getattr map open read };
-allow hiperf self:capability { dac_override ipc_lock };
+allow hiperf self:capability { ipc_lock };
 allow hiperf sh:dir { getattr open read search };
 allow hiperf sh:fd use;
 allow hiperf sh:fifo_file { read write };
@@ -155,11 +155,18 @@ allow hiperf data_log_hiperf_file:dir { create_dir_perms };
 allow hiperf data_log_hiperf_file:file { create_file_perms };
 allow hiperf data_log_hiperf_file:fifo_file { create open read unlink write };
 
+allow hiperf data_local_tmp_hiperf_file:dir { create_dir_perms };
+allow hiperf data_local_tmp_hiperf_file:file { create_file_perms };
+allow hiperf data_local_tmp_hiperf_file:fifo_file { create open read unlink write };
+
 allow hiperf data_log:dir { add_name remove_name search write };
 allow hiperf data_log:file { getattr ioctl open unlink write };
 allow hiperf data_app_el1_file:file { getattr map open read };
 allow hiperf data_app_el1_file:dir search;
 allow hiperf normal_hap:lnk_file read;
+
+allow hiperf data_log:dir { add_name remove_name search write };
+allow hiperf data_log:file { create ioctl open read unlink write };
 
 allow init data_log:file relabelfrom;
 allow init data_log_hiperf_file:dir relabelto;
