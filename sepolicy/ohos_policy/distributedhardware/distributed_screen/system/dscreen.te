@@ -166,3 +166,12 @@ allow dscreen accessibility_param:file { read open map };
 #avc:  denied  { read } for  pid=2021  scontext=u:r:dscreen:s0 tcontext=u:object_r:ohos_dev_param:s0 tclass=file permissive=0
 allow dscreen ohos_dev_param:file { read };
 
+#avc:  denied  { read write } for  pid=2573 scontext=u:r:dscreen:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
+allow dscreen dev_console_file:file { read write };
+
+#avc:  denied  { get } for service=4807 pid=616 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_dscreen_source_service:s0 tclass=samgr_class permissive
+allow hidumper_service sa_dscreen_source_service:samgr_class { get };
+
+#avc:  denied  { get } for service=4808 pid=616 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_dscreen_sink_service:s0 tclass=samgr_class permissive=0
+allow hidumper_service sa_dscreen_sink_service:samgr_class { get };
+
