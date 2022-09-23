@@ -287,3 +287,4 @@ allow device_manager system_core_hap:binder { call transfer };
 allow device_manager pasteboard_service:binder { call transfer };
 allow device_manager distributeddata:binder { call };
 
+allow device_manager devinfo_private_param:file { map open read };

@@ -23,6 +23,8 @@ allow privacy_service data_service_file:dir { search };
 
 allow privacy_service system_bin_file:dir { search };
 
+allow privacy_service devinfo_private_param:file { map open read };
+
 allow privacy_service dev_unix_socket:dir { search };
 
 allow privacy_service ohos_param:file { map open read };

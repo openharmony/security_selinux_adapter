@@ -18,6 +18,7 @@ allow d-bms accesstoken_service:binder { call transfer };
 allow d-bms accountmgr:binder { call transfer };
 allow d-bms data_file:dir { search };
 allow d-bms dev_unix_socket:dir { search };
+allow d-bms devinfo_private_param:file { map open read };
 allow d-bms distributedsche_param:file { read };
 allow d-bms distributeddata:binder { call transfer };
 allow d-bms d-bms:unix_dgram_socket { getopt setopt };
