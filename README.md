@@ -9,7 +9,7 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 
 ## 仓库
 
-涉及到的仓库有以下几个。
+涉及到的仓库有以下几个：
 
 | 仓库 | 源码目录 | 说明 |
 | --- | --- | --- |
@@ -28,7 +28,7 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 
 ![整体架构](docs/images/update.png)
 
-在 [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) 中使用了下面四个 SELinux 的组件。
+在 [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) 中使用了下面四个 SELinux 的组件：
 
 | 组件 | 来源 | 作用 | 形式 |
 | --- | --- | --- | --- |
@@ -67,7 +67,7 @@ SELinux （安全增强式 Linux ， Security-Enhanced Linux ）是 Linux 历史
 
 ### 编译镜像
 
-运行以下命令编译打包支持 SELinux 的镜像。
+运行以下命令编译打包支持 SELinux 的镜像：
 
 selinux当前仅支持RK3568设备
 ```
@@ -76,7 +76,7 @@ selinux当前仅支持RK3568设备
 ```
 ### 运行验证
 
-将镜像烧录到开发板上，开机，通过串口拿到 Shell ，在其中执行。
+将镜像烧录到开发板上，开机，通过串口拿到 Shell ，在其中执行：
 
 ```
 ls -lZ /         # 查看文件标签
@@ -116,7 +116,7 @@ permissive=1                        #当前selinux处于宽容模式，只告警
 
 ```
 根据avc告警，获取访问信息
-如
+如：
 audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 comm="setenforce" path="/sys/fs/selinux/enforce" dev="selinuxfs" ino=4 scontext=u:r:hdcd:s0 tcontext=u:object_r:selinuxfs:s0 tclass=file permissive=1
 对应规则为
 allow hdcd selinuxfs:file open;
