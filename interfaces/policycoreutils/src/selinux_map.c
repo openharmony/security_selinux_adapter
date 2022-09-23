@@ -18,10 +18,10 @@
 
 static const int32_t MAX_BUCKET = 32;
 
-static int GenerateHashCode(const char *key)
+static int GenerateHashCode(const char *key, uint32_t len)
 {
     int code = 0;
-    for (size_t i = 0; i < strlen(key); i++) {
+    for (size_t i = 0; i < len; i++) {
         code += key[i] - 'A';
     }
     return code;
@@ -37,18 +37,18 @@ static int GroupNodeNodeCompare(const HashNode *node1, const HashNode *node2)
 static int GroupNodeKeyCompare(const HashNode *node1, const char *key)
 {
     ParamHashNode *groupNode1 = HASHMAP_ENTRY(node1, ParamHashNode, hashNode);
-    return strcmp(groupNode1->name, key);
+    return strncmp(groupNode1->name, key, groupNode1->nameLen);
 }
 
-static int GroupNodeGetKeyHashCode(const char *key)
+static int GroupNodeGetKeyHashCode(const char *key, uint32_t len)
 {
-    return GenerateHashCode(key);
+    return GenerateHashCode(key, len);
 }
 
 static int GroupNodeGetNodeHashCode(const HashNode *node)
 {
     ParamHashNode *groupNode = HASHMAP_ENTRY(node, ParamHashNode, hashNode);
-    return GenerateHashCode(groupNode->name);
+    return GenerateHashCode(groupNode->name, groupNode->nameLen);
 }
 
 static void GroupNodeFree(const HashNode *node)
@@ -119,7 +119,7 @@ void HashMapRemove(HashTab *handle, const char *key)
     if (handle == NULL || key == NULL) {
         return;
     }
-    int hashCode = GroupNodeGetKeyHashCode(key);
+    int hashCode = GroupNodeGetKeyHashCode(key, strlen(key));
     hashCode = (hashCode < 0) ? -hashCode : hashCode;
     hashCode = hashCode % MAX_BUCKET;
 
@@ -140,12 +140,9 @@ void HashMapRemove(HashTab *handle, const char *key)
     }
 }
 
-HashNode *HashMapGet(HashTab *handle, const char *key)
+HashNode *HashMapGet(HashTab *handle, const char *key, uint32_t len)
 {
-    if (handle == NULL || key == NULL) {
-        return NULL;
-    }
-    int hashCode = GroupNodeGetKeyHashCode(key);
+    int hashCode = GenerateHashCode(key, len);
     hashCode = (hashCode < 0) ? -hashCode : hashCode;
     hashCode = hashCode % MAX_BUCKET;
 
