@@ -12,6 +12,7 @@
 # limitations under the License.
 
 #type samgr, domain;
+type av_session, sadomain, domain;
 type accesstoken_service, sadomain, domain;
 type socperf_service, sadomain, domain;
 type distributedsche, sadomain, domain;
