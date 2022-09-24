@@ -105,3 +105,10 @@ allow hiview sa_sys_event_service:samgr_class { add get };
 allow hiview sa_hiview_service:samgr_class { add get };
 allow hiview sa_hiview_faultlogger_service:samgr_class  { add get };
 
+#avc:  denied  { read write } for  pid=1955 comm="hiview" path="/dev/console" dev="tmpfs" ino=19 scontext=u:r:hiview:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
+allow hiview dev_console_file:chr_file  { read write };
+#avc:  denied  { write } for  pid=1961 comm="hiview" name="paramservice" dev="tmpfs" ino=28 scontext=u:r:hiview:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow hiview paramservice_socket:sock_file  { write };
+#avc:  denied  { connectto } for  pid=1130 comm="hiview" path="/dev/unix/socket/paramservice" scontext=u:r:hiview:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=0
+allow hiview kernel:unix_stream_socket  { connectto };
+
