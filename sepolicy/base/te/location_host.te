@@ -36,7 +36,6 @@ allow location_host hw_sc_param:file { map open read };
 allow location_host init_param:file { map open read };
 allow location_host init_svc_param:file { map open read };
 allow location_host input_pointer_device_param:file { map open read };
-allow location_host location_host:capability { dac_override };
 allow location_host locationhub:binder { call };
 allow location_host net_param:file { map open read };
 allow location_host net_tcp_param:file { map open read };
