@@ -93,6 +93,8 @@ allow hilogd paramservice_socket:sock_file { write };
 
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
 
+allow hilogd domain:dir { search };
+allow hilogd domain:file { open read };
 ############################
 ## Neverallow rule below: ##
 ############################
