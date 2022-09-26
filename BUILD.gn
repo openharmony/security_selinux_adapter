@@ -354,6 +354,10 @@ action("build_policy") {
     updater_version = "enable"
   }
 
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
+                       "list lines")
+
   script = "$SELINUX_ROOT_DIR/scripts/build_policy.py"
   args = [
     "--dst-file",
@@ -377,6 +381,10 @@ action("build_policy") {
 }
 
 action("build_contexts") {
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
+                       "list lines")
+
   script = "$SELINUX_ROOT_DIR/scripts/build_contexts.py"
   args = [
     "--dst-dir",
