@@ -102,3 +102,8 @@ allow system_core_hap bluetooth_service:binder { call transfer };
 #avc:  denied  { call } for  pid=380 comm="1IPC_450" scontext=u:r:bluetooth_service:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
 allow bluetooth_service system_core_hap:binder { call transfer };
 
+allow bluetooth_service dev_console_file:chr_file { read write };
+allow bluetooth_service data_service_file:dir { search };
+allow bluetooth_service data_service_el1_file:dir { search write add_name remove_name };
+allow bluetooth_service data_service_el1_file:file { getattr open read write rename unlink ioctl create};
+

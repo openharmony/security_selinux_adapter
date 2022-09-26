@@ -25,7 +25,6 @@ allow telephony_sa data_service_el1_file:dir { search write };
 allow telephony_sa data_service_el1_file:file { open read write };
 allow telephony_sa data_service_file:dir search;
 allow telephony_sa foundation:binder { call transfer };
-allow telephony_sa hdf_cellular_radio1:hdf_devmgr_class get;
 allow telephony_sa hdf_cellular_radio_ext:hdf_devmgr_class get;
 allow telephony_sa init:binder { call transfer };
 allow telephony_sa kernel:unix_stream_socket connectto;

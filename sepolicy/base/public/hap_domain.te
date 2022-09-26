@@ -117,8 +117,6 @@ neverallow { domain -hap_domain -installs debug_only(`-hdcd') -distributeddata }
 
 neverallow { domain -hap_domain -installs -appspawn -nwebspawn debug_only(`-hdcd') -distributeddata -sh } normal_hap_data_file:dir *;
 
-neverallow { domain -hap_domain -installs -appspawn -nwebspawn debug_only(`-hdcd') -distributeddata } normal_hap_data_file:dir ~read_dir_perms;
-
 neverallow { domain -hap_domain -installs debug_only(`-hdcd') -distributeddata } normal_hap_data_file:file_class_set open;
 
 neverallow { domain -installs } normal_hap_data_file:dir_file_class_set { relabelfrom relabelto };
@@ -137,7 +135,7 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -hiprofiler_plugins } data_file_attr:file { execute execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn } data_file_attr:file { execute execute_no_trans };
 
 neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 

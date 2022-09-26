@@ -27,6 +27,9 @@ neverallow init data_local_tmp:lnk_file read;
 
 neverallow init { file_attr fs_attr -init_exec }:file entrypoint;
 
+neverallow init domain:{ tcp_socket rawip_socket } *;
+neverallow init domain:udp_socket ~{ ioctl create };
+
 #todo
 # system_bin_file need to fix
 neverallow init { file_attr fs_attr -system_bin_file -sdc_exec }:file execute_no_trans;

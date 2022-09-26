@@ -11,10 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow system_core_hap domain:netlink_socket *;
-
-neverallow system_core_hap domain:netlink_kobject_uevent_socket *;
-
 neverallow system_core_hap dev_kmsg_file:chr_file never_rw_file;
 
 neverallow system_core_hap data_local_tmp:file { open read ioctl lock };

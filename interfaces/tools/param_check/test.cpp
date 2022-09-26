@@ -110,7 +110,6 @@ static void TestReadPara(std::string &paraName)
 #endif
     const char *contexts = GetParamLabel(paraName.c_str());
     std::string path = "/dev/__parameters__/" + std::string(contexts);
-    std::string res;
     if (access(path.c_str(), F_OK) != 0) {
         std::cout << "read param: " << paraName << " fail" << std::endl;
     } else {

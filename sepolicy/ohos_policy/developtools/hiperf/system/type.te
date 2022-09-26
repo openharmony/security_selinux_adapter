@@ -13,6 +13,8 @@
 
 type data_test_file, file_attr, data_file_attr;
 
+type data_log_hiperf_file, file_attr, data_file_attr;
+
 type data_local_tmp_hiperf_file, file_attr, data_file_attr;
 
 type hiperf_exec, exec_attr, file_attr, system_file_attr;

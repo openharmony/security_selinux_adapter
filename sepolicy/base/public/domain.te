@@ -97,9 +97,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -hiperf -hiprofiler_cmd } data_local_tmp:dir never_write_dir;
+neverallow { domain -hdcd -installs -init debug_only(`-hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf') } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh -hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf } data_local_tmp:dir { open search };
+neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh debug_only(`-hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf') } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -188,27 +188,18 @@ neverallow * self:process { execstack execheap };
 #/dev/char
 #/dev/v4l
 #todo
-#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:8534
-#      (allow udevd dev_file (chr_file (write getattr setattr)))
 #    <root>
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:11230
 #      (allow riladapter_host dev_file (chr_file (ioctl read write open)))
 #    <root>
-
-#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14137
-#      (allow sensor_host dev_file (chr_file (ioctl)))
-#    <root>
-#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14142
-#      (allow light_host dev_file (chr_file (ioctl)))
-#    <root>
-#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:14151
-#      (allow vibrator_host dev_file (chr_file (ioctl)))
-#
 neverallow { domain -ueventd -riladapter_host debug_only(`-hdcd') } dev_file:{ file chr_file blk_file } *;
+
+#todo change file label for sock file
+#neverallow { domain -ueventd -riladapter_host debug_only(`-hdcd') } dev_file:sock_file *;
 
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon debug_only(`-hdcd') } dev_attr:blk_file { open read write };
 # fs operation limit
-neverallow { domain } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto };
+neverallow domain *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto };
 neverallow { domain -init -storage_daemon} *:filesystem mount;
 neverallow { domain -init debug_only(`-hdcd') } *:filesystem remount;
 neverallow { domain -init -storage_daemon debug_only(`-hdcd') -appspawn -nwebspawn } *:filesystem unmount;
@@ -245,7 +236,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap -sa_dialog } { system
 neverallow { domain -hap_domain -locationhub
              -sh debug_only(`-hdcd') -audio_hdi_server_host } data_file:file never_write_file;
 
-neverallow { domain -hdcd -hap_domain -sh -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf } data_local_tmp:file open;
+neverallow { domain -hdcd -hap_domain -sh debug_only(`-hiprofiler_plugins -hiperf') } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -256,23 +247,11 @@ neverallow { domain -hdcd -hap_domain -sh -hiprofilerd -hiprofiler_plugins -hipr
 #[OHOS ERROR]   (neverallow hdcd domain (tcp_socket (ioctl read write create getattr setattr lock relabelfrom relabelto append map bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind node_bind name_connect)))
 #[OHOS ERROR]       (allow hdcd hdcd (tcp_socket (connect getopt name_connect)))
 #[OHOS ERROR]       (allow hdcd self (tcp_socket (ioctl read write create getattr bind listen accept setopt)))
-#[OHOS ERROR]   (neverallow netsysnative domain (udp_socket (ioctl read write create getattr setattr lock relabelfrom relabelto append map bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind node_bind)))
-#[OHOS ERROR]       (allow netsysnative netsysnative (udp_socket (ioctl create)))
 #
 neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver console } domain:{ tcp_socket udp_socket rawip_socket } *;
 
 #ensure no write access to readonly filesystem.
-#  (neverallow base_typeattr_35 system_file_attr (file (write create setattr relabelfrom append unlink link rename)))
-#    <root>
-#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:10821
-#      (allow storage_daemon system_etc_file (file (ioctl write create setattr unlink link rename)))
-#
-#neverallow check failed at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:2428 from /home/last/bb/h1/cc/base/security/selinux/sepolicy/base/public/domain.te:235
-#  (neverallow base_typeattr_35 system_file_attr (dir (write create setattr relabelfrom link rename add_name remove_name reparent rmdir)))
-#    <root>
-#    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:10820
-#      (allow storage_daemon system_etc_file (dir (write add_name remove_name)))
-#
+
 neverallow { domain debug_only(`-hdcd') -sh } { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
 neverallow { domain debug_only(`-hdcd') -sh } { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
@@ -284,63 +263,21 @@ neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
 #limit execmem use
 neverallow { domain -hap_domain } self:process execmem;
 
-neverallow { domain -processdump -download_server -netmanager -softbus_server -usb_host -hap_domain } domain:process ptrace;
+neverallow { domain -processdump -hap_domain } domain:process ptrace;
 
 # limit capability use.
 # for exemption add rule like this:
 # neverallow { domain -init } self:capability chown;
 # means that only init can have the caps of chown.
 # TODO:debug/release
-#neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } chown;
-#neverallow { domain -appspawn -init -udevd -memmgrservice } self:{ capability cap_userns } dac_override;
-#neverallow { domain -appspawn -init } self:{ capability cap_userns } dac_read_search;
-#neverallow { domain -init -udevd -ueventd } self:{ capability cap_userns } fowner;
-#neverallow { domain -appspawn -init -ueventd } self:{ capability cap_userns } fsetid;
-#neverallow { domain -init -memmgrservice } self:{ capability cap_userns } kill;
-#neverallow { domain -init } self:{ capability cap_userns } setuid;
-#neverallow { domain -init -ueventd -appspawn } self:{ capability cap_userns } setgid;
-#neverallow { domain -init } self:{ capability cap_userns } setpcap;
-#neverallow * self:{ capability cap_userns } linux_immutable;
-#neverallow * self:{ capability cap_userns } net_bind_service;
-#neverallow * self:{ capability cap_userns } net_broadcast;
-#neverallow { domain -init -wifi_hal_service -wifi_manager_service -softbus_server } self:{ capability cap_userns } net_admin;
-#neverallow { domain -wifi_hal_service } self:{ capability cap_userns } net_raw;
-#neverallow * self:{ capability cap_userns } ipc_lock;
-#neverallow * self:{ capability cap_userns } ipc_owner;
-#neverallow * self:{ capability cap_userns } sys_module;
-#neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
-#neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
-#neverallow * self:{ capability cap_userns } sys_ptrace;
-#neverallow * self:{ capability cap_userns } sys_pacct;
-#neverallow { domain -init } self:{ capability cap_userns } sys_admin;
-#neverallow { domain -init } self:{ capability cap_userns } sys_boot;
-#neverallow * self:{ capability cap_userns } sys_nice;
-#neverallow { domain -init -memmgrservice } self:{ capability cap_userns } sys_resource;
-#neverallow { domain -time_service } self:{ capability cap_userns } sys_time;
-#neverallow * self:{ capability cap_userns } sys_tty_config;
-#neverallow { domain -ueventd } self:{ capability cap_userns } mknod;
-#neverallow * self:{ capability cap_userns } lease;
-#neverallow * self:{ capability cap_userns } audit_write;
-#neverallow * self:{ capability cap_userns } audit_control;
-#neverallow * self:{ capability cap_userns } setfcap;
-#neverallow * self:{ capability2 cap2_userns } mac_override;
-#neverallow * self:{ capability2 cap2_userns } mac_admin;
-#neverallow * self:{ capability2 cap2_userns } syslog;
-#neverallow { domain -time_service } self:{ capability2 cap2_userns } wake_alarm;
-neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend;
-#neverallow * self:{ capability2 cap2_userns } audit_read;
-#neverallow { domain debug_only(`-hdcd') } self:{ capability2 cap2_userns } checkpoint_restore;
-#neverallow * self:{ capability2 cap2_userns } perfmon;
-
 neverallow { domain -appspawn -init -ueventd -installs -storage_daemon } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -init -ueventd -memmgrservice
              debug_only(`-hdcd') -installs
-             -netsysnative -storage_daemon -usb_host
-             -hiprofiler_plugins -hiprofilerd -hiperf -hiprofiler_cmd } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init debug_only(`-hdcd') -hidumper_service -storage_daemon -hiprofiler_plugins debug_only(`-hiperf') } self:{ capability cap_userns } dac_read_search;
+             -netsysnative -storage_daemon -usb_host } self:{ capability cap_userns } dac_override;
+neverallow { domain -appspawn -init -hidumper_service -storage_daemon debug_only(`-hdcd -hiprofiler_plugins -hiperf') } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
-neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiprofiler_cmd } self:{ capability cap_userns } kill;
+neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setuid;
 neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
@@ -354,9 +291,9 @@ neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow { domain -netsysnative } self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
-neverallow { domain -hidumper_service -memmgrservice -storage_daemon -hiprofiler_plugins debug_only(`-hiperf') -hiprofiler_cmd -foundation } self:{ capability cap_userns } sys_ptrace;
+neverallow { domain -hidumper_service -memmgrservice -storage_daemon debug_only(`-hiperf -hiprofiler_plugins -hiprofiler_cmd') -foundation } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
-neverallow { domain -init -storage_daemon -appspawn -nwebspawn debug_only(`-hdcd') } self:{ capability cap_userns } sys_admin;
+neverallow { domain -init -storage_daemon -appspawn -nwebspawn debug_only(`-hdcd -hiprofiler_plugins') } self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
 neverallow { domain -render_service } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -memmgrservice } self:{ capability cap_userns } sys_resource;
@@ -371,6 +308,7 @@ neverallow * self:{ capability2 cap2_userns } mac_override;
 neverallow * self:{ capability2 cap2_userns } mac_admin;
 neverallow { domain -hiview } self:{ capability2 cap2_userns } syslog;
 neverallow { domain -time_service } self:{ capability2 cap2_userns } wake_alarm;
+neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend;
 neverallow * self:{ capability2 cap2_userns } audit_read;
 neverallow * self:{ capability2 cap2_userns } checkpoint_restore;
 neverallow { domain debug_only(`-hiperf') } self:{ capability2 cap2_userns } perfmon;

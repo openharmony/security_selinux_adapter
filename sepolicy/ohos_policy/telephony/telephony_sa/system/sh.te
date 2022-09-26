@@ -15,7 +15,6 @@ allow sh data_file:dir { add_name create write };
 allow sh data_file:file { create ioctl write };
 # allow sh data_file:file { execute execute_no_trans };
 allow sh distributedsche_param:file { map open read };
-allow sh hdf_cellular_radio1:hdf_devmgr_class get;
 allow sh hdf_devmgr:binder call;
 allow sh init:unix_stream_socket connectto;
 allow sh riladapter_host:binder transfer;

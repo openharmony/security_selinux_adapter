@@ -29,9 +29,8 @@ static ParamContextsList *g_contextsList = NULL;
 
 static int ParameterContextsLoad(void)
 {
-    int res = 0;
     if (getpid() == 1) { // process init will load parameter_contexts to shared memory
-        res = LoadParameterContextsToSharedMem();
+        int res = LoadParameterContextsToSharedMem();
         if (res != 0) {
             return res;
         }

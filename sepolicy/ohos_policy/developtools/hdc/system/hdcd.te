@@ -165,5 +165,4 @@ debug_only(`
     allow hdcd normal_hap_data_file:dir { read open search};
 ')
 
-domain_auto_transition_pattern(hdcd, shell_exec, shell);
 domain_auto_transition_pattern(hdcd, sh_exec, sh);

@@ -19,8 +19,8 @@ allow hiperf const_postinstall_fstab_param:file { map open read };
 allow hiperf const_postinstall_param:file { map open read };
 allow hiperf data_test_file:file { write };
 allow hiperf data_file:file { getattr ioctl map open read };
-allow hiperf data_local_tmp:dir { add_name read remove_name search write };
-allow hiperf data_local_tmp:file { create getattr ioctl open read rename unlink write };
+allow hiperf data_local_tmp:dir read;
+allow hiperf data_local_tmp:file { create getattr ioctl read rename unlink write };
 allow hiperf default_param:file { map open read };
 allow hiperf distributedsche_param:file { map open read };
 allow hiperf hdcd:fd use;
@@ -68,7 +68,7 @@ allow hiperf proc_vmallocinfo_file:file getattr;
 allow hiperf proc_vmstat_file:file getattr;
 allow hiperf proc_zoneinfo_file:file getattr;
 allow hiperf samain_exec:file { getattr map open read };
-allow hiperf self:capability { dac_override ipc_lock };
+allow hiperf self:capability { ipc_lock };
 allow hiperf sh:dir { getattr open read search };
 allow hiperf sh:fd use;
 allow hiperf sh:fifo_file { read write };
@@ -153,18 +153,31 @@ allow hiperf domain:process signull;
 
 allow hiperf accessibility_param:file { map open read };
 allow hiperf ohos_dev_param:file { map open read };
+allow hiperf data_log_hiperf_file:dir { create_dir_perms };
+allow hiperf data_log_hiperf_file:file { create_file_perms };
+allow hiperf data_log_hiperf_file:fifo_file { create open read unlink write };
+
 allow hiperf data_local_tmp_hiperf_file:dir { create_dir_perms };
 allow hiperf data_local_tmp_hiperf_file:file { create_file_perms };
 allow hiperf data_local_tmp_hiperf_file:fifo_file { create open read unlink write };
 
-#allow hiperf data_local_tmp:file open;
-#allow hiperf data_local_tmp:dir { add_name remove_name search write };
+allow hiperf data_log:dir { add_name remove_name search write };
+allow hiperf data_log:file { create getattr ioctl open unlink write };
+allow hiperf data_app_el1_file:file { getattr map open read };
+allow hiperf data_app_el1_file:dir search;
+allow hiperf normal_hap:lnk_file read;
+
+allow init data_log:file relabelfrom;
+allow init data_log_hiperf_file:dir relabelto;
+
 #allow hiperf data_file:file { create write };
 #allow hiperf devpts:chr_file ioctl;
 
 debug_only(`
     allow hiperf self:capability { dac_read_search sys_ptrace };
     allow hiperf self:capability2 perfmon;
+    allow hiperf data_local_tmp:file open;
+    allow hiperf data_local_tmp:dir { add_name remove_name search write };
 ')
 
 allow hiperf self:perf_event { open read write kernel };

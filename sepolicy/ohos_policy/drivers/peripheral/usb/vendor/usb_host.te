@@ -39,3 +39,48 @@ allow init usb_host:file { open read };
 allow init usb_host:process { rlimitinh siginh transition getattr };
 
 allow samgr usb_host:binder { call };
+
+# avc:  denied  { search } for  pid=241 comm="hdf_devmgr" name="1848" dev="proc" ino=26949 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:console:s0 tclass=dir permissive=0
+# avc:  denied  { read } for  pid=248 comm="hdf_devmgr" name="current" dev="proc" ino=27346 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:console:s0 tclass=file permissive=0
+# avc:  denied  { getattr } for  pid=241 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:console:s0 tclass=process permissive=0
+# avc:  denied  { getattr } for  pid=2059 comm="udevd" path="/dev/usbfn" dev="tmpfs" ino=478 scontext=u:r:udevd:s0 tcontext=u:object_r:dev_usbfn_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { getattr } for  pid=1996 comm="udevd" path="/dev/functionfs/f_generic.a.ep0" dev="tmpfs" ino=480 scontext=u:r:udevd:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { relabelto } for  pid=3222 comm="ueventd" name="usbfn" dev="tmpfs" ino=481 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_usbfn_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { setattr } for  pid=2058 comm="ueventd" name="usbfn" dev="tmpfs" ino=478 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_usbfn_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { getattr } for  pid=2058 comm="ueventd" path="/dev/usbfn" dev="tmpfs" ino=478 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_usbfn_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { relabelto } for  pid=2110 comm="ueventd" name="functionfs" dev="tmpfs" ino=481 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_functionfs_file:s0 tclass=dir permissive=0
+# avc:  denied  { relabelto } for  pid=2110 comm="ueventd" name="f_generic.a.ep3" dev="tmpfs" ino=485 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_functionfs_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { getattr } for  pid=2118 comm="ueventd" path="/dev/functionfs" dev="tmpfs" ino=482 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_functionfs_file:s0 tclass=dir permissive=0
+# avc:  denied  { search } for  pid=2118 comm="ueventd" name="functionfs" dev="tmpfs" ino=482 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_functionfs_file:s0 tclass=dir permissive=0
+# avc:  denied  { write } for  pid=2002 comm="ueventd" name="functionfs" dev="tmpfs" ino=308 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_functionfs_file:s0 tclass=dir permissive=0
+# avc:  denied  { read write } for  pid=533 comm="hdf_devhost" path="/dev/console" dev="tmpfs" ino=19 scontext=u:r:usb_host:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { read write } for  pid=247 comm="hdf_devmgr" path="/dev/console" dev="tmpfs" ino=19 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
+# avc:  denied  { write open } for  pid=1 comm="init" path="/data/usb/mode" dev="mmcblk0p11" ino=108 scontext=u:r:init:s0 tcontext=u:object_r:data_usb:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=1 comm="init" path="/data/usb" dev="mmcblk0p11" ino=107 scontext=u:r:init:s0 tcontext=u:object_r:data_usb:s0 tclass=dir permissive=0
+# avc:  denied  { relabelto } for  pid=1 comm="init" name="usb" dev="mmcblk0p11" ino=111 scontext=u:r:init:s0 tcontext=u:object_r:data_usb:s0 tclass=dir permissive=0
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/data/usb" dev="mmcblk0p11" ino=81 scontext=u:r:init:s0 tcontext=u:object_r:data_usb:s0 tclass=dir permissive=0
+# avc:  denied  { create } for  pid=1 comm="init" name="mode" scontext=u:r:init:s0 tcontext=u:object_r:data_usb:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=1 comm="init" name="usb" dev="mmcblk0p11" ino=107 scontext=u:r:init:s0 tcontext=u:object_r:data_usb:s0 tclass=dir permissive=0
+# avc:  denied  { setattr } for  pid=1 comm="init" name="usb" dev="mmcblk0p11" ino=107 scontext=u:r:init:s0 tcontext=u:object_r:data_usb:s0 tclass=dir permissive=0
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/data/usb/mode" dev="mmcblk0p11" ino=108 scontext=u:r:init:s0 tcontext=u:object_r:data_usb:s0 tclass=file permissive=0
+# avc:  denied  { write } for  pid=482 comm="IPC_2_1198" name="mode" dev="mmcblk0p11" ino=108 scontext=u:r:usb_host:s0 tcontext=u:object_r:data_usb:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=482 comm="IPC_2_1198" name="mode" dev="mmcblk0p11" ino=108 scontext=u:r:usb_host:s0 tcontext=u:object_r:data_usb:s0 tclass=file permissive=0
+allow hdf_devmgr console:binder { transfer };
+allow hdf_devmgr console:dir { search };
+allow hdf_devmgr console:file { open read write };
+allow hdf_devmgr console:process { getattr };
+allow hdf_devmgr dev_console_file:chr_file { read write };
+allow init data_usb:dir { relabelto getattr search write add_name remove_name read open setattr };
+allow init data_usb:file { create write open getattr };
+allow udevd dev_console_file:chr_file { getattr setattr write read };
+allow udevd dev_functionfs_file:chr_file { getattr };
+allow udevd dev_functionfs_file:dir { search };
+allow udevd dev_usbfn_file:chr_file { getattr };
+allow ueventd dev_console_file:chr_file { getattr read write setattr };
+allow ueventd dev_console_file:dir { search };
+allow ueventd dev_functionfs_file:chr_file { relabelto create unlink };
+allow ueventd dev_functionfs_file:dir { relabelto getattr search write add_name remove_name };
+allow ueventd dev_usbfn_file:chr_file { getattr relabelto setattr unlink };
+allow usb_host data_usb:dir { search };
+allow usb_host data_usb:file { ioctl open read write getattr };
+allow usb_host dev_console_file:chr_file { read write };
