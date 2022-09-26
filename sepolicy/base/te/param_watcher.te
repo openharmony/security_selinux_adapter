@@ -14,7 +14,6 @@
 allow param_watcher accessibility:binder { call };
 allow param_watcher accesstoken_service:binder { call };
 allow param_watcher accountmgr:binder { call };
-allow param_watcher battery_stats:binder { call };
 allow param_watcher bgtaskmgr_service:binder { call };
 allow param_watcher bluetooth_service:binder { call };
 allow param_watcher bootanimation:binder { call };

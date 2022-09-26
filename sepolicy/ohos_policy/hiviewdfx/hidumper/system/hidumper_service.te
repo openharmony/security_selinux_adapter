@@ -157,9 +157,6 @@ allow hidumper_service sa_foundation_powermgr_service:samgr_class { get };
 #avc:  denied  { get } for service=3302 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_battery_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_foundation_battery_service:samgr_class { get };
 
-#avc:  denied  { get } for service=3304 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_batterystats_service:s0 tclass=samgr_class permissive=1
-allow hidumper_service sa_batterystats_service:samgr_class { get };
-
 #avc:  denied  { get } for service=3308 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_foundation_displaymgr_service:samgr_class { get };
 

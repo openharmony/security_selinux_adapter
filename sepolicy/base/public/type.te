@@ -31,7 +31,6 @@ type camera_service, sadomain, domain;
 type media_service, sadomain, domain;
 type param_watcher, sadomain, domain;
 #type foundation, domain;
-type battery_stats, sadomain, domain;
 type token_sync_service, sadomain, domain;
 type memmgrservice, sadomain, domain;
 type accessibility, sadomain, domain;

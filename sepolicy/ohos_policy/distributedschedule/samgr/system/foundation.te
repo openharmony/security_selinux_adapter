@@ -13,7 +13,6 @@
 
 allow foundation appspawn:unix_stream_socket { connectto };
 allow foundation appspawn_socket:sock_file { write };
-allow foundation battery_stats:binder { call };
 allow foundation configfs:dir { open read search };
 allow foundation data_app_el1_file:dir { search };
 allow foundation data_app_el1_file:file { getattr read };

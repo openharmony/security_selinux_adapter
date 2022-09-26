@@ -43,7 +43,6 @@ allow foundation accessibility:binder { call };
 allow foundation accesstoken_service:binder { call };
 allow foundation appspawn:unix_stream_socket { connectto };
 allow foundation appspawn_socket:sock_file { write };
-allow foundation battery_stats:binder { call };
 allow foundation bgtaskmgr_service:binder { call transfer };
 allow foundation configfs:dir { search };
 allow foundation configfs:file { open write };

@@ -18,7 +18,6 @@ allow init accesstoken_service:process { rlimitinh siginh transition };
 allow init appspawn:process { signal };
 allow init appspawn_socket:sock_file { getattr relabelto };
 allow init audio_hdi_server_host:process { rlimitinh siginh transition };
-allow init battery_stats:process { rlimitinh siginh transition };
 allow init bgtaskmgr_service:process { rlimitinh siginh transition };
 allow init blue_host:process { rlimitinh siginh transition };
 allow init bluetooth_service:process { rlimitinh siginh transition };

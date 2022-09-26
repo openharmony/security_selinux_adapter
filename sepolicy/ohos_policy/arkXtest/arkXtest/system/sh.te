@@ -22,8 +22,6 @@ allow sh audio_hdi_server_host:dir { getattr search };
 allow sh audio_hdi_server_host:file { open read };
 allow sh audio_policy:dir { getattr search };
 allow sh audio_policy:file { open read };
-allow sh battery_stats:dir { getattr search };
-allow sh battery_stats:file { open read };
 allow sh blue_host:dir { getattr search };
 allow sh blue_host:file { open read };
 allow sh bluetooth_service:dir { getattr search };
