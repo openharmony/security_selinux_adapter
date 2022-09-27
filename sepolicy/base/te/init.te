@@ -67,7 +67,6 @@ allow init data_chipset_el2_file:dir { add_name create getattr open read relabel
 allow init data_chipset_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_data_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_data_pulse_dir:file { unlink };
-allow init data_service_el1_file:dir { getattr open read relabelto setattr };
 allow init data_drm:dir { getattr open read relabelto setattr };
 allow init data_ethernet:dir { open read relabelto setattr };
 allow init data_file:dir { add_name create getattr mounton open read relabelfrom relabelto remove_name search setattr write };

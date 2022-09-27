@@ -14,8 +14,6 @@
 allow netmanager accesstoken_service:binder { call };
 allow netmanager data_data_file:dir { search };
 allow netmanager data_data_file:file { open read };
-allow netmanager data_service_el1_file:dir { add_name remove_name search write create };
-allow netmanager data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write write open };
 allow netmanager data_file:dir { remove_name rmdir search };
 allow netmanager data_init_agent:dir { search };
 allow netmanager data_init_agent:file { ioctl open read append };
