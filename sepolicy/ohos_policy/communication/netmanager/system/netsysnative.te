@@ -13,7 +13,7 @@
 
 allow netsysnative dev_unix_socket:dir { search };
 allow netsysnative netsysnative:capability { net_admin net_raw net_bind_service };
-allow netsysnative netsysnative:netlink_route_socket { create nlmsg_write write };
+allow netsysnative netsysnative:netlink_route_socket { create listen nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
 allow netsysnative sh_exec:file { execute execute_no_trans map open read };
 allow netsysnative netsysnative:netlink_nflog_socket { bind getopt setopt };
@@ -26,7 +26,11 @@ allow netsysnative tty_device:chr_file { open read write };
 allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write };
 allow netsysnative port:udp_socket { name_bind };
 allow netsysnative node:udp_socket { node_bind };
-allow netsysnative dev_file:sock_file { write };
+allow netsysnative dev_file:sock_file { write unlink };
+allow netsysnative dev_console_file:chr_file { read write };
+allow netsysnative dev_file:dir { remove_name };
+allow netsysnative netsysnative:netlink_netfilter_socket { listen };
+allow netsysnative netsysnative:netlink_kobject_uevent_socket { listen };
 allow netsysnative system_bin_file:lnk_file { read };
 allow netsysnative accessibility_param:file { read open map };
 allow netsysnative data_service_file:dir { search };
