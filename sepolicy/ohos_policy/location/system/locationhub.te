@@ -45,3 +45,9 @@ allow locationhub sa_accesstoken_manager_service:samgr_class { get };
 
 #avc:  denied  { get } for service=2801 pid=303 scontext=u:r:locationhub:s0 tcontext=u:object_r:sa_location_geo_convert_service:s0 tclass=samgr_class permissive=1
 allow locationhub sa_location_geo_convert_service:samgr_class { get };
+
+allow locationhub sa_foundation_bms:samgr_class { get };
+
+allow locationhub sa_telephony_tel_core_service:samgr_class { get };
+
+allow locationhub sa_telephony_tel_cellular_data:samgr_class { get };
