@@ -58,6 +58,9 @@ allow faultloggerd faultloggerd_temp_file:file { create getattr setattr write op
 
 allow faultloggerd_temp_file labeledfs:filesystem { associate };
 
+# hap apply fd for jsheap
+allow hap_domain init:unix_stream_socket { read write connectto }; # remove later
+
 # allow hap apply pipe fd for mix stack
 allow hap_domain faultloggerd:fifo_file write;
 
