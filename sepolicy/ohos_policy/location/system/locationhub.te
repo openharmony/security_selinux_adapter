@@ -51,3 +51,5 @@ allow locationhub sa_foundation_bms:samgr_class { get };
 allow locationhub sa_telephony_tel_core_service:samgr_class { get };
 
 allow locationhub sa_telephony_tel_cellular_data:samgr_class { get };
+
+allow locationhub sa_foundation_appms:samgr_class { get };
