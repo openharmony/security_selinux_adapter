@@ -197,7 +197,7 @@ neverallow { domain -ueventd -riladapter_host debug_only(`-hdcd') } dev_file:{ f
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host debug_only(`-hdcd') } dev_file:sock_file *;
 
-neverallow { domain -kernel -init -misc -updater_sa -storage_daemon debug_only(`-hdcd') } dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -misc -updater_sa -storage_daemon -partitionslot_host debug_only(`-hdcd') } dev_attr:blk_file { open read write };
 # fs operation limit
 neverallow domain *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto };
 neverallow { domain -init -storage_daemon} *:filesystem mount;
