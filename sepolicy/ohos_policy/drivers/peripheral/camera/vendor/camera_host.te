@@ -58,6 +58,7 @@ allow camera_host dev_dma_heap_file:chr_file { read };
 allow camera_host dev_dma_heap_file:chr_file { open };
 allow camera_host dev_dma_heap_file:chr_file { ioctl };
 allow camera_host dev_video_file:chr_file { map };
+allow camera_host normal_hap:binder { call };
 debug_only(`
     allow camera_host sh:binder { call transfer };
 ')

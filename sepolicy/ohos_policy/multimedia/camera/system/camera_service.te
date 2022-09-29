@@ -13,7 +13,12 @@
 
 #avc:  denied  { transfer } for  pid=478 comm="camera_service" scontext=u:r:camera_service:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
 allow camera_service dcamera:binder { transfer };
+
 allow camera_service sh:binder { call transfer };
 
 #avc:  denied  { get } for service=401 pid=599 scontext=u:r:camera_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
 allow camera_service sa_foundation_bms:samgr_class { get };
+
+allow camera_service camera_service:unix_dgram_socket { getopt setopt};
+
+allow camera_service normal_hap:binder { call transfer};
