@@ -53,7 +53,6 @@ allow hiview dev_bbox:chr_file { read open };
 allow hiview normal_hap:dir { search };
 allow hiview normal_hap:file { read open };
 allow hiview proc_cpuinfo_file:file { read open };
-allow hiview sh_exec:file { execute read open execute_no_trans map };
 allow hiview sh:file { read open };
 allow hiview sh:dir { search };
 allow hiview rootfs:chr_file { read write };
