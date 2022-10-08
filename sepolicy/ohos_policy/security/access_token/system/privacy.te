@@ -60,15 +60,21 @@ allow privacy_service input_pointer_device_param:file { map open read };
 allow privacy_service default_param:file { map open read };
 allow privacy_service tracefs:dir { search };
 allow privacy_service tracefs_trace_marker_file:file { open write };
-allow privacy_service param_watcher:binder { call transfer };
 allow param_watcher privacy_service:binder { call transfer };
+allow privacy_service audio_policy:binder { call transfer };
+allow privacy_service param_watcher:binder { call transfer };
+allow privacy_service pulseaudio:binder { call transfer };
+
+allow privacy_service dev_console_file:chr_file { read write };
 
 allow init privacy_service:process { rlimitinh siginh transition };
 
-allow privacy_service sa_privacy_service:samgr_class { add get };
-allow privacy_service sa_param_watcher:samgr_class { get };
 allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
+allow privacy_service sa_audio_policy_service:samgr_class { get };
 allow privacy_service sa_foundation_appms:samgr_class { get };
+allow privacy_service sa_param_watcher:samgr_class { get };
+allow privacy_service sa_privacy_service:samgr_class { add get };
+allow privacy_service sa_pulseaudio_audio_service:samgr_class { get };
 
 binder_call(privacy_service, sh);
 binder_call(privacy_service, accesstoken_service);
