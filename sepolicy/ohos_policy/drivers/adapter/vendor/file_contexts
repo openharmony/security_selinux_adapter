@@ -16,4 +16,3 @@
 /dev/usbfn                  u:object_r:dev_usbfn_file:s0
 /dev/functionfs(/.*)?       u:object_r:dev_functionfs_file:s0
 /dev/hdfwifi                u:object_r:dev_hdfwifi:s0
-/data/usb(/.*)?             u:object_r:data_usb:s0
