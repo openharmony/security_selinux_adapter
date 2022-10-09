@@ -14,3 +14,4 @@
 #avc:  denied  { call } for  pid=239 comm="param_watcher" scontext=u:r:param_watcher:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
 allow param_watcher audio_policy:binder { call };
 
+allow param_watcher accessibility_param:file { map open read };

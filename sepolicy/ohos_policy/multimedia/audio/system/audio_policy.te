@@ -184,3 +184,7 @@ allow audio_policy data_service_el1_file:file { create getattr ioctl lock map op
 
 allow audio_policy accesstoken_service:binder { call transfer };
 allow accesstoken_service audio_policy:binder { call transfer };
+
+allow audio_policy accessibility:binder { call transfer };
+allow audio_policy accessibility_param:file { map open read };
+allow audio_policy sa_accessibleabilityms:samgr_class { get };
