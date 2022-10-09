@@ -198,10 +198,6 @@ allow storage_daemon system_basic_hap:dir { search };
 #avc:  denied  { read } for  pid=246 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:system_basic_hap:s0 tclass=file permissive=1
 allow storage_daemon system_basic_hap:file { read };
 
-#avc:  denied  { read } for  pid=258 comm="storage_daemon" name="com.ohos.launcher" dev="mmcblk0p11" ino=654143 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
-allow storage_daemon system_basic_hap_data_file:dir { create_dir_perms };
-allow storage_daemon system_basic_hap_data_file:file { getattr read lock ioctl map watch watch_reads write append lock create rename setattr unlink };
-
 #avc:  denied  { read } for  pid=2061 comm="blkid" path="/system/bin/blkid" dev="mmcblk0p6" ino=122 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 #avc:  denied  { execute } for  pid=1662 comm="storage_daemon" name="restorecon" dev="mmcblk0p6" ino=335 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=1662 comm="storage_daemon" path="/system/bin/restorecon" dev="mmcblk0p6" ino=335 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
@@ -240,3 +236,11 @@ allow storage_daemon tmpfs:dir { remove_name rmdir };
 allow storage_daemon watchdog_service:dir { search read open };
 allow storage_daemon watchdog_service:file { open };
 allow storage_daemon watchdog_service:lnk_file { read };
+
+#avc:  denied  { read } for  pid=258 comm="storage_daemon" name="com.ohos.launcher" dev="mmcblk0p11" ino=654143 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
+allow storage_daemon normal_hap_data_file:dir { create_dir_perms };
+allow storage_daemon normal_hap_data_file:file { create_file_perms };
+allow storage_daemon system_basic_hap_data_file:dir { create_dir_perms };
+allow storage_daemon system_basic_hap_data_file:file { create_file_perms };
+allow storage_daemon system_core_hap_data_file:dir { create_dir_perms };
+allow storage_daemon system_core_hap_data_file:file { create_file_perms };
