@@ -131,6 +131,7 @@
 /dev/rga                            u:object_r:dev_rga:s0
 /dev/sample_service                 u:object_r:dev_sample_svc:s0
 /dev/sched_rtg_ctrl                 u:object_r:dev_sched_rtg_ctrl:s0
+/dev/auth_ctrl                      u:object_r:dev_auth_ctrl:s0
 /dev/snapshot                       u:object_r:dev_snapshot:s0
 /dev/sw_sync                        u:object_r:dev_sw_sync:s0
 /dev/usb-ffs                        u:object_r:dev_usb_ffs:s0

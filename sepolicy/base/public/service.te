@@ -27,6 +27,7 @@ type sa_netsys_native_manager, sa_service_attr;
 type sa_distributeddata_service, sa_service_attr;
 type sa_distributeschedule, sa_service_attr;
 type sa_resource_schedule, sa_service_attr;
+type sa_concurrent_task_service, sa_service_attr;
 type sa_bgtaskmgr, sa_service_attr;
 type sa_resource_schedule_socperf_server, sa_service_attr;
 type sa_locationhub_lbsservice_gnss, sa_service_attr;
