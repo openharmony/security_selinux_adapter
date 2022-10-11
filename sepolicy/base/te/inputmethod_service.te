@@ -54,3 +54,13 @@ allow inputmethod_service sys_usb_param:file { map open read };
 allow inputmethod_service tracefs:dir { search };
 allow inputmethod_service tracefs_trace_marker_file:file { open write };
 allow inputmethod_service ui_service:binder { call transfer };
+# avc:  denied  { call } for  pid=492 comm="MmiClientRecvEv" scontext=u:r:inputmethod_service:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
+# avc:  denied  { use } for  pid=248 comm="IPC_0_279" path="socket:[27945]" dev="sockfs" ino=27945 scontext=u:r:inputmethod_service:s0 tcontext=u:r:multimodalinput:s0 tclass=fd permissive=1
+# avc:  denied  { read write } for  pid=248 comm="IPC_0_279" path="socket:[27945]" dev="sockfs" ino=27945 scontext=u:r:inputmethod_service:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+# avc:  denied  { read } for  pid=1643 comm="MmiClientRecvEv" scontext=u:r:inputmethod_service:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+# avc:  denied  { get } for service=3101 pid=1945 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=0
+allow inputmethod_service multimodalinput:binder { call };
+allow inputmethod_service multimodalinput:fd { use };
+allow inputmethod_service multimodalinput:unix_stream_socket { read write };
+allow inputmethod_service sa_multimodalinput_service:samgr_class { get };
+
