@@ -428,6 +428,11 @@ action("build_contexts") {
   ]
 }
 
+action("enforce_selinux") {
+  script = "scripts/enforce_selinux.sh"
+  outputs = [ "$target_out_dir/" ]
+}
+
 ohos_prebuilt_etc("build_sepolicy") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/policy.31"
@@ -448,24 +453,8 @@ ohos_prebuilt_etc("config") {
   source = "$SELINUX_ROOT_DIR/config/config"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
-  if (selinux_enforce) {
-    exec_script("/usr/bin/env",
-                [
-                  "sed",
-                  "-i",
-                  "s/permissive/enforcing/g",
-                  rebase_path("config/config"),
-                ],
-                "")
-  } else {
-    exec_script("/usr/bin/env",
-                [
-                  "sed",
-                  "-i",
-                  "s/enforcing/permissive/g",
-                  rebase_path("config/config"),
-                ],
-                "")
+  if (enforce_selinux) {
+    deps = [ ":enforce_selinux" ]
   }
   relative_install_dir = "selinux/"
 }
