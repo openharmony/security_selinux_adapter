@@ -42,3 +42,4 @@ allow wallpaper_service normal_hap_data_file:file { read };
 allow wallpaper_service system_core_hap:fd { use };
 allow wallpaper_service system_core_hap:fifo_file { read };
 allow wallpaper_service dev_console_file:chr_file { read write };
+allow system_core_hap wallpaper_service:fd { use };
