@@ -62,6 +62,7 @@ allow distributeddata normal_hap_data_file:file { create getattr ioctl lock seta
 allow distributeddata proc_file:file { open read };
 allow distributeddata sa_accesstoken_manager_service:samgr_class { get };
 allow distributeddata sa_accountmgr:samgr_class { get };
+allow distributeddata sa_dataobs_mgr_service_service:samgr_class { get };
 allow distributeddata sa_distributeddata_service:samgr_class { add get };
 allow distributeddata sa_foundation_devicemanager_service:samgr_class { get };
 allow distributeddata sa_param_watcher:samgr_class { get };

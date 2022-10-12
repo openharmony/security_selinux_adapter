@@ -1,0 +1,1 @@
+allow normal_hap distributeddata:fd { use };
