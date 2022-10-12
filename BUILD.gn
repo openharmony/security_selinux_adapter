@@ -428,9 +428,13 @@ action("build_contexts") {
   ]
 }
 
-action("enforce_selinux") {
-  script = "scripts/enforce_selinux.sh"
-  outputs = [ "$target_out_dir/" ]
+copy("selinux_config") {
+  if (selinux_enforce) {
+    sources = [ "$SELINUX_ROOT_DIR/config/config.enforce" ]
+  } else {
+    sources = [ "$SELINUX_ROOT_DIR/config/config.permissive" ]
+  }
+  outputs = [ "$target_out_dir/config" ]
 }
 
 ohos_prebuilt_etc("build_sepolicy") {
@@ -450,12 +454,10 @@ ohos_prebuilt_etc("file_contexts_bin") {
 }
 
 ohos_prebuilt_etc("config") {
-  source = "$SELINUX_ROOT_DIR/config/config"
+  deps = [ ":selinux_config" ]
+  source = target_out_dir + "/config"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
-  if (enforce_selinux) {
-    deps = [ ":enforce_selinux" ]
-  }
   relative_install_dir = "selinux/"
 }
 
