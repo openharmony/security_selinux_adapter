@@ -48,4 +48,6 @@ allow foundation vendor_lib_file:dir { search };
 allow foundation vendor_lib_file:file { read };
 allow foundation render_service:unix_stream_socket { read write };
 allow foundation pasteboard_service:binder { call transfer };
+allow foundation bootevent_wms_param:parameter_service { set };
+allow bootanimation bootevent_wms_param:file { map open read };
 

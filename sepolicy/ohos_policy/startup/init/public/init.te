@@ -20,6 +20,8 @@ allow init proc_stat_file:file { setattr read open };
 allow init proc_diskstats_file:file { read open };
 allow init kernel:file { read open };
 allow init kernel:dir { search };
+allow bootevent_wms_param tmpfs:filesystem associate;
+allow init bootevent_wms_param:file { map open read relabelto relabelfrom};
 
 #for bootchart to read
 allow init { domain }:file { open read };
