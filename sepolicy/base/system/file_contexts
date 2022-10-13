@@ -24,6 +24,9 @@
 /proc      u:object_r:rootfs:s0
 /storage      u:object_r:rootfs:s0
 /sys_prod      u:object_r:rootfs:s0
+/cust      u:object_r:rootfs:s0
+/version      u:object_r:rootfs:s0
+/preload      u:object_r:rootfs:s0
 /tmp      u:object_r:rootfs:s0
 /sys           u:object_r:sys_file:s0
 
