@@ -39,7 +39,6 @@ allow wallpaper_service accountmgr:binder { call };
 allow accountmgr wallpaper_service:binder { transfer };
 allow wallpaper_service ohos_dev_param:file { map open read };
 allow sh wallpaper_service:process { signal };
-allow sh wallpaper_service:binder { call transfer };
 allow wallpaper_service tmpfs:chr_file { read write };
 allow wallpaper_service system_basic_hap_data_file:file { read };
 allow wallpaper_service system_core_hap_data_file:file { read };
