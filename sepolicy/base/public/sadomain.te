@@ -23,7 +23,7 @@ allow sadomain system_profile_file:file read_file_perms;
 neverallow { domain -samgr } self:binder set_context_mgr;
 # let every sa join sadomain
 # TODO:remove hdfdomain after SA dynamic loading support.
-neverallow { domain -sadomain -init -hap_domain -sa_dialog -hdfdomain } samgr:binder transfer;
+neverallow { domain -sadomain -init -hap_domain -hdfdomain } samgr:binder transfer;
 
 neverallow { sadomain hap_domain } dev_tee_file:chr_file { open read append write ioctl };
 

@@ -231,7 +231,7 @@ neverallow { domain } cgroup:file create;
 
 neverallow { domain -init } debugfs:{ file lnk_file } never_rw_file;
 
-neverallow { domain -init -appspawn -nwebspawn -normal_hap -sa_dialog } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
+neverallow { domain -init -appspawn -nwebspawn -normal_hap } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
 
 neverallow { domain -hap_domain -locationhub
              -sh debug_only(`-hdcd') -audio_hdi_server_host } data_file:file never_write_file;
