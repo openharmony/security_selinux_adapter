@@ -133,7 +133,6 @@ allow hiprofiler_plugins locationhub:file read;
 allow hiprofiler_plugins memmgrservice:file read;
 allow hiprofiler_plugins multimodalinput:file read;
 allow hiprofiler_plugins resource_schedule_service:file read;
-allow hiprofiler_plugins sh_exec:file { execute_no_trans map open read };
 allow hiprofiler_plugins storage_daemon:file read;
 
 allow hiprofiler_plugins bgtaskmgr_service:file read;
@@ -242,9 +241,11 @@ allow hiprofiler_plugins tracefs:file append;
 allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads };
 
 debug_only(`
-	allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search };
+	allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search sys_admin };
 	allow hiprofiler_plugins data_local_tmp:dir { add_name write open search };
-	allow hiprofiler_plugins data_local_tmp:file { read open };
+	allow hiprofiler_plugins data_local_tmp:file { create read open write lock };
+	allow hiprofiler_plugins sh_exec:file { execute execute_no_trans map open read };
+	allow hiprofiler_plugins self:capability setgid;
 ')
 
 allow hiprofiler_plugins domain:dir { open read getattr search };

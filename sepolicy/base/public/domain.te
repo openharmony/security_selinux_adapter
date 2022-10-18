@@ -97,9 +97,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -hdcd -installs -init debug_only(`-hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -hiperf') } data_local_tmp:dir never_write_dir;
+neverallow { domain -hdcd -installs -init debug_only(`-hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -hiperf') } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh debug_only(`-hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf') } data_local_tmp:dir { open search };
+neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh debug_only(`-hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -hiperf -native_daemon') } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -236,7 +236,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap } { system_file_attr 
 neverallow { domain -hap_domain -locationhub
              -sh debug_only(`-hdcd') -audio_hdi_server_host } data_file:file never_write_file;
 
-neverallow { domain -hdcd -hap_domain -sh debug_only(`-hiprofiler_plugins -hiperf') } data_local_tmp:file open;
+neverallow { domain -hdcd -hap_domain -sh debug_only(`-hiprofiler_plugins -hiprofiler_cmd -hiprofilerd -native_daemon -hiperf') } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -257,7 +257,7 @@ neverallow { domain debug_only(`-hdcd') -sh } { rootfs system_file_attr vendor_f
 
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
-    -hiperf -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative
+    -hiperf debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd') -hidumper_service -netsysnative
     -wifi_hal_service } sh_exec:file execute;
 
 #limit execmem use
@@ -279,7 +279,7 @@ neverallow { domain -init -ueventd -installs -storage_daemon } self:{ capability
 neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setuid;
-neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setgid;
+neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon') } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
 neverallow * self:{ capability cap_userns } linux_immutable;
 neverallow { domain -wifi_manager_service -netsysnative } self:{ capability cap_userns } net_bind_service;

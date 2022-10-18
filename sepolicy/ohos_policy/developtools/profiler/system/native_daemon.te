@@ -11,10 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-/system/bin/hiprofilerd	u:object_r:hiprofilerd_exec:s0
+allow native_daemon self:capability setgid;
 
-/system/bin/hiprofiler_plugins	u:object_r:hiprofiler_plugins_exec:s0
+debug_only(`
+	allow native_daemon data_local_tmp:file { create read open write };
+	allow native_daemon data_local_tmp:dir { search add_name write };
+')
 
-/system/bin/hiprofiler_cmd	u:object_r:hiprofiler_cmd_exec:s0
-
-/system/bin/native_daemon	u:object_r:native_daemon_exec:s0
