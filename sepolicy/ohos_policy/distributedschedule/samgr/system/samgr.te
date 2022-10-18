@@ -102,3 +102,5 @@ allow samgr_perf_param tmpfs:filesystem associate;
 
 allow samgr samgr_perf_param:file { map open read };
 
+allow init samgr_perf_param:file { map open read relabelto };
+
