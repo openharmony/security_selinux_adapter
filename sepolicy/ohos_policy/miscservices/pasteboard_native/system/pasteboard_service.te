@@ -77,6 +77,5 @@ allow sh pasteboard_service:fd { use };
 #avc:  denied  { get } for service=180 pid=1811 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
 allow pasteboard_service sa_foundation_abilityms:samgr_class { get };
 
-#avc:  denied  { read } for  pid=2048 comm="PasteboardServi" path="/data/test/resource/pasteboardTest.txt" dev="mmcblk0p11" ino=3680 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=0
-allow pasteboard_service data_file:file { read };
-
+#avc:  denied  { read open } for  pid=2041 comm="PasteboardFrame" path="/data/test/resource/pasteboardTest.txt" dev="mmcblk0p11" ino=3680 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=0
+allow storage_daemon data_file:file { read open };
