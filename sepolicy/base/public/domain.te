@@ -257,7 +257,7 @@ neverallow { domain debug_only(`-hdcd') -sh } { rootfs system_file_attr vendor_f
 
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
-    -hiperf -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative
+    -hiprofiler_cmd -hidumper_service -hiprofiler_plugins -netsysnative
     -wifi_hal_service } sh_exec:file execute;
 
 #limit execmem use
@@ -279,14 +279,14 @@ neverallow { domain -init -ueventd -installs -storage_daemon } self:{ capability
 neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setuid;
-neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setgid;
+neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd -hiperf -bytrace -hitrace -hiprofiler_cmd -hiprofilerd -hiprofiler_plugins -native_daemon') } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
 neverallow * self:{ capability cap_userns } linux_immutable;
 neverallow { domain -wifi_manager_service -netsysnative } self:{ capability cap_userns } net_bind_service;
 neverallow * self:{ capability cap_userns } net_broadcast;
 neverallow { domain -init -ueventd -wifi_hal_service -wifi_manager_service -softbus_server -netsysnative -storage_daemon -udevd -blue_host -netmanager -riladapter_host -bluetooth_service } self:{ capability cap_userns } net_admin;
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -netsysnative } self:{ capability cap_userns } net_raw;
-neverallow { domain -hiperf } self:{ capability cap_userns } ipc_lock;
+neverallow { domain debug_only(`-hiperf') } self:{ capability cap_userns } ipc_lock;
 neverallow * self:{ capability cap_userns } ipc_owner;
 neverallow { domain -netsysnative } self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
