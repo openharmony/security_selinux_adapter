@@ -15,7 +15,7 @@
 allow hitrace data_file:dir search;
 allow hitrace data_local:dir search;
 allow hitrace data_log:dir { add_name search write };
-allow hitrace data_log:file { getattr open write };
+allow hitrace data_log:file { create getattr open write };
 allow hitrace debug_param:parameter_service set;
 allow hitrace dev_unix_socket:dir search;
 allow hitrace devpts:chr_file { read write };
