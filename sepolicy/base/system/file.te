@@ -34,6 +34,7 @@ type functionfs, fs_attr;
 type pstorefs, fs_attr;
 type tracefs, fs_attr;
 type hmdfs, fs_attr;
+type epfs, fs_attr;
 
 type updater_file, system_file_attr, file_attr;
 
