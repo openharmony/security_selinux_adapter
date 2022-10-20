@@ -73,6 +73,7 @@ allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
 allow privacy_service sa_audio_policy_service:samgr_class { get };
 allow privacy_service sa_foundation_abilityms:samgr_class { get };
 allow privacy_service sa_foundation_appms:samgr_class { get };
+allow privacy_service sa_foundation_wms:samgr_class { get };
 allow privacy_service sa_param_watcher:samgr_class { get };
 allow privacy_service sa_privacy_service:samgr_class { add get };
 allow privacy_service sa_pulseaudio_audio_service:samgr_class { get };
