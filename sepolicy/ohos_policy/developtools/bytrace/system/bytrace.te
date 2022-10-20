@@ -60,3 +60,8 @@ allow bytrace hdcd:fifo_file { ioctl write };
 allow hitrace const_param:file { map open read };
 allow hitrace const_postinstall_fstab_param:file { map open read };
 allow hitrace const_postinstall_param:file { map open read };
+
+debug_only(`
+	allow bytrace self:capability { setgid };
+	allow hitrace self:capability { setgid };
+')
