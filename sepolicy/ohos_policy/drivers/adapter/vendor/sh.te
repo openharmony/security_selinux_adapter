@@ -16,7 +16,7 @@ allow sh hdf_codec_component_manager_service:hdf_devmgr_class { get };
 allow sh hdf_codec_hdi_service:hdf_devmgr_class { get };
 allow sh codec_host:binder { transfer };
 allow sh proc_boot_id:file { read open };
-allow sh hdf_idl_audio_service:binder { call };
+allow sh hdf_audio_manager_service:binder { call };
 allow sh dev_ashmem_file:chr_file { open read write};
 allow sh dev_dri_file:chr_file { read write open ioctl getattr};
 allow sh dev_dri_file:dir { search };

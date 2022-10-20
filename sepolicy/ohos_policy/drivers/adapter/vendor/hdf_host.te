@@ -252,7 +252,7 @@ allow blue_host hdf_hci_interface_service:hdf_devmgr_class { add };
 #avc:  denied  { search } for  pid=1938 comm="processdump" name="init_agent" dev="mmcblk0p11" ino=522245 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
 #avc:  denied  { read append  open} for  pid=1938 comm="processdump" name="begetctl.log" dev="mmcblk0p11" ino=522246 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
 #avc:  denied  { add } for service=audio_hdi_pnp_service pid=547 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=idl_audio_service pid=1956 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_idl_audio_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=idl_audio_service pid=1956 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_manager_service:s0 tclass=hdf_devmgr_class permissive=1
 #neverallow allow audio_hdi_server_host default_hdf_service:hdf_devmgr_class { add };
 #avc:  denied  { ioctl } for  pid=593 comm="audio_hdi_serve" path="/dev/hdf_kevent" dev="tmpfs" ino=200 ioctlcmd=0x6202 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
 #avc:  denied  { search } for  pid=1938 comm="audio_hdi_serve" name="bin" dev="mmcblk0p6" ino=103 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
@@ -277,7 +277,7 @@ allow audio_hdi_server_host dev_hdf_audio_render:chr_file { getattr ioctl open r
 allow audio_hdi_server_host devpts:chr_file { read write };
 allow audio_hdi_server_host hdcd:fd { use };
 allow audio_hdi_server_host hdf_audio_hdi_usb_service:hdf_devmgr_class { add get };
-allow audio_hdi_server_host hdf_idl_audio_service:hdf_devmgr_class { add };
+allow audio_hdi_server_host hdf_audio_manager_service:hdf_devmgr_class { add };
 allow audio_hdi_server_host sa_device_service_manager:samgr_class { get };
 allow audio_hdi_server_host sh:fd { use };
 allow audio_hdi_server_host sh:binder { transfer };
