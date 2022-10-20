@@ -200,7 +200,7 @@ neverallow { domain -ueventd -riladapter_host debug_only(`-hdcd') } dev_file:{ f
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon -partitionslot_host debug_only(`-hdcd') } dev_attr:blk_file { open read write };
 # fs operation limit
 neverallow domain *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto };
-neverallow { domain -init -storage_daemon} *:filesystem mount;
+neverallow { domain -init -storage_daemon -appspawn } *:filesystem mount;
 neverallow { domain -init debug_only(`-hdcd') } *:filesystem remount;
 neverallow { domain -init -storage_daemon debug_only(`-hdcd') -appspawn -nwebspawn } *:filesystem unmount;
 neverallow { domain } *:filesystem relabelfrom;
