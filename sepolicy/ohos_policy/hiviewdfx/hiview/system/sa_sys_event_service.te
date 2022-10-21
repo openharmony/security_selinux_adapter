@@ -16,3 +16,6 @@ allow normal_hap sa_sys_event_service:samgr_class { get };
 allow system_basic_hap sa_sys_event_service:samgr_class { get };
 allow system_core_hap sa_sys_event_service:samgr_class { get };
 
+#avc:  denied  { call } for  pid=256 comm="IPC_3_1647" scontext=u:r:hiview:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0
+allow hiview system_basic_hap:binder { call };
+
