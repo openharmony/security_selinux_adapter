@@ -49,3 +49,4 @@ accessibility.config.ready              u:object_r:accessibility_param:s0
 musl.                                   u:object_r:musl_param:s0
 bootevent.wms.                          u:object_r:bootevent_wms_param:s0
 
+persist.distributed_hardware.device_manager.discover_status    u:object_r:dhardware_dm_param:s0
