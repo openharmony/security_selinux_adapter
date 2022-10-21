@@ -273,7 +273,7 @@ neverallow { domain -processdump -hap_domain } domain:process ptrace;
 neverallow { domain -appspawn -init -ueventd -installs -storage_daemon } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -init -ueventd -memmgrservice
              debug_only(`-hdcd') -installs
-             -netsysnative -storage_daemon -usb_host } self:{ capability cap_userns } dac_override;
+             -storage_daemon -usb_host } self:{ capability cap_userns } dac_override;
 neverallow { domain -appspawn -init -hidumper_service -storage_daemon debug_only(`-hdcd -hiprofiler_plugins -hiperf') } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
@@ -288,7 +288,7 @@ neverallow { domain -init -ueventd -wifi_hal_service -wifi_manager_service -soft
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -netsysnative } self:{ capability cap_userns } net_raw;
 neverallow { domain debug_only(`-hiperf') } self:{ capability cap_userns } ipc_lock;
 neverallow * self:{ capability cap_userns } ipc_owner;
-neverallow { domain -netsysnative } self:{ capability cap_userns } sys_module;
+neverallow { domain } self:{ capability cap_userns } sys_module;
 neverallow { domain -init } self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
 neverallow { domain -hidumper_service -memmgrservice -storage_daemon debug_only(`-hiperf -hiprofiler_plugins -hiprofiler_cmd') -foundation } self:{ capability cap_userns } sys_ptrace;

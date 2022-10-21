@@ -62,5 +62,4 @@ allow netsysnative system_bin_file:dir { search };
 allow netsysnative sys_usb_param:file { map open read };
 allow netsysnative tracefs:dir { search };
 allow netsysnative tracefs_trace_marker_file:file { open write };
-allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8913 0x8914 0x8915 0x891b 0x8927 };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8910 };
