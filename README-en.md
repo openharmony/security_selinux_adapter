@@ -33,11 +33,6 @@ Currently, SELinux supports only the RK3568 device.
 
 ## Usage
 
-### Compiling Source Code
-
-1. Obtain the source code. For details, see [Obtaining Source Code](https://gitee.com/openharmony/docs/blob/master/en/device-dev/quick-start/quickstart-standard-sourcecode-acquire.md).
-1. Compile the source code. For details, see [Building](https://gitee.com/openharmony/docs/blob/master/en/device-dev/quick-start/quickstart-standard-running-hi3516-build.md).
-
 ### Building the Image
 
 Run the following command to build the image that supports SELinux:
