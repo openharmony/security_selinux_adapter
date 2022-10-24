@@ -53,6 +53,7 @@ type devinfo_public_param, parameter_attr;
 type telephony_param, parameter_attr;
 type bootevent_wms_param, parameter_attr;
 type dhardware_dm_param, parameter_attr;
+type distributedPasteboardEnabled_param, parameter_attr;
 
 allow init parameter_attr:file relabelto;
 allow parameter_attr tmpfs:filesystem associate;

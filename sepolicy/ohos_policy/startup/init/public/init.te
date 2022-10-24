@@ -25,6 +25,9 @@ allow init bootevent_wms_param:file { map open read relabelto relabelfrom};
 allow dhardware_dm_param tmpfs:filesystem associate;
 allow init dhardware_dm_param:file { map open read relabelto relabelfrom };
 
+allow distributedPasteboardEnabled_param tmpfs:filesystem associate;
+allow init distributedPasteboardEnabled_param:file { map open read relabelto relabelfrom };
+
 #for bootchart to read
 allow init { domain }:file { open read };
 allow init { domain }:dir { search };
