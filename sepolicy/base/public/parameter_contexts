@@ -52,3 +52,4 @@ bootevent.wms.                          u:object_r:bootevent_wms_param:s0
 
 persist.distributed_hardware.device_manager.discover_status    u:object_r:dhardware_dm_param:s0
 persist.ark.                            u:object_r:arkcompiler_param:s0
+persist.pasteboard.    u:object_r:pasteboard_param:s0
