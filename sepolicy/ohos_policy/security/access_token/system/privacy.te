@@ -64,6 +64,8 @@ allow param_watcher privacy_service:binder { call transfer };
 allow privacy_service audio_policy:binder { call transfer };
 allow privacy_service param_watcher:binder { call transfer };
 allow privacy_service pulseaudio:binder { call transfer };
+allow normal_hap privacy_service:binder { call transfer };
+allow privacy_service normal_hap:binder { call };
 
 allow privacy_service dev_console_file:chr_file { read write };
 
