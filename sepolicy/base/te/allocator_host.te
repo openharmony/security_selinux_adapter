@@ -12,7 +12,6 @@
 # limitations under the License.
 
 allow allocator_host accessibility_param:file { map open read };
-allow allocator_host allocator_host:capability { dac_override };
 allow allocator_host bootevent_param:file { map open read };
 allow allocator_host bootevent_samgr_param:file { map open read };
 allow allocator_host build_version_param:file { map open read };
