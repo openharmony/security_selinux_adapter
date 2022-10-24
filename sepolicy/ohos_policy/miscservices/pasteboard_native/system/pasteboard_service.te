@@ -46,12 +46,17 @@ allow pasteboard_service paramservice_socket:sock_file { write };
 allow pasteboard_service pasteboard_service:unix_dgram_socket { getopt setopt };
 allow pasteboard_service kernel:unix_stream_socket { connectto };
 <<<<<<< HEAD
+<<<<<<< HEAD
 allow pasteboard_service pasteboard_param:parameter_service { set };
 allow { domain -limit_domain } pasteboard_param:file { map open read };
 =======
 allow pasteboard_service distributedPasteboardEnabled_param:parameter_service { set };
 allow { domain -limit_domain } distributedPasteboardEnabled_param:file { map open read };
 >>>>>>> a205c991 (系统参数访问控制整改)
+=======
+allow pasteboard_service pasteboard_param:parameter_service { set };
+allow { domain -limit_domain } pasteboard_param:file { map open read };
+>>>>>>> fb6c0ee0 (简化参数)
 allow pasteboard_service sa_inputmethod_service:samgr_class { get };
 allow pasteboard_service inputmethod_service:binder { call transfer };
 allow pasteboard_service hmdfs:file { read open write getattr };
