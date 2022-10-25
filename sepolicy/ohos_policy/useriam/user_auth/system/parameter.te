@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-const.display.brightness.               u:object_r:const_display_brightness_param:s0
+type useriam_fwkready_param, parameter_attr;
