@@ -19,3 +19,6 @@ allow system_core_hap sa_sys_event_service:samgr_class { get };
 #avc:  denied  { call } for  pid=256 comm="IPC_3_1647" scontext=u:r:hiview:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0
 allow hiview system_basic_hap:binder { call };
 
+#avc:  denied  { getattr } for  pid=1989 comm="sysevent_source" path="/dev/unix/socket/hisysevent" scontext=u:r:hiview:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=1
+allow hiview hiview:unix_dgram_socket { getattr };
+
