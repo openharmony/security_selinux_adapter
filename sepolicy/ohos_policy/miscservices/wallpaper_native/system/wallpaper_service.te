@@ -49,3 +49,6 @@ allow system_core_hap wallpaper_service:fd { use };
 allow normal_hap wallpaper_service:fd { use };
 allow sh sa_wallpaper_manager_service:samgr_class { get };
 allow sh accesstoken_data_file:file { getattr open read };
+allow sh wallpaper_service:binder { use };
+allow sh musl_param:file { read };
+allow sh accesstoken_service:binder { call };
