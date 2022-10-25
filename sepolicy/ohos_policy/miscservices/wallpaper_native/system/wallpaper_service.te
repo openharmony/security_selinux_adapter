@@ -54,3 +54,4 @@ allow sh wallpaper_service:fd { use };
 allow sh musl_param:file { read };
 allow sh accesstoken_service:binder { call };
 allow wallpaper_service sh:fd { use };
+allow wallpaper_service sh:fifo_file { read };
