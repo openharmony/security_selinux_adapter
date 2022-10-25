@@ -25,3 +25,7 @@ allow camera_service normal_hap:binder { call transfer};
 
 allow camera_service accesstoken_service:binder { call transfer };
 allow accesstoken_service camera_service:binder { call transfer };
+
+allow camera_service privacy_service:binder { call transfer };
+allow privacy_service camera_service:binder { call transfer };
+allow camera_service sa_privacy_service:samgr_class { get };
