@@ -27,6 +27,8 @@ allow init dhardware_dm_param:file { map open read relabelto relabelfrom };
 allow arkcompiler_param tmpfs:filesystem associate;
 allow init arkcompiler_param:file { map open read relabelto relabelfrom };
 allow init arkcompiler_param:parameter_service { set };
+allow init inputmethod_param:file { map open read relabelto relabelfrom };
+allow init inputmethod_param:parameter_service { set };
 
 #for bootchart to read
 allow init { domain }:file { open read };
