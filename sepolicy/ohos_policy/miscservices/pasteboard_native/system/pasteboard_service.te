@@ -80,3 +80,7 @@ allow pasteboard_service sa_foundation_abilityms:samgr_class { get };
 #avc:  denied  { read open } for  pid=2041 comm="PasteboardFrame" path="/data/test/resource/pasteboardTest.txt" dev="mmcblk0p11" ino=3680 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=0
 allow storage_daemon data_file:file { read open };
 
+avc:  denied  { use } for  pid=2176 comm="jsThread-1" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:pasteboard_service:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1
+avc:  denied  { use } for  pid=524 comm="pasteboard_serv" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:system_core_hap:s0 tcontext=u:r:pasteboard_service:s0 tclass=fd permissive=1
+allow pasteboard_service system_core_hap:fd { use };
+allow system_core_hap pasteboard_service:fd { use };
