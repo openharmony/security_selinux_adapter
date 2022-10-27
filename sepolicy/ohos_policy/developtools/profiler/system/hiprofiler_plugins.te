@@ -163,7 +163,7 @@ allow hiprofiler_plugins sensor_host:file read;
 allow hiprofiler_plugins user_auth_host:file read;
 allow hiprofiler_plugins vibrator_host:file read;
 
-allow hiprofiler_plugins audio_hdi_server_host:file read;
+allow hiprofiler_plugins audio_host:file read;
 allow hiprofiler_plugins blue_host:file read;
 allow hiprofiler_plugins camera_host:file read;
 allow hiprofiler_plugins disp_gralloc_host:file read;

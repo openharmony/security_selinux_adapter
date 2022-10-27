@@ -19,8 +19,8 @@ allow pulseaudio a2dp_host:binder { call };
 #avc:  denied  { call } for  pid=342 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow pulseaudio accesstoken_service:binder { call };
 
-#avc:  denied  { call } for  pid=304 comm="hdi-sink-playba" scontext=u:r:pulseaudio:s0 tcontext=u:r:audio_hdi_server_host:s0 tclass=binder permissive=1
-allow pulseaudio audio_hdi_server_host:binder { call };
+#avc:  denied  { call } for  pid=304 comm="hdi-sink-playba" scontext=u:r:pulseaudio:s0 tcontext=u:r:audio_host:s0 tclass=binder permissive=1
+allow pulseaudio audio_host:binder { call };
 
 #avc:  denied  { search } for  pid=285 comm="pulseaudio" name="data" dev="mmcblk0p7" ino=1436162 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
 allow pulseaudio data_data_file:dir { search };

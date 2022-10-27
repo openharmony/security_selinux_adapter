@@ -17,7 +17,7 @@ allow init accesstoken_data_file:file { getattr open read write relabelto setatt
 allow init accesstoken_service:process { rlimitinh siginh transition };
 allow init appspawn:process { signal };
 allow init appspawn_socket:sock_file { getattr relabelto };
-allow init audio_hdi_server_host:process { rlimitinh siginh transition };
+allow init audio_host:process { rlimitinh siginh transition };
 allow init bgtaskmgr_service:process { rlimitinh siginh transition };
 allow init blue_host:process { rlimitinh siginh transition };
 allow init bluetooth_service:process { rlimitinh siginh transition };
