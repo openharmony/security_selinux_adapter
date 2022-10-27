@@ -1,0 +1,2 @@
+allow hiprofilerd hdcd:fifo_file { ioctl };
+allowxperm hiprofilerd hdcd:fifo_file ioctl 0x5413;

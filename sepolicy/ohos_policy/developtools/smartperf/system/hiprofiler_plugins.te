@@ -1,0 +1,4 @@
+allow hiprofiler_plugins system_bin_file:file { execute_no_trans };
+allow hiprofiler_plugins system_bin_file:file { getattr };
+allow hiprofiler_plugins system_bin_file:file { map };
+allow hiprofiler_plugins system_bin_file:file { read open };
