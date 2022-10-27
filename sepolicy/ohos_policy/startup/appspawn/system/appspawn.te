@@ -17,6 +17,8 @@ type appspawn_exec, system_file_attr, exec_attr, file_attr;
 init_daemon_domain(appspawn);
 
 allow appspawn dev_unix_socket:sock_file unlink;
+
+allow appspawn appspawn_exec:file { execute_no_trans };
 allow appspawn bootevent_param:parameter_service { set };
 allow appspawn paramservice_socket:sock_file { write };
 allow appspawn kernel:unix_stream_socket { connectto };
