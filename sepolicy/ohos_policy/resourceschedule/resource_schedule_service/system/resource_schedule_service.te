@@ -70,6 +70,8 @@ allow resource_schedule_service faultloggerd:fd { use };
 allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
 #lib_file
 allow resource_schedule_service lib_file:lnk_file { read };
+#musl_param
+allow resource_schedule_service musl_param:file { read };
 #sys_file
 allow resource_schedule_service sys_file:file { getattr write open ioctl create read };
 allow resource_schedule_service sys_file:dir { open read search };
