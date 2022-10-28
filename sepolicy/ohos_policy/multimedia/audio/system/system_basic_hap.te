@@ -24,3 +24,5 @@ allow system_basic_hap sa_audio_policy_service:samgr_class { get };
 #avc:  denied  { get } for service=3001 pid=1424 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=1
 allow system_basic_hap sa_pulseaudio_audio_service:samgr_class { get };
 
+allow system_basic_hap native_socket:sock_file { write };
+allow system_basic_hap pulseaudio:unix_stream_socket { connectto };
