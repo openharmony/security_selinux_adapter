@@ -18,4 +18,4 @@ allow hidumper faultloggerd:fifo_file { read };
 allow hidumper hiview:fd { use };
 allow hidumper hiview:fifo_file { read write };
 allow hidumper hiview_file:file { read write };
-allow hidumper init:unix_dgram_socket { read write };
+allow hidumper hiview:unix_dgram_socket { read write };

@@ -34,6 +34,7 @@ allow accountmgr distributedfiledaemon:binder { call transfer };
 allow accountmgr distributedsche_param:file { map open read };
 allow accountmgr hilog_param:file { map open read };
 allow accountmgr hiview:binder { transfer };
+allow accountmgr hiview:unix_dgram_socket { sendto };
 allow accountmgr hw_sc_build_os_param:file { map open read };
 allow accountmgr hw_sc_build_param:file { map open read };
 allow accountmgr hw_sc_param:file { map open read };

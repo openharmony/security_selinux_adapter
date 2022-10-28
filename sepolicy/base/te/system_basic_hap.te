@@ -40,6 +40,7 @@ allow system_basic_hap distributedsche_param:file { map open read };
 allow system_basic_hap download_server:binder { call transfer };
 allow system_basic_hap faultloggerd_temp_file:file { read };
 allow system_basic_hap hilog_param:file { map open read };
+allow system_basic_hap hiview:unix_dgram_socket { sendto };
 allow system_basic_hap hmdfs:dir { search };
 allow system_basic_hap hw_sc_build_os_param:file { map open };
 allow system_basic_hap hw_sc_build_param:file { map open };

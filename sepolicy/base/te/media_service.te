@@ -58,6 +58,7 @@ allow media_service net_tcp_param:file { map open read };
 allow media_service normal_hap:binder { call transfer };
 allow media_service ohos_boot_param:file { map open read };
 allow media_service ohos_param:file { map open read };
+allow media_service pulseaudio:unix_stream_socket { connectto };
 allow media_service param_watcher:binder { call transfer };
 allow media_service persist_param:file { map open read };
 allow media_service persist_sys_param:file { map open read };

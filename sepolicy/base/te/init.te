@@ -216,7 +216,7 @@ allow init hw_sc_param:file { map open read relabelto };
 allow init init:capability { chown dac_override dac_read_search fowner fsetid kill net_admin setgid setuid sys_admin sys_boot sys_chroot sys_rawio sys_resource };
 allow init init:netlink_kobject_uevent_socket { bind create setopt };
 allow init init_param:file { map open read relabelto };
-allow init init:process { setexec };
+allow init init:process { setexec setsockcreate };
 allow init init_svc_param:file { map open read relabelto };
 allow init init:udp_socket { create ioctl };
 allow init init:unix_dgram_socket { bind setopt getopt getattr read };

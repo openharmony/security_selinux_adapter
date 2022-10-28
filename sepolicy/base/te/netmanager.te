@@ -37,6 +37,7 @@ allow netmanager faultloggerd:fd { use };
 allow netmanager faultloggerd:unix_stream_socket { connectto };
 allow netmanager hilog_param:file { map open read };
 allow netmanager hiview:binder { call };
+allow netmanager hiview:unix_dgram_socket { sendto };
 allow netmanager hw_sc_build_os_param:file { map open read };
 allow netmanager hw_sc_build_param:file { map open read };
 allow netmanager hw_sc_param:file { map open read };

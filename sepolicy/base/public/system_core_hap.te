@@ -14,5 +14,3 @@
 neverallow system_core_hap dev_kmsg_file:chr_file never_rw_file;
 
 neverallow system_core_hap data_local_tmp:file { open read ioctl lock };
-
-

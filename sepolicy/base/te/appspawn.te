@@ -43,6 +43,7 @@ allow appspawn dev_unix_socket:dir { add_name search write remove_name };
 allow appspawn dev_unix_socket:sock_file { create setattr };
 allow appspawn distributedsche_param:file { map open read };
 allow appspawn hilog_param:file { map open read };
+allow appspawn hiview:unix_dgram_socket { sendto };
 allow appspawn hmdfs:dir { mounton search };
 allow appspawn hw_sc_build_os_param:file { map open read };
 allow appspawn hw_sc_build_param:file { map open read };
