@@ -285,6 +285,7 @@ type dev_rfkill, dev_attr;
 type dev_rga, dev_attr;
 type dev_sample_svc, dev_attr;
 type dev_sched_rtg_ctrl, dev_attr;
+type dev_auth_ctrl, dev_attr;
 type dev_snapshot, dev_attr;
 type dev_sw_sync, dev_attr;
 type dev_usb_ffs, dev_attr;
