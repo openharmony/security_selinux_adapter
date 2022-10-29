@@ -153,3 +153,6 @@ neverallow hap_domain proc_file:dir_file_class_set write;
 neverallow * { file_attr -hap_file_attr }:file execmod;
 
 neverallow hap_domain exec_attr:file { create write setattr relabelfrom relabelto append unlink link rename };
+
+#normal_hap or selfdefine should be forbidden to set parameters.
+neverallow { hap_domain -system_core_hap -system_basic_hap } init:unix_stream_socket connectto;
