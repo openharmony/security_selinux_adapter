@@ -344,7 +344,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
     }
 
     char *paths[2] = {NULL, NULL};
-    paths[0] = (char *)realPath;
+    paths[0] = static_cast<char *>(realPath);
     int ftsFlags = FTS_PHYSICAL | FTS_NOCHDIR;
     FTS *fts = fts_open(paths, ftsFlags, NULL);
     if (fts == nullptr) {
