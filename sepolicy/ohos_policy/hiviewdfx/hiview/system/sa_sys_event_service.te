@@ -16,3 +16,5 @@ allow normal_hap sa_sys_event_service:samgr_class { get };
 allow system_basic_hap sa_sys_event_service:samgr_class { get };
 allow system_core_hap sa_sys_event_service:samgr_class { get };
 
+#avc:  denied  { open } for  pid=262 comm="hiview" path="/dev/ashmem" dev="tmpfs" ino=177 scontext=u:r:hiview:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+allow hiview dev_ashmem_file:chr_file { open };
