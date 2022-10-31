@@ -53,6 +53,7 @@ type devinfo_public_param, parameter_attr;
 type telephony_param, parameter_attr;
 type bootevent_wms_param, parameter_attr;
 type dhardware_dm_param, parameter_attr;
+type persist_audio_param, parameter_attr;
 type arkcompiler_param, parameter_attr;
 type inputmethod_param, parameter_attr;
 type pasteboard_param, parameter_attr;
