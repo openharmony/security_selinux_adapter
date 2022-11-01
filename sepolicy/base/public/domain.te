@@ -278,7 +278,7 @@ neverallow { domain debug_only(`-hdcd') -sh } { rootfs system_file_attr vendor_f
 
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
-    debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd') -hidumper_service -netsysnative
+    debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd') -hiview -hiperf -hidumper_service -netsysnative
     -wifi_hal_service } sh_exec:file execute;
 
 #limit execmem use
@@ -339,7 +339,7 @@ neverallow { domain -appspawn -init -ueventd -memmgrservice
 neverallow { domain -appspawn -init -hidumper_service -storage_daemon debug_only(`-hdcd -hiprofiler_plugins -hiperf') } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -ueventd -installs -storage_daemon } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon } self:{ capability cap_userns } fsetid;
-neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation } self:{ capability cap_userns } kill;
+neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -hiperf } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') } self:{ capability cap_userns } setuid;
 neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd -hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
