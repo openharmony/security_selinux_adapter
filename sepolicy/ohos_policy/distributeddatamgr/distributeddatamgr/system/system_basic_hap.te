@@ -13,4 +13,4 @@
 
 allow system_basic_hap distributeddata:binder { call };
 allow system_basic_hap distributeddata:fd { use };
-allow system_basic_hap musl_param:file { read };
+allow system_basic_hap musl_param:file { open map read };
