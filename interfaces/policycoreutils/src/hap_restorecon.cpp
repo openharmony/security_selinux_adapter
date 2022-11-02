@@ -376,7 +376,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
                 continue;
             case FTS_D:
             default:
-                error |= RestoreconSb(ftsent->fts_path, ftsent->fts_statp, apl, packageName);
+                error += RestoreconSb(ftsent->fts_path, ftsent->fts_statp, apl, packageName);
                 break;
         }
     }

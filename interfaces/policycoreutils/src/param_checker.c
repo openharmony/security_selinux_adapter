@@ -74,7 +74,7 @@ static int SelinuxAuditCallback(void *data, security_class_t cls, char *buf, siz
             return -1;
         }
     }
-    if (snprintf_s(buf, len, len - 1, "process=\"%s\" parameter=%s pid=%d uid=%d gid=%d", processName, msg->name,
+    if (snprintf_s(buf, len, len - 1, "process=\"%s\" parameter=%s pid=%d uid=%u gid=%u", processName, msg->name,
                    msg->ucred->pid, msg->ucred->uid, msg->ucred->gid) <= 0) {
         return -1;
     }
