@@ -258,3 +258,7 @@ allow hiprofiler_plugins musl_param:file { open read };
 neverallow hiprofiler_plugins domain:process ptrace;
 allow hiprofiler_plugins musl_param:file map;
 allow hiprofiler_plugins dev_unix_file:sock_file write;
+allow hiprofiler_plugins hisysevent_exec:file { open read execute execute_no_trans map};
+allow hiprofiler_plugins samgr:binder call;
+allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
+allow hiprofiler_plugins hiview:binder { call transfer };

@@ -57,8 +57,20 @@ allow appspawn param_watcher:binder { call transfer };
 
 allow init dev_dri_file:dir search;
 allow init data_updater_file:dir add_name;
+allow init data_service_el0_file:dir relabelfrom;
+allow init data_startup:file getattr;
+allow init musl_param:file read;
+allow init chip_prod_file:dir search;
+allow init sys_prod_file:dir search;
 
 allow samgr appspawn:binder transfer;
 allow samgr appspawn:dir search;
 allow samgr appspawn:file { open read };
 allow samgr dev_console_file:chr_file { read write };
+allow samgr hiprofiler_plugins:dir search;
+allow samgr hiprofiler_plugins:file { open read };
+allow samgr hiprofiler_plugins:binder transfer;
+allow samgr hiprofiler_plugins:process getattr;
+
+allow hiview hiprofiler_plugins:binder call;
+allow deviceauth_service dev_console_file:chr_file { read write };
