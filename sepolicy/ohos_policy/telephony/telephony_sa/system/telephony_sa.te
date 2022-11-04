@@ -17,13 +17,15 @@ type sa_telephony_tel_cellular_data, sa_service_attr;
 type sa_telephony_tel_sms_mms, sa_service_attr;
 
 allow telephony_sa accesstoken_service:binder call;
+allow telephony_sa chip_prod_file:dir search;
 allow telephony_sa data_file:dir search;
 allow telephony_sa data_app_el1_file:dir search;
 allow telephony_sa data_app_el1_file:file { getattr open read };
 allow telephony_sa data_app_file:dir search;
-allow telephony_sa data_service_el1_file:dir { search write };
-allow telephony_sa data_service_el1_file:file { open read write };
+allow telephony_sa data_service_el1_file:dir { add_name create search write };
+allow telephony_sa data_service_el1_file:file { create ioctl open read write };
 allow telephony_sa data_service_file:dir search;
+allow telephony_sa dev_console_file:chr_file { read write };
 allow telephony_sa foundation:binder { call transfer };
 allow telephony_sa hdf_cellular_radio_ext:hdf_devmgr_class get;
 allow telephony_sa init:binder { call transfer };
@@ -42,6 +44,7 @@ allow telephony_sa sa_foundation_abilityms:samgr_class get;
 allow telephony_sa sa_foundation_bms:samgr_class get;
 allow telephony_sa sa_foundation_cesfwk_service:samgr_class get;
 allow telephony_sa sa_foundation_powermgr_service:samgr_class get;
+allow telephony_sa sa_foundation_tel_call_manager:samgr_class get;
 allow telephony_sa sa_foundation_tel_state_registry:samgr_class get;
 allow telephony_sa sa_netsys_native_manager:samgr_class get;
 allow telephony_sa sa_net_conn_manager:samgr_class get;
@@ -59,16 +62,18 @@ allow telephony_sa sh:binder call;
 allow telephony_sa sysfs_net:dir { open read };
 allow telephony_sa system_basic_hap:binder { call transfer };
 allow telephony_sa system_basic_hap:fd use;
+allow telephony_sa system_core_hap:binder call;
 allow telephony_sa sys_file:dir { open read };
 allow telephony_sa sys_file:file { open read };
+allow telephony_sa sys_prod_file:dir search;
 allow telephony_sa time_service:binder call;
 allow telephony_sa vendor_etc_file:dir search;
 allow telephony_sa sa_foundation_tel_call_manager:samgr_class get;
 
 #avc:  denied  { get } for service=ril_service pid=317 scontext=u:r:telephony_sa:s0 tcontext=u:object_r:hdf_ril_service:s0 tclass=hdf_devmgr_class permissive=1
 allow telephony_sa hdf_ril_service:hdf_devmgr_class get;
+
 allow telephony_sa rootfs:file { read open };
 allow telephony_sa vendor_etc_file:file { read open };
-allow telephony_sa chip_prod_file:file read;
-allow telephony_sa sys_prod_file:file read;
-
+allow telephony_sa chip_prod_file:file { read open };
+allow telephony_sa sys_prod_file:file { read open };
