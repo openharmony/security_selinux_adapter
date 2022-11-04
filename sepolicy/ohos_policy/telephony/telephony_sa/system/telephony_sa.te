@@ -75,5 +75,5 @@ allow telephony_sa hdf_ril_service:hdf_devmgr_class get;
 
 allow telephony_sa rootfs:file { read open };
 allow telephony_sa vendor_etc_file:file { read open };
-allow telephony_sa chip_prod_file:file read;
-allow telephony_sa sys_prod_file:file read;
+allow telephony_sa chip_prod_file:file { read open };
+allow telephony_sa sys_prod_file:file { read open };
