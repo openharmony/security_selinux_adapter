@@ -13,7 +13,9 @@
 
 type accesstoken_data_file, file_attr, data_file_attr;
 
-allow accesstoken_service accesstoken_data_file:file { getattr ioctl lock relabelto write };
+allow accesstoken_service accesstoken_data_file:dir { search add_name open read write remove_name };
+
+allow accesstoken_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink };
 
 allow accesstoken_service data_file:dir { search };
 
