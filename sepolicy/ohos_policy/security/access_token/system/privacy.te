@@ -12,8 +12,9 @@
 # limitations under the License.
 
 type privacy_service, sadomain, domain;
+allow privacy_service accesstoken_data_file:dir { search add_name open read write remove_name };
 
-allow privacy_service accesstoken_data_file:file { getattr ioctl lock open read relabelto write };
+allow privacy_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink };
 
 allow privacy_service data_file:dir { search };
 
