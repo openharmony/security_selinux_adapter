@@ -34,4 +34,6 @@ allow normal_hap time_service:binder { transfer };
 allow time_service normal_hap:binder { call transfer };
 allow time_service system_core_hap:binder { call transfer };
 allow time_service system_basic_hap:binder { call transfer };
+allow time_service time_param:parameter_service { set };
+allow { domain -limit_domain } time_param:file { map open read };
 
