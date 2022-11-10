@@ -27,7 +27,6 @@ allow resource_schedule_service locationhub:binder { call };
 allow pulseaudio resource_schedule_service:binder { call transfer };
 allow audio_policy resource_schedule_service:binder { call transfer };
 allow msdp_sa resource_schedule_service:binder { call transfer };
-allow limit_domain resource_schedule_service:binder { call };
 allow render_service resource_schedule_service:binder { call };
 
 #appspawn_exec
