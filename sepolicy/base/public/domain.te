@@ -261,7 +261,7 @@ neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
     -wifi_hal_service } sh_exec:file execute;
 
 #limit execmem use
-neverallow { domain -hap_domain } self:process execmem;
+neverallow { domain -appspawn -hap_domain } self:process execmem;
 
 neverallow { domain -processdump -hap_domain } domain:process ptrace;
 
