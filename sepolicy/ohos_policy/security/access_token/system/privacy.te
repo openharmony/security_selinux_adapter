@@ -82,3 +82,5 @@ binder_call(privacy_service, sh);
 binder_call(privacy_service, accesstoken_service);
 binder_call(privacy_service, foundation);
 binder_call(foundation, privacy_service);
+# avc:  denied  { get } for service=3008 pid=500 scontext=u:r:privacy_service:s0 tcontext=u:object_r:sa_camera_service:s0 tclass=samgr_class permissive=0
+allow privacy_service sa_camera_service:samgr_class { get };
