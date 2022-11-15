@@ -30,6 +30,8 @@ use_hisysevent({ domain -kernel })
 allow hiview hiview:capability2 { syslog };
 allow hiview hiview:dir { search };
 allow hiview hiview_exec:file { entrypoint execute map read };
+allow hiview hiview:capability { sys_ptrace };
+neverallow hiview *:process ptrace;
 
 allow hiview hiview:unix_dgram_socket { getopt setopt };
 allow hiview init:unix_dgram_socket { getattr getopt read write setopt };
