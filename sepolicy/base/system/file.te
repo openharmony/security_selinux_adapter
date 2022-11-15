@@ -293,4 +293,10 @@ type dev_uinput, dev_attr;
 type dev_hdmi_hdcp1x, dev_attr;
 
 type debugfs_kprobes, fs_attr, debugfs_attr;
-
+type debugfs_wakeup_sources, fs_attr, debugfs_attr;
+type debugfs_failed_transaction_log, fs_attr, debugfs_attr;
+type debugfs_transactions, fs_attr, debugfs_attr;
+type debugfs_transaction_log, fs_attr, debugfs_attr;
+type debugfs_used, fs_attr, debugfs_attr;
+type debugfs_state, fs_attr, debugfs_attr;
+type debugfs_stats, fs_attr, debugfs_attr;

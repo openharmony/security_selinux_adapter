@@ -264,6 +264,23 @@ allow hidumper_service sa_useriam_useridm_service:samgr_class get;
 allow hidumper_service sa_wallpaper_manager_service:samgr_class get;
 allow hidumper_service samgr:samgr_class list;
 
+allow hidumper_service hiprofiler_cmd:file getattr;
+allow hidumper_service hiprofiler_plugins:file getattr;
+allow hidumper_service hiprofilerd:file getattr;
+allow hidumper_service musl_param:file { map open read };
+allow hidumper_service native_daemon:dir search;
+allow hidumper_service native_daemon:file { getattr open read };
+allow hidumper_service proc_loadavg_file:file getattr;
+allow hidumper_service proc_meminfo_file:file getattr;
+allow hidumper_service proc_net_tcp_udp:file getattr;
+allow hidumper_service proc_stat_file:file getattr;
+allow hidumper_service self:rawip_socket create;
+allow hidumper_service system_etc_file:file lock;
+
 allow hidumper_service debugfs_failed_transaction_log:file { getattr open read };
+allow hidumper_service debugfs_transactions:file { getattr open read };
+allow hidumper_service debugfs_transaction_log:file { getattr open read };
 allow hidumper_service debugfs_used:file { getattr open read };
 allow hidumper_service debugfs_wakeup_sources:file { getattr open read };
+allow hidumper_service debugfs_stats:file { getattr open read };
+allow hidumper_service debugfs_state:file { getattr open read };

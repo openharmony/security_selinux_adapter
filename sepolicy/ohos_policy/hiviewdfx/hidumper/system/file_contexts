@@ -14,9 +14,3 @@
 /system/bin/hidumper       u:object_r:hidumper_exec:s0
 
 /data/log/hidumper(/.*)?       u:object_r:hidumper_file:s0
-
-/sys/kernel/debug/wakeup_sources       u:object_r:debugfs_wakeup_sources:s0
-
-/sys/kernel/debug/binder/failed_transaction_log       u:object_r:debugfs_failed_transaction_log:s0
-
-/sys/kernel/debug/cma/cma-reserved/used       u:object_r:debugfs_used:s0
