@@ -20,8 +20,6 @@ allow resource_schedule_service hiview:binder { call transfer };
 allow resource_schedule_service param_watcher:binder { call transfer };
 allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
 allow resource_schedule_service audio_policy:binder { call transfer };
-allow resource_schedule_service pulseaudio:binder { call transfer };
-allow resource_schedule_service bluetooth_service { call };
 allow resource_schedule_service locationhub:binder { call };
 allow resource_schedule_service time_service:binder { call };
 allow bluetooth_service resource_schedule_service:binder { call transfer };
