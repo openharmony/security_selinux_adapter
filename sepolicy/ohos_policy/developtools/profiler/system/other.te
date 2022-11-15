@@ -50,9 +50,7 @@ allow appspawn system_lib_file:dir { open read };
 allow appspawn tracefs:dir search;
 allow appspawn tracefs_trace_marker_file:file { open write };
 allow appspawn accessibility:binder { call transfer };
-# allow appspawn data_app_el1_file:file { getattr open read };
 allow appspawn dev_mali:chr_file { getattr ioctl open read write };
-# allow appspawn normal_hap_data_file:dir { open read };
 allow appspawn param_watcher:binder { call transfer };
 
 allow init dev_dri_file:dir search;
