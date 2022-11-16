@@ -42,6 +42,7 @@ allow riladapter_host hw_sc_param:file { map open read };
 allow riladapter_host init_param:file { map open read };
 allow riladapter_host init_svc_param:file { map open read };
 allow riladapter_host input_pointer_device_param:file { map open read };
+allow riladapter_host musl_param:file { map open read };
 allow riladapter_host net_param:file { map open read };
 allow riladapter_host net_tcp_param:file { map open read };
 allow riladapter_host ohos_boot_param:file { map open read };

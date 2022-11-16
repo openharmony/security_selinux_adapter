@@ -154,3 +154,9 @@ allowxperm pulseaudio data_init_agent:file ioctl { 0x5413 };
 allowxperm pulseaudio rootfs:chr_file ioctl { 0x5413 };
 
 allow pulseaudio accessibility_param:file { map open read };
+
+#avc:  denied  { get } for service=3301 pid=347 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=0
+allow pulseaudio sa_foundation_powermgr_service:samgr_class { get };
+
+allow pulseaudio foundation:binder { call transfer };
+allow foundation pulseaudio:binder { call transfer };

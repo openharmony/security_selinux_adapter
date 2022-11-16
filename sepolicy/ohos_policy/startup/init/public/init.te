@@ -32,11 +32,14 @@ allow init arkcompiler_param:parameter_service { set };
 allow arkui_param tmpfs:filesystem associate;
 allow init arkui_param:file { map open read relabelto relabelfrom };
 allow init arkui_param:parameter_service { set };
+allow hap_domain arkui_param:file { map open read };
 allow init inputmethod_param:file { map open read relabelto relabelfrom };
 allow init inputmethod_param:parameter_service { set };
 
 allow pasteboard_param tmpfs:filesystem associate;
 allow init pasteboard_param:file { map open read relabelto relabelfrom };
+allow time_param tmpfs:filesystem associate;
+allow init time_param:file { map open read relabelto relabelfrom };
 
 #for bootchart to read
 allow init { domain }:file { open read };

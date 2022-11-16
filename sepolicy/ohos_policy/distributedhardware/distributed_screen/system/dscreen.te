@@ -175,3 +175,7 @@ allow hidumper_service sa_dscreen_source_service:samgr_class { get };
 #avc:  denied  { get } for service=4808 pid=616 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_dscreen_sink_service:s0 tclass=samgr_class permissive=0
 allow hidumper_service sa_dscreen_sink_service:samgr_class { get };
 
+#avc:  denied  { read } for  pid=2692    ino=55 scontext=u:r:dscreen:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2381    ino=55 scontext=u:r:dscreen:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+allow dscreen musl_param:file { read open };
+
