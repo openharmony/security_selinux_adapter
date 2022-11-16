@@ -102,3 +102,6 @@ allow hap_domain accountmgr:fd {use};
 
 # avc:  denied  { call } for  pid=858 comm="IPC_1_914" scontext=u:r:pinauth:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
 allow pinauth sh:binder { call };
+
+#avc:  denied  { call } for  pid=510 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+allow useriam sh:binder { call };
