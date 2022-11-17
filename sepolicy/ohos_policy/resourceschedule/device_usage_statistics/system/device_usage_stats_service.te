@@ -23,6 +23,7 @@ allow device_usage_stats_service system_bin_file:dir { search };
 allow device_usage_stats_service tmpfs:chr_file { read write };
 allow device_usage_stats_service tracefs:dir { search };
 allow device_usage_stats_service vendor_file:file { execute getattr map open read };
+allow hiview device_usage_stats_service:dir { getattr open read search };
 allow system_basic_hap sa_device_usage_statistics_service:samgr_class { get };
 allow system_core_hap sa_device_usage_statistics_service:samgr_class { get };
 allowxperm device_usage_stats_service data_service_el1_file:file ioctl { 0x5413 0xf50c };

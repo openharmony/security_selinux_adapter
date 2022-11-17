@@ -20,13 +20,19 @@ allow resource_schedule_service hiview:binder { call transfer };
 allow resource_schedule_service param_watcher:binder { call transfer };
 allow resource_schedule_service bgtaskmgr_service:binder { call transfer };
 allow resource_schedule_service audio_policy:binder { call transfer };
-allow resource_schedule_service pulseaudio:binder { call transfer };
+allow resource_schedule_service locationhub:binder { call };
+allow resource_schedule_service time_service:binder { call };
+allow bluetooth_service resource_schedule_service:binder { call transfer };
 allow pulseaudio resource_schedule_service:binder { call transfer };
+allow render_service resource_schedule_service:binder { call };
 allow audio_policy resource_schedule_service:binder { call transfer };
+allow telephony_sa resource_schedule_service:binder { call };
 
 #cgroup
-allow resource_schedule_service cgroup:dir { search };
-allow resource_schedule_service cgroup:file { getattr open write };
+allow resource_schedule_service cgroup:dir { add_name search write };
+allow resource_schedule_service cgroup:file { append getattr ioctl open read write };
+#appspawn_exec
+allow resource_schedule_service appspawn_exec:file { open read };
 #chip_prod_file
 allow resource_schedule_service chip_prod_file:dir { search };
 #vendor
@@ -37,10 +43,16 @@ allow resource_schedule_service vendor_file:file { execute getattr map open read
 allow resource_schedule_service vendor_etc_file:dir { search };
 allow resource_schedule_service vendor_etc_file:file { getattr map open read };
 #system
+allow resource_schedule_service system_basic_hap:dir { open read search };
+allow resource_schedule_service system_basic_hap:file { getattr open read };
 allow resource_schedule_service system_basic_hap:process { setsched };
 allow resource_schedule_service system_bin_file:dir { search };
 allow resource_schedule_service system_bin_file:file { execute read open };
+allow resource_schedule_service system_core_hap:dir { open read search };
+allow resource_schedule_service system_core_hap:file { getattr open read };
 allow resource_schedule_service system_core_hap:process { setsched };
+allow resource_schedule_service system_fonts_file:dir { search };
+allow resource_schedule_service system_fonts_file:file { open read };
 allow resource_schedule_service system_usr_file:dir { search map };
 allow resource_schedule_service system_usr_file:file { getattr read };
 allow resource_schedule_service system_lib_file:dir { search };
@@ -54,10 +66,16 @@ allow resource_schedule_service tracefs_trace_marker_file:file { open write };
 allow resource_schedule_service dev_console_file:chr_file { read write };
 allow resource_schedule_service dev_unix_socket:dir { search };
 allow resource_schedule_service dev_unix_socket:sock_file { write };
+#hiview
+allow hiview resource_schedule_service:file { getattr };
 #ui_service
 allow resource_schedule_service ui_service:process { setsched };
 #normal_hap
+allow resource_schedule_service normal_hap:dir { open read write };
+allow resource_schedule_service normal_hap:file { getattr open read };
 allow resource_schedule_service normal_hap:process { setsched };
+#netlink_socket
+allow resource_schedule_service resource_schedule_service:netlink_socket { read };
 #unix_dgram_socket
 allow resource_schedule_service resource_schedule_service:unix_dgram_socket { getopt setopt };
 #data
@@ -65,6 +83,11 @@ allow resource_schedule_service data_file:dir { search };
 allow resource_schedule_service data_init_agent:dir { search };
 allow resource_schedule_service data_init_agent:file { ioctl open read append };
 allow resource_schedule_service data_log:file { read write };
+#data_service_file
+allow resource_schedule_service data_service_file:dir { search };
+#data_service_el1_file
+allow resource_schedule_service data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search write };
+allow resource_schedule_service data_service_el1_file:file { create getattr ioctl lock open read unlink write };
 #faultloggerd
 allow resource_schedule_service faultloggerd:fd { use };
 allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
@@ -81,12 +104,15 @@ allow resource_schedule_service sysfs_devices_system_cpu:dir { open read search 
 #frame_aware_scha
 allow resource_schedule_service dev_sched_rtg_ctrl:chr_file { ioctl open read write };
 #allowxperm
+allowxperm resource_schedule_service cgroup:file ioctl { 0x5413 };
 allowxperm resource_schedule_service data_init_agent:file ioctl { 0x5413 };
+allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf501 0xf50c };
+allowxperm resource_schedule_service dev_file:chr_file ioctl { 0x7102 0x7104 0x7165 };
 allowxperm resource_schedule_service dev_sched_rtg_ctrl:chr_file ioctl { 0xab01 0xab02 };
 allowxperm resource_schedule_service sys_file:file ioctl { 0x5413 };
 
 #conflict
-#allow resource_schedule_service resource_schedule_service:capability { dac_override dac_read_search };
+#allow resource_schedule_service resource_schedule_service:capability { dac_override dac_read_search setuid sys_ptrace };
 
 #sa_pulseaudio_audio_service
 allow resource_schedule_service sa_pulseaudio_audio_service:samgr_class { get };

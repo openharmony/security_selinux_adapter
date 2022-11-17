@@ -47,6 +47,7 @@ allow bgtaskmgr_service pulseaudio:binder { call transfer };
 allow bgtaskmgr_service sa_bgtaskmgr:samgr_class { get };
 allow pulseaudio bgtaskmgr_service:binder { call transfer };
 allow audio_policy bgtaskmgr_service:binder { call transfer };
+allow hiview bgtaskmgr_service:file { getattr };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
 
 binder_call(bgtaskmgr_service, accountmgr);
