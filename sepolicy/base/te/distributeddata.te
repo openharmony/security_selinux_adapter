@@ -37,6 +37,7 @@ allow distributeddata distributedsche_param:file { map open read };
 allow distributeddata foundation:dir { search };
 allow distributeddata foundation:file { open read };
 allow distributeddata hilog_param:file { map open read };
+allow distributeddata hiview:unix_dgram_socket { sendto };
 allow distributeddata hw_sc_build_os_param:file { map open read };
 allow distributeddata hw_sc_build_param:file { map open read };
 allow distributeddata hw_sc_param:file { map open read };

@@ -19,7 +19,7 @@ allow nwebspawn data_file:dir { search };
 
 #avc:  denied  { read append } for  pid=1852 comm="nwebspawn" name="begetctl.log" dev="mmcblk0p11" ino=15 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=1852 comm="nwebspawn" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=15 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
-#avc:  denied  { ioctl } for  pid=2616 comm="nwebspawn" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=22 ioctlcmd=0x5413 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1 
+#avc:  denied  { ioctl } for  pid=2616 comm="nwebspawn" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=22 ioctlcmd=0x5413 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
 allow nwebspawn data_init_agent:file { read append open ioctl };
 
 #avc:  denied  { search } for  pid=2616 comm="nwebspawn" name="init_agent" dev="mmcblk0p11" ino=89761 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
@@ -57,7 +57,9 @@ allow nwebspawn configfs:dir { mounton };
 allow nwebspawn dev_file:dir { mounton };
 
 #avc:  denied  { mounton } for  pid=2318 comm="nwebspawn" path="/" dev="tmpfs" ino=3 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
-allow nwebspawn tmpfs:dir { mounton };
+allow nwebspawn tmpfs:dir { mounton create_dir_perms };
+
+allow nwebspawn tmpfs:lnk_file { create };
 
 #avc:  denied  { mounton } for  pid=2318 comm="nwebspawn" path="/mnt/sandbox/com.example.web330/sys" dev="sysfs" ino=1 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:sys_file:s0 tclass=dir permissive=1
 allow nwebspawn sys_file:dir { mounton };
@@ -87,3 +89,12 @@ allow nwebspawn vendor_lib_file:file { execute getattr map open read };
 allowxperm nwebspawn data_init_agent:file ioctl { 0x5413 };
 allowxperm nwebspawn dev_at_file:chr_file ioctl { 0x4102 };
 
+allow nwebspawn accessibility_param:file { open read map };
+allow nwebspawn system_basic_hap_data_file:dir { mounton };
+allow nwebspawn system_basic_hap:process { dyntransition };
+
+allow nwebspawn dev_console_file:chr_file { read write };
+allow nwebspawn kernel:unix_stream_socket { connectto };
+allow nwebspawn musl_param:file { map open read };
+allow nwebspawn normal_hap:process { sigkill };
+allow nwebspawn paramservice_socket:sock_file { write };

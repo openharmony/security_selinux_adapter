@@ -1,0 +1,50 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type av_session, sadomain, domain;
+allow av_session accesstoken_service:binder { call };
+allow av_session sa_avsession_service:samgr_class { add };
+allow av_session sa_multimodalinput_service:samgr_class { get };
+allow av_session av_session:unix_dgram_socket { getopt setopt };
+allow av_session data_file:dir { search add_name write };
+allow av_session data_service_el1_file:dir { add_name search write };
+allow av_session data_service_el1_file:file { create ioctl open read write };
+allow av_session data_service_file:dir { search };
+allow av_session default_param:file { read map open };
+allow av_session dev_console_file:chr_file { read write };
+allow av_session dev_unix_socket:dir { search };
+allow av_session foundation:binder { call transfer };
+allow av_session hilog_param:file { map open read };
+allow av_session multimodalinput:binder { call };
+allow av_session multimodalinput:fd { use };
+allow av_session multimodalinput:unix_stream_socket { read write };
+allow av_session sh:binder { call transfer };
+allow av_session system_core_hap:binder { call transfer };
+allow av_session tracefs:dir { search };
+allow av_session tracefs_trace_marker_file:file { write open };
+allow av_session data_file:file { open };
+allow av_session av_session_data_file:file { append open create write ioctl read };
+allow av_session debug_param:file { map open read };
+allow av_session audio_policy:binder { call transfer };
+allow av_session device_manager:binder { call transfer };
+allow av_session param_watcher:binder { call transfer };
+allow av_session sa_accesstoken_manager_service:samgr_class { get };
+allow av_session sa_foundation_appms:samgr_class { get };
+allow av_session av_session_data_file:dir { search write add_name read getattr };
+allow av_session sa_foundation_abilityms:samgr_class { get };
+allow av_session sa_audio_policy_service:samgr_class { get };
+allow av_session sa_foundation_devicemanager_service:samgr_class { get };
+allow av_session sa_param_watcher:samgr_class { get };
+allow av_session system_bin_file:dir { search };
+allowxperm av_session av_session_data_file:file ioctl 0x5413;
+allowxperm av_session data_service_el1_file:file ioctl { 0x5413 };

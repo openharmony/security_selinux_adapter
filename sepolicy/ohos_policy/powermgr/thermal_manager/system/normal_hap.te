@@ -12,10 +12,4 @@
 # limitations under the License.
 
 #avc:  denied  { get } for service=3303 pid=10482 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_thermal_service:s0 tclass=samgr_class permissive=1
-allow normal_hap sa_thermal_service:samgr_class { get };
-
-#avc:  denied  { call } for  pid=3255 comm="jsThread-1" scontext=u:r:normal_hap:s0 tcontext=u:r:thermal:s0 tclass=binder permissive=1
-allow normal_hap thermal:binder { call };
-
-#avc:  denied  { transfer } for  pid=3255 comm="jsThread-1" scontext=u:r:normal_hap:s0 tcontext=u:r:thermal:s0 tclass=binder permissive=1
-allow normal_hap thermal:binder { transfer };
+allow normal_hap sa_foundation_thermal_service:samgr_class { get };

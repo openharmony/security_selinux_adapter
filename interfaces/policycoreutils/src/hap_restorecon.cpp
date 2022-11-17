@@ -42,7 +42,7 @@
 #include "selinux_error.h"
 #include "selinux_log.h"
 
-using namespace Selinux;
+using namespace selinux;
 
 namespace {
 static const std::string SEHAP_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/sehap_contexts";
@@ -147,8 +147,9 @@ static bool HapContextsLoad()
         std::string line;
         while (getline(contextsFile, line)) {
             lineNum++;
-            if (CouldSkip(line))
+            if (CouldSkip(line)) {
                 continue;
+            }
             struct SehapInfo tmpInfo = DecodeString(line);
             if (!tmpInfo.apl.empty()) {
                 sehapContextsBuff.emplace(tmpInfo.apl + tmpInfo.name, tmpInfo);
@@ -343,7 +344,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
     }
 
     char *paths[2] = {NULL, NULL};
-    paths[0] = (char *)realPath;
+    paths[0] = static_cast<char *>(realPath);
     int ftsFlags = FTS_PHYSICAL | FTS_NOCHDIR;
     FTS *fts = fts_open(paths, ftsFlags, NULL);
     if (fts == nullptr) {
@@ -375,7 +376,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
                 continue;
             case FTS_D:
             default:
-                error |= RestoreconSb(ftsent->fts_path, ftsent->fts_statp, apl, packageName);
+                error += RestoreconSb(ftsent->fts_path, ftsent->fts_statp, apl, packageName);
                 break;
         }
     }

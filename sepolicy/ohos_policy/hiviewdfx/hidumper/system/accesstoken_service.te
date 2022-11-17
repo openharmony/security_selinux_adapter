@@ -12,24 +12,18 @@
 # limitations under the License.
 
 allow accessibility accesstoken_service:binder call;
-allow battery_stats accesstoken_service:binder call;
 allow distributedfiledaemon accesstoken_service:binder call;
-allow fms_service accesstoken_service:binder call;
 allow inputmethod_service accesstoken_service:binder call;
 allow memmgrservice accesstoken_service:binder call;
 allow netsysnative accesstoken_service:binder call;
 allow pasteboard_service accesstoken_service:binder call;
 allow render_service accesstoken_service:binder call;
 allow screenlock_server accesstoken_service:binder call;
-allow thermal accesstoken_service:binder call;
 allow ui_service accesstoken_service:binder call;
 allow usb_service accesstoken_service:binder call;
 
 #============= accessibility ==============
 allow accessibility sa_accesstoken_manager_service:samgr_class get;
-
-#============= battery_stats ==============
-allow battery_stats sa_accesstoken_manager_service:samgr_class get;
 
 #============= bgtaskmgr_service ==============
 allow bgtaskmgr_service sa_accesstoken_manager_service:samgr_class get;
@@ -42,9 +36,6 @@ allow download_server sa_accesstoken_manager_service:samgr_class get;
 
 #============= dslm_service ==============
 allow dslm_service sa_accesstoken_manager_service:samgr_class get;
-
-#============= fms_service ==============
-allow fms_service sa_accesstoken_manager_service:samgr_class get;
 
 #============= inputmethod_service ==============
 allow inputmethod_service sa_accesstoken_manager_service:samgr_class get;
@@ -69,9 +60,6 @@ allow resource_schedule_service sa_accesstoken_manager_service:samgr_class get;
 
 #============= screenlock_server ==============
 allow screenlock_server sa_accesstoken_manager_service:samgr_class get;
-
-#============= thermal ==============
-allow thermal sa_accesstoken_manager_service:samgr_class get;
 
 #============= ui_service ==============
 allow ui_service sa_accesstoken_manager_service:samgr_class get;

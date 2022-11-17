@@ -12,12 +12,11 @@
 # limitations under the License.
 
 allow wifi_manager_service accesstoken_service:binder { call };
-allow wifi_manager_service data_dhcp:dir { add_name remove_name search write };
-allow wifi_manager_service data_dhcp:file { create getattr ioctl lock open read setattr unlink write open };
+allow wifi_manager_service data_service_el1_file:dir { add_name remove_name search write create };
+allow wifi_manager_service data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write };
 allow wifi_manager_service data_file:dir { search };
-allow wifi_manager_service data_misc:dir { add_name search write };
-allow wifi_manager_service data_misc:file { create ioctl open read write open };
-allow wifi_manager_service data_misc:sock_file { write };
+allow wifi_manager_service data_service_el1_file:sock_file { write };
+allow wifi_manager_service accessibility_param:file { read };
 allow wifi_manager_service dev_unix_socket:dir { search };
 allow wifi_manager_service foundation:binder { call transfer };
 allow wifi_manager_service netmanager:binder { call transfer };
@@ -31,18 +30,19 @@ allow wifi_manager_service sa_wifi_hotspot_ability:samgr_class { add };
 allow wifi_manager_service sa_wifi_p2p_ability:samgr_class { add };
 allow wifi_manager_service sa_wifi_scan_ability:samgr_class { add };
 allow wifi_manager_service softbus_server:binder { call };
-allow wifi_manager_service system_basic_hap:binder { call };
 allow wifi_manager_service system_bin_file:dir { search };
 allow wifi_manager_service system_bin_file:file { execute execute_no_trans map read open };
 allow wifi_manager_service wifi_hal_service:unix_stream_socket { connectto };
-#allow wifi_manager_service wifi_manager_service:capability { net_admin net_raw };
 allow wifi_manager_service sa_netsys_native_manager:samgr_class { get };
 allow wifi_manager_service wifi_manager_service:netlink_route_socket { create nlmsg_read read write };
 allow wifi_manager_service wifi_manager_service:packet_socket { bind create read write };
-allow wifi_manager_service wifi_manager_service:udp_socket { bind create ioctl setopt };
+allow wifi_manager_service wifi_manager_service:udp_socket { bind create ioctl setopt getopt read write };
 allow wifi_manager_service wifi_manager_service:unix_dgram_socket { ioctl };
-allowxperm wifi_manager_service data_dhcp:file ioctl { 0x5413 };
-allowxperm wifi_manager_service data_misc:file ioctl { 0x5413 };
-allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x8916 0x891c 0x8927 0x8933 };
+allow wifi_manager_service data_service_file:dir { search };
+allow wifi_manager_service normal_hap:binder { call transfer };
+allow wifi_manager_service system_core_hap:binder { call transfer };
+allow wifi_manager_service system_basic_hap:binder { call transfer };
+allow wifi_manager_service sa_foundation_appms:samgr_class { get };
+allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0x5413 };
+allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x890B 0x8913 0x8915 0x8916 0x891b 0x891c 0x8927 0x8933 };
 allowxperm wifi_manager_service wifi_manager_service:unix_dgram_socket ioctl { 0x8910 };
-

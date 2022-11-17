@@ -22,8 +22,15 @@ allow inputmethod_service system_basic_hap:binder { call };
 allow inputmethod_service system_core_hap:binder { call };
 allow inputmethod_service data_file:dir { search };
 allow inputmethod_service inputmethod_service:unix_dgram_socket { getopt setopt };
-allow inputmethod_service persist_sys_param:parameter_service { set };
-allow inputmethod_service data_app_file:dir { search };
 allow inputmethod_service kernel:unix_stream_socket { connectto };
 allow inputmethod_service paramservice_socket:sock_file { write };
+allow inputmethod_service sa_subsys_ace_service:samgr_class { get };
+allow inputmethod_service pasteboard_service:binder { call transfer };
+allow inputmethod_service inputmethod_param:parameter_service { set };
+allow { domain -limit_domain } inputmethod_param:file { map open read };
+
+# add for TDD
+allow sh sa_inputmethod_service:samgr_class { get };
+allow inputmethod_service sh:binder { call transfer };
+allow sh inputmethod_service:binder { call transfer };
 

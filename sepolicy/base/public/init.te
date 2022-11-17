@@ -12,12 +12,13 @@
 # limitations under the License.
 
 
+allow init domain:{ unix_stream_socket unix_dgram_socket } { create bind setopt };
+
 neverallow init data_local_tmp:dir { write add_name remove_name };
 neverallow { domain -kernel } init:process dyntransition;
 neverallow { domain -kernel } init:process transition;
 
-#todo
-#neverallow init *:process noatsecure;
+neverallow init *:process noatsecure;
 
 neverallow { domain -processdump } init:process ptrace;
 
@@ -27,6 +28,9 @@ neverallow init hap_file_attr:lnk_file read;
 neverallow init data_local_tmp:lnk_file read;
 
 neverallow init { file_attr fs_attr -init_exec }:file entrypoint;
+
+neverallow init domain:{ tcp_socket rawip_socket } *;
+neverallow init domain:udp_socket ~{ ioctl create };
 
 #todo
 # system_bin_file need to fix

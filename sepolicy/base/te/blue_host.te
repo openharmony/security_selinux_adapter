@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow blue_host blue_host:capability { dac_override net_admin };
+allow blue_host blue_host:capability { net_admin };
 allow blue_host bluetooth_service:binder { call };
 allow blue_host bootevent_param:file { map open read };
 allow blue_host bootevent_samgr_param:file { map open read };

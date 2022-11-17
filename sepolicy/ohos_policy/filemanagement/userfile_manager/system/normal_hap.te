@@ -1,0 +1,52 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+neverallow {
+    domain
+    -storage_daemon
+    -normal_hap
+    -system_basic_hap
+    -system_core_hap
+    -media_service
+    -hdcd
+} data_user_file:dir {
+    create_dir_perms
+    never_write_dir
+};
+
+neverallow {
+    domain
+    -storage_daemon
+    -normal_hap
+    -system_basic_hap
+    -system_core_hap
+    -media_service
+    -hdcd
+} data_user_file:{ file lnk_file } {
+    create_file_perms
+    never_rw_file
+};
+
+neverallow {
+    domain
+    -storage_daemon
+} data_user_file:file {
+    never_execute_file
+};
+
+allow normal_hap hmdfs:dir create_dir_perms;
+allow normal_hap hmdfs:{file lnk_file} create_file_perms;
+allow normal_hap data_user_file:dir create_dir_perms;
+allow normal_hap data_user_file:file create_file_perms;
+allow normal_hap privacy_service:binder call;
+

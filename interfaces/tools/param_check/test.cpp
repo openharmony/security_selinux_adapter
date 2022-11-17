@@ -31,8 +31,9 @@
 
 #include "selinux_error.h"
 #include "selinux_parameter.h"
+#include "param_checker.h"
 
-using namespace Selinux;
+using namespace selinux;
 
 #ifdef TIME_DISPLAY
 const static long USEC_PER_SEC = 1000000L;
@@ -45,7 +46,6 @@ struct testInput {
 
 static void TestLoadList()
 {
-    std::string path = "/dev/__parameters__/";
     ParamContextsList *buff = nullptr;
 #ifdef TIME_DISPLAY
     struct timeval start, end, diff;
@@ -66,21 +66,12 @@ static void TestLoadList()
     ParamContextsList *head = buff;
     while (buff != nullptr) {
         if (security_check_context(buff->info.paraContext) < 0) {
-            std::cout << "failed check context: " << buff->info.paraContext << std::endl;
+            std::cout << "failed check context: " << buff->info.paraContext << " " << strlen(buff->info.paraContext)
+                      << std::endl;
             buff = buff->next;
             continue;
         }
-        std::string name = path + std::string(buff->info.paraContext);
-        FILE *fp = fopen(name.c_str(), "w");
-        if (fp == nullptr) {
-            std::cout << "failed: " << name << std::endl;
-            buff = buff->next;
-            continue;
-        }
-        (void)fclose(fp);
-        if (setfilecon(name.c_str(), buff->info.paraContext) < 0) {
-            std::cout << "setcon failed: " << name << std::endl;
-        }
+        std::cout << "param: " << buff->info.paraName << ", contexts: " << buff->info.paraContext << std::endl;
         buff = buff->next;
     }
 #ifdef TIME_DISPLAY
@@ -119,7 +110,6 @@ static void TestReadPara(std::string &paraName)
 #endif
     const char *contexts = GetParamLabel(paraName.c_str());
     std::string path = "/dev/__parameters__/" + std::string(contexts);
-    std::string res;
     if (access(path.c_str(), F_OK) != 0) {
         std::cout << "read param: " << paraName << " fail" << std::endl;
     } else {
@@ -133,13 +123,13 @@ static void TestReadPara(std::string &paraName)
 #endif
 }
 
-static void TestSetPara(std::string &paraName, struct ucred *uc)
+static void TestSetPara(std::string &paraName, SrcInfo *info)
 {
 #ifdef TIME_DISPLAY
     struct timeval start, end, diff;
     gettimeofday(&start, nullptr);
 #endif
-    std::cout << GetErrStr(SetParamCheck(paraName.c_str(), uc)) << std::endl;
+    std::cout << GetErrStr(SetParamCheck(paraName.c_str(), GetParamLabel(paraName.c_str()), info)) << std::endl;
 #ifdef TIME_DISPLAY
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);
@@ -234,17 +224,28 @@ static void Test(testInput &testCmd)
             exit(0);
         }
         case 'w': {
-            struct ucred uc;
-            uc.pid = getpid();
-            uc.uid = getuid();
-            uc.gid = getgid();
+            int fd[2];
+            if (socketpair(AF_UNIX, SOCK_DGRAM, 0, fd) < 0) {
+                perror("socketpair");
+                exit(EXIT_FAILURE);
+            }
+
+            SrcInfo info;
+            info.uc.pid = getpid();
+            info.uc.uid = getuid();
+            info.uc.gid = getgid();
+            info.sockFd = fd[0];
             if (!testCmd.paraName.empty()) {
-                TestSetPara(testCmd.paraName, &uc);
+                TestSetPara(testCmd.paraName, &info);
+                close(fd[0]);
+                close(fd[1]);
                 exit(0);
             }
             while (std::cin >> paraName) {
-                TestSetPara(paraName, &uc);
+                TestSetPara(paraName, &info);
             }
+            close(fd[0]);
+            close(fd[1]);
             exit(0);
         }
         default:

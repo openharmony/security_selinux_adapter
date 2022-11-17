@@ -15,6 +15,8 @@ type distributeddata, sadomain, domain;
 
 allow distributeddata accesstoken_service:binder { call };
 allow distributeddata accountmgr:binder { call };
+allow distributeddata accountmgr:dir { search };
+allow distributeddata accountmgr:file { open read };
 allow distributeddata audio_policy:binder { call transfer };
 allow distributeddata data_app_el1_database_file:dir { add_name create open read remove_name rmdir search setattr write };
 allow distributeddata data_app_el1_database_file:file { create getattr ioctl lock map open read rename setattr unlink write };
@@ -35,6 +37,7 @@ allow distributeddata data_service_el1_file:dir { add_name create getattr open r
 allow distributeddata data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 allow distributeddata data_service_file:dir { search };
 allow distributeddata deviceauth_service:binder { call };
+allow distributeddata device_manager:binder { call transfer };
 allow distributeddata dev_ashmem_file:chr_file { open };
 allow distributeddata dev_unix_socket:dir { search };
 allow distributeddata dev_unix_socket:sock_file { write };
@@ -54,12 +57,14 @@ allow distributeddata huks_service:binder { call };
 allow distributeddata normal_hap:binder { call transfer };
 allow distributeddata normal_hap:dir { search };
 allow distributeddata normal_hap:file { open read };
-allow distributeddata normal_hap_data_file:dir { getattr search };
-allow distributeddata normal_hap_data_file:file { getattr lock setattr };
+allow distributeddata normal_hap_data_file:dir { add_name create getattr remove_name rmdir search write };
+allow distributeddata normal_hap_data_file:file { create getattr ioctl lock setattr unlink };
 allow distributeddata proc_file:file { open read };
 allow distributeddata sa_accesstoken_manager_service:samgr_class { get };
 allow distributeddata sa_accountmgr:samgr_class { get };
+allow distributeddata sa_dataobs_mgr_service_service:samgr_class { get };
 allow distributeddata sa_distributeddata_service:samgr_class { add get };
+allow distributeddata sa_foundation_devicemanager_service:samgr_class { get };
 allow distributeddata sa_param_watcher:samgr_class { get };
 allow distributeddata samain_exec:file { entrypoint execute read };
 allow distributeddata samgr:binder { call transfer };
@@ -83,3 +88,4 @@ allowxperm distributeddata data_app_el1_database_file:file ioctl { 0xf50c 0x5413
 allowxperm distributeddata data_app_el2_database_file:file ioctl { 0xf50c 0x5413};
 allowxperm distributeddata data_app_el3_database_file:file ioctl { 0xf50c 0x5413};
 allowxperm distributeddata data_app_el4_database_file:file ioctl { 0xf50c 0x5413};
+allowxperm distributeddata normal_hap_data_file:file ioctl { 0x5413 };

@@ -27,7 +27,7 @@
 #include "selinux_error.h"
 #include "service_checker.h"
 
-using namespace Selinux;
+using namespace selinux;
 
 static std::unique_ptr<ServiceChecker> g_service = nullptr;
 
@@ -156,7 +156,7 @@ static void TestListService(bool isHdf)
     std::cout << GetErrStr(isHdf ? HdfListServiceCheck(getpid()) : g_service->ListServiceCheck(getpid())) << std::endl;
 }
 
-static void Test(testInput &testCmd)
+static void Test(const testInput &testCmd)
 {
     switch (testCmd.cmd) {
         case 'a': {

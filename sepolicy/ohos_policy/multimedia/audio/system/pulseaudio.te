@@ -19,8 +19,8 @@ allow pulseaudio a2dp_host:binder { call };
 #avc:  denied  { call } for  pid=342 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow pulseaudio accesstoken_service:binder { call };
 
-#avc:  denied  { call } for  pid=304 comm="hdi-sink-playba" scontext=u:r:pulseaudio:s0 tcontext=u:r:audio_hdi_server_host:s0 tclass=binder permissive=1
-allow pulseaudio audio_hdi_server_host:binder { call };
+#avc:  denied  { call } for  pid=304 comm="hdi-sink-playba" scontext=u:r:pulseaudio:s0 tcontext=u:r:audio_host:s0 tclass=binder permissive=1
+allow pulseaudio audio_host:binder { call };
 
 #avc:  denied  { search } for  pid=285 comm="pulseaudio" name="data" dev="mmcblk0p7" ino=1436162 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
 allow pulseaudio data_data_file:dir { search };
@@ -153,3 +153,10 @@ allowxperm pulseaudio data_init_agent:file ioctl { 0x5413 };
 #avc:  denied  { ioctl } for  pid=295 comm="hdi-source-reco" path=2F6465762F636F6E736F6C65202864656C6574656429 dev="rootfs" ino=15759 ioctlcmd=0x5413 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file perm
 allowxperm pulseaudio rootfs:chr_file ioctl { 0x5413 };
 
+allow pulseaudio accessibility_param:file { map open read };
+
+#avc:  denied  { get } for service=3301 pid=347 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=0
+allow pulseaudio sa_foundation_powermgr_service:samgr_class { get };
+
+allow pulseaudio foundation:binder { call transfer };
+allow foundation pulseaudio:binder { call transfer };

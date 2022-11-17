@@ -20,7 +20,7 @@ allow memmgrservice accountmgr:binder { call transfer };
 allow memmgrservice dev_unix_socket:dir { search };
 allow memmgrservice bgtaskmgr_service:binder { call transfer };
 allow memmgrservice cgroup:dir { add_name create search write };
-allow memmgrservice cgroup:file { append create getattr ioctl open read write };
+allow memmgrservice cgroup:file { append getattr ioctl open read write };
 allow memmgrservice foundation:binder { call transfer };
 
 allow memmgrservice memmgrservice:capability { kill sys_resource dac_override sys_ptrace };
@@ -63,3 +63,5 @@ allow memmgrservice sa_foundation_cesfwk_service:samgr_class { get };
 allow memmgrservice sa_foundation_abilityms:samgr_class { get };
 
 allow memmgrservice sa_bgtaskmgr:samgr_class { get };
+
+allow memmgrservice sa_foundation_bms:samgr_class { get };

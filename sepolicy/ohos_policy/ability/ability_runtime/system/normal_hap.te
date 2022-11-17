@@ -13,4 +13,7 @@
 
 allow normal_hap sa_form_mgr_service:samgr_class { get };
 allow normal_hap system_core_hap:binder { call transfer };
-
+allow normal_hap system_file:file { getattr open read };
+allow normal_hap data_service_el1_file:file { getattr open read };
+allow normal_hap sa_quick_fix_mgr_service:samgr_class { get };
+allow normal_hap quick_fix:binder { call };

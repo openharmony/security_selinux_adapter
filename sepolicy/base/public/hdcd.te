@@ -12,8 +12,6 @@
 # limitations under the License.
 
 #for debugging
-allow hdcd { file_attr -data_hilogd_file -data_parameters -data_user_file }:dir create_dir_perms;
-allow hdcd { file_attr -data_hilogd_file -dev_parameters_file -data_parameters -data_user_file }:file create_file_perms;
 #for debugging
 
 neverallow hdcd self:perf_event ~{ open read write kernel };

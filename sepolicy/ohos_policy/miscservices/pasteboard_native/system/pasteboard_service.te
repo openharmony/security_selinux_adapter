@@ -13,10 +13,72 @@
 
 type  pasteboard_service, sadomain, domain;
 
-allow pasteboard_service system_core_hap:binder { call };
+allow pasteboard_service system_core_hap:binder { call transfer };
+allow pasteboard_service system_basic_hap:binder { call transfer };
+allow pasteboard_service normal_hap:binder { call transfer };
+allow pasteboard_service sh:binder { call transfer };
 allow pasteboard_service dev_unix_socket:dir { search };
 allow system_core_hap sa_pasteboard_service:samgr_class { get };
 allow system_basic_hap sa_pasteboard_service:samgr_class { get };
 allow normal_hap sa_pasteboard_service:samgr_class { get };
+allow system_core_hap pasteboard_service:binder { call transfer };
+allow system_basic_hap pasteboard_service:binder { call transfer };
+allow normal_hap pasteboard_service:binder { call transfer };
+allow sh pasteboard_service:binder { call transfer };
+allow pasteboard_service foundation:binder { call transfer };
+allow pasteboard_service sa_foundation_bms:samgr_class { get };
+allow pasteboard_service accessibility_param:file { read open map };
+allow pasteboard_service system_usr_file:dir { search };
+allow pasteboard_service sa_foundation_wms:samgr_class { get };
 
+allow pasteboard_service data_service_el1_file:dir { add_name remove_name search write };
+allow pasteboard_service data_service_el1_file:file { create ioctl open unlink write write open };
+allow pasteboard_service distributeddata:binder { call transfer };
+allow pasteboard_service sa_distributeddata_service:samgr_class { get };
+allow distributeddata pasteboard_service:binder { call transfer };
+allow pasteboard_service sa_foundation_devicemanager_service:samgr_class { get };
+allow pasteboard_service sa_device_profile_service:samgr_class { get };
+allow pasteboard_service device_manager:binder { call transfer };
+allow pasteboard_service distributedsche:binder { call transfer };
+allow pasteboard_service system_usr_file:file { getattr read open map };
+allow sh pasteboard_service:process { signal };
+allow pasteboard_service paramservice_socket:sock_file { write };
+allow pasteboard_service pasteboard_service:unix_dgram_socket { getopt setopt };
+allow pasteboard_service kernel:unix_stream_socket { connectto };
+allow pasteboard_service pasteboard_param:parameter_service { set };
+allow { domain -limit_domain } pasteboard_param:file { map open read };
+allow pasteboard_service sa_inputmethod_service:samgr_class { get };
+allow pasteboard_service inputmethod_service:binder { call transfer };
+allow pasteboard_service hmdfs:file { read open write getattr };
+allow pasteboard_service data_service_el2_hmdfs:file { read open write getattr };
+allow pasteboard_service hmdfs:dir { search read open write add_name create remove_name ioctl rmdir };
+allow pasteboard_service data_service_el2_hmdfs:dir { search read open write add_name create remove_name rmdir };
+allow pasteboard_service normal_hap_data_file:file { read getattr };
+allow pasteboard_service sa_accountmgr:samgr_class { get };
+allow accountmgr pasteboard_service:binder { call transfer };
+allow pasteboard_service accountmgr:binder { call transfer };
+allow pasteboard_service foundation:binder { call transfer };
 
+#avc:  denied  { get } for service=4607 pid=533 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow pasteboard_service sa_foundation_dms:samgr_class { get };
+
+#avc:  denied  { get } for service=7001 pid=533 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_subsys_ace_service:s0 tclass=samgr_class permissive=1
+allow pasteboard_service sa_subsys_ace_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=561 scontext=u:r:pasteboard_service:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=1
+allow pasteboard_service ui_service:binder { call transfer };
+
+#avc:  denied  { call } for  pid=640 scontext=u:r:ui_service:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=1
+allow ui_service pasteboard_service:binder { call transfer };
+
+#avc:  denied  { use } for  pid=555 comm="IPC_1_843" path="/dev/ashmem" dev="tmpfs" ino=166 scontext=u:r:sh:s0 tcontext=u:r:pasteboard_service:s0 tclass=fd permissive=1
+allow pasteboard_service sh:fd { use };
+allow sh pasteboard_service:fd { use };
+
+#avc:  denied  { get } for service=180 pid=1811 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+allow pasteboard_service sa_foundation_abilityms:samgr_class { get };
+
+#avc:  denied  { use } for  pid=2176 comm="jsThread-1" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:pasteboard_service:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1
+#avc:  denied  { use } for  pid=524 comm="pasteboard_serv" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:system_core_hap:s0 tcontext=u:r:pasteboard_service:s0 tclass=fd permissive=1
+allow pasteboard_service system_core_hap:fd { use };
+allow system_core_hap pasteboard_service:fd { use };

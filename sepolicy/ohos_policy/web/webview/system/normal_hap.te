@@ -15,7 +15,7 @@
 allow normal_hap init:unix_stream_socket { read write };
 
 #avc:  denied  { read append } for  pid=1912 comm="nweb_test" name="begetctl.log" dev="mmcblk0p11" ino=1044487 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
-#avc:  denied  { open } for  pid=1912 comm="nweb_test" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=1044487 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1 
+#avc:  denied  { open } for  pid=1912 comm="nweb_test" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=1044487 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
 #avc:  denied  { ioctl } for  pid=1912 comm="nweb_test" path="/data/init_agent/begetctl.log" dev="mmcblk0p11" ino=1044487 ioctlcmd=0x5413 scontext=u:r:normal_hap:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=
 allow normal_hap data_init_agent:file { read append open ioctl };
 allowxperm normal_hap data_init_agent:file ioctl { 0x5413 };
@@ -162,7 +162,7 @@ allow normal_hap rootfs:dir { mounton };
 
 #avc:  denied  { mounton } for  pid=4514 comm="nwebspawn" path="/mnt/sandbox/com.example.web0422stage/system/profile" dev="mmcblk0p6" ino=2436 scontext=u:r:normal_hap:s0 tcontext=u:object_r:system_profile_file:s0 tclass=dir permissive=1
 allow normal_hap system_profile_file:dir { mounton };
-   
+
 #avc:  denied  { read } for  pid=12410 comm="com.example.web" name="cpuinfo" dev="proc" ino=4026532107 scontext=u:r:normal_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=12410 comm="com.example.web" path="/proc/cpuinfo" dev="proc" ino=4026532107 scontext=u:r:normal_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
 #avc:  denied  { getattr } for  pid=4745 comm="com.example.web" path="/proc/cpuinfo" dev="proc" ino=4026532107 scontext=u:r:normal_hap:s0 tcontext=u:object_r:proc_cpuinfo_file:s0 tclass=file permissive=1
@@ -209,4 +209,9 @@ allow normal_hap dev_file:dir { mounton };
 
 #avc:  denied  { search } for  pid=8454 comm="com.example.web" name="dri" dev="tmpfs" ino=94 scontext=u:r:normal_hap:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=dir permissive=1
 allow normal_hap dev_dri_file:dir { search };
- 
+
+allow normal_hap pasteboard_service:fd { use };
+
+#avc:  denied  { name_bind } for  pid=3559 comm="Chrome_DevTools" src=9222 scontext=u:r:normal_hap:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=0
+allow normal_hap port:tcp_socket { name_bind };
+

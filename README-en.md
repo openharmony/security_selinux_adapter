@@ -2,43 +2,13 @@
 
 ## Introduction
 
-Security-Enhanced Linux (SELinux) is an outstanding security subsystem in the history of Linux. The SELinux SIG is set up to introduce SELinux to OpenHarmony.
+Security-Enhanced Linux (SELinux) is an outstanding security module in the history of Linux with a set of kernel modifications and user-space tools supporting mandatory access control (MAC) based on security rules.SELinux has been added to various Linux distributions. The software architecture of SELinux attempts to separate enforcement of security decisions from the security policy and streamlines the amount of software involved with security policy enforcement.This component provide MAC protect for system object like file, parameter, service and so on. Providing neverallow rules to limit high-risk operations in the system and reduce system security risks.
 
-> - SELinux is a set of kernel modifications and user-space tools with access control security policies, including mandatory access control (MAC).
-> - SELinux has been added to various Linux distributions. The software architecture of SELinux attempts to separate enforcement of security decisions from the security policy and streamlines the amount of software involved with security policy enforcement.
-
-## Repositories
-
-The table below lists the repositories involved.
-
-| Repository| Source Code| Description|
-| --- | --- | --- |
-| [security_selinux](https://gitee.com/openharmony/security_selinux.git) | `base/security/selinux/` | Provides policies and self-developed APIs.|
-| [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) | `third_party/selinux/` | SELinux main repository.|
-| [productdefine_common](https://gitee.com/openharmony/productdefine_common.git) | `productdefine/common/` | Provides SELinux component definitions.|
-| [third_party_toybox](https://gitee.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | Provides the support for SELinux of `ls`.|
-| [startup_init_lite](https://gitee.com/openharmony/startup_init_lite.git) | `base/startup/init_lite/` | Provides the init_lite module, which starts the first application.|
-| [third_party_FreeBSD](https://gitee.com/openharmony/third_party_FreeBSD.git) | `third_party/FreeBSD/` | Provides the fts library.|
-| [third_party_pcre](https://gitee.com/openharmony/third_party_pcre2.git) | `third_party/pcre/` | Provides the pcre2 library.|
-| [build](https://gitee.com/openharmony/build.git) | `build/` | Provides the code for build.|
-
-## Architecture
-
-### Overall Architecture
+The flow of access control shown in following figure:
 
 ![Overall architecture](docs/images/SELinux.png)
 
-The following SELinux components are used in [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git):
-
-| Component| Source| Description| Format|
-| --- | --- | --- | --- |
-| `checkpolicy/` | [selinux/checkpolicy](https://github.com/SELinuxProject/selinux/tree/cf853c1a0c2328ad6c62fb2b2cc55d4926301d6b/checkpolicy) | `checkpolicy` | Executable file|
-| `libselinux/` | [selinux/libselinux](https://github.com/SELinuxProject/selinux/tree/cf853c1a0c2328ad6c62fb2b2cc55d4926301d6b/libselinux) | `libselinux.so`, `getenforce`, `setenforce`| Dynamic library|
-| `libsepol/` | [selinux/libsepol](https://github.com/SELinuxProject/selinux/tree/cf853c1a0c2328ad6c62fb2b2cc55d4926301d6b/libsepol) | Provides internal APIs.| Dynamic library|
-| `seclic/` | [selinux/seclic](https://github.com/SELinuxProject/selinux/tree/cf853c1a0c2328ad6c62fb2b2cc55d4926301d6b/secilc) | `seclic` | Executable file|
-
-
-### Directory Structure
+## Directory Structure
 
 ```
 .
@@ -57,16 +27,15 @@ The following SELinux components are used in [third_party_selinux](https://gitee
 └── test                    # Test program.
 ```
 
-## Verification
+## Constraints
 
-### Compiling Source Code
+Currently, SELinux supports only the RK3568 device.
 
-1. Obtain the source code. For details, see [Obtaining Source Code](https://gitee.com/openharmony/docs/blob/master/en/device-dev/quick-start/quickstart-standard-sourcecode-acquire.md).
-1. Compile the source code. For details, see [Building](https://gitee.com/openharmony/docs/blob/master/en/device-dev/quick-start/quickstart-standard-running-hi3516-build.md).
+## Usage
 
 ### Building the Image
 
-Currently, SELinux supports only the RK3568 device. Run the following command to build the image that supports SELinux:
+Run the following command to build the image that supports SELinux:
 
 ```
 Independent build command of this module:
@@ -107,7 +76,7 @@ ino=4                               # The file node No. is 4.
 scontext=u:r:hdcd:s0                # The SELinux label of the process is u:r:hdcd:s0.
 tcontext=u:object_r:selinuxfs:s0    # The SELinux label of the accessed file is u:object_r:selinuxfs:s0.
 tclass=file                         # The current alarm is about a file operation.
-permissive=1                        # The SELinux is running in permissive mode, that is, the system does not deny any operation but only logs Access Vector Cache (AVC) message for troubleshooting or debugging. If permissive is set to 0, the SELinux is running in enforcing mode and denies access based on SeLunix policy rules.  
+permissive=1                        # The SELinux is running in permissive mode, that is, the system does not deny any operation but only logs Access Vector Cache (AVC) message for troubleshooting or debugging. If permissive is set to 0, the SELinux is running in enforcing mode and denies access based on SELinux policy rules.  
 ```
 
 ### Writing a Policy Rule
@@ -119,3 +88,19 @@ audit: type=1400 audit(1502458430.566:4): avc:  denied  { open } for  pid=1658 c
 The rule is as follows:
 allow hdcd selinuxfs:file open;
 ```
+
+## Repositories
+
+The table below lists the repositories involved.
+
+| Repository| Source Code| Description|
+| --- | --- | --- |
+| [security_selinux](https://gitee.com/openharmony/security_selinux.git) | `base/security/selinux/` | Provides policies and self-developed APIs.|
+| [third_party_selinux](https://gitee.com/openharmony/third_party_selinux.git) | `third_party/selinux/` | SELinux main repository.|
+| [productdefine_common](https://gitee.com/openharmony/productdefine_common.git) | `productdefine/common/` | Provides SELinux component definitions.|
+| [third_party_toybox](https://gitee.com/openharmony/third_party_toybox.git) | `third_party/toybox/` | Provides the support for SELinux of `ls`.|
+| [startup_init_lite](https://gitee.com/openharmony/startup_init_lite.git) | `base/startup/init_lite/` | Provides the init_lite module, which starts the first application.|
+| [third_party_FreeBSD](https://gitee.com/openharmony/third_party_FreeBSD.git) | `third_party/FreeBSD/` | Provides the fts library.|
+| [third_party_pcre](https://gitee.com/openharmony/third_party_pcre2.git) | `third_party/pcre/` | Provides the pcre2 library.|
+| [build](https://gitee.com/openharmony/build.git) | `build/` | Provides the code for build.|
+

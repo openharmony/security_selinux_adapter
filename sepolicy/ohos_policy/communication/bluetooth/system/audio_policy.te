@@ -14,3 +14,4 @@
 #avc:  denied  { call } for  pid=353 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=351 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=1
 allow audio_policy bluetooth_service:binder { call transfer };
+

@@ -12,6 +12,11 @@
 # limitations under the License
 
 #allow bytrace data_file:file write;
+allow bytrace data_file:dir search;
+allow bytrace data_local:dir search;
+allow bytrace data_log:dir { add_name search write };
+allow bytrace data_log:file { create getattr open write };
+allow bytrace debug_param:parameter_service set;
 allow bytrace dev_unix_socket:dir search;
 allow bytrace devpts:chr_file { read write };
 allow bytrace hdcd:fd use;
@@ -46,9 +51,17 @@ allow bytrace domain:file { open read };
 allow bytrace hw_sc_build_os_param:file { open read map };
 allow bytrace sh:fifo_file { read write };
 
-allow bytrace const_param:file read;
 allow bytrace hw_sc_build_os_param:file { open read };
 allow bytrace init_param:file { map open read };
 allow bytrace init_svc_param:file { map open read };
 
 allow bytrace hdcd:fifo_file { ioctl write };
+
+allow bytrace const_param:file { map open read };
+allow bytrace const_postinstall_fstab_param:file { map open read };
+allow bytrace const_postinstall_param:file { map open read };
+
+debug_only(`
+	allow bytrace self:capability { setgid };
+	allow hitrace self:capability { setgid };
+')

@@ -14,7 +14,6 @@
 type default_hdf_service, hdf_service_attr;
 type hdf_usbd_service, hdf_service_attr;
 type hdf_device_manager, hdf_service_attr;
-type hdf_BtHciService, hdf_service_attr;
 type hdf_thermal_interface_service, hdf_service_attr;
 type hdf_vibrator_interface_service, hdf_service_attr;
 type hdf_distributed_camera_provider_service, hdf_service_attr;
@@ -25,6 +24,7 @@ type hdf_agnss_interface_service, hdf_service_attr;
 type hdf_geofence_interface_service, hdf_service_attr;
 type hdf_input_service, hdf_service_attr;
 type hdf_codec_hdi_omx_service, hdf_service_attr;
+type hdf_codec_component_manager_service, hdf_service_attr;
 type hdf_codec_hdi_service, hdf_service_attr;
 type hdf_battery_interface_service, hdf_service_attr;
 type hdf_power_interface_service, hdf_service_attr;
@@ -54,6 +54,7 @@ type hdf_sample_driver_service, hdf_service_attr;
 type hdf_audio_bluetooth_hdi_service, hdf_service_attr;
 type hdf_wlan_hal_c_service, hdf_service_attr;
 type hdf_audio_hdi_pnp_service, hdf_service_attr;
+type hdf_audio_manager_service, hdf_service_attr;
 type hdf_hdi_media_layer_service, hdf_service_attr;
 
 # for testcase start

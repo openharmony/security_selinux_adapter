@@ -11,5 +11,188 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation light_host:binder { call };
-allow foundation hdf_light_interface_service:hdf_devmgr_class { get };
+init_daemon_domain(charger);
+
+#avc:  denied  { search } for  pid=268 comm="charger" name="socket" dev="tmpfs" ino=21 scontext=u:r:charger:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=0
+allow charger dev_unix_socket:dir { search };
+
+#avc:  denied  { search } for  pid=238 comm="charger" name="processdump" dev="mmcblk0p6" ino=321 scontext=u:r:charger:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+allow charger system_bin_file:dir { search };
+
+#avc:  denied  { entrypoint } for  pid=258 comm="charger" name="bin" dev="mmcblk0p6" ino=321 scontext=u:r:charger:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+#avc:  denied  { read execute } for  pid=239 comm="charger" name="bin" dev="mmcblk0p6" ino=321 scontext=u:r:charger:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=233 comm="charger" name="bin" dev="mmcblk0p6" ino=321 scontext=u:r:charger:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+allow charger system_bin_file:file { entrypoint map read execute };
+
+#avc:  denied  { entrypoint } for  pid=235 comm="init" path="/vendor/bin/charger" dev="mmcblk0p6" ino=14 scontext=u:r:charger:s0 tcontext=u:charger_exec:s0 tclass=file permissive=1
+allow charger charger_exec:file { entrypoint };
+
+#avc:  denied  { read map } for process="unknown process" parameter=startup.device.ctl pid=268 uid=6667 gid=6667 scontext=u:r:charger:s0 tcontext=u:object_r:startup_param:s0 tclass=file permissive=0
+allow charger startup_param:file { open read map };
+
+#avc:  denied  { read } for  pid=307 comm="charger" name="u:object_r:ohos_param:s0" dev="tmpfs" ino=30 scontext=u:r:charger:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=300 comm="charger" name="u:object_r:ohos_param:s0" dev="tmpfs" ino=30 scontext=u:r:charger:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=312 comm="charger" name="u:object_r:ohos_param:s0" dev="tmpfs" ino=30 scontext=u:r:charger:s0 tcontext=u:object_r:ohos_param:s0 tclass=file permissive=k
+allow charger ohos_param:file { read open map };
+
+#avc:  denied  { read } for  pid=219 comm="charger" name="u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=28 scontext=u:r:charger:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=223 comm="charger" name="u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=28 scontext=u:r:charger:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=225 comm="charger" name="u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=28 scontext=u:r:charger:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
+allow charger ohos_boot_param:file { read open map };
+
+#avc: denied { read } for pid=296 comm="charger" path="/dev/parameters/u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:charger:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+#avc: denied { open map } for pid=296 comm="charger" path="/dev/parameters/u:object_r:sys_param:s0" dev="tmpfs" ino=48 scontext=u:r:charger:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+allow charger sys_param:file { read open map };
+
+#avc:  denied  { read } for  pid=281 comm="charger" name="u:object_r:net_param:s0" dev="tmpfs" ino=50 scontext=u:r:charger:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=222 comm="charger" path="/dev/__parameters__/u:object_r:net_param:s0" dev="tmpfs" ino=50 scontext=u:r:charger:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=235 comm="charger" path="/dev/__parameters__/u:object_r:net_param:s0" dev="tmpfs" ino=50 scontext=u:r:charger:s0 tcontext=u:object_r:net_param:s0 tclass=file permissive=1
+allow charger net_param:file { read open map };
+
+#avc:  denied  { read } for  pid=256 comm="charger" name="u:object_r:net_tcp_param:s0" dev="tmpfs" ino=51 scontext=u:r:charger:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=265 comm="charger" path="/dev/__parameters__/u:object_r:net_tcp_param:s0" dev="tmpfs" ino=51 scontext=u:r:charger:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=269 comm="charger" path="/dev/__parameters__/u:object_r:net_tcp_param:s0" dev="tmpfs" ino=51 scontext=u:r:charger:s0 tcontext=u:object_r:net_tcp_param:s0 tclass=file permissive=1
+allow charger net_tcp_param:file { read open map };
+
+#avc:  denied  { search } for  pid=271 comm="charger" name="/" dev="mmcblk0p11" ino=3 scontext=u:r:charger:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow charger data_file:dir { search };
+
+#avc:  denied  { write } for  pid=291 comm="charger" name="paramservice" dev="tmpfs" ino=27 scontext=u:r:charger:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow charger paramservice_socket:sock_file { write };
+
+#avc:  denied  { read } for  pid=204 comm="charger" name="u:object_r:const_allow_param:s0" dev="tmpfs" ino=60 scontext=u:r:charger:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=197 comm="charger" path="/dev/__parameters__/u:object_r:const_allow_param:s0" dev="tmpfs" ino=60 scontext=u:r:charger:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=172 comm="charger" path="/dev/__parameters__/u:object_r:const_allow_param:s0" dev="tmpfs" ino=60 scontext=u:r:charger:s0 tcontext=u:object_r:const_allow_param:s0 tclass=file permissive=1
+allow charger const_allow_param:file { open read map };
+
+#avc:  denied  { read } for  pid=220 comm="charger" name="u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=61 scontext=u:r:charger:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=234 comm="charger" path="/dev/__parameters__/u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=61 scontext=u:r:charger:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=214 comm="charger" path="/dev/__parameters__/u:object_r:const_allow_mock_param:s0" dev="tmpfs" ino=61 scontext=u:r:charger:s0 tcontext=u:object_r:const_allow_mock_param:s0 tclass=file permissive=1
+allow charger const_allow_mock_param:file { open read map };
+
+#avc:  denied  { connectto } for  pid=262 comm="charger" path="/dev/unix/socket/paramservice" scontext=u:r:charger:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=0
+allow charger kernel:unix_stream_socket { connectto };
+
+#avc:  denied  { read } for  pid=192 comm="charger" name="u:object_r:security_param:s0" dev="tmpfs" ino=64 scontext=u:r:charger:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=211 comm="charger" path="/dev/__parameters__/u:object_r:security_param:s0" dev="tmpfs" ino=64 scontext=u:r:charger:s0 tcontext=u:object_r:security_param:s0 tclass=file permissive=1
+allow charger security_param:file { open read map };
+
+#avc:  denied  { open } for  pid=212 comm="charger" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=65 scontext=u:r:charger:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=209 comm="charger" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=65 scontext=u:r:charger:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=1
+allow charger hilog_param:file { open read map };
+
+#avc:  denied  { read } for  pid=205 comm="charger" name="u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=73 scontext=u:r:charger:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=209 comm="charger" path="/dev/__parameters__/u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=73 scontext=u:r:charger:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=200 comm="charger" path="/dev/__parameters__/u:object_r:input_pointer_device_param:s0" dev="tmpfs" ino=73 scontext=u:r:charger:s0 tcontext=u:object_r:input_pointer_device_param:s0 tclass=file permissive=1
+allow charger input_pointer_device_param:file { open read map };
+
+#avc:  denied  { read } for  pid=258 comm="charger" name="u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=74 scontext=u:r:charger:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=244 comm="charger" path="/dev/__parameters__/u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=74 scontext=u:r:charger:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=248 comm="charger" path="/dev/__parameters__/u:object_r:const_display_brightness_param:s0" dev="tmpfs" ino=74 scontext=u:r:charger:s0 tcontext=u:object_r:const_display_brightness_param:s0 tclass=file permissive=1
+allow charger const_display_brightness_param:file { open read map };
+
+#avc:  denied  { read } for  pid=250 comm="hdf_devhost" name="u:object_r:default_param:s0" dev="tmpfs" ino=75 scontext=u:r:charger:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=245 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:default_param:s0" dev="tmpfs" ino=75 scontext=u:r:charger:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=215 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:default_param:s0" dev="tmpfs" ino=75 scontext=u:r:charger:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=1
+allow charger default_param:file { open read map };
+
+#avc:  denied  { getattr } for  pid=262 comm="charger" path="/dev/dev_mgr" dev="tmpfs" ino=188 scontext=u:r:charger:s0 tcontext=u:object_r:dev_mgr_file:s0 tclass=chr_file permissive=0
+allow charger dev_mgr_file:chr_file { getattr };
+
+#avc:  denied  { search } for  pid=275 comm="charger" name="service" dev="mmcblk0p11" ino=7 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+allow charger data_service_file:dir { search };
+
+#avc:  denied  { search } for  pid=267 comm="charger" name="el0" dev="mmcblk0p11" ino=8 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc:  denied  { add_name } for  pid=242 comm="charger" name="el0" dev="mmcblk0p11" ino=8 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc:  denied  { read } for  pid=253 comm="charger" name="el0" dev="mmcblk0p11" ino=8 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+#avc:  denied  { write } for  pid=253 comm="charger" name="el0" dev="mmcblk0p11" ino=8 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=dir permissive=0
+allow charger data_service_el0_file:dir { search open read write add_name };
+
+#avc:  denied  { read } for  pid=268 comm="charger" name="capacity" dev="mmcblk0p11" ino=240 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+#avc:  denied  { write } for  pid=296 comm="charger" name="capacity" dev="mmcblk0p11" ino=242 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+#avc:  denied  { ioctl } for  pid=202 comm="charger" dev="mmcblk0p11" ino=204 ioctlcmd=0x6203 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
+#avc:  denied  { create } for  pid=202 comm="charger" dev="mmcblk0p11" ino=204 ioctlcmd=0x6203 scontext=u:r:charger:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
+allow charger data_service_el0_file:file { open read write create ioctl };
+
+#avc:  denied  { read } for  pid=306 comm="charger" name="leds" scontext=u:r:charger:s0 tcontext=u:object_r:sysfs_leds:s0 tclass=dir permissive=0
+allow charger sysfs_leds:dir { open read };
+
+#avc:  denied  { call } for  pid=275 comm="charger" scontext=u:r:charger:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+allow charger hdf_devmgr:binder { call };
+
+#avc:  denied  { call } for  pid=327 comm="charger" scontext=u:r:charger:s0 tcontext=u:r:light_host:s0 tclass=binder permissive=1
+allow charger light_host:binder { call };
+
+#avc:  denied  { search } for  pid=271 comm="charger" name="dri" dev="tmpfs" ino=81 scontext=u:r:charger:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=dir permissive=0
+allow charger dev_dri_file:dir { search };
+
+#avc:  denied  { open } for  pid=235 comm="charger" name="card0" dev="tmpfs" ino=83 scontext=u:r:charger:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { read write } for  pid=275 comm="charger" name="card0" dev="tmpfs" ino=83 scontext=u:r:charger:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { map } for  pid=239 comm="charger" name="card0" dev="tmpfs" ino=83 scontext=u:r:charger:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { ioctl } for  pid=267 comm="charger" name="card0" dev="tmpfs" ino=83 scontext=u:r:charger:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
+allow charger dev_dri_file:chr_file { open ioctl read write map };
+
+#avc:  denied  { getattr } for  pid=262 comm="charger" path="/dev/hdf_input_event1" dev="tmpfs" ino=198 scontext=u:r:charger:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
+#avc:  denied  { ioctl } for  pid=253 comm="charger" path="/dev/hdf_input_event1" dev="tmpfs" ino=198 scontext=u:r:charger:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
+#avc:  denied  { write} for  pid=260 comm="charger" path="/dev/hdf_input_event1" dev="tmpfs" ino=198 scontext=u:r:charger:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
+#avc:  denied  { map } for  pid=257 comm="charger" path="/dev/hdf_input_event1" dev="tmpfs" ino=198 scontext=u:r:charger:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
+#avc:  denied  { read } for  pid=257 comm="charger" path="/dev/hdf_input_event1" dev="tmpfs" ino=198 scontext=u:r:charger:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
+allow charger dev_hdf_input:chr_file { getattr open read write ioctl map };
+
+#avc:  denied  { read } for  pid=271 comm="charger" scontext=u:r:charger:s0 tcontext=u:r:charger:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { create } for  pid=271 comm="charger" scontext=u:r:charger:s0 tcontext=u:r:charger:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { setopt } for  pid=266 comm="charger" scontext=u:r:charger:s0 tcontext=u:r:charger:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { bind } for  pid=266 comm="charger" scontext=u:r:charger:s0 tcontext=u:r:charger:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow charger charger:netlink_kobject_uevent_socket { read create setopt bind };
+
+#avc:  denied  { get } for service=5100 pid=280 scontext=u:r:charger:s0 tcontext=u:object_r:hdf_light_interface_service:s0 tclass=hdf_devmgr_class permissive=0
+allow charger hdf_light_interface_service:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=5100 pid=270 scontext=u:r:charger:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=0
+allow charger sa_device_service_manager:samgr_class { get };
+
+#avc:  denied  { read } for  pid=278 comm="charger" scontext=u:r:charger:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=278 comm="charger" scontext=u:r:charger:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
+allow charger accessibility_param:file { open read map };
+
+#avc:  denied  { search } for  pid=271 comm="charger" name="etc" dev="mmcblk0p7" ino=20 scontext=u:r:charger:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=0
+allow charger vendor_etc_file:dir { search };
+
+#avc:  denied  { read } for  pid=275 comm="charger" name="loop00000.png" dev="mmcblk0p7" ino=31 scontext=u:r:charger:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=0
+allow charger vendor_etc_file:file { open read };
+
+#avc:  denied  { set } for process="unknown process" parameter=startup.device.ctl pid=268 uid=6667 gid=6667 scontext=u:r:charger:s0 tcontext=u:object_r:startup_param:s0 tclass=parameter_service permissive=0
+allow charger startup_param:parameter_service { set };
+
+#avc:  denied  { set } for process="unknown process" parameter=startup.device.ctl pid=299 uid=6667 gid=6667 scontext=u:r:charger:s0 tcontext=u:object_r:ohos_param:s0 tclass=parameter_service permissive=0
+allow charger ohos_param:parameter_service { set };
+
+#avc: denied { search } for  pid=379 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:charger:s0 tclass=dir permissive=1
+allow hdf_devmgr charger:dir { search };
+
+#avc: denied { read } for  pid=370 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:charger:s0 tclass=file permissive=1
+allow hdf_devmgr charger:file { open read };
+
+#avc: denied { getattr } for  pid=390 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:charger:s0 tclass=process permissive=1
+allow hdf_devmgr charger:process { getattr };
+
+#avc:  denied  { call } for  pid=271 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:charger:s0 tclass=binder permissive=1
+allow hdf_devmgr charger:binder { transfer };
+
+# avc:  denied  { getattr } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:charger:s0 tclass=process permissive=1
+# avc:  denied  { rlimitinh } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:charger:s0 tclass=process permissive=1
+# avc:  denied  { siginh } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:charger:s0 tclass=process permissive=1
+# avc:  denied  { transition } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:charger:s0 tclass=process permissive=1
+allow init charger:process { getattr rlimitinh siginh transition };
+
+#avc:  denied  { execute } for  pid=235 comm="init" path="/vendor/bin/charger" dev="mmcblk0p6" ino=14 scontext=u:r:init:s0 tcontext=u:object_r:charger:s0 tclass=file permissive=1
+#avc: denied { read } for  pid=217 scontext=u:r:init:s0 tcontext=u:object_r:charger_exec:s0 tclass=file permissive=1
+#avc: denied { getattr } for  pid=218 scontext=u:r:init:s0 tcontext=u:object_r:charger_exec:s0 tclass=file permissive=0
+allow init charger_exec:file { execute getattr read open };
+
+#.avc:  denied  { read } for  pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:usb_host:s0 tclass=file permissive=1
+allow init charger:file { open read };
+
+#avc:  denied  { search } for  pid=228 comm="init" name="charger" dev="mmcblk0p11" ino=31 scontext=u:r:init:s0 tcontext=u:object_r:charger:s0 tclass=dir permissive=1
+allow init charger:dir { search };
+

@@ -29,7 +29,7 @@
 #include "hap_restorecon.h"
 #include "selinux_error.h"
 
-using namespace Selinux;
+using namespace selinux;
 
 static const int ALARM_TIME_S = 5;
 struct testInput {

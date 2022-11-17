@@ -24,7 +24,6 @@ allow hiprofiler_plugins dev_unix_socket:dir search;
 allow hiprofiler_plugins proc_cpuinfo_file:file { open read };
 allow hiprofiler_plugins system_bin_file:dir search;
 allow hiprofiler_plugins data_local:dir search;
-allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads };
 allow hiprofiler_plugins hiprofilerd:unix_stream_socket connectto;
 allow hiprofiler_plugins hiprofilerd:fd { use }; 
 
@@ -106,18 +105,10 @@ allow hiprofiler_plugins const_display_brightness_param:file { map open read };
 allow hiprofiler_plugins distributedsche_param:file { map open read };
 allow hiprofiler_plugins input_pointer_device_param:file { map open read };
 
-allow hiprofiler_plugins data_local_tmp:file { create write };
 allow hiprofiler_plugins default_param:file { map open read };
-
-allow hiprofiler_plugins data_local_tmp:file { lock };
-
-allow hiprofiler_plugins data_local_tmp:dir { open search };
-allow hiprofiler_plugins data_local_tmp:file open;
-allow hiprofiler_plugins self:capability { dac_override dac_read_search };
 
 allow hiprofiler_plugins accessibility:file { getattr open read };
 allow hiprofiler_plugins distributeddata:file { getattr read };
-allow hiprofiler_plugins fms_service:dir search;
 allow hiprofiler_plugins hilog_exec:file { execute execute_no_trans getattr map open read };
 allow hiprofiler_plugins init:dir { open read };
 allow hiprofiler_plugins kernel:file { getattr open };
@@ -142,7 +133,6 @@ allow hiprofiler_plugins locationhub:file read;
 allow hiprofiler_plugins memmgrservice:file read;
 allow hiprofiler_plugins multimodalinput:file read;
 allow hiprofiler_plugins resource_schedule_service:file read;
-allow hiprofiler_plugins sh_exec:file { execute_no_trans map open read };
 allow hiprofiler_plugins storage_daemon:file read;
 
 allow hiprofiler_plugins bgtaskmgr_service:file read;
@@ -173,22 +163,19 @@ allow hiprofiler_plugins sensor_host:file read;
 allow hiprofiler_plugins user_auth_host:file read;
 allow hiprofiler_plugins vibrator_host:file read;
 
-allow hiprofiler_plugins audio_hdi_server_host:file read;
+allow hiprofiler_plugins audio_host:file read;
 allow hiprofiler_plugins blue_host:file read;
 allow hiprofiler_plugins camera_host:file read;
 allow hiprofiler_plugins disp_gralloc_host:file read;
 allow hiprofiler_plugins input_user_host:file read;
 allow hiprofiler_plugins power_host:file read;
 allow hiprofiler_plugins usb_host:file read;
-allow hiprofiler_plugins usbfnMaster_host:file read;
 allow hiprofiler_plugins wifi_host:file read;
 
 allow hiprofiler_plugins camera_service:file read;
 allow hiprofiler_plugins faultloggerd:file read;
-allow hiprofiler_plugins fms_service:file read;
 allow hiprofiler_plugins media_service:file read;
 allow hiprofiler_plugins render_service:file read;
-allow hiprofiler_plugins thermal:file read;
 allow hiprofiler_plugins useriam:file read;
 allow hiprofiler_plugins wifi_hal_service:file read;
 
@@ -238,21 +225,40 @@ allow hiprofiler_plugins proc_file:file { getattr open read };
 allow hiprofiler_plugins pulseaudio:file getattr;
 allow hiprofiler_plugins tracefs:file open;
 
-allow hiprofiler_plugins data_local_tmp:dir { add_name write };
-allow hiprofiler_plugins data_local_tmp:file { execute getattr ioctl map read };
-allow hiprofiler_plugins self:capability sys_ptrace;
-
 allow hiprofiler_plugins proc_diskstats_file:file { open read };
 allow hiprofiler_plugins rootfs:file getattr;
 
 allow hiprofiler_plugins hiprofiler_cmd:fd use;
 allow hiprofiler_plugins rootfs:file read;
 allow hiprofiler_plugins tty_device:chr_file ioctl;
+allow hiprofiler_plugins hilog_output_socket:sock_file write;
 
 allow hiprofiler_plugins proc_uptime_file:file { open read };
 allow hiprofiler_plugins tracefs:dir { open read };
 
 allow hiprofiler_plugins tracefs:file append;
 
+allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads };
+
+debug_only(`
+	allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search sys_admin };
+	allow hiprofiler_plugins data_local_tmp:dir { add_name write open search };
+	allow hiprofiler_plugins data_local_tmp:file { create read open write lock };
+	allow hiprofiler_plugins sh_exec:file { execute execute_no_trans map open read };
+	allow hiprofiler_plugins self:capability setgid;
+')
+
 allow hiprofiler_plugins domain:dir { open read getattr search };
 allow hiprofiler_plugins domain:file { open read getattr };
+
+allow hiprofiler_plugins data_local_tmp:file ioctl;
+allow hiprofiler_plugins hilogd:unix_stream_socket connectto;
+allow hiprofiler_plugins musl_param:file { open read };
+
+neverallow hiprofiler_plugins domain:process ptrace;
+allow hiprofiler_plugins musl_param:file map;
+allow hiprofiler_plugins dev_unix_file:sock_file write;
+allow hiprofiler_plugins hisysevent_exec:file { open read execute execute_no_trans map};
+allow hiprofiler_plugins samgr:binder call;
+allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
+allow hiprofiler_plugins hiview:binder { call transfer };

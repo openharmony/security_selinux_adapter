@@ -34,3 +34,4 @@ allow system_core_hap softbus_server:tcp_socket { read setopt write };
 
 allow faultloggerd normal_hap:process { signal };
 allow softbus_server normal_hap:binder { call };
+allow softbus_server sa_privacy_service:samgr_class { get };

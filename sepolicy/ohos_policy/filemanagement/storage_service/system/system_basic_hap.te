@@ -14,3 +14,4 @@
 allow system_basic_hap sa_distributeddata_service:samgr_class { get };
 allow system_basic_hap sa_huks_service:samgr_class { get };
 allow system_basic_hap system_core_hap:binder { call };
+allow system_basic_hap normal_hap_data_file:file { read write };

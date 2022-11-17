@@ -12,11 +12,13 @@
 # limitations under the License.
 
 allow sh hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
+allow sh hdf_codec_component_manager_service:hdf_devmgr_class { get };
 allow sh hdf_codec_hdi_service:hdf_devmgr_class { get };
 allow sh codec_host:binder { transfer };
 allow sh proc_boot_id:file { read open };
 allow sh disp_gralloc_host:binder { call };
 allow sh disp_gralloc_host:fd { use };
+allow sh hdf_audio_manager_service:binder { call };
 allow sh dev_ashmem_file:chr_file { open read write};
 allow sh dev_dri_file:chr_file { read write open ioctl getattr};
 allow sh dev_dri_file:dir { search };

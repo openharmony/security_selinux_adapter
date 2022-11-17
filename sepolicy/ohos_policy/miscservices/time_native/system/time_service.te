@@ -13,7 +13,10 @@
 
 type  time_service, sadomain, domain;
 
-allow time_service foundation:binder { call };
+allow time_service sa_foundation_abilityms:samgr_class { get };
+allow time_service sh:binder { call };
+allow sh time_service:binder { call transfer };
+allow time_service foundation:binder { call transfer };
 allow time_service accesstoken_service:binder { call };
 allow time_service time_service:capability { sys_time };
 allow time_service sa_accesstoken_manager_service:samgr_class { get };
@@ -26,4 +29,11 @@ allow time_service time_service:udp_socket { bind connect create read setopt wri
 allow time_service dev_unix_socket:dir { search };
 allow system_basic_hap sa_time_service:samgr_class { get };
 allow normal_hap sa_time_service:samgr_class { get };
+allow system_core_hap sa_time_service:samgr_class { get };
+allow normal_hap time_service:binder { transfer };
+allow time_service normal_hap:binder { call transfer };
+allow time_service system_core_hap:binder { call transfer };
+allow time_service system_basic_hap:binder { call transfer };
+allow time_service time_param:parameter_service { set };
+allow { domain -limit_domain } time_param:file { map open read };
 

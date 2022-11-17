@@ -13,10 +13,17 @@
  * limitations under the License.
  */
 
-#ifndef SELINUX_ERROE_H
-#define SELINUX_ERROE_H
+#ifndef SELINUX_ERROR_H
+#define SELINUX_ERROR_H
 
-namespace Selinux {
+#pragma once
+
+#ifdef __cplusplus
+#if __cplusplus
+namespace selinux {
+#endif
+#endif
+
 enum Errno {
     SELINUX_SUCC,
     SELINUX_ARG_INVALID,
@@ -38,6 +45,11 @@ enum Errno {
 };
 
 const char *GetErrStr(int errNo);
-} // namespace Selinux
 
-#endif // SELINUX_ERROE_H
+#ifdef __cplusplus
+#if __cplusplus
+} // namespace selinux
+#endif
+#endif
+
+#endif // SELINUX_ERROR_H

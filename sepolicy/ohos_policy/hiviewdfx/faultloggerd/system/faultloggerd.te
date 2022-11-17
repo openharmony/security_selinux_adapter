@@ -35,8 +35,6 @@ use_faultloggerd_file({ hiview hidumper })
 #########################
 ## faultloggerd rules: ##
 #########################
-allow faultloggerd self:capability sys_ptrace; # conflict with neverallow
-
 allow faultloggerd init:unix_stream_socket { accept getattr getopt listen setopt };
 
 allow faultloggerd domain:file { open read };
@@ -49,7 +47,6 @@ allow faultloggerd dev_unix_socket:dir search;
 allow faultloggerd data_log:dir search;
 
 allow faultloggerd tty_device:chr_file { open read write };
-allow faultloggerd sh_exec:file { execute execute_no_trans map open read };
 allow faultloggerd system_bin_file:file { execute execute_no_trans getattr map open read };
 allow faultloggerd system_bin_file:lnk_file read;
 
@@ -60,6 +57,9 @@ allow faultloggerd faultloggerd_temp_file:dir { add_name remove_name write open 
 allow faultloggerd faultloggerd_temp_file:file { create getattr setattr write open read unlink };
 
 allow faultloggerd_temp_file labeledfs:filesystem { associate };
+
+# allow hap apply pipe fd for mix stack
+allow hap_domain faultloggerd:fifo_file write;
 
 allow sh faultloggerd:dir { getattr search };
 allow sh faultloggerd:fifo_file read;

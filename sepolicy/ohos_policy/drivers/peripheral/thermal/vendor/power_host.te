@@ -13,6 +13,7 @@
 
 #avc:  denied  { open } for  pid=403 comm="power_host" path="/sys/power/state" dev="sysfs" ino=4991 scontext=u:r:power_host:s0 tcontext=u:object_r:sysfs_state:s0 tclass=file permissive=1
 allow power_host sysfs_state:file { open };
+
 #avc:  denied  { read write } for  pid=403 comm="power_host" name="state" dev="sysfs" ino=4991 scontext=u:r:power_host:s0 tcontext=u:object_r:sysfs_state:s0 tclass=file permissive=1
 allow power_host sysfs_state:file { read write };
 
@@ -21,3 +22,13 @@ allow power_host data_log:file { getattr open read write unlink };
 
 #avc: denied { remove_name } for pid=436 comm="power_host" name="thermal.007.20220724-172607" dev="mmcblk0p11" ino=1436218 scontext=u:r:power_host:s0 tcontext=u:object_r:data_log:s0 tclass=dir permissive=1
 allow power_host data_log:dir { open read remove_name search write open read remove_name write search };
+
+#avc:  denied  { get } for service=3901 pid=1400 scontext=u:r:power_host:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow power_host sa_param_watcher:samgr_class { get };
+
+#avc:  denied  { call transfer } for  pid=464 comm="power_host" scontext=u:r:power_host:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+allow power_host param_watcher:binder { call transfer };
+
+#avc:  denied  { read } for  pid=421 comm="hdf_devhost" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:power_host:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
+allow power_host accessibility_param:file { read };
+

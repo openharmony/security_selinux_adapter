@@ -12,9 +12,30 @@
 # limitations under the License.
 
 allow netsysnative dev_unix_socket:dir { search };
-allow netsysnative netsysnative:capability { net_admin };
-allow netsysnative netsysnative:netlink_route_socket { create nlmsg_write write };
+allow netsysnative netsysnative:capability { net_admin net_raw net_bind_service };
+allow netsysnative netsysnative:netlink_route_socket { create listen nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
-allow netsysnative sh_exec:file { execute };
+allow netsysnative sh_exec:file { execute execute_no_trans map open read };
+allow netsysnative netsysnative:netlink_nflog_socket { bind getopt setopt };
+allow netsysnative netsysnative:rawip_socket { create getopt setopt };
+allow netsysnative proc_file:file { write open read };
+allow netsysnative proc_net:file { getattr };
+allow netsysnative system_bin_file:file { execute execute_no_trans getattr map open read };
+allow netsysnative system_etc_file:file { lock };
+allow netsysnative tty_device:chr_file { open read write };
+allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write };
+allow netsysnative port:udp_socket { name_bind };
+allow netsysnative node:udp_socket { node_bind };
+allow netsysnative netsysnative:netlink_nflog_socket { read };
+allow netsysnative dev_file:sock_file { write unlink };
+allow netsysnative dev_console_file:chr_file { read write };
+allow netsysnative dev_file:dir { remove_name };
+allow netsysnative netsysnative:netlink_netfilter_socket { listen };
+allow netsysnative netsysnative:netlink_kobject_uevent_socket { listen };
+allow netsysnative system_bin_file:lnk_file { read };
+allow netsysnative accessibility_param:file { read open map };
+allow netsysnative data_service_file:dir { search };
+allow netsysnative data_service_el1_file:dir { search write add_name };
+allow netsysnative data_service_el1_file:file { create write open ioctl read };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 

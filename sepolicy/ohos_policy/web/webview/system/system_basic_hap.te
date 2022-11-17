@@ -1,0 +1,29 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow system_basic_hap data_app_el1_file:dir { getattr };
+allow system_basic_hap netmanager:binder { transfer };
+allow system_basic_hap proc_cpuinfo_file:file { getattr };
+allow system_basic_hap proc_max_user_watches:file { open read };
+allow system_basic_hap system_etc_file:dir { watch };
+allow system_basic_hap dev_mali:chr_file { ioctl };
+allow system_basic_hap nwebspawn:fd { use };
+allow system_basic_hap nwebspawn:fifo_file { write };
+allow system_basic_hap nwebspawn:unix_dgram_socket { write };
+allow system_basic_hap system_fonts_file:dir { open read };
+allowxperm system_basic_hap dev_mali:chr_file ioctl 0x800c;
+allow system_basic_hap dev_file:sock_file { write };
+allow system_basic_hap netsysnative:unix_stream_socket { connectto };
+allow system_basic_hap port:tcp_socket { name_connect };
+allow system_basic_hap system_basic_hap:tcp_socket { connect getopt };
+allow system_basic_hap system_basic_hap:udp_socket { connect };

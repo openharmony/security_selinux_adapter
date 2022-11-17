@@ -21,7 +21,6 @@ use_hidumper({ sadomain hdfdomain });
 allow hidumper_service appspawn:dir { getattr open read search };
 allow hidumper_service appspawn:file { getattr open read };
 allow hidumper_service appspawn:lnk_file read;
-allow hidumper_service appspawn:process ptrace;
 allow hidumper_service appspawn_exec:file { getattr map open read };
 
 allow hidumper_service data_file:dir { getattr open read search };
@@ -45,6 +44,7 @@ allow hidumper_service dev_unix_socket:sock_file write;
 allow hidumper_service deviceauth_service_exec:file { getattr map open read };
 allow hidumper_service devpts:chr_file { read write };
 
+allow hidumper_service faultloggerd:fifo_file read;
 allow hidumper_service faultloggerd:unix_stream_socket connectto;
 allow hidumper_service faultloggerd_exec:file { getattr map open read };
 
@@ -52,7 +52,6 @@ allow hidumper_service hdcd:dir { getattr open read search };
 allow hidumper_service hdcd:fd use;
 allow hidumper_service hdcd:file { getattr open read };
 allow hidumper_service hdcd:lnk_file read;
-allow hidumper_service hdcd:process ptrace;
 allow hidumper_service hdcd_exec:file { getattr map open read };
 
 allow hidumper_service hdf_devmgr_exec:file { getattr map open read };
@@ -61,7 +60,6 @@ allow hidumper_service hidumper:binder call;
 allow hidumper_service hidumper:dir { getattr open read search };
 allow hidumper_service hidumper:file { getattr open read };
 allow hidumper_service hidumper:lnk_file read;
-allow hidumper_service hidumper:process ptrace;
 allow hidumper_service hidumper_exec:file { getattr map open read };
 
 allow hidumper_service hidumper_file:dir { add_name open read remove_name search write };
@@ -84,7 +82,6 @@ allow hidumper_service kernel:system syslog_read;
 
 allow hidumper_service limit_domain:file { getattr open read };
 allow hidumper_service limit_domain:lnk_file read;
-allow hidumper_service limit_domain:process ptrace;
 
 allow hidumper_service normal_hap:dir { getattr open read search };
 allow hidumper_service normal_hap:file { getattr open read };
@@ -149,11 +146,10 @@ allow hidumper_service vendor_lib_file:file { getattr map open read };
 allow hidumper_service watchdog_service_exec:file { getattr map open read };
 allow hidumper_service wifi_hal_service_exec:file { getattr map open read };
 
-allow hidumper_service { sadomain }:binder call;
+allow hidumper_service { sadomain -installs }:binder call;
 allow hidumper_service { hdfdomain sadomain }:dir { getattr open read search };
 allow hidumper_service { hdfdomain sadomain }:file { getattr open read };
 allow hidumper_service { hdfdomain sadomain }:lnk_file read;
-allow hidumper_service { hdfdomain sadomain -hilogd }:process ptrace;
 
 #avc:  denied  { get } for service=3301 pid=611 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_foundation_powermgr_service:samgr_class { get };
@@ -161,16 +157,12 @@ allow hidumper_service sa_foundation_powermgr_service:samgr_class { get };
 #avc:  denied  { get } for service=3302 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_battery_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_foundation_battery_service:samgr_class { get };
 
-#avc:  denied  { get } for service=3304 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_batterystats_service:s0 tclass=samgr_class permissive=1
-allow hidumper_service sa_batterystats_service:samgr_class { get };
-
 #avc:  denied  { get } for service=3308 pid=581 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_foundation_displaymgr_service:samgr_class { get };
 
-#avc:  denied  { get } for service=3303 pid=553 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_thermal_service:s0 tclass=samgr_class permissive=1
-allow hidumper_service sa_thermal_service:samgr_class { get };
+#avc:  denied  { get } for service=3303 pid=553 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_thermal_service:s0 tclass=samgr_class permissive=1
+allow hidumper_service sa_foundation_thermal_service:samgr_class { get };
 
-allow hidumper_service debugfs:file { getattr open read };
 allow hidumper_service dev_at_file:chr_file ioctl;
 allow hidumper_service dev_block_volfile:dir search;
 allow hidumper_service dev_console_file:chr_file getattr;
@@ -271,3 +263,24 @@ allow hidumper_service sa_useriam_pinauth_service:samgr_class get;
 allow hidumper_service sa_useriam_useridm_service:samgr_class get;
 allow hidumper_service sa_wallpaper_manager_service:samgr_class get;
 allow hidumper_service samgr:samgr_class list;
+
+allow hidumper_service hiprofiler_cmd:file getattr;
+allow hidumper_service hiprofiler_plugins:file getattr;
+allow hidumper_service hiprofilerd:file getattr;
+allow hidumper_service musl_param:file { map open read };
+allow hidumper_service native_daemon:dir search;
+allow hidumper_service native_daemon:file { getattr open read };
+allow hidumper_service proc_loadavg_file:file getattr;
+allow hidumper_service proc_meminfo_file:file getattr;
+allow hidumper_service proc_net_tcp_udp:file getattr;
+allow hidumper_service proc_stat_file:file getattr;
+allow hidumper_service self:rawip_socket create;
+allow hidumper_service system_etc_file:file lock;
+
+allow hidumper_service debugfs_failed_transaction_log:file { getattr open read };
+allow hidumper_service debugfs_transactions:file { getattr open read };
+allow hidumper_service debugfs_transaction_log:file { getattr open read };
+allow hidumper_service debugfs_used:file { getattr open read };
+allow hidumper_service debugfs_wakeup_sources:file { getattr open read };
+allow hidumper_service debugfs_stats:file { getattr open read };
+allow hidumper_service debugfs_state:file { getattr open read };

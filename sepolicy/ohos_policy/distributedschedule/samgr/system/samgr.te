@@ -15,9 +15,9 @@ type samgr, sadomain, domain;
 type samgr_exec, exec_attr, file_attr, system_file_attr;
 
 type bootevent_samgr_param, parameter_attr;
+type samgr_perf_param, parameter_attr;
 
 init_daemon_domain(samgr);
-
 
 allow samgr sadomain:binder { call transfer };
 allow samgr sadomain:dir { search };
@@ -93,5 +93,14 @@ allow samgr system_profile_file:dir { open read };
 #avc:  denied  { setopt } for  pid=245 comm="samgr" scontext=u:r:samgr:s0 tcontext=u:r:samgr:s0 tclass=unix_dgram_socket permissive=1
 allow samgr samgr:unix_dgram_socket { getopt setopt };
 
+#avc:  denied  { set } for parameter=bootevent.samgr.ready.true pid=254 uid=5555 gid=5555 scontext=u:r:samgr:s0 tcontext=u:object_r:bootevent_param:s0 tclass=parameter_service permissive=0
+allow samgr bootevent_param:parameter_service { set };
+
 allowxperm samgr dev_binder_file:chr_file ioctl { 0x6207 };
+
+allow samgr_perf_param tmpfs:filesystem associate;
+
+allow samgr samgr_perf_param:file { map open read };
+
+allow init samgr_perf_param:file { map open read relabelto };
 

@@ -13,3 +13,5 @@
 
 allow system_core_hap data_service_el1_file:file { read write };
 allow system_core_hap vfat:file { read write };
+allow system_core_hap exfat:file { read write };
+allow system_core_hap ntfs:file { read write };

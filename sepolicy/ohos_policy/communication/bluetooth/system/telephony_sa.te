@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow telephony_sa bluetooth_service:binder { call transfer };
+

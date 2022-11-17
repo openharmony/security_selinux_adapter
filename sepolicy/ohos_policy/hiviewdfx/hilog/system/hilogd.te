@@ -20,6 +20,7 @@ type hilogd_exec, exec_attr, file_attr, system_file_attr;
 type hilog_exec, exec_attr, file_attr, system_file_attr;
 type hilog_control_socket, dev_attr, file_attr;
 type hilog_input_socket, dev_attr, file_attr;
+type hilog_output_socket, dev_attr, file_attr;
 type data_hilogd_file, file_attr, data_file_attr;
 init_daemon_domain(hilogd);
 
@@ -33,6 +34,12 @@ define(`use_hilog', `
 
 define(`read_hilog', `
     allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
+    allow $1 hilog_output_socket:sock_file write;
+    allow $1 hilogd:unix_stream_socket connectto;
+')
+
+define(`control_hilog', `
+    allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
     allow $1 hilog_control_socket:sock_file write;
     allow $1 hilogd:unix_stream_socket connectto;
 ')
@@ -40,8 +47,9 @@ define(`read_hilog', `
 ###################################
 ## Read/Use/Control hilog rules: ##
 ###################################
-read_hilog(shell)
+read_hilog(sh)
 read_hilog(hap_domain)
+control_hilog(sh)
 
 use_hilog({ domain -kernel })
 
@@ -50,10 +58,11 @@ use_hilog({ domain -kernel })
 #######################
 allow hilogd hilogd_exec:file { entrypoint execute map read getattr };
 allow init hilogd_exec:file { execute read open getattr };
-allow hdcd hilogd_exec:file { execute read open getattr execute_no_trans map };
 
 allow hilogd hilog_input_socket:unix_dgram_socket { rw_socket_perms };
 allow hilogd hilog_input_socket:sock_file { create_file_perms };
+allow hilogd hilog_output_socket:unix_dgram_socket { rw_socket_perms };
+allow hilogd hilog_output_socket:sock_file { create_file_perms };
 allow hilogd hilog_control_socket:unix_dgram_socket { rw_socket_perms };
 allow hilogd hilog_control_socket:sock_file { create_file_perms };
 
@@ -61,8 +70,8 @@ allow hilogd data_hilogd_file:dir { create_dir_perms };
 allow hilogd data_hilogd_file:file { create_file_perms };
 
 allow init data_hilogd_file:dir { create_dir_perms };
-allow { shell hiview hdcd } data_hilogd_file:dir { read_dir_perms };
-allow { shell hiview hdcd } data_hilogd_file:file { read_file_perms };
+allow { sh hiview hdcd } data_hilogd_file:dir { read_dir_perms };
+allow { sh hiview hdcd } data_hilogd_file:file { read_file_perms };
 
 allow hilogd data_file:dir { search };
 allow hilogd data_log:dir { getattr open read search };
@@ -83,6 +92,8 @@ allow hilogd paramservice_socket:sock_file { write };
 
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
 
+allow hilogd domain:dir { search };
+allow hilogd domain:file { open read };
 ############################
 ## Neverallow rule below: ##
 ############################
@@ -114,7 +125,7 @@ neverallow {
     domain
     -init
     -hilogd
-    -shell              # write is covered next
+    -sh                 # write is covered next
     -hiview             # write is covered next
     -hdcd               # write is covered next
     -system_basic_hap   # write is covered next
@@ -122,5 +133,5 @@ neverallow {
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files
-neverallow { shell hiview hdcd system_basic_hap system_core_hap } data_hilogd_file:file { append create rename setattr write };
+neverallow { sh hiview hdcd system_basic_hap system_core_hap } data_hilogd_file:file { append create rename setattr write };
 

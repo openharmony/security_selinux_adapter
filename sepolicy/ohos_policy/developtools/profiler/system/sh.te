@@ -1,0 +1,50 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+allow sh accessibility_param:file { map open read };
+allow sh hiprofiler_plugins:process signal;
+allow sh hiprofilerd:process signal;
+allow sh node:tcp_socket node_bind;
+allow sh port:tcp_socket name_connect;
+allow sh proc_cpuinfo_file:file { open read };
+allow sh proc_stat_file:file getattr;
+allow sh rootfs:dir remove_name;
+allow sh self:tcp_socket { bind connect create getattr getopt read setopt shutdown write };
+allow sh sysfs_devices_system_cpu:dir { open read };
+allow sh sysfs_devices_system_cpu:file { getattr open read };
+
+allow sh appspawn:file getattr;
+allow sh data_file:sock_file { create unlink write };
+allow sh dev_unix_socket:dir { add_name remove_name write };
+allow sh dev_unix_socket:sock_file { create unlink };
+allow sh hdcd:file getattr;
+allow sh hdf_devmgr:file getattr;
+allow sh hilogd:file getattr;
+allow sh hiprofilerd:unix_stream_socket connectto;
+allow sh init:dir { open read };
+allow sh init:file getattr;
+allow sh kernel:file getattr;
+allow sh param_watcher:file getattr;
+allow sh proc_file:file { getattr write };
+allow sh proc_modules_file:file { open read };
+allow sh proc_vmstat_file:file { getattr open read };
+allow sh samgr:file getattr;
+allow sh storage_daemon:file getattr;
+allow sh storage_manager:file getattr;
+allow sh sysfs_block_zram:file { open read };
+allow sh sysfs_kernel_notes:file { open read };
+allow sh foundation:file getattr;
+allow sh tracefs:dir { open read };
+allow sh tracefs:file { append getattr open read write };
+allow sh udevd:file getattr;
+allow sh watchdog_service:file getattr;

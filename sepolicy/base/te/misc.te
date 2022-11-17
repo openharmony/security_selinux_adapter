@@ -37,7 +37,6 @@ allow misc hw_sc_param:file { map open read };
 allow misc init_param:file { map open read };
 allow misc init_svc_param:file { map open read };
 allow misc input_pointer_device_param:file { map open read };
-allow misc misc:capability { dac_override };
 allow misc net_param:file { map open read };
 allow misc net_tcp_param:file { map open read };
 allow misc ohos_boot_param:file { map open read };

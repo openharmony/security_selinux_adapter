@@ -13,6 +13,7 @@
 
 type ohos_param, parameter_attr;
 type ohos_boot_param, parameter_attr;
+type ohos_dev_param, parameter_attr;
 type sys_param, parameter_attr;
 type sys_usb_param, parameter_attr;
 type net_param, parameter_attr;
@@ -31,12 +32,34 @@ type const_build_param, parameter_attr;
 type const_product_param, parameter_attr;
 type security_param, parameter_attr;
 type hilog_param, parameter_attr;
+type hook_param, parameter_attr;
 type persist_param, parameter_attr;
 type persist_sys_param, parameter_attr;
 type debug_param, parameter_attr;
 type default_param, parameter_attr;
 type accessibility_param, parameter_attr;
+type musl_param, parameter_attr;
 
 type build_version_param, parameter_attr;
 type startup_param, parameter_attr;
 type bootevent_param, parameter_attr;
+type servicectrl_param, parameter_attr;
+type servicectrl_reboot_param, parameter_attr;
+type startup_init_param, parameter_attr;
+type startup_appspawn_param, parameter_attr;
+type startup_uevent_param, parameter_attr;
+type devinfo_private_param, parameter_attr;
+type devinfo_public_param, parameter_attr;
+type telephony_param, parameter_attr;
+type bootevent_wms_param, parameter_attr;
+type dhardware_dm_param, parameter_attr;
+type persist_audio_param, parameter_attr;
+type arkcompiler_param, parameter_attr;
+type arkui_param, parameter_attr;
+type inputmethod_param, parameter_attr;
+type pasteboard_param, parameter_attr;
+type time_param, parameter_attr;
+
+allow init parameter_attr:file relabelto;
+allow parameter_attr tmpfs:filesystem associate;
+

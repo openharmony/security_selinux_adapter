@@ -1,0 +1,66 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow camera_host bootevent_param:file { map open read };
+allow camera_host bootevent_samgr_param:file { map open read };
+allow camera_host build_version_param:file { map open read };
+allow camera_host camera_host:netlink_kobject_uevent_socket { bind create read };
+allow camera_host const_allow_mock_param:file { map read open };
+allow camera_host const_allow_param:file { map open read };
+allow camera_host const_build_param:file { map open read };
+allow camera_host const_display_brightness_param:file { map open read };
+allow camera_host const_param:file { map open read };
+allow camera_host const_postinstall_fstab_param:file { map open read };
+allow camera_host const_postinstall_param:file { map open read };
+allow camera_host const_product_param:file { map open read };
+allow camera_host debug_param:file { map open read };
+allow camera_host default_param:file { map open read };
+allow camera_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow camera_host dev_unix_socket:dir { search };
+allow camera_host dev_video_file:chr_file { getattr ioctl open read write };
+allow camera_host disp_gralloc_host:binder { call };
+allow camera_host distributedsche_param:file { map open read };
+allow camera_host hdf_devmgr:binder { call transfer };
+allow camera_host hilog_param:file { map open read };
+allow camera_host hw_sc_build_os_param:file { map open read };
+allow camera_host hw_sc_build_param:file { map open read };
+allow camera_host hw_sc_param:file { map open read };
+allow camera_host init_param:file { map open read };
+allow camera_host init_svc_param:file { map open read };
+allow camera_host input_pointer_device_param:file { map open read };
+allow camera_host net_param:file { map open read };
+allow camera_host net_tcp_param:file { map open read };
+allow camera_host ohos_boot_param:file { map open read };
+allow camera_host ohos_param:file { map open read };
+allow camera_host persist_param:file { map open read };
+allow camera_host persist_sys_param:file { map open read };
+allow camera_host sa_device_service_manager:samgr_class { get };
+allow camera_host samgr:binder { call };
+allow camera_host security_param:file { map open read };
+allow camera_host startup_param:file { map open read };
+allow camera_host sys_param:file { map open read };
+allow camera_host system_bin_file:dir { search };
+allow camera_host sys_usb_param:file { map open read };
+allow camera_host vendor_etc_file:dir { search };
+allow camera_host vendor_etc_file:file { getattr open read };
+allow camera_host dev_dma_heap_file:dir { search };
+allow camera_host dev_dma_heap_file:chr_file { read };
+allow camera_host dev_dma_heap_file:chr_file { open };
+allow camera_host dev_dma_heap_file:chr_file { ioctl };
+allow camera_host dev_video_file:chr_file { map };
+allow camera_host normal_hap:binder { call };
+debug_only(`
+    allow camera_host sh:binder { call transfer };
+')
+allowxperm camera_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
+allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 };

@@ -51,5 +51,4 @@ allow wifi_host system_bin_file:dir { search };
 allow wifi_host sys_usb_param:file { map open read };
 allow wifi_host vendor_etc_file:dir { search };
 allow wifi_host vendor_etc_file:file { getattr open read };
-allow wifi_host wifi_host:capability { dac_override };
 allowxperm wifi_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };

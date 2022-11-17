@@ -20,10 +20,6 @@ limitations under the License.
 import os
 import argparse
 
-SCRIPT_PATH = os.path.abspath(os.path.dirname(__file__))
-LOCAL_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, "../"))
-POLICY_PATH = LOCAL_PATH + "/sepolicy/ohos_policy"
-
 # list of all macros and te for sepolicy build
 SEPOLICY_TYPE_LIST = ["security_classes",
                       "initial_sids",
@@ -49,6 +45,10 @@ def parse_args():
         '--dst-file', help='the policy dest path', required=True)
     parser.add_argument('--tool-path',
                         help='the policy tool bin path', required=True)
+    parser.add_argument('--source-root-dir',
+                        help='prj root path', required=True)
+    parser.add_argument('--policy_dir_list',
+                        help='policy dirs need to be included', required=True)  
     parser.add_argument('--debug-version',
                         help='build for debug target', required=True)
     parser.add_argument('--updater-version',
@@ -79,7 +79,8 @@ def traverse_file_in_each_type(folder_list, sepolicy_type_list):
     policy_files = ""
     for policy_type in sepolicy_type_list:
         for folder in folder_list:
-            policy_files += traverse_folder_in_type(folder, policy_type) + " "
+            str_seq = (policy_files, traverse_folder_in_type(folder, policy_type))
+            policy_files = " ".join(str_seq)
     return policy_files
 
 
@@ -102,7 +103,7 @@ def build_conf(args, output_conf, input_policy_file_list):
 
 
 def build_cil(args, output_cil, input_conf):
-    check_policy_cmd = [args.tool_path + "/checkpolicy",
+    check_policy_cmd = [os.path.join(args.tool_path, "checkpolicy"),
                         input_conf,
                         "-M -C -c 31",
                         "-o " + output_cil]
@@ -110,7 +111,7 @@ def build_cil(args, output_cil, input_conf):
 
 
 def build_policy(args, output_policy, input_cil):
-    build_policy_cmd = [args.tool_path + "/secilc",
+    build_policy_cmd = [os.path.join(args.tool_path, "secilc"),
                         input_cil,
                         "-m -M true -G -c 31",
                         "-f /dev/null",
@@ -118,27 +119,51 @@ def build_policy(args, output_policy, input_cil):
     run_command(build_policy_cmd)
 
 
+def prepare_build_path(dir_list, root_dir, build_dir_list):
+
+    build_policy_list = ["base/security/selinux/sepolicy/base", "base/security/selinux/sepolicy/ohos_policy"]
+    build_policy_list += dir_list.split(":")
+
+    for i in build_policy_list:
+        if i == "" or i == "default":
+            continue
+        path = os.path.join(root_dir, i)
+        if (os.path.exists(path)):
+            build_dir_list.append(path)
+        else:
+            print("following path not exists!! " + path)
+            exit(-1)
+
+
 def main(args):
     output_path = os.path.abspath(os.path.dirname(args.dst_file))
+    dir_list = []
+    prepare_build_path(args.policy_dir_list, args.source_root_dir, dir_list)
 
-    base_policy = [LOCAL_PATH + "/sepolicy/base"]
-    public_policy = traverse_folder_in_dir_name(POLICY_PATH, "public")
-    system_policy = traverse_folder_in_dir_name(POLICY_PATH, "system")
-    vendor_policy = traverse_folder_in_dir_name(POLICY_PATH, "vendor")
+    system_policy = []
+    public_policy = []
+    vendor_policy = []
+
+    for item in dir_list:
+        public_policy += traverse_folder_in_dir_name(item, "public")
+        system_policy += traverse_folder_in_dir_name(item, "system")
+        vendor_policy += traverse_folder_in_dir_name(item, "vendor")
 
     # list of all policy folders
-    folder_list = base_policy + public_policy + system_policy + vendor_policy
+    folder_list =  public_policy + system_policy + vendor_policy
+    # add temp dirs base/te folders
+    folder_list.append(os.path.join(args.source_root_dir, "base/security/selinux/sepolicy/base/te"))
 
     # list of all policy files
     policy_file_list = traverse_file_in_each_type(
         folder_list, SEPOLICY_TYPE_LIST)
 
     # build ohos.conf
-    output_ohos_conf = output_path + "/ohos.conf"
+    output_ohos_conf = os.path.join(output_path, "ohos.conf")
     build_conf(args, output_ohos_conf, policy_file_list)
 
     # build ohos.cil
-    ohos_cil_path = output_path + "/ohos.cil"
+    ohos_cil_path = os.path.join(output_path, "ohos.cil")
     build_cil(args, ohos_cil_path, output_ohos_conf)
 
     build_policy(args, args.dst_file, ohos_cil_path)

@@ -54,8 +54,10 @@ allow wifi_hal_service system_bin_file:file { execute execute_no_trans getattr m
 allow wifi_hal_service system_bin_file:lnk_file { read };
 allow wifi_hal_service sys_usb_param:file { map open read };
 allow wifi_hal_service tty_device:chr_file { open read write };
+allow wifi_hal_service wifi_hal_service:unix_dgram_socket { ioctl };
 allow wifi_hal_service wifi_hal_service_exec:file { entrypoint execute map read };
 allow wifi_hal_service wifi_manager_service:dir { search };
 allow wifi_hal_service wifi_manager_service:file { open read };
 allow wifi_hal_service wifi_manager_service:process { signal };
 allowxperm wifi_hal_service data_misc:file ioctl { 0x5413 };
+allowxperm wifi_hal_service wifi_hal_service:unix_dgram_socket ioctl { 0x8910 };

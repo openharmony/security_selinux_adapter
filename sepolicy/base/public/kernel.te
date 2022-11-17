@@ -12,7 +12,7 @@
 # limitations under the License.
 
 neverallow * kernel:process { transition dyntransition };
-neverallow { domain -processdump } kernel:process ptrace;
+neverallow * kernel:process ptrace;
 
 neverallow kernel *:file { entrypoint execute_no_trans };
 

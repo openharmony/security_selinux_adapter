@@ -45,3 +45,22 @@ allow locationhub sa_accesstoken_manager_service:samgr_class { get };
 
 #avc:  denied  { get } for service=2801 pid=303 scontext=u:r:locationhub:s0 tcontext=u:object_r:sa_location_geo_convert_service:s0 tclass=samgr_class permissive=1
 allow locationhub sa_location_geo_convert_service:samgr_class { get };
+
+allow locationhub sa_foundation_bms:samgr_class { get };
+
+allow locationhub sa_telephony_tel_core_service:samgr_class { get };
+
+allow locationhub sa_telephony_tel_cellular_data:samgr_class { get };
+
+allow locationhub sa_foundation_appms:samgr_class { get };
+
+allow locationhub data_service_file:dir { search };
+
+allow locationhub data_service_el1_file:dir { search write add_name remove_name getattr };
+
+allow locationhub data_service_el1_file:file { create read write open getattr setattr ioctl };
+
+allow locationhub telephony_sa:binder { call transfer };
+
+#avc:  denied  { call } for pid=353 comm="IPC_1_409" scontext=u:r:locationhub:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+allow locationhub sh:binder { call };

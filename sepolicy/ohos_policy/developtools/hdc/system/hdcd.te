@@ -11,28 +11,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-allow hdcd data_local:file { create write };
-allow hdcd data_local:dir { search getattr write add_name create };
-allow hdcd data_local_tmp:file { write create setattr  read append open getattr };
-allow hdcd data_local_tmp:dir { add_name write create setattr search getattr read open };
+allow hdcd data_local:file { read open getattr create write };
+allow hdcd data_local:dir { search getattr read write add_name open create };
+allow hdcd data_local_tmp:file { write create setattr read append open getattr unlink };
+allow hdcd data_local_tmp:dir { add_name remove_name write create setattr search getattr read open };
 allow hdcd data_local_traces:dir { read open getattr };
-allow hdcd system_core_hap_data_file:file { create write open };
-allow hdcd system_core_hap_data_file:dir { add_name search write getattr open };
-allow hdcd system_basic_hap_data_file:dir { read open getattr };
-allow hdcd normal_hap_data_file:dir{ read open search};
 
-allow hdcd vendor_lib_file:file { read write getattr };
-allow hdcd vendor_lib_file:dir { read write getattr search };
+allow hdcd vendor_lib_file:file { read getattr };
+allow hdcd vendor_lib_file:dir { read getattr search };
 
-allow hdcd self:tcp_socket { accept ioctl setopt read write create bind listen getattr };
-allow hdcd port:tcp_socket { name_bind };
+allow hdcd self:tcp_socket { accept ioctl setopt read write create bind listen getattr connect name_connect getopt };
+allow hdcd port:tcp_socket { name_bind name_connect };
 allow hdcd node:tcp_socket { node_bind };
 allow hdcd self:udp_socket { create setopt bind };
 allow hdcd port:udp_socket { name_bind };
 allow hdcd node:udp_socket { node_bind };
 allow hdcd sh:process { signal sigkill };
-allow hdcd self:capability { setuid setgid };
-allow hdcd hdcd_exec:file { open execute_no_trans };
+allow hdcd hdcd_exec:file { open execute_no_trans entrypoint execute map read };
 
 allow hdcd kernel:system { syslog_read };
 allow hdcd kernel:unix_stream_socket { connectto };
@@ -41,15 +36,17 @@ allow hdcd kernel:process { setsched };
 allow hdcd dev_rtc_file:chr_file { write open ioctl };
 
 allow hdcd vendor_file:dir { getattr };
-allow hdcd tmpfs:file { getattr read };
+allow hdcd tmpfs:dir { open read };
+allow hdcd tmpfs:file { getattr open read };
 allow hdcd data_file:dir { read write open create getattr search rmdir add_name };
-allow hdcd data_file:file { unlink read write create getattr open setattr };
-allow hdcd system_file:dir { add_name getattr write };
-allow hdcd system_file:file { create write open };
+allow hdcd data_file:file { read getattr open };
+allow hdcd system_file:dir { getattr };
+allow hdcd system_file:file { open };
 
 allow hdcd tty_device:chr_file { ioctl read write open };
 allow hdcd system_bin_file:lnk_file { read };
-allow hdcd system_bin_file:dir { search };
+allow hdcd system_bin_file:dir { search getattr };
+allow hdcd system_bin_file:file { open };
 
 allow hdcd lib_file:lnk_file { read };
 allow hdcd dev_kmsg_file:chr_file { read open };
@@ -71,16 +68,102 @@ allow hdcd dev_block_file:lnk_file { read };
 allow hdcd dev_block_file:blk_file { ioctl };
 allow hdcd dev_block_volfile:dir { search };
 
+allow hdcd bootevent_param:file { map open read };
+allow hdcd bootevent_samgr_param:file { map open read };
+allow hdcd build_version_param:file { map open read };
+allow hdcd const_allow_mock_param:file { map open read };
+allow hdcd const_allow_param:file { map open read };
+allow hdcd const_build_param:file { map open read };
+allow hdcd const_display_brightness_param:file { map open read };
+allow hdcd const_param:file { map open read };
+allow hdcd const_postinstall_fstab_param:file { map open read };
+allow hdcd const_postinstall_param:file { map open read };
+allow hdcd const_product_param:file { map open read };
+allow hdcd data_app_el1_file:dir { add_name getattr search write };
+allow hdcd data_app_el1_file:file { create write open };
+allow hdcd data_app_file:dir { search };
+allow hdcd data_log:dir { search };
+allow hdcd debug_param:file { map open read };
+allow hdcd default_param:file { map open read };
+allow hdcd dev_usb_ffs:dir { open read search };
+allow hdcd distributedsche_param:file { map open read };
+allow hdcd faultloggerd_temp_file:dir { search };
+allow hdcd faultloggerd_temp_file:file { getattr open read };
+allow hdcd functionfs:dir { search };
+allow hdcd functionfs:file { open read write };
+allow hdcd hilog_param:file { map open read };
+allow hdcd hw_sc_build_os_param:file { map open read };
+allow hdcd hw_sc_build_param:file { map open read };
+allow hdcd hw_sc_param:file { map open read };
+allow hdcd init_param:file { map open read };
+allow hdcd init_svc_param:file { map open read };
+allow hdcd input_pointer_device_param:file { map open read };
+allow hdcd net_param:file { map read open };
+allow hdcd net_tcp_param:file { map open read };
+allow hdcd ohos_boot_param:file { map open read };
+allow hdcd ohos_param:file { map open read };
+allow hdcd persist_param:file { map open read };
+allow hdcd persist_sys_param:file { map open read };
+allow hdcd security_param:file { map open read };
+allow hdcd startup_param:file { map open read };
+allow hdcd sys_file:file { open read };
+allow hdcd sys_param:file { map open read };
+allow hdcd sys_usb_param:file { map open read };
+
+allow hdcd hmdfs:dir create_dir_perms;
+allow hdcd hmdfs:file create_file_perms;
+
+allow hdcd audio_policy:binder { call transfer };
+allow hdcd pulseaudio:binder { call };
+allow hdcd sa_audio_policy_service:samgr_class { get };
+allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
+
+allow hdcd memmgrservice:dir { getattr search };
+allow hdcd memmgrservice:file { open read };
+
 allow hdcd sys_param:parameter_service { set };
 allow hdcd persist_param:parameter_service { set };
-
-allow hdcd labeledfs:filesystem { remount };
+allow hdcd servicectrl_reboot_param:parameter_service { set };
 
 allow hdcd { normal_hap system_basic_hap system_core_hap sh }:unix_stream_socket { connectto };
 
-allow hdcd hiprofiler_plugins:process signal;
-allow hdcd hiprofilerd:process signal;
+allow hdcd hiprofiler_plugins:process { signal };
+allow hdcd hiprofilerd:process { signal };
 allow hdcd bytrace:process { signal };
+allow hdcd hitrace:process { signal };
+allow hdcd hidumper:process { signal };
+allow hdcd hidumper_file:dir { search };
+allow hdcd hiperf:process { signal };
+allow hdcd hidumper_file:file { getattr open read };
+allow hdcd hilogd_exec:file { execute read open getattr execute_no_trans map };
+allow hdcd hiview_exec:file { execute read open getattr execute_no_trans map };
+allow hdcd hisysevent_exec:file { execute read open getattr execute_no_trans map };
 
-domain_auto_transition_pattern(hdcd, shell_exec, shell);
+debug_only(`
+    allow hdcd self:capability { setuid setgid dac_override dac_read_search sys_admin };
+
+    allow hdcd data_file:file { unlink write create setattr };
+    allow hdcd dev_block_file:blk_file { open read };
+
+    allow hdcd system_file:dir { add_name write };
+    allow hdcd system_file:file { create write };
+    allow hdcd system_bin_file:dir { add_name create write };
+    allow hdcd system_bin_file:file { create write };
+    allow hdcd system_etc_file:dir { add_name write };
+    allow hdcd system_etc_file:file { create write };
+
+    allow hdcd vendor_lib_file:dir { write };
+    allow hdcd vendor_lib_file:file { write };
+
+    allow hdcd labeledfs:filesystem { remount };
+
+    allow hdcd { file_attr -data_hilogd_file -data_parameters }:dir create_dir_perms;
+    allow hdcd { file_attr -data_hilogd_file -dev_parameters_file -data_parameters }:file create_file_perms;
+
+    allow hdcd system_core_hap_data_file:file { create write open };
+    allow hdcd system_core_hap_data_file:dir { add_name search write getattr open };
+    allow hdcd system_basic_hap_data_file:dir { read open getattr };
+    allow hdcd normal_hap_data_file:dir { read open search};
+')
+
 domain_auto_transition_pattern(hdcd, sh_exec, sh);

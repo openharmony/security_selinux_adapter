@@ -12,4 +12,4 @@
 # limitations under the License.
 
 #avc:  denied  { get } for service=thermal_interface_service pid=622 scontext=u:r:thermal:s0 tcontext=u:object_r:hdf_thermal_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-allow thermal hdf_thermal_interface_service:hdf_devmgr_class { get };
+allow foundation hdf_thermal_interface_service:hdf_devmgr_class { get };

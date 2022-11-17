@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { get } for service=3304 pid=2121 scontext=u:r:sh:s0 tcontext=u:object_r:sa_batterystats_service:s0 tclass=samgr_class permissive=1
-allow sh sa_batterystats_service:samgr_class { get };
+#avc:  denied  { get } for service=3304 pid=1746 scontext=u:r:sh:s0 tcontext=u:object_r:sa_foundation_batterystats_service:s0 tclass=samgr_class permissive=1
+allow sh sa_foundation_batterystats_service:samgr_class { get };
 
-#avc:  denied  { call } for  pid=4733 comm="stats_audio_tes" scontext=u:r:sh:s0 tcontext=u:r:battery_stats:s0 tclass=binder permissive=1
-allow sh battery_stats:binder { call };
