@@ -26,6 +26,7 @@ allow netsysnative tty_device:chr_file { open read write };
 allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write };
 allow netsysnative port:udp_socket { name_bind };
 allow netsysnative node:udp_socket { node_bind };
+allow netsysnative netsysnative:netlink_nflog_socket { read };
 allow netsysnative dev_file:sock_file { write unlink };
 allow netsysnative dev_console_file:chr_file { read write };
 allow netsysnative dev_file:dir { remove_name };
