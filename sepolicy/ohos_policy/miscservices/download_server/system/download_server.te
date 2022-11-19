@@ -34,9 +34,9 @@ allow system_core_hap sa_download_service:samgr_class { get };
 # avc:  denied  { read write } for  pid=2360 comm="sa_main" path="/dev/console" dev="tmpfs" ino=19 scontext=u:r:download_server:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
 allow download_server dev_console_file:chr_file { read write };
 # avc:  denied  { call } for  pid=2093 comm="1.ui" scontext=u:r:system_core_hap:s0 tcontext=u:r:download_server:s0 tclass=binder permissive=0
-allow system_core_hap download_server:binder { call };
+allow system_core_hap download_server:binder { call transfer };
 # avc:  denied  { call } for  pid=2094 comm="1.ui" scontext=u:r:system_basic_hap:s0 tcontext=u:r:download_server:s0 tclass=binder permissive=0
-allow system_basic_hap download_server:binder { call };
+allow system_basic_hap download_server:binder { call transfer };
 #avc:  denied  { call } for  pid=2168 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
 allow download_server system_core_hap:binder { call };
 #avc:  denied  { use } for  pid=2588 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=0
