@@ -196,3 +196,21 @@ allow init charger:file { open read };
 #avc:  denied  { search } for  pid=228 comm="init" name="charger" dev="mmcblk0p11" ino=31 scontext=u:r:init:s0 tcontext=u:object_r:charger:s0 tclass=dir permissive=1
 allow init charger:dir { search };
 
+#avc:  denied  { search } for  pid=279 comm="charger" name="graphics" dev="tmpfs" ino=77 scontext=u:r:charger:s0 tcontext=u:object_r:dev_graphics_file:s0 tclass=dir permissive=0
+allow charger dev_graphics_file:dir { search };
+
+#avc:  denied  { getattr } for  pid=281 comm="charger" path="/vendor/etc/charger/resources/animation.json" dev="mmcblk0p7" ino=29 scontext=u:r:charger:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=0
+allow charger vendor_etc_file:dir { getattr };
+
+#avc:  denied  { getattr } for  pid=281 comm="charger" path="/dev/dri/renderD128" dev="tmpfs" ino=80 scontext=u:r:charger:s0 tcontext=uobject_r:dev_dri_file:s0 tclass=chr_file permissive=0
+allow charger dev_dri_file:chr_file { getattr };
+
+ #avc:  denied  { getattr } for  pid=281 comm="charger" path="/vendor/etc/charger/resources/animation.json" dev="mmcblk0p7" ino=29 scontext=u:r:charger:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=0
+allow charger vendor_etc_file:file { getattr };
+
+#avc:  denied  { read write } for  pid=281 comm="charger" name="fb0" dev="tmpfs" ino=78 scontext=u:r:charger:s0 tcontext=u:object_r:dev_graphics_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { ioctl } for  pid=278 comm="charger" path="/dev/graphics/fb0" dev="tmpfs" ino=78 ioctlcmd=0x4611 scontext=u:r:charger:s0 tcontext=u:object_r:dev_graphics_file:s0 tclass=chr_file permissive=0
+allow charger dev_graphics_file:chr_file { open read write ioctl };
+
+# avc:  denied  { set } for process="charger" parameter=startup.device.ctl pid=277 uid=6667 gid=6667 scontext=u:r:charger:s0 tcontext=u:object_r:servicectrl_reboot_param:s0 tclass=parameter_service permissive=1
+allow charger servicectrl_reboot_param:parameter_service { set };
