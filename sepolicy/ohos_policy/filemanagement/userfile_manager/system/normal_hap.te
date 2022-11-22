@@ -14,9 +14,7 @@
 neverallow {
     domain
     -storage_daemon
-    -normal_hap
-    -system_basic_hap
-    -system_core_hap
+    -hap_domain
     -media_service
     -hdcd
 } data_user_file:dir {
@@ -27,9 +25,7 @@ neverallow {
 neverallow {
     domain
     -storage_daemon
-    -normal_hap
-    -system_basic_hap
-    -system_core_hap
+    -hap_domain
     -media_service
     -hdcd
 } data_user_file:{ file lnk_file } {
@@ -46,7 +42,6 @@ neverallow {
 
 allow normal_hap hmdfs:dir create_dir_perms;
 allow normal_hap hmdfs:{file lnk_file} create_file_perms;
-allow normal_hap data_user_file:dir create_dir_perms;
-allow normal_hap data_user_file:file create_file_perms;
+allow hap_domain data_user_file:dir create_dir_perms;
+allow hap_domain data_user_file:file create_file_perms;
 allow normal_hap privacy_service:binder call;
-
