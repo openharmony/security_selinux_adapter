@@ -34,6 +34,12 @@ allow accesstoken_service system_bin_file:dir { search };
 
 allow accesstoken_service token_sync_service:binder { call };
 
+allow accesstoken_service accesstoken_perm_param:parameter_service { set };
+# avc:  denied  { write } for  pid=545 comm="accesstoken_ser" name="paramservice" dev="tmpfs" ino=30 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow accesstoken_service paramservice_socket:sock_file { write };
+allow accesstoken_service kernel:unix_stream_socket { connectto };
+allow { domain -limit_domain } accesstoken_perm_param:file { map open read };
+
 binder_call(accesstoken_service, foundation);
 binder_call(accesstoken_service, sh);
 binder_call(accesstoken_service, softbus_server);
