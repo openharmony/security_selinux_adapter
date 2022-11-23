@@ -113,3 +113,4 @@ allow hiview kernel:unix_stream_socket  { connectto };
 #avc:  denied  { open } for  pid=1594 comm="hiview" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=53 scontext=u:r:hiview:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 #avc:  denied  { map } for  pid=1594 comm="hiview" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=53 scontext=u:r:hiview:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 allow hiview musl_param:file  { read open map };
+
