@@ -10,6 +10,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+type fwmark_service, dev_attr, file_attr;
+type dnsproxy_service, dev_attr, file_attr;
 
 allow netmanager accesstoken_service:binder { call };
 allow netmanager data_data_file:dir { search };
@@ -56,6 +58,9 @@ allow sh sa_comm_net_tethering_manager_service:samgr_class { get };
 allow sh netmanager:binder { call transfer };
 allow netmanager kernel:system { module_request };
 allow netmanager accessibility_param:file { read open map };
+allow netmanager fwmark_service:sock_file { write };
+allow netmanager dnsproxy_service:sock_file { write };
+allow netmanager netmanager:process { setfscreate };
 allowxperm netmanager data_service_el1_file:file ioctl { 0x5413 };
 allowxperm netmanager data_init_agent:file ioctl { 0x5413 };
 allowxperm netmanager netmanager:udp_socket ioctl { 0x8915 0x8916 0x891b 0x891c 0x8933 };
