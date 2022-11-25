@@ -27,3 +27,4 @@ allow system_basic_hap netsysnative:unix_stream_socket { connectto };
 allow system_basic_hap port:tcp_socket { name_connect };
 allow system_basic_hap system_basic_hap:tcp_socket { connect getopt };
 allow system_basic_hap system_basic_hap:udp_socket { connect };
+allow system_core_hap musl_param:file { read };
