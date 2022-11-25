@@ -325,6 +325,7 @@ allowxperm audio_hdi_server_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 }
 allowxperm audio_hdi_server_host data_file:file ioctl { 0x5413 };
 allowxperm audio_hdi_server_host dev_hdf_audio_capture:chr_file ioctl { 0x6201 };
 allowxperm audio_hdi_server_host dev_hdf_audio_control:chr_file ioctl { 0x6201 };
+allow audio_hdi_server_host dev_bus:dir { search };
 
 #avc:  denied  { get } for service=5100 pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:default_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=face_auth_interface_service pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:hdf_face_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
