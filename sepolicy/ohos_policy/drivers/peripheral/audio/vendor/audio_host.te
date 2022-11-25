@@ -56,3 +56,4 @@ allow audio_host data_udev:dir { search };
 allow audio_host sys_file:file { open read };
 allow audio_host dev_hdf_audio_control:chr_file { getattr };
 allow audio_host dev_mgr_file:chr_file { getattr read write open ioctl };
+allow audio_host dev_bus:dir { search };
