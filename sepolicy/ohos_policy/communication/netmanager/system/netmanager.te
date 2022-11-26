@@ -66,3 +66,4 @@ allowxperm netmanager data_init_agent:file ioctl { 0x5413 };
 allowxperm netmanager netmanager:udp_socket ioctl { 0x8915 0x8916 0x891b 0x891c 0x8933 };
 allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 };
 allow netsysnative netmanager:fd { use };
+allow netsysnative netmanager:tcp_socket { read write bind getopt setopt connect };
