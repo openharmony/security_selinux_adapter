@@ -27,5 +27,15 @@ allow system_basic_hap netsysnative:unix_stream_socket { connectto };
 allow system_basic_hap port:tcp_socket { name_connect };
 allow system_basic_hap system_basic_hap:tcp_socket { connect getopt };
 allow system_basic_hap system_basic_hap:udp_socket { connect };
+
 allow system_basic_hap musl_param:file { read };
 allow system_core_hap musl_param:file { read };
+allow system_core_hap dev_mali:chr_file { ioctl };
+allow system_core_hap proc_max_user_watches:file { read };
+allow system_core_hap system_core_hap:tcp_socket { setopt };
+allow system_core_hap system_core_hap:udp_socket { connect };
+allow system_core_hap system_etc_file:dir { watch };
+allow system_core_hap tmpfs:lnk_file { getattr };
+allowxperm system_core_hap dev_mali:chr_file ioctl 0x800c;
+allow hidumper_service system_core_hap:file { getattr };
+allow foundation system_core_hap:unix_stream_socket { read write };
