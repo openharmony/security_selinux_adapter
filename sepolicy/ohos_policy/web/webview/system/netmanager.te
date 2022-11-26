@@ -13,4 +13,3 @@
 
 allow netmanager system_basic_hap:binder { call };
 
-allow netmanager musl_param:file { read };
