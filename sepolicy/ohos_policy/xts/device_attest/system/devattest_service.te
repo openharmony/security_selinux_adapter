@@ -43,8 +43,8 @@ allow system_core_hap devattest_service:binder { call transfer };
 allow devattest_service system_core_hap:binder { call transfer };
 allow devattest_service normal_hap:binder { call transfer };
 
-allow devattest_service data_dhcp:dir { add_name remove_name search write create };
-allow devattest_service data_dhcp:file { create getattr ioctl lock open read setattr unlink write };
+allow devattest_service data_service_el1_file:dir { add_name remove_name search write create };
+allow devattest_service data_service_el1_file:file { create getattr ioctl lock open read setattr unlink write };
 allow devattest_service data_misc:dir { add_name search write };
 allow devattest_service data_misc:file { create ioctl open read write };
 allow devattest_service data_misc:sock_file { write };
@@ -62,7 +62,7 @@ allow devattest_service devattest_service:netlink_route_socket { create nlmsg_re
 allow devattest_service devattest_service:packet_socket { bind create read write };
 allow devattest_service devattest_service:udp_socket { bind create ioctl setopt getopt read write };
 allow devattest_service devattest_service:unix_dgram_socket { ioctl getopt setopt };
-allowxperm devattest_service data_dhcp:file ioctl { 0x5413 };
+allowxperm devattest_service data_service_el1_file:file ioctl { 0x5413 };
 allowxperm devattest_service data_misc:file ioctl { 0x5413 };
 allowxperm devattest_service devattest_service:udp_socket ioctl { 0x890B 0x8913 0x8915 0x8916 0x891b 0x891c 0x8927 0x8933 };
 allowxperm devattest_service devattest_service:unix_dgram_socket ioctl { 0x8910 };
