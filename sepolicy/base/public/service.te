@@ -169,7 +169,6 @@ type sa_pasteboard_service, sa_service_attr;
 type sa_screenlock_service, sa_service_attr;
 type sa_wallpaper_manager_service, sa_service_attr;
 type sa_download_service, sa_service_attr;
-type sa_print_service, sa_service_attr;
 type sa_subsys_sourcecodetransformer_service, sa_service_attr;
 type sa_subsys_startup_service, sa_service_attr;
 type sa_sysparam_device_service, sa_service_attr;

@@ -139,8 +139,6 @@ allow sh distributedsche:file { open read };
 allow sh distributedsche_param:file { map open read };
 allow sh download_server:dir { getattr search };
 allow sh download_server:file { open read };
-allow sh print_service:dir { getattr search };
-allow sh print_service:file { open read };
 allow sh dslm_service:dir { getattr search };
 allow sh dslm_service:file { open read };
 allow sh edm_sa:dir { getattr search };
