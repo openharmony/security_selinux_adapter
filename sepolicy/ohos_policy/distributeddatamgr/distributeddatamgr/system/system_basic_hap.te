@@ -16,4 +16,3 @@ allow system_basic_hap distributeddata:fd { use };
 allow system_basic_hap musl_param:file { open map read };
 allow system_basic_hap appspawn:unix_stream_socket { read write };
 allow system_basic_hap musl_param:file { read };
-
