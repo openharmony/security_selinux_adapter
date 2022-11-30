@@ -65,7 +65,8 @@ allow resource_schedule_service system_basic_hap:dir { open read search };
 allow resource_schedule_service system_basic_hap:file { getattr open read };
 allow resource_schedule_service system_basic_hap:process { setsched };
 allow resource_schedule_service system_bin_file:dir { search };
-allow resource_schedule_service system_bin_file:file { execute read open };
+allow resource_schedule_service system_bin_file:file { execute execute_no_trans getattr map read open };
+allow resource_schedule_service system_bin_file:lnk_file { read };
 allow resource_schedule_service system_core_hap:dir { open read search };
 allow resource_schedule_service system_core_hap:file { getattr open read };
 allow resource_schedule_service system_core_hap:process { setsched };
@@ -100,6 +101,12 @@ allow resource_schedule_service data_log:file { read write };
 #faultloggerd
 allow resource_schedule_service faultloggerd:fd { use };
 allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
+#init 
+allow resource_schedule_service init:dir { search };
+allow resource_schedule_service init:file { read }; 
+#kernel
+allow resource_schedule_service kernel:file { open read };
+allow resource_schedule_service kernel:key { search };
 #lib_file
 allow resource_schedule_service lib_file:lnk_file { read };
 #musl_param
@@ -107,9 +114,9 @@ allow resource_schedule_service musl_param:file { open read map };
 #netlink_socket
 allow resource_schedule_service resource_schedule_service:netlink_socket { read };
 #proc_file
-allow resource_schedule_service proc_file:file { read };
+allow resource_schedule_service proc_file:file { read open };
 #sh_exec
-allow resource_schedule_service sh_exec:file { execute_no_trans map open read };
+allow resource_schedule_service sh_exec:file { execute execute_no_trans map open read };
 #sys_file
 allow resource_schedule_service sys_file:file { getattr write open ioctl create read };
 allow resource_schedule_service sys_file:dir { open read search };
@@ -120,8 +127,12 @@ allow resource_schedule_service sys_prod_file:dir { search };
 #sysfs_devices_system_cpu
 allow resource_schedule_service sysfs_devices_system_cpu:file { getattr write open ioctl create read };
 allow resource_schedule_service sysfs_devices_system_cpu:dir { open read search };
+#tty_device
+allow resource_schedule_service tty_device:chr_file { open read write };
 #frame_aware_scha
 allow resource_schedule_service dev_sched_rtg_ctrl:chr_file { ioctl open read write };
+#dev_file
+allow resource_schedule_service dev_file:chr_file { ioctl };
 #allowxperm
 allowxperm resource_schedule_service dev_file:chr_file ioctl { 0x7102  0x7104 0x7165 };
 allowxperm resource_schedule_service dev_sched_rtg_ctrl:chr_file ioctl { 0xab01 0xab02 };
@@ -130,7 +141,8 @@ allowxperm resource_schedule_service sys_file:file ioctl { 0x5413 };
 allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf501 0xf502 0xf50c };
 
 #conflict
-allow resource_schedule_service resource_schedule_service:capability { dac_override dac_read_search setuid sys_ptrace };
+#allow resource_schedule_service resource_schedule_service:capability { dac_override dac_read_search setuid sys_ptrace };
+allow resource_schedule_service resource_schedule_service:capability { setuid sys_ptrace };
 
 #sa_pulseaudio_audio_service
 allow resource_schedule_service sa_pulseaudio_audio_service:samgr_class { get };
