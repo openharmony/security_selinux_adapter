@@ -23,3 +23,5 @@ allow appspawn bootevent_param:parameter_service { set };
 allow appspawn paramservice_socket:sock_file { write };
 allow appspawn kernel:unix_stream_socket { connectto };
 allow appspawn dev_unix_socket:sock_file write;
+allow appspawn data_service_el2_file:dir { search write add_name create };
+allow appspawn data_app_el2_file:dir { search mounton write add_name create };
