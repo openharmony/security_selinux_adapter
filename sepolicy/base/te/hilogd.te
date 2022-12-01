@@ -27,6 +27,7 @@ allow hilogd default_param:file { map open read };
 allow hilogd dev_unix_socket:dir { search };
 allow hilogd distributedsche_param:file { map open read };
 allow hilogd hilog_param:file { map open read };
+allow hilogd hilogd:unix_dgram_socket { getattr read getopt };
 allow hilogd hw_sc_build_os_param:file { map open read };
 allow hilogd hw_sc_build_param:file { map open read };
 allow hilogd hw_sc_param:file { map open read };

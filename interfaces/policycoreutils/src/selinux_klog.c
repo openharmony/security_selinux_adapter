@@ -19,6 +19,7 @@
 #include "securec.h"
 
 #define MAX_LOG_SIZE 1024
+#define MAX_LEVEL_SIZE 4
 
 static int g_logLevel = SELINUX_KERROR;
 static const char *LOG_LEVEL_STR[] = {"ERROR", "WARNING", "INFO", "AVC"};
@@ -48,6 +49,9 @@ int SelinuxKmsg(int logLevel, const char *fmt, ...)
         return -1;
     }
 
+    if ((logLevel < 0) || (logLevel >= MAX_LEVEL_SIZE)) {
+        return -1;
+    }
     if (UNLIKELY(g_fd < 0)) {
         SelinuxOpenLogDevice();
         if (g_fd < 0) {

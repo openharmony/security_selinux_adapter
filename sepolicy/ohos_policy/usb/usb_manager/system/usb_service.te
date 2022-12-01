@@ -44,3 +44,27 @@ allow usb_service usb_service:lnk_file { read };
 allow usb_service vendor_file:file { execute getattr map open read };
 allow usb_service vendor_lib_file:dir { search };
 allow usb_service vendor_lib_file:file { execute map getattr open read };
+
+# avc:  denied  { call } for  pid=1914 comm="jsThread-1" scontext=u:r:normal_hap:s0 tcontext=u:r:usb_service:s0 tclass=binder permissive=0
+# avc:  denied  { get } for service=4201 pid=1759 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_usb_service:s0 tclass=samgr_class permissive=0
+# avc:  denied  { transfer } for  pid=1842 comm="usb_service" scontext=u:r:usb_service:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=1
+# avc:  denied  { call } for  pid=659 comm="ui_service" scontext=u:r:ui_service:s0 tcontext=u:r:usb_service:s0 tclass=binder permissive=1
+# avc:  denied  { call } for  pid=1810 comm="IPC_1_1817" scontext=u:r:usb_service:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=1
+# avc:  denied  { get } for service=7001 pid=1830 scontext=u:r:usb_service:s0 tcontext=u:object_r:sa_subsys_ace_service:s0 tclass=samgr_class permissive=0
+# avc:  denied  { get } for service=4607 pid=1830 scontext=u:r:usb_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
+allow normal_hap sa_usb_service:samgr_class { get };
+allow normal_hap usb_service:binder { call };
+allow system_core_hap sa_usb_service:samgr_class { get };
+allow system_core_hap usb_service:binder { call };
+allow ui_service usb_service:binder { call };
+allow foundation usb_service:binder { call transfer };
+allow foundation usb_service:dir { search };
+allow foundation usb_service:file { open read };
+allow usb_service dev_console_file:chr_file { read write };
+allow usb_service sa_foundation_dms:samgr_class { get };
+allow usb_service sa_subsys_ace_service:samgr_class { get };
+allow usb_service ui_service:binder { transfer call };
+allow usb_service sa_foundation_abilityms:samgr_class { get };
+allow usb_service foundation:binder { transfer };
+allow usb_service musl_param:file { read };
+allow usb_service system_core_hap:binder { call };

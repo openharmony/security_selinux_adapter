@@ -20,7 +20,6 @@ allow telephony_sa vendor_etc_file:dir search;
 allow time_service data_file:dir getattr;
 allow time_service data_service_el1_file:dir getattr;
 allow udevd dev_port:chr_file getattr;
-allow hdcd hiperf:process signal;
 allow hiperf hdcd:fifo_file { ioctl write };
 allow usb_service self:unix_dgram_socket { getopt setopt };
 
@@ -28,3 +27,48 @@ allow init dev_block_file:blk_file ioctl;
 allow init hook_param:file relabelto;
 allow { sadomain hdfdomain hap_domain nativedomain } hook_param:file { map open read };
 allow normal_hap normal_hap_data_file:file ioctl;
+
+allow { sadomain -hilogd } system_core_hap_data_file:file { read write };
+allow appspawn accesstoken_service:binder call;
+allow appspawn accountmgr:binder call;
+allow appspawn dev_console_file:chr_file { read write };
+allow appspawn foundation:binder { call transfer };
+allow appspawn hdcd:unix_stream_socket connectto;
+allow appspawn multimodalinput:binder call;
+allow appspawn multimodalinput:fd use;
+allow appspawn multimodalinput:unix_stream_socket { read write };
+allow appspawn musl_param:file { map open read };
+allow appspawn normal_hap:binder { call transfer };
+allow appspawn normal_hap:fd use;
+allow appspawn normal_hap_data_file:dir search;
+allow appspawn render_service:binder { call transfer };
+allow appspawn render_service:fd use;
+allow appspawn resource_schedule_service:binder call;
+allow appspawn samgr:binder call;
+allow appspawn system_file:file { getattr open read };
+allow appspawn system_lib_file:dir { open read };
+allow appspawn tracefs:dir search;
+allow appspawn tracefs_trace_marker_file:file { open write };
+allow appspawn accessibility:binder { call transfer };
+allow appspawn dev_mali:chr_file { getattr ioctl open read write };
+allow appspawn param_watcher:binder { call transfer };
+
+allow init dev_dri_file:dir search;
+allow init data_updater_file:dir add_name;
+allow init data_service_el0_file:dir relabelfrom;
+allow init data_startup:file getattr;
+allow init musl_param:file read;
+allow init chip_prod_file:dir search;
+allow init sys_prod_file:dir search;
+
+allow samgr appspawn:binder transfer;
+allow samgr appspawn:dir search;
+allow samgr appspawn:file { open read };
+allow samgr dev_console_file:chr_file { read write };
+allow samgr hiprofiler_plugins:dir search;
+allow samgr hiprofiler_plugins:file { open read };
+allow samgr hiprofiler_plugins:binder transfer;
+allow samgr hiprofiler_plugins:process getattr;
+
+allow hiview hiprofiler_plugins:binder call;
+allow deviceauth_service dev_console_file:chr_file { read write };

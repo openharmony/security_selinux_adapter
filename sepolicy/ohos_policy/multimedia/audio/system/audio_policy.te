@@ -182,3 +182,20 @@ allow audio_policy data_service_file:dir { search };
 allow audio_policy data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
 allow audio_policy data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 
+allow audio_policy accesstoken_service:binder { call transfer };
+allow accesstoken_service audio_policy:binder { call transfer };
+
+allow audio_policy accessibility:binder { call transfer };
+allow audio_policy accessibility_param:file { map open read };
+allow audio_policy sa_accessibleabilityms:samgr_class { get };
+
+allow audio_policy privacy_service:binder { call transfer };
+allow audio_policy sa_privacy_service:samgr_class { get };
+
+allow audio_policy persist_audio_param:parameter_service { set };
+allow { domain -limit_domain } persist_audio_param:file { map open read };
+
+allow audio_policy paramservice_socket:sock_file { write };
+allow audio_policy kernel:unix_stream_socket { connectto };
+
+allow audio_policy persist_param:parameter_service { set };

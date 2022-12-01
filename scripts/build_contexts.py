@@ -23,11 +23,8 @@ import re
 import shutil
 from collections import defaultdict
 
-SCRIPT_PATH = os.path.abspath(os.path.dirname(__file__))
-LOCAL_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, "../"))
-POLICY_PATH = []
 
-def parse_args():
+def parse_args(): 
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--dst-dir', help='the output dest path', required=True)
@@ -110,10 +107,13 @@ def check_redefinition(contexts_file):
     for type_key in type_hash.keys():
         if len(type_hash[type_key]) > 1:
             err = 1
-            err_msg = contexts_file + ":"
+            str_seq = (contexts_file, ":")
+            err_msg = "".join(str_seq)
             for linenum in type_hash[type_key]:
-                err_msg += str(linenum) + " "
-            err_msg += "'type " + str(type_key) + " is redefinition'"
+                str_seq = (err_msg, str(linenum), ":")
+                err_msg = "".join(str_seq)
+            str_seq = (err_msg, "'type ", str(type_key), " is redefinition'")
+            err_msg = "".join(str_seq)
             print(err_msg)
     if err:
         raise Exception(err)
@@ -128,7 +128,7 @@ def check_common_contexts(args, contexts_file):
     """
     check_redefinition(contexts_file)
 
-    check_cmd = [args.tool_path + "/sefcontext_compile",
+    check_cmd = [os.path.join(args.tool_path, "sefcontext_compile"),
                  "-o", contexts_file + ".bin",
                  "-p", args.policy_file,
                  contexts_file]
@@ -186,7 +186,7 @@ def check_sehap_contexts(args, contexts_file, domain):
         print("type=*, hapdatafile selinux type")
         print("***********************************************************")
         raise Exception(err)
-    check_cmd = [args.tool_path + "/sefcontext_compile",
+    check_cmd = [os.path.join(args.tool_path, "sefcontext_compile"),
                  "-o", contexts_file + ".bin",
                  "-p", args.policy_file,
                  contexts_file]
@@ -199,30 +199,31 @@ def check_sehap_contexts(args, contexts_file, domain):
         os.unlink(contexts_file + ".bin")
 
 
-def build_file_contexts(args, output_path):
+def build_file_contexts(args, output_path, policy_path):
     file_contexts_list = traverse_folder_in_type(
-        POLICY_PATH, "file_contexts")
+        policy_path, "file_contexts")
 
-    combined_file_contexts = output_path + "/file_contexts"
+    combined_file_contexts = os.path.join(output_path, "file_contexts")
     combine_contexts_file(file_contexts_list, combined_file_contexts)
 
     build_tmp_cmd = ["m4",
                      "--fatal-warnings",
-                     "-s", combined_file_contexts, ">", output_path + "/file_contexts.tmp"]
+                     "-s", combined_file_contexts, ">", os.path.join(output_path, "file_contexts.tmp")]
     run_command(build_tmp_cmd)
 
     check_redefinition(combined_file_contexts)
 
-    build_bin_cmd = [args.tool_path + "/sefcontext_compile",
-                     "-o", args.dst_dir + "/file_contexts.bin",
+    build_bin_cmd = [os.path.join(args.tool_path, "sefcontext_compile"),
+                     "-o", os.path.join(args.dst_dir, "file_contexts.bin"),
                      "-p", args.policy_file,
-                     output_path + "/file_contexts.tmp"]
+                     os.path.join(output_path, "file_contexts.tmp")]
     run_command(build_bin_cmd)
 
 
-def build_common_contexts(args, output_path, contexts_file_name):
+def build_common_contexts(args, output_path, contexts_file_name, policy_path):
+
     contexts_list = traverse_folder_in_type(
-        POLICY_PATH, contexts_file_name)
+        policy_path, contexts_file_name)
 
     combined_contexts = output_path + contexts_file_name
     combine_contexts_file(contexts_list, combined_contexts)
@@ -230,21 +231,24 @@ def build_common_contexts(args, output_path, contexts_file_name):
     check_common_contexts(args, combined_contexts)
 
 
-def build_sehap_contexts(args, output_path):
-    contexts_list = traverse_folder_in_type(
-        POLICY_PATH, "sehap_contexts")
+def build_sehap_contexts(args, output_path, policy_path):
 
-    combined_contexts = output_path + "/sehap_contexts"
+    contexts_list = traverse_folder_in_type(
+        policy_path, "sehap_contexts")
+
+    combined_contexts = os.path.join(output_path, "sehap_contexts")
     combine_contexts_file(contexts_list, combined_contexts)
 
     check_sehap_contexts(args, combined_contexts, 1)
     check_sehap_contexts(args, combined_contexts, 0)
 
-def prepare_build_path(dir_list, root_dir, build_dir_list):
-    list = ["base/security/selinux/sepolicy/base", "base/security/selinux/sepolicy/ohos_policy"]
-    list += dir_list.split(":")
 
-    for i in list:
+def prepare_build_path(dir_list, root_dir, build_dir_list):
+
+    build_contexts_list = ["base/security/selinux/sepolicy/base", "base/security/selinux/sepolicy/ohos_policy"]
+    build_contexts_list += dir_list.split(":")
+
+    for i in build_contexts_list:
         if i == "" or i == "default":
             continue
         path = os.path.join(root_dir, i)
@@ -254,16 +258,19 @@ def prepare_build_path(dir_list, root_dir, build_dir_list):
             print("following path not exists!! " + path)
             exit(-1)
 
+
 def main(args):
+
     output_path = args.dst_dir
 
-    prepare_build_path(args.policy_dir_list, args.source_root_dir, POLICY_PATH)
+    policy_path = []
+    prepare_build_path(args.policy_dir_list, args.source_root_dir, policy_path)
 
-    build_file_contexts(args, output_path)
-    build_common_contexts(args, output_path, "service_contexts")
-    build_common_contexts(args, output_path, "hdf_service_contexts")
-    build_common_contexts(args, output_path, "parameter_contexts")
-    build_sehap_contexts(args, output_path)
+    build_file_contexts(args, output_path, policy_path)
+    build_common_contexts(args, output_path, "service_contexts", policy_path)
+    build_common_contexts(args, output_path, "hdf_service_contexts", policy_path)
+    build_common_contexts(args, output_path, "parameter_contexts", policy_path)
+    build_sehap_contexts(args, output_path, policy_path)
 
 
 if __name__ == "__main__":

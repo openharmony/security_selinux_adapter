@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import("//base/security/selinux/selinux.gni")
+import("//base/startup/init/begetd.gni")
 import("//build/ohos.gni")
 
 SELINUX_ROOT_DIR = "//base/security/selinux"
@@ -149,7 +150,7 @@ ohos_static_library("libselinux_hilog_static") {
   subsystem_name = "security"
 }
 
-if (use_musl) {
+if (!startup_init_with_param_base) {
   inherited_configs = [
     "//build/config/compiler:afdo",
     "//build/config/compiler:afdo_optimize_size",
@@ -184,7 +185,7 @@ source_set("libselinux_parameter_static") {
     "-Wall",
     "-Werror",
   ]
-  if (use_musl) {
+  if (!startup_init_with_param_base) {
     ldflags = [ "-nostdlib" ]
     configs -= inherited_configs
     configs += [ "//build/config/compiler:compiler" ]
@@ -206,6 +207,9 @@ ohos_shared_library("libparaperm_checker") {
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
     "//third_party/bounds_checking_function:libsec_static",
   ]
+  if (startup_init_with_param_base) {
+    deps += [ ":libselinux_parameter_static" ]
+  }
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -246,7 +250,7 @@ ohos_shared_library("libservice_checker") {
 }
 
 ohos_executable("load_policy") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/load_policy/load_policy.c" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [ ":libload_policy" ]
@@ -282,7 +286,7 @@ ohos_executable("restorecon") {
 }
 
 ohos_executable("hap_restorecon") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/hap_restorecon/test.cpp" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [
@@ -300,7 +304,7 @@ ohos_executable("hap_restorecon") {
 }
 
 ohos_executable("param_check") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/param_check/test.cpp" ]
   include_dirs = [
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
@@ -311,6 +315,9 @@ ohos_executable("param_check") {
     ":libselinux_error_static",
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
   ]
+  if (startup_init_with_param_base) {
+    deps += [ ":libselinux_parameter_static" ]
+  }
   cflags = [
     "-D_GNU_SOURCE",
     "-DTIME_DISPLAY",
@@ -323,7 +330,7 @@ ohos_executable("param_check") {
 }
 
 ohos_executable("service_check") {
-  install_enable = true
+  install_enable = false
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/service_check/test.cpp" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [
@@ -354,6 +361,18 @@ action("build_policy") {
     updater_version = "enable"
   }
 
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
+                       "list lines")
+  if (selinux_build_path != "default") {
+    foreach(src, string_split(selinux_build_path, ":")) {
+      src = "//" + src
+      inputs += exec_script("//build/scripts/find.py",
+                            [ rebase_path(src) ],
+                            "list lines")
+    }
+  }
+
   script = "$SELINUX_ROOT_DIR/scripts/build_policy.py"
   args = [
     "--dst-file",
@@ -377,6 +396,18 @@ action("build_policy") {
 }
 
 action("build_contexts") {
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
+                       "list lines")
+  if (selinux_build_path != "default") {
+    foreach(src, string_split(selinux_build_path, ":")) {
+      src = "//" + src
+      inputs += exec_script("//build/scripts/find.py",
+                            [ rebase_path(src) ],
+                            "list lines")
+    }
+  }
+
   script = "$SELINUX_ROOT_DIR/scripts/build_contexts.py"
   args = [
     "--dst-dir",
@@ -404,9 +435,13 @@ action("build_contexts") {
   ]
 }
 
-action("enforce_selinux") {
-  script = "scripts/enforce_selinux.sh"
-  outputs = [ "$target_out_dir/" ]
+copy("selinux_config") {
+  if (selinux_enforce) {
+    sources = [ "$SELINUX_ROOT_DIR/config/config.enforce" ]
+  } else {
+    sources = [ "$SELINUX_ROOT_DIR/config/config.permissive" ]
+  }
+  outputs = [ "$target_out_dir/config" ]
 }
 
 ohos_prebuilt_etc("build_sepolicy") {
@@ -426,12 +461,10 @@ ohos_prebuilt_etc("file_contexts_bin") {
 }
 
 ohos_prebuilt_etc("config") {
-  source = "$SELINUX_ROOT_DIR/config/config"
+  deps = [ ":selinux_config" ]
+  source = target_out_dir + "/config"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
-  if (enforce_selinux) {
-    deps = [ ":enforce_selinux" ]
-  }
   relative_install_dir = "selinux/"
 }
 

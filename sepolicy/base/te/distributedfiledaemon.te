@@ -33,6 +33,7 @@ allow distributedfiledaemon distributedsche_param:file { map open read };
 allow distributedfiledaemon dslm_service:binder { call transfer };
 allow distributedfiledaemon foundation:binder { call transfer };
 allow distributedfiledaemon hilog_param:file { map open read };
+allow distributedfiledaemon hiview:unix_dgram_socket { sendto };
 allow distributedfiledaemon huks_service:binder { call };
 allow distributedfiledaemon hw_sc_build_os_param:file { map open read };
 allow distributedfiledaemon hw_sc_build_param:file { map open read };

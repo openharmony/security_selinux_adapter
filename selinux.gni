@@ -14,3 +14,7 @@
 declare_args() {
   selinux_build_path = "default"
 }
+
+declare_args() {
+  selinux_enforce = true
+}

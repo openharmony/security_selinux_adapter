@@ -61,7 +61,6 @@ allow power_host sysfs_wake_lck:file { open read write };
 allow power_host sys_param:file { map open read };
 allow power_host system_bin_file:dir { search };
 allow power_host sys_usb_param:file { map open read };
-allow power_host thermal:binder { call };
 allow power_host vendor_etc_file:dir { search };
 allow power_host vendor_etc_file:file { getattr open read };
 allow power_host vendor_etc_thermal_hdi_config_file:file { getattr open read };

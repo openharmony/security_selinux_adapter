@@ -47,6 +47,7 @@ allow normal_hap faultloggerd_temp_file:file { read write };
 allow normal_hap faultloggerd:unix_stream_socket { connectto };
 allow normal_hap hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
 allow normal_hap hilog_param:file { map open read };
+allow normal_hap hiview:unix_dgram_socket { sendto };
 allow normal_hap huks_service:binder { call };
 allow normal_hap hw_sc_build_os_param:file { map open read };
 allow normal_hap hw_sc_build_param:file { map open read };

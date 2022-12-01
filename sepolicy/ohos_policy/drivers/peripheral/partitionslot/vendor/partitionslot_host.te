@@ -26,6 +26,7 @@ allow partitionslot_host const_postinstall_param:file { map open read };
 allow partitionslot_host const_product_param:file { map open read };
 allow partitionslot_host debug_param:file { map open read };
 allow partitionslot_host default_param:file { map open read };
+allow partitionslot_host dev_block_file:blk_file { read write open };
 allow partitionslot_host dev_block_file:dir { search };
 allow partitionslot_host dev_block_file:lnk_file { read };
 allow partitionslot_host dev_block_volfile:dir { search };

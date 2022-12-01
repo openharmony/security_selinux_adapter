@@ -23,15 +23,14 @@
 #include "contexts_trie.h"
 
 static pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
-static const char *DEFAULT_CONTEXT = "u:object_r:default_param:s0";
+static const char DEFAULT_CONTEXT[] = "u:object_r:default_param:s0";
 static ParamContextsTrie *g_contextsTrie = NULL;
 static ParamContextsList *g_contextsList = NULL;
 
 static int ParameterContextsLoad(void)
 {
-    int res = 0;
     if (getpid() == 1) { // process init will load parameter_contexts to shared memory
-        res = LoadParameterContextsToSharedMem();
+        int res = LoadParameterContextsToSharedMem();
         if (res != 0) {
             return res;
         }

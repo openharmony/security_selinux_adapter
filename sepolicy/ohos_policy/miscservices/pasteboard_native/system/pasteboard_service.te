@@ -45,7 +45,8 @@ allow sh pasteboard_service:process { signal };
 allow pasteboard_service paramservice_socket:sock_file { write };
 allow pasteboard_service pasteboard_service:unix_dgram_socket { getopt setopt };
 allow pasteboard_service kernel:unix_stream_socket { connectto };
-allow pasteboard_service persist_sys_param:parameter_service { set };
+allow pasteboard_service pasteboard_param:parameter_service { set };
+allow { domain -limit_domain } pasteboard_param:file { map open read };
 allow pasteboard_service sa_inputmethod_service:samgr_class { get };
 allow pasteboard_service inputmethod_service:binder { call transfer };
 allow pasteboard_service hmdfs:file { read open write getattr };
@@ -70,23 +71,14 @@ allow pasteboard_service ui_service:binder { call transfer };
 #avc:  denied  { call } for  pid=640 scontext=u:r:ui_service:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=1
 allow ui_service pasteboard_service:binder { call transfer };
 
-#avc:  denied  { read } for  pid=594 scontext=u:r:hidumper_service:s0 tcontext=u:r:sa_dialog:s0 tclass=file permissive=0
-allow hidumper_service sa_dialog:file { map open read  };
+#avc:  denied  { use } for  pid=555 comm="IPC_1_843" path="/dev/ashmem" dev="tmpfs" ino=166 scontext=u:r:sh:s0 tcontext=u:r:pasteboard_service:s0 tclass=fd permissive=1
+allow pasteboard_service sh:fd { use };
+allow sh pasteboard_service:fd { use };
 
-#avc:  denied  { read } for  pid=2250 scontext=u:r:sa_dialog:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
-allow sa_dialog debug_param:file { map open read  };
+#avc:  denied  { get } for service=180 pid=1811 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+allow pasteboard_service sa_foundation_abilityms:samgr_class { get };
 
-#avc:  denied  { read } for  pid=2250 scontext=u:r:sa_dialog:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
-allow sa_dialog persist_param:file { map open read  };
-
-#avc:  denied  { read } for  pid=2250 scontext=u:r:sa_dialog:s0 tcontext=u:object_r:default_param:s0 tclass=file permissive=0
-allow sa_dialog default_param:file { map open read  };
-
-#avc:  denied  { read } for  pid=2216 scontext=u:r:sa_dialog:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=0
-allow sa_dialog accessibility_param:file { map open read  };
-
-#avc:  denied  { read } for  pid=2147 scontext=u:r:sa_dialog:s0 tcontext=u:object_r:persist_sys_param:s0 tclass=file permissive=0
-allow sa_dialog persist_sys_param:file { map open read  };
-
-#avc:  denied  { read } for  pid=2220 comm="pasting_dialog9" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=47 scontext=u:r:sa_dialog:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
-allow sa_dialog hilog_param:file { read open map };
+#avc:  denied  { use } for  pid=2176 comm="jsThread-1" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:pasteboard_service:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1
+#avc:  denied  { use } for  pid=524 comm="pasteboard_serv" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:system_core_hap:s0 tcontext=u:r:pasteboard_service:s0 tclass=fd permissive=1
+allow pasteboard_service system_core_hap:fd { use };
+allow system_core_hap pasteboard_service:fd { use };

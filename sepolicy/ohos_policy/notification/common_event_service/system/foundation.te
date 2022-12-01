@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation battery_stats:binder { call };
 allow foundation data_app_file:dir { search };
 allow foundation data_service_el1_file:dir { add_name search write };
 allow foundation data_service_el1_file:file { create getattr ioctl read write open };

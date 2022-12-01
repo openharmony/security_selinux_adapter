@@ -64,6 +64,7 @@ allow power_host sa_device_service_manager:samgr_class { get };
 #avc:  denied  { read write } for  pid=2059 comm="dcamera_host" name="renderD128" dev="tmpfs" ino=92 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
 #avc:  denied  { open } for  pid=2059 comm="dcamera_host" path="/dev/dri/renderD128" dev="tmpfs" ino=92 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
 #avc:  denied  { ioctl } for  pid=2059 comm="dcamera_host" path="/dev/dri/renderD128" dev="tmpfs" ino=92 ioctlcmd=0x641f scontext=u:r:dcamera_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { read write } for  pid=2541 comm="hdf_devhost" path="/dev/console" dev="tmpfs" ino=19 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
 #avc:  denied  { search } for  pid=2059 comm="dcamera_host" name="dri" dev="tmpfs" ino=91 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=dir permissive=1
 #avc:  denied  { search } for  pid=2057 comm="dcamera_host" name="socket" dev="tmpfs" ino=40 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 #avc:  denied  { get } for service=hdf_device_manager pid=342 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
@@ -81,10 +82,13 @@ allow power_host sa_device_service_manager:samgr_class { get };
 #avc:  denied  { open } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
 #avc:  denied  { call } for  pid=2582 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=0
 #avc:  denied  { read } for  pid=3798 comm="hdf_devhost" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=0
+#avc:  denied  { get } for service=3901 pid=3568 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
 #avc:  denied  { call } for  pid=2850 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
 #avc:  denied  { call } for  pid=2850 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
+#avc:  denied  { read } for  pid=2047 comm="hdf_devhost" name="u:object_r:ohos_dev_param:s0" dev="tmpfs" ino=30 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:ohos_dev_param:s0 tclass=file permissive=0
 allow dcamera_host camera_service:binder { call transfer };
 allow dcamera_host dcamera:binder { call };
+allow dcamera_host dev_console_file:chr_file { read write };
 allow dcamera_host dev_dri_file:chr_file { getattr read write open ioctl };
 allow dcamera_host dev_dri_file:dir { search };
 allow dcamera_host dev_unix_socket:dir { search };
@@ -101,8 +105,10 @@ allow dcamera_host const_param:file { open read };
 allow dcamera_host const_postinstall_param:file { open map };
 allow dcamera_host disp_gralloc_host:binder { call };
 allow dcamera_host accessibility_param:file { read open map };
+allow dcamera_host sa_param_watcher:samgr_class { get };
 allow dcamera_host system_core_hap:binder { call };
 allow dcamera_host render_service:binder { call };
+allow dcamera_host ohos_dev_param:file { read };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -234,9 +240,7 @@ allowxperm input_user_host dev_hdf_input:chr_file ioctl { 0x6201 0x6202 0x6203 0
 allowxperm input_user_host dev_mgr_file:chr_file ioctl 0x6201;
 
 #avc:  denied  { get } for service=hdf_device_manager pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=wlan_hal_service pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_wlan_hal_service:s0 tclass=hdf_devmgr_class permissive=1
 allow wifi_host hdf_device_manager:hdf_devmgr_class { get };
-allow wifi_host hdf_wlan_hal_service:hdf_devmgr_class { add };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=362 scontext=u:r:blue_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=hci_interface_service pid=362 scontext=u:r:blue_host:s0 tcontext=u:object_r:hdf_hci_interface_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -248,78 +252,81 @@ allow blue_host hdf_hci_interface_service:hdf_devmgr_class { add };
 allow disp_gralloc_host hdf_device_manager:hdf_devmgr_class { get };
 allow disp_gralloc_host hdf_hdi_display_gralloc_service:hdf_devmgr_class { add };
 
-#avc:  denied  { get } for service=hdf_device_manager pid=349 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=audio_hdi_service pid=349 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_hdi_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=audio_hdi_pnp_service pid=341 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
-#neverallow allow audio_hdi_server_host default_hdf_service:hdf_devmgr_class { add };
-#avc:  denied  { get } for service=5100 pid=341 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
-#neverallow allow audio_hdi_server_host default_service:samgr_class { get };
-#avc:  denied  { search } for  pid=351 comm="audio_hdi_serve" name="socket" dev="tmpfs" ino=38 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
-#avc:  denied  { add } for service=audio_hdi_a2dp_service pid=341 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_hdi_a2dp_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { call  transfer } for  pid=363 comm="audio_hdi_serve" scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
-#avc:  denied  { write } for  pid=363 comm="audio_hdi_serve" name="hilogInput" dev="tmpfs" ino=281 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hiloginput_socket:s0 tclass=sock_file permissive=1
-#neverallow allow audio_hdi_server_host hiloginput_socket:sock_file { write };
-#avc:  denied  { search } for  pid=547 comm="audio_hdi_serve" name="/" dev="mmcblk0p11" ino=2 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
-#avc:  denied  { read append  open write map} for  pid=577 comm="audio_hdi_serve" name="2017-08-13_audio_history.log" dev="mmcblk0p11" ino=13 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
-#avc:  denied  { ioctl  getattr read write open} for  pid=547 comm="audio_hdi_serve" path="/dev/hdf_audio_render" dev="tmpfs" ino=190 ioctlcmd=0x6201 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_hdf_audio_render:s0 tclass=chr_file permissive=1
-#avc:  denied  { read write } for  pid=1936 comm="hdf_audio_hdi_c" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
-#avc:  denied  { use } for  pid=1936 comm="hdf_audio_hdi_c" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=1
-#avc:  denied  { add get } for service=audio_hdi_usb_service pid=577 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:hdf_audio_hdi_usb_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { get } for service=5100 pid=547 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
-#avc:  denied  { use } for  pid=1936 comm="hdf_audio_hdi_c" path="/data/lowlatencycapturetest.wav" dev="mmcblk0p11" ino=15 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
-#avc:  denied  { dac_read_search } for  pid=1938 comm="processdump" capability=2  scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:audio_hdi_server_host:s0 tclass=capability permissive=1
-#neverallow allow audio_hdi_server_host audio_hdi_server_host:capability { dac_read_search };
-#avc:  denied  { read } for  pid=593 comm="audio_hdi_serve" scontext=u:r:audio_hdi_server_host:s0 tcontext=u:r:audio_hdi_server_host:s0 tclass=netlink_kobject_uevent_socket permissive=1
-#avc:  denied  { search } for  pid=1938 comm="processdump" name="init_agent" dev="mmcblk0p11" ino=522245 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
-#avc:  denied  { read append  open} for  pid=1938 comm="processdump" name="begetctl.log" dev="mmcblk0p11" ino=522246 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
-#avc:  denied  { add } for service=audio_hdi_pnp_service pid=547 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
-#neverallow allow audio_hdi_server_host default_hdf_service:hdf_devmgr_class { add };
-#avc:  denied  { ioctl } for  pid=593 comm="audio_hdi_serve" path="/dev/hdf_kevent" dev="tmpfs" ino=200 ioctlcmd=0x6202 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
-#avc:  denied  { search } for  pid=1938 comm="audio_hdi_serve" name="bin" dev="mmcblk0p6" ino=103 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
-#avc:  denied  { execute  read open execute_no_trans  map} for  pid=1938 comm="audio_hdi_serve" name="processdump" dev="mmcblk0p6" ino=321 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-#avc:  denied  { search } for  pid=586 comm="audio_hdi_serve" name="etc" dev="mmcblk0p7" ino=19 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
-#avc:  denied  { getattr  read open} for  pid=586 comm="audio_hdi_serve" path="/vendor/etc/hdfconfig/audio_adapter_config.json" dev="mmcblk0p7" ino=32 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
-#avc:  denied  { search } for  pid=593 comm="audio_hdi_serve" name="lib" dev="mmcblk0p7" ino=48 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1
-#avc:  denied  { getattr  read open} for  pid=586 comm="audio_hdi_serve" path="/vendor/lib/libhdi_audio_interface_lib_capture.z.so" dev="mmcblk0p7" ino=105 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
-#avc:  denied  { ioctl } for  pid=573 comm="audio_hdi_serve" path="/data/2017-08-13_audio_history.log" dev="mmcblk0p11" ino=13 ioctlcmd=0x5413 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+#avc:  denied  { get } for service=hdf_device_manager pid=349 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=audio_hdi_service pid=349 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_audio_hdi_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=audio_hdi_pnp_service pid=341 scontext=u:r:audio_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
+#neverallow allow audio_host default_hdf_service:hdf_devmgr_class { add };
+#avc:  denied  { get } for service=5100 pid=341 scontext=u:r:audio_host:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
+#neverallow allow audio_host default_service:samgr_class { get };
+#avc:  denied  { search } for  pid=351 comm="audio_hdi_serve" name="socket" dev="tmpfs" ino=38 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+#avc:  denied  { add } for service=audio_hdi_a2dp_service pid=341 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_audio_hdi_a2dp_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { call  transfer } for  pid=363 comm="audio_hdi_serve" scontext=u:r:audio_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+#avc:  denied  { write } for  pid=363 comm="audio_hdi_serve" name="hilogInput" dev="tmpfs" ino=281 scontext=u:r:audio_host:s0 tcontext=u:object_r:hiloginput_socket:s0 tclass=sock_file permissive=1
+#neverallow allow audio_host hiloginput_socket:sock_file { write };
+#avc:  denied  { search } for  pid=547 comm="audio_hdi_serve" name="/" dev="mmcblk0p11" ino=2 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
+#avc:  denied  { read append  open write map} for  pid=577 comm="audio_hdi_serve" name="2017-08-13_audio_history.log" dev="mmcblk0p11" ino=13 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
+#avc:  denied  { ioctl  getattr read write open} for  pid=547 comm="audio_hdi_serve" path="/dev/hdf_audio_render" dev="tmpfs" ino=190 ioctlcmd=0x6201 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_hdf_audio_render:s0 tclass=chr_file permissive=1
+#avc:  denied  { read write } for  pid=1936 comm="hdf_audio_hdi_c" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:audio_host:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+#avc:  denied  { use } for  pid=1936 comm="hdf_audio_hdi_c" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:audio_host:s0 tcontext=u:r:hdcd:s0 tclass=fd permissive=1
+#avc:  denied  { add get } for service=audio_hdi_usb_service pid=577 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_audio_hdi_usb_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { get } for service=5100 pid=547 scontext=u:r:audio_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+#avc:  denied  { use } for  pid=1936 comm="hdf_audio_hdi_c" path="/data/lowlatencycapturetest.wav" dev="mmcblk0p11" ino=15 scontext=u:r:audio_host:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
+#avc:  denied  { dac_read_search } for  pid=1938 comm="processdump" capability=2  scontext=u:r:audio_host:s0 tcontext=u:r:audio_host:s0 tclass=capability permissive=1
+#neverallow allow audio_host audio_host:capability { dac_read_search };
+#avc:  denied  { read } for  pid=593 comm="audio_hdi_serve" scontext=u:r:audio_host:s0 tcontext=u:r:audio_host:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc:  denied  { search } for  pid=1938 comm="processdump" name="init_agent" dev="mmcblk0p11" ino=522245 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_init_agent:s0 tclass=dir permissive=1
+#avc:  denied  { read append  open} for  pid=1938 comm="processdump" name="begetctl.log" dev="mmcblk0p11" ino=522246 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_init_agent:s0 tclass=file permissive=1
+#avc:  denied  { add } for service=audio_hdi_pnp_service pid=547 scontext=u:r:audio_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=audio_manager_service pid=1956 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_audio_manager_service:s0 tclass=hdf_devmgr_class permissive=1
+#neverallow allow audio_host default_hdf_service:hdf_devmgr_class { add };
+#avc:  denied  { ioctl } for  pid=593 comm="audio_hdi_serve" path="/dev/hdf_kevent" dev="tmpfs" ino=200 ioctlcmd=0x6202 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_hdf_kevent:s0 tclass=chr_file permissive=1
+#avc:  denied  { search } for  pid=1938 comm="audio_hdi_serve" name="bin" dev="mmcblk0p6" ino=103 scontext=u:r:audio_host:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+#avc:  denied  { execute  read open execute_no_trans  map} for  pid=1938 comm="audio_hdi_serve" name="processdump" dev="mmcblk0p6" ino=321 scontext=u:r:audio_host:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+#avc:  denied  { search } for  pid=586 comm="audio_hdi_serve" name="etc" dev="mmcblk0p7" ino=19 scontext=u:r:audio_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr  read open} for  pid=586 comm="audio_hdi_serve" path="/vendor/etc/hdfconfig/audio_adapter_config.json" dev="mmcblk0p7" ino=32 scontext=u:r:audio_host:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { search } for  pid=593 comm="audio_hdi_serve" name="lib" dev="mmcblk0p7" ino=48 scontext=u:r:audio_host:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr  read open} for  pid=586 comm="audio_hdi_serve" path="/vendor/lib/libhdi_audio_interface_lib_capture.z.so" dev="mmcblk0p7" ino=105 scontext=u:r:audio_host:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=file permissive=1
+#avc:  denied  { ioctl } for  pid=573 comm="audio_hdi_serve" path="/data/2017-08-13_audio_history.log" dev="mmcblk0p11" ino=13 ioctlcmd=0x5413 scontext=u:r:audio_host:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
 #avc:  denied  { getattr  read write  open ioctl } for  pid=1945 comm="audio_sample_ca" path="/dev/hdf_audio_capture" dev="tmpfs" ino=197 scontext=u:r:sh:s0 tcontext=u:object_r:dev_hdf_audio_capture:s0 tclass=chr_file permissive=1
-#avc:  denied  { getattr  read write open ioctl} for  pid=573 comm="audio_hdi_serve" path="/dev/hdf_audio_control" dev="tmpfs" ino=196 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_hdf_audio_control:s0 tclass=chr_file permissive=1
-#avc:  denied  { ioctl } for  pid=548 comm="audio_hdi_serve" path="/dev/snd/pcmC0D0p" dev="tmpfs" ino=141 ioctlcmd=0x4143 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=chr_file permissive=1
-#avc:  denied  { search } for  pid=548 comm="audio_hdi_serve" name="snd" dev="tmpfs" ino=90 scontext=u:r:audio_hdi_server_host:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=dir permissive=1
-allow audio_hdi_server_host hdf_device_manager:hdf_devmgr_class { get };
-allow audio_hdi_server_host hdf_audio_hdi_service:hdf_devmgr_class { add };
-allow audio_hdi_server_host dev_unix_socket:dir { search };
-allow audio_hdi_server_host hdf_audio_hdi_a2dp_service:hdf_devmgr_class { add };
-allow audio_hdi_server_host hdf_devmgr:binder { call transfer };
-allow audio_hdi_server_host data_file:dir { search };
-allow audio_hdi_server_host data_file:file { map open read append write };
-allow audio_hdi_server_host dev_hdf_audio_render:chr_file { getattr ioctl open read write };
-allow audio_hdi_server_host devpts:chr_file { read write };
-allow audio_hdi_server_host hdcd:fd { use };
-allow audio_hdi_server_host hdf_audio_hdi_usb_service:hdf_devmgr_class { add get };
-allow audio_hdi_server_host sa_device_service_manager:samgr_class { get };
-allow audio_hdi_server_host sh:fd { use };
-allow audio_hdi_server_host audio_hdi_server_host:netlink_kobject_uevent_socket { read };
-allow audio_hdi_server_host data_init_agent:dir { search };
-allow audio_hdi_server_host data_init_agent:file { open read append };
-allow audio_hdi_server_host dev_hdf_kevent:chr_file { ioctl };
-allow audio_hdi_server_host system_bin_file:dir { search };
-allow audio_hdi_server_host system_bin_file:file { execute execute_no_trans map read open };
-allow audio_hdi_server_host vendor_etc_file:dir { search };
-allow audio_hdi_server_host vendor_etc_file:file { getattr open read };
-allow audio_hdi_server_host vendor_lib_file:dir { search };
-allow audio_hdi_server_host vendor_lib_file:file { getattr open read };
-allow audio_hdi_server_host data_file:file { ioctl };
-allow audio_hdi_server_host dev_hdf_audio_capture:chr_file { getattr ioctl open read write };
-allow audio_hdi_server_host dev_hdf_audio_control:chr_file { getattr ioctl open read write };
-allow audio_hdi_server_host dev_snd_file:chr_file { ioctl };
-allow audio_hdi_server_host dev_snd_file:dir { search };
-allowxperm audio_hdi_server_host dev_snd_file:chr_file ioctl { 0x4143 };
-allowxperm audio_hdi_server_host dev_hdf_audio_render:chr_file ioctl { 0x6201 };
-allowxperm audio_hdi_server_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 };
-allowxperm audio_hdi_server_host data_file:file ioctl { 0x5413 };
-allowxperm audio_hdi_server_host dev_hdf_audio_capture:chr_file ioctl { 0x6201 };
-allowxperm audio_hdi_server_host dev_hdf_audio_control:chr_file ioctl { 0x6201 };
+#avc:  denied  { getattr  read write open ioctl} for  pid=573 comm="audio_hdi_serve" path="/dev/hdf_audio_control" dev="tmpfs" ino=196 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_hdf_audio_control:s0 tclass=chr_file permissive=1
+#avc:  denied  { ioctl } for  pid=548 comm="audio_hdi_serve" path="/dev/snd/pcmC0D0p" dev="tmpfs" ino=141 ioctlcmd=0x4143 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { search } for  pid=548 comm="audio_hdi_serve" name="snd" dev="tmpfs" ino=90 scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_snd_file:s0 tclass=dir permissive=1
+allow audio_host hdf_device_manager:hdf_devmgr_class { get };
+allow audio_host hdf_audio_hdi_service:hdf_devmgr_class { add };
+allow audio_host dev_unix_socket:dir { search };
+allow audio_host hdf_audio_hdi_a2dp_service:hdf_devmgr_class { add };
+allow audio_host hdf_devmgr:binder { call transfer };
+allow audio_host data_file:dir { search };
+allow audio_host data_file:file { map open read append write };
+allow audio_host dev_hdf_audio_render:chr_file { getattr ioctl open read write };
+allow audio_host devpts:chr_file { read write };
+allow audio_host hdcd:fd { use };
+allow audio_host hdf_audio_hdi_usb_service:hdf_devmgr_class { add get };
+allow audio_host hdf_audio_manager_service:hdf_devmgr_class { add };
+allow audio_host sa_device_service_manager:samgr_class { get };
+allow audio_host sh:fd { use };
+allow audio_host sh:binder { transfer };
+allow audio_host audio_host:netlink_kobject_uevent_socket { read };
+allow audio_host data_init_agent:dir { search };
+allow audio_host data_init_agent:file { open read append };
+allow audio_host dev_hdf_kevent:chr_file { ioctl };
+allow audio_host system_bin_file:dir { search };
+allow audio_host system_bin_file:file { execute execute_no_trans map read open };
+allow audio_host vendor_etc_file:dir { search };
+allow audio_host vendor_etc_file:file { getattr open read };
+allow audio_host vendor_lib_file:dir { search };
+allow audio_host vendor_lib_file:file { getattr open read };
+allow audio_host data_file:file { ioctl };
+allow audio_host dev_hdf_audio_capture:chr_file { getattr ioctl open read write };
+allow audio_host dev_hdf_audio_control:chr_file { getattr ioctl open read write };
+allow audio_host dev_snd_file:chr_file { ioctl };
+allow audio_host dev_snd_file:dir { search };
+allowxperm audio_host dev_snd_file:chr_file ioctl { 0x4143 };
+allowxperm audio_host dev_hdf_audio_render:chr_file ioctl { 0x6201 };
+allowxperm audio_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 };
+allowxperm audio_host data_file:file ioctl { 0x5413 };
+allowxperm audio_host dev_hdf_audio_capture:chr_file ioctl { 0x6201 };
+allowxperm audio_host dev_hdf_audio_control:chr_file ioctl { 0x6201 };
 
 #avc:  denied  { get } for service=5100 pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:default_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=face_auth_interface_service pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:hdf_face_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
@@ -393,6 +400,7 @@ allow rootfs labeledfs:filesystem { associate };
 
 allow init dev_hdf_misc_vibrator:chr_file { setattr };
 allow init dev_hdf_sensor_mgr:chr_file { setattr };
+allow init dev_hdfwifi:chr_file { setattr };
 
 allow light_host dev_hdf_light:chr_file { getattr };
 allow light_host dev_hdf_light:chr_file { ioctl };
@@ -417,6 +425,9 @@ allow ueventd dev_file:dir { remove_name };
 allow ueventd dev_file:chr_file { unlink };
 allow ueventd dev_hdf_test:chr_file { getattr setattr unlink };
 allow ueventd dev_block_file:dir { create };
+
+#avc:  denied  { relabelto } for  pid=222 comm="ueventd" name="hdfwifi" dev="tmpfs" ino=192 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_hdfwifi:s0 tclass=chr_file permissive=0
+allow ueventd dev_hdfwifi:chr_file { relabelto };
 
 #avc:  denied  { transition } for  pid=1970 comm="init" path="/vendor/bin/hdf_devhost" dev="mmcblk0p7" ino=14 scontext=u:r:init:s0 tcontext=u:r:sample_host:s0 tclass=process permissive=1
 #avc:  denied  { rlimitinh } for  pid=1970 comm="hdf_devhost" scontext=u:r:init:s0 tcontext=u:r:sample_host:s0 tclass=process permissive=1

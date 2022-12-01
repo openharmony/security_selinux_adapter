@@ -13,6 +13,4 @@
 
 allow normal_hap storage_manager:binder { transfer };
 allow normal_hap sa_file_manager_service:samgr_class { get };
-allow normal_hap fms_service:binder { call };
-allow normal_hap fms_service:binder { transfer };
 allow normal_hap system_core_hap_data_file:file { getattr read };

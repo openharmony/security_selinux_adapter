@@ -39,6 +39,7 @@ allow audio_policy ohos_boot_param:file { map open read };
 allow audio_policy ohos_param:file { map open read };
 allow audio_policy persist_param:file { map open read };
 allow audio_policy persist_sys_param:file { map open read };
+allow audio_policy pulseaudio:unix_stream_socket { connectto };
 allow audio_policy sa_bluetooth_server:samgr_class { get };
 allow audio_policy security_param:file { map open read };
 allow audio_policy sh:binder { call };

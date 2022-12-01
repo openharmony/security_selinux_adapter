@@ -99,6 +99,13 @@ genfscon sysfs /devices/platform/fe5e0000.i2c/i2c-5/5-0051/rtc/rtc1/hctosys    u
 
 genfscon debugfs / u:object_r:debugfs:s0
 genfscon debugfs /kprobes u:object_r:debugfs_kprobes:s0
+genfscon debugfs /wakeup_sources u:object_r:debugfs_wakeup_sources:s0
+genfscon debugfs /binder/failed_transaction_log u:object_r:debugfs_failed_transaction_log:s0
+genfscon debugfs /binder/state u:object_r:debugfs_state:s0
+genfscon debugfs /binder/stats u:object_r:debugfs_stats:s0
+genfscon debugfs /binder/transactions u:object_r:debugfs_transactions:s0
+genfscon debugfs /binder/transaction_log u:object_r:debugfs_transaction_log:s0
+genfscon debugfs /cma/cma-reserved/used u:object_r:debugfs_used:s0
 
 genfscon tracefs / u:object_r:tracefs:s0
 

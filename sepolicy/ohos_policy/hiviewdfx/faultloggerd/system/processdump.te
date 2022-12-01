@@ -33,6 +33,7 @@ processdump_cmd({
     exec_attr
     foundation
     app_el1_bundle_public
+    data_app_el1_file # remove later
     vendor_bin_file
 })
 
@@ -69,6 +70,7 @@ allow processdump hidumper_service:fifo_file ioctl;
 allow processdump normal_hap:dir { getattr open read search };
 allow processdump normal_hap:file { getattr open read };
 allow processdump app_el1_bundle_public:dir search;
+allow processdump data_app_el1_file:dir search; # remove later
 
 #============= for hdcd ================
 allow processdump hdcd:fd use;

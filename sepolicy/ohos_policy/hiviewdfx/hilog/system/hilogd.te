@@ -58,7 +58,6 @@ use_hilog({ domain -kernel })
 #######################
 allow hilogd hilogd_exec:file { entrypoint execute map read getattr };
 allow init hilogd_exec:file { execute read open getattr };
-allow hdcd hilogd_exec:file { execute read open getattr execute_no_trans map };
 
 allow hilogd hilog_input_socket:unix_dgram_socket { rw_socket_perms };
 allow hilogd hilog_input_socket:sock_file { create_file_perms };
@@ -93,6 +92,8 @@ allow hilogd paramservice_socket:sock_file { write };
 
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
 
+allow hilogd domain:dir { search };
+allow hilogd domain:file { open read };
 ############################
 ## Neverallow rule below: ##
 ############################

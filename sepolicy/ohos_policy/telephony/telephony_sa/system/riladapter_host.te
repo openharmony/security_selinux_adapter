@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type hdf_cellular_radio1, hdf_service_attr;
 type hdf_cellular_radio_ext, hdf_service_attr;
 type hdf_ril_service, hdf_service_attr;
 
@@ -35,7 +34,6 @@ allow riladapter_host dev_unix_socket:dir search;
 allow riladapter_host distributedsche_param:file { map open read };
 allow riladapter_host foundation:binder { call transfer };
 allow riladapter_host hilog_param:file { map open read };
-allow riladapter_host hdf_cellular_radio1:hdf_devmgr_class add;
 allow riladapter_host hdf_device_manager:hdf_devmgr_class get;
 allow riladapter_host hdf_devmgr:binder { call transfer };
 allow riladapter_host hw_sc_build_os_param:file { map open read };
@@ -44,6 +42,7 @@ allow riladapter_host hw_sc_param:file { map open read };
 allow riladapter_host init_param:file { map open read };
 allow riladapter_host init_svc_param:file { map open read };
 allow riladapter_host input_pointer_device_param:file { map open read };
+allow riladapter_host musl_param:file { map open read };
 allow riladapter_host net_param:file { map open read };
 allow riladapter_host net_tcp_param:file { map open read };
 allow riladapter_host ohos_boot_param:file { map open read };

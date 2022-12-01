@@ -23,8 +23,14 @@ type hiprofiler_plugins_exec, exec_attr, file_attr, system_file_attr;
 
 type hiprofiler_plugins, nativedomain, domain;
 
+type native_daemon_exec, exec_attr, file_attr, system_file_attr;
+
+type native_daemon, nativedomain, domain;
+
 domain_auto_transition_pattern(nativedomain, hiprofilerd_exec, hiprofilerd);
 
 domain_auto_transition_pattern(nativedomain, hiprofiler_cmd_exec, hiprofiler_cmd);
 
 domain_auto_transition_pattern(nativedomain, hiprofiler_plugins_exec, hiprofiler_plugins);
+
+domain_auto_transition_pattern(nativedomain, native_daemon_exec, native_daemon);

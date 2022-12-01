@@ -18,6 +18,7 @@ binder_call(dslm_service, huks_service);
 binder_call(dslm_service, accesstoken_service);
 binder_call(dslm_service, softbus_server);
 binder_call(dslm_service, samgr);
+binder_call(dslm_service, device_manager);
 
 #avc:  denied  { getopt } for  pid=434 comm="dslm_service" scontext=u:r:dslm_service:s0 tcontext=u:r:dslm_service:s0 tclass=unix_dgram_socket permissive=1
 #avc:  denied  { setopt } for  pid=434 comm="dslm_service" scontext=u:r:dslm_service:s0 tcontext=u:r:dslm_service:s0 tclass=unix_dgram_socket permissive=1
@@ -31,3 +32,5 @@ allow dslm_service softbus_server:tcp_socket { read setopt write };
 allow dslm_service system_etc_file:dir { getattr open read };
 
 allow dslm_service system_profile_file:dir { search };
+
+allow dslm_service sa_foundation_devicemanager_service:samgr_class { get };

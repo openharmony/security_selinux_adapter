@@ -30,3 +30,12 @@ allow msdp_sa sa_msdp_devicestatus_service:samgr_class { add };
 #avc:  denied  { get } for service=3901 pid=387 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
 allow msdp_sa sa_param_watcher:samgr_class { get };
 
+#avc:  denied  { call } for  pid=435 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=0
+allow msdp_sa normal_hap:binder { call };
+
+#avc:  denied  { search } for  pid=431 comm="msdp" name="/" dev="mmcblk0p12" ino=3 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow msdp_sa data_file:dir { search };
+
+#avc:  denied  { call } for  pid=429 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
+allow msdp_sa system_core_hap:binder { call };
+

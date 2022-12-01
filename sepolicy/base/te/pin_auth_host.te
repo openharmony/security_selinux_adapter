@@ -24,7 +24,7 @@ allow pin_auth_host const_postinstall_param:file { map open read };
 allow pin_auth_host const_product_param:file { map open read };
 allow pin_auth_host data_file:dir { search };
 allow pin_auth_host data_service_el1_file:dir { add_name remove_name search write };
-allow pin_auth_host data_service_el1_file:file { create ioctl open read unlink write open };
+allow pin_auth_host data_service_el1_file:file { create ioctl open read unlink write open getattr };
 allow pin_auth_host data_service_file:dir { search };
 allow pin_auth_host debug_param:file { map open read };
 allow pin_auth_host default_param:file { map open read };

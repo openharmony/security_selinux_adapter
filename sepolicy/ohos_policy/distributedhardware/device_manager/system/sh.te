@@ -25,3 +25,6 @@ allow sh device_manager:binder { call transfer };
 
 #avc:  denied  { get } for service=4802 pid=2136 scontext=u:r:sh:s0 tcontext=u:object_r:sa_foundation_devicemanager_service:s0 tclass=samgr_class permissive=1
 allow sh sa_foundation_devicemanager_service:samgr_class { get };
+
+#avc:  denied  { get } for service=4801 pid=1855 scontext=u:r:sh:s0 tcontext=u:object_r:sa_dhardware_service:s0 tclass=samgr_class permissive=1
+allow sh sa_dhardware_service:samgr_class { get };

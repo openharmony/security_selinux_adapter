@@ -1,0 +1,26 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type data_log_sanitizer_file, file_attr, data_file_attr;
+
+#avc:  denied  { write } for  pid=1207 comm="bluetooth_servi" name="ubsan" dev="mmcblk0p11" ino=574 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+#avc:  denied  { getattr } for  pid=1853 comm="ls" path="/data/log/sanitizer/ubsan/ubsan.log.394" dev="mmcblk0p11" ino=4712 scontext=u:r:sh:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=1805 comm="sh" path="/data/log/sanitizer/ubsan/ubsan.log.394" dev="mmcblk0p11" ino=4712 scontext=u:r:sh:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=file permissive=1
+allow { domain -limit_domain -hilogd } data_log_sanitizer_file:dir { create getattr open read remove_name search setattr write add_name };
+allow { domain -limit_domain -hilogd } data_log_sanitizer_file:file { create getattr ioctl open read append rename unlink write open };
+
+allow { domain -limit_domain -hilogd } data_log:dir { search };
+
+#avc:  denied  { search } for  pid=1 comm="init" name="sanitizer" dev="mmcblk0p11" ino=579 scontext=u:r:init:s0 tcontext=u:object_r:data_log_sanitizer_file:s0 tclass=dir permissive=0
+allow init data_log_sanitizer_file:dir { relabelto create_dir_perms };
+allow init data_log_sanitizer_file:file { relabelto };

@@ -43,7 +43,7 @@ allow sh storage_daemon:file getattr;
 allow sh storage_manager:file getattr;
 allow sh sysfs_block_zram:file { open read };
 allow sh sysfs_kernel_notes:file { open read };
-allow sh thermal:file getattr;
+allow sh foundation:file getattr;
 allow sh tracefs:dir { open read };
 allow sh tracefs:file { append getattr open read write };
 allow sh udevd:file getattr;

@@ -283,7 +283,14 @@ allow device_manager sh:binder { call };
 #avc:  denied  { get } for service=3503 pid=615 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=0
 allow device_manager sa_accesstoken_manager_service:samgr_class { get };
 
+#avc: denied  { get } for service=180 pid=246 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+allow device_manager sa_foundation_abilityms:samgr_class { get };
+
 allow device_manager system_core_hap:binder { call transfer };
 allow device_manager pasteboard_service:binder { call transfer };
 allow device_manager distributeddata:binder { call };
 
+allow device_manager devinfo_private_param:file { map open read};
+
+allow device_manager dhardware_dm_param:parameter_service { set };
+allow { domain -limit_domain } dhardware_dm_param:file { map open read };

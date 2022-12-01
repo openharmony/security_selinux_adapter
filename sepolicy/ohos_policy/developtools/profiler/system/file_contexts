@@ -16,3 +16,5 @@
 /system/bin/hiprofiler_plugins	u:object_r:hiprofiler_plugins_exec:s0
 
 /system/bin/hiprofiler_cmd	u:object_r:hiprofiler_cmd_exec:s0
+
+/system/bin/native_daemon	u:object_r:native_daemon_exec:s0

@@ -14,3 +14,4 @@
 allow pasteboard_service dev_ashmem_file:chr_file { open };
 allow pasteboard_service normal_hap:fd { use };
 allow pasteboard_service proc_boot_id:file { open read };
+allow pasteboard_service data_app_el1_file:file { open read getattr };

@@ -13,9 +13,9 @@
 
 allow wifi_hal_service data_file:dir { search };
 allow wifi_hal_service data_log:file { read write };
-allow wifi_hal_service data_misc:dir { add_name getattr remove_name search write };
-allow wifi_hal_service data_misc:file { create read write open };
-allow wifi_hal_service data_misc:sock_file { create unlink };
+allow wifi_hal_service data_service_el1_file:dir { add_name getattr remove_name search write };
+allow wifi_hal_service data_service_el1_file:file { create read write open getattr ioctl rename };
+allow wifi_hal_service data_service_el1_file:sock_file { create unlink };
 allow wifi_hal_service dev_mgr_file:chr_file { getattr };
 allow wifi_hal_service dev_unix_socket:dir { search };
 allow wifi_hal_service dev_unix_socket:sock_file { write };
@@ -44,6 +44,7 @@ allow wifi_hal_service wifi_hal_service:unix_dgram_socket { ioctl };
 allow wifi_hal_service wifi_manager_service:dir { search };
 allow wifi_hal_service wifi_manager_service:file { open read };
 allow wifi_hal_service wifi_manager_service:process { signal };
+allow wifi_hal_service data_service_file:dir { search };
 allowxperm wifi_hal_service wifi_hal_service:packet_socket ioctl { 0x8927 0x8933 };
 allowxperm wifi_hal_service wifi_hal_service:udp_socket ioctl { 0x8913 0x8914 0x8915 0x8927 };
 allowxperm wifi_hal_service wifi_hal_service:unix_dgram_socket ioctl { 0x8933 };
