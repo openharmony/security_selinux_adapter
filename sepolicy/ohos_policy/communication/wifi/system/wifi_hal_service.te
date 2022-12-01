@@ -14,7 +14,7 @@
 allow wifi_hal_service data_file:dir { search };
 allow wifi_hal_service data_log:file { read write };
 allow wifi_hal_service data_service_el1_file:dir { add_name getattr remove_name search write };
-allow wifi_hal_service data_service_el1_file:file { create read write open };
+allow wifi_hal_service data_service_el1_file:file { create read write open getattr ioctl rename };
 allow wifi_hal_service data_service_el1_file:sock_file { create unlink };
 allow wifi_hal_service dev_mgr_file:chr_file { getattr };
 allow wifi_hal_service dev_unix_socket:dir { search };
