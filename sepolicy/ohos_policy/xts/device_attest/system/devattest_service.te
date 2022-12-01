@@ -75,6 +75,12 @@ allow devattest_service sa_devattest_service:samgr_class { add };
 allow devattest_service sa_net_conn_manager:samgr_class { get };
 allow devattest_service sa_device_service_manager:samgr_class { get };
 
+allow devattest_service devinfo_private_param:file { map open read };
+
+allow devattest_service musl_param:file { read };
+allow devattest_service hilog_param:file { read };
+allow devattest_service dnsproxy_service:sock_file { write };
+
 # [18.469899] audit: type=1400 audit(1668560965.423:331): avc:  denied  { call } for  pid=349 comm="netmanager" scontext=u:r:netmanager:s0 tcontext=u:r:devattest_service:s0 tclass=binder permissive=0
 allow netmanager devattest_service:binder { call };
 
