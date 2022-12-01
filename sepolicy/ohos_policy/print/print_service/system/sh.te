@@ -13,4 +13,3 @@
 
 allow sh print_service:dir { getattr search };
 allow sh print_service:file { open read };
-

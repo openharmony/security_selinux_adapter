@@ -12,4 +12,3 @@
 # limitations under the License.
 
 type sa_print_service, sa_service_attr;
-
