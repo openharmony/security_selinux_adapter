@@ -13,3 +13,6 @@
 
 #avc:  denied  { add } for service=3302 pid=608 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_foundation_battery_service:s0 tclass=samgr_class permissive=1
 allow foundation sa_foundation_battery_service:samgr_class { add };
+
+#avc:  denied  { get } for service=3602 pid=577 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_miscdevice_service:s0 tclass=samgr_class permissive=1
+allow foundation sa_miscdevice_service:samgr_class { get };
