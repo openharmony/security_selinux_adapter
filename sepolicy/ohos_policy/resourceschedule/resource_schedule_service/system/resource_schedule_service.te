@@ -132,18 +132,13 @@ allow resource_schedule_service sysfs_devices_system_cpu:dir { open read search 
 allow resource_schedule_service tty_device:chr_file { open read write };
 #frame_aware_scha
 allow resource_schedule_service dev_sched_rtg_ctrl:chr_file { ioctl open read write };
-#dev_file
-#allow resource_schedule_service dev_file:chr_file { ioctl };
+
 #allowxperm
 allowxperm resource_schedule_service dev_file:chr_file ioctl { 0x7102  0x7104 0x7165 };
 allowxperm resource_schedule_service dev_sched_rtg_ctrl:chr_file ioctl { 0xab01 0xab02 };
 allowxperm resource_schedule_service cgroup:file ioctl { 0x5413 };
 allowxperm resource_schedule_service sys_file:file ioctl { 0x5413 };
 allowxperm resource_schedule_service data_service_el1_file:file ioctl { 0x5413 0xf501 0xf502 0xf50c };
-
-#conflict
-#allow resource_schedule_service resource_schedule_service:capability { dac_override dac_read_search setuid sys_ptrace };
-#allow resource_schedule_service resource_schedule_service:capability { setuid sys_ptrace };
 
 #sa_pulseaudio_audio_service
 allow resource_schedule_service sa_pulseaudio_audio_service:samgr_class { get };
