@@ -64,3 +64,7 @@ allow locationhub telephony_sa:binder { call transfer };
 
 #avc:  denied  { call } for pid=353 comm="IPC_1_409" scontext=u:r:locationhub:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
 allow locationhub sh:binder { call };
+
+allow locationhub privacy_service:binder { call };
+
+allow locationhub accesstoken_service:binder { transfer };
