@@ -13,3 +13,6 @@
 
 #avc:  denied  { get } for service=3308 pid=597 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
 allow foundation sa_foundation_displaymgr_service:samgr_class { get };
+
+#avc:  denied  { use } for  pid=522 comm="distributeddata" path="/dev/ashmem" dev="tmpfs" ino=183 scontext=u:r:foundation:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=1
+allow foundation distributeddata:fd { use };
