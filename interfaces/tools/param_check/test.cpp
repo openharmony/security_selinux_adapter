@@ -71,7 +71,8 @@ static void TestLoadList()
             buff = buff->next;
             continue;
         }
-        std::cout << "param: " << buff->info.paraName << ", contexts: " << buff->info.paraContext << std::endl;
+        std::cout << "param: " << buff->info.paraName << ", contexts: " << buff->info.paraContext
+                  << ", index: " << buff->info.index << std::endl;
         buff = buff->next;
     }
 #ifdef TIME_DISPLAY
@@ -93,6 +94,8 @@ static void TestGetContext(std::string &paraName)
     gettimeofday(&start, nullptr);
 #endif
     const char *context = GetParamLabel(paraName.c_str());
+    int index = GetParamLabelIndex(paraName.c_str());
+    std::cout << "paraName: " << paraName << "context: " << context << " index: " << index << std::endl;
 #ifdef TIME_DISPLAY
     gettimeofday(&end, nullptr);
     timersub(&end, &start, &diff);

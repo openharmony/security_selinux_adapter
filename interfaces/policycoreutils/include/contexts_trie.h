@@ -31,6 +31,7 @@ extern "C" {
 int LoadParameterContextsToSharedMem(void);
 bool ReadParamFromSharedMem(ParamContextsTrie **trieRoot, ParamContextsList **listHead);
 const char* SearchFromParamTrie(ParamContextsTrie *root, const char *paraName);
+int GetLabelIndex(ParamContextsTrie *root, const char *paraName);
 
 #ifdef __cplusplus
 #if __cplusplus

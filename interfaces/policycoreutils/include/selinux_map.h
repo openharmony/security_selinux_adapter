@@ -38,6 +38,7 @@ typedef struct {
     const char *prefixLabel;
     const char *matchLabel;
     uint32_t labeled;
+    int32_t index;
     HashTab *handle;
 } ParamContextsTrie;
 

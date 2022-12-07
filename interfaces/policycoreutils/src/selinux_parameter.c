@@ -24,6 +24,7 @@
 
 static pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
 static const char DEFAULT_CONTEXT[] = "u:object_r:default_param:s0";
+static const int INVALID_INDEX = -1;
 static ParamContextsTrie *g_contextsTrie = NULL;
 static ParamContextsList *g_contextsList = NULL;
 
@@ -82,4 +83,12 @@ const char *GetParamLabel(const char *paraName)
         return DEFAULT_CONTEXT;
     }
     return SearchFromParamTrie(g_contextsTrie, paraName);
+}
+
+int GetParamLabelIndex(const char *paraName)
+{
+    if ((paraName == NULL) || (g_contextsTrie == NULL)) {
+        return INVALID_INDEX;
+    }
+    return GetLabelIndex(g_contextsTrie, paraName);
 }

@@ -29,6 +29,7 @@ extern "C" {
 typedef struct ParameterNode {
     const char *paraName;
     const char *paraContext;
+    int index;
 } ParameterNode;
 
 typedef struct ParamContextsList {
@@ -69,6 +70,14 @@ void DestroyParamList(ParamContextsList **list);
  * @return context for given paraName
  */
 const char *GetParamLabel(const char *paraName);
+/**
+ * @brief for a particular paraName, get its context index
+ *
+ * @param paraName the name of param
+ *
+ * @return context index for given paraName
+ */
+int GetParamLabelIndex(const char *paraName);
 
 #ifdef __cplusplus
 #if __cplusplus

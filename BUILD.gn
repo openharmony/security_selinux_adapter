@@ -313,6 +313,7 @@ ohos_executable("param_check") {
   deps = [
     ":libparaperm_checker",
     ":libselinux_error_static",
+    ":libselinux_parameter_static",
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
   ]
   if (startup_init_with_param_base) {

@@ -21,7 +21,8 @@
 #include "selinux_share_mem.h"
 
 static const char DEFAULT_CONTEXT[] = "u:object_r:default_param:s0";
-static const char EMPTY_STRING[] = "";
+static const int32_t DEFAULT_CONTEXT_INDEX = 0;
+static const int32_t INIT_INDEX = 1;
 static const size_t CONTEXTS_LENGTH_MIN = 16; // sizeof("x u:object_r:x:s0")
 static const size_t CONTEXTS_LENGTH_MAX = 1024;
 static const uint32_t SELINUX_PARAM_SPACE = 1024 * 80;
@@ -85,9 +86,10 @@ static bool InsertElementToTrie(ParamContextsTrie *root, const char *element, Pa
     if (childPtr == NULL) {
         return false;
     }
-    childPtr->prefixLabel = EMPTY_STRING;
-    childPtr->matchLabel = EMPTY_STRING;
+    childPtr->prefixLabel = DEFAULT_CONTEXT;
+    childPtr->matchLabel = DEFAULT_CONTEXT;
     childPtr->labeled = UNLABELED;
+    childPtr->index = DEFAULT_CONTEXT_INDEX;
     if (HashMapCreate(&childPtr->handle) != 0) {
         ReleaseParamContextsTrieNode(&childPtr);
         return false;
@@ -100,7 +102,7 @@ static bool InsertElementToTrie(ParamContextsTrie *root, const char *element, Pa
     return true;
 }
 
-static bool InsertParamToTrie(ParamContextsTrie *root, const char *paramPrefix, const char *contexts)
+static bool InsertParamToTrie(ParamContextsTrie *root, const char *paramPrefix, const char *contexts, int index)
 {
     if (root == NULL || paramPrefix == NULL || contexts == NULL) {
         return false;
@@ -127,14 +129,14 @@ static bool InsertParamToTrie(ParamContextsTrie *root, const char *paramPrefix, 
         root->matchLabel = contexts;
         root->labeled = MATCH_LABELED;
     }
-
+    root->index = index;
     free(tmpPrefix);
     return true;
 }
 
 const char *SearchFromParamTrie(ParamContextsTrie *root, const char *paraName)
 {
-    const char *updateCurLabel = EMPTY_STRING;
+    const char *updateCurLabel = DEFAULT_CONTEXT;
     const char *tmpName = paraName;
     ParamHashNode *childNode = NULL;
 
@@ -164,11 +166,44 @@ const char *SearchFromParamTrie(ParamContextsTrie *root, const char *paraName)
 nomatch:
     if (root->labeled == PREFIX_LABELED) {
         return root->prefixLabel;
-    } else if (strcmp(updateCurLabel, EMPTY_STRING) != 0) {
-        return updateCurLabel;
-    } else {
-        return DEFAULT_CONTEXT;
     }
+    return updateCurLabel;
+}
+
+int GetLabelIndex(ParamContextsTrie *root, const char *paraName)
+{
+    int updateCurIndex = DEFAULT_CONTEXT_INDEX;
+    const char *tmpName = paraName;
+    ParamHashNode *childNode = NULL;
+
+    const char *bar = strchr(tmpName, '.');
+    while (bar != NULL) {
+        childNode = GetGroupNode(root, tmpName, bar - tmpName);
+        if (childNode == NULL) {
+            goto nomatch;
+        }
+        if (root->labeled == PREFIX_LABELED) {
+            updateCurIndex = root->index;
+        }
+
+        root = childNode->childPtr;
+        tmpName = bar + 1;
+        bar = strchr(tmpName, '.');
+    }
+
+    childNode = GetGroupNode(root, tmpName, strlen(tmpName));
+    if (childNode != NULL) {
+        ParamContextsTrie *match = childNode->childPtr;
+        if (match->labeled == MATCH_LABELED) {
+            return match->index;
+        }
+    }
+
+nomatch:
+    if (root->labeled == PREFIX_LABELED) {
+        return root->index;
+    }
+    return updateCurIndex;
 }
 
 static bool CouldSkip(const char *line)
@@ -187,7 +222,7 @@ static bool CouldSkip(const char *line)
     return false;
 }
 
-static bool InsertContextsList(ParamContextsList **head, const char *param, const char *context)
+static bool InsertContextsList(ParamContextsList **head, const char *param, const char *context, int index)
 {
     if (head == NULL || param == NULL || context == NULL) {
         return false;
@@ -200,45 +235,80 @@ static bool InsertContextsList(ParamContextsList **head, const char *param, cons
     node->info.paraName = param;
     node->info.paraContext = context;
     node->next = NULL;
+    node->info.index = index;
     (*head)->next = node;
     *head = (*head)->next;
     return true;
 }
 
+static int FindContextFromList(const char *context, ParamContextsList *listHead)
+{
+    if ((context == NULL) || (listHead == NULL)) {
+        return DEFAULT_CONTEXT_INDEX;
+    }
+    ParamContextsList *tmpHead = listHead;
+    while (tmpHead != NULL) {
+        if (strcmp(tmpHead->info.paraContext, context) == 0) {
+            return tmpHead->info.index;
+        }
+        tmpHead = tmpHead->next;
+    }
+    return DEFAULT_CONTEXT_INDEX;
+}
+
+static bool ReadParamFromSharedMemInit(ParamContextsTrie **root, ParamContextsList **listPtr, SharedMem **memPtr)
+{
+    SharedMem *tmpMemPtr = (SharedMem *)InitSharedMem("/dev/__parameters__/param_selinux", SELINUX_PARAM_SPACE, true);
+    if (tmpMemPtr == NULL) {
+        return false;
+    }
+    SharedMem *memHead = tmpMemPtr;
+    ParamContextsTrie *tmpRoot = (ParamContextsTrie *)calloc(1, sizeof(ParamContextsTrie));
+    if (tmpRoot == NULL) {
+        UnmapSharedMem((char *)memHead, SELINUX_PARAM_SPACE);
+        return false;
+    }
+    tmpRoot->prefixLabel = DEFAULT_CONTEXT;
+    tmpRoot->matchLabel = DEFAULT_CONTEXT;
+    tmpRoot->index = DEFAULT_CONTEXT_INDEX;
+    if (HashMapCreate(&tmpRoot->handle) != 0) {
+        ReleaseParamContextsTrieNode(&tmpRoot);
+        UnmapSharedMem((char *)memHead, SELINUX_PARAM_SPACE);
+        return false;
+    }
+    ParamContextsList *tmpListPtr = (ParamContextsList *)calloc(1, sizeof(ParamContextsList));
+    if (tmpListPtr == NULL) {
+        ReleaseParamContextsTrieNode(&tmpRoot);
+        UnmapSharedMem((char *)memHead, SELINUX_PARAM_SPACE);
+        return false;
+    }
+    *root = tmpRoot;
+    *listPtr = tmpListPtr;
+    *memPtr = memHead;
+    return true;
+}
+
 bool ReadParamFromSharedMem(ParamContextsTrie **trieRoot, ParamContextsList **listHead)
 {
-    SharedMem *memPtr = (SharedMem *)InitSharedMem("/dev/__parameters__/param_selinux", SELINUX_PARAM_SPACE, true);
-    if (memPtr == NULL) {
-        return false;
-    }
-    SharedMem *memHead = memPtr;
-    ParamContextsTrie *root = (ParamContextsTrie *)calloc(1, sizeof(ParamContextsTrie));
-    if (root == NULL) {
-        UnmapSharedMem((char *)memHead, SELINUX_PARAM_SPACE);
-        return false;
-    }
-    root->prefixLabel = EMPTY_STRING;
-    root->matchLabel = EMPTY_STRING;
-    if (HashMapCreate(&root->handle) != 0) {
-        ReleaseParamContextsTrieNode(&root);
-        UnmapSharedMem((char *)memHead, SELINUX_PARAM_SPACE);
-        return false;
-    }
-    ParamContextsList *listPtr = (ParamContextsList *)calloc(1, sizeof(ParamContextsList));
-    if (listPtr == NULL) {
-        HashMapDestroy(root->handle);
-        ReleaseParamContextsTrieNode(&root);
-        UnmapSharedMem((char *)memHead, SELINUX_PARAM_SPACE);
+    SharedMem *memPtr = NULL;
+    ParamContextsTrie *root = NULL;
+    ParamContextsList *listPtr = NULL;
+    if (!ReadParamFromSharedMemInit(&root, &listPtr, &memPtr)) {
         return false;
     }
     uint32_t currentPos = 0;
     ParamContextsList *tmpHead = listPtr;
+    int index = INIT_INDEX;
     while (memPtr != NULL && memPtr->paramNameSize > 0) {
         char *paramName = ReadSharedMem(memPtr->data, memPtr->paramNameSize);
         char *context = ReadSharedMem(memPtr->data + memPtr->paramNameSize + 1, memPtr->paramLabelSize);
-        if (!InsertParamToTrie(root, paramName, context) || !InsertContextsList(&listPtr, paramName, context)) {
+        int tmpIndex = FindContextFromList(context, tmpHead->next);
+        tmpIndex = (tmpIndex == DEFAULT_CONTEXT_INDEX) ? index : tmpIndex;
+        if ((!InsertParamToTrie(root, paramName, context, tmpIndex)) ||
+            (!InsertContextsList(&listPtr, paramName, context, tmpIndex))) {
             continue;
         }
+        index++;
         uint32_t dataLen = memPtr->paramNameSize + memPtr->paramLabelSize + 2; // 2 bytes for '\0'
         uint32_t readSize = dataLen + sizeof(SharedMem);                       // space used for read SharedMem struct
         currentPos += readSize;
