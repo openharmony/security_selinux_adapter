@@ -125,6 +125,7 @@ allow resource_schedule_service sys_file:dir { open read search };
 allow resource_schedule_service system_file:file { open read };
 #sys_prod_file
 allow resource_schedule_service sys_prod_file:dir { search };
+allow resource_schedule_service sys_prod_file:file { open read };
 #sysfs_devices_system_cpu
 allow resource_schedule_service sysfs_devices_system_cpu:file { getattr write open ioctl create read };
 allow resource_schedule_service sysfs_devices_system_cpu:dir { open read search };
