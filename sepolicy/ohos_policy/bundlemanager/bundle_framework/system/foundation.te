@@ -12,6 +12,7 @@
 # limitations under the License.
 
 type foundation, domain, sadomain;
+type bms_param, parameter_attr;
 
 #domain_auto_transition_pattern(init, samain_exec, foundation);
 #allow init samain_exec:file execute_no_trans;
@@ -117,4 +118,8 @@ allow foundation servicectrl_param:parameter_service { set };
 allowxperm foundation data_service_el1_file:file ioctl { 0x5413 };
 allowxperm foundation dev_mali:chr_file ioctl { 0x8002 0x8005 0x8006 0x8007 0x800e 0x800f 0x8011 0x8016 0x8019 0x801d 0x801e 0x8026 };
 allowxperm foundation sys_file:file ioctl { 0x5413 };
+allow bms_param tmpfs:filesystem associate;
+allow init bms_param:file { map open read relabelto relabelfrom };
+allow { domain -limit_domain } bms_param:file { map open read };
+allow { param_watcher } bms_param:parameter_service { set };
 
