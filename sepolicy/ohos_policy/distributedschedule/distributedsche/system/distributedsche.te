@@ -59,6 +59,7 @@ allow sh distributedsche:process { sigkill };
 allow softbus_server distributedsche:binder { call };
 allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
 allow distributedsche devinfo_private_param:file { map open read};
+allow distributedsche sa_form_mgr_service:samgr_class { get };
 
 #avc:  denied  { get } for service=1903 pid=469 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=1
 allow distributedsche sa_bgtaskmgr:samgr_class { get };
