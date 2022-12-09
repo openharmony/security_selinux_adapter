@@ -122,6 +122,7 @@ allow sh dev_file:dir { getattr };
 allow sh dev_file:sock_file { write };
 allow sh deviceauth_service:dir { getattr search };
 allow sh deviceauth_service:file { open read };
+allow sh data_device_attest:dir { getattr search};
 allow sh devpts:chr_file { getattr ioctl read };
 allow sh dev_pts_file:dir { getattr };
 allow sh dev_rfkill:chr_file { open read };

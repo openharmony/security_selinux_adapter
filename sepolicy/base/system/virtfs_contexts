@@ -23,6 +23,7 @@ genfscon proc /net/udp u:object_r:proc_net_tcp_udp:s0
 
 genfscon proc /asound  u:object_r:proc_asound_file:s0
 genfscon proc /bluetooth  u:object_r:proc_bluetooth_file:s0
+genfscon proc /device_attest  u:object_r:proc_device_attest_file:s0
 genfscon proc /buddyinfo  u:object_r:proc_buddyinfo_file:s0
 genfscon proc /bus  u:object_r:proc_bus_file:s0
 genfscon proc /cgroups  u:object_r:proc_cgroups_file:s0

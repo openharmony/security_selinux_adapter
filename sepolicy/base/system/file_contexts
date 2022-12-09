@@ -197,6 +197,8 @@
 /data/backup/(.*)?                 u:object_r:data_backup:s0
 /data/bluetooth                       u:object_r:data_bluetooth:s0
 /data/bluetooth/(.*)?                 u:object_r:data_bluetooth:s0
+/data/device_attest                       u:object_r:data_device_attest:s0
+/data/device_attest/(.*)?                 u:object_r:data_device_attest:s0
 /data/service/el0/startup(/.*)?                 u:object_r:data_startup:s0
 /data/cache                       u:object_r:data_cache:s0
 /data/cache/(.*)?                 u:object_r:data_cache:s0

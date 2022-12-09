@@ -29,6 +29,9 @@ allow devattest_service data_ota_package:dir { append ioctl open read add_name s
 allow devattest_service data_ota_package:file { append create ioctl open read rename unlink };
 allow devattest_service dev_file:sock_file { write };
 
+allow devattest_service data_device_attest:dir { search getattr add_name open read remove_name write create };
+allow devattest_service data_device_attest:file { append map open read create write getattr setattr unlink lock ioctl rename };
+
 allow devattest_service netsysnative:unix_stream_socket { connectto };
 allow devattest_service port:tcp_socket { name_connect };
 allow devattest_service devattest_service:tcp_socket { connect create read setopt write getopt getattr };
@@ -68,8 +71,10 @@ allowxperm devattest_service devattest_service:udp_socket ioctl { 0x890B 0x8913 
 allowxperm devattest_service devattest_service:unix_dgram_socket ioctl { 0x8910 };
 
 allow devattest_service paramservice_socket:sock_file { write create setattr getattr relabelto };
-allow devattest_service attest_auth_result_param:file { map open read };
-allow devattest_service attest_auth_result_param:parameter_service { set };
+allow devattest_service xts_devattest_authresult_param:file { map open read };
+allow devattest_service xts_devattest_authresult_param:parameter_service { set };
+allow param_watcher xts_devattest_authresult_param:parameter_service { set };
+allow { domain -limit_domain } xts_devattest_authresult_param:file { map open read };
 
 allow devattest_service sa_devattest_service:samgr_class { add };
 allow devattest_service sa_net_conn_manager:samgr_class { get };
@@ -78,7 +83,7 @@ allow devattest_service sa_device_service_manager:samgr_class { get };
 allow devattest_service devinfo_private_param:file { map open read };
 
 allow devattest_service musl_param:file { read };
-allow devattest_service hilog_param:file { read };
+allow devattest_service hilog_param:file { map open read };
 allow devattest_service dnsproxy_service:sock_file { write };
 
 # [18.469899] audit: type=1400 audit(1668560965.423:331): avc:  denied  { call } for  pid=349 comm="netmanager" scontext=u:r:netmanager:s0 tcontext=u:r:devattest_service:s0 tclass=binder permissive=0

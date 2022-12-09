@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-attest.auth.result               u:object_r:attest_auth_result_param:s0
+persist.xts.devattest.authresult               u:object_r:xts_devattest_authresult_param:s0
