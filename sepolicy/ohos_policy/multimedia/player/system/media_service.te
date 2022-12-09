@@ -75,3 +75,7 @@ allow media_service data_test_media_file:file { write read getattr };
 
 allow media_service system_basic_hap:fd { use };
 allow media_service system_basic_hap_data_file:file { getattr read write };
+
+allow media_service normal_hap_data_file:file { read getattr };
+
+allow media_service musl_param:file { open map read };
