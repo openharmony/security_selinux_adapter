@@ -52,6 +52,7 @@ type bootanimation, sadomain, domain;
 type limit_domain, domain;
 type device_usage_statistics_service, sadomain, domain;
 type thermal_sa, sadomain, domain;
+type nfc_service, sadomain, domain;
 
 type watchdog_service, sadomain, domain;
 type watchdog_service_exec, exec_attr, file_attr, system_file_attr;
