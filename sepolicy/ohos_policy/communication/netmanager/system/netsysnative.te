@@ -37,7 +37,7 @@ allow netsysnative accessibility_param:file { read open map };
 allow netsysnative data_service_file:dir { search };
 allow netsysnative data_service_el1_file:dir { search write add_name };
 allow netsysnative data_service_el1_file:file { create write open ioctl read };
-allow netsysnative fwmark_service:sock_file { create unlink setattr };
+allow netsysnative fwmark_service:sock_file { create unlink setattr write };
 allow netsysnative dnsproxy_service:sock_file { create unlink setattr };
 allow netsysnative netsysnative:process { setfscreate };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
