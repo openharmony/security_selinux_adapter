@@ -82,3 +82,6 @@ allow usb_host data_service_el1_file:dir { search };
 allow usb_host data_service_el1_file:file { ioctl open read write getattr };
 allow init data_service_el1_file:dir { relabelto getattr search write add_name remove_name read open setattr };
 allow init data_service_el1_file:file { create write open getattr };
+allow usb_host hdf_usbhost_acm_pnp_service:hdf_devmgr_class { add };
+allow usb_host hdf_usbhost_acm_rawapi_service:hdf_devmgr_class { add };
+allow usb_host hdf_usbhost_ecm_pnp_service:hdf_devmgr_class { add };
