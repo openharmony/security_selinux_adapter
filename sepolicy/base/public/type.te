@@ -94,3 +94,4 @@ type riladapter_host, hdfdomain, domain;
 
 type sensor_host, hdfdomain, domain;
 type usb_host, hdfdomain, domain;
+type power_host, hdfdomain, domain;
