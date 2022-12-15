@@ -41,18 +41,14 @@ allow resource_schedule_service appspawn:file { getattr open read };
 allow resource_schedule_service appspawn_exec:file { open read };
 #cgroup
 allow resource_schedule_service cgroup:dir { add_name write search };
-allow resource_schedule_service cgroup:file { create append getattr ioctl open read write };
+allow resource_schedule_service cgroup:file { append getattr ioctl open read write };
 #chip_prod_file
 allow resource_schedule_service chip_prod_file:dir { search };
-#capability
-allow resource_schedule_service resource_schedule_service:capability { setuid sys_ptrace };
 #data_service_el1_file
 allow resource_schedule_service data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search write };
 allow resource_schedule_service data_service_el1_file:file { create getattr ioctl lock open read unlink write };
 #data_service_file
 allow resource_schedule_service data_service_file:dir { search };
-#dev_file
-allow resource_schedule_service dev_file:chr_file { ioctl };
 #device_manager
 allow resource_schedule_service device_manager:file { read };
 #hdf_devmgr
@@ -130,7 +126,7 @@ allow resource_schedule_service proc_file:file { read open };
 #param_watcher
 allow resource_schedule_service param_watcher:file { read };
 #sh_exec
-allow resource_schedule_service sh_exec:file { execute execute_no_trans map open read };
+allow resource_schedule_service sh_exec:file { execute_no_trans map open read };
 #sys_file
 allow resource_schedule_service sys_file:file { getattr write open ioctl create read };
 allow resource_schedule_service sys_file:dir { open read search };
