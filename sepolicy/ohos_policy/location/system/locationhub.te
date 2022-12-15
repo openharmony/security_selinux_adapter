@@ -68,3 +68,5 @@ allow locationhub sh:binder { call };
 allow locationhub privacy_service:binder { call };
 
 allow locationhub accesstoken_service:binder { transfer };
+
+allow locationhub sa_privacy_service:samgr_class { get };
