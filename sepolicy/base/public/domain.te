@@ -122,7 +122,7 @@ neverallow * *:{ blk_file chr_file } rename;
 # don't use system v IPC
 neverallow * *:{ shm sem msg msgq } *;
 
-neverallow domain self:lockdown integrity;
+neverallow { domain debug_only(`-domain')} self:lockdown integrity;
 
 neverallow * self:memprotect mmap_zero;
 
