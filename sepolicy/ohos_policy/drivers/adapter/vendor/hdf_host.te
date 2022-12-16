@@ -86,6 +86,11 @@ allow power_host sa_device_service_manager:samgr_class { get };
 #avc:  denied  { call } for  pid=2850 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
 #avc:  denied  { call } for  pid=2850 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
 #avc:  denied  { read } for  pid=2047 comm="hdf_devhost" name="u:object_r:ohos_dev_param:s0" dev="tmpfs" ino=30 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:ohos_dev_param:s0 tclass=file permissive=0
+#avc:  denied  { search } for  pid=554 comm="dcamera_host" name="/" dev="tracefs" ino=1 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=0
+#avc:  denied  { write } for  pid=557 comm="dcamera_host" name="trace_marker" dev="tracefs" ino=14932 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=536 comm="dcamera_host" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=15109 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=0
+#avc:  denied  { call transfer } for  pid=247 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+#avc:  denied  { call } for  pid=599 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
 allow dcamera_host camera_service:binder { call transfer };
 allow dcamera_host dcamera:binder { call };
 allow dcamera_host dev_console_file:chr_file { read write };
@@ -105,10 +110,14 @@ allow dcamera_host const_param:file { open read };
 allow dcamera_host const_postinstall_param:file { open map };
 allow dcamera_host disp_gralloc_host:binder { call };
 allow dcamera_host accessibility_param:file { read open map };
+allow dcamera_host normal_hap:binder { call };
 allow dcamera_host sa_param_watcher:samgr_class { get };
 allow dcamera_host system_core_hap:binder { call };
 allow dcamera_host render_service:binder { call };
+allow dcamera_host tracefs:dir { search };
+allow dcamera_host tracefs_trace_marker_file:file { write open };
 allow dcamera_host ohos_dev_param:file { read };
+allow dcamera_host param_watcher:binder { call transfer };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
