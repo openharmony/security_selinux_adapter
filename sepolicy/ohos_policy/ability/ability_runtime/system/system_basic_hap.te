@@ -22,7 +22,7 @@ allow system_basic_hap system_basic_hap:process { ptrace };
 allow system_basic_hap system_bin_file:dir { search };
 allowxperm system_basic_hap dev_mali:chr_file ioctl {  0x8007 0x800f  };
 allow system_basic_hap system_file:file { getattr open read };
-allow system_basic_hap data_service_el1_file:file { getattr open read };
+allow system_basic_hap data_service_el1_file:file { getattr map open read };
 allow system_basic_hap sa_quick_fix_mgr_service:samgr_class { get };
 allow system_basic_hap quick_fix:binder { call };
 allow system_basic_hap system_file:file { map };

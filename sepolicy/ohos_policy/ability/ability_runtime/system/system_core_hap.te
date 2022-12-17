@@ -27,3 +27,4 @@ allow system_core_hap softbus_server:fd { use };
 allow system_core_hap sa_quick_fix_mgr_service:samgr_class { get };
 allow system_core_hap quick_fix:binder { call };
 allow system_core_hap system_file:file { map };
+allow system_core_hap data_service_el1_file:file { map };
