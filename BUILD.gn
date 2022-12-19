@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import("//base/security/selinux/selinux.gni")
+import("//base/startup/init/begetd.gni")
 import("//build/ohos.gni")
 
 SELINUX_ROOT_DIR = "//base/security/selinux"
@@ -149,7 +150,7 @@ ohos_static_library("libselinux_hilog_static") {
   subsystem_name = "security"
 }
 
-if (use_musl) {
+if (!startup_init_with_param_base) {
   inherited_configs = [
     "//build/config/compiler:afdo",
     "//build/config/compiler:afdo_optimize_size",
@@ -184,7 +185,7 @@ source_set("libselinux_parameter_static") {
     "-Wall",
     "-Werror",
   ]
-  if (use_musl) {
+  if (!startup_init_with_param_base) {
     ldflags = [ "-nostdlib" ]
     configs -= inherited_configs
     configs += [ "//build/config/compiler:compiler" ]
@@ -206,6 +207,9 @@ ohos_shared_library("libparaperm_checker") {
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
     "//third_party/bounds_checking_function:libsec_static",
   ]
+  if (startup_init_with_param_base) {
+    deps += [ ":libselinux_parameter_static" ]
+  }
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -311,6 +315,9 @@ ohos_executable("param_check") {
     ":libselinux_error_static",
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
   ]
+  if (startup_init_with_param_base) {
+    deps += [ ":libselinux_parameter_static" ]
+  }
   cflags = [
     "-D_GNU_SOURCE",
     "-DTIME_DISPLAY",
