@@ -107,3 +107,10 @@ allow bluetooth_service data_service_file:dir { search };
 allow bluetooth_service data_service_el1_file:dir { search write add_name remove_name };
 allow bluetooth_service data_service_el1_file:file { getattr open read write rename unlink ioctl create};
 
+#avc: denied { getattr } bluetooth_service data_log tclass=file
+allow bluetooth_service data_log:file { getattr };
+
+#avc: denied { read } bluetooth_service data_log tclass=dir
+#avc: denied { open } bluetooth_service data_log tclass=dir
+allow bluetooth_service data_log:dir { read open };
+
