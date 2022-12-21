@@ -19,3 +19,6 @@
 
 # for uinput_inject
 /system/bin/uinput_inject u:object_r:uinput_inject_exec:s0
+
+# for data_multimodalinput
+/data/service/el1/public/multimodalinput(/.*)?    u:object_r:data_multimodalinput:s0

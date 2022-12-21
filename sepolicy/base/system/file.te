@@ -146,6 +146,7 @@ type data_system, file_attr, data_file_attr;
 type data_system_ce, file_attr, data_file_attr;
 type data_system_de, file_attr, data_file_attr;
 type data_udev, file_attr, data_file_attr;
+type data_multimodalinput, file_attr, data_file_attr;
 type data_update_service_log, file_attr, data_file_attr;
 type data_user, file_attr, data_file_attr;
 type data_user_de, file_attr, data_file_attr;
