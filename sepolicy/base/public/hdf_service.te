@@ -59,4 +59,5 @@ type hdf_hdi_media_layer_service, hdf_service_attr;
 
 # for testcase start
 type hdf_sample_service, hdf_service_attr;
+type hdf_sample1_driver_service, hdf_service_attr;
 # for testcase end

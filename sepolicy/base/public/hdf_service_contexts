@@ -63,4 +63,5 @@ hdi_media_layer_service                 u:object_r:hdf_hdi_media_layer_service:s
 
 # for testcase start
 sample_driver_service2                  u:object_r:hdf_sample_service:s0
+sample1_driver_service                  u:object_r:hdf_sample1_driver_service:s0
 # for testcase end
