@@ -44,8 +44,6 @@ allow resource_schedule_service cgroup:dir { add_name write search };
 allow resource_schedule_service cgroup:file { append getattr ioctl open read write };
 #chip_prod_file
 allow resource_schedule_service chip_prod_file:dir { search };
-#capability
-allow resource_schedule_service resource_schedule_service:capability { kill };
 #data_service_el1_file
 allow resource_schedule_service data_service_el1_file:dir { add_name create getattr open read remove_name rmdir search write };
 allow resource_schedule_service data_service_el1_file:file { create getattr ioctl lock open read unlink write };
