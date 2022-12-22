@@ -35,7 +35,7 @@ allow memmgrservice normal_hap:process { sigkill };
 allow memmgrservice proc_file:file { write open read create ioctl getattr };
 
 allow memmgrservice proc_meminfo_file:file { open read };
-allow memmgrservice system_basic_hap:file { write };
+allow memmgrservice system_basic_hap:file { write getattr };
 allow memmgrservice system_basic_hap:process { sigkill };
 allow memmgrservice system_core_hap:file { write };
 allow memmgrservice system_core_hap:process { sigkill };
