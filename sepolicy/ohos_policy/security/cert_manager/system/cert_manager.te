@@ -39,3 +39,15 @@ allow cert_manager_service sa_param_watcher:samgr_class { get };
 allow cert_manager_service tracefs:dir { search };
 allow cert_manager_service tracefs_trace_marker_file:file { open write };
 allowxperm cert_manager_service cert_manager_service_file:file ioctl { 0x5413 };
+
+#avc:  denied  { read } for  pid=6711 comm="cert_manager_se" name="u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=6711 comm="cert_manager_se" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=6711 comm="cert_manager_se" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow cert_manager_service musl_param:file { map open read };
+
+#avc:  denied  { search } for  pid=6764 comm="cert_manager_se" name="bin" dev="mmcblk0p7" ino=112 scontext=u:r:cert_manager_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+allow cert_manager_service system_bin_file:dir { search };
+
+#avc:  denied  { getopt } for  pid=1564 comm="cert_manager_se" scontext=u:r:cert_manager_service:s0 tcontext=u:r:cert_manager_service:s0 tclass=unix_dgram_socket permissive=1
+#avc:  denied  { getopt } for  pid=1564 comm="cert_manager_se" scontext=u:r:cert_manager_service:s0 tcontext=u:r:cert_manager_service:s0 tclass=unix_dgram_socket permissive=1
+allow cert_manager_service cert_manager_service:unix_dgram_socket { getopt setopt };
