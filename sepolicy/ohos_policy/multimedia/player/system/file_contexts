@@ -12,4 +12,4 @@
 # limitations under the License.
 
 /data/test/media(/.*)?               u:object_r:data_test_media_file:s0
-
+/data/media/log(/.*)?               u:object_r:data_media_log_file:s0
