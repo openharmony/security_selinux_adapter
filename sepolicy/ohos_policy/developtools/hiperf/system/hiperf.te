@@ -168,15 +168,6 @@ allow hiperf normal_hap:lnk_file read;
 
 allow hiperf chip_prod_file:dir search;
 allow hiperf chip_prod_file:file { getattr map open read };
-allow hiperf proc_getslice:file getattr;
-allow hiperf proc_gpu_memory:file getattr;
-allow hiperf proc_key:file getattr;
-allow hiperf proc_memtrack:file getattr;
-allow hiperf proc_poweroff_reason:file getattr;
-allow hiperf proc_protect_lru:file getattr;
-allow hiperf proc_reboot_watchdog:file getattr;
-allow hiperf proc_securityguard:file getattr;
-allow hiperf proc_shlogd:file getattr;
 allow hiperf sys_file:file { getattr open read };
 allow hiperf sysfs_devices_system_cpu:file getattr;
 allow hiperf udevd_exec:file { getattr map open read };
