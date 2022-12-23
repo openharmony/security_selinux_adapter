@@ -114,3 +114,6 @@ allow hiprofilerd tty_device:chr_file { ioctl open };
 allow hiprofilerd musl_param:file { map open read };
 allow hiprofilerd sh_exec:file execute;
 allow hiprofilerd dev_unix_file:sock_file unlink;
+
+allow hiprofilerd dev_ashmem_file:chr_file { open };
+

@@ -65,3 +65,6 @@ allow native_daemon appspawn_exec:file open;
 allow native_daemon appspawn_exec:file getattr;
 allow native_daemon appspawn_exec:file map;
 allow native_daemon data_local_tmp:file { getattr ioctl map };
+
+allow native_daemon dev_ashmem_file:chr_file { open };
+
