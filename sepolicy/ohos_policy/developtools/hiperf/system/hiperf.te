@@ -166,6 +166,14 @@ allow hiperf data_app_el1_file:file { getattr map open read };
 allow hiperf data_app_el1_file:dir search;
 allow hiperf normal_hap:lnk_file read;
 
+allow hiperf chip_prod_file:dir search;
+allow hiperf chip_prod_file:file { getattr map open read };
+allow hiperf sys_file:file { getattr open read };
+allow hiperf sysfs_devices_system_cpu:file getattr;
+allow hiperf udevd_exec:file { getattr map open read };
+allow hiperf ueventd_exec:file read;
+allow hiperf vendor_bin_file:file { getattr map open read };
+
 allow init data_log:file relabelfrom;
 allow init data_log_hiperf_file:dir relabelto;
 
