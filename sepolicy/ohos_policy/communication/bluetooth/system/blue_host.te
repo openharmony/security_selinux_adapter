@@ -21,3 +21,6 @@ allow blue_host data_vendor:dir { search };
 #avc: denied { open } blue_host vendor_file tclass=file
 allow blue_host vendor_file:file { read open };
 
+#avc: denied { open } blue_host tmpfs tclass=file
+allow blue_host tmpfs:file { open };
+
