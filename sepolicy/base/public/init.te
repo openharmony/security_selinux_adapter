@@ -18,7 +18,8 @@ neverallow init data_local_tmp:dir { write add_name remove_name };
 neverallow { domain -kernel } init:process dyntransition;
 neverallow { domain -kernel } init:process transition;
 
-neverallow init *:process noatsecure;
+#todo need open
+#neverallow init *:process noatsecure;
 
 neverallow { domain -processdump } init:process ptrace;
 
