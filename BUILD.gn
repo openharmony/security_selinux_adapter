@@ -125,7 +125,7 @@ ohos_static_library("libselinux_klog_static") {
   sources =
       [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_klog.c" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
-  deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+  deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -139,7 +139,7 @@ ohos_static_library("libselinux_hilog_static") {
   output_name = "libselinux_hilog_static"
   sources = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_log.c" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
-  deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+  deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
   external_deps = [ "hilog_native:libhilog" ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -205,7 +205,7 @@ ohos_shared_library("libparaperm_checker") {
   deps = [
     ":libselinux_klog_static",
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
-    "//third_party/bounds_checking_function:libsec_static",
+    "//third_party/bounds_checking_function:libsec_shared",
   ]
   if (startup_init_with_param_base) {
     deps += [ ":libselinux_parameter_static" ]
@@ -238,7 +238,7 @@ ohos_shared_library("libservice_checker") {
     ":libselinux_error_static",
     ":libselinux_hilog_static",
     "$THIRD_PARTY_SELINUX_DIR:libselinux",
-    "//third_party/bounds_checking_function:libsec_static",
+    "//third_party/bounds_checking_function:libsec_shared",
   ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -273,7 +273,7 @@ ohos_executable("restorecon") {
   ]
   deps = [
     ":librestorecon",
-    "//third_party/bounds_checking_function:libsec_static",
+    "//third_party/bounds_checking_function:libsec_shared",
   ]
   cflags = [
     "-D_GNU_SOURCE",
