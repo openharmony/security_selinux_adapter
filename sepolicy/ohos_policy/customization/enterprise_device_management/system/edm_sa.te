@@ -27,6 +27,7 @@ allow edm_sa sa_enterprise_device_manager_service:samgr_class { get };
 allow edm_sa sa_foundation_abilityms:samgr_class { get };
 allow edm_sa sa_foundation_bms:samgr_class { get };
 allow edm_sa sa_time_service:samgr_class { get };
+allow edm_sa system_basic_hap:binder { call };
 allow edm_sa system_core_hap:binder { call };
 allow edm_sa time_service:binder { call };
 
