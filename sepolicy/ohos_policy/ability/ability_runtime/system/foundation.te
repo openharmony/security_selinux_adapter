@@ -21,7 +21,7 @@ allow foundation bootevent_param:file { map open read };
 allow foundation bootevent_param:parameter_service { set };
 allow foundation bgtaskmgr_service:binder { call transfer };
 allow foundation configfs:dir { remove_name rmdir search write };
-allow foundation data_app_el1_file:file { getattr read };
+allow foundation data_app_el1_file:file { getattr map read };
 allow foundation data_file:dir { search };
 allow foundation data_service_el1_file:dir { add_name create remove_name search write };
 allow foundation data_service_el1_file:file { create ioctl unlink write open };
