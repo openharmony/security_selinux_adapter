@@ -65,21 +65,23 @@ def traverse_folder_in_dir_name(search_dir, folder_suffix):
     return folder_list
 
 
-def traverse_folder_in_type(search_dir, file_suffix):
+def traverse_folder_in_type(search_dir, file_suffix, build_root):
     policy_file_list = []
     for root, _, files in os.walk(search_dir):
         for each_file in files:
             if each_file.endswith(file_suffix):
-                policy_file_list.append(os.path.join(root, each_file))
+                path = os.path.join(root, each_file)
+                rel_path = os.path.relpath(path, build_root)
+                policy_file_list.append(rel_path)
     policy_file_list.sort()
     return " ".join(str(x) for x in policy_file_list)
 
 
-def traverse_file_in_each_type(folder_list, sepolicy_type_list):
+def traverse_file_in_each_type(folder_list, sepolicy_type_list, build_root):
     policy_files = ""
     for policy_type in sepolicy_type_list:
         for folder in folder_list:
-            str_seq = (policy_files, traverse_folder_in_type(folder, policy_type))
+            str_seq = (policy_files, traverse_folder_in_type(folder, policy_type, build_root))
             policy_files = " ".join(str_seq)
     return policy_files
 
@@ -137,6 +139,7 @@ def prepare_build_path(dir_list, root_dir, build_dir_list):
 
 def main(args):
     output_path = os.path.abspath(os.path.dirname(args.dst_file))
+    build_root = os.path.abspath(os.path.join(output_path, "../../../.."))
     dir_list = []
     prepare_build_path(args.policy_dir_list, args.source_root_dir, dir_list)
 
@@ -156,7 +159,7 @@ def main(args):
 
     # list of all policy files
     policy_file_list = traverse_file_in_each_type(
-        folder_list, SEPOLICY_TYPE_LIST)
+        folder_list, SEPOLICY_TYPE_LIST, build_root)
 
     # build ohos.conf
     output_ohos_conf = os.path.join(output_path, "ohos.conf")
