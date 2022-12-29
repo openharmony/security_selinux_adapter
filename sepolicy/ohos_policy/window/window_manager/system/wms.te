@@ -37,6 +37,8 @@ allow foundation sa_foundation_abilityms:samgr_class { get };
 allow foundation sa_foundation_dms:samgr_class { add };
 allow foundation sa_foundation_wms:samgr_class { add };
 allow foundation sa_render_service:samgr_class { get };
+allow foundation sa_msdp_motion_service:samgr_class { get };
+allow foundation sa_msdp_motion_service:samgr_class { add };
 allow foundation screenlock_server:binder { call transfer };
 allow foundation sh:binder { call transfer };
 allow foundation system_basic_hap:binder { call };
