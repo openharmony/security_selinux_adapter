@@ -306,7 +306,7 @@ neverallow * self:{ capability cap_userns } audit_control;
 neverallow * self:{ capability cap_userns } setfcap;
 neverallow * self:{ capability2 cap2_userns } mac_override;
 neverallow * self:{ capability2 cap2_userns } mac_admin;
-neverallow { domain -hiview } self:{ capability2 cap2_userns } syslog;
+neverallow { domain -hiview -hiperf } self:{ capability2 cap2_userns } syslog;
 neverallow { domain -time_service } self:{ capability2 cap2_userns } wake_alarm;
 neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend;
 neverallow * self:{ capability2 cap2_userns } audit_read;
