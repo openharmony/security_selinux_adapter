@@ -86,3 +86,5 @@ allow media_service vendor_etc_file:dir { search };
 allow media_service sys_prod_file:file { map open read getattr };
 allow media_service chip_prod_file:file { map open read getattr };
 allow media_service vendor_etc_file:file { map open read getattr };
+allow media_service system_file:file { map open read getattr };
+allow media_service data_app_el1_file:file { map open read getattr };
