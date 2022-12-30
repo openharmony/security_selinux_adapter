@@ -29,6 +29,7 @@ allow system_basic_hap screenlock_server:binder { call transfer };
 allow normal_hap sa_screenlock_service:samgr_class { get };
 allow normal_hap screenlock_server:binder { call transfer };
 allow sh screenlock_server:binder { call transfer };
+allow sh sa_screenlock_service:samgr_class { get };
 allow screenlock_server useriam:binder { call };
 allow screenlock_server useriam:binder { transfer };
 allow useriam screenlock_server:binder { call };
