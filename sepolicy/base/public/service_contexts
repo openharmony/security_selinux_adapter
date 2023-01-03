@@ -233,6 +233,7 @@
 5203	                               u:object_r:sa_filemanagement_backup_service_service:s0
 5501	                               u:object_r:sa_devattest_service:s0
 6001	                               u:object_r:sa_device_profile_service:s0
+6100                                   u:object_r:sa_instance_id:s0
 7001	                               u:object_r:sa_subsys_ace_service:s0
 8001	                               u:object_r:sa_ca_daemon_service:s0
 

@@ -1,0 +1,70 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type  instance_id, sadomain, domain;
+
+allow instance_id accessibility_param:file { read open map };
+allow instance_id accesstoken_service:binder { call };
+allow instance_id bootevent_param:file { read open map };
+allow instance_id bootevent_samgr_param:file { read open map };
+allow instance_id build_version_param:file { read open map };
+allow instance_id const_allow_mock_param:file { map open read };
+allow instance_id const_allow_param:file { map open read };
+allow instance_id const_build_param:file { map open read };
+allow instance_id const_display_brightness_param:file { read open map };
+allow instance_id const_param:file { read map open };
+allow instance_id const_postinstall_fstab_param:file { map open read };
+allow instance_id const_postinstall_param:file { map open read };
+allow instance_id const_product_param:file { map open read };
+allow instance_id debug_param:file { map open read };
+allow instance_id default_param:file { read open map };
+allow instance_id dev_rtc_file:chr_file { ioctl open read write };
+allow instance_id dev_unix_socket:dir { search };
+allow instance_id distributedsche_param:file { read open map };
+allow instance_id foundation:binder { call transfer };
+allow instance_id hilog_param:file { map open read };
+allow instance_id hw_sc_build_os_param:file { map open read };
+allow instance_id hw_sc_build_param:file { map open read read open };
+allow instance_id hw_sc_param:file { map open read };
+allow instance_id init_param:file { map open read };
+allow instance_id init_svc_param:file { map open read };
+allow instance_id input_pointer_device_param:file { read open map };
+allow instance_id instance_id:udp_socket { bind connect create read setopt write };
+allow instance_id net_param:file { map open read };
+allow instance_id net_tcp_param:file { map open read };
+allow instance_id node:udp_socket { node_bind };
+allow instance_id normal_hap:binder { call };
+allow instance_id ohos_boot_param:file { map open read };
+allow instance_id ohos_param:file { map open read };
+allow instance_id param_watcher:binder { call transfer };
+allow instance_id persist_param:file { map open read };
+allow instance_id persist_sys_param:file { read map open };
+allow instance_id rootfs:file { read open };
+allow instance_id sa_accesstoken_manager_service:samgr_class { get };
+allow instance_id sa_foundation_abilityms:samgr_class { get };
+allow instance_id sa_foundation_bms:samgr_class { get };
+allow instance_id sa_foundation_cesfwk_service:samgr_class { get };
+allow instance_id sa_instance_id:samgr_class { add };
+allow instance_id sa_net_conn_manager:samgr_class { get };
+allow instance_id sa_param_watcher:samgr_class { get };
+allow instance_id security_param:file { open read map };
+allow instance_id sh:binder { call };
+allow instance_id startup_param:file { map open read };
+allow instance_id sys_param:file { map open read };
+allow instance_id sys_usb_param:file { map open read };
+allow instance_id system_basic_hap:binder { call };
+allow instance_id system_bin_file:dir { search };
+allow instance_id system_core_hap:binder { call };
+allow instance_id tracefs:dir { search };
+allow instance_id tracefs_trace_marker_file:file { write open };
+allowxperm instance_id dev_rtc_file:chr_file ioctl {  0x700a  };
