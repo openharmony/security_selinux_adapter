@@ -60,6 +60,7 @@ type inputmethod_param, parameter_attr;
 type pasteboard_param, parameter_attr;
 type time_param, parameter_attr;
 type accesstoken_perm_param, parameter_attr;
+type ffrt_param, parameter_attr;
 
 allow init parameter_attr:file relabelto;
 allow parameter_attr tmpfs:filesystem associate;
