@@ -53,3 +53,5 @@ allow location_host sys_usb_param:file { map open read };
 allow location_host vendor_etc_file:dir { search };
 allow location_host vendor_etc_file:file { getattr open read };
 allowxperm location_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
+allow location_host musl_param:file { read };
+allow location_host dev_console_file:chr_file { read write };

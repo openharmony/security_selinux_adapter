@@ -74,3 +74,7 @@ allow locationhub accesstoken_service:binder { call transfer };
 allow locationhub privacy_service:binder { call transfer };
 
 allow locationhub normal_hap:binder { call transfer };
+
+allow locationhub musl_param:file { read };
+
+allow locationhub dev_console_file:chr_file { read write };
