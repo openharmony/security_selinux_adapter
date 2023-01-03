@@ -18,7 +18,7 @@ allow updater_sa port:tcp_socket { name_connect };
 allow updater_sa updater_sa:tcp_socket { connect create read setopt write getopt getattr };
 allow updater_sa updater_sa:unix_dgram_socket { getopt setopt };
 allow updater_sa data_file:dir { search };
-allow updater_sa data_ota_package:dir { add_name search write remove_name };
+allow updater_sa data_ota_package:dir { add_name search write remove_name getattr };
 allow updater_sa data_ota_package:dir { append ioctl open read };
 allow updater_sa data_ota_package:file { append create ioctl open read rename unlink getattr };
 allow updater_sa dev_file:sock_file { write };
@@ -26,4 +26,5 @@ allow updater_sa netsysnative:unix_stream_socket { connectto };
 allow updater_sa updater_sa:udp_socket { create bind connect getattr read write };
 allow updater_sa node:udp_socket { node_bind };
 allow updater_sa system_basic_hap:binder { call };
-
+allow updater_sa huks_service:binder { call };
+allow updater_sa foundation:binder { call };
