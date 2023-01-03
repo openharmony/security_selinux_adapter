@@ -49,5 +49,6 @@ neverallow { domain -concurrent_task_service -udevd } dev_auth_ctrl:chr_file { w
 #ffrt_param
 allow init render_service:file { getattr };
 allow render_service ffrt_param:parameter_service { set };
-allow normal_hap ffrt_param:file { read };
-allow system_basic_hap ffrt_param:file { read };
+allow render_service ffrt_param:file { read open };
+allow normal_hap ffrt_param:file { read open };
+allow system_basic_hap ffrt_param:file { read open };
