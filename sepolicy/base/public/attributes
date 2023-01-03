@@ -136,3 +136,5 @@ attribute proc_sys_writer;
 attribute hdf_public_domain;
 
 attribute modem_file_attr;
+
+attribute cgroup_creator;

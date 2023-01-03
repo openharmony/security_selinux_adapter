@@ -229,7 +229,7 @@ neverallow installs data_data_file:file ~{ read_file_perms relabelfrom unlink };
 
 neverallow domain debugfs_attr:file { execute execute_no_trans };
 
-neverallow { domain } cgroup:file create;
+neverallow { domain -cgroup_creator } cgroup:file create;
 
 neverallow { domain -init } debugfs:{ file lnk_file } never_rw_file;
 
