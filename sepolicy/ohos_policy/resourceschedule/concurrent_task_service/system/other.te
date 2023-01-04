@@ -51,6 +51,4 @@ allow init render_service:file { getattr };
 allow render_service ffrt_param:parameter_service { set };
 allow render_service ffrt_param:file { read open map };
 allow normal_hap ffrt_param:file { read open map };
-#allow system_basic_hap ffrt_param:file { read open map };
-#allow system_core_hap ffrt_param:file { read open map };
-#allow foundation ffrt_param:file { read open map };
+neverallow { foundation system_basic_hap system_core_hap } ffrt_param:file { read open map };
