@@ -40,8 +40,13 @@ allow installs system_file:file { getattr open read };
 allow installs data_local:file { create getattr ioctl setattr unlink map read open write };
 allow installs data_local:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow appspawn data_local:dir { add_name create mounton search write read open getattr };
-allow normal_hap data_local:file { getattr open read map };
+allow normal_hap data_local:file { getattr open read map create write };
+allow normal_hap data_local:dir { getattr };
 allow normal_hap arkcompiler_param:file { getattr open read map };
+allow system_basic_hap data_local:file { getattr open create write };
+allow system_basic_hap data_local:dir { getattr search write add_name };
+allow system_core_hap data_local:file { getattr open create write };
+allow system_core_hap data_local:dir { getattr search write add_name };
 allowxperm installs data_app_el1_file:file ioctl { 0x5413 };
 allowxperm installs data_service_el1_file:file ioctl 0x5413;
 
