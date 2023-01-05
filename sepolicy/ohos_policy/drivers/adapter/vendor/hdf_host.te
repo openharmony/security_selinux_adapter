@@ -118,6 +118,7 @@ allow dcamera_host tracefs:dir { search };
 allow dcamera_host tracefs_trace_marker_file:file { write open };
 allow dcamera_host ohos_dev_param:file { read };
 allow dcamera_host param_watcher:binder { call transfer };
+allow param_watcher dcamera_host:binder { call transfer };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=vibrator_interface_service pid=345 scontext=u:r:vibrator_host:s0 tcontext=u:object_r:hdf_vibrator_interface_service:s0 tclass=hdf_devmgr_class permissive=1
