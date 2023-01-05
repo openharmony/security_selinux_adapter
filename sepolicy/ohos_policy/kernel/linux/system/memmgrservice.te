@@ -69,3 +69,17 @@ allow memmgrservice sa_foundation_bms:samgr_class { get };
 # vendor
 allow memmgrservice vendor_etc_file:dir { search };
 allow memmgrservice vendor_etc_file:file { getattr map open read };
+
+# chip
+allow memmgrservice chip_prod_file:dir { search };
+allow memmgrservice chip_prod_file:file { getattr map open read };
+
+# host
+allow memmgrservice user_auth_host:file { getattr };
+allow memmgrservice pin_auth_host:file { getattr };
+allow memmgrservice face_auth_host:file { getattr };
+allow memmgrservice codec_host:file { getattr };
+allow memmgrservice light_host:file { getattr };
+allow memmgrservice vibrator_host:file { getattr };
+allow memmgrservice sensor_host:file { getattr };
+allow memmgrservice input_user_host:file { getattr };
