@@ -48,6 +48,8 @@ allow bgtaskmgr_service audio_policy:binder { call transfer };
 allow bgtaskmgr_service pulseaudio:binder { call transfer };
 allow bgtaskmgr_service sa_bgtaskmgr:samgr_class { get };
 allow bgtaskmgr_service system_file:file { getattr map open read };
+allow bgtaskmgr_service sys_prod_file:dir { search };
+allow bgtaskmgr_service sys_prod_file:file { map open read getattr };
 allow pulseaudio bgtaskmgr_service:binder { call transfer };
 allow audio_policy bgtaskmgr_service:binder { call transfer };
 allow hiview bgtaskmgr_service:dir { getattr open read }; 
