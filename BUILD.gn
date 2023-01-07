@@ -453,14 +453,6 @@ ohos_prebuilt_etc("build_sepolicy") {
   relative_install_dir = "selinux/targeted/policy/"
 }
 
-ohos_prebuilt_etc("file_contexts_bin") {
-  deps = [ ":build_contexts" ]
-  source = target_out_dir + "/file_contexts.bin"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
-  part_name = "selinux"
-  relative_install_dir = "selinux/targeted/contexts/"
-}
-
 ohos_prebuilt_etc("config") {
   deps = [ ":selinux_config" ]
   source = target_out_dir + "/config"
@@ -528,7 +520,6 @@ group("selinux_group") {
       "//base/security/selinux:build_sepolicy",
       "//base/security/selinux:config",
       "//base/security/selinux:file_contexts",
-      "//base/security/selinux:file_contexts_bin",
       "//base/security/selinux:hap_restorecon",
       "//base/security/selinux:hdf_service_contexts",
       "//base/security/selinux:load_policy",
