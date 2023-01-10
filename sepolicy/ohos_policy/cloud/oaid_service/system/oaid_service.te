@@ -1,0 +1,76 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type  oaid_service, sadomain, domain;
+
+allow oaid_service sa_foundation_abilityms:samgr_class { get };
+allow oaid_service oaid_service:udp_socket { bind connect create read setopt write };
+allow oaid_service accesstoken_service:binder { call };
+allow oaid_service dev_rtc_file:chr_file { ioctl open read write };
+allow oaid_service data_service_el1_file:dir { search read write open add_name remove_name };
+allow oaid_service data_service_el1_file:file { create write open ioctl rename read unlink };
+allow oaid_service data_service_file:dir { search };
+allow oaid_service dev_unix_socket:dir { search };
+allow oaid_service foundation:binder { call transfer };
+allow oaid_service net_param:file { map open read };
+allow oaid_service net_tcp_param:file { open read };
+allow oaid_service node:udp_socket { node_bind };
+allow oaid_service ohos_boot_param:file { map open read };
+allow oaid_service ohos_param:file { map open read };
+allow oaid_service sa_accesstoken_manager_service:samgr_class { get };
+allow oaid_service sa_param_watcher:samgr_class { get };
+allow oaid_service param_watcher:binder { call };
+allow oaid_service sh:binder { call };
+allow oaid_service sys_param:file { map open read };
+allow oaid_service sys_usb_param:file { map open };
+allow oaid_service system_bin_file:dir { search };
+allowxperm oaid_service dev_rtc_file:chr_file ioctl { 0x700a };
+allow oaid_service hw_sc_build_os_param:file { map open read };
+allow oaid_service hw_sc_build_param:file { map open read read open };
+allow oaid_service hw_sc_param:file { map open read };
+allow oaid_service init_param:file { map open read };
+allow oaid_service init_svc_param:file { map open read };
+allow oaid_service net_tcp_param:file { map };
+allow oaid_service sys_usb_param:file { read };
+allow oaid_service const_param:file { read map open };
+allow oaid_service const_postinstall_fstab_param:file { map open read };
+allow oaid_service const_postinstall_param:file { map open read };
+allow oaid_service const_allow_mock_param:file { map open read };
+allow oaid_service const_allow_param:file { map open read };
+allow oaid_service const_build_param:file { map open read };
+allow oaid_service const_product_param:file { map open read };
+allow oaid_service security_param:file { open read map};
+allow oaid_service hilog_param:file { map open read };
+allow oaid_service persist_param:file { map open read };
+allow oaid_service persist_sys_param:file { read map open};
+allow oaid_service tracefs:dir { search };
+allow oaid_service accessibility_param:file { map open read };
+allow oaid_service bootevent_param:file { map open read };
+allow oaid_service bootevent_samgr_param:file { open read };
+allow oaid_service build_version_param:file { map open read };
+allow oaid_service distributedsche_param:file { map open read };
+allow oaid_service input_pointer_device_param:file { map open read };
+allow oaid_service const_display_brightness_param:file { map open read };
+allow oaid_service tracefs_trace_marker_file:file { read write open };
+allow oaid_service data_file:dir { search };
+allow oaid_service debug_param:file { map open read };
+allow oaid_service default_param:file { map read open };
+allow oaid_service startup_param:file { map open read };
+allow oaid_service sa_oaid_service:samgr_class { add };
+allow oaid_service sa_foundation_bms:samgr_class { get };
+allow oaid_service sa_foundation_cesfwk_service:samgr_class { get };
+allow oaid_service sa_net_conn_manager:samgr_class { get };
+allow oaid_service normal_hap:binder { call };
+allow oaid_service system_basic_hap:binder { call };
+
+allowxperm oaid_service data_service_el1_file:file ioctl 0x5413;
