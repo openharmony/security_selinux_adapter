@@ -130,6 +130,7 @@ neverallow {
     -hdcd               # write is covered next
     -system_basic_hap   # write is covered next
     -system_core_hap    # write is covered next
+    -normal_hap         # write is covered next
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files
