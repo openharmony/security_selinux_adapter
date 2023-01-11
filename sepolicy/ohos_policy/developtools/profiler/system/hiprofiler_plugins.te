@@ -238,12 +238,12 @@ allow hiprofiler_plugins tracefs:dir { open read };
 
 allow hiprofiler_plugins tracefs:file append;
 
-allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads };
+allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads add_name write open search };
+allow hiprofiler_plugins data_local_tmp:file { create read open write lock };
+allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search };
 
 debug_only(`
-	allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search sys_admin };
-	allow hiprofiler_plugins data_local_tmp:dir { add_name write open search };
-	allow hiprofiler_plugins data_local_tmp:file { create read open write lock };
+	allow hiprofiler_plugins self:capability { sys_admin };
 	allow hiprofiler_plugins sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofiler_plugins self:capability setgid;
 ')
@@ -255,7 +255,7 @@ allow hiprofiler_plugins data_local_tmp:file ioctl;
 allow hiprofiler_plugins hilogd:unix_stream_socket connectto;
 allow hiprofiler_plugins musl_param:file { open read };
 
-neverallow hiprofiler_plugins domain:process ptrace;
+neverallow hiprofiler_plugins *:process ptrace;
 allow hiprofiler_plugins musl_param:file map;
 allow hiprofiler_plugins dev_unix_file:sock_file write;
 allow hiprofiler_plugins hisysevent_exec:file { open read execute execute_no_trans map};

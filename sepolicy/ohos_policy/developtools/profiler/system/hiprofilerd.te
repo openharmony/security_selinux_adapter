@@ -95,11 +95,10 @@ allow hiprofilerd dev_unix_socket:sock_file { getattr setattr };
 allow hiprofilerd hiprofiler_cmd:fd use;
 allow hiprofilerd rootfs:file read;
 
-allow hiprofilerd data_local_tmp:file { read ioctl lock };
+allow hiprofilerd data_local_tmp:file { read ioctl lock create read open write };
+allow hiprofilerd data_local_tmp:dir { search add_name write open };
 
 debug_only(`
-	allow hiprofilerd data_local_tmp:file { create read open write };
-	allow hiprofilerd data_local_tmp:dir { search add_name write };
 	allow hiprofilerd sh_exec:file { execute_no_trans map open read };
 	allow hiprofilerd self:capability setgid;
 ')
