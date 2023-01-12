@@ -1,0 +1,81 @@
+diff --git a/sepolicy/ohos_policy/developtools/profiler/system/hiprofiler_cmd.te b/sepolicy/ohos_policy/developtools/profiler/system/hiprofiler_cmd.te
+index 71c02cb6970fe88dabe8e4425f781b47f78e7890..13ea9d69228b1f5d10d3033e40638c16b1e7c625 100644
+--- a/sepolicy/ohos_policy/developtools/profiler/system/hiprofiler_cmd.te
++++ b/sepolicy/ohos_policy/developtools/profiler/system/hiprofiler_cmd.te
+@@ -131,10 +131,7 @@ allow hiprofiler_cmd hook_param:parameter_service set;
+ allow hiprofiler_cmd data_local_tmp:file { lock read };
+ 
+ debug_only(`
+-	allow hiprofiler_cmd data_local_tmp:file { create read open write };
+-	allow hiprofiler_cmd data_local_tmp:dir { add_name write search };
+ 	allow hiprofiler_cmd self:capability sys_ptrace;
+-	allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
+ 	allow hiprofiler_cmd self:capability { setgid };
+ ')
+ 
+@@ -157,3 +154,5 @@ neverallow hiprofiler_cmd domain:process ptrace;
+ allow hiprofiler_cmd musl_param:file read;
+ allow hiprofiler_cmd native_daemon:process sigkill;
+ allow hiprofiler_cmd musl_param:file { map open };
++allow hiprofiler_cmd security_param:parameter_service set;
++allow hiprofiler_cmd dnsproxy_service:sock_file write;
+diff --git a/sepolicy/ohos_policy/developtools/profiler/system/hiprofiler_plugins.te b/sepolicy/ohos_policy/developtools/profiler/system/hiprofiler_plugins.te
+index 33ed2d9a29258135b2e9d64720b65e5dff581fee..f50ad30e2a8998be3666ffd85353a418e7de639e 100644
+--- a/sepolicy/ohos_policy/developtools/profiler/system/hiprofiler_plugins.te
++++ b/sepolicy/ohos_policy/developtools/profiler/system/hiprofiler_plugins.te
+@@ -241,10 +241,9 @@ allow hiprofiler_plugins tracefs:file append;
+ allow hiprofiler_plugins data_local_tmp:dir { getattr read watch watch_reads };
+ 
+ debug_only(`
+-	allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search sys_admin };
++	allow hiprofiler_plugins self:capability { sys_ptrace dac_read_search };
+ 	allow hiprofiler_plugins data_local_tmp:dir { add_name write open search };
+ 	allow hiprofiler_plugins data_local_tmp:file { create read open write lock };
+-	allow hiprofiler_plugins sh_exec:file { execute execute_no_trans map open read };
+ 	allow hiprofiler_plugins self:capability setgid;
+ ')
+ 
+@@ -262,3 +261,6 @@ allow hiprofiler_plugins hisysevent_exec:file { open read execute execute_no_tra
+ allow hiprofiler_plugins samgr:binder call;
+ allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
+ allow hiprofiler_plugins hiview:binder { call transfer };
++allow hiprofiler_plugins dev_console_file:chr_file { read write };
++allow hiprofiler_plugins proc_diskstats_file:file getattr;
++allow hiprofiler_plugins proc_uptime_file:file getattr;
+diff --git a/sepolicy/ohos_policy/developtools/profiler/system/hiprofilerd.te b/sepolicy/ohos_policy/developtools/profiler/system/hiprofilerd.te
+index 8744c64b8cbfcfc3754a4386038f6479438c217b..5ce26bcc474bf8a45548f2c23605560e0a863461 100644
+--- a/sepolicy/ohos_policy/developtools/profiler/system/hiprofilerd.te
++++ b/sepolicy/ohos_policy/developtools/profiler/system/hiprofilerd.te
+@@ -100,7 +100,6 @@ allow hiprofilerd data_local_tmp:file { read ioctl lock };
+ debug_only(`
+ 	allow hiprofilerd data_local_tmp:file { create read open write };
+ 	allow hiprofilerd data_local_tmp:dir { search add_name write };
+-	allow hiprofilerd sh_exec:file { execute_no_trans map open read };
+ 	allow hiprofilerd self:capability setgid;
+ ')
+ 
+diff --git a/sepolicy/ohos_policy/developtools/profiler/system/native_daemon.te b/sepolicy/ohos_policy/developtools/profiler/system/native_daemon.te
+index 0afb3c86c4e4164f70a6f1d2b4aa9d4f92db9503..6f6e9152263f9d4d7af582624105d73a2098ad02 100644
+--- a/sepolicy/ohos_policy/developtools/profiler/system/native_daemon.te
++++ b/sepolicy/ohos_policy/developtools/profiler/system/native_daemon.te
+@@ -67,4 +67,5 @@ allow native_daemon appspawn_exec:file map;
+ allow native_daemon data_local_tmp:file { getattr ioctl map };
+ 
+ allow native_daemon dev_ashmem_file:chr_file { open };
++allow native_daemon dev_console_file:chr_file { read write };
+ 
+diff --git a/sepolicy/ohos_policy/developtools/profiler/system/other.te b/sepolicy/ohos_policy/developtools/profiler/system/other.te
+index c1a4398d902fc02a7d16b5b71444665e66a429d5..eab7e6053f9b83bd855746fd9f7a9e20a1cc2d91 100644
+--- a/sepolicy/ohos_policy/developtools/profiler/system/other.te
++++ b/sepolicy/ohos_policy/developtools/profiler/system/other.te
+@@ -60,6 +60,10 @@ allow init data_startup:file getattr;
+ allow init musl_param:file read;
+ allow init chip_prod_file:dir search;
+ allow init sys_prod_file:dir search;
++allow init hiprofiler_cmd:file getattr;
++allow init data_local_tmp:dir search;
++allow init dev_unix_file:sock_file unlink;
++allow init proc_sysrq_trigger_file:file setattr;
+ 
+ allow samgr appspawn:binder transfer;
+ allow samgr appspawn:dir search;

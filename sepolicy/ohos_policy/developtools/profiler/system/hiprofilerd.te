@@ -100,7 +100,6 @@ allow hiprofilerd data_local_tmp:file { read ioctl lock };
 debug_only(`
 	allow hiprofilerd data_local_tmp:file { create read open write };
 	allow hiprofilerd data_local_tmp:dir { search add_name write };
-	allow hiprofilerd sh_exec:file { execute_no_trans map open read };
 	allow hiprofilerd self:capability setgid;
 ')
 
