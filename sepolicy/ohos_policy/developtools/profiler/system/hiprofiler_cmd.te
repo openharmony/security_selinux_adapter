@@ -131,6 +131,8 @@ allow hiprofiler_cmd hook_param:parameter_service set;
 allow hiprofiler_cmd data_local_tmp:file { lock read };
 
 debug_only(`
+	allow hiprofiler_cmd data_local_tmp:file { create read open write };
+	allow hiprofiler_cmd data_local_tmp:dir { add_name write search };
 	allow hiprofiler_cmd self:capability { setgid };
 ')
 allow hiprofiler_cmd self:capability sys_ptrace;
