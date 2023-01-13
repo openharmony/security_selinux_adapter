@@ -131,9 +131,9 @@ allow hiprofiler_cmd hook_param:parameter_service set;
 allow hiprofiler_cmd data_local_tmp:file { lock read };
 
 debug_only(`
-	allow hiprofiler_cmd self:capability sys_ptrace;
 	allow hiprofiler_cmd self:capability { setgid };
 ')
+allow hiprofiler_cmd self:capability sys_ptrace;
 
 allow hiprofiler_cmd domain:process signal;
 allow hiprofiler_cmd hiview_exec:file { getattr map open read };
@@ -150,7 +150,7 @@ allow hiprofiler_cmd normal_hap:lnk_file read;
 allow hiprofiler_cmd data_app_el1_file:dir search;
 allow hiprofiler_cmd data_app_el1_file:file { getattr map open read };
 
-neverallow hiprofiler_cmd domain:process ptrace;
+neverallow hiprofiler_cmd *:process ptrace;
 allow hiprofiler_cmd musl_param:file read;
 allow hiprofiler_cmd native_daemon:process sigkill;
 allow hiprofiler_cmd musl_param:file { map open };

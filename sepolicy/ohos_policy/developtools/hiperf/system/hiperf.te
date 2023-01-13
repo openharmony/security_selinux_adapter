@@ -19,8 +19,6 @@ allow hiperf const_postinstall_fstab_param:file { map open read };
 allow hiperf const_postinstall_param:file { map open read };
 allow hiperf data_test_file:file { write };
 allow hiperf data_file:file { getattr ioctl map open read };
-allow hiperf data_local_tmp:dir read;
-allow hiperf data_local_tmp:file { create getattr ioctl read rename unlink write };
 allow hiperf default_param:file { map open read };
 allow hiperf distributedsche_param:file { map open read };
 allow hiperf hdcd:fd use;
@@ -173,7 +171,6 @@ allow hiperf sysfs_devices_system_cpu:file getattr;
 allow hiperf udevd_exec:file { getattr map open read };
 allow hiperf ueventd_exec:file read;
 allow hiperf vendor_bin_file:file { getattr map open read };
-allow hiperf self:capability2 syslog;
 
 allow init data_log:file relabelfrom;
 allow init data_log_hiperf_file:dir relabelto;
@@ -182,13 +179,13 @@ allow init data_log_hiperf_file:dir relabelto;
 #allow hiperf devpts:chr_file ioctl;
 
 debug_only(`
-    allow hiperf self:capability { dac_read_search sys_ptrace ipc_lock setgid };
-    allow hiperf self:capability2 perfmon;
-    allow hiperf data_local_tmp:file open;
-    allow hiperf data_local_tmp:dir { add_name remove_name search write };
+    allow hiperf self:capability { dac_read_search setgid };
 ')
-
+allow hiperf data_local_tmp:file { open create getattr ioctl read rename unlink write };
+allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
+allow hiperf self:capability2 { perfmon syslog };
+allow hiperf self:capability { sys_ptrace ipc_lock };
 allow hiperf self:perf_event { open read write kernel };
 
-neverallow hiperf domain:process ptrace;
+neverallow hiperf *:process ptrace;
 neverallow { domain -hiperf -init } self:perf_event ~{ open read write kernel };

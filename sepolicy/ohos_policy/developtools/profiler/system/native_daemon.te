@@ -12,17 +12,16 @@
 # limitations under the License
 
 debug_only(`
-	allow native_daemon data_local_tmp:file { create read open write };
-	allow native_daemon data_local_tmp:dir { search add_name write };
 	allow native_daemon self:capability setgid;
-        allow native_daemon self:capability { kill sys_ptrace };
         allow domain dev_unix_socket:sock_file write;
         allow domain dev_unix_file:sock_file write;
 ')
+allow native_daemon data_local_tmp:file { create read open write lock getattr ioctl map };
+allow native_daemon data_local_tmp:dir { search add_name write };
+allow native_daemon self:capability { kill sys_ptrace };
 
 allow native_daemon data_file:dir search;
 allow native_daemon data_local:dir search;
-allow native_daemon data_local_tmp:file lock;
 allow native_daemon devpts:chr_file { read write };
 allow native_daemon hilog_param:file { map open read };
 allow native_daemon musl_param:file { map open read };
@@ -64,8 +63,8 @@ allow native_daemon dev_unix_file:sock_file write;
 allow native_daemon appspawn_exec:file open;
 allow native_daemon appspawn_exec:file getattr;
 allow native_daemon appspawn_exec:file map;
-allow native_daemon data_local_tmp:file { getattr ioctl map };
-
 allow native_daemon dev_ashmem_file:chr_file { open };
 allow native_daemon dev_console_file:chr_file { read write };
+
+neverallow native_daemon *:process ptrace;
 
