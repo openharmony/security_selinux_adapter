@@ -264,3 +264,4 @@ allow hiprofiler_plugins hiview:binder { call transfer };
 allow hiprofiler_plugins dev_console_file:chr_file { read write };
 allow hiprofiler_plugins proc_diskstats_file:file getattr;
 allow hiprofiler_plugins proc_uptime_file:file getattr;
+allow hiprofiler_plugins sh_exec:file { open read execute_no_trans map };
