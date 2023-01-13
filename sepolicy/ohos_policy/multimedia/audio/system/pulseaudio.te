@@ -48,7 +48,7 @@ allow pulseaudio data_data_pulse_dir:fifo_file { create getattr open read write 
 #avc:  denied  { read write open } for  pid=284 comm="pulseaudio" path="/data/data/.pulse_dir/runtime/pid" dev="mmcblk0p7" ino=1436168 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
 #avc:  denied  { lock } for  pid=284 comm="pulseaudio" path="/data/data/.pulse_dir/runtime/pid" dev="mmcblk0p7" ino=1436168 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
 #avc:  denied  { setattr } for  pid=285 comm="pulseaudio" name="cookie" dev="mmcblk0p7" ino=1436170 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=file permissive=1
-allow pulseaudio data_data_pulse_dir:file { create getattr ioctl read write open lock setattr };
+allow pulseaudio data_data_pulse_dir:file { create getattr ioctl read write open lock setattr unlink };
 
 #avc:  denied  { create } for  pid=284 comm="pulseaudio" name="cli" scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
 #avc:  denied  { setattr } for  pid=284 comm="pulseaudio" name="cli" dev="mmcblk0p7" ino=1436169 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=sock_file permissive=1
@@ -160,3 +160,5 @@ allow pulseaudio sa_foundation_powermgr_service:samgr_class { get };
 
 allow pulseaudio foundation:binder { call transfer };
 allow foundation pulseaudio:binder { call transfer };
+
+allow pulseaudio vendor_bin_file:dir { search };
