@@ -188,5 +188,5 @@ allow hiperf self:capability2 { perfmon syslog };
 allow hiperf self:capability { sys_ptrace ipc_lock };
 allow hiperf self:perf_event { open read write kernel };
 
-neverallow hiperf domain:process ptrace;
+neverallow hiperf *:process ptrace;
 neverallow { domain -hiperf } self:perf_event ~{ open read write kernel };
