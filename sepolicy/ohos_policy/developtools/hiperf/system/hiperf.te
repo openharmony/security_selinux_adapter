@@ -188,4 +188,4 @@ allow hiperf self:capability { sys_ptrace ipc_lock };
 allow hiperf self:perf_event { open read write kernel };
 
 neverallow hiperf *:process ptrace;
-neverallow { domain -hiperf -init } self:perf_event ~{ open read write kernel };
+neverallow { domain -hiperf -init -hiebpf } self:perf_event ~{ open read write kernel };

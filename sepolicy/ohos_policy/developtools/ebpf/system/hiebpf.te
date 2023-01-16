@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -31,13 +31,13 @@ allow hiebpf domain:file { open read getattr };
 
 allow hiebpf system_bin_file:dir search;
 allow hiebpf system_bin_file:file { getattr map open read };
-#allow hiebpf self:perf_event { cpu kernel open write };
+allow hiebpf self:perf_event { cpu kernel open write };
 
 debug_only(`
-	#allow hiebpf data_local_tmp:dir { add_name search write };
-	#allow hiebpf data_local_tmp:file { read write create map open };
-	#allow hiebpf self:capability { sys_ptrace sys_resource sys_admin };
-	#allow hiebpf self:capability2 { perfmon };
+	allow hiebpf data_local_tmp:dir { add_name search write };
+	allow hiebpf data_local_tmp:file { read write create map open };
+	allow hiebpf self:capability { sys_ptrace sys_resource sys_admin };
+	allow hiebpf self:capability2 { perfmon };
 ')
 
 allow hiebpf data_local:dir search;
