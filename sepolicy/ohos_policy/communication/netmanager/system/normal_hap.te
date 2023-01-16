@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow normal_hap normal_hap:udp_socket { getopt };
+allow normal_hap fwmark_service:sock_file { write };

@@ -39,5 +39,10 @@ allow netsysnative data_service_el1_file:file { create write open ioctl read };
 allow netsysnative fwmark_service:sock_file { create unlink setattr write };
 allow netsysnative dnsproxy_service:sock_file { create unlink setattr };
 allow netsysnative netsysnative:process { setfscreate };
+allow netsysnative normal_hap:fd { use };
+allow netsysnative normal_hap:tcp_socket { read write getopt setopt };
+allow netsysnative normal_hap:unix_dgram_socket { read write getopt setopt };
+allow netsysnative normal_hap:udp_socket { read write getopt setopt };
+allow netsysnative normal_hap:unix_stream_socket { read write getopt setopt };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
