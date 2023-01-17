@@ -199,3 +199,5 @@ allow audio_policy paramservice_socket:sock_file { write };
 allow audio_policy kernel:unix_stream_socket { connectto };
 
 allow audio_policy persist_param:parameter_service { set };
+
+allow audio_policy vendor_bin_file:dir { search };

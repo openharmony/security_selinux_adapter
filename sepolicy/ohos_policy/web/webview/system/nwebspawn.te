@@ -98,3 +98,6 @@ allow nwebspawn kernel:unix_stream_socket { connectto };
 allow nwebspawn musl_param:file { map open read };
 allow nwebspawn normal_hap:process { sigkill };
 allow nwebspawn paramservice_socket:sock_file { write };
+
+allow nwebspawn data_misc:dir { add_name search write remove_name };
+allow nwebspawn data_misc:file { create map open read write unlink };

@@ -45,9 +45,13 @@ allow render_service system_fonts_file:dir { open read search };
 allow render_service system_fonts_file:file { getattr map open read };
 allow render_service sa_accessibleabilityms:samgr_class { get };
 allow render_service sa_concurrent_task_service:samgr_class { get };
-allow render_service vendor_bin_file:dir {search};
+allow render_service vendor_bin_file:dir { search };
 allow render_service paramservice_socket:sock_file { write };
 allow render_service kernel:unix_stream_socket { connectto };
+
+debug_only(`
+    allow render_service sh:fd { use };
+')
 
 allowxperm render_service dev_dri_file:chr_file ioctl { 0x6409 0x640d 0x641e 0x642e 0x643a 0x64af 0x64b8 0x64bc 0x64bd 0x64be };
 allowxperm render_service dev_graphics_file:chr_file ioctl 0x4611;

@@ -18,7 +18,7 @@ allow hiprofilerd hdcd:unix_stream_socket { read write };
 allow hiprofilerd hdcd:fifo_file write;
 allow hiprofilerd node:tcp_socket node_bind;
 allow hiprofilerd proc_cpuinfo_file:file { open read };
-allow hiprofilerd proc_file:file { open read };
+allow hiprofilerd proc_file:file { getattr open read };
 allow hiprofilerd sh:fd use;
 allow hiprofilerd tty_device:chr_file { read write };
 allow hiprofilerd data_file:dir search;

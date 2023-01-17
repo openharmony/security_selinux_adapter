@@ -159,4 +159,4 @@ allow hiprofiler_cmd native_daemon:process sigkill;
 allow hiprofiler_cmd musl_param:file { map open };
 allow hiprofiler_cmd security_param:parameter_service set;
 allow hiprofiler_cmd dnsproxy_service:sock_file write;
-allow hiprofiler_cmd proc_file:file { read open getattr };
+allow hiprofiler_cmd proc_file:file { getattr open read };

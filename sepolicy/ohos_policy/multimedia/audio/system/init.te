@@ -36,3 +36,4 @@ allow init data_data_pulse_dir:dir { add_name create getattr open read relabelto
 #avc:  denied  { transition } for  pid=319 comm="init" path="/system/bin/sa_main" dev="mmcblk0p5" ino=336 scontext=u:r:init:s0 tcontext=u:r:audio_policy:s0 tclass=process permissive=1
 allow init pulseaudio:process { rlimitinh siginh transition };
 
+allow init native_socket:sock_file { unlink };
