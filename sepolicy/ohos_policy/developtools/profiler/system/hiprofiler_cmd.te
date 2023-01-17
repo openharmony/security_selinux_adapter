@@ -157,3 +157,4 @@ neverallow hiprofiler_cmd *:process ptrace;
 allow hiprofiler_cmd musl_param:file read;
 allow hiprofiler_cmd native_daemon:process sigkill;
 allow hiprofiler_cmd musl_param:file { map open };
+allow hiprofiler_cmd proc_file:file { getattr open read };
