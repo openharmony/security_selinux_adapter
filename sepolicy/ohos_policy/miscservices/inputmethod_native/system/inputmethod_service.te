@@ -34,6 +34,32 @@ allow { domain -limit_domain } inputmethod_param:file { map open read };
 allow inputmethod_service sa_accountmgr:samgr_class { get };
 allow inputmethod_service accountmgr:binder { call };
 allow accountmgr inputmethod_service:binder { transfer };
+#avc:  denied  { signal } for  pid=1549 comm="sh" scontext=u:r:sh:s0 tcontext=u:r:inputmethod_service:s0 tclass=process permissive=1
+#avc:  denied  { read write } for  pid=1633 comm="sa_main" path="/dev/console" dev="tmpfs" ino=27 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { read } for  pid=1633 comm="sa_main" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=1633 comm="inputmethod_ser" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=1633 comm="inputmethod_ser" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { search } for  pid=1633 comm="SaInit0" name="service" dev="mmcblk0p12" ino=7 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+#avc:  denied  { search } for  pid=1633 comm="SaInit0" name="service" dev="mmcblk0p12" ino=7 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+#avc:  denied  { search } for  pid=1633 comm="SaInit0" name="service" dev="mmcblk0p12" ino=7 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
+#avc:  denied  { open } for  pid=1560 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=1560 comm="inputmethod_ser" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { search } for  pid=1626 comm="SaInit0" name="el1" dev="mmcblk0p12" ino=11 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+#avc:  denied  { map } for  pid=1576 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=1576 comm="inputmethod_ser" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { write } for  pid=1553 comm="SaInit0" name="imf" dev="mmcblk0p12" ino=1014 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+#avc:  denied  { add_name } for  pid=1557 comm="SaInit0" name="ime_cfg" scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+#avc:  denied  { create } for  pid=1555 comm="SaInit0" name="ime_cfg" scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+#avc:  denied  { create } for  pid=658 comm="SaInit3" name="ime_cfg.json" scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=1607 comm="SaInit0" name="ime_cfg.json" dev="mmcblk0p12" ino=2292 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+#avc:  denied  { write } for  pid=634 comm="SaInit0" name="ime_cfg.json" dev="mmcblk0p12" ino=2310 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=621 comm="SaInit2" path="/data/service/el1/public/imf/ime_cfg/ime_cfg.json" dev="mmcblk0p12" ino=2310 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow sh inputmethod_service:process { signal };
+allow inputmethod_service dev_console_file:chr_file { read write };
+allow inputmethod_service musl_param:file { read open map };
+allow inputmethod_service data_service_file:dir { search };
+allow inputmethod_service data_service_el1_file:dir { search write add_name create };
+allow inputmethod_service data_service_el1_file:file {create read write open };
 
 # add for TDD
 allow sh sa_inputmethod_service:samgr_class { get };
