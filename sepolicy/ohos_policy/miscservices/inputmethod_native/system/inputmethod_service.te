@@ -38,9 +38,6 @@ allow accountmgr inputmethod_service:binder { transfer };
 #avc:  denied  { read write } for  pid=1633 comm="sa_main" path="/dev/console" dev="tmpfs" ino=27 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
 #avc:  denied  { read } for  pid=1633 comm="sa_main" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 #avc:  denied  { read } for  pid=1633 comm="inputmethod_ser" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
-#avc:  denied  { read } for  pid=1633 comm="inputmethod_ser" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
-#avc:  denied  { search } for  pid=1633 comm="SaInit0" name="service" dev="mmcblk0p12" ino=7 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
-#avc:  denied  { search } for  pid=1633 comm="SaInit0" name="service" dev="mmcblk0p12" ino=7 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
 #avc:  denied  { search } for  pid=1633 comm="SaInit0" name="service" dev="mmcblk0p12" ino=7 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=0
 #avc:  denied  { open } for  pid=1560 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 #avc:  denied  { open } for  pid=1560 comm="inputmethod_ser" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
