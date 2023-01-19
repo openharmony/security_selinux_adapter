@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-/system/bin/hiperfd u:object_r:hiperf_exec:s0
-/system/bin/hiperf  u:object_r:hiperf_cmd_exec:s0
+/system/bin/hiperf u:object_r:hiperf_exec:s0
+/system/bin/hiperf_cmd  u:object_r:hiperf_cmd_exec:s0
 
 /data/test        u:object_r:data_test_file:s0
 /data/test/(.*)?  u:object_r:data_test_file:s0
