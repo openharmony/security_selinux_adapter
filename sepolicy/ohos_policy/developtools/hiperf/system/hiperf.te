@@ -189,3 +189,19 @@ allow hiperf self:perf_event { open read write kernel };
 
 neverallow hiperf *:process ptrace;
 neverallow { domain -hiperf -init -hiebpf } self:perf_event ~{ open read write kernel };
+
+allow hiperf musl_param:file { open map read };
+allow hiperf dev_console_file:chr_file { read write };
+allow hiperf musl_param:file { open map read };
+allow hiperf security_param:parameter_service { set };
+allow hiperf hiviewdfx_profiler_param:parameter_service { set };
+allow hiperf paramservice_socket:sock_file { read write };
+allow hiperf kernel:unix_stream_socket connectto;
+
+# ipc
+allow hiperf sa_dfx_hiperf_service:samgr_class { add };
+allow hiperf samgr:binder { call transfer };
+allow samgr hiperf:process { getattr };
+allow samgr hiperf:dir { search };
+allow samgr hiperf:file { read open };
+neverallow { domain -samgr -hiperf_cmd -hidumper_service } hiperf:binder call;

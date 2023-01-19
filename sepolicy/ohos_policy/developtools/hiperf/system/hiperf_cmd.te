@@ -1,0 +1,36 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+allow hiperf_cmd tty_device:chr_file { read write };
+allow hiperf_cmd hdcd:fd use;
+allow hiperf_cmd hdcd:unix_stream_socket { read write connectto };
+allow hiperf_cmd dev_unix_socket:dir search;
+allow hiperf_cmd sh:fd use;
+allow hiperf_cmd devpts:chr_file { read write };
+allow hiperf_cmd musl_param:file { open map read };
+allow hiperf_cmd system_bin_file:dir { search };
+allow hiperf_cmd paramservice_socket:sock_file { read write };
+allow hiperf_cmd hilog_param:file { open map read };
+allow hiperf_cmd kernel:unix_stream_socket connectto;
+allow hiperf_cmd hiperf:binder { call };
+#allow { init hiperf_cmd } hiviewdfx_profiler_param:parameter_service { set };
+allow hiperf_cmd hiviewdfx_profiler_param:parameter_service { set };
+allow hiperf_cmd sa_dfx_hiperf_service:samgr_class { get };
+allow init hiperf_cmd:file { read getattr };
+
+# ipc
+allow hiperf_cmd samgr:binder { call };
+allow samgr hiperf_cmd:file { read open };
+allow samgr hiperf_cmd:dir { search };
+allow samgr hiperf_cmd:process { getattr };
+allow samgr hiperf_cmd:binder { call transfer };

@@ -44,3 +44,4 @@ allow security_param tmpfs:filesystem { associate };
 allow startup_param tmpfs:filesystem { associate };
 allow sys_param tmpfs:filesystem { associate };
 allow sys_usb_param tmpfs:filesystem { associate };
+allow hiviewdfx_profiler_param tmpfs:filesystem { associate };
