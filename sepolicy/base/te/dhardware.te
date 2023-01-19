@@ -52,3 +52,4 @@ allow dhardware system_bin_file:dir { search };
 allow dhardware sys_usb_param:file { map open read };
 allow dhardware tracefs:dir { search };
 allow dhardware tracefs_trace_marker_file:file { open write };
+allow dhardware vendor_bin_file:dir { search };
