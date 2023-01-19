@@ -60,6 +60,7 @@ allow init data_startup:file getattr;
 allow init musl_param:file read;
 allow init chip_prod_file:dir search;
 allow init sys_prod_file:dir search;
+allow init data_local_tmp:dir search;
 
 allow samgr appspawn:binder transfer;
 allow samgr appspawn:dir search;

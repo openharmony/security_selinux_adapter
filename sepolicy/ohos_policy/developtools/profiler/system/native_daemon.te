@@ -64,6 +64,8 @@ allow native_daemon appspawn_exec:file open;
 allow native_daemon appspawn_exec:file getattr;
 allow native_daemon appspawn_exec:file map;
 allow native_daemon dev_ashmem_file:chr_file { open };
+allow native_daemon dev_console_file:chr_file { read write };
+allow native_daemon proc_file:file { open read getattr };
 
 neverallow native_daemon *:process ptrace;
 

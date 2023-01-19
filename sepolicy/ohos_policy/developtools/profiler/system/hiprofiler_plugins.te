@@ -262,3 +262,6 @@ allow hiprofiler_plugins hisysevent_exec:file { open read execute execute_no_tra
 allow hiprofiler_plugins samgr:binder call;
 allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
 allow hiprofiler_plugins hiview:binder { call transfer };
+allow hiprofiler_plugins dev_console_file:chr_file { read write };
+allow hiprofiler_plugins proc_diskstats_file:file getattr;
+allow hiprofiler_plugins proc_uptime_file:file getattr;
