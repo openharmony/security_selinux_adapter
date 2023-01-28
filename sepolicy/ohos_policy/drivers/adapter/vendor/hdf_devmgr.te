@@ -58,6 +58,10 @@ allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 };
 #avc:  denied  { bind } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
 #avc:  denied  { read } for  pid=239 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_devmgr:s0 tclass=netlink_kobject_uevent_socket permissive=1
 allow hdf_devmgr hdf_devmgr:netlink_kobject_uevent_socket { create bind setopt read };
+#avc:  denied  { ioctl } for  pid=247 comm="IPC_5_569" path="/dev/dev_mgr" dev="tmpfs" ino=207 ioctlcmd=0x6201 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:dev_mgr_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { read write } for  pid=251 comm="IPC_3_563" name="dev_mgr" dev="tmpfs" ino=207 scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:dev_mgr_file:s0 tclass=chr_file permissive=0
+allow hdf_devmgr dev_mgr_file:chr_file { getattr read write open ioctl };
+allowxperm hdf_devmgr dev_mgr_file:chr_file ioctl 0x6201;
 
 # for testcase start
 #avc:  denied  { call } for  pid=240 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
