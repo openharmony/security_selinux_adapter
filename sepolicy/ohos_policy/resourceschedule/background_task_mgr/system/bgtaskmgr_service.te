@@ -68,6 +68,7 @@ binder_call(bgtaskmgr_service, param_watcher);
 binder_call(bgtaskmgr_service, resource_schedule_service);
 binder_call(bgtaskmgr_service, sh);
 binder_call(bgtaskmgr_service, system_core_hap);
+binder_call(bgtaskmgr_service, system_basic_hap);
 binder_call(bgtaskmgr_service, hiview);
 binder_call(bgtaskmgr_service, distributedsche);
 binder_call(bgtaskmgr_service, bluetooth_service);
