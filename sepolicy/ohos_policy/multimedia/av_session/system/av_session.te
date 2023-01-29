@@ -13,7 +13,7 @@
 
 type av_session, sadomain, domain;
 allow av_session accesstoken_service:binder { call };
-allow av_session sa_avsession_service:samgr_class { add };
+allow av_session sa_avsession_service:samgr_class { add get_remote };
 allow av_session sa_multimodalinput_service:samgr_class { get };
 allow av_session av_session:unix_dgram_socket { getopt setopt };
 allow av_session data_file:dir { search add_name write };
@@ -49,3 +49,9 @@ allow av_session system_bin_file:dir { search };
 allowxperm av_session av_session_data_file:file ioctl 0x5413;
 allowxperm av_session data_service_el1_file:file ioctl { 0x5413 };
 allow av_session normal_hap:binder { transfer call };
+allow av_session sa_softbus_service:samgr_class { get };
+allow av_session distributeddata:binder { call transfer };
+allow av_session softbus_server:binder { call transfer };
+allow av_session softbus_server:fd { use };
+allow av_session softbus_server:tcp_socket { read write setopt };
+allow av_session data_log:dir { getattr };
