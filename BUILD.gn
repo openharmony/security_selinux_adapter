@@ -348,13 +348,16 @@ ohos_executable("service_check") {
   subsystem_name = "security"
 }
 
-build_env = true
 build_updater = false
 debug_version = "disable"
 updater_version = "disable"
 
 action("build_policy") {
-  if (build_env) {
+  if (build_variant == "user") {
+    debug_version = "disable"
+  } else if (build_variant == "root") {
+    debug_version = "enable"
+  } else {
     debug_version = "enable"
   }
 

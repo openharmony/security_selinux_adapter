@@ -99,7 +99,7 @@ allow hiprofilerd data_local_tmp:file { read ioctl lock create read open write }
 allow hiprofilerd data_local_tmp:dir { search add_name write open getattr };
 
 debug_only(`
-	allow hiprofilerd sh_exec:file { execute_no_trans map open read };
+	allow hiprofilerd sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofilerd self:capability setgid;
 ')
 
@@ -110,7 +110,6 @@ allow hiprofilerd system_bin_file:file getattr;
 allow hiprofilerd system_bin_file:lnk_file read;
 allow hiprofilerd tty_device:chr_file { ioctl open };
 allow hiprofilerd musl_param:file { map open read };
-allow hiprofilerd sh_exec:file execute;
 allow hiprofilerd dev_unix_file:sock_file unlink;
 allow hiprofilerd dev_ashmem_file:chr_file { open };
 allow hiprofilerd proc_file:file getattr;

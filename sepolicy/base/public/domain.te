@@ -276,7 +276,7 @@ neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -cap_viol
 neverallow { domain -appspawn -init -ueventd -memmgrservice
              debug_only(`-hdcd') -installs
              -storage_daemon -usb_host -cap_violator_dacoverride } self:{ capability cap_userns } dac_override;
-neverallow { domain -appspawn -init -hidumper_service -storage_daemon debug_only(`-hdcd -hiprofiler_plugins -hiperf') -cap_violator_dacreadsearch } self:{ capability cap_userns } dac_read_search;
+neverallow { domain -appspawn -init -hidumper_service -storage_daemon -hiprofiler_plugins debug_only(`-hdcd  -hiperf') -cap_violator_dacreadsearch } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -ueventd -installs -storage_daemon -cap_violator_fowner } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -native_daemon -cap_violator_kill } self:{ capability cap_userns } kill;

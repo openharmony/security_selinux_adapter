@@ -43,7 +43,6 @@ allow hiprofiler_plugins persist_sys_param:file read;
 allow hiprofiler_plugins proc_stat_file:file { getattr open read };
 allow hiprofiler_plugins samgr:file read;
 allow hiprofiler_plugins security_param:file { map open read };
-allow hiprofiler_plugins sh_exec:file execute;
 allow hiprofiler_plugins storage_manager:file read;
 allow hiprofiler_plugins sys_param:file { map open read };
 allow hiprofiler_plugins sys_usb_param:file read;

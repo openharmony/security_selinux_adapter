@@ -15,6 +15,7 @@ debug_only(`
 	allow native_daemon self:capability setgid;
         allow domain dev_unix_socket:sock_file write;
         allow domain dev_unix_file:sock_file write;
+        allow native_daemon sh_exec:file execute;
 ')
 allow native_daemon data_local_tmp:file { create read open write lock getattr ioctl map };
 allow native_daemon data_local_tmp:dir { search add_name write };
@@ -41,7 +42,7 @@ allow native_daemon hiview:dir search;
 allow native_daemon hiview:file { open read };
 allow native_daemon tty_device:chr_file { ioctl open };
 allow native_daemon sh:fd use;
-allow native_daemon sh_exec:file { execute execute_no_trans map open read };
+allow native_daemon sh_exec:file { execute_no_trans map open read };
 allow native_daemon hilog_param:file read;
 allow native_daemon paramservice_socket:sock_file write;
 allow native_daemon system_bin_file:lnk_file read;
