@@ -104,7 +104,7 @@ allow bluetooth_service system_core_hap:binder { call transfer };
 
 allow bluetooth_service dev_console_file:chr_file { read write };
 allow bluetooth_service data_service_file:dir { search };
-allow bluetooth_service data_service_el1_file:dir { search write add_name remove_name };
+allow bluetooth_service data_service_el1_file:dir { search read write add_name remove_name };
 allow bluetooth_service data_service_el1_file:file { getattr open read write rename unlink ioctl create};
 
 #avc: denied { getattr } bluetooth_service data_log tclass=file
