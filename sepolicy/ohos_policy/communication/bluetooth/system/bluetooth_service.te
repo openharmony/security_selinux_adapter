@@ -109,7 +109,8 @@ allow bluetooth_service data_service_el1_file:file { getattr open read write ren
 
 #avc: denied { getattr } bluetooth_service data_log tclass=file
 #avc: denied { setattr } bluetooth_service data_log tclass=file
-allow bluetooth_service data_log:file { getattr setattr };
+#avc: denied { unlink } bluetooth_service data_log tclass=file
+allow bluetooth_service data_log:file { getattr setattr unlink };
 
 #avc: denied { read } bluetooth_service data_log tclass=dir
 #avc: denied { open } bluetooth_service data_log tclass=dir
