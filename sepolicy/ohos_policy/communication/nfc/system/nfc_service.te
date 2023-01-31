@@ -25,5 +25,18 @@ allow nfc_service dev_kmsg_file:chr_file { open write };
 allow nfc_service persist_param:file { map open read };
 allow nfc_service hiview_file:dir { open read remove_name search write };
 allow nfc_service hiview_file:file { getattr open read unlink };
+#avc:denied { write } scontext=u:r:nfc_service:s0 tcontext=u:object_r:data_nfc:s0 tclass=dir
+#avc:denied { add_name } scontext=u:r:nfc_service:s0 tcontext=u:object_r:data_nfc:s0 tclass=dir
+#avc:denied { remove_name } scontext=u:r:nfc_service:s0 tcontext=u:object_r:data_nfc:s0 tclass=dir
+allow nfc_service data_nfc:dir { write add_name remove_name };
+#avc:denied { create write open } scontext=u:r:nfc_service:s0 tcontext=u:object_r:data_nfc:s0 tclass=file
+#avc:denied { getattr ioctl setattr } scontext=u:r:nfc_service:s0 tcontext=u:object_r:data_nfc:s0 tclass=file
+#avc:denied { read rename unlink } scontext=u:r:nfc_service:s0 tcontext=u:object_r:data_nfc:s0 tclass=file
+allow nfc_service data_nfc:file { create write open getattr ioctl setattr read rename unlink };
+allowxperm nfc_service data_nfc:file ioctl { 0x5413 };
+#avc:denied { getattr } scontext=u:r:nfc_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir
+#avc:denied { search } scontext=u:r:nfc_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir
+allow nfc_service vendor_etc_file:dir { getattr search };
+allow nfc_service vendor_bin_file:dir {search};
 
 
