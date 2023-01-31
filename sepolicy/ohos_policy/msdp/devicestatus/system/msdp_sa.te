@@ -58,15 +58,6 @@ allow msdp_sa dev_file:dir { getattr };
 #avc:  denied  { search } for  pid=1771 comm="device_status_s" name="etc" dev="mmcblk0p8" ino=17 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
 allow msdp_sa vendor_etc_file:dir { search };
 
-#avc:  denied  { get } for service=2903 pid=889 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_msdp_movement_service:s0 tclass=samgr_class permissive=0
-allow msdp_sa sa_msdp_movement_service:samgr_class { get };
-
-#avc:  denied  { get } for service=3001 pid=889 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_pulseaudio_audio_service:s0 tclass=samgr_class permissive=0
-allow msdp_sa sa_pulseaudio_audio_service:samgr_class { get };
-
-#avc:  denied  { get } for service=3009 pid=889 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=0
-allow msdp_sa sa_audio_policy_service:samgr_class { get };
-
 #avc:  denied  { map } for  pid=482 comm="IPC_1_549" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 #avc:  denied  { open } for  pid=448 comm="IPC_1_490" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 #avc:  denied  { read } for  pid=477 comm="IPC_1_657" name="u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
@@ -74,28 +65,6 @@ allow msdp_sa musl_param:file { map open read };
 
 #avc:  denied  { transfer } for  pid=477 comm="IPC_1_657" scontext=u:r:msdp_sa:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow msdp_sa sensors:binder { transfer };
-
-#avc:  denied  { search } for  pid=975 comm="IPC_4_4010" name=".pulse_dir" dev="sdd78" ino=103 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=1
-allow msdp_sa data_data_pulse_dir:dir { search };
-
-#avc:  denied  { search } for  pid=975 comm="IPC_4_4010" name="data" dev="sdd78" ino=97 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
-allow msdp_sa data_data_file:dir { search };
-
-#avc:  denied  { lock } for  pid=975 comm="threaded-ml" path="/data/service/el1/public/msdp/cookie" dev="sdd78" ino=2445 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-allow msdp_sa data_service_el1_file:file { lock };
-
-#avc:  denied  { connectto } for  pid=975 comm="IPC_2_3504" path="/dev/unix/socket/native" scontext=u:r:msdp_sa:s0 tcontext=u:r:pulseaudio:s0 tclass=unix_stream_socket permissive=1
-allow msdp_sa pulseaudio:unix_stream_socket { connectto };
-
-#avc:  denied  { transfer } for  pid=975 comm="IPC_4_4010" scontext=u:r:msdp_sa:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-#avc:  denied  { call } for  pid=975 comm="IPC_1_1087" scontext=u:r:msdp_sa:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-allow msdp_sa audio_policy:binder { transfer call };
-
-#avc:  denied  { call } for  pid=975 comm="IPC_1_1087" scontext=u:r:msdp_sa:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
-allow msdp_sa pulseaudio:binder { call };
-
-#avc:  denied  { write } for  pid=975 comm="IPC_4_4010" name="native" dev="tmpfs" ino=696 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:native_socket:s0 tclass=sock_file permissive=1
-allow msdp_sa native_socket:sock_file { write };
 
 debug_only(`
     allow msdp_sa data_file:file { getattr open read};
