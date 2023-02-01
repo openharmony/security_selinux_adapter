@@ -55,3 +55,4 @@ allow av_session softbus_server:binder { call transfer };
 allow av_session softbus_server:fd { use };
 allow av_session softbus_server:tcp_socket { read write setopt };
 allow av_session data_log:dir { getattr };
+allow av_session system_basic_hap:binder { transfer call };
