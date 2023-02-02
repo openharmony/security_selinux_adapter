@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the License);
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -32,3 +32,8 @@ allow power_host param_watcher:binder { call transfer };
 #avc:  denied  { read } for  pid=421 comm="hdf_devhost" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:power_host:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=1
 allow power_host accessibility_param:file { read };
 
+#avc:  denied  { getattr } for  pid=563 comm="IPC_0_636" path="/data/service/el0/thermal/sensor/soc/temp" dev="mmcblk0p12" ino=209 scontext=u:r:power_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
+allow power_host data_service_el0_file:file { getattr };
+
+#avc:  denied  { getattr } for  pid=563 comm="IPC_0_636" path="/sys/devices/virtual/thermal/thermal_zone0/temp" dev="sysfs" ino=5327 scontext=u:r:power_host:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=0
+allow power_host sys_file:file { getattr };

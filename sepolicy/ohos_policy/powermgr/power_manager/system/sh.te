@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -28,3 +28,11 @@ allow sh sysfs_power:file { getattr };
 #avc:  denied  { getattr } for  pid=2030 comm="sh" path="/sys/power/wake_unlock" dev="sysfs" ino=4999 scontext=u:r:sh:s0 tcontext=u:object_r:sysfs_wake_lck:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2030 comm="sh" path="/sys/power/wake_lock" dev="sysfs" ino=4998 scontext=u:r:sh:s0 tcontext=u:object_r:sysfs_wake_lck:s0 tclass=file permissive=1
 allow sh sysfs_wake_lck:file { getattr open };
+
+#avc: denied { getattr } for pid=1687 comm="power_mode_modu" path="/system/etc/power_config/power_mode_config.xml" dev="mmcblk0p7" ino=750 scontext=u:r:sh:s0 tcontext=u:object_r:system_etc_power_mode_config_file:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1687 comm="power_mode_modu" path="/system/etc/power_config/power_mode_config.xml" dev="mmcblk0p7" ino=750 scontext=u:r:sh:s0 tcontext=u:object_r:system_etc_power_mode_config_file:s0 tclass=file permissive=1
+#avc: denied { read } for pid=2108 comm="IPC_1_2110" name="power_mode_config.xml" dev="mmcblk0p7" ino=750 scontext=u:r:sh:s0 tcontext=u:object_r:system_etc_power_mode_config_file:s0 tclass=file permissive=1
+allow sh system_etc_power_mode_config_file:file { getattr open read };
+
+#avc: denied { create } for pid=2903 comm="mkdir" name="power_config" scontext=u:r:sh:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+allow sh vendor_etc_file:dir { create };
