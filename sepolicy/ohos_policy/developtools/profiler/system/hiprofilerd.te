@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -114,3 +114,11 @@ allow hiprofilerd dev_unix_file:sock_file unlink;
 allow hiprofilerd dev_ashmem_file:chr_file { open };
 allow hiprofilerd proc_file:file getattr;
 
+allow hiprofilerd sa_foundation_bms:samgr_class get;
+allow hiprofilerd sa_param_watcher:samgr_class get;
+allow hiprofilerd samgr:binder { call };
+allow hiprofilerd foundation:binder call;
+allow hiprofilerd dev_console_file:chr_file { read write };
+allow hiprofilerd param_watcher:binder { call };
+allow hiprofilerd tracefs:dir search;
+allow hiprofilerd tracefs_trace_marker_file:file { open write };
