@@ -348,7 +348,6 @@ ohos_executable("service_check") {
   subsystem_name = "security"
 }
 
-build_updater = false
 debug_version = "disable"
 updater_version = "disable"
 
@@ -361,9 +360,7 @@ action("build_policy") {
     debug_version = "enable"
   }
 
-  if (build_updater) {
-    updater_version = "enable"
-  }
+  updater_version = "disable"
 
   inputs = exec_script("//build/scripts/find.py",
                        [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
@@ -397,6 +394,51 @@ action("build_policy") {
     "$THIRD_PARTY_SELINUX_DIR:secilc($host_toolchain)",
   ]
   outputs = [ target_out_dir + "/policy.31" ]
+}
+
+action("build_update_policy") {
+  if (build_variant == "user") {
+    debug_version = "disable"
+  } else if (build_variant == "root") {
+    debug_version = "enable"
+  } else {
+    debug_version = "enable"
+  }
+
+  updater_version = "enable"
+
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
+                       "list lines")
+  if (selinux_build_path != "default") {
+    foreach(src, string_split(selinux_build_path, ":")) {
+      src = "//" + src
+      inputs += exec_script("//build/scripts/find.py",
+                            [ rebase_path(src) ],
+                            "list lines")
+    }
+  }
+
+  script = "$SELINUX_ROOT_DIR/scripts/build_policy.py"
+  args = [
+    "--dst-file",
+    rebase_path(target_out_dir + "/updater/policy.31"),
+    "--tool-path",
+    rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--policy_dir_list",
+    selinux_build_path,
+    "--debug-version",
+    debug_version,
+    "--updater-version",
+    updater_version,
+  ]
+  deps = [
+    "$THIRD_PARTY_SELINUX_DIR:checkpolicy($host_toolchain)",
+    "$THIRD_PARTY_SELINUX_DIR:secilc($host_toolchain)",
+  ]
+  outputs = [ target_out_dir + "/updater/policy.31" ]
 }
 
 action("build_contexts") {
@@ -448,12 +490,27 @@ copy("selinux_config") {
   outputs = [ "$target_out_dir/config" ]
 }
 
+copy("updater_selinux_config") {
+  sources = [ "$SELINUX_ROOT_DIR/config/config.permissive" ]
+  outputs = [ "$target_out_dir/updater/config" ]
+}
+
 ohos_prebuilt_etc("build_sepolicy") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/policy.31"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/policy/"
+  install_images = [ "system" ]
+}
+
+ohos_prebuilt_etc("build_updater_sepolicy") {
+  deps = [ ":build_update_policy" ]
+  source = target_out_dir + "/updater/policy.31"
+  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  part_name = "selinux"
+  relative_install_dir = "selinux/targeted/policy/"
+  install_images = [ "updater" ]
 }
 
 ohos_prebuilt_etc("config") {
@@ -462,6 +519,16 @@ ohos_prebuilt_etc("config") {
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/"
+  install_images = [ "system" ]
+}
+
+ohos_prebuilt_etc("updater_config") {
+  deps = [ ":updater_selinux_config" ]
+  source = target_out_dir + "/updater/config"
+  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  part_name = "selinux"
+  relative_install_dir = "selinux/"
+  install_images = [ "updater" ]
 }
 
 ohos_prebuilt_etc("sehap_contexts") {
@@ -521,6 +588,7 @@ group("selinux_group") {
   if (build_selinux) {
     deps = [
       "//base/security/selinux:build_sepolicy",
+      "//base/security/selinux:build_updater_sepolicy",
       "//base/security/selinux:config",
       "//base/security/selinux:file_contexts",
       "//base/security/selinux:hap_restorecon",
@@ -532,6 +600,7 @@ group("selinux_group") {
       "//base/security/selinux:sehap_contexts",
       "//base/security/selinux:service_check",
       "//base/security/selinux:service_contexts",
+      "//base/security/selinux:updater_config",
       "//third_party/selinux:checkpolicy($host_toolchain)",
       "//third_party/selinux:chkcon",
       "//third_party/selinux:getenforce",

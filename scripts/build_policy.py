@@ -139,7 +139,7 @@ def prepare_build_path(dir_list, root_dir, build_dir_list):
 
 def main(args):
     output_path = os.path.abspath(os.path.dirname(args.dst_file))
-    build_root = os.path.abspath(os.path.join(output_path, "../../../.."))
+    build_root = os.path.abspath(os.path.join(args.tool_path, "../../.."))
     dir_list = []
     prepare_build_path(args.policy_dir_list, args.source_root_dir, dir_list)
 
