@@ -60,4 +60,5 @@ persist.ace.                            u:object_r:arkui_param:s0
 persist.sys.default_ime                 u:object_r:inputmethod_param:s0
 persist.pasteboard.                     u:object_r:pasteboard_param:s0
 persist.time.                           u:object_r:time_param:s0
-accesstoken.permission.                  u:object_r:accesstoken_perm_param:s0
+persist.netmanager_base.                u:object_r:netmanager_base_param:s0
+accesstoken.permission.                 u:object_r:accesstoken_perm_param:s0
