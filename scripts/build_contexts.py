@@ -21,6 +21,7 @@ import os
 import argparse
 import re
 import shutil
+import subprocess
 from collections import defaultdict
 
 
@@ -41,10 +42,9 @@ def parse_args():
 
 def run_command(in_cmd):
     cmdstr = " ".join(in_cmd)
-    rc = os.system(cmdstr)
-    if rc:
-        raise Exception(rc)
-
+    ret = subprocess.run(cmdstr, shell=True).returncode
+    if ret != 0:
+        raise Exception(ret)
 
 def traverse_folder_in_type(search_dir_list, file_suffix):
     """
@@ -186,10 +186,10 @@ def check_sehap_contexts(args, contexts_file, domain):
                  "-o", contexts_file + ".bin",
                  "-p", args.policy_file,
                  contexts_file]
-    rc = os.system(" ".join(check_cmd))
-    if rc:
+    ret = subprocess.run(" ".join(check_cmd), shell=True).returncode
+    if ret != 0:
         shutil.move(contexts_file + "_bk", contexts_file)
-        raise Exception(rc)
+        raise Exception(ret)
     shutil.move(contexts_file + "_bk", contexts_file)
     if os.path.exists(contexts_file + ".bin"):
         os.unlink(contexts_file + ".bin")
@@ -251,7 +251,7 @@ def prepare_build_path(dir_list, root_dir, build_dir_list):
         if (os.path.exists(path)):
             build_dir_list.append(path)
         else:
-            print("following path not exists!! " + path)
+            print("following path not exists!! {}".format(path))
             exit(-1)
 
 
