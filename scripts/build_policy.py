@@ -19,6 +19,7 @@ limitations under the License.
 
 import os
 import argparse
+import subprocess
 
 # list of all macros and te for sepolicy build
 SEPOLICY_TYPE_LIST = ["security_classes",
@@ -48,7 +49,7 @@ def parse_args():
     parser.add_argument('--source-root-dir',
                         help='prj root path', required=True)
     parser.add_argument('--policy_dir_list',
-                        help='policy dirs need to be included', required=True)  
+                        help='policy dirs need to be included', required=True)
     parser.add_argument('--debug-version',
                         help='build for debug target', required=True)
     parser.add_argument('--updater-version',
@@ -86,9 +87,9 @@ def traverse_file_in_each_type(folder_list, sepolicy_type_list):
 
 def run_command(in_cmd):
     cmdstr = " ".join(in_cmd)
-    rc = os.system(cmdstr)
-    if rc:
-        raise Exception(rc)
+    ret = subprocess.run(cmdstr, shell=True).returncode
+    if ret != 0:
+        raise Exception(ret)
 
 
 def build_conf(args, output_conf, input_policy_file_list):
@@ -131,7 +132,7 @@ def prepare_build_path(dir_list, root_dir, build_dir_list):
         if (os.path.exists(path)):
             build_dir_list.append(path)
         else:
-            print("following path not exists!! " + path)
+            print("following path not exists!! {}".format(path))
             exit(-1)
 
 
