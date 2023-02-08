@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow distributeddata av_session:binder { transfer };
+allow distributeddata av_session:binder { call transfer };
