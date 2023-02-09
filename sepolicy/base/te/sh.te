@@ -350,3 +350,5 @@ allowxperm sh sh:rawip_socket ioctl { 0x8933 };
 allowxperm sh sh:udp_socket ioctl { 0x8913 };
 allowxperm sh sh:unix_dgram_socket ioctl { 0x8933 };
 allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 };
+allow sh sa_memory_manager_service:samgr_class { get };
+allow sh memmgrservice:binder { call transfer };
