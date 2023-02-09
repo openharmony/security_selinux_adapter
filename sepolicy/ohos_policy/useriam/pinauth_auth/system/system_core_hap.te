@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow system_core_hap sa_useriam_pinauth_service:samgr_class { get };
+allow system_core_hap pinauth:binder { call transfer };
