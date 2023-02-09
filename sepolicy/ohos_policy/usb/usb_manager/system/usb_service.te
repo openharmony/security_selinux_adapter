@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -52,8 +52,8 @@ allow usb_service vendor_lib_file:file { execute map getattr open read };
 # avc:  denied  { call } for  pid=1810 comm="IPC_1_1817" scontext=u:r:usb_service:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=1
 # avc:  denied  { get } for service=7001 pid=1830 scontext=u:r:usb_service:s0 tcontext=u:object_r:sa_subsys_ace_service:s0 tclass=samgr_class permissive=0
 # avc:  denied  { get } for service=4607 pid=1830 scontext=u:r:usb_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
-allow normal_hap sa_usb_service:samgr_class { get };
-allow normal_hap usb_service:binder { call };
+allow normal_hap_attr sa_usb_service:samgr_class { get };
+allow normal_hap_attr usb_service:binder { call };
 allow system_core_hap sa_usb_service:samgr_class { get };
 allow system_core_hap usb_service:binder { call };
 allow ui_service usb_service:binder { call };

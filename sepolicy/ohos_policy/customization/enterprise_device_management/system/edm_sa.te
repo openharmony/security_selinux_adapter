@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -19,7 +19,7 @@ allow edm_sa data_service_file:dir { search };
 allow edm_sa devinfo_private_param:file { map open read };
 allow edm_sa distributeddata:binder { call };
 allow edm_sa distributeddata:fd { use };
-allow edm_sa normal_hap:binder { call };
+allow edm_sa normal_hap_attr:binder { call };
 allow edm_sa sa_accesstoken_manager_service:samgr_class { get };
 allow edm_sa sa_accountmgr:samgr_class { get };
 allow edm_sa sa_distributeddata_service:samgr_class { get };

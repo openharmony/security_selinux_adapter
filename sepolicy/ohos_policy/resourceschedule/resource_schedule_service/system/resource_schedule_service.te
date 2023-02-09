@@ -96,9 +96,9 @@ allow resource_schedule_service dev_unix_socket:sock_file { write };
 #ui_service
 allow resource_schedule_service ui_service:process { setsched };
 #normal_hap
-allow resource_schedule_service normal_hap:dir { open read search };
-allow resource_schedule_service normal_hap:file { getattr open read };
-allow resource_schedule_service normal_hap:process { setsched };
+allow resource_schedule_service normal_hap_attr:dir { open read search };
+allow resource_schedule_service normal_hap_attr:file { getattr open read };
+allow resource_schedule_service normal_hap_attr:process { setsched };
 #unix_dgram_socket
 allow resource_schedule_service resource_schedule_service:unix_dgram_socket { getopt setopt };
 #data

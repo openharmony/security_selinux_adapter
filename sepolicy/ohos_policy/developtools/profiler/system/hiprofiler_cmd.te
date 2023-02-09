@@ -149,7 +149,7 @@ allow hiprofiler_cmd dev_unix_file:sock_file unlink;
 allow hiprofiler_cmd paramservice_socket:sock_file write;
 
 allow hiprofiler_cmd appspawn_exec:file { open read };
-allow hiprofiler_cmd normal_hap:lnk_file read;
+allow hiprofiler_cmd normal_hap_attr:lnk_file read;
 allow hiprofiler_cmd data_app_el1_file:dir search;
 allow hiprofiler_cmd data_app_el1_file:file { getattr map open read };
 

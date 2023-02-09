@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -13,11 +13,11 @@
 
 allow download_server accesstoken_service:binder { call };
 allow download_server download_server:tcp_socket { read };
-allow download_server normal_hap:binder { call };
-allow download_server normal_hap_data_file:file { write };
-allow download_server normal_hap:fd { use };
+allow download_server normal_hap_attr:binder { call };
+allow download_server normal_hap_data_file_attr:file { write };
+allow download_server normal_hap_attr:fd { use };
 allow download_server sa_accesstoken_manager_service:samgr_class { get };
-allow download_server normal_hap_data_file:file { read };
+allow download_server normal_hap_data_file_attr:file { read };
 allow download_server dev_file:sock_file { write };
 allow download_server download_server:udp_socket { bind connect create getattr getopt ioctl read setopt write };
 allow download_server download_server:tcp_socket { accept bind connect create getattr getopt listen read setopt shutdown write };

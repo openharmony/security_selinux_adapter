@@ -42,7 +42,7 @@ allow accessibility init_svc_param:file { map open read };
 allow accessibility input_pointer_device_param:file { map open read };
 allow accessibility net_param:file { map open read };
 allow accessibility net_tcp_param:file { map open read };
-allow accessibility normal_hap:binder { call };
+allow accessibility normal_hap_attr:binder { call };
 allow accessibility ohos_boot_param:file { map open read };
 allow accessibility ohos_param:file { map open read };
 allow accessibility param_watcher:binder { call transfer };

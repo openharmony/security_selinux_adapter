@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -129,4 +129,4 @@ allow system_basic_hap wallpaper_service:binder { call transfer };
 allow system_basic_hap wallpaper_service:fd { use };
 allowxperm system_basic_hap dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x800e 0x8011 0x8016 0x8018 0x8019 0x801d 0x801e 0x8026 };
 allowxperm system_basic_hap system_basic_hap_data_file:file ioctl { 0x5413 0xf50c };
-binder_call(system_basic_hap normal_hap);
+binder_call(system_basic_hap normal_hap_attr);

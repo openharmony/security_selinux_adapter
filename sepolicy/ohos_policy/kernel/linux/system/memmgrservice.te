@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -26,8 +26,8 @@ allow memmgrservice foundation:binder { call transfer };
 allow memmgrservice memmgrservice:capability { kill sys_resource dac_override sys_ptrace };
 neverallow memmgrservice *:process ptrace;
 
-allow memmgrservice normal_hap:file { write getattr };
-allow memmgrservice normal_hap:process { sigkill };
+allow memmgrservice normal_hap_attr:file { write getattr };
+allow memmgrservice normal_hap_attr:process { sigkill };
 
 # denied  { read } for  pid=274 comm="event_runner#9" name="enable" dev="proc" ino=305072 scontext=u:r:memmgrservice:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1
 # denied  { create } for  pid=286 comm="event_runner#11" name="lmkd_dbg_trigger" scontext=u:r:memmgrservice:s0 tcontext=u:object_r:proc_file:s0 tclass=file permissive=1

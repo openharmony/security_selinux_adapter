@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -48,7 +48,7 @@ allow av_session sa_param_watcher:samgr_class { get };
 allow av_session system_bin_file:dir { search };
 allowxperm av_session av_session_data_file:file ioctl 0x5413;
 allowxperm av_session data_service_el1_file:file ioctl { 0x5413 };
-allow av_session normal_hap:binder { transfer call };
+allow av_session normal_hap_attr:binder { transfer call };
 allow av_session sa_softbus_service:samgr_class { get };
 allow av_session distributeddata:binder { call transfer };
 allow av_session softbus_server:binder { call transfer };

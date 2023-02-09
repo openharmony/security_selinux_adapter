@@ -93,8 +93,8 @@ allow sh bluetooth_service:unix_stream_socket { setopt };
 allow sh bluetooth_service:unix_stream_socket { shutdown };
 allow sh bluetooth_service:binder { call };
 allow sh bluetooth_service:binder { transfer };
-allow bluetooth_service normal_hap:binder { call transfer };
-allow normal_hap bluetooth_service:fd { use };
+allow bluetooth_service normal_hap_attr:binder { call transfer };
+allow normal_hap_attr bluetooth_service:fd { use };
 
 #avc:  denied  { call } for  pid=1934 comm="jsThread-1" scontext=u:r:system_core_hap:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=0
 allow system_core_hap bluetooth_service:binder { call transfer };
