@@ -45,6 +45,7 @@ allow system_basic_hap hmdfs:dir { search };
 allow system_basic_hap hw_sc_build_os_param:file { map open };
 allow system_basic_hap hw_sc_build_param:file { map open };
 allow system_basic_hap hw_sc_param:file { map open };
+allow system_basic_hap hwc_host:fd { use };
 allow system_basic_hap init_param:file { map open };
 allow system_basic_hap input_pointer_device_param:file { map open read };
 allow system_basic_hap kernel:unix_stream_socket { connectto };
