@@ -81,8 +81,10 @@ ohos_shared_library("librestorecon") {
 
 ohos_shared_library("libhap_restorecon") {
   output_name = "libhap_restorecon"
-  sources =
-      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/hap_restorecon.cpp" ]
+  sources = [
+    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/hap_restorecon.cpp",
+    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/sehap_contexts_trie.cpp",
+  ]
   include_dirs = [
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
     "$LIBSELINUX_ROOT_DIR/include",
