@@ -79,5 +79,7 @@ allow oaid_service dev_console_file:chr_file { read write };
 allow oaid_service chip_prod_file:dir { search };
 allow oaid_service sys_prod_file:dir { search };
 allow oaid_service vendor_etc_file:dir { search };
+allow oaid_service huks_service:binder { call };
+allow oaid_service sa_huks_service:samgr_class { get };
 
 allowxperm oaid_service data_service_el1_file:file ioctl 0xf50c;
