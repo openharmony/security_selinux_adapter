@@ -279,7 +279,7 @@ neverallow { domain -appspawn -init -ueventd -memmgrservice
 neverallow { domain -appspawn -init -hidumper_service -storage_daemon -hiprofiler_plugins debug_only(`-hdcd  -hiperf') -cap_violator_dacreadsearch } self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -ueventd -installs -storage_daemon -cap_violator_fowner } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid } self:{ capability cap_userns } fsetid;
-neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -native_daemon -cap_violator_kill } self:{ capability cap_userns } kill;
+neverallow { domain -init -memmgrservice -appspawn -faultloggerd -foundation -resource_schedule_service -native_daemon -cap_violator_kill } self:{ capability cap_userns } kill;
 neverallow { domain -init -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') -cap_violator_setuid } self:{ capability cap_userns } setuid;
 neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd -hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
