@@ -33,7 +33,7 @@ neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioc
 
 neverallow normal_hap_attr dev_kmsg_file:chr_file never_rw_file;
 
-neverallow normal_hap_attr dev_fuse_file:chr_file ~{ getattr read write };
+neverallow { normal_hap_attr -dev_fuse_file_violator } dev_fuse_file:chr_file *;
 
 neverallow normal_hap_attr debugfs_attr:file read;
 
