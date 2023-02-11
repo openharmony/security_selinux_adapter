@@ -72,7 +72,8 @@ neverallow hap_domain dev_attr:blk_file { read write };
 
 #limit hap access dev file.
 neverallow hap_domain { dev_attr -dev_ashmem_file -dev_at_file -dev_binder_file -dev_dri_file -dev_file -dev_null_file -dev_random_file -dev_zero_file
-                      -dev_unix_socket_file -dev_mali -tty_device -dev_fuse_file_attr }:chr_file { open ioctl read write};
+                      -dev_unix_socket_file -dev_mali -tty_device -dev_fuse_file }:chr_file { open ioctl read write};
+neverallow { hap_domain -dev_fuse_file_violator } dev_fuse_file:chr_file { open ioctl read write};
 
 #limit hap use kobject netlink.
 neverallow hap_domain domain:netlink_kobject_uevent_socket { write append };

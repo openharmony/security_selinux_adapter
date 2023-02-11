@@ -132,8 +132,7 @@ attribute cap_violator_perfmon;
 attribute cap_violator_sysmodule;
 attribute cap_violator_syslog;
 
-attribute filesystem_violator_mount;
-attribute dev_fuse_file_attr;
+attribute dev_fuse_file_violator;
 
 attribute proc_violator;
 attribute sh_exec_violator;
