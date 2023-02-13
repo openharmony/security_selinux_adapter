@@ -54,4 +54,8 @@ allow distributedfiledaemon sa_foundation_cesfwk_service:samgr_class { get };
 allow distributedfiledaemon sa_filemanagement_cloud_sync_service:samgr_class { add };
 
 #kmsg: audit: type=1400 audit(1676302293.484:6726): avc:  denied  { call } for  pid=622 comm="IPC_1_896" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
-allow distributedfiledaemon sh:binder { call };
+debug_only(`
+allow sh time_service:binder { call };
+allow sh time_service:binder { transfer };
+')
+
