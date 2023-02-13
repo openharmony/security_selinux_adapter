@@ -91,5 +91,6 @@ allowxperm foundation dev_mali:chr_file ioctl {  0x8002  };
 allowxperm foundation sys_file:file ioctl {  0x5413  };
 allow foundation foundation:capability { sys_ptrace };
 allow foundation storage_manager:dir { search };
+allow foundation netmanager:binder { transfer };
 neverallow foundation *:process ptrace;
 
