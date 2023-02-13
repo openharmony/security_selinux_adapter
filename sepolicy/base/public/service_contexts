@@ -67,6 +67,7 @@
 1157	                               u:object_r:sa_comm_ethernet_manager_service:s0
 1158                                   u:object_r:sa_netsys_native_manager:s0
 1160	                               u:object_r:sa_discover_service:s0
+1161	                               u:object_r:sa_comm_mdns_manager_service:s0
 1170	                               u:object_r:sa_dnet_service:s0
 1180	                               u:object_r:sa_smart_comm_service:s0
 1200	                               u:object_r:sa_subsys_dfx_service:s0
