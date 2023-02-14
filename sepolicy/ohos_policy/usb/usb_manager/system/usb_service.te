@@ -54,6 +54,7 @@ allow usb_service vendor_lib_file:file { execute map getattr open read };
 # avc:  denied  { get } for service=4607 pid=1830 scontext=u:r:usb_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
 allow normal_hap sa_usb_service:samgr_class { get };
 allow normal_hap usb_service:binder { call };
+allow system_basic_hap sa_usb_service:samgr_class { get };
 allow system_core_hap sa_usb_service:samgr_class { get };
 allow system_core_hap usb_service:binder { call };
 allow ui_service usb_service:binder { call };
