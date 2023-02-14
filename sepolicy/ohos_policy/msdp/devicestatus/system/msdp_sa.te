@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -39,3 +39,33 @@ allow msdp_sa data_file:dir { search };
 #avc:  denied  { call } for  pid=429 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
 allow msdp_sa system_core_hap:binder { call };
 
+#avc:  denied  { watch } for  pid=453 comm="device_status_s" path="/dev/input" dev="tmpfs" ino=77 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=dir permissive=0
+#avc:  denied  { open } for  pid=1729 comm="device_status_s" path="/dev/input" dev="tmpfs" ino=77 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=dir permissive=0
+#avc:  denied  { read } for  pid=1765 comm="device_status_s" name="input" dev="tmpfs" ino=77 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=dir permissive=0
+#avc:  denied  { search } for  pid=1737 comm="device_status_s" name="input" dev="tmpfs" ino=77 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=dir permissive=0
+#avc:  denied  { getattr } for  pid=1741 comm="device_status_s" path="/dev/input" dev="tmpfs" ino=77 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=dir permissive=0
+allow msdp_sa dev_input_file:dir { watch open read search getattr };
+
+#avc:  denied  { getattr } for  pid=1741 comm="device_status_s" path="/dev/input/event3" dev="tmpfs" ino=107 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { read write } for  pid=1897 comm="device_status_s" name="event7" dev="tmpfs" ino=328 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { open } for  pid=1897 comm="device_status_s" path="/dev/input/event7" dev="tmpfs" ino=328 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { ioctl } for  pid=1748 comm="device_status_s" path="/dev/input/event7" dev="tmpfs" ino=328 ioctlcmd=0x4521 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_input_file:s0 tclass=chr_file permissive=0
+allow msdp_sa dev_input_file:chr_file { getattr read write open ioctl };
+
+#avc:  denied  { getattr } for  pid=1741 comm="device_status_s" path="/dev" dev="tmpfs" ino=1 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0
+allow msdp_sa dev_file:dir { getattr };
+
+#avc:  denied  { search } for  pid=1771 comm="device_status_s" name="etc" dev="mmcblk0p8" ino=17 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+allow msdp_sa vendor_etc_file:dir { search };
+
+#avc:  denied  { map } for  pid=482 comm="IPC_1_549" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=448 comm="IPC_1_490" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=477 comm="IPC_1_657" name="u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+allow msdp_sa musl_param:file { map open read };
+
+#avc:  denied  { transfer } for  pid=477 comm="IPC_1_657" scontext=u:r:msdp_sa:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
+allow msdp_sa sensors:binder { transfer };
+
+debug_only(`
+    allow msdp_sa data_file:file { getattr open read};
+')
