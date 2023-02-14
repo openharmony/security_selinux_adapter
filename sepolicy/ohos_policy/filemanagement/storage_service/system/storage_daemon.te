@@ -125,6 +125,7 @@ allow storage_daemon dslm_service:file { read  };
 allow storage_daemon exfat:filesystem { mount unmount };
 allow storage_daemon vfat:filesystem { mount unmount };
 allow storage_daemon ntfs:filesystem { mount unmount };
+allow storage_daemon sharefs:filesystem { mount };
 
 #avc:  denied  { search } for  pid=259 comm="storage_daemon" name="243" dev="proc" ino=36785 scontext=u:r:storage_daemon:s0 tcontext=u:r:hilogd:s0 tclass=dir permissive=0
 #avc:  denied  { open } for  pid=257 comm="storage_daemon" path="/proc/245/maps" dev="proc" ino=43286 scontext=u:r:storage_daemon:s0 tcontext=u:r:hilogd:s0 tclass=file permissive=0
@@ -241,3 +242,7 @@ allow storage_daemon system_basic_hap_data_file:dir { create_dir_perms };
 allow storage_daemon system_basic_hap_data_file:file { create_file_perms };
 allow storage_daemon system_core_hap_data_file:dir { create_dir_perms };
 allow storage_daemon system_core_hap_data_file:file { create_file_perms };
+allow storage_daemon sharefs:dir { create_dir_perms mounton };
+allow storage_daemon data_service_el2_share:dir { create_dir_perms mounton relabelto };
+allow storage_daemon sharefs:file { create_file_perms };
+allow storage_daemon data_service_el2_share:file { create_file_perms mounton };

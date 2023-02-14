@@ -119,4 +119,5 @@ genfscon pstore / u:object_r:pstorefs:s0
 
 genfscon hmdfs / u:object_r:hmdfs:s0
 genfscon epfs / u:object_r:epfs:s0
+genfscon sharefs / u:object_r:sharefs:s0
 
