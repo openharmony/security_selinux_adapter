@@ -13,3 +13,6 @@
 
 #avc:  denied  { get } for service=2902 pid=612 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_msdp_devicestatus_service:s0 tclass=samgr_class permissive=1
 allow foundation sa_msdp_devicestatus_service:samgr_class { get };
+
+#avc:  denied  { transfer } for service=2902 pid=518 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_msdp_devicestatus_service:s0 tclass=binder permissive=1
+allow foundation sa_msdp_devicestatus_service:binder { transfer };

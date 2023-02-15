@@ -69,3 +69,39 @@ allow msdp_sa sensors:binder { transfer };
 debug_only(`
     allow msdp_sa data_file:file { getattr open read};
 ')
+
+#avc:  denied  { call } for  pid=923 comm="EventRunner#7" scontext=u:r:msdp_sa:s0 tcontext=u:r:dinput:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=923 comm="EventRunner#7" scontext=u:r:msdp_sa:s0 tcontext=u:r:dinput:s0 tclass=binder permissive=1
+allow msdp_sa dinput:binder { call transfer };
+
+#avc:  denied  { call } for  pid=923 comm="device_status_s" scontext=u:r:msdp_sa:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=923 comm="device_status_s" scontext=u:r:msdp_sa:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=1
+allow msdp_sa distributedsche:binder { call transfer };
+
+#avc:  denied  { get } for service=4810 pid=892 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_distributed_hardware_input_sink_service:s0 tclass=samgr_class permissive=0
+allow msdp_sa sa_distributed_hardware_input_sink_service:samgr_class { get };
+
+#avc:  denied  { get } for service=4809 pid=892 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_distributed_hardware_input_source_service:s0 tclass=samgr_class permissive=0
+allow msdp_sa sa_distributed_hardware_input_source_service:samgr_class { get };
+
+#avc:  denied  { write } for  pid=847 comm="device_status_s" name="kmsg" dev="tmpfs" ino=6 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { open } for  pid=847 comm="device_status_s" path="/dev/kmsg" dev="tmpfs" ino=6 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow msdp_sa dev_kmsg_file:chr_file { open write };
+
+#avc:  denied  { get } for service=4607 pid=923 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow msdp_sa sa_foundation_dms:samgr_class { get };
+
+#avc:  denied  { use } for  pid=1210 comm="SoftBusConnect" path="socket:[18000]" dev="sockfs" ino=18000 scontext=u:r:msdp_sa:s0 tcontext=u:r:softbus_server:s0 tclass=fd permissive=1
+allow msdp_sa softbus_server:fd { use };
+
+#avc:  denied  { read } for  pid=923 comm="SoftBusConnect" laddr=192.168.43.17 lport=41775 faddr=192.168.43.46 fport=42169 scontext=u:r:msdp_sa:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { setopt } for  pid=923 comm="device_status_s" laddr=192.168.43.17 lport=41775 faddr=192.168.43.46 fport=42169 scontext=u:r:msdp_sa:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { write } for  pid=923 comm="device_status_s" laddr=192.168.43.17 lport=41775 faddr=192.168.43.46 fport=42169 scontext=u:r:msdp_sa:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
+#avc:  denied  { shutdown } for  pid=867 comm="EventRunner#41" laddr=192.168.43.46 lport=44711 faddr=192.168.43.17 fport=38953 scontext=u:r:msdp_sa:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=0
+allow msdp_sa softbus_server:tcp_socket { read setopt write shutdown };
+
+#avc:  denied  { search } for  pid=922 comm="sa_main" name="bin" dev="sdd72" ino=12 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=1
+allow msdp_sa vendor_bin_file:dir { search };
+
+#avc:  denied  { get } for service=6001 pid=932 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_device_profile_service:s0 tclass=samgr_class permissive=1
+allow msdp_sa sa_device_profile_service:samgr_class { get };
