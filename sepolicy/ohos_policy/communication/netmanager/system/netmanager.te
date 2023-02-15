@@ -73,3 +73,5 @@ allowxperm netmanager netmanager:udp_socket ioctl { 0x8915 0x8916 0x891b 0x891c 
 allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 };
 allow netsysnative netmanager:fd { use };
 allow netsysnative netmanager:tcp_socket { read write bind getopt setopt connect };
+allow netmanager data_service_el1_file:file { rename };
+allow netmanager sa_foundation_appms:samgr_class { get };
