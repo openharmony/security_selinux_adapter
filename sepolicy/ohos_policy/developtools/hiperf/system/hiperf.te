@@ -206,6 +206,8 @@ allow hiperf samgr:binder { call };
 allow hiperf param_watcher:binder { call transfer };
 allow hiperf tracefs_trace_marker_file:file { open write };
 allow hiperf hilog_exec:file { getattr map open read };
+allow hiperf rootfs:file { ioctl };
+allow hiperf ueventd_exec:file { getattr map open };
 
 allow samgr hiperf:file { read open };
 allow samgr hiperf:dir { search };
