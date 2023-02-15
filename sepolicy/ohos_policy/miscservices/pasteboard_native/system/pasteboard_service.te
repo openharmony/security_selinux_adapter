@@ -31,11 +31,13 @@ allow pasteboard_service accessibility_param:file { read open map };
 allow pasteboard_service system_usr_file:dir { search };
 allow pasteboard_service sa_foundation_wms:samgr_class { get };
 
-allow pasteboard_service data_service_el1_file:dir { add_name remove_name search write };
-allow pasteboard_service data_service_el1_file:file { create ioctl open unlink write write open };
+allow pasteboard_service data_service_el1_file:dir { create open getattr add_name remove_name search write read rmdir };
+allow pasteboard_service data_service_el1_file:file { create getattr setattr ioctl unlink write open read lock map };
 allow pasteboard_service distributeddata:binder { call transfer };
 allow pasteboard_service sa_distributeddata_service:samgr_class { get };
 allow distributeddata pasteboard_service:binder { call transfer };
+allow distributeddata pasteboard_service:dir { search };
+allow distributeddata pasteboard_service:file { open read getattr };
 allow pasteboard_service sa_foundation_devicemanager_service:samgr_class { get };
 allow pasteboard_service sa_device_profile_service:samgr_class { get };
 allow pasteboard_service device_manager:binder { call transfer };
@@ -58,6 +60,8 @@ allow pasteboard_service sa_accountmgr:samgr_class { get };
 allow accountmgr pasteboard_service:binder { call transfer };
 allow pasteboard_service accountmgr:binder { call transfer };
 allow pasteboard_service foundation:binder { call transfer };
+allow pasteboard_service data_file:dir { search };
+allow pasteboard_service data_service_file:dir { search };
 
 #avc:  denied  { get } for service=4607 pid=533 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
 allow pasteboard_service sa_foundation_dms:samgr_class { get };

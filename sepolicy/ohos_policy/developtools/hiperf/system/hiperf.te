@@ -202,6 +202,11 @@ allow hiperf sa_foundation_bms:samgr_class get;
 allow hiperf sa_param_watcher:samgr_class get;
 allow hiperf foundation:binder call;
 allow hiperf samgr:binder { call };
+
+allow hiperf param_watcher:binder { call transfer };
+allow hiperf tracefs_trace_marker_file:file { open write };
+allow hiperf hilog_exec:file { getattr map open read };
+
 allow samgr hiperf:file { read open };
 allow samgr hiperf:dir { search };
 allow samgr hiperf:process { getattr };
