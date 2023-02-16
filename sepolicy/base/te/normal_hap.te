@@ -120,5 +120,5 @@ allow normal_hap tracefs_trace_marker_file:file { open write };
 allowxperm normal_hap dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x8007 0x800c 0x800e 0x8011 0x8016 0x8018 0x8019 0x801d 0x801e 0x8026 };
 allowxperm normal_hap normal_hap_data_file:file ioctl { 0x5413 0xf50c };
 binder_call(normal_hap system_basic_hap);
-allow normal_hap_attr dev_asanlog_file:dir { rw_dir_perms };
-allow normal_hap_attr dev_asanlog_file:file { create_file_perms };
+allow normal_hap dev_asanlog_file:dir { rw_dir_perms };
+allow normal_hap dev_asanlog_file:file { create_file_perms };
