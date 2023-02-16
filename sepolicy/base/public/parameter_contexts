@@ -49,6 +49,7 @@ accessibility.config.ready              u:object_r:accessibility_param:s0
 musl.                                   u:object_r:musl_param:s0
 telephony.                              u:object_r:telephony_param:s0
 bootevent.wms.                          u:object_r:bootevent_wms_param:s0
+hiviewdfx.hiperf.                       u:object_r:hiviewdfx_profiler_param:s0
 hiviewdfx.hiprofiler.                   u:object_r:hiviewdfx_profiler_param:s0
 
 persist.distributed_hardware.device_manager.discover_status    u:object_r:dhardware_dm_param:s0

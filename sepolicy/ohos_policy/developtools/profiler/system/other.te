@@ -61,6 +61,7 @@ allow init musl_param:file read;
 allow init chip_prod_file:dir search;
 allow init sys_prod_file:dir search;
 allow init data_local_tmp:dir search;
+allow init dev_unix_socket:sock_file unlink;
 
 allow samgr appspawn:binder transfer;
 allow samgr appspawn:dir search;

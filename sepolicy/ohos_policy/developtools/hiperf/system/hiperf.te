@@ -196,3 +196,21 @@ allow hiperf ueventd_exec:file { getattr map open };
 
 neverallow hiperf *:process ptrace;
 neverallow { domain -hiperf } self:perf_event ~{ open read write kernel };
+
+allow hiperf musl_param:file { open map read };
+allow hiperf dev_console_file:chr_file { read write };
+allow hiperf musl_param:file { open map read };
+allow hiperf security_param:parameter_service { set };
+allow hiperf hiviewdfx_profiler_param:parameter_service { set };
+allow hiperf paramservice_socket:sock_file { read write };
+allow hiperf kernel:unix_stream_socket connectto;
+
+# ipc
+allow hiperf sa_foundation_bms:samgr_class get;
+allow hiperf sa_param_watcher:samgr_class get;
+allow hiperf foundation:binder call;
+allow hiperf samgr:binder { call };
+allow samgr hiperf:file { read open };
+allow samgr hiperf:dir { search };
+allow samgr hiperf:process { getattr };
+allow samgr hiperf:binder { call transfer };
