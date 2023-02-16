@@ -251,7 +251,7 @@ type dev_vndbinder_file, dev_attr;
 type dev_watchdog_file, dev_attr;
 type dev_zero_file, dev_attr;
 type tty_device, dev_attr;
-
+type dev_asanlog_file, dev_attr;
 
 type dev_hdf_i2c_mgr, dev_attr;
 type dev_hdf_test, dev_attr;
