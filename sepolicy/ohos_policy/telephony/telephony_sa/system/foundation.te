@@ -26,4 +26,8 @@ allow foundation sa_telephony_tel_cellular_call:samgr_class get;
 allow foundation sa_telephony_tel_core_service:samgr_class get;
 allow foundation telephony_sa:dir search;
 allow foundation telephony_sa:file { open read getattr };
-
+allow foundation data_data_file:dir { search };
+allow foundation data_data_pulse_dir:dir { getattr open read search };
+allow foundation data_data_pulse_dir:file { lock open read write };
+allow foundation native_socket:sock_file { write };
+allow foundation pulseaudio:unix_stream_socket { connectto };
