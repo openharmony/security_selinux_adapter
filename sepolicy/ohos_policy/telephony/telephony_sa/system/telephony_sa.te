@@ -84,3 +84,4 @@ allow telephony_sa rootfs:file { read open };
 allow telephony_sa vendor_etc_file:file { read open };
 allow telephony_sa chip_prod_file:file { read open };
 allow telephony_sa sys_prod_file:file { read open };
+allow telephony_sa sysfs_net:file { getattr };
