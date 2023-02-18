@@ -17,6 +17,7 @@ allow sh data_file:file { create ioctl write };
 allow sh distributedsche_param:file { map open read };
 allow sh hdf_devmgr:binder call;
 allow sh init:unix_stream_socket connectto;
+allow sh rootfs:file getattr;
 allow sh riladapter_host:binder transfer;
 allow sh riladapter_host:dir { getattr search };
 allow sh riladapter_host:file { open read };
