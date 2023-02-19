@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation backup_sa:file { open getattr read };
-allow foundation backup_sa:dir { search };
 allow foundation backup_sa:binder { call transfer };
