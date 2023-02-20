@@ -14,3 +14,4 @@
 allow foundation oaid_service:binder { transfer call };
 allow foundation oaid_service:dir { search };
 allow foundation oaid_service:file { read open getattr };
+allow foundation oaid_service:fd { use };
