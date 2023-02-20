@@ -49,6 +49,7 @@ allow wifi_manager_service musl_param:file { read };
 allow wifi_manager_service sa_huks_service:samgr_class { get };
 allow wifi_manager_service sa_cert_manager_service:samgr_class { get };
 allow wifi_manager_service cert_manager_service:binder { call };
+allow wifi_manager_service huks_service:binder { call };
 allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0x5413 };
 allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x890B 0x8913 0x8915 0x8916 0x891b 0x891c 0x8927 0x8933 };
 allowxperm wifi_manager_service wifi_manager_service:unix_dgram_socket ioctl { 0x8910 };
