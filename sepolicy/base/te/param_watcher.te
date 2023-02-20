@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -68,7 +68,7 @@ allow param_watcher netmanager:binder { call };
 allow param_watcher net_param:file { map open read };
 allow param_watcher netsysnative:binder { call };
 allow param_watcher net_tcp_param:file { map open read };
-allow param_watcher normal_hap:binder { call };
+allow param_watcher normal_hap_attr:binder { call };
 allow param_watcher ohos_boot_param:file { map open read };
 allow param_watcher ohos_param:file { map open read };
 allow param_watcher paramservice_socket:sock_file { write };

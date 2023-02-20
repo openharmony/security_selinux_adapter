@@ -52,3 +52,4 @@ allow memmgrservice sys_usb_param:file { map open read };
 allow memmgrservice tracefs:dir { search };
 allow memmgrservice tracefs_trace_marker_file:file { open write };
 allow memmgrservice media_service:binder { call };
+allow memmgrservice sh:binder { call };

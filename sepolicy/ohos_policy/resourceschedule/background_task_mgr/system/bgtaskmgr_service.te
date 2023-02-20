@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -63,7 +63,7 @@ binder_call(bgtaskmgr_service, accesstoken_service);
 binder_call(bgtaskmgr_service, device_usage_stats_service);
 binder_call(bgtaskmgr_service, foundation);
 binder_call(bgtaskmgr_service, memmgrservice);
-binder_call(bgtaskmgr_service, normal_hap);
+binder_call(bgtaskmgr_service, normal_hap_attr);
 binder_call(bgtaskmgr_service, param_watcher);
 binder_call(bgtaskmgr_service, resource_schedule_service);
 binder_call(bgtaskmgr_service, sh);
@@ -72,7 +72,7 @@ binder_call(bgtaskmgr_service, system_basic_hap);
 binder_call(bgtaskmgr_service, hiview);
 binder_call(bgtaskmgr_service, distributedsche);
 binder_call(bgtaskmgr_service, bluetooth_service);
-binder_call(normal_hap, bgtaskmgr_service);
+binder_call(normal_hap_attr, bgtaskmgr_service);
 binder_call(system_core_hap, bgtaskmgr_service);
 binder_call(param_watcher, bgtaskmgr_service);
 binder_call(foundation, bgtaskmgr_service);

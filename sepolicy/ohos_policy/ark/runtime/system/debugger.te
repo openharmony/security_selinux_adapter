@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow normal_hap hdcd:unix_stream_socket { connectto };
+allow normal_hap_attr hdcd:unix_stream_socket { connectto };
 allow system_basic_hap hdcd:unix_stream_socket { connectto };
 allow system_core_hap hdcd:unix_stream_socket { connectto };
 
-allow normal_hap normal_hap_data_file:dir { add_name create write };
+allow normal_hap_attr normal_hap_data_file_attr:dir { add_name create write };

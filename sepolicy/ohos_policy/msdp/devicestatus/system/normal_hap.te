@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -12,7 +12,7 @@
 # limitations under the License.
 
 #avc:  denied  { get } for service=2902 pid=2408 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_msdp_devicestatus_service:s0 tclass=samgr_class permissive=0
-allow normal_hap sa_msdp_devicestatus_service:samgr_class { get };
+allow normal_hap_attr sa_msdp_devicestatus_service:samgr_class { get };
 
 #avc:  denied  { call transfer } for  pid=1627 comm="jsThread-1" scontext=u:r:normal_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=binder permissive=0
-allow normal_hap msdp_sa:binder { call transfer };
+allow normal_hap_attr msdp_sa:binder { call transfer };

@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -35,8 +35,8 @@ allow telephony_sa kernel:unix_stream_socket connectto;
 allow telephony_sa musl_param:file { map open read };
 allow telephony_sa netmanager:binder { call transfer };
 allow telephony_sa netsysnative:binder { call transfer };
-allow telephony_sa normal_hap:binder { call transfer };
-allow telephony_sa normal_hap:fd use;
+allow telephony_sa normal_hap_attr:binder { call transfer };
+allow telephony_sa normal_hap_attr:fd use;
 allow telephony_sa paramservice_socket:sock_file write;
 allow telephony_sa persist_param:parameter_service set;
 allow telephony_sa privacy_service:binder call;
@@ -84,3 +84,4 @@ allow telephony_sa rootfs:file { read open };
 allow telephony_sa vendor_etc_file:file { read open };
 allow telephony_sa chip_prod_file:file { read open };
 allow telephony_sa sys_prod_file:file { read open };
+allow telephony_sa sysfs_net:file { getattr };

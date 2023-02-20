@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -46,7 +46,7 @@ allow ui_service multimodalinput:fd { use };
 allow ui_service multimodalinput:unix_stream_socket { read write };
 allow ui_service net_param:file { map open read };
 allow ui_service net_tcp_param:file { map open read };
-allow ui_service normal_hap:fd { use };
+allow ui_service normal_hap_attr:fd { use };
 allow ui_service ohos_boot_param:file { map open read };
 allow ui_service ohos_param:file { map open read };
 allow ui_service param_watcher:binder { call transfer };

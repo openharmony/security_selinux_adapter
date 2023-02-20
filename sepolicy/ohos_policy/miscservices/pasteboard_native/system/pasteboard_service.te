@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -15,15 +15,15 @@ type  pasteboard_service, sadomain, domain;
 
 allow pasteboard_service system_core_hap:binder { call transfer };
 allow pasteboard_service system_basic_hap:binder { call transfer };
-allow pasteboard_service normal_hap:binder { call transfer };
+allow pasteboard_service normal_hap_attr:binder { call transfer };
 allow pasteboard_service sh:binder { call transfer };
 allow pasteboard_service dev_unix_socket:dir { search };
 allow system_core_hap sa_pasteboard_service:samgr_class { get };
 allow system_basic_hap sa_pasteboard_service:samgr_class { get };
-allow normal_hap sa_pasteboard_service:samgr_class { get };
+allow normal_hap_attr sa_pasteboard_service:samgr_class { get };
 allow system_core_hap pasteboard_service:binder { call transfer };
 allow system_basic_hap pasteboard_service:binder { call transfer };
-allow normal_hap pasteboard_service:binder { call transfer };
+allow normal_hap_attr pasteboard_service:binder { call transfer };
 allow sh pasteboard_service:binder { call transfer };
 allow pasteboard_service foundation:binder { call transfer };
 allow pasteboard_service sa_foundation_bms:samgr_class { get };
@@ -31,11 +31,13 @@ allow pasteboard_service accessibility_param:file { read open map };
 allow pasteboard_service system_usr_file:dir { search };
 allow pasteboard_service sa_foundation_wms:samgr_class { get };
 
-allow pasteboard_service data_service_el1_file:dir { add_name remove_name search write };
-allow pasteboard_service data_service_el1_file:file { create ioctl open unlink write write open };
+allow pasteboard_service data_service_el1_file:dir { create open getattr add_name remove_name search write read rmdir };
+allow pasteboard_service data_service_el1_file:file { create getattr setattr ioctl unlink write open read lock map };
 allow pasteboard_service distributeddata:binder { call transfer };
 allow pasteboard_service sa_distributeddata_service:samgr_class { get };
 allow distributeddata pasteboard_service:binder { call transfer };
+allow distributeddata pasteboard_service:dir { search };
+allow distributeddata pasteboard_service:file { open read getattr };
 allow pasteboard_service sa_foundation_devicemanager_service:samgr_class { get };
 allow pasteboard_service sa_device_profile_service:samgr_class { get };
 allow pasteboard_service device_manager:binder { call transfer };
@@ -53,11 +55,13 @@ allow pasteboard_service hmdfs:file { read open write getattr };
 allow pasteboard_service data_service_el2_hmdfs:file { read open write getattr };
 allow pasteboard_service hmdfs:dir { search read open write add_name create remove_name ioctl rmdir };
 allow pasteboard_service data_service_el2_hmdfs:dir { search read open write add_name create remove_name rmdir };
-allow pasteboard_service normal_hap_data_file:file { read getattr };
+allow pasteboard_service normal_hap_data_file_attr:file { read getattr };
 allow pasteboard_service sa_accountmgr:samgr_class { get };
 allow accountmgr pasteboard_service:binder { call transfer };
 allow pasteboard_service accountmgr:binder { call transfer };
 allow pasteboard_service foundation:binder { call transfer };
+allow pasteboard_service data_file:dir { search };
+allow pasteboard_service data_service_file:dir { search };
 
 #avc:  denied  { get } for service=4607 pid=533 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
 allow pasteboard_service sa_foundation_dms:samgr_class { get };

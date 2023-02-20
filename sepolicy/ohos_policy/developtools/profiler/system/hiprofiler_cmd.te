@@ -149,7 +149,7 @@ allow hiprofiler_cmd dev_unix_file:sock_file unlink;
 allow hiprofiler_cmd paramservice_socket:sock_file write;
 
 allow hiprofiler_cmd appspawn_exec:file { open read };
-allow hiprofiler_cmd normal_hap:lnk_file read;
+allow hiprofiler_cmd normal_hap_attr:lnk_file read;
 allow hiprofiler_cmd data_app_el1_file:dir search;
 allow hiprofiler_cmd data_app_el1_file:file { getattr map open read };
 
@@ -165,3 +165,5 @@ allow hiprofiler_cmd hiviewdfx_profiler_param:parameter_service { set };
 allow hiprofiler_cmd dev_console_file:chr_file { read write };
 allowxperm hiprofiler_cmd devpts:chr_file ioctl { 0x5413 };
 allow hiprofiler_cmd devpts:chr_file { ioctl };
+
+allow hiprofiler_cmd vendor_bin_file:dir search;

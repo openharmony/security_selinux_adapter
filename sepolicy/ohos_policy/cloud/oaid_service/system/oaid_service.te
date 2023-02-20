@@ -70,7 +70,7 @@ allow oaid_service sa_oaid_service:samgr_class { add };
 allow oaid_service sa_foundation_bms:samgr_class { get };
 allow oaid_service sa_foundation_cesfwk_service:samgr_class { get };
 allow oaid_service sa_net_conn_manager:samgr_class { get };
-allow oaid_service normal_hap:binder { call transfer };
+allow oaid_service normal_hap_attr:binder { call transfer };
 allow oaid_service system_basic_hap:binder { call };
 allow oaid_service sa_distributeddata_service:samgr_class { get };
 allow oaid_service musl_param:file { map open read };
@@ -79,5 +79,7 @@ allow oaid_service dev_console_file:chr_file { read write };
 allow oaid_service chip_prod_file:dir { search };
 allow oaid_service sys_prod_file:dir { search };
 allow oaid_service vendor_etc_file:dir { search };
+allow oaid_service huks_service:binder { call };
+allow oaid_service sa_huks_service:samgr_class { get };
 
 allowxperm oaid_service data_service_el1_file:file ioctl 0xf50c;

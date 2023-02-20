@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow normal_hap data_local_traces:dir *;
-neverallow normal_hap *:{ socket netlink_socket packet_socket appletalk_socket netlink_tcpdiag_socket
+neverallow normal_hap_attr data_local_traces:dir *;
+neverallow normal_hap_attr *:{ socket netlink_socket packet_socket appletalk_socket netlink_tcpdiag_socket
 netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket netlink_iscsi_socket 
 netlink_fib_lookup_socket netlink_connector_socket netlink_netfilter_socket netlink_generic_socket 
 netlink_scsitransport_socket netlink_rdma_socket netlink_crypto_socket sctp_socket ax25_socket 
@@ -21,29 +21,29 @@ irda_socket pppox_socket llc_socket can_socket tipc_socket bluetooth_socket iucv
 isdn_socket phonet_socket ieee802154_socket caif_socket alg_socket nfc_socket vsock_socket kcm_socket 
 qipcrtr_socket smc_socket xdp_socket  } *;
 
-neverallow normal_hap domain:netlink_kobject_uevent_socket *;
+neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
 
-neverallow normal_hap *:{ netlink_route_socket netlink_selinux_socket } ioctl;
+neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
-neverallow normal_hap { domain -normal_hap }:netlink_route_socket { bind nlmsg_readpriv };
+neverallow normal_hap_attr { domain -normal_hap_attr }:netlink_route_socket { bind nlmsg_readpriv };
 
-neverallow normal_hap *:{ netlink_route_socket netlink_selinux_socket } ioctl;
+neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
 #neverallowxperm normal_hap domain:{ icmp_socket rawip_socket tcp_socket udp_socket } ioctl 
 
-neverallow normal_hap dev_kmsg_file:chr_file never_rw_file;
+neverallow normal_hap_attr dev_kmsg_file:chr_file never_rw_file;
 
-neverallow normal_hap dev_fuse_file:chr_file ~{ getattr read write };
+neverallow { normal_hap_attr -dev_fuse_file_violator } dev_fuse_file:chr_file *;
 
-neverallow normal_hap debugfs_attr:file read;
+neverallow normal_hap_attr debugfs_attr:file read;
 
-neverallow normal_hap { normal_hap_data_file system_core_hap_data_file }:file execute_no_trans;
+neverallow normal_hap_attr { normal_hap_data_file_attr system_core_hap_data_file }:file execute_no_trans;
 
-neverallow normal_hap file_attr:file link;
+neverallow normal_hap_attr file_attr:file link;
 
-neverallow normal_hap sysfs_attr:file { never_write_file never_execute_file };
+neverallow normal_hap_attr sysfs_attr:file { never_write_file never_execute_file };
 
-neverallow normal_hap sys_file:file never_rw_file;
+neverallow normal_hap_attr sys_file:file never_rw_file;
 
 typeattribute system_core_hap proc_violator;
 typeattribute system_basic_hap proc_violator;
@@ -51,20 +51,20 @@ typeattribute system_basic_hap proc_violator;
 neverallow { hap_domain -proc_violator } { proc_file proc_asound_file proc_kmsg_file proc_loadavg_file proc_mounts_file proc_pagetypeinfo_file proc_slabinfo_file
     proc_stat_file proc_swaps_file proc_uptime_file proc_version_file proc_vmallocinfo_file proc_vmstat_file }:file { never_rwx_file };
 
-neverallow normal_hap proc_filesystems_file:file { never_rwx_file };
+neverallow normal_hap_attr proc_filesystems_file:file { never_rwx_file };
 
-neverallow normal_hap proc_config_gz_file:file { never_rwx_file };
+neverallow normal_hap_attr proc_config_gz_file:file { never_rwx_file };
 
 #expand to system_file_attr
-neverallow normal_hap system_file_attr:file lock;
+neverallow normal_hap_attr system_file_attr:file lock;
 
-neverallow normal_hap selinuxfs:file never_rw_file;
+neverallow normal_hap_attr selinuxfs:file never_rw_file;
 
-neverallow normal_hap cgroup:file *;
+neverallow normal_hap_attr cgroup:file *;
 
 #todo closing for debug building.
-neverallow normal_hap debugfs_attr:{ file lnk_file } read;
+neverallow normal_hap_attr debugfs_attr:{ file lnk_file } read;
 
-neverallow normal_hap domain:netlink_socket *;
+neverallow normal_hap_attr domain:netlink_socket *;
 
-neverallow normal_hap domain:netlink_kobject_uevent_socket *;
+neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;

@@ -49,3 +49,12 @@ allow distributedfiledaemon dslm_service:binder { call };
 
 #avc:  denied  { get } for service=3299 pid=609 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow distributedfiledaemon sa_foundation_cesfwk_service:samgr_class { get };
+
+#avc:  denied  { add } for service=5204 pid=1784 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_filemanagement_cloud_sync_service:s0 tclass=samgr_class permissive=0
+allow distributedfiledaemon sa_filemanagement_cloud_sync_service:samgr_class { add };
+
+#kmsg: audit: type=1400 audit(1676302293.484:6726): avc:  denied  { call } for  pid=622 comm="IPC_1_896" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+
+debug_only(`
+    allow distributedfiledaemon sh:binder { call }; 
+')

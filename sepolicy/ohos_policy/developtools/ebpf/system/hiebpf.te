@@ -24,7 +24,7 @@ allow hiebpf data_service_file:dir search;
 allow hiebpf foundation:dir search;
 allow hiebpf foundation:file { getattr open read };
 allow hiebpf hidumper_service:file read;
-allow hiebpf normal_hap:file read;
+allow hiebpf normal_hap_attr:file read;
 
 allow hiebpf domain:dir { open read getattr search };
 allow hiebpf domain:file { open read getattr };

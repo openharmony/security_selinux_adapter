@@ -40,12 +40,12 @@ neverallow {
     never_execute_file
 };
 
-allow normal_hap hmdfs:dir create_dir_perms;
-allow normal_hap hmdfs:{file lnk_file} create_file_perms;
+allow normal_hap_attr hmdfs:dir create_dir_perms;
+allow normal_hap_attr hmdfs:{file lnk_file} create_file_perms;
 allow hap_domain data_user_file:dir create_dir_perms;
 allow hap_domain data_user_file:file create_file_perms;
-allow normal_hap privacy_service:binder call;
+allow normal_hap_attr privacy_service:binder call;
 allow hap_domain epfs:dir create_dir_perms;
 allow hap_domain epfs:{file lnk_file} create_file_perms;
 
-allow normal_hap mimetype_file:file { open read getattr };
+allow normal_hap_attr mimetype_file:file { open read getattr };

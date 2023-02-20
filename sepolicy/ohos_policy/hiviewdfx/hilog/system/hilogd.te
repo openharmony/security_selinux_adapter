@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -93,7 +93,7 @@ allow hilogd paramservice_socket:sock_file { write };
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
 
 allow hilogd domain:dir { search };
-allow hilogd domain:file { open read };
+allow hilogd domain:file { open read getattr };
 ############################
 ## Neverallow rule below: ##
 ############################
@@ -114,7 +114,7 @@ neverallow { domain -init -processdump } hilogd:process ptrace;
 neverallow hilogd system_file:dir_file_class_set write;
 
 # write to hap files
-neverallow hilogd { normal_hap_data_file system_basic_hap_data_file system_core_hap_data_file }:dir_file_class_set write;
+neverallow hilogd { normal_hap_data_file_attr system_basic_hap_data_file system_core_hap_data_file }:dir_file_class_set write;
 
 # only init is allowed to enter the hilogd domain via exec()
 neverallow { domain -init } hilogd:process transition;
@@ -130,7 +130,7 @@ neverallow {
     -hdcd               # write is covered next
     -system_basic_hap   # write is covered next
     -system_core_hap    # write is covered next
-    -normal_hap         # write is covered next
+    -normal_hap_attr         # write is covered next
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files

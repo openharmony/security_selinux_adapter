@@ -250,7 +250,7 @@ ohos_shared_library("libservice_checker") {
 }
 
 ohos_executable("load_policy") {
-  install_enable = false
+  install_enable = true
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/load_policy/load_policy.c" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [ ":libload_policy" ]
@@ -262,6 +262,10 @@ ohos_executable("load_policy") {
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
+  install_images = [
+    "system",
+    "updater",
+  ]
 }
 
 ohos_executable("restorecon") {
@@ -283,6 +287,10 @@ ohos_executable("restorecon") {
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
+  install_images = [
+    "system",
+    "updater",
+  ]
 }
 
 ohos_executable("hap_restorecon") {

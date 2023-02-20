@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -28,7 +28,7 @@ allow distributedsche accountmgr:binder { call };
 allow distributedsche data_file:dir { search };
 allow distributedsche data_service_file:dir { search };
 allow distributedsche data_service_el1_file:dir { add_name open read search write getattr create remove_name rmdir };
-allow distributedsche data_service_el1_file:file { create getattr ioctl open read write lock map unlink };
+allow distributedsche data_service_el1_file:file { create getattr ioctl open read write lock map unlink rename};
 allow distributedsche deviceauth_service:binder { call };
 allow distributedsche device_manager:binder { transfer };
 allow distributedsche dev_ashmem_file:chr_file { open };
@@ -39,7 +39,7 @@ allow distributedsche distributedsche:unix_dgram_socket { getopt setopt };
 allow distributedsche foundation:binder { call transfer };
 allow distributedsche foundation:fd { use };
 allow distributedsche kernel:unix_stream_socket { connectto };
-allow distributedsche normal_hap:binder { call transfer };
+allow distributedsche normal_hap_attr:binder { call transfer };
 allow distributedsche system_basic_hap:binder { call transfer };
 allow distributedsche system_core_hap:binder { call transfer };
 allow distributedsche paramservice_socket:sock_file { write };

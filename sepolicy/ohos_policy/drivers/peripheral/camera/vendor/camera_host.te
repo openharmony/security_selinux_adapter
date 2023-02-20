@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -58,7 +58,7 @@ allow camera_host dev_dma_heap_file:chr_file { read };
 allow camera_host dev_dma_heap_file:chr_file { open };
 allow camera_host dev_dma_heap_file:chr_file { ioctl };
 allow camera_host dev_video_file:chr_file { map };
-allow camera_host normal_hap:binder { call };
+allow camera_host normal_hap_attr:binder { call };
 debug_only(`
     allow camera_host sh:binder { call transfer };
 ')

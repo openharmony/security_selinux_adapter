@@ -13,6 +13,4 @@
 
 allow sh sa_foundation_appms:samgr_class { get };
 
-allow sh locationhub:binder { call transfer };
-
-allow sh locationhub:samgr { transfer };
+allow sh locationhub:binder { call };

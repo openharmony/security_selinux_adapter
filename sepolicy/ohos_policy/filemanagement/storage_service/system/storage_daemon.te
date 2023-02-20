@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -125,6 +125,7 @@ allow storage_daemon dslm_service:file { read  };
 allow storage_daemon exfat:filesystem { mount unmount };
 allow storage_daemon vfat:filesystem { mount unmount };
 allow storage_daemon ntfs:filesystem { mount unmount };
+allow storage_daemon sharefs:filesystem { mount };
 
 #avc:  denied  { search } for  pid=259 comm="storage_daemon" name="243" dev="proc" ino=36785 scontext=u:r:storage_daemon:s0 tcontext=u:r:hilogd:s0 tclass=dir permissive=0
 #avc:  denied  { open } for  pid=257 comm="storage_daemon" path="/proc/245/maps" dev="proc" ino=43286 scontext=u:r:storage_daemon:s0 tcontext=u:r:hilogd:s0 tclass=file permissive=0
@@ -235,9 +236,15 @@ allow storage_daemon watchdog_service:file { open };
 allow storage_daemon watchdog_service:lnk_file { read };
 
 #avc:  denied  { read } for  pid=258 comm="storage_daemon" name="com.ohos.launcher" dev="mmcblk0p11" ino=654143 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
-allow storage_daemon normal_hap_data_file:dir { create_dir_perms };
-allow storage_daemon normal_hap_data_file:file { create_file_perms };
+allow storage_daemon normal_hap_data_file_attr:dir { create_dir_perms };
+allow storage_daemon normal_hap_data_file_attr:file { create_file_perms };
 allow storage_daemon system_basic_hap_data_file:dir { create_dir_perms };
 allow storage_daemon system_basic_hap_data_file:file { create_file_perms };
 allow storage_daemon system_core_hap_data_file:dir { create_dir_perms };
 allow storage_daemon system_core_hap_data_file:file { create_file_perms };
+allow storage_daemon labeledfs:filesystem { unmount };
+allow storage_daemon sharefs:filesystem { unmount };
+allow storage_daemon sharefs:dir { create_dir_perms mounton };
+allow storage_daemon data_service_el2_share:dir { create_dir_perms mounton relabelto };
+allow storage_daemon sharefs:file { create_file_perms };
+allow storage_daemon data_service_el2_share:file { create_file_perms mounton };
