@@ -97,3 +97,4 @@ allowxperm distributeddata data_app_el3_database_file:file ioctl { 0xf50c 0x5413
 allowxperm distributeddata data_app_el4_database_file:file ioctl { 0xf50c 0x5413};
 allowxperm distributeddata normal_hap_data_file_attr:file ioctl { 0x5413 };
 allowxperm distributeddata system_core_hap_data_file:file ioctl 0xf50c;
+allow distributeddata locationhub:binder { transfer };

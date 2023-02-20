@@ -78,3 +78,9 @@ allow locationhub normal_hap_attr:binder { call transfer };
 allow locationhub musl_param:file { read };
 
 allow locationhub dev_console_file:chr_file { read write };
+
+allow locationhub sa_location_locator_service:samgr_class { get };
+allow locationhub sa_distributeddata_service:samgr_class { get };
+allow locationhub distributeddata:binder { call };
+allow locationhub distributeddata:fd { use };
+allow locationhub vendor_bin_file:dir { search };
