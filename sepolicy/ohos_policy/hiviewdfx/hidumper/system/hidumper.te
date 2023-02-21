@@ -70,3 +70,4 @@ allow hidumper security_param:file { map open read };
 allow hidumper startup_param:file { map open read };
 allow hidumper sys_param:file { map open read };
 allow hidumper sys_usb_param:file { map open read };
+allow hidumper dev_console_file:chr_file { read write };
