@@ -62,6 +62,7 @@ allow hiview resource_schedule_service:file { getattr read };
 #hilogd
 allow resource_schedule_service hilogd:file { read };
 #vendor
+allow resource_schedule_service vendor_bin_file:dir { search };
 allow resource_schedule_service vendor_lib_file:dir { search };
 allow resource_schedule_service vendor_lib_file:file { execute getattr map open read };
 allow resource_schedule_service vendor_file:dir { search };
