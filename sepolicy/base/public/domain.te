@@ -201,13 +201,14 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-hdcd') } dev_fi
 
 neverallow { domain -kernel -init -misc -updater_sa -storage_daemon -partitionslot_host debug_only(`-hdcd') } dev_attr:blk_file { open read write };
 # fs operation limit
-neverallow domain *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto };
+neverallow domain *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem mount;
 neverallow { domain -init debug_only(`-hdcd') } *:filesystem remount;
 neverallow { domain -init -storage_daemon debug_only(`-hdcd') -appspawn -nwebspawn } *:filesystem unmount;
 neverallow { domain -init } *:filesystem relabelfrom;
 neverallow { domain -init } *:filesystem relabelto;
-
+neverallow { domain -storage_daemon } *:filesystem quotaget;
+neverallow { domain -storage_daemon } *:filesystem quotamod;
 
 neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
 

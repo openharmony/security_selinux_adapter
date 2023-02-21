@@ -13,4 +13,4 @@
 
 neverallow { domain -samgr -foundation -hidumper_service } installs:binder call;
 
-neverallow installs { domain -samgr }:binder call;
+neverallow installs { domain -samgr -storage_manager }:binder call;
