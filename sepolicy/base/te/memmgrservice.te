@@ -39,6 +39,7 @@ allow memmgrservice ohos_boot_param:file { map open read };
 allow memmgrservice ohos_param:file { map open read };
 allow memmgrservice param_watcher:binder { call transfer };
 allow memmgrservice persist_param:file { map open read };
+allow memmgrservice persist_param:parameter_service { set };
 allow memmgrservice persist_sys_param:file { map open read };
 allow memmgrservice proc_file:file { read };
 allow memmgrservice sa_bgtaskmgr:samgr_class { get };
