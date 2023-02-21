@@ -27,6 +27,7 @@ allow netmanager data_system:file { ioctl };
 allow netmanager dev_unix_socket:dir { search };
 allow netmanager download_server:binder { call };
 allow netmanager foundation:binder { call transfer };
+allow netmanager kernel:unix_stream_socket { connectto };
 allow netmanager netmanager:capability { net_admin };
 allow netmanager netmanager:capability { net_raw };
 allow netmanager netmanager:netlink_route_socket { create nlmsg_read read write };
@@ -36,6 +37,8 @@ allow netmanager netmanager:udp_socket { bind connect create getattr ioctl read 
 allow netmanager netmanager:unix_dgram_socket { ioctl };
 allow netmanager netsysnative:binder { call };
 allow netmanager node:udp_socket { node_bind };
+allow netmanager paramservice_socket:sock_file write;
+allow netmanager persist_param:parameter_service set;
 allow netmanager port:tcp_socket { name_connect };
 allow netmanager port:udp_socket { name_bind };
 allow netmanager sh:binder { call };
