@@ -34,7 +34,6 @@ type param_watcher, sadomain, domain;
 type token_sync_service, sadomain, domain;
 type memmgrservice, sadomain, domain;
 type accessibility, sadomain, domain;
-type dinput, sadomain, domain;
 type distributedsched, sadomain, domain;
 type distributedfile, sadomain, domain;
 type deviceinfoservice, sadomain, domain;
