@@ -92,8 +92,5 @@ allow msdp_sa softbus_server:fd { use };
 #avc:  denied  { shutdown } for  pid=867 comm="EventRunner#41" laddr=192.168.43.46 lport=44711 faddr=192.168.43.17 fport=38953 scontext=u:r:msdp_sa:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=0
 allow msdp_sa softbus_server:tcp_socket { read setopt write shutdown };
 
-#avc:  denied  { search } for  pid=922 comm="sa_main" name="bin" dev="sdd72" ino=12 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=1
-allow msdp_sa vendor_bin_file:dir { search };
-
 #avc:  denied  { get } for service=6001 pid=932 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_device_profile_service:s0 tclass=samgr_class permissive=1
 allow msdp_sa sa_device_profile_service:samgr_class { get };
