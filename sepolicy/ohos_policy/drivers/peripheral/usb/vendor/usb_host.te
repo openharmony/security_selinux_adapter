@@ -86,3 +86,6 @@ allow init data_service_el1_file:file { create write open getattr };
 allow usb_host hdf_usbhost_acm_pnp_service:hdf_devmgr_class { add };
 allow usb_host hdf_usbhost_acm_rawapi_service:hdf_devmgr_class { add };
 allow usb_host hdf_usbhost_ecm_pnp_service:hdf_devmgr_class { add };
+allow usb_host hiview:unix_dgram_socket { sendto };
+allow usb_host usb_host:unix_dgram_socket { getopt };
+allow usb_host usb_host:unix_dgram_socket { setopt };
