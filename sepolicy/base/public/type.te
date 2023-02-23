@@ -46,6 +46,7 @@ type download_server, sadomain, domain;
 type msdp_sa, sadomain, domain;
 type misc, sadomain, domain;
 type netsysnative, sadomain, domain;
+type mdnsmanager, sadomain, domain;
 type hidumper_service, sadomain, domain;
 type console, sadomain, domain;
 type bootanimation, sadomain, domain;

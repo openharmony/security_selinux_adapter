@@ -29,6 +29,7 @@ allow init bootevent_samgr_param:file { map open read relabelto };
 allow init build_version_param:file { map open read relabelto };
 allow init camera_host:process { rlimitinh siginh transition };
 allow init camera_service:process { rlimitinh siginh transition };
+allow init mdnsmanager:process { rlimitinh siginh transition };
 allow init cgroup:dir { add_name create open read search setattr write };
 allow init cgroup:file { getattr open setattr };
 allow init cgroup:filesystem { mount };

@@ -60,6 +60,7 @@ allow netmanager persist_sys_param:file { map open read };
 allow netmanager sa_accesstoken_manager_service:samgr_class { get };
 allow netmanager sa_comm_dns_manager_service:samgr_class { add };
 allow netmanager sa_comm_ethernet_manager_service:samgr_class { add };
+allow netmanager sa_comm_mdns_manager_service:samgr_class { add };
 allow netmanager sa_comm_net_stats_manager_service:samgr_class { add };
 allow netmanager sa_foundation_cesfwk_service:samgr_class { get };
 allow netmanager sa_net_conn_manager:samgr_class { add };
