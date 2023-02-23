@@ -68,5 +68,8 @@ ohos_unittest("service_checker_unittest") {
 
 group("unittest") {
   testonly = true
-  deps = []
+  deps = [
+    ":hap_restorecon_unittest",
+    ":service_checker_unittest",
+  ]
 }
