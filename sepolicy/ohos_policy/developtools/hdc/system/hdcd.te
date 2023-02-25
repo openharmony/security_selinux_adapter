@@ -109,10 +109,22 @@ allow hdcd startup_param:file { map open read };
 allow hdcd sys_file:file { open read };
 allow hdcd sys_param:file { map open read };
 allow hdcd sys_usb_param:file { map open read };
+allow hdcd tracefs:dir { search };
+allow hdcd tracefs_trace_marker_file:file { write open };
+allow hdcd dev_console_file:chr_file { read write };
+allow hdcd musl_param:file { read open };
+
+allow samgr hdcd:dir { search };
+allow samgr hdcd:file { read open };
+allow samgr hdcd:process { getattr };
+allow samgr hdcd:binder { transfer };
 
 allow hdcd hmdfs:dir create_dir_perms;
 allow hdcd hmdfs:file create_file_perms;
 
+allow param_watcher hdcd:binder { call };
+allow hdcd samgr:binder { call };
+allow hdcd param_watcher:binder { call transfer };
 allow hdcd audio_policy:binder { call transfer };
 allow hdcd pulseaudio:binder { call };
 allow hdcd sa_audio_policy_service:samgr_class { get };
@@ -121,6 +133,7 @@ allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
 allow hdcd memmgrservice:dir { getattr search };
 allow hdcd memmgrservice:file { open read };
 
+allow hdcd sa_param_watcher:samgr_class { get };
 allow hdcd sys_param:parameter_service { set };
 allow hdcd persist_param:parameter_service { set };
 allow hdcd servicectrl_reboot_param:parameter_service { set };

@@ -21,7 +21,7 @@
 
 using namespace testing::ext;
 using namespace OHOS::Security::SelinuxUnitTest;
-using namespace Selinux;
+using namespace selinux;
 const static int SLEEP_SECOND = 2;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
 const static std::string TEST_PATH = BASE_PATH + "com.ohos.selftest/";
@@ -480,6 +480,70 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
 }
 
 /**
+ * @tc.name: HapFileRestorecon010
+ * @tc.desc: HapFileRestorecon input para empty.
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapFileRestorecon010, TestSize.Level1)
+{
+    std::vector<std::string> tmp_empty;
+    std::vector<std::string> tmp;
+    tmp.emplace_back(TEST_SUB_PATH_1);
+    tmp.emplace_back(TEST_SUB_PATH_2);
+
+    int ret = test.HapFileRestorecon(tmp_empty, TEST_APL, TEST_NAME, 1);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
+
+    ret = test.HapFileRestorecon(tmp, "", TEST_NAME, 1);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
+
+    ret = test.HapFileRestorecon(tmp_empty, "", TEST_NAME, 1);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
+}
+
+/**
+ * @tc.name: HapFileRestorecon011
+ * @tc.desc: HapFileRestorecon input para empty.
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapFileRestorecon011, TestSize.Level1)
+{
+
+    int ret = test.HapFileRestorecon("", TEST_APL, TEST_NAME, 1);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
+
+    ret = test.HapFileRestorecon(TEST_SUB_PATH_1, "", TEST_NAME, 1);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
+
+    ret = test.HapFileRestorecon("", "", TEST_NAME, 1);
+    ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
+}
+
+/**
+ * @tc.name: HapFileRestorecon012
+ * @tc.desc: HapFileRestorecon selinux not enbaled.
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapFileRestorecon012, TestSize.Level1)
+{
+    RunCommand("setenforce 0");
+
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
+    ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_2));
+
+    std::vector<std::string> tmp;
+    tmp.emplace_back(TEST_SUB_PATH_1);
+
+    int ret = test.HapFileRestorecon(tmp, TEST_APL, TEST_NAME, 1);
+    ASSERT_EQ(SELINUX_SUCC, ret);
+
+    RunCommand("setenforce 1");
+}
+
+/**
  * @tc.name: HapDomainSetcontext001
  * @tc.desc: HapDomainSetcontext input para empty.
  * @tc.type: FUNC
@@ -489,9 +553,6 @@ HWTEST_F(SelinuxUnitTest, HapDomainSetcontext001, TestSize.Level1)
 {
     int ret = test.HapDomainSetcontext("", TEST_NAME);
     ASSERT_EQ(-SELINUX_ARG_INVALID, ret);
-
-    ret = test.HapDomainSetcontext(TEST_APL, "");
-    ASSERT_EQ(SELINUX_SUCC, ret);
 }
 
 /**

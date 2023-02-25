@@ -21,7 +21,7 @@
 
 using namespace testing::ext;
 using namespace OHOS::Security::SelinuxUnitTest;
-using namespace Selinux;
+using namespace selinux;
 const static std::string TEST_SERVICE_NAME = "test_service";
 const static std::string DEFAULT_SERVICE = "default_service";
 const static std::string DEFAULT_HDF_SERVICE = "default_hdf_service";

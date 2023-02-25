@@ -17,8 +17,8 @@ debug_only(`
         allow domain dev_unix_file:sock_file write;
         allow native_daemon sh_exec:file execute;
 ')
-allow domain hiprofiler_socket:sock_file write;
-allow init hiprofiler_socket:sock_file { getattr relabelto unlink };
+allow domain hiprofiler_socket:sock_file { getattr write unlink };
+allow init hiprofiler_socket:sock_file { relabelto };
 
 allow native_daemon data_local_tmp:file { create read open write lock getattr ioctl map };
 allow native_daemon data_local_tmp:dir { search add_name write };

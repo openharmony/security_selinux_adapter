@@ -11,7 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation oaid_service:binder { transfer call };
-allow foundation oaid_service:dir { search };
-allow foundation oaid_service:file { read open getattr };
-allow foundation oaid_service:fd { use };
+#avc:  denied  { call } for  pid=1216 comm="IPC_1_1702" scontext=u:r:distributedsche:s0 tcontext=u:r:msdp_sa:s0 tclass=binder permissive=1
+allow distributedsche msdp_sa:binder { call };

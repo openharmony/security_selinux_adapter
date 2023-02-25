@@ -41,7 +41,7 @@ allow nwebspawn input_pointer_device_param:file { map open read };
 allow nwebspawn net_param:file { map open read };
 allow nwebspawn net_tcp_param:file { map open read };
 allow nwebspawn normal_hap_data_file_attr:dir { mounton };
-allow nwebspawn nwebspawn:capability { setgid setuid sys_admin };
+allow nwebspawn nwebspawn:capability { setgid setuid sys_admin kill };
 allow nwebspawn nwebspawn_socket:sock_file { setattr };
 allow nwebspawn ohos_boot_param:file { map open read };
 allow nwebspawn ohos_param:file { map open read };
