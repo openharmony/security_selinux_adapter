@@ -13,3 +13,5 @@
 
 /data/device_attest                       u:object_r:data_device_attest:s0
 /data/device_attest/(.*)?                 u:object_r:data_device_attest:s0
+/etc/device_attest                        u:object_r:etc_device_attest:s0
+/etc/device_attest/(.*)?                  u:object_r:etc_device_attest:s0
