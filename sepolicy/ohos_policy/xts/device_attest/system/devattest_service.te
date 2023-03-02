@@ -69,8 +69,6 @@ allowxperm devattest_service devattest_service:unix_dgram_socket ioctl { 0x8910 
 allow devattest_service paramservice_socket:sock_file { write create setattr getattr relabelto };
 allow devattest_service xts_devattest_authresult_param:file { map open read };
 allow devattest_service xts_devattest_authresult_param:parameter_service { set };
-allow param_watcher xts_devattest_authresult_param:parameter_service { set };
-allow { domain -limit_domain } xts_devattest_authresult_param:file { map open read };
 
 allow devattest_service sa_devattest_service:samgr_class { add };
 allow devattest_service sa_net_conn_manager:samgr_class { get };
@@ -87,10 +85,10 @@ allow devattest_service dnsproxy_service:sock_file { write };
 # [18.469899] audit: type=1400 audit(1668560965.423:331): avc:  denied  { call } for  pid=349 comm="netmanager" scontext=u:r:netmanager:s0 tcontext=u:r:devattest_service:s0 tclass=binder permissive=0
 allow netmanager devattest_service:binder { call };
 
-allow normal_hap_attr sa_devattest_service:samgr_class { get };
-allow normal_hap_attr devattest_service:fd { use };
-allow normal_hap_attr devattest_service:binder { call transfer };
-allow devattest_service normal_hap_attr:binder { call transfer };
+allow normal_hap sa_devattest_service:samgr_class { get };
+allow normal_hap devattest_service:fd { use };
+allow normal_hap devattest_service:binder { call transfer };
+allow devattest_service normal_hap:binder { call transfer };
 
 allow system_basic_hap sa_devattest_service:samgr_class { get };
 allow system_basic_hap devattest_service:fd { use };
