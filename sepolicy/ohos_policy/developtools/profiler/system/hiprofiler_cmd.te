@@ -166,3 +166,4 @@ allow hiprofiler_cmd dev_console_file:chr_file { read write };
 allowxperm hiprofiler_cmd devpts:chr_file ioctl { 0x5413 };
 allow hiprofiler_cmd devpts:chr_file { ioctl };
 allow hiprofiler_cmd vendor_bin_file:dir search;
+allow hiprofiler_cmd sysfs_devices_system_cpu:dir { read open };

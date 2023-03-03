@@ -123,3 +123,4 @@ allow hiprofilerd param_watcher:binder { call };
 allow hiprofilerd tracefs:dir search;
 allow hiprofilerd tracefs_trace_marker_file:file { open write };
 allow hiprofilerd vendor_bin_file:dir search;
+allow hiprofilerd sysfs_devices_system_cpu:dir { read open };

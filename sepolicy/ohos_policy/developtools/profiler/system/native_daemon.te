@@ -22,7 +22,7 @@ allow domain hiprofiler_socket:sock_file write;
 allow init hiprofiler_socket:sock_file { getattr relabelto unlink };
 
 allow native_daemon data_local_tmp:file { create read open write lock getattr ioctl map };
-allow native_daemon data_local_tmp:dir { search add_name write };
+allow native_daemon data_local_tmp:dir { search add_name write getattr };
 allow native_daemon self:capability { kill sys_ptrace };
 
 allow native_daemon data_file:dir search;
@@ -86,3 +86,7 @@ allow native_daemon param_watcher:binder transfer;
 allow native_daemon appspawn:lnk_file read;
 allowxperm native_daemon devpts:chr_file ioctl { 0x5413 };
 allow native_daemon devpts:chr_file { ioctl };
+allow native_daemon data_app_el1_file:dir search;
+allow native_daemon data_app_el1_file:file { getattr map open read };
+allow native_daemon native_daemon:unix_dgram_socket { ioctl };
+allow native_daemon normal_hap:lnk_file { getattr map open read };
