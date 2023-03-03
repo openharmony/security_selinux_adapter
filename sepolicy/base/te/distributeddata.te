@@ -66,6 +66,7 @@ allow distributeddata startup_param:file { map open read };
 allow distributeddata sys_param:file { map open read };
 allow distributeddata system_bin_file:dir { search };
 allow distributeddata system_core_hap:binder { call transfer };
+allow distributeddata system_base_hap:binder { call transfer };
 allow distributeddata sys_usb_param:file { map open read };
 allow distributeddata tracefs:dir { search };
 allow distributeddata tracefs_trace_marker_file:file { open write };
