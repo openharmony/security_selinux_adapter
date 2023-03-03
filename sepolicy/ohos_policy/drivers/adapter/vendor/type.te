@@ -11,20 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type blue_host, hdfdomain, domain;
-type a2dp_host, hdfdomain, domain;
-type sample_host, hdfdomain, domain;
-
-type display_gralloc_host, hdfdomain, domain;
-
-type light_host, hdfdomain, domain;
-type disp_gralloc_host, hdfdomain, domain;
-type dcamera_host, hdfdomain, domain;
-type face_auth_host, hdfdomain, domain;
-type pin_auth_host, hdfdomain, domain;
-type user_auth_host, hdfdomain, domain;
-type fingerprint_auth_host, hdfdomain, domain;
-
-type partitionslot_host, hdfdomain, domain;
 type dev_usbfn_file, dev_attr, file_attr;
 type dev_functionfs_file, dev_attr, file_attr;
