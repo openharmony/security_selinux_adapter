@@ -109,6 +109,7 @@
 1907	                               u:object_r:sa_device_usage_statistics_service:s0
 1909	                               u:object_r:sa_memory_manager_service:s0
 1912	                               u:object_r:sa_concurrent_task_service:s0
+1914                                   u:object_r:sa_device_standby:s0
 2000	                               u:object_r:sa_subsyse_service:s0
 2100	                               u:object_r:sa_subsys_intelliaccessories_service:s0
 2200	                               u:object_r:sa_subsys_intellispeaker_service:s0
