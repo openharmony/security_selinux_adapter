@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,12 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init hilog_input_socket:sock_file { getattr relabelto unlink };
-allow init hilog_output_socket:sock_file { getattr relabelto unlink };
-allow init hilog_control_socket:sock_file { getattr relabelto unlink };
+##################
+## Type define: ##
+##################
+type hilog, nativedomain, domain;
 
-allow init hilogd:file { getattr open read relabelto setattr };
-allow init hilogd:dir { getattr open read relabelto setattr search };
-allow init hilogd:process { getattr rlimitinh siginh transition };
-
-init_daemon_domain(hilog);
+allow hilog proc_file:file { open read };
+allow hilog musl_param:file { open read map };
+allow hilog dev_unix_socket:dir { search };
+allow hilog hilog_control_socket:sock_file { write };
+allow hilog hilogd:unix_stream_socket { connectto };
+allow hilog paramservice_socket:sock_file { write };
+allow hilog kernel:unix_stream_socket { connectto };
+allow hilog hilog_param:parameter_service { set };

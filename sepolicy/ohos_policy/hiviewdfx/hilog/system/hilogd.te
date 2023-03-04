@@ -90,6 +90,9 @@ allow hilogd init:unix_stream_socket { accept getattr getopt listen };
 allow hilogd hilog_param:parameter_service { set };
 allow hilogd paramservice_socket:sock_file { write };
 
+allow hilogd hilog:file { getattr };
+allow hilogd init:file { getattr };
+
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
 
 allow hilogd domain:dir { search };
