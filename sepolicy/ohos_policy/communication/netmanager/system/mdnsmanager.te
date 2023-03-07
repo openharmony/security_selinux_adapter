@@ -23,6 +23,7 @@ allow mdnsmanager musl_param:file { open read map };
 allow mdnsmanager mdnsmanager:netlink_route_socket { create write read nlmsg_read };
 
 allow param_watcher mdnsmanager:binder { call };
+allow normal_hap_attr mdnsmanager:binder { call };
 allow system_basic_hap mdnsmanager:binder { transfer call };
 allow mdnsmanager system_basic_hap:binder { call };
 allow system_basic_hap sa_comm_mdns_manager_service:samgr_class { get };
