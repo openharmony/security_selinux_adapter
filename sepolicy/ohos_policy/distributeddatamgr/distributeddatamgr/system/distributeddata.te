@@ -78,6 +78,8 @@ allow distributeddata softbus_server:binder { call transfer };
 allow distributeddata softbus_server:tcp_socket { read setopt write };
 allow distributeddata sys_file:dir { search };
 allow distributeddata system_basic_hap:binder { call transfer };
+allow distributeddata system_basic_hap:dir { search };
+allow distributeddata system_basic_hap:file { getattr open read };
 allow distributeddata system_basic_hap_data_file:dir { read search };
 allow distributeddata system_basic_hap_data_file:file { getattr ioctl lock map write read setattr };
 allow distributeddata system_core_hap:dir { search };
