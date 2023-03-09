@@ -341,6 +341,7 @@ allow sh wifi_host:dir { getattr search };
 allow sh wifi_host:file { open read };
 allow sh wifi_manager_service:dir { getattr search };
 allow sh wifi_manager_service:file { open read };
+allow sh dev_mali:chr_file { getattr ioctl map open read write };
 allowxperm sh data_hilogd_file:file ioctl { 0x5413 };
 allowxperm sh devpts:chr_file ioctl { 0x5413 };
 allowxperm sh hdcd:fifo_file ioctl { 0x5413 };
