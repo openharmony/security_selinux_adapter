@@ -86,5 +86,4 @@ allow appspawn sys_usb_param:file { map open read };
 allow appspawn tmpfs:dir { add_name create mounton write };
 allow appspawn tmpfs:lnk_file { create };
 allow appspawn vendor_lib_file:dir { mounton };
-allow appspawn self:process execmem;
 allowxperm appspawn dev_at_file:chr_file ioctl { 0x4102 };
