@@ -1,0 +1,44 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type backup_sa, sadomain, domain;
+
+allow backup_sa sa_accesstoken_manager_service:samgr_class { get };
+allow backup_sa sa_foundation_abilityms:samgr_class { get };
+allow backup_sa sa_foundation_bms:samgr_class { get };
+allow backup_sa sa_filemanagement_backup_service_service:samgr_class { add };
+allow backup_sa sa_storage_manager_service:samgr_class { get };
+
+allow backup_sa accesstoken_service:binder { call };
+allow backup_sa storage_manager:binder { call };
+allow backup_sa foundation:binder { call transfer };
+
+allow backup_sa hilog_param:file { map open read };
+allow backup_sa data_service_file:dir { search };
+allow backup_sa data_service_el2_file:dir { read open write search };
+allow backup_sa data_service_el2_file:file { read open write getattr };
+allow backup_sa data_app_file:dir { search };
+allow backup_sa data_app_el1_file:dir { search };
+allow backup_sa data_app_el1_file:file { getattr read open map };
+allow backup_sa dev_unix_socket:dir { search };
+
+debug_only(`
+    allow backup_sa data_file:dir { search };
+    allow backup_sa data_file:file { getattr read };
+    allow backup_sa data_backup:file { read write };
+    allow backup_sa sh:fd { use };
+    allow backup_sa sh:binder { call };
+')
+
+allow backup_sa hap_domain:binder { call };
+allow backup_sa hap_domain:fd { use };
