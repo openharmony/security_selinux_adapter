@@ -114,7 +114,7 @@ neverallow { domain -hap_domain -installs debug_only(`-hdcd') -sh -storage_daemo
 neverallow { system_basic_hap normal_hap_attr } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
 #limit access to system_basic_hap_data_file
-neverallow { domain -hap_domain -installs -storage_daemon debug_only(`-hdcd') } system_basic_hap_data_file:dir_file_class_set { create unlink open };
+neverallow { domain -hap_domain -installs -storage_daemon debug_only(`-hdcd') -distributeddata } system_basic_hap_data_file:dir_file_class_set { create unlink open };
 
 neverallow normal_hap_attr system_basic_hap_data_file:dir_file_class_set { create unlink open };
 
