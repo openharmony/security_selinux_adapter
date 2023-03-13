@@ -45,5 +45,6 @@ allow netsysnative normal_hap_attr:tcp_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:unix_dgram_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:udp_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:unix_stream_socket { read write getopt setopt };
+allow init dev_unix_file:sock_file { unlink };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
