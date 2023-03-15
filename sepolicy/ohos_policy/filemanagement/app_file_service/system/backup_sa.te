@@ -42,3 +42,4 @@ debug_only(`
 
 allow backup_sa hap_domain:binder { call };
 allow backup_sa hap_domain:fd { use };
+allow backup_sa foundation:fd { use };
