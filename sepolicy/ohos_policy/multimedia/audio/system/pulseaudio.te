@@ -154,3 +154,6 @@ allowxperm pulseaudio data_init_agent:file ioctl { 0x5413 };
 allowxperm pulseaudio rootfs:chr_file ioctl { 0x5413 };
 
 allow pulseaudio accessibility_param:file { map open read };
+
+allow pulseaudio sa_foundation_powermgr_service:samgr_class { get };
+allow pulseaudio foundation:binder { call transfer };
