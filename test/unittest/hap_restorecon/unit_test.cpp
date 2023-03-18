@@ -21,7 +21,7 @@
 
 using namespace testing::ext;
 using namespace OHOS::Security::SelinuxUnitTest;
-using namespace selinux;
+using namespace Selinux;
 const static int SLEEP_SECOND = 2;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
 const static std::string TEST_PATH = BASE_PATH + "com.ohos.selftest/";
