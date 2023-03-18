@@ -30,6 +30,8 @@ allow service_router accesstoken_service:binder { call transfer };
 allow service_router sa_accesstoken_manager_service:samgr_class { get };
 allow service_router sa_accountmgr:samgr_class { get };
 allow service_router accountmgr:binder { call transfer};
+allow service_router sa_foundation_abilityms:samgr_class { get };
+allow service_router normal_hap_attr:binder { call };
 allow accountmgr service_router:binder { call transfer};
 allow foundation service_router:binder { call transfer};
 allow system_core_hap service_router:binder { call transfer };
