@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -67,6 +67,10 @@ allow hdf_devmgr disp_gralloc_host:binder { call transfer };
 allow hdf_devmgr disp_gralloc_host:dir { search };
 allow hdf_devmgr disp_gralloc_host:file { open read };
 allow hdf_devmgr disp_gralloc_host:process { getattr };
+allow hdf_devmgr allocator_host:binder { call transfer };
+allow hdf_devmgr allocator_host:dir { search };
+allow hdf_devmgr allocator_host:file { open read };
+allow hdf_devmgr allocator_host:process { getattr };
 allow hdf_devmgr distributedsche_param:file { map open read };
 allow hdf_devmgr face_auth_host:binder { call transfer };
 allow hdf_devmgr face_auth_host:dir { search };
@@ -187,4 +191,8 @@ allow hdf_devmgr wifi_host:dir { search };
 allow hdf_devmgr wifi_host:file { open read };
 allow hdf_devmgr wifi_host:process { getattr };
 allow hdf_devmgr telephony_sa:binder { call };
+allow hdf_devmgr composer_host:binder { call transfer };
+allow hdf_devmgr composer_host:dir { search };
+allow hdf_devmgr composer_host:file { open read };
+allow hdf_devmgr composer_host:process { getattr };
 allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6203 };

@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -39,6 +39,7 @@ audio_hdi_a2dp_service                  u:object_r:hdf_audio_hdi_a2dp_service:s0
 audio_manager_service                   u:object_r:hdf_audio_manager_service:s0
 wlan_hal_service                        u:object_r:hdf_wlan_hal_service:s0
 hdi_display_gralloc_service             u:object_r:hdf_hdi_display_gralloc_service:s0
+display_composer_service                u:object_r:hdf_display_composer_service:s0
 camera_service                          u:object_r:hdf_camera_service:s0
 face_auth_interface_service             u:object_r:hdf_face_auth_interface_service:s0
 pin_auth_interface_service              u:object_r:hdf_pin_auth_interface_service:s0
@@ -61,6 +62,7 @@ bluetooth_audio_session_service         u:object_r:hdf_bluetooth_audio_session_s
 wlan_hal_c_service                      u:object_r:hdf_wlan_hal_c_service:s0
 audio_hdi_pnp_service                   u:object_r:hdf_audio_hdi_pnp_service:s0
 hdi_media_layer_service                 u:object_r:hdf_hdi_media_layer_service:s0
+allocator_service                       u:object_r:hdf_allocator_service:s0
 
 usb_interface_service                   u:object_r:hdf_usb_interface_service:s0
 usbfn_mtp_interface_service             u:object_r:hdf_usbfn_mtp_interface_service:s0
