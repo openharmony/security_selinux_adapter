@@ -330,6 +330,7 @@ allow audio_host devpts:chr_file { read write };
 allow audio_host hdcd:fd { use };
 allow audio_host hdf_audio_hdi_usb_service:hdf_devmgr_class { add get };
 allow audio_host hdf_audio_manager_service:hdf_devmgr_class { add };
+allow audio_host hdf_effect_model_service:hdf_devmgr_class { add };
 allow audio_host sa_device_service_manager:samgr_class { get };
 allow audio_host sh:fd { use };
 allow audio_host sh:binder { transfer };

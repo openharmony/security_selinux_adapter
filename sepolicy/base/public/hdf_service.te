@@ -57,6 +57,7 @@ type hdf_bluetooth_audio_session_service, hdf_service_attr;
 type hdf_wlan_hal_c_service, hdf_service_attr;
 type hdf_audio_hdi_pnp_service, hdf_service_attr;
 type hdf_audio_manager_service, hdf_service_attr;
+type hdf_effect_model_service, hdf_service_attr;
 type hdf_hdi_media_layer_service, hdf_service_attr;
 type hdf_wlan_interface_service, hdf_service_attr;
 type hdf_partition_slot_service, hdf_service_attr;
