@@ -65,6 +65,7 @@ allow ui_service sa_param_watcher:samgr_class { get };
 allow ui_service sa_render_service:samgr_class { get };
 allow ui_service sa_resource_schedule:samgr_class { get };
 allow ui_service sa_subsys_ace_service:samgr_class { add };
+allow ui_service sa_ui_appearance:samgr_class { add };
 allow ui_service security_param:file { map open read };
 allow ui_service startup_param:file { map open read };
 allow ui_service sysfs_devices_system_cpu:file { open read };
