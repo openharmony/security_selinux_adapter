@@ -98,6 +98,8 @@ allow sh data_service_el1_file:file { read write };
 allow sh data_service_el1_public_deviceauthService_file:dir { getattr open read remove_name rmdir search write };
 allow sh data_service_el1_public_huksService_file:dir { getattr open read remove_name rmdir search write };
 allow sh data_service_el1_public_huksService_file:file { getattr unlink };
+allow sh data_service_el2_public_huksService_file:dir { getattr open read remove_name rmdir search write };
+allow sh data_service_el2_public_huksService_file:file { getattr unlink };
 allow sh data_service_el2_file:dir { getattr open read search };
 allow sh data_service_el2_hmdfs:dir { getattr open read search };
 allow sh data_service_file:dir { getattr open read remove_name write };

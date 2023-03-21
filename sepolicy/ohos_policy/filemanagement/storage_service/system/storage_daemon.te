@@ -71,6 +71,11 @@ allow storage_daemon data_service_el2_hmdfs:file { create_file_perms };
 allow storage_daemon data_service_el1_public_huksService_file:dir { search };
 allow storage_daemon data_service_el1_public_huksService_file:file { getattr read open };
 
+#avc:  denied  { search } for  pid=257 comm="storage_daemon" name="huks_service" dev="mmcblk0p11" ino=1044496 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_public_huksService_file:s0 tclass=dir permissive=1
+#avc:  denied  { getattr } for  pid=257 comm="storage_daemon" path="/data/service/el2/huks_service/maindata/root_encrypt_key" dev="mmcblk0p11" ino=1044535 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_public_huksService_file:s0 tclass=file permissive=1
+allow storage_daemon data_service_el2_public_huksService_file:dir { search };
+allow storage_daemon data_service_el2_public_huksService_file:file { getattr read open };
+
 #avc:  denied  { read open } for  pid=1789 comm="event_runner#1" path="/data/service/el2/100/hmdfs/account/files" dev="mmcblk0p11" ino=913996 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
 allow storage_daemon data_user_file:file { create_file_perms };
 allow storage_daemon data_user_file:dir { create_dir_perms };
