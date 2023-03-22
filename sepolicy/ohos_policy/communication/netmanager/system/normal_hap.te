@@ -13,3 +13,4 @@
 
 allow normal_hap_attr normal_hap_attr:udp_socket { getopt };
 allow normal_hap_attr fwmark_service:sock_file { write };
+allow normal_hap netmanager:binder { call transfer };
