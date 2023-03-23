@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -178,6 +178,8 @@ allow init dev_media_file:chr_file { setattr };
 allow init dev_video_file:chr_file { setattr };
 allow init dhardware:process { rlimitinh siginh transition };
 allow init disp_gralloc_host:process { rlimitinh siginh transition };
+allow init allocator_host:process { rlimitinh siginh transition };
+allow init composer_host:process { rlimitinh siginh transition };
 allow init distributeddata:process { rlimitinh siginh transition };
 allow init distributedfiledaemon:process { rlimitinh siginh transition };
 allow init distributedsche_param:file { map open read relabelto };

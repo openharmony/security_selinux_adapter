@@ -55,6 +55,8 @@ allow sh deviceauth_service:dir { getattr search };
 allow sh deviceauth_service:file { open read };
 allow sh disp_gralloc_host:dir { getattr search };
 allow sh disp_gralloc_host:file { open read };
+allow sh allocator_host:dir { getattr search };
+allow sh allocator_host:file { open read };
 allow sh distributeddata:dir { getattr search };
 allow sh distributeddata:file { open read };
 allow sh distributedfiledaemon:dir { getattr search };

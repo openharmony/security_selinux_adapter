@@ -126,6 +126,12 @@ allow normal_hap_attr disp_gralloc_host:fd { use };
 #avc:  denied  { call } for  pid=2169 comm="com.example.web" path="/dmabuf:" dev="dmabuf" ino=35030 ioctlcmd=0x6200 scontext=u:r:normal_hap:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=1
 allow normal_hap_attr disp_gralloc_host:binder { call };
 
+#avc:  denied  { use } for  pid=2526 comm="com.example.web" path="/dmabuf:" dev="dmabuf" ino=35030 ioctlcmd=0x6200 scontext=u:r:normal_hap:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=1
+allow normal_hap_attr allocator_host:fd { use };
+
+#avc:  denied  { call } for  pid=2169 comm="com.example.web" path="/dmabuf:" dev="dmabuf" ino=35030 ioctlcmd=0x6200 scontext=u:r:normal_hap:s0 tcontext=u:r:allocator_host:s0 tclass=binder permissive=1
+allow normal_hap_attr allocator_host:binder { call };
+
 #avc:  denied  { getopt } for  pid=3204 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=unix_dgram_socket permissive=1
 #avc:  denied  { setopt } for  pid=3204 comm="com.example.web" scontext=u:r:normal_hap:s0 tcontext=u:r:normal_hap:s0 tclass=unix_dgram_socket permissive=1
 allow normal_hap_attr normal_hap_attr:unix_dgram_socket { getopt setopt };

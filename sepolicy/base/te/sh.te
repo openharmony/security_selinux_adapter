@@ -130,6 +130,8 @@ allow sh dev_rfkill:chr_file { open read };
 allow sh dev_usb_ffs:dir { search };
 allow sh disp_gralloc_host:dir { getattr search };
 allow sh disp_gralloc_host:file { open read };
+allow sh allocator_host:dir { getattr search };
+allow sh allocator_host:file { open read };
 allow sh distributeddata:dir { getattr search };
 allow sh distributeddata:file { open read };
 allow sh distributedfiledaemon:dir { getattr search };
