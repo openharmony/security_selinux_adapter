@@ -75,7 +75,11 @@ allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 };
 allow netsysnative netmanager:fd { use };
 allow netsysnative netmanager:tcp_socket { read write bind getopt setopt connect };
 allow netmanager sa_foundation_appms:samgr_class { get };
-allow debug_only(`sh') sa_comm_ethernet_manager_service:samgr_class { add get };
+
+debug_only(`
+    allow sh sa_comm_ethernet_manager_service:samgr_class { add get };
+')
+
 allow sa_comm_ethernet_manager_service sa_comm_ethernet_manager_service:samgr_class { add get };
 allow system_basic_hap sa_comm_ethernet_manager_service:samgr_class { add get };
 allow system_core_hap sa_comm_ethernet_manager_service:samgr_class { add get };
