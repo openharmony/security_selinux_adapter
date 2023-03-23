@@ -11,19 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-##################
-## Type define: ##
-##################
-type hilogd, sadomain, domain;
-
-type hilogd_exec, exec_attr, file_attr, system_file_attr;
-type hilog_exec, exec_attr, file_attr, system_file_attr;
-type hilog_control_socket, dev_attr, file_attr;
-type hilog_input_socket, dev_attr, file_attr;
-type hilog_output_socket, dev_attr, file_attr;
-type data_hilogd_file, file_attr, data_file_attr;
-init_daemon_domain(hilogd);
-
 ###################
 ## Macro define: ##
 ###################

@@ -11,10 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-type huks_service, sadomain, domain;
-type huks_service_exec, exec_attr, file_attr, system_file_attr;
-
 init_daemon_domain(huks_service);
 
 binder_call(huks_service, samgr);

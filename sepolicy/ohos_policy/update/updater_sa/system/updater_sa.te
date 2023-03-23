@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type updater_sa, sadomain, domain;
 
 allow updater_sa dev_unix_socket:dir { search };
 allow updater_sa port:tcp_socket { name_connect };

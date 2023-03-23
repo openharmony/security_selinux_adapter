@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type locationhub, sadomain, domain;
-
 #avc:  denied  { get } for service=2803 pid=284 scontext=u:r:locationhub:s0 tcontext=u:object_r:sa_locationhub_lbsservice_gnss:s0 tclass=samgr_class permissive=1
 allow locationhub sa_locationhub_lbsservice_gnss:samgr_class { get };
 

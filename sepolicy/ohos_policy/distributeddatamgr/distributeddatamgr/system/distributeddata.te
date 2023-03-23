@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type distributeddata, sadomain, domain;
-
 allow distributeddata accesstoken_service:binder { call };
 allow distributeddata accountmgr:binder { call };
 allow distributeddata accountmgr:dir { search };

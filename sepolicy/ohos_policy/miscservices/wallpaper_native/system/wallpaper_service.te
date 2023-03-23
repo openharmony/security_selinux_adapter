@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type  wallpaper_service, sadomain, domain;
-
 allow wallpaper_service sa_foundation_dms:samgr_class { get };
 allow wallpaper_service sa_foundation_bms:samgr_class { get };
 allow wallpaper_service system_core_hap:binder { call transfer };

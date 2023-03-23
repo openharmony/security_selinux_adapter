@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type hdf_devmgr_exec, exec_attr, file_attr, system_file_attr;
-type dev_hdf_kevent, dev_attr;
-type dev_hdfwifi, dev_attr;
 
 init_daemon_domain(hdf_devmgr);
 

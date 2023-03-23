@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type installs, sadomain, domain;
-type installs_exec, system_file_attr, exec_attr, file_attr;
-
 init_daemon_domain(installs);
 
 allow installs data_app_el1_file:dir { add_name getattr open read remove_name rmdir search write };

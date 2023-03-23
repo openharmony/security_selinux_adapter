@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type inputmethod_service, sadomain, domain;
-
 allow inputmethod_service vendor_lib_file:file { open read getattr };
 allow inputmethod_service sa_foundation_bms:samgr_class { get };
 allow inputmethod_service dev_unix_socket:dir { search };

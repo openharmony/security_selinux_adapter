@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type  pasteboard_service, sadomain, domain;
-
 allow pasteboard_service system_core_hap:binder { call transfer };
 allow pasteboard_service system_basic_hap:binder { call transfer };
 allow pasteboard_service normal_hap_attr:binder { call transfer };

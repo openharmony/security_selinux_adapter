@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type distributedfiledaemon, sadomain, domain;
-type data_service_el2_hmdfs, file_attr, data_file_attr;
-
 allow distributedfiledaemon sys_fs_hmdfs:dir { read search setattr getattr };
 allow distributedfiledaemon sys_fs_hmdfs:file { setattr getattr open read write };
 

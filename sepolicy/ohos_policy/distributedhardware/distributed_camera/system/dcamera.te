@@ -11,11 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type dcamera, sadomain, domain;
-type sa_dcamera_source_service, sa_service_attr;
-type sa_dcamera_sink_service, sa_service_attr;
-
-
 #avc:  denied  { call } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=2061 comm="ohos.dhardware." scontext=u:r:dcamera:s0 tcontext=u:r:camera_service:s0 tclass=binder permissive=1
 allow dcamera camera_service:binder { call transfer };

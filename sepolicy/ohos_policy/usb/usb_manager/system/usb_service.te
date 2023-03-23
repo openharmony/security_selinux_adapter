@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type sa_usb_service, sa_service_attr;
-
 allow usb_service accessibility_param:file { map open read };
 allow usb_service console:binder { call };
 allow usb_service console:fd { use };

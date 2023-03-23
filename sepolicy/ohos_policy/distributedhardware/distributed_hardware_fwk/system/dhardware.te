@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type dhardware, sadomain, domain;
-type sa_dhardware_service, sa_service_attr;
-
 #avc:  denied  { get_remote } for service=4801 pid=1966 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_dhardware_service:s0 tclass=samgr_class permissive=1
 allow dhardware sa_dhardware_service:samgr_class { get_remote };
 

@@ -11,13 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type useriam, sadomain, domain;
-type sa_useriam_userauth_service, sa_service_attr;
-type sa_useriam_useridm_service, sa_service_attr;
-type sa_useriam_authexecutormgr_service, sa_service_attr;
-type sa_useriam_faceauth_service, sa_service_attr;
-type sa_useriam_fingerprintauth_service, sa_service_attr;
-
 #avc:  denied  { add } for service=901 pid=573 scontext=u:r:useriam:s0 tcontext=u:object_r:sa_useriam_useridm_service:s0 tclass=samgr_class permissive=1
 allow useriam sa_useriam_useridm_service:samgr_class { add };
 

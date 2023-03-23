@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type resource_schedule_service, sadomain, domain;
-
 #service_binder
 allow resource_schedule_service accesstoken_service:binder { call };
 allow resource_schedule_service foundation:binder { call transfer };
@@ -110,9 +108,9 @@ allow resource_schedule_service data_log:file { read write };
 #faultloggerd
 allow resource_schedule_service faultloggerd:fd { use };
 allow resource_schedule_service faultloggerd:unix_stream_socket { connectto };
-#init 
+#init
 allow resource_schedule_service init:dir { search };
-allow resource_schedule_service init:file { getattr open read }; 
+allow resource_schedule_service init:file { getattr open read };
 #limit_domain
 allow resource_schedule_service limit_domain:dir { search };
 allow resource_schedule_service limit_domain:file { getattr open read };
