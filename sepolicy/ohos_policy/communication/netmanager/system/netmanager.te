@@ -28,6 +28,7 @@ allow netmanager dev_unix_socket:dir { search };
 allow netmanager download_server:binder { call };
 allow netmanager foundation:binder { call transfer };
 allow netmanager kernel:unix_stream_socket { connectto };
+allow netmanager musl_param:file { read };
 allow netmanager netmanager:capability { net_admin };
 allow netmanager netmanager:capability { net_raw };
 allow netmanager netmanager:netlink_route_socket { create nlmsg_read read write };
@@ -73,3 +74,12 @@ allowxperm netmanager netmanager:udp_socket ioctl { 0x8915 0x8916 0x891b 0x891c 
 allowxperm netmanager netmanager:unix_dgram_socket ioctl { 0x8910 };
 allow netsysnative netmanager:fd { use };
 allow netsysnative netmanager:tcp_socket { read write bind getopt setopt connect };
+allow netmanager sa_foundation_appms:samgr_class { get };
+
+debug_only(`
+    allow sh sa_comm_ethernet_manager_service:samgr_class { add get };
+')
+
+allow sa_comm_ethernet_manager_service sa_comm_ethernet_manager_service:samgr_class { add get };
+allow system_basic_hap sa_comm_ethernet_manager_service:samgr_class { add get };
+allow system_core_hap sa_comm_ethernet_manager_service:samgr_class { add get };
