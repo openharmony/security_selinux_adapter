@@ -13,3 +13,4 @@
 
 #avc:  denied  { call } for  pid=335 comm="IPC_3_1374" scontext=u:r:accessibility:s0 tcontext=u:r:msdp_sa:s0 tclass=binder permissive=0
 allow accessibility msdp_sa:binder { call };
+

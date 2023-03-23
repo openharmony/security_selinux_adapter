@@ -167,3 +167,4 @@ allow msdp_sa disp_gralloc_host:fd { use };
 #avc:  denied  { open } for  pid=421 comm="RSRenderThread" path="/sys/devices/system/cpu" dev="sysfs" ino=4915 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
 #avc:  denied  { read } for  pid=380 comm="RSRenderThread" name="cpu" dev="sysfs" ino=4915 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
 allow msdp_sa sysfs_devices_system_cpu:dir { open read };
+
