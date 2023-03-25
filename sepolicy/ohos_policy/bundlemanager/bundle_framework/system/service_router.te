@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type service_router, sadomain, domain;
-type sa_service_router_mgr_service, sa_service_attr;
-
 allow service_router samgr:binder { transfer};
 allow service_router foundation:fd { use };
 allow service_router sa_foundation_cesfwk_service:samgr_class { get };

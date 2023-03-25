@@ -110,3 +110,64 @@ allow msdp_sa softbus_server:tcp_socket { read setopt write shutdown };
 
 #avc:  denied  { get } for service=6001 pid=932 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_device_profile_service:s0 tclass=samgr_class permissive=1
 allow msdp_sa sa_device_profile_service:samgr_class { get };
+
+#avc:  denied  { get } for service=401 pid=375 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
+allow msdp_sa sa_foundation_bms:samgr_class { get };
+
+#avc:  denied  { get } for service=10 pid=397 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_render_service:s0 tclass=samgr_class permissive=0
+allow msdp_sa sa_render_service:samgr_class { get };
+
+#avc:  denied  { get } for service=4606 pid=381 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=1
+allow msdp_sa sa_foundation_wms:samgr_class { get };
+
+#avc:  denied  { get } for service=801 pid=363 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_accessibleabilityms:s0 tclass=samgr_class permissive=1
+allow msdp_sa sa_accessibleabilityms:samgr_class { get };
+
+#avc:  denied  { get } for service=1901 pid=363 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_resource_schedule:s0 tclass=samgr_class permissive=1
+allow msdp_sa sa_resource_schedule:samgr_class { get };
+
+#avc:  denied  { call } for  pid=379 comm="device_status_s" scontext=u:r:msdp_sa:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for  pid=429 comm="device_status_s" scontext=u:r:msdp_sa:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=0
+allow msdp_sa render_service:binder { call transfer };
+
+#avc:  denied  { use } for  pid=480 comm="IPC_3_1378" path="socket:[31810]" dev="sockfs" ino=31810 scontext=u:r:msdp_sa:s0 tcontext=u:r:render_service:s0 tclass=fd permissive=0
+allow msdp_sa render_service:fd { use };
+
+#avc:  denied  { transfer } for  pid=391 comm="device_status_s" scontext=u:r:msdp_sa:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
+allow msdp_sa foundation:binder { transfer };
+
+#avc:  denied  { call } for  pid=416 comm="device_status_s" scontext=u:r:msdp_sa:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for  pid=421 comm="device_status_s" scontext=u:r:msdp_sa:s0 tcontext=u:r:accessibility:s0 tclass=binder permissive=0
+allow msdp_sa accessibility:binder { call transfer };
+
+#avc:  denied  { open } for  pid=372 comm="device_status_s" path="/dev/ashmem" dev="tmpfs" ino=191 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
+allow msdp_sa dev_ashmem_file:chr_file { open };
+
+#avc:  denied  { getattr } for  pid=404 comm="RSRenderThread" path="/dev/mali0" dev="tmpfs" ino=133 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+#avc:  denied  { ioctl } for  pid=404 comm="RSRenderThread" path="/dev/mali0" dev="tmpfs" ino=133 ioctlcmd=0x8000 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+#avc:  denied  { map } for  pid=404 comm="RSRenderThread" path="/dev/mali0" dev="tmpfs" ino=133 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+#avc:  denied  { open } for  pid=404 comm="RSRenderThread" path="/dev/mali0" dev="tmpfs" ino=133 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=1
+#avc:  denied  { read write } for  pid=372 comm="RSRenderThread" name="mali0" dev="tmpfs" ino=133 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:dev_mali:s0 tclass=chr_file permissive=0
+allow msdp_sa dev_mali:chr_file { getattr ioctl map open read write };
+allowxperm msdp_sa dev_mali:chr_file ioctl { 0x8000 0x8001 0x8002 0x8003 0x8005 0x8006 0x8007 0x800f 0x800e 0x8011 0x8016 0x8018 0x801d 0x801e 0x8026 };
+
+#avc:  denied  { read write } for  pid=453 comm="IPC_0_469" path="socket:[28935]" dev="sockfs" ino=28935 scontext=u:r:msdp_sa:s0 tcontext=u:r:render_service:s0 tclass=unix_stream_socket permissive=0
+allow msdp_sa render_service:unix_stream_socket { read write };
+#avc:  denied  { search } for  pid=404 comm="msdp" name="usr" dev="mmcblk0p7" ino=2921 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=1
+allow msdp_sa system_usr_file:dir { search };
+
+#avc:  denied  { getattr } for  pid=404 comm="msdp" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p7" ino=2928 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { read } for  pid=404 comm="msdp" name="supported_regions.xml" dev="mmcblk0p7" ino=2928 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=404 comm="msdp" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p7" ino=2928 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow msdp_sa system_usr_file:file { getattr read open };
+
+#avc:  denied  { use } for  pid=474 comm="IPC_1_515" path="/dmabuf:" dev="dmabuf" ino=28462 scontext=u:r:msdp_sa:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
+allow msdp_sa disp_gralloc_host:fd { use };
+
+#avc:  denied  { open } for  pid=421 comm="RSRenderThread" path="/sys/devices/system/cpu" dev="sysfs" ino=4915 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
+#avc:  denied  { read } for  pid=380 comm="RSRenderThread" name="cpu" dev="sysfs" ino=4915 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
+allow msdp_sa sysfs_devices_system_cpu:dir { open read };
+
+#avc:  denied  { use } for  pid=1172 comm="com.ohos.launch" path="/dev/ashmem" dev="tmpfs" ino=188 scontext=u:r:msdp_sa:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=1
+allow msdp_sa system_basic_hap:fd { use };
+

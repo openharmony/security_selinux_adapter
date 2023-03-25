@@ -70,6 +70,7 @@ group("unittest") {
   testonly = true
   deps = [
     ":hap_restorecon_unittest",
+    ":paraperm_checker_unittest",
     ":service_checker_unittest",
   ]
 }

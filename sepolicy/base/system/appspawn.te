@@ -1,0 +1,36 @@
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#todo need to know why data_app_el1_file need write
+#(allow appspawn data_app_el1_file (dir (add_name)))
+#(allow appspawn data_app_el1_file (dir (create)))
+#(allow appspawn data_app_el1_file (dir (mounton)))
+#(allow appspawn data_app_el1_file (dir (search)))
+#(allow appspawn data_app_el1_file (dir (write)))
+#(allow appspawn data_app_el2_file (dir (search)))
+#(allow appspawn data_app_file (dir (search)))
+#(allow appspawn normal_hap_data_file_attr (dir (mounton)))
+#(allow appspawn system_basic_hap_data_file (dir (mounton)))
+#(allow appspawn system_core_hap_data_file (dir (mounton)))
+
+neverallow appspawn { hap_file_attr -data_app_el1_file -data_app_el2_file -data_service_el2_file }:dir ~{ getattr search mounton };
+
+neverallow appspawn data_cache:dir ~{ read_dir_perms };
+
+neverallow appspawn data_cache:file ~{ read getattr };
+
+neverallow appspawn data_file_attr:file never_execute_file;
+
+neverallow { domain -appspawn -foundation -ui_service } appspawn:unix_stream_socket connectto;
+
+neverallow appspawn hap_file_attr:file { rw_file_perms exec_file_perms };

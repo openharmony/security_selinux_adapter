@@ -27,7 +27,7 @@
 #include "selinux_error.h"
 #include "service_checker.h"
 
-using namespace selinux;
+using namespace Selinux;
 
 static std::unique_ptr<ServiceChecker> g_service = nullptr;
 

@@ -11,10 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-type huks_service, sadomain, domain;
-type huks_service_exec, exec_attr, file_attr, system_file_attr;
-
 init_daemon_domain(huks_service);
 
 binder_call(huks_service, samgr);
@@ -24,6 +20,9 @@ allow huks_service data_service_file:dir { search };
 allow huks_service data_service_el1_file:dir { search };
 allow huks_service data_service_el1_public_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
 allow huks_service data_service_el1_public_huksService_file:file { create getattr ioctl open read setattr unlink write };
+allow huks_service data_service_el2_file:dir { search };
+allow huks_service data_service_el2_public_huksService_file:dir { add_name create open read remove_name search write rmdir getattr setattr };
+allow huks_service data_service_el2_public_huksService_file:file { create getattr ioctl open read setattr unlink write };
 allow huks_service foundation:binder { call transfer };
 allow huks_service vendor_lib_file:dir { search };
 allow huks_service samain_exec:file { entrypoint execute map read };

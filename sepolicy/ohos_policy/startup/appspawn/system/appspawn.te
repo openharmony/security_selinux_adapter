@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type appspawn, domain, nativedomain;
-type appspawn_exec, system_file_attr, exec_attr, file_attr;
-
 init_daemon_domain(appspawn);
 
 allow appspawn dev_unix_socket:sock_file unlink;
@@ -24,7 +21,7 @@ allow appspawn paramservice_socket:sock_file { write };
 allow appspawn kernel:unix_stream_socket { connectto };
 allow appspawn dev_unix_socket:sock_file write;
 allow appspawn data_service_el2_file:dir { search write add_name create };
-allow appspawn data_app_el2_file:dir { search mounton write add_name create };
+allow appspawn data_app_el2_file:dir { search mounton write add_name create setattr getattr};
 allow appspawn sharefs:dir { create_dir_perms mounton };
 allow appspawn sharefs:filesystem { mount };
 allow appspawn data_service_el2_share:dir { create_dir_perms mounton };

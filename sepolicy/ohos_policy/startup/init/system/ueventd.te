@@ -11,8 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type ueventd, domain, nativedomain;
-type ueventd_exec, system_file_attr, exec_attr, file_attr;
-
 init_daemon_domain(ueventd);
 

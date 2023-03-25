@@ -11,14 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type hiview, sadomain, domain;
-
-type hiview_exec, exec_attr, file_attr, system_file_attr;
-type hisysevent_exec, exec_attr, file_attr, system_file_attr;
-type usage_report_exec, exec_attr, file_attr, system_file_attr;
-type hiview_file, file_attr, data_file_attr;
-type hisysevent_socket, dev_attr, file_attr;
-
 init_daemon_domain(hiview);
 
 define(`use_hisysevent', `

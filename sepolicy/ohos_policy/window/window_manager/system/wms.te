@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type sa_foundation_wms, sa_service_attr;
-type sa_foundation_dms, sa_service_attr;
-
 allow foundation accessibility:binder { call };
 allow foundation accesstoken_service:binder { call };
 allow foundation bootanimation:binder { call };

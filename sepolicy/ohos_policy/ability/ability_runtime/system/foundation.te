@@ -40,6 +40,7 @@ allow foundation foundation:unix_dgram_socket { getopt setopt };
 allow foundation hdcd:binder { transfer };
 allow foundation hdf_devmgr:binder { call transfer };
 allow foundation hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
+allow foundation hdf_allocator_service:hdf_devmgr_class { get };
 allow foundation hiview:binder { transfer };
 allow foundation memmgrservice:binder { call transfer };
 allow foundation multimodalinput:unix_stream_socket { read };

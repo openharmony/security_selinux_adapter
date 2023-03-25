@@ -20,6 +20,7 @@ allow init hisysevent_socket:sock_file { unlink setattr };
 allow init system_core_hap:file { read open };
 allow init system_core_hap:dir { search };
 allow init system_core_hap:process { getattr };
+allow init system_lib_file:dir { open read };
 
 allow init accessibility_param:file { map open read relabelto relabelfrom };
 allow init const_postinstall_param:file { map open read relabelto relabelfrom };

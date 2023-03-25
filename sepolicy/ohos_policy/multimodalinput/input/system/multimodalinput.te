@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type multimodalinput, sadomain, domain;
-
 allow multimodalinput accessibility_param:file { read };
 allow multimodalinput bootanimation:fd { use };
 allow multimodalinput data_file:dir { search };
@@ -35,6 +33,9 @@ allow multimodalinput dev_unix_socket:sock_file { write };
 allow multimodalinput disp_gralloc_host:binder { call };
 allow multimodalinput disp_gralloc_host:fd { use };
 allow multimodalinput hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
+allow multimodalinput allocator_host:binder { call };
+allow multimodalinput allocator_host:fd { use };
+allow multimodalinput hdf_allocator_service:hdf_devmgr_class { get };
 allow multimodalinput faultloggerd_socket:sock_file { write };
 allow multimodalinput faultloggerd:unix_stream_socket { connectto };
 allow multimodalinput foundation:binder { call transfer };

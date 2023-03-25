@@ -29,6 +29,7 @@ allow camera_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow camera_host dev_unix_socket:dir { search };
 allow camera_host dev_video_file:chr_file { getattr ioctl open read write };
 allow camera_host disp_gralloc_host:binder { call };
+allow camera_host allocator_host:binder { call };
 allow camera_host distributedsche_param:file { map open read };
 allow camera_host hdf_devmgr:binder { call transfer };
 allow camera_host hilog_param:file { map open read };

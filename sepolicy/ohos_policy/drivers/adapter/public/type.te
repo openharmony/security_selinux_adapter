@@ -27,3 +27,8 @@ type pin_auth_host, hdfdomain, domain;
 type user_auth_host, hdfdomain, domain;
 type fingerprint_auth_host, hdfdomain, domain;
 type partitionslot_host, hdfdomain, domain;
+
+type debugfs_usb, fs_attr, debugfs_attr;
+type hdf_devmgr_exec, exec_attr, file_attr, system_file_attr;
+type dev_hdf_kevent, dev_attr;
+type dev_hdfwifi, dev_attr;

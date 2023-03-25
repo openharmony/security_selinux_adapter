@@ -21,7 +21,7 @@
 
 using namespace testing::ext;
 using namespace OHOS::Security::SelinuxUnitTest;
-using namespace selinux;
+using namespace Selinux;
 const static int SLEEP_SECOND = 2;
 const static std::string BASE_PATH = "/data/app/el1/0/base/";
 const static std::string TEST_PATH = BASE_PATH + "com.ohos.selftest/";
@@ -683,7 +683,7 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon011, TestSize.Level1)
 
 /**
  * @tc.name: HapFileRestorecon012
- * @tc.desc: HapFileRestorecon selinux not enbaled.
+ * @tc.desc: HapFileRestorecon selinux not enabled.
  * @tc.type: FUNC
  * @tc.require:
  */
@@ -691,7 +691,6 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon012, TestSize.Level1)
 {
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_1));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_1_FILE_2));
-
     std::vector<std::string> tmp;
     tmp.emplace_back(TEST_SUB_PATH_1);
 

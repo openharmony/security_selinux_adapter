@@ -11,10 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type render_service, sadomain, domain;
-type render_service_exec, exec_attr, file_attr, system_file_attr;
-type sa_render_service, sa_service_attr;
-
 init_daemon_domain(render_service);
 
 allow render_service data_file:dir { search };
@@ -28,6 +24,8 @@ allow render_service dev_unix_socket:dir { search };
 allow render_service dev_unix_socket:sock_file { write };
 allow render_service disp_gralloc_host:binder { call };
 allow render_service disp_gralloc_host:fd { use };
+allow render_service allocator_host:binder { call };
+allow render_service allocator_host:fd { use };
 allow render_service foundation:binder { call transfer };
 allow render_service foundation:fd { use };
 allow render_service normal_hap_attr:binder { call };
@@ -61,3 +59,6 @@ allowxperm render_service dev_rga:chr_file ioctl 0x5017;
 
 #avc:  denied  { get } for service=hdi_display_gralloc_service pid=437 scontext=u:r:render_service:s0 tcontext=u:object_r:hdf_hdi_display_gralloc_service:s0 tclass=hdf_devmgr_class permissive=1
 hdi_call(render_service, hdf_hdi_display_gralloc_service)
+
+#avc:  denied  { get } for service=hdi_display_gralloc_service pid=437 scontext=u:r:render_service:s0 tcontext=u:object_r:hdf_allocator_service:s0 tclass=hdf_devmgr_class permissive=1
+hdi_call(render_service, hdf_allocator_service)

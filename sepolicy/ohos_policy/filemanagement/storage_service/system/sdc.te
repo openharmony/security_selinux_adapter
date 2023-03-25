@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type sdc, sadomain, domain;
-type sdc_exec, exec_attr, file_attr, system_file_attr;
-
 allow sdc hmdfs:dir { read search setattr getattr mounton };
 allow sdc vfat:dir { read search setattr getattr mounton };
 allow sdc exfat:dir { read search setattr getattr mounton };

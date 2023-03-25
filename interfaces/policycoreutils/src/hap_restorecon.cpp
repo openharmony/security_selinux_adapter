@@ -42,7 +42,7 @@
 #include "selinux_error.h"
 #include "selinux_log.h"
 
-using namespace selinux;
+using namespace Selinux;
 
 namespace {
 static const std::string SEHAP_CONTEXTS_FILE = "/system/etc/selinux/targeted/contexts/sehap_contexts";

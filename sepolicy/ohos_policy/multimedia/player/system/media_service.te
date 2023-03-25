@@ -89,3 +89,4 @@ allow media_service data_media_log_file:file { create read open getattr write ap
 allowxperm media_service data_media_log_file:file ioctl { 0x5413 };
 
 allow media_service data_media_log_file:dir { create add_name write search };
+allow media_service normal_hap_data_file:file { write };
