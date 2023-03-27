@@ -89,5 +89,3 @@ allow system_core_hap pasteboard_service:fd { use };
 
 allow pasteboard_service system_basic_hap:fd { use };
 allow system_basic_hap pasteboard_service:fd { use };
-
-allow pasteboard_service time_service:binder { call };
