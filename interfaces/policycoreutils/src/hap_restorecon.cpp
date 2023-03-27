@@ -224,10 +224,6 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
             return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
         }
     }
-    if (!isalpha(packageName.back())) {
-        selinux_log(SELINUX_ERROR, "packageName is invaild");
-        return -SELINUX_ARG_INVALID;
-    }
 
     std::string type;
     if ((hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) == 0) {
