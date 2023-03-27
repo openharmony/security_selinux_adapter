@@ -13,6 +13,7 @@
 
 declare_args() {
   selinux_build_path = "default"
+  components = "default"
 }
 
 declare_args() {

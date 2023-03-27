@@ -21,9 +21,10 @@
 #include <unordered_map>
 #include <vector>
 #include <selinux/context.h>
+#include "sehap_contexts_trie.h"
 
-#define SELINUX_HAP_RESTORECON_RECURSE 1
-
+#define SELINUX_HAP_RESTORECON_RECURSE 1    // whether the data directory need recurse
+#define SELINUX_HAP_RESTORECON_PREINSTALLED_APP 1   // whether it is a pre-built app
 // parameters of each SehapInfo in file sehap_contexts
 struct SehapInfo {
     std::string apl = "";
@@ -32,23 +33,40 @@ struct SehapInfo {
     std::string type = "";
 };
 
+struct HapFileInfo {
+    std::vector<std::string> pathNameOrig;
+    std::string apl;
+    std::string packageName;
+    unsigned int flags;
+    unsigned int hapFlags = 0;
+};
+
+struct HapDomainInfo {
+    std::string apl;
+    std::string packageName;
+    unsigned int hapFlags = 0;
+};
+
 class HapContext {
 public:
     HapContext();
     ~HapContext();
-    int HapFileRestorecon(std::vector<std::string> &pathNameOrig, const std::string &apl,
-                          const std::string &packageName, unsigned int flags);
-    int HapFileRestorecon(const std::string &pathNameOrig, const std::string &apl, const std::string &packageName,
-                          unsigned int flags);
-    int HapDomainSetcontext(const std::string &apl, const std::string &packageName);
+    int HapFileRestorecon(HapFileInfo& hapFileInfo);
+
+    int HapDomainSetcontext(HapDomainInfo& hapDomainInfo);
 
 protected:
 private:
-    int RestoreconSb(const std::string &pathname, const struct stat *sb, const std::string &apl,
-                     const std::string &packageName);
-    int HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName, context_t con);
-    int HapLabelLookup(const std::string &apl, const std::string &packageName, char **secontextPtr);
-    int TypeSet(std::unordered_map<std::string, SehapInfo>::iterator &iter, bool isDomain, context_t con);
+    int HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& hapFileInfo);
+    int RestoreconSb(const std::string &pathNameOrig, const struct stat *sb, HapFileInfo& hapFileInfo);
+    int HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
+        context_t con, unsigned int hapFlags);
+    int HapLabelLookup(const std::string &apl, const std::string &packageName,
+        char **secontextPtr, unsigned int hapFlags);
+    int TypeSet(const std::string &type, context_t con);
+    int GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNameOrig,
+        char **newSecontext, char **oldSecontext);
+    int HapFileRecurseRestorecon(char *realPath, HapFileInfo& hapFileInfo);
 };
 
 #endif // HAP_RESTORECON_H
