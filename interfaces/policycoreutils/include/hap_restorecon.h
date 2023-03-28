@@ -56,17 +56,17 @@ public:
     int HapDomainSetcontext(HapDomainInfo& hapDomainInfo);
 
 protected:
-private:
     int HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& hapFileInfo);
-    int RestoreconSb(const std::string &pathNameOrig, const struct stat *sb, HapFileInfo& hapFileInfo);
-    int HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
-        context_t con, unsigned int hapFlags);
-    int HapLabelLookup(const std::string &apl, const std::string &packageName,
-        char **secontextPtr, unsigned int hapFlags);
-    int TypeSet(const std::string &type, context_t con);
+    int HapFileRecurseRestorecon(char *realPath, HapFileInfo& hapFileInfo);
+    int RestoreconSb(const std::string &pathNameOrig, HapFileInfo& hapFileInfo);
     int GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNameOrig,
         char **newSecontext, char **oldSecontext);
-    int HapFileRecurseRestorecon(char *realPath, HapFileInfo& hapFileInfo);
+    int HapLabelLookup(const std::string &apl, const std::string &packageName,
+        char **secontextPtr, unsigned int hapFlags);
+
+    int HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
+        context_t con, unsigned int hapFlags);
+    int TypeSet(const std::string &type, context_t con);
 };
 
 #endif // HAP_RESTORECON_H

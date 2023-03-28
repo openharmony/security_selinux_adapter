@@ -203,53 +203,148 @@ HapContext::HapContext()
 
 HapContext::~HapContext() {}
 
-int HapContext::TypeSet(const std::string &type, context_t con)
+int HapContext::HapFileRestorecon(HapFileInfo& hapFileInfo)
 {
-    if (type.empty()) {
-        selinux_log(SELINUX_ERROR, "type is empty in contexts file");
+    if (hapFileInfo.apl.empty() || hapFileInfo.pathNameOrig.empty() || !CheckApl(hapFileInfo.apl)) {
         return -SELINUX_ARG_INVALID;
     }
-    if (context_type_set(con, type.c_str())) {
-        selinux_log(SELINUX_ERROR, "%s %s\n", GetErrStr(SELINUX_SET_CONTEXT_TYPE_ERROR), type.c_str());
-        return -SELINUX_SET_CONTEXT_TYPE_ERROR;
+    bool failFlag = false;
+    for (auto pathname : hapFileInfo.pathNameOrig) {
+        int res = HapFileRestorecon(pathname.c_str(), hapFileInfo);
+        if (res != SELINUX_SUCC) {
+            failFlag = true;
+            selinux_log(SELINUX_ERROR, "HapFileRestorecon fail for path: %s, errorNo: %d", pathname.c_str(), res);
+        }
     }
+    return failFlag ? -SELINUX_RESTORECON_ERROR : SELINUX_SUCC;
+}
+
+int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& hapFileInfo)
+{
+    if (hapFileInfo.apl.empty() || pathNameOrig.empty() || !CheckApl(hapFileInfo.apl)) {
+        return -SELINUX_ARG_INVALID;
+    }
+    if (is_selinux_enabled() < 1) {
+        selinux_log(SELINUX_INFO, "Selinux not enbaled");
+        return SELINUX_SUCC;
+    }
+
+    char realPath[PATH_MAX];
+    if (realpath(pathNameOrig.c_str(), realPath) == nullptr) {
+        return -SELINUX_PATH_INVAILD;
+    }
+
+    if (!CheckPath(std::string(realPath))) {
+        return -SELINUX_PATH_INVAILD;
+    }
+
+    char *newSecontext = nullptr;
+    char *oldSecontext = nullptr;
+    int res = GetSecontext(hapFileInfo, pathNameOrig, &newSecontext, &oldSecontext);
+    if (res < 0) {
+        return res;
+    }
+    if (strcmp(oldSecontext, newSecontext) == 0) {
+        freecon(newSecontext);
+        freecon(oldSecontext);
+        return SELINUX_SUCC;
+    }
+    freecon(newSecontext);
+    freecon(oldSecontext);
+    // determine whether needs recurse
+    bool recurse = (hapFileInfo.flags & SELINUX_HAP_RESTORECON_RECURSE) ? true : false;
+    if (!recurse) {
+        int res = RestoreconSb(realPath, hapFileInfo);
+        if (res < 0) {
+            selinux_log(SELINUX_ERROR, "RestoreconSb failed");
+        }
+        return res;
+    }
+    return HapFileRecurseRestorecon(realPath, hapFileInfo);
+}
+
+int HapContext::HapFileRecurseRestorecon(char *realPath, HapFileInfo& hapFileInfo)
+{
+    char *paths[2] = {NULL, NULL};
+    paths[0] = realPath;
+    int ftsFlags = FTS_PHYSICAL | FTS_NOCHDIR;
+    FTS *fts = fts_open(paths, ftsFlags, NULL);
+    if (fts == nullptr) {
+        selinux_log(SELINUX_ERROR, "%s on %s: %s\n", GetErrStr(SELINUX_FTS_OPEN_ERROR), paths[0], strerror(errno));
+        return -SELINUX_FTS_OPEN_ERROR;
+    }
+
+    FTSENT *ftsent = nullptr;
+    int error = 0;
+    while ((ftsent = fts_read(fts)) != NULL) {
+        switch (ftsent->fts_info) {
+            case FTS_DC:
+                selinux_log(SELINUX_ERROR, "%s on %s\n", GetErrStr(SELINUX_FTS_ELOOP), ftsent->fts_path);
+                (void)fts_close(fts);
+                return -SELINUX_FTS_ELOOP;
+            case FTS_DP:
+                continue;
+            case FTS_DNR:
+                selinux_log(SELINUX_ERROR, "Read error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
+                fts_set(fts, ftsent, FTS_SKIP);
+                continue;
+            case FTS_ERR:
+                selinux_log(SELINUX_ERROR, "Error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
+                fts_set(fts, ftsent, FTS_SKIP);
+                continue;
+            case FTS_NS:
+                selinux_log(SELINUX_ERROR, "stat error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
+                fts_set(fts, ftsent, FTS_SKIP);
+                continue;
+            case FTS_D:
+            default:
+                error += RestoreconSb(ftsent->fts_path, hapFileInfo);
+                break;
+        }
+    }
+    (void)fts_close(fts);
+    return error;
+}
+
+int HapContext::RestoreconSb(const std::string &pathNameOrig, HapFileInfo& hapFileInfo)
+{
+    char *newSecontext = nullptr;
+    char *oldSecontext = nullptr;
+    int res = GetSecontext(hapFileInfo, pathNameOrig, &newSecontext, &oldSecontext);
+    if (res < 0) {
+        return res;
+    }
+
+    if (strcmp(oldSecontext, newSecontext)) {
+        if (lsetfilecon(pathNameOrig.c_str(), newSecontext) < 0) {
+            freecon(newSecontext);
+            freecon(oldSecontext);
+            return -SELINUX_SET_CONTEXT_ERROR;
+        }
+    }
+    freecon(newSecontext);
+    freecon(oldSecontext);
     return SELINUX_SUCC;
 }
 
-int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
-    context_t con, unsigned int hapFlags)
+int HapContext::GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNameOrig,
+    char **newSecontext, char **oldSecontext)
 {
-    if (g_sehapContextsTrie == nullptr) {
-        if (!HapContextsLoad()) {
-            return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
-        }
-    }
-    if (!isalpha(packageName.back())) {
-        selinux_log(SELINUX_ERROR, "packageName is invaild");
-        return -SELINUX_ARG_INVALID;
+    if (lgetfilecon(pathNameOrig.c_str(), oldSecontext) < 0) {
+        return -SELINUX_GET_CONTEXT_ERROR;
     }
 
-    std::string type;
-    if ((hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) == 0) {
-        selinux_log(SELINUX_INFO, "not a preinstall hap, apl: %s", apl.c_str());
-        type = g_sehapContextsTrie->Search(apl, isDomain);
-    } else {
-        selinux_log(SELINUX_INFO, "apl: %s, packageName: %s", apl.c_str(), packageName.c_str());
-        type = g_sehapContextsTrie->Search(apl + "." + packageName, isDomain);
+    int res = HapLabelLookup(hapFileInfo.apl, hapFileInfo.packageName, newSecontext, hapFileInfo.hapFlags);
+    if (res < 0) {
+        freecon(*oldSecontext);
+        return res;
     }
-
-    if (!type.empty()) {
-        return TypeSet(type, con);
-    }
-    return -SELINUX_KEY_NOT_FOUND;
+    return SELINUX_SUCC;
 }
 
 int HapContext::HapLabelLookup(const std::string &apl, const std::string &packageName,
     char **secontextPtr, unsigned int hapFlags)
 {
-    if (apl.empty()) {
-        return -SELINUX_ARG_INVALID;
-    }
     *secontextPtr = strdup(DEFAULT_CONTEXT);
     if (*secontextPtr == nullptr) {
         return -SELINUX_PTR_NULL;
@@ -298,150 +393,6 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
     }
     context_free(con);
     return SELINUX_SUCC;
-}
-
-int HapContext::RestoreconSb(const std::string &pathNameOrig, const struct stat *sb, HapFileInfo& hapFileInfo)
-{
-    char *newSecontext = nullptr;
-    char *oldSecontext = nullptr;
-    int res = GetSecontext(hapFileInfo, pathNameOrig, &newSecontext, &oldSecontext);
-    if (res < 0) {
-        return res;
-    }
-
-    if (strcmp(oldSecontext, newSecontext)) {
-        if (lsetfilecon(pathNameOrig.c_str(), newSecontext) < 0) {
-            freecon(newSecontext);
-            freecon(oldSecontext);
-            return -SELINUX_SET_CONTEXT_ERROR;
-        }
-    }
-    freecon(newSecontext);
-    freecon(oldSecontext);
-    return SELINUX_SUCC;
-}
-
-int HapContext::HapFileRestorecon(HapFileInfo& hapFileInfo)
-{
-    if (hapFileInfo.apl.empty() || hapFileInfo.pathNameOrig.empty() || !CheckApl(hapFileInfo.apl)) {
-        return -SELINUX_ARG_INVALID;
-    }
-    bool failFlag = false;
-    for (auto pathname : hapFileInfo.pathNameOrig) {
-        int res = HapFileRestorecon(pathname.c_str(), hapFileInfo);
-        if (res != SELINUX_SUCC) {
-            failFlag = true;
-            selinux_log(SELINUX_ERROR, "HapFileRestorecon fail for path: %s, errorNo: %d", pathname.c_str(), res);
-        }
-    }
-    return failFlag ? -SELINUX_RESTORECON_ERROR : SELINUX_SUCC;
-}
-
-int HapContext::GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNameOrig,
-    char **newSecontext, char **oldSecontext)
-{
-    if (lgetfilecon(pathNameOrig.c_str(), oldSecontext) < 0) {
-        return -SELINUX_GET_CONTEXT_ERROR;
-    }
-
-    int res = HapLabelLookup(hapFileInfo.apl, hapFileInfo.packageName, newSecontext, hapFileInfo.hapFlags);
-    if (res < 0) {
-        freecon(*oldSecontext);
-        return res;
-    }
-    return SELINUX_SUCC;
-}
-
-int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& hapFileInfo)
-{
-    if (hapFileInfo.apl.empty() || pathNameOrig.empty() || !CheckApl(hapFileInfo.apl)) {
-        return -SELINUX_ARG_INVALID;
-    }
-    if (is_selinux_enabled() < 1) {
-        selinux_log(SELINUX_INFO, "Selinux not enbaled");
-        return SELINUX_SUCC;
-    }
-
-    struct stat sb;
-    char realPath[PATH_MAX];
-    if (realpath(pathNameOrig.c_str(), realPath) == nullptr) {
-        return -SELINUX_PATH_INVAILD;
-    }
-
-    if (!CheckPath(std::string(realPath))) {
-        return -SELINUX_PATH_INVAILD;
-    }
-
-    char *newSecontext = nullptr;
-    char *oldSecontext = nullptr;
-    int res = GetSecontext(hapFileInfo, pathNameOrig, &newSecontext, &oldSecontext);
-    if (res < 0) {
-        return res;
-    }
-    if (strcmp(oldSecontext, newSecontext) == 0) {
-        freecon(newSecontext);
-        freecon(oldSecontext);
-        return SELINUX_SUCC;
-    }
-    freecon(newSecontext);
-    freecon(oldSecontext);
-
-    bool recurse = (hapFileInfo.flags & SELINUX_HAP_RESTORECON_RECURSE) ? true : false;
-    if (!recurse) {
-        if (lstat(realPath, &sb) < 0) {
-            return -SELINUX_STAT_INVAILD;
-        }
-
-        int res = RestoreconSb(realPath, &sb, hapFileInfo);
-        if (res < 0) {
-            selinux_log(SELINUX_ERROR, "RestoreconSb failed");
-        }
-        return res;
-    }
-    return HapFileRecurseRestorecon(realPath, hapFileInfo);
-}
-
-int HapContext::HapFileRecurseRestorecon(char *realPath, HapFileInfo& hapFileInfo)
-{
-    char *paths[2] = {NULL, NULL};
-    paths[0] = realPath;
-    int ftsFlags = FTS_PHYSICAL | FTS_NOCHDIR;
-    FTS *fts = fts_open(paths, ftsFlags, NULL);
-    if (fts == nullptr) {
-        selinux_log(SELINUX_ERROR, "%s on %s: %s\n", GetErrStr(SELINUX_FTS_OPEN_ERROR), paths[0], strerror(errno));
-        return -SELINUX_FTS_OPEN_ERROR;
-    }
-
-    FTSENT *ftsent = nullptr;
-    int error = 0;
-    while ((ftsent = fts_read(fts)) != NULL) {
-        switch (ftsent->fts_info) {
-            case FTS_DC:
-                selinux_log(SELINUX_ERROR, "%s on %s\n", GetErrStr(SELINUX_FTS_ELOOP), ftsent->fts_path);
-                (void)fts_close(fts);
-                return -SELINUX_FTS_ELOOP;
-            case FTS_DP:
-                continue;
-            case FTS_DNR:
-                selinux_log(SELINUX_ERROR, "Read error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
-                fts_set(fts, ftsent, FTS_SKIP);
-                continue;
-            case FTS_ERR:
-                selinux_log(SELINUX_ERROR, "Error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
-                fts_set(fts, ftsent, FTS_SKIP);
-                continue;
-            case FTS_NS:
-                selinux_log(SELINUX_ERROR, "stat error on %s, errorno: %s\n", ftsent->fts_path, strerror(errno));
-                fts_set(fts, ftsent, FTS_SKIP);
-                continue;
-            case FTS_D:
-            default:
-                error += RestoreconSb(ftsent->fts_path, ftsent->fts_statp, hapFileInfo);
-                break;
-        }
-    }
-    (void)fts_close(fts);
-    return error;
 }
 
 int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
@@ -502,5 +453,42 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
 
     freecon(oldTypeContext);
     context_free(con);
+    return SELINUX_SUCC;
+}
+
+int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
+    context_t con, unsigned int hapFlags)
+{
+    if (g_sehapContextsTrie == nullptr) {
+        if (!HapContextsLoad()) {
+            return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+        }
+    }
+
+    std::string type;
+    if ((hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) == 0) {
+        selinux_log(SELINUX_INFO, "not a preinstall hap, apl: %s", apl.c_str());
+        type = g_sehapContextsTrie->Search(apl, isDomain);
+    } else {
+        selinux_log(SELINUX_INFO, "apl: %s, packageName: %s", apl.c_str(), packageName.c_str());
+        type = g_sehapContextsTrie->Search(apl + "." + packageName, isDomain);
+    }
+
+    if (!type.empty()) {
+        return TypeSet(type, con);
+    }
+    return -SELINUX_KEY_NOT_FOUND;
+}
+
+int HapContext::TypeSet(const std::string &type, context_t con)
+{
+    if (type.empty()) {
+        selinux_log(SELINUX_ERROR, "type is empty in contexts file");
+        return -SELINUX_ARG_INVALID;
+    }
+    if (context_type_set(con, type.c_str())) {
+        selinux_log(SELINUX_ERROR, "%s %s\n", GetErrStr(SELINUX_SET_CONTEXT_TYPE_ERROR), type.c_str());
+        return -SELINUX_SET_CONTEXT_TYPE_ERROR;
+    }
     return SELINUX_SUCC;
 }

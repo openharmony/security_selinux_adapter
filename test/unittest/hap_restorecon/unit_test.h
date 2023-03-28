@@ -17,7 +17,9 @@
 #define HAP_RESTORECON_SELINUX_UNIT_TEST_H
 
 #include <gtest/gtest.h>
+#define protected public
 #include "hap_restorecon.h"
+#undef protected
 
 namespace OHOS {
 namespace Security {
