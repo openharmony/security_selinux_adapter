@@ -49,12 +49,18 @@ allow init dev_unix_file:sock_file { unlink };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8927 0x8954 };
-allow debug_only(`sh') netsysnative:binder { call transfer };
+debug_only(`
+  allow sh netsysnative:binder { call transfer };
+  allow sh sh:bpf { map_read prog_load map_create map_write };
+  allow sh sa_netsys_ext_service:samgr_class { add get };
+  allow sh fs_bpf:dir { getattr search mounton add_name create write };
+  allow sh netsysnative:lnk_file { read };
+  allow sh fs_bpf:file { create write read };
+  allow sh sa_distributed_net_service:samgr_class { add get };
+')
 allow netsysnative netsysnative:packet_socket { create ioctl };
-allow debug_only(`sh') sh:bpf { map_read prog_load map_create map_write };
 allow netsysnative netsysnative:bpf { map_read prog_load map_create prog_run map_write };
 allow netsysnative data_file:file { read };
-allow debug_only(`sh') sa_netsys_ext_service:samgr_class { add get };
 allow netsysnative sa_netsys_ext_service:samgr_class { add get };
 allow netmanager sa_netsys_ext_service:samgr_class { add get };
 allow sa_netsys_ext_service sa_netsys_ext_service:samgr_class { add get };
@@ -84,13 +90,9 @@ allow netsysnative tracefs_trace_marker_file:file { write open };
 allow netsysnative sys_file:dir { mounton };
 allow netsysnative fs_bpf:dir { getattr search mounton add_name create write };
 allow netsysnative fs_bpf:file { create write read };
-allow debug_only(`sh') fs_bpf:dir { getattr search mounton add_name create write };
-allow debug_only(`sh') netsysnative:lnk_file { read };
-allow debug_only(`sh') fs_bpf:file { create write read };
 allow netsysnative fs_bpf:filesystem { mount };
 allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
 
-allow debug_only(`sh') sa_distributed_net_service:samgr_class { add get };
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 allow netmanager sa_distributed_net_service:samgr_class { add get };
 allow sa_distributed_net_service sa_distributed_net_service:samgr_class { add get };
