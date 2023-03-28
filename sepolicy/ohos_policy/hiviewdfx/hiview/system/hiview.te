@@ -128,3 +128,13 @@ allow hiview dev_asanlog_file:file { read_file_perms };
 #avc:  denied  { relabelto } for  pid=3281 comm="init" name="asanlog" dev="tmpfs" ino=629 scontext=u:r:init:s0 tcontext=u:object_r:dev_asanlog_file:s0 tclass=dir permissive=0
 #avc:  denied  { getattr } for  pid=3281 comm="init" path="/dev/asanlog/asan.log.2718" dev="tmpfs" ino=727 scontext=u:r:init:s0 tcontext=u:object_r:dev_file:s0 tclass=file permissive=0
 allow init dev_asanlog_file:dir { setattr read getattr relabelto };
+
+allow hiview kernel:system { syslog_read };
+
+allow hiview hilog_exec:file { execute read open execute_no_trans map };
+
+allow hiview hilog_output_socket:sock_file { write };
+
+allow hiview hilogd:unix_stream_socket { connectto };
+
+allow hiview hitrace_exec:file { execute read open execute_no_trans map };
