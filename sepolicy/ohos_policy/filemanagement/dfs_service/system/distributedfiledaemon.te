@@ -55,6 +55,12 @@ allow  distributedfiledaemon sa_foundation_battery_service:samgr_class { get };
 
 #kmsg: audit: type=1400 audit(1676302293.484:6726): avc:  denied  { call } for  pid=622 comm="IPC_1_896" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
 
+#avc:  denied  { get } for service=5204 pid=1345 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_filemanagement_cloud_sync_service:s0 tclass=samgr_class permissive=1
+allow hap_domain sa_filemanagement_cloud_sync_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=1572 comm="IPC_3_1618" scontext=u:r:system_core_hap:s0 tcontext=u:r:distributedfiledaemon:s0 tclass=binder permissive=1
+allow hap_domain distributedfiledaemon:binder { call };
+
 debug_only(`
     allow distributedfiledaemon sh:binder { call };
 ')
