@@ -62,3 +62,5 @@ allow hitrace hdcd:fifo_file { ioctl write };
 allow hitrace const_param:file { map open read };
 allow hitrace const_postinstall_fstab_param:file { map open read };
 allow hitrace const_postinstall_param:file { map open read };
+
+allow hitrace proc_file:file { read open };
