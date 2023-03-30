@@ -64,3 +64,19 @@ allow hap_domain distributedfiledaemon:binder { call };
 debug_only(`
     allow distributedfiledaemon sh:binder { call };
 ')
+
+#avc: denied { call } for pid=1110 comm="SaOndemand" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=0
+#avc: denied { transfer } for pid=1110 comm="SaOndemand" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=0
+allow distributedfiledaemon netmanager:binder { call transfer };
+
+#avc: denied { call } for pid=656 comm="IPC_0_770" scontext=u:r:netmanager:s0 tcontext=u:r:distributedfiledaemon:s0 tclass=binder permissive=0
+allow netmanager distributedfiledaemon:binder { call };
+
+#avc:  denied  { get } for service=1151 pid=1608 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=0
+allow distributedfiledaemon sa_net_conn_manager:samgr_class { get };
+
+#avc:  denied  { write } for  pid=498 comm="SaOndemand" name="paramservice" dev="tmpfs" ino=37 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
+allow distributedfiledaemon paramservice_socket:sock_file { write };
+
+#avc:  denied  { connectto } for  pid=498 comm="SaOndemand" path="/dev/unix/socket/paramservice" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
+allow distributedfiledaemon kernel:unix_stream_socket { connectto };
