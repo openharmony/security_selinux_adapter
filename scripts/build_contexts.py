@@ -37,8 +37,6 @@ def parse_args():
                         help='prj root path', required=True)
     parser.add_argument('--policy_dir_list',
                         help='policy dirs need to be included', required=True)
-    parser.add_argument('--components',
-                        help='system or vendor or default', required=True)
     return parser.parse_args()
 
 
@@ -305,12 +303,8 @@ def main(args):
         treble_folder_list = public_policy + system_policy + vendor_policy
 
     folder_list = []
-    if args.components == "system":
-        folder_list = system_folder_list
-    elif args.components == "vendor":
-        folder_list = system_folder_list
-    else:
-        folder_list = treble_folder_list
+
+    folder_list = treble_folder_list
 
     build_file_contexts(args, output_path, folder_list)
     build_common_contexts(args, output_path, "service_contexts", folder_list)

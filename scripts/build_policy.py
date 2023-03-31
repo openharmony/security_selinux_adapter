@@ -56,8 +56,6 @@ def parse_args():
                         help='build for debug target', required=True)
     parser.add_argument('--updater-version',
                         help='build for updater target', required=True)
-    parser.add_argument('--components',
-                        help='system or vendor or default', required=True)
     return parser.parse_args()
 
 
@@ -181,15 +179,6 @@ def filter_out(pattern_file, input_file):
     shutil.copyfile(tmp_output.name, input_file)
 
 
-def generate_hash_file(input_file, output_file):
-    build_policy_cmd = ["sha256sum",
-                        input_file,
-                        "| cut -d' ' -f1",
-                        ">",
-                        output_file]
-    run_command(build_policy_cmd)
-
-
 def main(args):
     output_path = os.path.abspath(os.path.dirname(args.dst_file))
     build_root = os.path.abspath(os.path.join(args.tool_path, "../../.."))
@@ -231,14 +220,6 @@ def main(args):
     build_conf(args, system_output_conf, system_policy_file_list)
     # build system.cil
     build_cil(args, system_cil_path, system_output_conf)
-
-    if args.components == "system":
-        system_cil_sha256 = os.path.join(output_path, "system.cil.sha256")
-        generate_hash_file(system_cil_path, system_cil_sha256)
-
-    elif args.components == "vendor":
-            prebuild_sepolicy_system_cil_sha256 = os.path.join(output_path, "prebuild_sepolicy.system.cil.sha256")
-            generate_hash_file(system_cil_path, prebuild_sepolicy_system_cil_sha256)
 
     # build vendor.conf
     build_conf(args, vendor_output_conf, vendor_policy_file_list)
