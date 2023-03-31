@@ -235,6 +235,7 @@
 5202	                               u:object_r:sa_filemanagement_distributed_file_service_service:s0
 5203	                               u:object_r:sa_filemanagement_backup_service_service:s0
 5204                                   u:object_r:sa_filemanagement_cloud_sync_service:s0
+5205                                   u:object_r:sa_filemanagement_cloud_daemon_service:s0
 5501	                               u:object_r:sa_devattest_service:s0
 6001	                               u:object_r:sa_device_profile_service:s0
 6100                                   u:object_r:sa_instance_id:s0
