@@ -42,7 +42,6 @@ static void RemoveTestFile()
     ASSERT_EQ(0, RenameFile(PARAMETER_CONTEXTS_FILE + "_bk", PARAMETER_CONTEXTS_FILE));
 }
 
-
 void SelinuxUnitTest::TearDownTestCase()
 {
     RemoveTestFile();
@@ -65,7 +64,7 @@ HWTEST_F(SelinuxUnitTest, HashMapCreate001, TestSize.Level1)
     root->prefixLabel = "u:object_r:default_param:s0";
     root->matchLabel = "u:object_r:default_param:s0";
     root->index = 0;
-    ASSERT_EQ(0, HashMapCreate(&root->handle));
+    EXPECT_EQ(0, HashMapCreate(&root->handle));
     free(root);
 }
 
@@ -105,19 +104,19 @@ HWTEST_F(SelinuxUnitTest, HashMapFind001, TestSize.Level1)
     ParamContextsTrie *root = static_cast<ParamContextsTrie *>(calloc(1, sizeof(ParamContextsTrie)));
     ASSERT_NE(nullptr, root);
     HashNode *rel = HashMapFind(handle, 0, "");
-    ASSERT_EQ(NULL, rel);
+    EXPECT_EQ(NULL, rel);
     rel = HashMapFind(root->handle, 0, "test_key");
-    ASSERT_EQ(NULL, rel);
+    EXPECT_EQ(NULL, rel);
 
     root->prefixLabel = "u:object_r:default_param:s0";
     root->matchLabel = "u:object_r:default_param:s0";
     root->index = 0;
-    ASSERT_EQ(0, HashMapCreate(&root->handle));
-    ASSERT_NE(nullptr, root->handle);
+    EXPECT_EQ(0, HashMapCreate(&root->handle));
+    EXPECT_NE(nullptr, root->handle);
     rel = HashMapFind(root->handle, 0, "");
-    ASSERT_EQ(NULL, rel);
+    EXPECT_EQ(NULL, rel);
     rel = HashMapFind(handle, 0, "test_key");
-    ASSERT_EQ(NULL, rel);
+    EXPECT_EQ(NULL, rel);
     free(root);
 }
 
@@ -129,7 +128,7 @@ HWTEST_F(SelinuxUnitTest, HashMapFind001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, LoadParameterContextsToSharedMem001, TestSize.Level1)
 {
-    std::string STRTEST = "test";
+    std::string overLengthStr = "test";
     RunCommand("echo -n "" /system/etc/selinux/targeted/contexts/parameter_contexts");
     std::vector<std::string> sehapInfo = {
         "t u:o:t:s0",
@@ -138,9 +137,9 @@ HWTEST_F(SelinuxUnitTest, LoadParameterContextsToSharedMem001, TestSize.Level1)
         "###############################################",
     };
     for (int i = 0; i < 20; i++) {
-        STRTEST += "testtesttesttesttesttesttesttesttesttesttesttesttesttesttest";
+        overLengthStr += "testtesttesttesttesttesttesttesttesttesttesttesttesttesttest";
     }
-    sehapInfo.emplace_back(STRTEST);
+    sehapInfo.emplace_back(overLengthStr);
     ASSERT_EQ(true, WriteFile(PARAMETER_CONTEXTS_FILE, sehapInfo));
     int result = LoadParameterContextsToSharedMem();
     ASSERT_EQ(0, result);
