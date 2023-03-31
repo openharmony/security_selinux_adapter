@@ -25,10 +25,10 @@ std::vector<std::string> SehapContextsTrie::SplitString(const std::string& paraN
 {
     std::vector<std::string> words;
     std::string delimiter = ".";
-    size_t pos;
     size_t len = paraName.length();
     size_t index = 0;
     while (index < len) {
+        size_t pos;
         if ((pos = paraName.substr(index).find(delimiter)) == std::string::npos) {
             break;
         }

@@ -60,7 +60,7 @@ void SelinuxUnitTest::TearDown() {}
  */
 HWTEST_F(SelinuxUnitTest, HashMapCreate001, TestSize.Level1)
 {
-    ParamContextsTrie *root = (ParamContextsTrie *)calloc(1, sizeof(ParamContextsTrie));
+    ParamContextsTrie *root = static_cast<ParamContextsTrie *>(calloc(1, sizeof(ParamContextsTrie)));
     ASSERT_NE(nullptr, root);
     root->prefixLabel = "u:object_r:default_param:s0";
     root->matchLabel = "u:object_r:default_param:s0";
@@ -102,7 +102,7 @@ HWTEST_F(SelinuxUnitTest, HashMapDestroy001, TestSize.Level1)
 HWTEST_F(SelinuxUnitTest, HashMapFind001, TestSize.Level1)
 {
     HashTab *handle;
-    ParamContextsTrie *root = (ParamContextsTrie *)calloc(1, sizeof(ParamContextsTrie));
+    ParamContextsTrie *root = static_cast<ParamContextsTrie *>(calloc(1, sizeof(ParamContextsTrie)));
     ASSERT_NE(nullptr, root);
     HashNode *rel = HashMapFind(handle, 0, "");
     ASSERT_EQ(NULL, rel);
@@ -129,7 +129,7 @@ HWTEST_F(SelinuxUnitTest, HashMapFind001, TestSize.Level1)
  */
 HWTEST_F(SelinuxUnitTest, LoadParameterContextsToSharedMem001, TestSize.Level1)
 {
-    std:string STRTEST = "test";
+    std::string STRTEST = "test";
     RunCommand("echo -n "" /system/etc/selinux/targeted/contexts/parameter_contexts");
     std::vector<std::string> sehapInfo = {
         "t u:o:t:s0",

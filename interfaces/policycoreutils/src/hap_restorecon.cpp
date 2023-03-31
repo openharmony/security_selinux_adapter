@@ -254,11 +254,11 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
     // determine whether needs recurse
     bool recurse = (hapFileInfo.flags & SELINUX_HAP_RESTORECON_RECURSE) ? true : false;
     if (!recurse) {
-        int res = RestoreconSb(realPath, hapFileInfo);
-        if (res < 0) {
+        int ret = RestoreconSb(realPath, hapFileInfo);
+        if (ret < 0) {
             selinux_log(SELINUX_ERROR, "RestoreconSb failed");
         }
-        return res;
+        return ret;
     }
     return HapFileRecurseRestorecon(realPath, hapFileInfo);
 }
