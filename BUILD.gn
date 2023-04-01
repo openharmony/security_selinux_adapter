@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 北京万里红科技有限公司
+# Copyright (c) 2021-2023 北京万里红科技有限公司
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,10 +29,12 @@ config("selinux_core_config") {
 
 ohos_shared_library("libload_policy") {
   output_name = "libload_policy"
-  sources = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/load_policy.c" ]
+  sources =
+      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/load_policy.cpp" ]
   include_dirs = [
     "$LIBSELINUX_ROOT_DIR/include",
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
+    "//third_party/selinux/libselinux/src",
   ]
   deps = [
     ":libselinux_klog_static",
@@ -668,6 +670,7 @@ group("selinux_group") {
       "//third_party/selinux:getenforce",
       "//third_party/selinux:getfilecon",
       "//third_party/selinux:getpidcon",
+      "//third_party/selinux:secilc",
       "//third_party/selinux:secilc($host_toolchain)",
       "//third_party/selinux:sefcontext_compile($host_toolchain)",
       "//third_party/selinux:selinux_check_access",
