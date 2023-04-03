@@ -171,3 +171,5 @@ allow msdp_sa sysfs_devices_system_cpu:dir { open read };
 #avc:  denied  { use } for  pid=1172 comm="com.ohos.launch" path="/dev/ashmem" dev="tmpfs" ino=188 scontext=u:r:msdp_sa:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=1
 allow msdp_sa system_basic_hap:fd { use };
 
+allow msdp_sa sa_distributeddata_service:samgr_class { get };
+
