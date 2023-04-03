@@ -11,8 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/system/bin/write_updater   u:object_r:write_updater_exec:s0
-/data/updater           u:object_r:data_updater_file:s0
-/data/updater/(.*)?     u:object_r:data_updater_file:s0
-/tmp/updater_binary     u:object_r:updater_binary_exec:s0
-/bin/updater_binary     u:object_r:updater_binary_exec:s0
+type data_updater_file, file_attr, data_file_attr;

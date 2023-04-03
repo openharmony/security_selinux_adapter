@@ -1,0 +1,53 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+updater_only(`
+    debug_only(`
+    #avc: denied { search } for pid=267 comm="hdcd" name="/" dev="devpts" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:dev_pts_file:s0 tclass=dir permissive=1
+    allow sh dev_pts_file:dir { search };
+
+    #avc: denied { open } for pid=267 comm="hdcd" path="/dev/pts/0" dev="devpts" ino=3 scontext=u:r:sh:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+    allow sh devpts:chr_file { open };
+
+    #avc: denied { entrypoint } for pid=230 comm="init" path="/bin/sh" dev="rootfs" ino=16991 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    #avc: denied { map } for pid=230 comm="sh" path="/bin/sh" dev="rootfs" ino=16991 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    #avc: denied { read } for pid=230 comm="sh" path="/bin/sh" dev="rootfs" ino=16991 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    #avc: denied { execute } for pid=230 comm="sh" path="/bin/sh" dev="rootfs" ino=16991 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    #avc: denied { execute_no_trans } for pid=262 comm="hdcd" path="/bin/sh" dev="rootfs" ino=16991 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    allow sh rootfs:file { entrypoint map read execute execute_no_trans };
+
+    #avc: denied { read write } for pid=230 comm="sh" path="/dev/console" dev="tmpfs" ino=246 scontext=u:r:sh:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+    allow sh dev_console_file:chr_file { read write };
+
+    #avc: denied { read write } for pid=230 comm="sh" path="socket:[28383]" dev="sockfs" ino=28383 scontext=u:r:sh:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+    allow sh ueventd:netlink_kobject_uevent_socket { read write };
+
+    #avc: denied { open } for pid=230 comm="sh" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:sh:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+    allow sh musl_param:file { open map };
+
+    #avc: denied { map } for pid=237 comm="sh" path="/bin/sh" dev="rootfs" ino=17509 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    #avc: denied { read } for pid=237 comm="sh" path="/bin/sh" dev="rootfs" ino=17509 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    #avc: denied { execute } for pid=237 comm="sh" path="/bin/sh" dev="rootfs" ino=17509 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    #avc: denied { execute_no_trans } for pid=269 comm="hdcd" path="/bin/sh" dev="rootfs" ino=17509 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+    allow sh rootfs:file { map read execute execute_no_trans};
+
+    #avc: denied { ioctl } for pid=269 comm="sh" path="/dev/console" dev="rootfs" ino=17175 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+    allow sh rootfs:chr_file { ioctl };
+
+    #avc: denied { read } for pid=270 comm="hilog" name="etc" dev="rootfs" ino=17179 scontext=u:r:sh:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+    allow sh system_etc_file:lnk_file { read };
+
+    #avc: denied { ioctl } for pid=224 comm="sh" path="/dev/console" dev="tmpfs" ino=246 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+    allow sh dev_console_file:chr_file { ioctl };
+
+    ')
+')

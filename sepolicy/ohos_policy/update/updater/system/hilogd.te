@@ -1,0 +1,40 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+updater_only(`
+
+# avc: denied { read write } for pid=221 comm="hilogd" path="/dev/console" dev="rootfs" ino=5960 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=227 comm="hilogd.pst_res" path="/dev/console" dev="rootfs" ino=17236 ioctlcmd=0x5413 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+allow hilogd rootfs:chr_file { read write ioctl };
+
+# avc: denied { read write } for pid=221 comm="hilogd" path="socket:[27872]" dev="sockfs" ino=27872 scontext=u:r:hilogd:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow hilogd ueventd:netlink_kobject_uevent_socket { read write };
+
+# avc: denied { read } for pid=227 comm="hilogd" name="u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:hilogd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+# avc: denied { open } for pid=227 comm="hilogd" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:hilogd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+# avc: denied { map } for pid=227 comm="hilogd" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:hilogd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow hilogd musl_param:file { read open map };
+
+# avc: denied { read } for pid=227 comm="hilogd" name="etc" dev="rootfs" ino=17240 scontext=u:r:hilogd:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+allow hilogd system_etc_file:lnk_file { read };
+
+#avc: denied { write } for pid=230 comm="hilogd.control" path="/data/log/hilog/.persisterInfo_2.info" dev="rootfs" ino=27737 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { entrypoint } for pid=221 comm="init" path="/bin/hilogd" dev="rootfs" ino=17505 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { map } for pid=221 comm="hilogd" path="/bin/hilogd" dev="rootfs" ino=17505 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { read } for pid=221 comm="hilogd" path="/bin/hilogd" dev="rootfs" ino=17505 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { execute } for pid=221 comm="hilogd" path="/bin/hilogd" dev="rootfs" ino=17505 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { open } for pid=221 comm="hilogd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=5986 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=221 comm="hilogd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=5986 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { ioctl } for pid=227 comm="hilogd.control" path="/data/log/hilog/.persisterInfo_1.info" dev="rootfs" ino=27542 ioctlcmd=0x5413 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow hilogd rootfs:file { entrypoint map read execute open getattr ioctl };
+
+')

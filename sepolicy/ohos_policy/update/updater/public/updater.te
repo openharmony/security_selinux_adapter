@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/system/bin/write_updater   u:object_r:write_updater_exec:s0
-/data/updater           u:object_r:data_updater_file:s0
-/data/updater/(.*)?     u:object_r:data_updater_file:s0
-/tmp/updater_binary     u:object_r:updater_binary_exec:s0
-/bin/updater_binary     u:object_r:updater_binary_exec:s0
+type updater_binary, nativedomain, domain;
+type updater_binary_exec, exec_attr, file_attr, system_file_attr;
+domain_auto_transition_pattern(updater, updater_binary_exec, updater_binary);

@@ -1,0 +1,42 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+updater_only(`
+
+#avc: denied { entrypoint } for pid=238 comm="init" path="/bin/faultloggerd" dev="rootfs" ino=17767 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { map } for pid=238 comm="faultloggerd" path="/bin/faultloggerd" dev="rootfs" ino=17767 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { read } for pid=238 comm="faultloggerd" path="/bin/faultloggerd" dev="rootfs" ino=17767 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { execute } for pid=233 comm="faultloggerd" path="/bin/faultloggerd" dev="rootfs" ino=17095 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { open } for pid=233 comm="faultloggerd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=16765 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=233 comm="faultloggerd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=16765 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow faultloggerd rootfs:file { entrypoint map read execute open getattr };
+
+#avc: denied { read write } for pid=238 comm="faultloggerd" path="/dev/console" dev="rootfs" ino=17411 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+allow faultloggerd rootfs:chr_file { read write };
+
+#allow faultloggerd rootfs:netlink_kobject_uevent_socket { read write };
+
+#avc: denied { read write } for pid=238 comm="faultloggerd" path="socket:[18134]" dev="sockfs" ino=18134 scontext=u:r:faultloggerd:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow faultloggerd ueventd:netlink_kobject_uevent_socket { read write };
+
+#avc: denied { read } for pid=233 comm="faultloggerd" name="u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc: denied { open } for pid=233 comm="faultloggerd" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc: denied { map } for pid=229 comm="faultloggerd" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow faultloggerd musl_param:file { read open map };
+
+#avc: denied { read } for pid=229 comm="faultloggerd" name="etc" dev="rootfs" ino=16666 scontext=u:r:faultloggerd:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+allow faultloggerd system_etc_file:lnk_file { read };
+
+#avc: denied { associate } for pid=238 comm="init" name="temp" dev="rootfs" ino=27737 scontext=u:object_r:faultloggerd_temp_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow faultloggerd_temp_file rootfs:filesystem { associate };
+
+')

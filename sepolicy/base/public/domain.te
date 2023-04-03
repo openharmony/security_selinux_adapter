@@ -128,8 +128,7 @@ neverallow * self:memprotect mmap_zero;
 
 # only execute file with exec_attr & system_bin_file & vendor_bin_file ToDo delete vendor_file
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
-    -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
-    -module_update_bin_file }:file { execute execute_no_trans entrypoint };
+    -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file }:file { execute execute_no_trans entrypoint };
 
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file entrypoint;
 
@@ -145,7 +144,7 @@ neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr } :{ dir notdev
 
 # second level for file based label class
 neverallow domain ~{ domain fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
-    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr }:{ file dir } *;
+    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
@@ -195,23 +194,23 @@ neverallow * self:process { execstack execheap };
 #    allow at /home/last/bb/h1/cc/out/rk3568/obj/base/security/selinux/ohos.cil:11230
 #      (allow riladapter_host dev_file (chr_file (ioctl read write open)))
 #    <root>
-neverallow { domain -init -ueventd -riladapter_host debug_only(`-hdcd  -softbus_server') } dev_file:{ file chr_file blk_file } *;
+neverallow { domain -init -ueventd -riladapter_host debug_only(`-hdcd') } dev_file:{ file chr_file blk_file } *;
 
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host debug_only(`-hdcd') } dev_file:sock_file *;
 
-neverallow { domain -kernel -init -misc -updater_sa -storage_daemon -partitionslot_host debug_only(`-hdcd') } dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -misc -updater_sa -storage_daemon -partitionslot_host debug_only(`-hdcd') updater_only(`-updater -updater_binary') } dev_attr:blk_file { open read write };
 # fs operation limit
 neverallow domain *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
-neverallow { domain -init -storage_daemon -appspawn -netsysnative } *:filesystem mount;
+neverallow { domain -init -storage_daemon -appspawn -netsysnative updater_only(`-updater') } *:filesystem mount;
 neverallow { domain -init debug_only(`-hdcd') } *:filesystem remount;
-neverallow { domain -init -storage_daemon debug_only(`-hdcd') -appspawn -nwebspawn } *:filesystem unmount;
+neverallow { domain -init -storage_daemon debug_only(`-hdcd') -appspawn -nwebspawn updater_only(`-updater') } *:filesystem unmount;
 neverallow { domain -init } *:filesystem relabelfrom;
 neverallow { domain -init } *:filesystem relabelto;
 neverallow { domain -storage_daemon } *:filesystem quotaget;
 neverallow { domain -storage_daemon } *:filesystem quotamod;
 
-neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
+neverallow { domain updater_only(`-updater -updater_binary')} rootfs:file { create write setattr relabelto append unlink link rename };
 
 neverallow { domain -init -proc_sys_writer } { proc_attr sysfs_attr }:dir { add_name create link rename remove_name reparent rmdir write };
 
@@ -256,8 +255,8 @@ neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver c
 
 #ensure no write access to readonly filesystem.
 
-neverallow { domain debug_only(`-hdcd') -sh } { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
-neverallow { domain debug_only(`-hdcd') -sh } { rootfs system_file_attr vendor_file_attr }:file never_write_file;
+neverallow { domain debug_only(`-hdcd') -sh updater_only(`-updater -init -updater_binary') } { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
+neverallow { domain debug_only(`-hdcd')  -sh updater_only(`-updater -updater_binary') } { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host
@@ -274,7 +273,7 @@ neverallow { domain -processdump -hap_domain } domain:process ptrace;
 # neverallow { domain -init } self:capability chown;
 # means that only init can have the caps of chown.
 # TODO:debug/release
-neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -cap_violator_chown } self:{ capability cap_userns } chown;
+neverallow { domain -appspawn -init -ueventd -installs -storage_daemon -cap_violator_chown updater_only(`-updater') } self:{ capability cap_userns } chown;
 neverallow { domain -appspawn -init -ueventd -memmgrservice
              debug_only(`-hdcd') -installs
              -storage_daemon -usb_host -cap_violator_dacoverride } self:{ capability cap_userns } dac_override;
@@ -298,7 +297,7 @@ neverallow { domain -init } self:{ capability cap_userns } sys_chroot;
 neverallow { domain -hiview -hidumper_service -memmgrservice -storage_daemon -hiprofiler_cmd -hiprofiler_plugins -native_daemon -hiperf
     -foundation -cap_violator_sysptrace debug_only(`-hiebpf') } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
-neverallow { domain -init -storage_daemon -appspawn -nwebspawn -netsysnative debug_only(`-hdcd -hiprofiler_plugins -hiebpf') } self:{ capability cap_userns } sys_admin;
+neverallow { domain -init -storage_daemon -appspawn -nwebspawn -netsysnative debug_only(`-hdcd -hiprofiler_plugins -hiebpf') updater_only(` -updater ')} self:{ capability cap_userns } sys_admin;
 neverallow { domain -init } self:{ capability cap_userns } sys_boot;
 neverallow { domain -render_service -cap_violator_sysnice } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -memmgrservice -netsysnative  debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;

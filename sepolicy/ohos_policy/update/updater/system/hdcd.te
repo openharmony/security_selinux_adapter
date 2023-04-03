@@ -1,0 +1,46 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+updater_only(`
+
+# avc: denied { read write } for pid=243 comm="hdcd" path="/dev/console" dev="rootfs" ino=3504 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+# avc: denied { ioctl } for pid=234 comm="hdcd" path="/dev/console" dev="rootfs" ino=1979 ioctlcmd=0x5413 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+allow hdcd rootfs:chr_file { read write ioctl };
+
+# avc: denied { entrypoint } for pid=243 comm="init" path="/bin/hdcd" dev="rootfs" ino=3945 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc: denied { map } for pid=243 comm="hdcd" path="/bin/hdcd" dev="rootfs" ino=3945 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc: denied { read } for pid=243 comm="hdcd" path="/bin/hdcd" dev="rootfs" ino=3945 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc: denied { execute } for pid=243 comm="hdcd" path="/bin/hdcd" dev="rootfs" ino=3945 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc: denied { open } for pid=235 comm="hdcd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=18288 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc: denied { getattr } for pid=235 comm="hdcd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=18288 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow hdcd rootfs:file { entrypoint map read execute open getattr };
+
+# avc: denied { setcurrent } for pid=270 comm="hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:hdcd:s0 tclass=process permissive=1
+allow hdcd hdcd:process { setcurrent };
+# avc: denied { dyntransition } for pid=270 comm="hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
+allow hdcd sh:process { dyntransition };
+
+#avc: denied { read write } for pid=235 comm="hdcd" path="socket:[20967]" dev="sockfs" ino=20967 scontext=u:r:hdcd:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow hdcd ueventd:netlink_kobject_uevent_socket { read write };
+
+# avc: denied { map } for pid=235 comm="hdcd" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:hdcd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow hdcd musl_param:file { read open map };
+
+# avc: denied { read } for pid=235 comm="hdcd" name="etc" dev="rootfs" ino=18266 scontext=u:r:hdcd:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+allow hdcd system_etc_file:lnk_file { read };
+
+# avc: denied { getattr } for pid=270 comm="hdcd" path="/sys/devices/virtual/tty/console/active" dev="sysfs" ino=14700 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=270 comm="hdcd" name="active" dev="sysfs" ino=14700 scontext=u:r:sh:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow hdcd sys_file:file { read getattr };
+
+')
+

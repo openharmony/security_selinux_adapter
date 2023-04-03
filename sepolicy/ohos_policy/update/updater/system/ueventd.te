@@ -1,0 +1,60 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+updater_only(`
+
+#avc: denied { map } for pid=227 comm="ueventd" path="/bin/ueventd" dev="rootfs" ino=16964 scontext=u:r:ueventd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { read } for pid=227 comm="ueventd" path="/bin/ueventd" dev="rootfs" ino=16964 scontext=u:r:ueventd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { execute } for pid=227 comm="ueventd" path="/bin/ueventd" dev="rootfs" ino=16964 scontext=u:r:ueventd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { open } for pid=227 comm="ueventd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=16683 scontext=u:r:ueventd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=227 comm="ueventd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=16683 scontext=u:r:ueventd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { entrypoint } for pid=227 comm="init" path="/bin/ueventd" dev="rootfs" ino=16964 scontext=u:r:ueventd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow ueventd rootfs:file { entrypoint map read execute open getattr };
+
+#avc: denied { read write } for pid=227 comm="ueventd" path="/dev/console" dev="rootfs" ino=16657 scontext=u:r:ueventd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+allow ueventd rootfs:chr_file { write read };
+
+#avc: denied { write } for pid=227 comm="ueventd" path="socket:[19887]" dev="sockfs" ino=19887 scontext=u:r:ueventd:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+#avc: denied { getopt } for pid=229 comm="ueventd" scontext=u:r:ueventd:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow ueventd ueventd:netlink_kobject_uevent_socket { write getopt };
+
+
+#avc: denied { read } for pid=229 comm="ueventd" name="u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:ueventd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc: denied { open } for pid=229 comm="ueventd" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:ueventd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc: denied { map } for pid=229 comm="ueventd" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:ueventd:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow ueventd musl_param:file { read open map };
+
+#avc: denied { execute_no_trans } for pid=231 comm="init" path="/bin/hilog" dev="rootfs" ino=17826 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { write } for pid=224 comm="hilogd.control" path="/data/log/hilog/.persisterInfo_2.info" dev="rootfs" ino=16921 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow ueventd dev_file:file { create setattr };
+
+#avc: denied { create } for pid=229 comm="ueventd" name="mmcblk0" scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+#avc: denied { setattr } for pid=229 comm="ueventd" name="mmcblk0" dev="tmpfs" ino=100 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+#avc: denied { getattr } for pid=223 comm="ueventd" path="/dev/block/mmcblk0" dev="tmpfs" ino=100 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+#avc: denied { relabelfrom } for pid=223 comm="ueventd" name="mmcblk0" dev="tmpfs" ino=100 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=blk_file permissive=1
+allow ueventd dev_file:blk_file { create setattr getattr relabelfrom };
+
+#avc: denied { create } for pid=229 comm="ueventd" name="mmcblk0" scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_file:s0 tclass=lnk_file permissive=1
+allow ueventd dev_file:lnk_file { create };
+
+#avc: denied { create } for pid=223 comm="ueventd" name="by-name" scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=lnk_file permissive=1
+#avc: denied { read } for pid=223 comm="ueventd" name="by-name" dev="tmpfs" ino=106 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=lnk_file permissive=1
+allow ueventd dev_block_volfile:lnk_file { create read };
+
+#avc: denied { relabelto } for pid=229 comm="ueventd" name="block" dev="tmpfs" ino=99 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=dir permissive=1
+allow ueventd dev_block_volfile:dir { relabelto };
+
+#avc: denied { relabelto } for pid=223 comm="ueventd" name="binder" dev="tmpfs" ino=181 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_binder_file:s0 tclass=chr_file permissive=1
+allow ueventd dev_binder_file:chr_file { relabelto };
+
+')
