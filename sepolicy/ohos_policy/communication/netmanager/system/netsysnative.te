@@ -45,4 +45,4 @@ allow netsysnative normal_hap:unix_dgram_socket { read write getopt setopt };
 allow netsysnative normal_hap:udp_socket { read write getopt setopt };
 allow netsysnative normal_hap:unix_stream_socket { read write getopt setopt };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
-
+allow init dev_unix_file:sock_file { unlink };
