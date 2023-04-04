@@ -25,6 +25,7 @@ allow updater_binary rootfs:file { execute read open map getattr };
 #avc: denied { ioctl } for pid=270 comm="updater_binary" path="/dev/console" dev="rootfs" ino=17411 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 #avc: denied { write } for pid=270 comm="updater_binary" path="/dev/console" dev="rootfs" ino=17411 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 allow updater_binary rootfs:chr_file { ioctl write };
+allowxperm updater_binary rootfs:chr_file ioctl { 0x5413 };
 
 #avc: denied { search } for pid=281 comm="updater" name="/" dev="tmpfs" ino=1 scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 allow updater_binary tmpfs:dir { search };
@@ -37,6 +38,7 @@ allow updater_binary tmpfs:dir { search };
 #avc: denied { getattr } for pid=270 comm="updater_binary" path="/tmp/updater.log" dev="tmpfs" ino=2 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
 #avc: denied { ioctl } for pid=270 comm="updater_binary" path="/tmp/updater.log" dev="tmpfs" ino=2 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
 allow updater_binary tmpfs:file { execute read open execute_no_trans append getattr ioctl };
+allowxperm updater_binary tmpfs:file ioctl { 0x5413 };
 
 # avc: denied { fork } for pid=281 comm="updater_binary" scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:updater_binary:s0 tclass=process permissive=1
 allow updater_binary updater_binary:process { fork };
@@ -45,6 +47,7 @@ allow updater_binary updater_binary:process { fork };
 # avc: denied { getattr } for pid=270 comm="updater_binary" path="pipe:[18906]" dev="pipefs" ino=18906 scontext=u:r:updater_binary:s0 tcontext=u:r:updater:s0 tclass=fifo_file permissive=1
 # avc: denied { ioctl } for pid=270 comm="updater_binary" path="pipe:[20191]" dev="pipefs" ino=20191 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:r:updater:s0 tclass=fifo_file permissive=1
 allow updater_binary updater:fifo_file { write getattr ioctl };
+allowxperm updater_binary updater:fifo_file ioctl { 0x5413 };
 
 # avc: denied { use } for pid=270 comm="updater_binary" path="pipe:[20191]" dev="pipefs" ino=20191 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:r:updater:s0 tclass=fd permissive=1
 allow updater_binary updater:fd { use };
@@ -143,6 +146,7 @@ allow updater_binary data_updater_file:dir { add_name search read write getattr 
 #avc: denied { create } for pid=279 comm="updater_binary" name="loadScript.us" scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
 #denied { ioctl } for pid=281 comm="updater_binary" path="/data/updater/update.bin.tmp" dev="mmcblk0p12" ino=6829 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
 allow updater_binary data_updater_file:file { read open getattr write create ioctl };
+allowxperm updater_binary data_updater_file:file ioctl { 0x5413 };
 
 # avc: denied { read } for pid=279 comm="processdump" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=34 scontext=u:r:updater_binary:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
 allow updater_binary hilog_param:file { read };

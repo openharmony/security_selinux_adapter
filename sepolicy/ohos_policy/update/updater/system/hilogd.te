@@ -15,6 +15,7 @@ updater_only(`
 # avc: denied { read write } for pid=221 comm="hilogd" path="/dev/console" dev="rootfs" ino=5960 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 # avc: denied { ioctl } for pid=227 comm="hilogd.pst_res" path="/dev/console" dev="rootfs" ino=17236 ioctlcmd=0x5413 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 allow hilogd rootfs:chr_file { read write ioctl };
+allowxperm hilogd rootfs:chr_file ioctl { 0x5413 };
 
 # avc: denied { read write } for pid=221 comm="hilogd" path="socket:[27872]" dev="sockfs" ino=27872 scontext=u:r:hilogd:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
 allow hilogd ueventd:netlink_kobject_uevent_socket { read write };
@@ -36,5 +37,6 @@ allow hilogd system_etc_file:lnk_file { read };
 #avc: denied { getattr } for pid=221 comm="hilogd" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=5986 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 #avc: denied { ioctl } for pid=227 comm="hilogd.control" path="/data/log/hilog/.persisterInfo_1.info" dev="rootfs" ino=27542 ioctlcmd=0x5413 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 allow hilogd rootfs:file { entrypoint map read execute open getattr ioctl };
+allowxperm hilogd rootfs:file ioctl { 0x5413 };
 
 ')

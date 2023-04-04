@@ -15,6 +15,7 @@ updater_only(`
 # avc: denied { read write } for pid=243 comm="hdcd" path="/dev/console" dev="rootfs" ino=3504 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 # avc: denied { ioctl } for pid=234 comm="hdcd" path="/dev/console" dev="rootfs" ino=1979 ioctlcmd=0x5413 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 allow hdcd rootfs:chr_file { read write ioctl };
+allowxperm hdcd rootfs:chr_file ioctl { 0x5413 };
 
 # avc: denied { entrypoint } for pid=243 comm="init" path="/bin/hdcd" dev="rootfs" ino=3945 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 # avc: denied { map } for pid=243 comm="hdcd" path="/bin/hdcd" dev="rootfs" ino=3945 scontext=u:r:hdcd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1

@@ -23,12 +23,14 @@ allow updater hilog_param:file { read open map };
 #avc: denied { open } for pid=240 comm="updater" path="/dev/hdf_input_host" dev="tmpfs" ino=214 scontext=u:r:updater:s0 tcontext=u:object_r:dev_hdf_file:s0 tclass=chr_file permissive=1
 #avc: denied { ioctl } for pid=240 comm="updater" path="/dev/hdf_input_host" dev="tmpfs" ino=214 ioctlcmd=0x6201 scontext=u:r:updater:s0 tcontext=u:object_r:dev_hdf_file:s0 tclass=chr_file permissive=1
 allow updater dev_hdf_file:chr_file { getattr read write open ioctl };
+allowxperm updater dev_hdf_file:chr_file ioctl { 0x6201 };
 
 #avc: denied { getattr } for pid=233 comm="updater" path="/dev/hdf_input_event1" dev="tmpfs" ino=222 scontext=u:r:updater:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=1
 #avc: denied { read write } for pid=233 comm="updater" name="hdf_input_event1" dev="tmpfs" ino=222 scontext=u:r:updater:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=1
 #avc: denied { open } for pid=233 comm="updater" path="/dev/hdf_input_event1" dev="tmpfs" ino=222 scontext=u:r:updater:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=1
 #avc: denied { ioctl } for pid=233 comm="updater" path="/dev/hdf_input_event1" dev="tmpfs" ino=222 ioctlcmd=0x6203 scontext=u:r:updater:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=1
 allow updater dev_hdf_input:chr_file { getattr read write open ioctl };
+allowxperm updater dev_hdf_input:chr_file ioctl { 0x6203 };
 
 #avc: denied { write } for pid=235 comm="updater" name="/" dev="tmpfs" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
 #avc: denied { add_name } for pid=235 comm="updater" name="mainpage.png" scontext=u:r:updater:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir permissive=1
@@ -44,6 +46,7 @@ allow updater tmpfs:dir { write add_name read };
 #avc:  denied  { execute } for  pid=272 comm="updater" name="updater_binary" dev="tmpfs" ino=5 scontext=u:r:updater:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=0
 #avc: denied { execute_no_trans } for pid=278 comm="updater" path="/tmp/updater_binary" dev="tmpfs" ino=5 scontext=u:r:updater:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=0
 allow updater tmpfs:file { append ioctl create open getattr setattr execute execute_no_trans };
+allowxperm updater tmpfs:file ioctl { 0x5413 };
 
 #avc: denied { write } for pid=262 comm="resize.f2fs" name="mmcblk0p12" dev="tmpfs" ino=98 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 #avc: denied { read } for pid=228 comm="updater" name="mmcblk0p2" dev="tmpfs" ino=132 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
@@ -51,6 +54,7 @@ allow updater tmpfs:file { append ioctl create open getattr setattr execute exec
 #avc: denied { getattr } for pid=228 comm="updater" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=132 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 #avc: denied { ioctl } for pid=274 comm="resize.f2fs" path="/dev/block/mmcblk0p12" dev="tmpfs" ino=104 ioctlcmd=0x1268 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 allow updater dev_block_file:blk_file { write getattr read open ioctl };
+allowxperm updater dev_block_file:blk_file ioctl { 0x1268 };
 
 #avc: denied { read } for pid=274 comm="resize.f2fs" name="version" dev="proc" ino=4026532114 scontext=u:r:updater:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
 #avc: denied { open } for pid=274 comm="resize.f2fs" path="/proc/version" dev="proc" ino=4026532114 scontext=u:r:updater:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
@@ -81,6 +85,7 @@ allow updater data_updater_file:dir { read getattr add_name search write open re
 #avc: denied { unlink } for pid=235 comm="updater" name="update.bin.tmp" dev="mmcblk0p12" ino=3186 scontext=u:r:updater:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
 #avc: denied { write } for pid=235 comm="updater" path="/data/updater/update.bin.tmp" dev="mmcblk0p12" ino=3186 scontext=u:r:updater:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
 allow updater data_updater_file:file { create open append getattr ioctl read setattr unlink write };
+allowxperm updater data_updater_file:file ioctl { 0x5413 };
 
 #avc: denied { search } for pid=229 comm="updater" name="data" dev="rootfs" ino=18958 scontext=u:r:updater:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
 #avc: denied { remove_name } for pid=235 comm="updater" name="update.bin.tmp" dev="mmcblk0p12" ino=3186 scontext=u:r:updater:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=1
@@ -145,16 +150,19 @@ allow updater devpts:chr_file { read write };
 
 # avc: denied { ioctl } for pid=266 comm="sh" path="/dev/tty" dev="tmpfs" ino=282 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
 allow updater tty_device:chr_file { ioctl};
+allowxperm updater tty_device:chr_file ioctl { 0x5413 };
 
 #avc: denied { read write } for pid=227 comm="updater" path="/dev/console" dev="rootfs" ino=16653 scontext=u:r:updater:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 #avc: denied { ioctl } for pid=229 comm="updater" path="/dev/console" dev="rootfs" ino=3976 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 allow updater rootfs:chr_file { read write ioctl };
+allowxperm updater rootfs:chr_file ioctl { 0x5413 };
 
 #avc: denied { read write } for pid=226 comm="updater" name="card0" dev="tmpfs" ino=91 scontext=u:r:updater:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
 #avc: denied { open } for pid=226 comm="updater" path="/dev/dri/card0" dev="tmpfs" ino=91 scontext=u:r:updater:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
 #avc: denied { ioctl } for pid=226 comm="updater" path="/dev/dri/card0" dev="tmpfs" ino=91 ioctlcmd=0x640c scontext=u:r:updater:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
 #avc: denied { map } for pid=226 comm="updater" path="/dev/dri/card0" dev="tmpfs" ino=91 scontext=u:r:updater:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=1
 allow updater dev_dri_file:chr_file { ioctl read write open map };
+allowxperm updater dev_dri_file:chr_file ioctl { 0x640c };
 
 #avc: denied { search } for pid=229 comm="updater" name="dri" dev="tmpfs" ino=89 scontext=u:r:updater:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=dir permissive=1
 allow updater dev_dri_file:dir { search };

@@ -20,7 +20,6 @@ updater_only(`
 #avc: denied { execute_no_trans } for pid=233 comm="init" path="/bin/hilog" dev="rootfs" ino=797 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
 #avc: denied { map } for pid=1 comm="init" path="/lib/init/librebootmodule.z.so" dev="rootfs" ino=17620 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
 #avc: denied { map } for pid=235 comm="hilog" path="/bin/hilog" dev="rootfs" ino=17650 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-# execute_no_trans  write要申请白名单
 #avc: denied { write } for pid=227 comm="hilogd.control" path="/data/log/hilog/.persisterInfo_1.info" dev="rootfs" ino=26950 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 allow init rootfs:file { getattr read open execute map };
 
@@ -129,6 +128,7 @@ allow init hilogd:unix_stream_socket { connectto };
 #avc: denied { ioctl } for pid=234 comm="hilog" path="/dev/console" dev="rootfs" ino=16652 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 #avc: denied { write } for pid=234 comm="hilog" path="/dev/console" dev="rootfs" ino=16652 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
 allow init rootfs:chr_file { ioctl write };
+allowxperm init rootfs:chr_file ioctl { 0x5413 };
 
 # avc: denied { read } for pid=1 comm="init" name="misc" dev="tmpfs" ino=133 scontext=u:r:init:s0 tcontext=u:object_r:dev_file:s0 tclass=lnk_file permissive=1
 allow init dev_file:lnk_file { read };

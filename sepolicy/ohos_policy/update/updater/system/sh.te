@@ -42,12 +42,14 @@ updater_only(`
 
     #avc: denied { ioctl } for pid=269 comm="sh" path="/dev/console" dev="rootfs" ino=17175 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
     allow sh rootfs:chr_file { ioctl };
+    allowxperm sh rootfs:chr_file ioctl { 0x5413 };
 
     #avc: denied { read } for pid=270 comm="hilog" name="etc" dev="rootfs" ino=17179 scontext=u:r:sh:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
     allow sh system_etc_file:lnk_file { read };
 
     #avc: denied { ioctl } for pid=224 comm="sh" path="/dev/console" dev="tmpfs" ino=246 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
     allow sh dev_console_file:chr_file { ioctl };
+    allowxperm sh dev_console_file:chr_file ioctl { 0x5413 };
 
     ')
 ')
