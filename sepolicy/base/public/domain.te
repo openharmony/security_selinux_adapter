@@ -256,7 +256,7 @@ neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver c
 
 #ensure no write access to readonly filesystem.
 
-neverallow { domain debug_only(`-hdcd') -sh updater_only(`-updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
+neverallow { domain debug_only(`-hdcd') -sh updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:dir never_write_dir;
 neverallow { domain debug_only(`-hdcd') -sh updater_only(`-updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
