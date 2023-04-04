@@ -86,12 +86,14 @@ static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &s
     int fd = open(policyFile.c_str(), O_RDONLY | O_CLOEXEC);
     if (fd < 0) {
         selinux_log(SELINUX_ERROR, "Open policy file failed\n");
+        DeleteTmpPolicyFile(policyFile);
         return false;
     }
     struct stat sb;
     if (fstat(fd, &sb) < 0) {
         selinux_log(SELINUX_ERROR, "Stat policy file failed\n");
         close(fd);
+        DeleteTmpPolicyFile(policyFile);
         return false;
     }
     size = sb.st_size;
@@ -99,9 +101,11 @@ static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &s
     if (*data == MAP_FAILED) {
         selinux_log(SELINUX_ERROR, "Mmap policy file failed\n");
         close(fd);
+        DeleteTmpPolicyFile(policyFile);
         return false;
     }
     close(fd);
+    DeleteTmpPolicyFile(policyFile);
     return true;
 }
 
@@ -299,7 +303,6 @@ static int LoadPolicyFromFile(const std::string &policyFile)
     void *data = nullptr;
     size_t size = 0;
     if (!ReadPolicyFile(policyFile, &data, size)) {
-        DeleteTmpPolicyFile(policyFile);
         return -1;
     }
     if (!LoadPolicy(data, size)) {
