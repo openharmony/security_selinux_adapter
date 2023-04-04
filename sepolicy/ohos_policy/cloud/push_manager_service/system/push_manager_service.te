@@ -47,7 +47,7 @@ allow push_manager_service musl_param:file { read open map };
 allow push_manager_service net_param:file { map open read };
 allow push_manager_service net_tcp_param:file { map open read };
 allow push_manager_service node:udp_socket { node_bind };
-allow push_manager_service normal_hap:binder { call };
+allow push_manager_service normal_hap_attr:binder { call };
 allow push_manager_service ohos_boot_param:file { map open read };
 allow push_manager_service ohos_param:file { map open read };
 allow push_manager_service param_watcher:binder { call transfer };
