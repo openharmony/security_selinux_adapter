@@ -180,3 +180,6 @@ debug_only(`
 ')
 
 domain_auto_transition_pattern(hdcd, sh_exec, sh);
+
+# hdc control
+nerverallow { domain -usb_host -init edm_sa } developtools_hdc_control:file { write relabelto append };
