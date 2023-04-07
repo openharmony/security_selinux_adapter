@@ -103,7 +103,7 @@ neverallow { hap_domain } *:security { compute_av check_context };
 neverallow hap_domain fs_attr:filesystem ~getattr;
 
 #limit access to system_core_hap_data_file
-neverallow { domain -hap_domain -installs debug_only(`-hdcd') -sh -storage_daemon } system_core_hap_data_file:dir_file_class_set { create unlink open };
+neverallow { domain -hap_domain -installs debug_only(`-hdcd') -sh -distributeddata -storage_daemon } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
 neverallow { system_basic_hap normal_hap } system_core_hap_data_file:dir_file_class_set { create unlink open };
 
