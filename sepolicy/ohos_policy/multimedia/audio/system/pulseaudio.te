@@ -162,3 +162,4 @@ allow pulseaudio vendor_bin_file:dir { search };
 
 allow pulseaudio hdf_audio_manager_service:hdf_devmgr_class { get };
 allow pulseaudio sa_audio_policy_service:samgr_class { get };
+
