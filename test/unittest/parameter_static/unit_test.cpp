@@ -45,6 +45,7 @@ static void RemoveTestFile()
 void SelinuxUnitTest::TearDownTestCase()
 {
     RemoveTestFile();
+    LoadParameterContextsToSharedMem();
 }
 
 void SelinuxUnitTest::SetUp() {}
