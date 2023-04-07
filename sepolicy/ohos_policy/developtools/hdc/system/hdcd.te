@@ -10,6 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
+type developtools_hdc_control_param, parameter_attr;
 
 allow hdcd data_local:file { read open getattr create write };
 allow hdcd data_local:dir { search getattr read write add_name open create };
@@ -182,4 +183,4 @@ debug_only(`
 domain_auto_transition_pattern(hdcd, sh_exec, sh);
 
 # hdc control
-neverallow { domain -usb_host -init edm_sa } developtools_hdc_control:file { write relabelto append };
+neverallow { domain -usb_host -init edm_sa } developtools_hdc_control_param:w:file { write relabelto append };

@@ -63,4 +63,4 @@ persist.time.                           u:object_r:time_param:s0
 persist.netmanager_base.                u:object_r:netmanager_base_param:s0
 accesstoken.permission.                 u:object_r:accesstoken_perm_param:s0
 
-persist.hdc.control                     u:object_r:developtools_hdc_control:s0
+persist.hdc.control                     u:object_r:developtools_hdc_control_param:s0
