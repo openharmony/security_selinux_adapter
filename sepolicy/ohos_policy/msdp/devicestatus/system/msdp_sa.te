@@ -173,3 +173,5 @@ allow msdp_sa system_basic_hap:fd { use };
 
 allow msdp_sa sa_distributeddata_service:samgr_class { get };
 
+#avc:  denied  { use } for  pid=468 comm="IPC_0_499" path="/dmabuf:" dev="dmabuf" ino=32242 scontext=u:r:msdp_sa:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=0
+allow msdp_sa allocator_host:fd {use};
