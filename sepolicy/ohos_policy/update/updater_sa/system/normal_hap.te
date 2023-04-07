@@ -14,3 +14,8 @@
 allow normal_hap_attr dev_unix_socket:dir { search };
 allow normal_hap_attr system_bin_file:dir { search };
 allow normal_hap_attr system_bin_file:file { execute read };
+allow normal_hap sysfs_devices_system_cpu:file { getattr };
+allow normal_hap sysfs_devices_system_cpu:dir { read open };
+allow normal_hap sa_update_distributed_service:samgr_class { get };
+allow normal_hap updater_sa:binder { call transfer };
+
