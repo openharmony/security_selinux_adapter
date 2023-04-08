@@ -11,8 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-permissive sh;
-permissive console;
+debug_only(`
+    permissive sh;
+    permissive console;
+')
 
 allow sh data_file:file { map read open };
 allow sh dev_unix_socket:dir { search };
