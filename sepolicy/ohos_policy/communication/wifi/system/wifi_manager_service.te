@@ -53,3 +53,5 @@ allow wifi_manager_service huks_service:binder { call };
 allowxperm wifi_manager_service data_service_el1_file:file ioctl { 0x5413 };
 allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x890B 0x8913 0x8915 0x8916 0x891b 0x891c 0x8927 0x8933 };
 allowxperm wifi_manager_service wifi_manager_service:unix_dgram_socket ioctl { 0x8910 };
+allow wifi_manager_service musl_param:file { open };
+allow wifi_manager_service musl_param:file { map };
