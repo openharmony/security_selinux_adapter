@@ -97,9 +97,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace -wifi_hal_service debug_only(`-hiprofiler_cmd -hiebpf') } data_local_tmp:dir never_write_dir;
+neverallow { domain -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf') } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace -wifi_hal_service debug_only(`-hiprofiler_cmd -hiebpf') } data_local_tmp:dir { open search };
+neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf') } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
