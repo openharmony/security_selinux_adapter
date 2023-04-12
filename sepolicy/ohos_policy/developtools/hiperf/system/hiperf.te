@@ -158,8 +158,8 @@ allow hiperf data_local_tmp_hiperf_file:dir { create_dir_perms };
 allow hiperf data_local_tmp_hiperf_file:file { create_file_perms };
 allow hiperf data_local_tmp_hiperf_file:fifo_file { create open read unlink write };
 
-allow hiperf data_log:dir { add_name remove_name search write };
-allow hiperf data_log:file { create getattr ioctl open unlink write };
+allow hiperf data_log:dir { add_name open read search watch write create remove_name };
+allow hiperf data_log:file { create getattr lock map open read ioctl write unlink };
 allow hiperf data_app_el1_file:file { getattr map open read };
 allow hiperf data_app_el1_file:dir search;
 allow hiperf normal_hap_attr:lnk_file read;
@@ -214,3 +214,16 @@ allow samgr hiperf:file { read open };
 allow samgr hiperf:dir { search };
 allow samgr hiperf:process { getattr };
 allow samgr hiperf:binder { call transfer };
+
+allow hiperf dev_bbox:chr_file { read };
+allow hiperf sysfs_devices_system_cpu:dir { read open };
+
+allow hiperf hiview:fd { use };
+allow hiperf hiview:unix_dgram_socket { read write };
+allow hiperf hiview:fifo_file { read write };
+allow hiperf hiview_file:file { read write };
+
+allow hiview hiperf:process sigkill;
+allow hiview data_local:dir { search };
+allow hiview proc_file:file { getattr };
+allow hiview debug_param:parameter_service { set };
