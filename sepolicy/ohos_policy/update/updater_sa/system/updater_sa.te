@@ -45,4 +45,5 @@ allow updater_sa data_updater_file:dir { search };
 allow updater_sa data_updater_file:file { read open getattr };
 allow updater_sa dev_console_file:chr_file { read write }; 
 allow updater_sa sysfs_devices_system_cpu:file { read write open getattr };
-
+allow updater_sa dev_file:dir { getattr };
+allow updater_sa update_firmware_file:dir { create rmdir setattr };

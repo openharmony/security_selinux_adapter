@@ -351,3 +351,5 @@ allowxperm init dev_at_file:chr_file ioctl { 0x4102 };
 allowxperm init dev_block_file:blk_file ioctl { 0x125e 0x1272 0x127c 0x5413 };
 allowxperm init dev_console_file:chr_file ioctl { 0x540e };
 allowxperm init init:udp_socket ioctl { 0x8913 0x8914 };
+allow init update_firmware_file:dir { search write create add_name getattr open read relabelto setattr };
+allow init update_firmware_file:file { getattr };
