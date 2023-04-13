@@ -44,8 +44,10 @@ typedef struct SrcInfo {
 
 /**
  * @brief init param selinux
+ *
+ * @param isInit is init process
  */
-int InitParamSelinux(void);
+int InitParamSelinux(int isInit);
 
 /**
  * @brief get param context list, for context-named files generate
