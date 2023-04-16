@@ -79,9 +79,6 @@ allow hdcd const_param:file { map open read };
 allow hdcd const_postinstall_fstab_param:file { map open read };
 allow hdcd const_postinstall_param:file { map open read };
 allow hdcd const_product_param:file { map open read };
-allow hdcd data_app_el1_file:dir { add_name getattr search write };
-allow hdcd data_app_el1_file:file { create write open };
-allow hdcd data_app_file:dir { search };
 allow hdcd data_log:dir { search };
 allow hdcd debug_param:file { map open read };
 allow hdcd default_param:file { map open read };
@@ -164,6 +161,10 @@ debug_only(`
     allow hdcd system_bin_file:file { create write };
     allow hdcd system_etc_file:dir { add_name write };
     allow hdcd system_etc_file:file { create write };
+
+    allow hdcd data_app_el1_file:dir { add_name getattr search write };
+    allow hdcd data_app_el1_file:file { create write open };
+    allow hdcd data_app_file:dir { search };
 
     allow hdcd vendor_lib_file:dir { write };
     allow hdcd vendor_lib_file:file { write };
