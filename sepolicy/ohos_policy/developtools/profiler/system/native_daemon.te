@@ -92,4 +92,3 @@ allow native_daemon dev_file:dir getattr;
 allow native_daemon hap_domain:lnk_file { getattr map open read };
 allow native_daemon app_el1_bundle_public:dir { read search open getattr };
 allow native_daemon app_el1_bundle_public:file { map getattr read open };
-allow native_daemon dev_file:dir getattr;
