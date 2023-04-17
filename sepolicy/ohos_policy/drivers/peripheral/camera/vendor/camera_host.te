@@ -64,4 +64,5 @@ debug_only(`
     allow camera_host sh:binder { call transfer };
 ')
 allowxperm camera_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
-allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 };
+allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 0x561b 0x564a 0x5602 0x5624 0x564b 0x5625 };
+allow camera_host tracefs:dir { search };
