@@ -67,7 +67,7 @@ def traverse_folder_in_type(search_dir_list, file_suffix):
                     flag |= check_empty_row(file_list_path)
                     policy_file_list.append(file_list_path)
     if flag:
-        raise Exception(ret)
+        raise Exception(flag)
     policy_file_list.sort()
     return " ".join(str(x) for x in policy_file_list)
 
@@ -299,19 +299,11 @@ def main(args):
         system_policy += traverse_folder_in_dir_name(item, "system")
         vendor_policy += traverse_folder_in_dir_name(item, "vendor")
 
-        # list of all policy folders
-        system_folder_list = public_policy + system_policy
-        vendor_folder_list = public_policy + vendor_policy
-        treble_folder_list = public_policy + system_policy + vendor_policy
+    all_folder_list = public_policy + system_policy + vendor_policy
 
     folder_list = []
 
-    if args.components == "system":
-        folder_list = system_folder_list
-    elif args.components == "vendor":
-        folder_list = system_folder_list
-    else:
-        folder_list = treble_folder_list
+    folder_list = all_folder_list
 
     build_file_contexts(args, output_path, folder_list)
     build_common_contexts(args, output_path, "service_contexts", folder_list)
