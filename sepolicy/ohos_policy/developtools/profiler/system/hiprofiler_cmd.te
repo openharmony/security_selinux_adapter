@@ -168,3 +168,4 @@ allow hiprofiler_cmd devpts:chr_file { ioctl };
 
 allow hiprofiler_cmd vendor_bin_file:dir search;
 allow hiprofiler_cmd sysfs_devices_system_cpu:dir { read open };
+allow hiprofiler_cmd dev_file:dir getattr;

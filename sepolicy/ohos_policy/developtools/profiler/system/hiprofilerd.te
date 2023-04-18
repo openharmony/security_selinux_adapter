@@ -128,3 +128,4 @@ allow hiprofilerd sysfs_devices_system_cpu:dir { read open };
 
 allow hiprofilerd hap_domain:dir { read open getattr search };
 allow hiprofilerd hap_domain:file { read open getattr map };
+allow hiprofilerd dev_file:dir getattr;
