@@ -223,7 +223,7 @@ allow hidumper_service sa_device_profile_service:samgr_class get;
 allow hidumper_service sa_device_security_level_manager_service:samgr_class get;
 allow hidumper_service sa_device_service_manager:samgr_class get;
 allow hidumper_service sa_download_service:samgr_class get;
-allow hidumper_service sa_file_manager_service:samgr_class get;
+allow hidumper_service sa_file_access_service:samgr_class get;
 allow hidumper_service sa_filemanagement_distributed_file_daemon_service:samgr_class get;
 allow hidumper_service sa_foundation_ans:samgr_class get;
 allow hidumper_service sa_foundation_cesfwk_service:samgr_class get;
