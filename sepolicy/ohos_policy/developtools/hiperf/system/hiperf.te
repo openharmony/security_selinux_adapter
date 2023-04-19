@@ -209,6 +209,7 @@ allow hiperf tracefs_trace_marker_file:file { open write };
 allow hiperf hilog_exec:file { getattr map open read };
 allow hiperf rootfs:file { ioctl };
 allow hiperf ueventd_exec:file { getattr map open };
+allow hiperf dev_file:dir getattr;
 
 allow samgr hiperf:file { read open };
 allow samgr hiperf:dir { search };
