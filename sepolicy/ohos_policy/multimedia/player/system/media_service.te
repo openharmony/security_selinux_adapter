@@ -74,6 +74,9 @@ allow media_service data_file:dir { write add_name };
 allow media_service data_test_media_file:file { write read getattr };
 
 allow media_service system_basic_hap:fd { use };
+
+allow media_service system_basic_hap:binder { transfer call };
+
 allow media_service system_basic_hap_data_file:file { getattr read write };
 
 allow media_service normal_hap_data_file_attr:file { read getattr };
@@ -89,4 +92,7 @@ allow media_service data_media_log_file:file { create read open getattr write ap
 allowxperm media_service data_media_log_file:file ioctl { 0x5413 };
 
 allow media_service data_media_log_file:dir { create add_name write search };
+
 allow media_service normal_hap_data_file:file { write };
+
+allow media_service hilogd:unix_dgram_socket { sendto };

@@ -336,6 +336,8 @@ allow audio_host hdf_audio_hdi_service:hdf_devmgr_class { add };
 allow audio_host dev_unix_socket:dir { search };
 allow audio_host hdf_audio_hdi_a2dp_service:hdf_devmgr_class { add };
 allow audio_host hdf_devmgr:binder { call transfer };
+allow audio_host chip_prod_file:dir { search };
+allow audio_host chip_prod_file:file { read open getattr };
 allow audio_host data_file:dir { search };
 allow audio_host data_file:file { map open read append write };
 allow audio_host dev_hdf_audio_render:chr_file { getattr ioctl open read write };
@@ -362,6 +364,7 @@ allow audio_host dev_hdf_audio_capture:chr_file { getattr ioctl open read write 
 allow audio_host dev_hdf_audio_control:chr_file { getattr ioctl open read write };
 allow audio_host dev_snd_file:chr_file { ioctl };
 allow audio_host dev_snd_file:dir { search };
+allow audio_host dev_console_file:chr_file { read write };
 allowxperm audio_host dev_snd_file:chr_file ioctl { 0x4143 };
 allowxperm audio_host dev_hdf_audio_render:chr_file ioctl { 0x6201 };
 allowxperm audio_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 };

@@ -27,3 +27,7 @@ allow sh dev_dri_file:chr_file { read write open ioctl getattr};
 allow sh dev_dri_file:dir { search };
 allowxperm sh dev_dri_file:chr_file ioctl 0x641f;
 
+debug_only(`
+    allow sh chip_prod_file:dir { read open getattr };
+    allow sh chip_prod_file:file { getattr };
+')

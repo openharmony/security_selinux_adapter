@@ -12,4 +12,6 @@
 # limitations under the License.
 
 init_daemon_domain(ueventd);
-
+allow ueventd dev_media_file:chr_file { getattr setattr unlink};
+allow ueventd dev_video_file:chr_file { getattr setattr unlink};
+allow ueventd musl_param:file { read };

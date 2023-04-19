@@ -132,9 +132,10 @@ allow init dev_asanlog_file:dir { setattr read getattr relabelto };
 allow hiview kernel:system { syslog_read };
 
 allow hiview hilog_exec:file { execute read open execute_no_trans map };
-
 allow hiview hilog_output_socket:sock_file { write };
-
 allow hiview hilogd:unix_stream_socket { connectto };
 
 allow hiview hitrace_exec:file { execute read open execute_no_trans map };
+allow hiview tracefs:file { write };
+
+allow hiview proc_sysrq_trigger_file:file { open getattr write ioctl };
