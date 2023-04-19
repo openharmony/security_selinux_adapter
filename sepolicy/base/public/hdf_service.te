@@ -36,6 +36,8 @@ type hdf_usbfn_cdcecm, hdf_service_attr;
 type hdf_usbfn_cdcacm, hdf_service_attr;
 type hdf_wlan_hal_service, hdf_service_attr;
 type hdf_hdi_display_gralloc_service, hdf_service_attr;
+type hdf_display_composer_service, hdf_service_attr;
+type hdf_allocator_service, hdf_service_attr;
 type hdf_camera_service, hdf_service_attr;
 type hdf_face_auth_interface_service, hdf_service_attr;
 type hdf_pin_auth_interface_service, hdf_service_attr;
@@ -57,7 +59,11 @@ type hdf_bluetooth_audio_session_service, hdf_service_attr;
 type hdf_wlan_hal_c_service, hdf_service_attr;
 type hdf_audio_hdi_pnp_service, hdf_service_attr;
 type hdf_audio_manager_service, hdf_service_attr;
+type hdf_effect_model_service, hdf_service_attr;
 type hdf_hdi_media_layer_service, hdf_service_attr;
+type hdf_wlan_interface_service, hdf_service_attr;
+type hdf_partition_slot_service, hdf_service_attr;
+type hdf_input_interfaces_service, hdf_service_attr;
 
 # for testcase start
 type hdf_sample_service, hdf_service_attr;

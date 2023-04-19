@@ -56,3 +56,4 @@ allow samgr system_core_hap:binder { call };
 allow samgr sys_usb_param:file { map open read };
 allow samgr tracefs:dir { search };
 allow samgr tracefs_trace_marker_file:file { open write };
+allow samgr appspawn:process { getattr };

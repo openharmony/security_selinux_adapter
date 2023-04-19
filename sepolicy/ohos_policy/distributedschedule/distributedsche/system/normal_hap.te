@@ -19,19 +19,23 @@ allow normal_hap_attr sa_softbus_service:samgr_class { get };
 allow normal_hap_attr softbus_server:binder { call transfer };
 allow normal_hap_attr softbus_server:fd { use };
 allow normal_hap_attr softbus_server:tcp_socket { read setopt write };
+allow normal_hap_attr sa_foundation_continuation_manager_service:samgr_class { get };
 
 allow system_basic_hap distributedsche:binder { call transfer };
 allow system_basic_hap distributedsche:fd { use };
 allow system_basic_hap sa_distributeschedule:samgr_class { get };
 allow system_basic_hap sa_softbus_service:samgr_class { get };
 allow system_basic_hap softbus_server:tcp_socket { read setopt write };
+allow system_basic_hap sa_foundation_continuation_manager_service:samgr_class { get };
 
 allow system_core_hap distributedsche:binder { call transfer };
 allow system_core_hap distributedsche:fd { use };
 allow system_core_hap sa_distributeschedule:samgr_class { get };
 allow system_core_hap sa_softbus_service:samgr_class { get };
 allow system_core_hap softbus_server:tcp_socket { read setopt write };
+allow system_core_hap sa_foundation_continuation_manager_service:samgr_class { get };
 
 allow faultloggerd normal_hap_attr:process { signal };
+allow foundation normal_hap_attr:file { open };
 allow softbus_server normal_hap_attr:binder { call };
 allow softbus_server sa_privacy_service:samgr_class { get };

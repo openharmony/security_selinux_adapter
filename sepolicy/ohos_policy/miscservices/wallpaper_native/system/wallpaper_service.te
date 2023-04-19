@@ -11,14 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type  wallpaper_service, sadomain, domain;
-
 allow wallpaper_service sa_foundation_dms:samgr_class { get };
 allow wallpaper_service sa_foundation_bms:samgr_class { get };
 allow wallpaper_service system_core_hap:binder { call transfer };
 allow wallpaper_service system_basic_hap:binder { call transfer };
 allow wallpaper_service normal_hap_attr:binder { call transfer };
-allow wallpaper_service data_service_el1_file:dir { getattr remove_name read create open };
+allow wallpaper_service data_service_el1_file:dir { getattr remove_name read create open rmdir };
 allow wallpaper_service data_service_el1_file:file { getattr unlink };
 allow wallpaper_service proc_cpuinfo_file:file { open read };
 allow wallpaper_service system_basic_hap:fd { use };
@@ -57,5 +55,5 @@ allow wallpaper_service sh:fd { use };
 allow wallpaper_service sh:fifo_file { read };
 allow wallpaper_service sh:binder { call };
 allow wallpaper_service data_file:file { read };
-allow wallpaper_service musl_param:file { read };
+allow wallpaper_service musl_param:file { read open };
 allow foundation wallpaper_service:file { read };

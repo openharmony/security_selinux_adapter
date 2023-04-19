@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow hap_domain data_service_el2_hmdfs:file { create_file_perms };
-allow hap_domain data_service_el2_hmdfs:dir { create_dir_perms };
+allow hap_domain data_service_el2_hmdfs:file { watch watch_reads create_file_perms };
+allow hap_domain data_service_el2_hmdfs:dir { watch watch_reads create_dir_perms };
 allow hap_domain data_service_el2_hmdfs:lnk_file { create_file_perms };

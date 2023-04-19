@@ -1,0 +1,24 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+/module_update              u:object_r:rootfs:s0
+/module_update(/.*)?        u:object_r:module_update_file:s0
+/module_update/bin(/.*)?    u:object_r:module_update_bin_file:s0
+/module_update/lib(/.*)?    u:object_r:module_update_lib_file:s0
+/module_update/lib64(/.*)?  u:object_r:module_update_lib_file:s0
+/data/module_update         u:object_r:data_module_update:s0
+/data/module_update/(.*)?   u:object_r:data_module_update:s0
+/data/module_update_package         u:object_r:data_module_update_package:s0
+/data/module_update_package/(.*)?   u:object_r:data_module_update_package:s0
+/system/module_update(/.*)?         u:object_r:system_module_update_file:s0
+/system/bin/module_update_service   u:object_r:module_update_service_exec:s0

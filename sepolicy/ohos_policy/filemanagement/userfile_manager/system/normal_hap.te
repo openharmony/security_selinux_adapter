@@ -14,28 +14,6 @@
 neverallow {
     domain
     -storage_daemon
-    -hap_domain
-    -media_service
-    -hdcd
-} data_user_file:dir {
-    create_dir_perms
-    never_write_dir
-};
-
-neverallow {
-    domain
-    -storage_daemon
-    -hap_domain
-    -media_service
-    -hdcd
-} data_user_file:{ file lnk_file } {
-    create_file_perms
-    never_rw_file
-};
-
-neverallow {
-    domain
-    -storage_daemon
 } data_user_file:file {
     never_execute_file
 };

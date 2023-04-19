@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow system_basic_hap print_service:binder { call transfer };
+allow system_basic_hap sa_print_service:samgr_class { get };

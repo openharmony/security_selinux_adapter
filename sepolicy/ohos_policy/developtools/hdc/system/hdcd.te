@@ -10,6 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
+type developtools_hdc_control_param, parameter_attr;
 
 allow hdcd data_local:file { read open getattr create write };
 allow hdcd data_local:dir { search getattr read write add_name open create };
@@ -79,9 +80,6 @@ allow hdcd const_param:file { map open read };
 allow hdcd const_postinstall_fstab_param:file { map open read };
 allow hdcd const_postinstall_param:file { map open read };
 allow hdcd const_product_param:file { map open read };
-allow hdcd data_app_el1_file:dir { add_name getattr search write };
-allow hdcd data_app_el1_file:file { create write open };
-allow hdcd data_app_file:dir { search };
 allow hdcd data_log:dir { search };
 allow hdcd debug_param:file { map open read };
 allow hdcd default_param:file { map open read };
@@ -109,10 +107,22 @@ allow hdcd startup_param:file { map open read };
 allow hdcd sys_file:file { open read };
 allow hdcd sys_param:file { map open read };
 allow hdcd sys_usb_param:file { map open read };
+allow hdcd tracefs:dir { search };
+allow hdcd tracefs_trace_marker_file:file { write open };
+allow hdcd dev_console_file:chr_file { read write };
+allow hdcd musl_param:file { read open };
+
+allow samgr hdcd:dir { search };
+allow samgr hdcd:file { read open };
+allow samgr hdcd:process { getattr };
+allow samgr hdcd:binder { transfer };
 
 allow hdcd hmdfs:dir create_dir_perms;
 allow hdcd hmdfs:file create_file_perms;
 
+allow param_watcher hdcd:binder { call };
+allow hdcd samgr:binder { call };
+allow hdcd param_watcher:binder { call transfer };
 allow hdcd audio_policy:binder { call transfer };
 allow hdcd pulseaudio:binder { call };
 allow hdcd sa_audio_policy_service:samgr_class { get };
@@ -121,6 +131,7 @@ allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
 allow hdcd memmgrservice:dir { getattr search };
 allow hdcd memmgrservice:file { open read };
 
+allow hdcd sa_param_watcher:samgr_class { get };
 allow hdcd sys_param:parameter_service { set };
 allow hdcd persist_param:parameter_service { set };
 allow hdcd servicectrl_reboot_param:parameter_service { set };
@@ -152,6 +163,10 @@ debug_only(`
     allow hdcd system_etc_file:dir { add_name write };
     allow hdcd system_etc_file:file { create write };
 
+    allow hdcd data_app_el1_file:dir { add_name getattr search write };
+    allow hdcd data_app_el1_file:file { create write open };
+    allow hdcd data_app_file:dir { search };
+
     allow hdcd vendor_lib_file:dir { write };
     allow hdcd vendor_lib_file:file { write };
 
@@ -167,3 +182,6 @@ debug_only(`
 ')
 
 domain_auto_transition_pattern(hdcd, sh_exec, sh);
+
+# hdc control
+neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:parameter_service { set };

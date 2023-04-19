@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type bgtaskmgr_service, sadomain, domain;
-
 allow bgtaskmgr_service accessibility_param:file { map open read };
 allow bgtaskmgr_service app_el1_bundle_public:dir { search };
 allow bgtaskmgr_service app_el1_bundle_public:file { open };
@@ -54,7 +52,7 @@ allow bgtaskmgr_service vendor_file:file { map open read getattr };
 allow bgtaskmgr_service chip_prod_file:file { map open read getattr };
 allow pulseaudio bgtaskmgr_service:binder { call transfer };
 allow audio_policy bgtaskmgr_service:binder { call transfer };
-allow hiview bgtaskmgr_service:dir { getattr open read }; 
+allow hiview bgtaskmgr_service:dir { getattr open read };
 allow hiview bgtaskmgr_service:file { getattr };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
 

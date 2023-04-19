@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type  time_service, sadomain, domain;
-
 allow time_service sa_foundation_abilityms:samgr_class { get };
 allow time_service sh:binder { call };
 allow sh time_service:binder { call transfer };

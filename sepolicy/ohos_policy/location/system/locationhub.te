@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type locationhub, sadomain, domain;
-
 #avc:  denied  { get } for service=2803 pid=284 scontext=u:r:locationhub:s0 tcontext=u:object_r:sa_locationhub_lbsservice_gnss:s0 tclass=samgr_class permissive=1
 allow locationhub sa_locationhub_lbsservice_gnss:samgr_class { get };
 
@@ -78,3 +76,12 @@ allow locationhub normal_hap_attr:binder { call transfer };
 allow locationhub musl_param:file { read };
 
 allow locationhub dev_console_file:chr_file { read write };
+
+allow locationhub sa_location_locator_service:samgr_class { get };
+allow locationhub sa_distributeddata_service:samgr_class { get };
+allow locationhub distributeddata:binder { call };
+allow locationhub distributeddata:fd { use };
+allow locationhub vendor_bin_file:dir { search };
+
+allow locationhub musl_param:file { open };
+allow locationhub dev_file:dir { getattr };

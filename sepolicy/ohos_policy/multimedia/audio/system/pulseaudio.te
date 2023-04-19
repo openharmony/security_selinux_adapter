@@ -21,6 +21,13 @@ allow pulseaudio accesstoken_service:binder { call };
 
 #avc:  denied  { call } for  pid=304 comm="hdi-sink-playba" scontext=u:r:pulseaudio:s0 tcontext=u:r:audio_host:s0 tclass=binder permissive=1
 allow pulseaudio audio_host:binder { call };
+allow pulseaudio audio_host:binder { transfer };
+allow pulseaudio audio_host:fd { use };
+
+allow pulseaudio sh:binder { call transfer };
+
+allow pulseaudio normal_hap_attr:binder { call transfer };
+allow pulseaudio dev_ashmem_file:chr_file { open };
 
 #avc:  denied  { search } for  pid=285 comm="pulseaudio" name="data" dev="mmcblk0p7" ino=1436162 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
 allow pulseaudio data_data_file:dir { search };
@@ -162,3 +169,6 @@ allow pulseaudio foundation:binder { call transfer };
 allow foundation pulseaudio:binder { call transfer };
 
 allow pulseaudio vendor_bin_file:dir { search };
+allow pulseaudio musl_param:file { read };
+allow pulseaudio hdf_audio_manager_service:hdf_devmgr_class { get };
+allow pulseaudio sa_audio_policy_service:samgr_class { get };

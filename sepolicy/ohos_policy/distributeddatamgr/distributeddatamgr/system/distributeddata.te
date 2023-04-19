@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type distributeddata, sadomain, domain;
-
 allow distributeddata accesstoken_service:binder { call };
 allow distributeddata accountmgr:binder { call };
 allow distributeddata accountmgr:dir { search };
@@ -55,7 +53,7 @@ allow distributeddata hdcd:dir { search };
 allow distributeddata hdcd:fd { use };
 allow distributeddata hdcd:file { open read };
 allow distributeddata huks_service:binder { call };
-allow distributeddata musl_param:file { open read };
+allow distributeddata musl_param:file { open read map };
 allow distributeddata normal_hap_attr:binder { call transfer };
 allow distributeddata normal_hap_attr:dir { search };
 allow distributeddata normal_hap_attr:file { getattr open read };
@@ -78,6 +76,10 @@ allow distributeddata softbus_server:binder { call transfer };
 allow distributeddata softbus_server:tcp_socket { read setopt write };
 allow distributeddata sys_file:dir { search };
 allow distributeddata system_basic_hap:binder { call transfer };
+allow distributeddata system_basic_hap:dir { search };
+allow distributeddata system_basic_hap:file { getattr open read };
+allow distributeddata system_basic_hap_data_file:dir { getattr open read search write add_name create remove_name rmdir };
+allow distributeddata system_basic_hap_data_file:file { getattr ioctl lock map open setattr create unlink read write };
 allow distributeddata system_core_hap:dir { search };
 allow distributeddata system_core_hap:file { getattr open read };
 allow distributeddata system_core_hap_data_file:dir { getattr open read search write add_name create remove_name rmdir };
@@ -97,3 +99,5 @@ allowxperm distributeddata data_app_el3_database_file:file ioctl { 0xf50c 0x5413
 allowxperm distributeddata data_app_el4_database_file:file ioctl { 0xf50c 0x5413};
 allowxperm distributeddata normal_hap_data_file_attr:file ioctl { 0x5413 };
 allowxperm distributeddata system_core_hap_data_file:file ioctl 0xf50c;
+allowxperm distributeddata system_basic_hap_data_file:file ioctl 0xf50c;
+allow distributeddata locationhub:binder { transfer };

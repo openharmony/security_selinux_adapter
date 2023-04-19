@@ -11,12 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type udevd, domain, nativedomain;
-
-type udevd_exec, exec_attr, file_attr, system_file_attr;
-type udevd_socket, file_attr, data_file_attr;
-type udevd_file, file_attr, data_file_attr;
-
 init_daemon_domain(udevd);
 
 allow udevd data_file:dir { open search getattr rmdir };

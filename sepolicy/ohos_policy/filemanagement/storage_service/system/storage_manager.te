@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type storage_manager, sadomain, domain;
-
 #avc:  denied  { call } for  pid=241 comm="storage_manager" scontext=u:r:storage_manager:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow storage_manager accesstoken_service:binder { call };
 

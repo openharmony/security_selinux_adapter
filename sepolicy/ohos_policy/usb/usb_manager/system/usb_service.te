@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type sa_usb_service, sa_service_attr;
-
 allow usb_service accessibility_param:file { map open read };
 allow usb_service console:binder { call };
 allow usb_service console:fd { use };
@@ -55,12 +53,13 @@ allow usb_service vendor_lib_file:file { execute map getattr open read };
 allow normal_hap_attr sa_usb_service:samgr_class { get };
 allow normal_hap_attr usb_service:binder { call };
 allow system_basic_hap sa_usb_service:samgr_class { get };
+allow system_basic_hap usb_service:binder { call };
 allow system_core_hap sa_usb_service:samgr_class { get };
 allow system_core_hap usb_service:binder { call };
 allow ui_service usb_service:binder { call };
 allow foundation usb_service:binder { call transfer };
 allow foundation usb_service:dir { search };
-allow foundation usb_service:file { open read };
+allow foundation usb_service:file { getattr open read };
 allow usb_service dev_console_file:chr_file { read write };
 allow usb_service sa_foundation_dms:samgr_class { get };
 allow usb_service sa_subsys_ace_service:samgr_class { get };
@@ -69,3 +68,6 @@ allow usb_service sa_foundation_abilityms:samgr_class { get };
 allow usb_service foundation:binder { transfer };
 allow usb_service musl_param:file { read };
 allow usb_service system_core_hap:binder { call };
+allow usb_service data_service_file:dir { search };
+allow usb_service data_service_el1_file:dir { search };
+allow usb_service data_service_el1_file:file { ioctl open read write getattr };

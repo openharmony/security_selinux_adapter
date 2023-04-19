@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,8 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-type hdf_wlan_interface_service, hdf_service_attr;
 
 #avc:  denied  { add } for service=wlan_interface_service pid=569 scontext=u:r:wifi_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
 allow wifi_host hdf_wlan_interface_service:hdf_devmgr_class { add };

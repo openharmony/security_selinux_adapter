@@ -188,6 +188,7 @@ allow hidumper_service sa_bgtaskmgr:samgr_class get;
 allow hidumper_service sa_bluetooth_server:samgr_class get;
 allow hidumper_service sa_comm_dns_manager_service:samgr_class get;
 allow hidumper_service sa_comm_ethernet_manager_service:samgr_class get;
+allow hidumper_service sa_comm_mdns_manager_service:samgr_class get;
 allow hidumper_service sa_comm_net_stats_manager_service:samgr_class get;
 allow hidumper_service sa_dataobs_mgr_service_service:samgr_class get;
 allow hidumper_service sa_device_usage_statistics_service:samgr_class get;
@@ -263,6 +264,7 @@ allow hidumper_service sa_useriam_pinauth_service:samgr_class get;
 allow hidumper_service sa_useriam_useridm_service:samgr_class get;
 allow hidumper_service sa_wallpaper_manager_service:samgr_class get;
 allow hidumper_service sa_devattest_service:samgr_class get;
+allow hidumper_service sa_device_standby:samgr_class get;
 allow hidumper_service samgr:samgr_class list;
 
 allow hidumper_service hiprofiler_cmd:file getattr;
@@ -286,3 +288,7 @@ allow hidumper_service debugfs_wakeup_sources:file { getattr open read };
 allow hidumper_service debugfs_stats:file { getattr open read };
 allow hidumper_service debugfs_state:file { getattr open read };
 allow hidumper_service data_log:file { read write };
+
+allow hidumper_service hiview:binder { transfer };
+
+neverallow hidumper_service *:process ptrace;

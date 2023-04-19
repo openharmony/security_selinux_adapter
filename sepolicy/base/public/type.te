@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#type samgr, domain;
+type samgr, sadomain, domain;
 type accesstoken_service, sadomain, domain;
 type socperf_service, sadomain, domain;
 type distributedsche, sadomain, domain;
@@ -30,7 +30,7 @@ type telephony_sa, sadomain, domain;
 type camera_service, sadomain, domain;
 type media_service, sadomain, domain;
 type param_watcher, sadomain, domain;
-#type foundation, domain;
+type foundation, sadomain, domain;
 type token_sync_service, sadomain, domain;
 type memmgrservice, sadomain, domain;
 type accessibility, sadomain, domain;
@@ -46,6 +46,7 @@ type download_server, sadomain, domain;
 type msdp_sa, sadomain, domain;
 type misc, sadomain, domain;
 type netsysnative, sadomain, domain;
+type mdnsmanager, sadomain, domain;
 type hidumper_service, sadomain, domain;
 type console, sadomain, domain;
 type bootanimation, sadomain, domain;

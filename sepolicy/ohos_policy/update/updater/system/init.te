@@ -1,0 +1,148 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+updater_only(`
+
+#avc: denied { read } for pid=1 comm="init" name="ohos.para.size" dev="rootfs" ino=17448 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
+#avc: denied { getattr } for pid=1 comm="init" path="/etc/selinux/targeted/contexts/file_contexts" dev="rootfs" ino=17429 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
+#avc: denied { open } for pid=1 comm="init" path="/etc/selinux/targeted/contexts/file_contexts" dev="rootfs" ino=17429 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
+#avc: denied { open } for pid=1 comm="init" path="/etc/param/ohos.para.size" dev="rootfs" ino=17448 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
+#avc: denied { execute } for pid=231 comm="init" name="ueventd" dev="rootfs" ino=17717 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
+#avc: denied { execute_no_trans } for pid=233 comm="init" path="/bin/hilog" dev="rootfs" ino=797 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
+#avc: denied { map } for pid=1 comm="init" path="/lib/init/librebootmodule.z.so" dev="rootfs" ino=17620 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
+#avc: denied { map } for pid=235 comm="hilog" path="/bin/hilog" dev="rootfs" ino=17650 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { write } for pid=227 comm="hilogd.control" path="/data/log/hilog/.persisterInfo_1.info" dev="rootfs" ino=26950 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow init rootfs:file { getattr read open execute map };
+
+# avc: denied { read } for pid=1 comm="init" name="etc" dev="rootfs" ino=399 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
+# avc: denied { open } for pid=1 comm="init" path="/etc" dev="rootfs" ino=16655 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
+# avc: denied { relabelfrom } for pid=1 comm="init" name="system" dev="rootfs" ino=386 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
+# avc: denied { write } for pid=1 comm="init" name="/" dev="rootfs" ino=1 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
+# avc: denied { add_name } for pid=1 comm="init" name="config" scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
+# avc: denied { create } for pid=1 comm="init" name="config" scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
+# avc: denied { setattr } for pid=1 comm="init" name="param" dev="rootfs" ino=17987 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
+allow init rootfs:dir { read open write relabelfrom add_name create setattr };
+
+# avc: denied { create } for pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+# avc: denied { setopt } for pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+# avc: denied { bind } for pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
+allow init ueventd:netlink_kobject_uevent_socket { create setopt bind };
+
+# avc: denied { relabelto } for pid=1 comm="init" name="system" dev="rootfs" ino=17408 scontext=u:r:init:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=1 comm="init" name="system" dev="rootfs" ino=17408 scontext=u:r:init:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=1 comm="init" path="/system" dev="rootfs" ino=17408 scontext=u:r:init:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
+allow init system_file:dir { read open relabelto };
+
+# avc: denied { associate } for pid=1 comm="init" name="system" dev="rootfs" ino=17408 scontext=u:object_r:system_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow system_file rootfs:filesystem { associate };
+
+#avc: denied { relabelfrom } for pid=1 comm="init" name="bin" dev="rootfs" ino=2032 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=lnk_file permissive=1
+allow init rootfs:lnk_file { relabelfrom };
+
+#avc: denied { relabelto } for pid=1 comm="init" name="bin" dev="rootfs" ino=2032 scontext=u:r:init:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file permissive=1
+allow init system_bin_file:lnk_file { relabelto };
+
+#avc: denied { associate } for pid=1 comm="init" name="bin" dev="rootfs" ino=2032 scontext=u:object_r:system_bin_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow system_bin_file rootfs:filesystem { associate };
+
+#avc: denied { relabelto } for pid=1 comm="init" name="lib" dev="rootfs" ino=2031 scontext=u:r:init:s0 tcontext=u:object_r:system_lib_file:s0 tclass=lnk_file permissive=1
+allow init system_lib_file:lnk_file { relabelto };
+
+#avc: denied { associate } for pid=1 comm="init" name="lib" dev="rootfs" ino=2031 scontext=u:object_r:system_lib_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow system_lib_file rootfs:filesystem { associate };
+
+#avc: denied { relabelto } for pid=1 comm="init" name="etc" dev="rootfs" ino=2030 scontext=u:r:init:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+#avc: denied { read } for pid=235 comm="hilog" name="etc" dev="rootfs" ino=17415 scontext=u:r:init:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+allow init system_etc_file:lnk_file { relabelto read };
+
+#avc: denied { associate } for pid=1 comm="init" name="etc" dev="rootfs" ino=2030 scontext=u:object_r:system_etc_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow system_etc_file rootfs:filesystem { associate };
+
+#avc: denied { read } for pid=1 comm="init" name="vendor" dev="rootfs" ino=16661 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=dir permissive=1
+#avc: denied { open } for pid=1 comm="init" path="/vendor" dev="rootfs" ino=16661 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=dir permissive=1
+#avc: denied { relabelto } for pid=1 comm="init" name="vendor" dev="rootfs" ino=2038 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=dir permissive=1
+allow init vendor_file:dir { relabelto read open };
+
+#avc: denied { associate } for pid=1 comm="init" name="vendor" dev="rootfs" ino=16661 scontext=u:object_r:vendor_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow vendor_file rootfs:filesystem { associate };
+
+
+#avc: denied { associate } for pid=1 comm="init" name="data" dev="rootfs" ino=20555 scontext=u:object_r:data_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow data_file rootfs:filesystem { associate };
+
+#avc: denied { mount } for pid=1 comm="init" name="/" dev="tmpfs" ino=1 scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem permissive=1
+allow init tmpfs:filesystem { mount };
+
+#avc: denied { associate } for pid=1 comm="init" name="log" dev="rootfs" ino=20558 scontext=u:object_r:data_log:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow data_log rootfs:filesystem { associate };
+
+#avc: denied { associate } for pid=1 comm="init" name="hilog" dev="rootfs" ino=20559 scontext=u:object_r:data_hilogd_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow data_hilogd_file rootfs:filesystem { associate };
+
+#avc: denied { relabelto } for pid=1 comm="init" name="config" dev="rootfs" ino=20592 scontext=u:r:init:s0 tcontext=u:object_r:config_file:s0 tclass=dir permissive=1
+#avc: denied { read } for pid=1 comm="init" name="config" dev="rootfs" ino=20592 scontext=u:r:init:s0 tcontext=u:object_r:config_file:s0 tclass=dir permissive=1
+#avc: denied { open } for pid=1 comm="init" path="/config" dev="rootfs" ino=20592 scontext=u:r:init:s0 tcontext=u:object_r:config_file:s0 tclass=dir permissive=1
+#avc: denied { setattr } for pid=1 comm="init" name="config" dev="rootfs" ino=20592 scontext=u:r:init:s0 tcontext=u:object_r:config_file:s0 tclass=dir permissive=1
+allow init config_file:dir { relabelto read open setattr };
+
+#avc: denied { associate } for pid=1 comm="init" name="config" dev="rootfs" ino=20592 scontext=u:object_r:config_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
+allow config_file rootfs:filesystem { associate };
+
+#avc: denied { getattr } for pid=1 comm="init" path="/config/usb_gadget/g1/os_desc/b.1" dev="configfs" ino=20701 scontext=u:r:init:s0 tcontext=u:object_r:configfs:s0 tclass=lnk_file permissive=1
+allow init configfs:lnk_file { getattr };
+
+#avc: denied { read } for pid=1 comm="init" name="/" dev="functionfs" ino=19954 scontext=u:r:init:s0 tcontext=u:object_r:functionfs:s0 tclass=dir permissive=1
+#avc: denied { open } for pid=1 comm="init" path="/dev/usb-ffs/hdc" dev="functionfs" ino=19954 scontext=u:r:init:s0 tcontext=u:object_r:functionfs:s0 tclass=dir permissive=1
+#avc: denied { search } for pid=1 comm="init" name="/" dev="functionfs" ino=19954 scontext=u:r:init:s0 tcontext=u:object_r:functionfs:s0 tclass=dir permissive=1
+#avc: denied { setattr } for pid=1 comm="init" name="/" dev="functionfs" ino=19954 scontext=u:r:init:s0 tcontext=u:object_r:functionfs:s0 tclass=dir permissive=1
+#avc: denied { mounton } for pid=1 comm="init" path="/dev/usb-ffs/hdc" dev="functionfs" ino=19954 scontext=u:r:init:s0 tcontext=u:object_r:functionfs:s0 tclass=dir permissive=1
+allow init functionfs:dir { read open search setattr mounton };
+
+#avc: denied { getattr } for pid=1 comm="init" path="/dev/usb-ffs/hdc/ep0" dev="functionfs" ino=19955 scontext=u:r:init:s0 tcontext=u:object_r:functionfs:s0 tclass=file permissive=1
+allow init functionfs:file { getattr };
+
+#avc: denied { transition } for pid=234 comm="init" path="/bin/updater" dev="rootfs" ino=17825 scontext=u:r:init:s0 tcontext=u:r:updater:s0 tclass=process permissive=1
+#avc: denied { rlimitinh } for pid=234 comm="updater" scontext=u:r:init:s0 tcontext=u:r:updater:s0 tclass=process permissive=1
+#avc: denied { siginh } for pid=234 comm="updater" scontext=u:r:init:s0 tcontext=u:r:updater:s0 tclass=process permissive=1
+allow init updater:process { transition rlimitinh siginh };
+
+#avc: denied { open } for pid=236 comm="hilog" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:init:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc: denied { map } for pid=235 comm="hilog" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=40 scontext=u:r:init:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+allow init musl_param:file { open map };
+
+#avc: denied { write } for pid=234 comm="hilog" name="hilogControl" dev="tmpfs" ino=67 scontext=u:r:init:s0 tcontext=u:object_r:hilog_control_socket:s0 tclass=sock_file permissive=1
+allow init hilog_control_socket:sock_file { write };
+
+#avc: denied { connectto } for pid=234 comm="hilog" path="/dev/unix/socket/hilogControl" scontext=u:r:init:s0 tcontext=u:r:hilogd:s0 tclass=unix_stream_socket permissive=1
+allow init hilogd:unix_stream_socket { connectto };
+
+#avc: denied { ioctl } for pid=234 comm="hilog" path="/dev/console" dev="rootfs" ino=16652 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+#avc: denied { write } for pid=234 comm="hilog" path="/dev/console" dev="rootfs" ino=16652 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=chr_file permissive=1
+allow init rootfs:chr_file { ioctl write };
+allowxperm init rootfs:chr_file ioctl { 0x5413 };
+
+# avc: denied { read } for pid=1 comm="init" name="misc" dev="tmpfs" ino=133 scontext=u:r:init:s0 tcontext=u:object_r:dev_file:s0 tclass=lnk_file permissive=1
+allow init dev_file:lnk_file { read };
+
+#avc: denied { relabelto } for pid=1 comm="init" name="lib64" dev="rootfs" ino=18269 scontext=u:r:init:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=lnk_file permissive=0
+allow init vendor_lib_file:lnk_file { relabelto };
+
+#avc: denied { associate } for pid=1 comm="init" name="lib64" dev="rootfs" ino=395 scontext=u:object_r:vendor_lib_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=0
+allow vendor_lib_file rootfs:filesystem { associate };
+
+#avc: denied { mount } for pid=1 comm="init" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:init:s0 tcontext=u:object_r:exfat:s0 tclass=filesystem permissive=0
+allow init exfat:filesystem { mount };
+
+# avc: denied { mounton } for pid=1 comm="init" path="/sdcard" dev="mmcblk1p1" ino=1 scontext=u:r:init:s0 tcontext=u:object_r:exfat:s0 tclass=dir permissive=0
+allow init exfat:dir { mounton };
+
+')

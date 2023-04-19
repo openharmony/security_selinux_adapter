@@ -37,6 +37,8 @@ def parse_args():
                         help='prj root path', required=True)
     parser.add_argument('--policy_dir_list',
                         help='policy dirs need to be included', required=True)
+    parser.add_argument('--components',
+                        help='system or vendor or default', required=True)
     return parser.parse_args()
 
 
@@ -46,6 +48,7 @@ def run_command(in_cmd):
     if ret != 0:
         raise Exception(ret)
 
+
 def traverse_folder_in_type(search_dir_list, file_suffix):
     """
     for special folder search_dir, find all files endwith file_suffix.
@@ -53,16 +56,37 @@ def traverse_folder_in_type(search_dir_list, file_suffix):
     :param file_suffix: postfix of file name
     :return: file list
     """
-
+    flag = 0
     policy_file_list = []
     for item in search_dir_list:
         for root, _, files in os.walk(item):
             for each_file in files:
                 file_name = os.path.basename(each_file)
                 if file_name == file_suffix:
-                    policy_file_list.append(os.path.join(root, each_file))
+                    file_list_path = os.path.join(root, each_file)
+                    flag |= check_empty_row(file_list_path)
+                    policy_file_list.append(file_list_path)
+    if flag:
+        raise Exception(flag)
     policy_file_list.sort()
     return " ".join(str(x) for x in policy_file_list)
+
+
+def check_empty_row(contexts_file):
+    """
+    Check whether the last line of te is empty.
+    :param contexts_file: list of te file
+    :return:
+    """
+    err = 0
+    with open(contexts_file, 'r') as fp:
+        lines = fp.readlines()
+        if len(lines) != 0:
+            last_line = lines[-1]
+            if '\n' not in last_line:
+                print(contexts_file + " :" + " need an empty line at end \n")
+                err = 1
+    return err
 
 
 def combine_contexts_file(file_contexts_list, combined_file_contexts):
@@ -217,7 +241,6 @@ def build_file_contexts(args, output_path, policy_path):
 
 
 def build_common_contexts(args, output_path, contexts_file_name, policy_path):
-
     contexts_list = traverse_folder_in_type(
         policy_path, contexts_file_name)
 
@@ -228,7 +251,6 @@ def build_common_contexts(args, output_path, contexts_file_name, policy_path):
 
 
 def build_sehap_contexts(args, output_path, policy_path):
-
     contexts_list = traverse_folder_in_type(
         policy_path, "sehap_contexts")
 
@@ -240,7 +262,6 @@ def build_sehap_contexts(args, output_path, policy_path):
 
 
 def prepare_build_path(dir_list, root_dir, build_dir_list):
-
     build_contexts_list = ["base/security/selinux/sepolicy/base", "base/security/selinux/sepolicy/ohos_policy"]
     build_contexts_list += dir_list.split(":")
 
@@ -255,18 +276,40 @@ def prepare_build_path(dir_list, root_dir, build_dir_list):
             exit(-1)
 
 
+def traverse_folder_in_dir_name(search_dir, folder_suffix):
+    folder_list = []
+    for root, dirs, _ in os.walk(search_dir):
+        for dir_i in dirs:
+            if dir_i == folder_suffix:
+                folder_list.append(os.path.join(root, dir_i))
+    return folder_list
+
+
 def main(args):
-
     output_path = args.dst_dir
-
     policy_path = []
     prepare_build_path(args.policy_dir_list, args.source_root_dir, policy_path)
 
-    build_file_contexts(args, output_path, policy_path)
-    build_common_contexts(args, output_path, "service_contexts", policy_path)
-    build_common_contexts(args, output_path, "hdf_service_contexts", policy_path)
-    build_common_contexts(args, output_path, "parameter_contexts", policy_path)
-    build_sehap_contexts(args, output_path, policy_path)
+    public_policy = []
+    system_policy = []
+    vendor_policy = []
+
+    for item in policy_path:
+        public_policy += traverse_folder_in_dir_name(item, "public")
+        system_policy += traverse_folder_in_dir_name(item, "system")
+        vendor_policy += traverse_folder_in_dir_name(item, "vendor")
+
+    all_folder_list = public_policy + system_policy + vendor_policy
+
+    folder_list = []
+
+    folder_list = all_folder_list
+
+    build_file_contexts(args, output_path, folder_list)
+    build_common_contexts(args, output_path, "service_contexts", folder_list)
+    build_common_contexts(args, output_path, "hdf_service_contexts", folder_list)
+    build_common_contexts(args, output_path, "parameter_contexts", folder_list)
+    build_sehap_contexts(args, output_path, folder_list)
 
 
 if __name__ == "__main__":

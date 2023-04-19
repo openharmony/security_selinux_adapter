@@ -60,3 +60,7 @@ allow audio_host dev_bus:dir { search };
 allow audio_host dev_bus_usb_file:dir { search };
 allow audio_host dev_bus_usb_file:chr_file { getattr read open };
 allow audio_host musl_param:file { open read map };
+allow audio_host pulseaudio:binder { transfer };
+allow audio_host dev_dma_heap_file:dir { search };
+allow audio_host dev_dma_heap_file:chr_file { read open ioctl };
+allowxperm audio_host dev_snd_file:chr_file ioctl { 0x4801 0x4132 0x4142 };

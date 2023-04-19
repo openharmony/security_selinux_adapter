@@ -24,4 +24,6 @@ allow memmgrservice pulseaudio:dir { search };
 #avc:  denied  { open } for  pid=299 comm="memmgrservice" path="/proc/316/status" dev="proc" ino=25829 scontext=u:r:memmgrservice:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=299 comm="memmgrservice" scontext=u:r:memmgrservice:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
 allow memmgrservice pulseaudio:file { open read };
-
+allow memmgrservice audio_host:file { getattr };
+allow memmgrservice audio_policy:file { getattr };
+allow memmgrservice pulseaudio:file { getattr };

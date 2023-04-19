@@ -1,0 +1,37 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type module_update_service, sadomain, domain;
+type module_update_service_exec, exec_attr, file_attr, system_file_attr;
+
+init_daemon_domain(module_update_service);
+
+allow module_update_service bootevent_param:file { map open read };
+allow module_update_service data_file:dir { remove_name search write };
+allow module_update_service data_module_update:dir { getattr open read remove_name rmdir write };
+allow module_update_service data_module_update_package:dir { open read remove_name rmdir search write };
+allow module_update_service debug_param:file { map open read };
+allow module_update_service dev_console_file:chr_file { open read write };
+allow module_update_service dev_unix_socket:dir { search };
+allow module_update_service hilog_param:file { map open read };
+allow module_update_service hiview:binder { call transfer };
+allow module_update_service musl_param:file { map open read };
+allow module_update_service param_watcher:binder { call transfer };
+allow module_update_service proc_file:file { open read };
+allow module_update_service sa_module_update_service:samgr_class { add };
+allow module_update_service sa_param_watcher:samgr_class { get };
+allow module_update_service sa_sys_event_service:samgr_class { get };
+allow module_update_service sysfs_devices_system_cpu:file { getattr open read };
+allow module_update_service system_bin_file:dir { search };
+allow module_update_service system_module_update_file:dir { getattr open read search };
+allow module_update_service vendor_bin_file:dir { search };

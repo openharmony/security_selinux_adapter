@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type foundation, domain, sadomain;
 type bms_param, parameter_attr;
 
 #domain_auto_transition_pattern(init, samain_exec, foundation);
@@ -49,7 +48,7 @@ allow foundation configfs:dir { search };
 allow foundation configfs:file { open write };
 allow foundation data_file:dir { getattr open read search };
 allow foundation data_file:file { getattr map read open };
-allow foundation data_app_el1_file:file { getattr read };
+allow foundation data_app_el1_file:file { getattr map read };
 allow foundation data_app_el2_file:file { getattr read };
 allow foundation data_service_el1_file:dir { add_name remove_name search write };
 allow foundation data_service_el1_file:file { create ioctl open unlink write write open };

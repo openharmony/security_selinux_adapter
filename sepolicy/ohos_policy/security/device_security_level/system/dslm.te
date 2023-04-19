@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type dslm_service, sadomain, domain;
-
 binder_call(dslm_service, deviceauth_service);
 binder_call(dslm_service, huks_service);
 binder_call(dslm_service, accesstoken_service);

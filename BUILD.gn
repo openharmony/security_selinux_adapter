@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 北京万里红科技有限公司
+# Copyright (c) 2021-2023 北京万里红科技有限公司
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,10 +29,12 @@ config("selinux_core_config") {
 
 ohos_shared_library("libload_policy") {
   output_name = "libload_policy"
-  sources = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/load_policy.c" ]
+  sources =
+      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/load_policy.cpp" ]
   include_dirs = [
     "$LIBSELINUX_ROOT_DIR/include",
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
+    "//third_party/selinux/libselinux/src",
   ]
   deps = [
     ":libselinux_klog_static",
@@ -81,8 +83,10 @@ ohos_shared_library("librestorecon") {
 
 ohos_shared_library("libhap_restorecon") {
   output_name = "libhap_restorecon"
-  sources =
-      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/hap_restorecon.cpp" ]
+  sources = [
+    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/hap_restorecon.cpp",
+    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/sehap_contexts_trie.cpp",
+  ]
   include_dirs = [
     "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
     "$LIBSELINUX_ROOT_DIR/include",
@@ -250,7 +254,7 @@ ohos_shared_library("libservice_checker") {
 }
 
 ohos_executable("load_policy") {
-  install_enable = false
+  install_enable = true
   sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/load_policy/load_policy.c" ]
   include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
   deps = [ ":libload_policy" ]
@@ -262,6 +266,10 @@ ohos_executable("load_policy") {
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
+  install_images = [
+    "system",
+    "updater",
+  ]
 }
 
 ohos_executable("restorecon") {
@@ -283,6 +291,10 @@ ohos_executable("restorecon") {
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
+  install_images = [
+    "system",
+    "updater",
+  ]
 }
 
 ohos_executable("hap_restorecon") {
@@ -388,12 +400,20 @@ action("build_policy") {
     debug_version,
     "--updater-version",
     updater_version,
+    "--components",
+    components,
   ]
   deps = [
     "$THIRD_PARTY_SELINUX_DIR:checkpolicy($host_toolchain)",
     "$THIRD_PARTY_SELINUX_DIR:secilc($host_toolchain)",
   ]
-  outputs = [ target_out_dir + "/policy.31" ]
+  outputs = [
+    target_out_dir + "/policy.31",
+    target_out_dir + "/vendor.cil",
+    target_out_dir + "/prebuild_sepolicy.system.cil.sha256",
+    target_out_dir + "/system.cil",
+    target_out_dir + "/system.cil.sha256",
+  ]
 }
 
 action("build_update_policy") {
@@ -406,7 +426,7 @@ action("build_update_policy") {
   }
 
   updater_version = "enable"
-
+  components = "default"
   inputs = exec_script("//build/scripts/find.py",
                        [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
                        "list lines")
@@ -433,6 +453,8 @@ action("build_update_policy") {
     debug_version,
     "--updater-version",
     updater_version,
+    "--components",
+    components,
   ]
   deps = [
     "$THIRD_PARTY_SELINUX_DIR:checkpolicy($host_toolchain)",
@@ -466,6 +488,8 @@ action("build_contexts") {
     rebase_path("//"),
     "--policy_dir_list",
     selinux_build_path,
+    "--components",
+    components,
   ]
   deps = [
     ":build_policy",
@@ -500,8 +524,13 @@ ohos_prebuilt_etc("build_sepolicy") {
   source = target_out_dir + "/policy.31"
   license_file = "$SELINUX_ROOT_DIR/LICENSE"
   part_name = "selinux"
-  relative_install_dir = "selinux/targeted/policy/"
-  install_images = [ "system" ]
+  if (components == "vendor") {
+    relative_install_dir = "selinux/prebuild_sepolicy/"
+    install_images = [ "vendor" ]
+  } else if (components == "default") {
+    relative_install_dir = "selinux/targeted/policy/"
+    install_images = [ "system" ]
+  }
 }
 
 ohos_prebuilt_etc("build_updater_sepolicy") {
@@ -584,10 +613,45 @@ ohos_prebuilt_etc("file_contexts") {
   ]
 }
 
+ohos_prebuilt_etc("vendor_cil") {
+  deps = [ ":build_policy" ]
+  source = target_out_dir + "/vendor.cil"
+  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  part_name = "selinux"
+  relative_install_dir = "selinux/"
+  install_images = [ "vendor" ]
+}
+
+ohos_prebuilt_etc("prebuild_sepolicy_system_cil_sha256") {
+  deps = [ ":build_policy" ]
+  source = target_out_dir + "/prebuild_sepolicy.system.cil.sha256"
+  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  part_name = "selinux"
+  relative_install_dir = "selinux/"
+  install_images = [ "vendor" ]
+}
+
+ohos_prebuilt_etc("system_cil") {
+  deps = [ ":build_policy" ]
+  source = target_out_dir + "/system.cil"
+  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  part_name = "selinux"
+  relative_install_dir = "selinux/"
+  install_images = [ "system" ]
+}
+
+ohos_prebuilt_etc("system_cil_sha256") {
+  deps = [ ":build_policy" ]
+  source = target_out_dir + "/system.cil.sha256"
+  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  part_name = "selinux"
+  relative_install_dir = "selinux/"
+  install_images = [ "system" ]
+}
+
 group("selinux_group") {
   if (build_selinux) {
     deps = [
-      "//base/security/selinux:build_sepolicy",
       "//base/security/selinux:build_updater_sepolicy",
       "//base/security/selinux:config",
       "//base/security/selinux:file_contexts",
@@ -606,6 +670,7 @@ group("selinux_group") {
       "//third_party/selinux:getenforce",
       "//third_party/selinux:getfilecon",
       "//third_party/selinux:getpidcon",
+      "//third_party/selinux:secilc",
       "//third_party/selinux:secilc($host_toolchain)",
       "//third_party/selinux:sefcontext_compile($host_toolchain)",
       "//third_party/selinux:selinux_check_access",
@@ -613,5 +678,19 @@ group("selinux_group") {
       "//third_party/selinux:setenforce",
       "//third_party/selinux:setfilecon",
     ]
+    if (components == "system") {
+      deps += [
+        "//base/security/selinux:system_cil",
+        "//base/security/selinux:system_cil_sha256",
+      ]
+    } else if (components == "vendor") {
+      deps += [
+        "//base/security/selinux:build_sepolicy",
+        "//base/security/selinux:prebuild_sepolicy_system_cil_sha256",
+        "//base/security/selinux:vendor_cil",
+      ]
+    } else {
+      deps += [ "//base/security/selinux:build_sepolicy" ]
+    }
   }
 }

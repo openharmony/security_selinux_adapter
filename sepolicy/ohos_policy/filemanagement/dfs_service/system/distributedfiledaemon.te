@@ -11,9 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type distributedfiledaemon, sadomain, domain;
-type data_service_el2_hmdfs, file_attr, data_file_attr;
-
 allow distributedfiledaemon sys_fs_hmdfs:dir { read search setattr getattr };
 allow distributedfiledaemon sys_fs_hmdfs:file { setattr getattr open read write };
 
@@ -53,8 +50,47 @@ allow distributedfiledaemon sa_foundation_cesfwk_service:samgr_class { get };
 #avc:  denied  { add } for service=5204 pid=1784 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_filemanagement_cloud_sync_service:s0 tclass=samgr_class permissive=0
 allow distributedfiledaemon sa_filemanagement_cloud_sync_service:samgr_class { add };
 
+#avc:  denied  { get } for service=3302 pid=599 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_foundation_battery_service:s0 tclass=samgr_class permissive=0
+allow  distributedfiledaemon sa_foundation_battery_service:samgr_class { get };
+
 #kmsg: audit: type=1400 audit(1676302293.484:6726): avc:  denied  { call } for  pid=622 comm="IPC_1_896" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
 
+#avc:  denied  { get } for service=5204 pid=1345 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_filemanagement_cloud_sync_service:s0 tclass=samgr_class permissive=1
+allow hap_domain sa_filemanagement_cloud_sync_service:samgr_class { get };
+
+#avc:  denied  { call } for  pid=1572 comm="IPC_3_1618" scontext=u:r:system_core_hap:s0 tcontext=u:r:distributedfiledaemon:s0 tclass=binder permissive=1
+allow hap_domain distributedfiledaemon:binder { call };
+
 debug_only(`
-    allow distributedfiledaemon sh:binder { call }; 
+    allow distributedfiledaemon sh:binder { call };
 ')
+
+#avc: denied { call } for pid=1110 comm="SaOndemand" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=0
+#avc: denied { transfer } for pid=1110 comm="SaOndemand" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:netmanager:s0 tclass=binder permissive=0
+allow distributedfiledaemon netmanager:binder { call transfer };
+
+#avc: denied { call } for pid=656 comm="IPC_0_770" scontext=u:r:netmanager:s0 tcontext=u:r:distributedfiledaemon:s0 tclass=binder permissive=0
+allow netmanager distributedfiledaemon:binder { call };
+
+#avc:  denied  { get } for service=1151 pid=1608 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=0
+allow distributedfiledaemon sa_net_conn_manager:samgr_class { get };
+
+#avc:  denied  { write } for  pid=498 comm="SaOndemand" name="paramservice" dev="tmpfs" ino=37 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=1
+allow distributedfiledaemon paramservice_socket:sock_file { write };
+
+#avc:  denied  { connectto } for  pid=498 comm="SaOndemand" path="/dev/unix/socket/paramservice" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=1
+allow distributedfiledaemon kernel:unix_stream_socket { connectto };
+
+#avc:  denied  { read write } for  pid=2061 comm="sa_main" path="/dev/console" dev="tmpfs" ino=27 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { read } for  pid=2061 comm="sa_main" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2061 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2061 comm="sa_main" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
+#avc:  denied  { use } for  pid=2060 comm="storage_daemon" path="/dev/fuse" dev="tmpfs" ino=180 scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:storage_daemon:s0 tclass=fd permissive=1
+#avc:  denied  { read write } for  pid=2153 comm="storage_daemon" path="/dev/fuse" dev="tmpfs" ino=180 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:dev_fuse_file:s0 tclass=chr_file permissive=1
+#avc:  denied  { add } for service=5205 pid=502 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=0
+#avc:  denied  { add } for service=5205 pid=1784 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:sa_filemanagement_cloud_daemon_service:s0 tclass=samgr_class permissive=0
+allow distributedfiledaemon sa_filemanagement_cloud_daemon_service:samgr_class { add };
+allow  distributedfiledaemon dev_console_file:chr_file { read write };
+allow  distributedfiledaemon musl_param:file { open read map };
+allow  distributedfiledaemon storage_daemon:fd { use };
+allow  distributedfiledaemon dev_fuse_file:chr_file { read write };

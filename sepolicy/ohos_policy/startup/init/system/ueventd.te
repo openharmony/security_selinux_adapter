@@ -11,8 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type ueventd, domain, nativedomain;
-type ueventd_exec, system_file_attr, exec_attr, file_attr;
-
 init_daemon_domain(ueventd);
-
+allow ueventd dev_media_file:chr_file { getattr setattr unlink};
+allow ueventd dev_video_file:chr_file { getattr setattr unlink};
+allow ueventd musl_param:file { read };

@@ -1,0 +1,44 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow mdnsmanager dev_console_file:chr_file { read write };
+allow mdnsmanager hilog_param:file { open read map };
+allow mdnsmanager dev_unix_socket:dir  { search };
+allow mdnsmanager tracefs:dir { search };
+allow mdnsmanager tracefs_trace_marker_file:file { open write };
+allow mdnsmanager debug_param:file { open read map };
+allow mdnsmanager param_watcher:binder  { call transfer };
+allow mdnsmanager mdnsmanager:binder { call };
+allow mdnsmanager musl_param:file { open read map };
+allow mdnsmanager mdnsmanager:netlink_route_socket { create write read nlmsg_read };
+
+allow param_watcher mdnsmanager:binder { call };
+allow system_basic_hap mdnsmanager:binder { transfer call };
+allow mdnsmanager system_basic_hap:binder { call };
+allow system_basic_hap sa_comm_mdns_manager_service:samgr_class { get };
+allow system_core_hap mdnsmanager:binder { transfer call };
+allow mdnsmanager system_core_hap:binder { call };
+allow system_core_hap sa_comm_mdns_manager_service:samgr_class { get };
+allow normal_hap_attr mdnsmanager:binder { transfer call };
+allow mdnsmanager normal_hap_attr:binder { call };
+allow normal_hap_attr sa_comm_mdns_manager_service:samgr_class { get };
+allow mdnsmanager sa_param_watcher:samgr_class { get };
+allow mdnsmanager sa_comm_mdns_manager_service:samgr_class { add };
+allow mdnsmanager sa_accesstoken_manager_service:samgr_class { get };
+allow mdnsmanager accesstoken_service:binder { call };
+
+allow mdnsmanager mdnsmanager:udp_socket { create getopt setopt bind name_bind ioctl read write };
+allow mdnsmanager node:udp_socket { node_bind };
+allow mdnsmanager port:udp_socket { name_bind };
+allow mdnsmanager mdnsmanager:unix_dgram_socket { ioctl getopt setopt };
+allow mdnsmanager sh:binder { call };

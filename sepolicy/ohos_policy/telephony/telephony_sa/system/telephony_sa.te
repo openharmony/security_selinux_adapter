@@ -11,11 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type sa_foundation_tel_state_registry, sa_service_attr;
-type sa_net_policy_manager, sa_service_attr;
-type sa_telephony_tel_cellular_data, sa_service_attr;
-type sa_telephony_tel_sms_mms, sa_service_attr;
-
 allow telephony_sa accesstoken_service:binder call;
 allow telephony_sa chip_prod_file:dir search;
 allow telephony_sa data_file:dir search;
@@ -84,3 +79,4 @@ allow telephony_sa rootfs:file { read open };
 allow telephony_sa vendor_etc_file:file { read open };
 allow telephony_sa chip_prod_file:file { read open };
 allow telephony_sa sys_prod_file:file { read open };
+allow telephony_sa sysfs_net:file { getattr };

@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type inputmethod_service, sadomain, domain;
-
 allow inputmethod_service vendor_lib_file:file { open read getattr };
 allow inputmethod_service sa_foundation_bms:samgr_class { get };
 allow inputmethod_service dev_unix_socket:dir { search };
@@ -58,7 +56,15 @@ allow inputmethod_service data_service_file:dir { search };
 allow inputmethod_service data_service_el1_file:dir { search write add_name create };
 allow inputmethod_service data_service_el1_file:file {create read write open };
 
+#avc:  denied  { search } for  pid=528 comm="IPC_2_1183" name="app" dev="mmcblk0p12" ino=38 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
+allow inputmethod_service data_app_file:dir { search };
+#avc:  denied  { search } for  pid=504 comm="IPC_0_1025" name="el1" dev="mmcblk0p12" ino=39 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=0
+allow inputmethod_service data_app_el1_file:dir { search };
+
 # add for TDD
 allow sh sa_inputmethod_service:samgr_class { get };
 allow inputmethod_service sh:binder { call transfer };
 allow sh inputmethod_service:binder { call transfer };
+
+# avc:  denied  { get } for service=4606 pid=1372 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
+allow inputmethod_service sa_foundation_wms:samgr_class { get };

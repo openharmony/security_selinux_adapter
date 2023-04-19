@@ -20,7 +20,7 @@
 
 #ifdef __cplusplus
 #if __cplusplus
-namespace selinux {
+namespace Selinux {
 #endif
 #endif
 
@@ -48,7 +48,7 @@ const char *GetErrStr(int errNo);
 
 #ifdef __cplusplus
 #if __cplusplus
-} // namespace selinux
+} // namespace Selinux
 #endif
 #endif
 

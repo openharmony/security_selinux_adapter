@@ -201,3 +201,8 @@ allow audio_policy kernel:unix_stream_socket { connectto };
 allow audio_policy persist_param:parameter_service { set };
 
 allow audio_policy vendor_bin_file:dir { search };
+
+allow audio_policy sa_foundation_devicemanager_service:samgr_class { get };
+
+allow audio_policy device_manager:binder { call };
+

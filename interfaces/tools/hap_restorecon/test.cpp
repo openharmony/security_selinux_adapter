@@ -29,23 +29,23 @@
 #include "hap_restorecon.h"
 #include "selinux_error.h"
 
-using namespace selinux;
+using namespace Selinux;
 
 static const int ALARM_TIME_S = 5;
 struct testInput {
     std::string name = "";
     std::string apl = "";
-    std::string path = "";
     std::vector<std::string> multiPath;
     bool domain = false;
     std::string recurse = "1";
+    bool isPreinstalledApp = false;
 };
 
 static void PrintUsage()
 {
     printf("Usage:\n");
     printf("hap_restorecon -p /data/app/el1/100/base/com.ohos.test -n com.ohos.test -a normal -r 0\n");
-    printf("hap_restorecon -d -n com.ohos.test -a normal\n");
+    printf("hap_restorecon -d -n com.ohos.test -a normal -i\n");
     printf("\n");
     printf("Options:\n");
     printf(" -h (--help)                show the help information.              [eg: hap_restorecon -h]\n");
@@ -54,17 +54,18 @@ static void PrintUsage()
     printf(" -r (--recurse)             recurse?                                [eg: -r 0]\n");
     printf(" -a (--apl)                 apl info.                               [eg: -a normal]\n");
     printf(" -n (--name)                package name.                           [eg: -n com.ohos.test]\n");
-    printf(" -d (--domain)              setcon domian.                          [eg: -d]\n");
+    printf(" -d (--domain)              setcon domain.                          [eg: -d]\n");
     printf(" -m (--multipath)           paths to restorecon.                    [eg: -m "
            "/data/app/el1/100/base/com.ohos.test1 "
            "/data/app/el1/100/base/com.ohos.test2]\n");
+    printf(" -i (--preinstalledapp)     setcon preinstalled                     [eg: -i]\n");
     printf("\n");
 }
 
 static void SetOptions(int argc, char *argv[], const option *options, testInput &input)
 {
     int index = 0;
-    const char *optStr = "hda:p:n:r:m:";
+    const char *optStr = "hda:p:n:r:m:i";
     int para = 0;
     while ((para = getopt_long(argc, argv, optStr, options, &index)) != -1) {
         switch (para) {
@@ -81,7 +82,7 @@ static void SetOptions(int argc, char *argv[], const option *options, testInput 
                 break;
             }
             case 'p': {
-                input.path = optarg;
+                input.multiPath.emplace_back(optarg);
                 break;
             }
             case 'm': {
@@ -100,6 +101,10 @@ static void SetOptions(int argc, char *argv[], const option *options, testInput 
                 input.recurse = optarg;
                 break;
             }
+            case 'i': {
+                input.isPreinstalledApp = true;
+                break;
+            }
             default:
                 printf("Try 'hap_restorecon -h' for more information.\n");
                 exit(-1);
@@ -113,7 +118,8 @@ int main(int argc, char *argv[])
         {"help", no_argument, nullptr, 'h'},          {"apl", required_argument, nullptr, 'a'},
         {"name", required_argument, nullptr, 'n'},    {"domain", no_argument, nullptr, 'd'},
         {"path", required_argument, nullptr, 'p'},    {"mutilpath", required_argument, nullptr, 'm'},
-        {"recurse", required_argument, nullptr, 'r'}, {nullptr, no_argument, nullptr, 0},
+        {"recurse", required_argument, nullptr, 'r'}, {"preinstalledapp", no_argument, nullptr, 'i'},
+        {nullptr, no_argument, nullptr, 0},
     };
 
     if (argc == 1) {
@@ -126,14 +132,22 @@ int main(int argc, char *argv[])
     HapContext test;
     int res = 0;
     if (!testCmd.domain) {
-        if (testCmd.multiPath.empty()) {
-            res = test.HapFileRestorecon(testCmd.path, testCmd.apl, testCmd.name, atoi(testCmd.recurse.c_str()));
-        } else {
-            res = test.HapFileRestorecon(testCmd.multiPath, testCmd.apl, testCmd.name, atoi(testCmd.recurse.c_str()));
-        }
+        HapFileInfo hapFileInfo = {
+            .pathNameOrig = testCmd.multiPath,
+            .apl = testCmd.apl,
+            .packageName = testCmd.name,
+            .flags = atoi(testCmd.recurse.c_str()),
+            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0
+        };
+        res = test.HapFileRestorecon(hapFileInfo);
         std::cout << GetErrStr(res) << std::endl;
     } else {
-        res = test.HapDomainSetcontext(testCmd.apl, testCmd.name);
+        HapDomainInfo hapDomainInfo{
+            .apl = testCmd.apl,
+            .packageName = testCmd.name,
+            .hapFlags = testCmd.isPreinstalledApp ? 1 : 0
+        };
+        res = test.HapDomainSetcontext(hapDomainInfo);
         std::cout << GetErrStr(res) << std::endl;
         sleep(ALARM_TIME_S);
     }

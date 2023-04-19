@@ -101,3 +101,9 @@ allow nwebspawn paramservice_socket:sock_file { write };
 
 allow nwebspawn data_misc:dir { add_name search write remove_name };
 allow nwebspawn data_misc:file { create map open read write unlink };
+
+debug_only(`
+    allow nwebspawn data_storage:dir { mounton };
+    allow nwebspawn data_file:dir { mounton };
+')
+

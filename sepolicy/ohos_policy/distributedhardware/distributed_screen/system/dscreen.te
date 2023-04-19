@@ -11,10 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type dscreen, sadomain, domain;
-type sa_dscreen_source_service, sa_service_attr;
-type sa_dscreen_sink_service, sa_service_attr;
-
 #avc:  denied  { get } for service=3002 pid=2063 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_media_service:s0 tclass=samgr_class permissive=1
 allow dscreen sa_media_service:samgr_class { get };
 

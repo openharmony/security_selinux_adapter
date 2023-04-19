@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type device_usage_stats_service, sadomain, domain;
-
 allow device_usage_stats_service data_file:dir { search };
 allow device_usage_stats_service data_service_el1_file:dir { open read write search };
 allow device_usage_stats_service data_service_el1_file:file { create getattr ioctl lock open read setattr write };
@@ -23,6 +21,7 @@ allow device_usage_stats_service musl_param:file { read open };
 allow device_usage_stats_service system_bin_file:dir { search };
 allow device_usage_stats_service tmpfs:chr_file { read write };
 allow device_usage_stats_service tracefs:dir { search };
+allow device_usage_stats_service vendor_bin_file:dir { search };
 allow device_usage_stats_service vendor_file:file { execute getattr map open read };
 allow hiview device_usage_stats_service:dir { getattr open read search };
 allow hiview device_usage_stats_service:file { getattr open read };

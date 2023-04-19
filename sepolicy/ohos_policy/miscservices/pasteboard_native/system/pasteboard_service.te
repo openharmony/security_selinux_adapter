@@ -11,12 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type  pasteboard_service, sadomain, domain;
-
 allow pasteboard_service system_core_hap:binder { call transfer };
 allow pasteboard_service system_basic_hap:binder { call transfer };
 allow pasteboard_service normal_hap_attr:binder { call transfer };
 allow pasteboard_service sh:binder { call transfer };
+allow pasteboard_service time_service:binder { call };
 allow pasteboard_service dev_unix_socket:dir { search };
 allow system_core_hap sa_pasteboard_service:samgr_class { get };
 allow system_basic_hap sa_pasteboard_service:samgr_class { get };
@@ -30,6 +29,7 @@ allow pasteboard_service sa_foundation_bms:samgr_class { get };
 allow pasteboard_service accessibility_param:file { read open map };
 allow pasteboard_service system_usr_file:dir { search };
 allow pasteboard_service sa_foundation_wms:samgr_class { get };
+allow pasteboard_service sa_time_service:samgr_class { get };
 
 allow pasteboard_service data_service_el1_file:dir { create open getattr add_name remove_name search write read rmdir };
 allow pasteboard_service data_service_el1_file:file { create getattr setattr ioctl unlink write open read lock map };
@@ -86,3 +86,6 @@ allow pasteboard_service sa_foundation_abilityms:samgr_class { get };
 #avc:  denied  { use } for  pid=524 comm="pasteboard_serv" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:system_core_hap:s0 tcontext=u:r:pasteboard_service:s0 tclass=fd permissive=1
 allow pasteboard_service system_core_hap:fd { use };
 allow system_core_hap pasteboard_service:fd { use };
+
+allow pasteboard_service system_basic_hap:fd { use };
+allow system_basic_hap pasteboard_service:fd { use };

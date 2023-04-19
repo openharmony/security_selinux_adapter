@@ -45,5 +45,58 @@ allow netsysnative normal_hap_attr:tcp_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:unix_dgram_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:udp_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:unix_stream_socket { read write getopt setopt };
+allow init dev_unix_file:sock_file { unlink };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
+allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8927 0x8954 };
+debug_only(`
+  allow sh netsysnative:binder { call transfer };
+  allow sh sh:bpf { map_read prog_load map_create map_write };
+  allow sh sa_netsys_ext_service:samgr_class { add get };
+  allow sh fs_bpf:dir { getattr search mounton add_name create write };
+  allow sh netsysnative:lnk_file { read };
+  allow sh fs_bpf:file { create write read };
+  allow sh sa_distributed_net_service:samgr_class { add get };
+')
+allow netsysnative netsysnative:packet_socket { create ioctl };
+allow netsysnative netsysnative:bpf { map_read prog_load map_create prog_run map_write };
+allow netsysnative data_file:file { read };
+allow netsysnative sa_netsys_ext_service:samgr_class { add get };
+allow netmanager sa_netsys_ext_service:samgr_class { add get };
+allow sa_netsys_ext_service sa_netsys_ext_service:samgr_class { add get };
+allow system_basic_hap sa_netsys_ext_service:samgr_class { add get };
+allow system_core_hap sa_netsys_ext_service:samgr_class { add get };
+allow netsysnative sys_file:filesystem { mount };
+allow netsysnative netsysnative:process { rlimitinh transition siginh };
+allow netsysnative netsysnative:capability2 { bpf };
+allow netsysnative netsysnative:capability { net_raw sys_resource sys_admin net_admin };
+allow netsysnative netsysnative:rawip_socket { setopt getopt create };
+allow netsysnative netsysnative:unix_dgram_socket { ioctl };
+allow netsysnative debug_param:file { map open read };
+allow netsysnative dev_console_file:chr_file { write read };
+allow netsysnative dev_unix_socket:dir { search };
+allow netsysnative hilog_param:file { map open read };
+allow netsysnative musl_param:file { map open read };
+allow netsysnative param_watcher:binder { call transfer };
+allow netsysnative proc_net:file { getattr };
+allow netsysnative sa_param_watcher:samgr_class { get };
+allow netsysnative sh_exec:file { read map execute_no_trans execute open };
+allow netsysnative sysfs_net:dir { open read };
+allow netsysnative system_bin_file:dir { search };
+allow netsysnative system_bin_file:file { read map execute_no_trans execute open };
+allow netsysnative system_etc_file:file { lock };
+allow netsysnative tracefs:dir { search };
+allow netsysnative tracefs_trace_marker_file:file { write open };
+allow netsysnative sys_file:dir { mounton };
+allow netsysnative fs_bpf:dir { getattr search mounton add_name create write };
+allow netsysnative fs_bpf:file { create write read };
+allow netsysnative fs_bpf:filesystem { mount };
+allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
+
+allow netsysnative sa_distributed_net_service:samgr_class { add get };
+allow netmanager sa_distributed_net_service:samgr_class { add get };
+allow sa_distributed_net_service sa_distributed_net_service:samgr_class { add get };
+allow system_basic_hap sa_distributed_net_service:samgr_class { add get };
+allow system_core_hap sa_distributed_net_service:samgr_class { add get };
+
+neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr debug_only(`-sh') } netsysnative:binder *;

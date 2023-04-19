@@ -42,3 +42,7 @@ allow usb_service security_param:file { map open read };
 allow usb_service startup_param:file { map open read };
 allow usb_service sys_param:file { map open read };
 allow usb_service sys_usb_param:file { map open read };
+allow usb_service data_service_file:dir { search };
+allow usb_service data_service_el1_file:dir { search add_name open write read remove_name };
+allow usb_service data_service_el1_file:file { ioctl open read write getattr create lock map unlink };
+allow usb_service dev_ashmem_file:chr_file { open };

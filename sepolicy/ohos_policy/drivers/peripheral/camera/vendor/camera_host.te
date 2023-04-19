@@ -29,6 +29,7 @@ allow camera_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
 allow camera_host dev_unix_socket:dir { search };
 allow camera_host dev_video_file:chr_file { getattr ioctl open read write };
 allow camera_host disp_gralloc_host:binder { call };
+allow camera_host allocator_host:binder { call };
 allow camera_host distributedsche_param:file { map open read };
 allow camera_host hdf_devmgr:binder { call transfer };
 allow camera_host hilog_param:file { map open read };
@@ -63,4 +64,5 @@ debug_only(`
     allow camera_host sh:binder { call transfer };
 ')
 allowxperm camera_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
-allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 };
+allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 0x561b 0x564a 0x5602 0x5624 0x564b 0x5625 };
+allow camera_host tracefs:dir { search };

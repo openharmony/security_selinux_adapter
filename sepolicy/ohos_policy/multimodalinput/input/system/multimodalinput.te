@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type multimodalinput, sadomain, domain;
-
 allow multimodalinput accessibility_param:file { read };
 allow multimodalinput bootanimation:fd { use };
 allow multimodalinput data_file:dir { search };
@@ -21,7 +19,7 @@ allow multimodalinput data_init_agent:file { open read append ioctl };
 allow multimodalinput data_log:dir { search write add_name create };
 allow multimodalinput data_log:file { create open read write ioctl };
 allow multimodalinput data_multimodalinput:dir { add_name create getattr open read remove_name search watch write };
-allow multimodalinput data_multimodalinput:file { create open read rename unlink write };
+allow multimodalinput data_multimodalinput:file { create open read rename unlink write setattr getattr ioctl };
 allow multimodalinput data_service_file:dir { search };
 allow multimodalinput data_service_el1_file:dir { search };
 allow multimodalinput data_service_el1_file:file { open read };
@@ -35,6 +33,9 @@ allow multimodalinput dev_unix_socket:sock_file { write };
 allow multimodalinput disp_gralloc_host:binder { call };
 allow multimodalinput disp_gralloc_host:fd { use };
 allow multimodalinput hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
+allow multimodalinput allocator_host:binder { call };
+allow multimodalinput allocator_host:fd { use };
+allow multimodalinput hdf_allocator_service:hdf_devmgr_class { get };
 allow multimodalinput faultloggerd_socket:sock_file { write };
 allow multimodalinput faultloggerd:unix_stream_socket { connectto };
 allow multimodalinput foundation:binder { call transfer };
@@ -71,3 +72,4 @@ allow init data_multimodalinput:dir { create getattr open read relabelfrom relab
 allowxperm multimodalinput data_log:file ioctl { 0x5413 };
 allowxperm multimodalinput dev_dri_file:chr_file ioctl { 0x641f };
 allowxperm multimodalinput dev_input_file:chr_file ioctl { 0x4503 0x4560 0x4542 0x4548 0x456f 0x450a 0x4559 0x4568 0x455a 0x455b };
+allowxperm multimodalinput data_multimodalinput:file ioctl { 0x5413 };
