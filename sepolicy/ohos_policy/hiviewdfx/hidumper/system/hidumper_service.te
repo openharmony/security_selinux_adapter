@@ -290,5 +290,6 @@ allow hidumper_service debugfs_state:file { getattr open read };
 allow hidumper_service data_log:file { read write };
 
 allow hidumper_service hiview:binder { transfer };
+allow hidumper_service hiperf:file { getattr };
 
 neverallow hidumper_service *:process ptrace;

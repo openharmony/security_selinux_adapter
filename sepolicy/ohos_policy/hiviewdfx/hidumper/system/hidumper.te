@@ -71,4 +71,5 @@ allow hidumper startup_param:file { map open read };
 allow hidumper sys_param:file { map open read };
 allow hidumper sys_usb_param:file { map open read };
 allow hidumper dev_console_file:chr_file { read write };
-allow hidumper dev_file:dir getattr;
+allow hidumper dev_file:dir { getattr };
+allow hidumper musl_param:file { read open map };
