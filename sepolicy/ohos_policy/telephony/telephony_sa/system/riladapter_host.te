@@ -74,4 +74,6 @@ allow riladapter_host telephony_sa:binder call;
 allow riladapter_host tty_device:chr_file { open read write };
 allow riladapter_host vendor_etc_file:dir search;
 allow riladapter_host vendor_etc_file:file { getattr open read };
-
+allow riladapter_host data_file:dir search;
+allow riladapter_host data_local:dir search;
+allow riladapter_host dev_console_file:chr_file { read write };

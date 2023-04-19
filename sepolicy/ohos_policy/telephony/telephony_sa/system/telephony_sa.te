@@ -80,3 +80,5 @@ allow telephony_sa vendor_etc_file:file { read open };
 allow telephony_sa chip_prod_file:file { read open };
 allow telephony_sa sys_prod_file:file { read open };
 allow telephony_sa sysfs_net:file { getattr };
+allow telephony_sa locationhub:binder call;
+allow telephony_sa sysfs_devices_system_cpu:file { getattr open read };
