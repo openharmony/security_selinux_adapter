@@ -12,3 +12,4 @@
 # limitations under the License.
 
 genfscon bpf / u:object_r:fs_bpf:s0
+genfscon cgroup2 / u:object_r:cgroup2:s0

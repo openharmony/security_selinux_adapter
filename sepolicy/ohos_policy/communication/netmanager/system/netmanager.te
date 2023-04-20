@@ -14,6 +14,9 @@ type fwmark_service, dev_attr, file_attr;
 type dnsproxy_service, dev_attr, file_attr;
 
 allow netmanager accesstoken_service:binder { call };
+allow netmanager fs_bpf:dir { search };
+allow netmanager fs_bpf:file { read };
+allow netmanager netsysnative:bpf { map_read };
 allow netmanager data_data_file:dir { search };
 allow netmanager data_data_file:file { open read };
 allow netmanager data_file:dir { remove_name rmdir search };

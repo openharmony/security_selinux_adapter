@@ -70,7 +70,7 @@ allow hiview sys_param:file { map open read };
 allow hiview system_basic_hap:dir { search };
 allow hiview system_basic_hap:file { open read };
 allow hiview system_core_hap:dir { search };
-allow hiview system_core_hap:file { open read };
+allow hiview system_core_hap:file { open read getattr };
 allow hiview sys_usb_param:file { map open read };
 allow hiview tmpfs:dir { add_name create setattr write };
 allow hiview tty_device:chr_file { open read write };

@@ -65,6 +65,7 @@ allow memmgrservice sa_foundation_abilityms:samgr_class { get };
 allow memmgrservice sa_bgtaskmgr:samgr_class { get };
 
 allow memmgrservice sa_foundation_bms:samgr_class { get };
+allow memmgrservice netsysnative:file { getattr };
 
 # vendor
 allow memmgrservice vendor_etc_file:dir { search };
