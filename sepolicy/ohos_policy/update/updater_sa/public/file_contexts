@@ -13,4 +13,3 @@
 /data/service/el1/public/update/dupdate_engine          u:object_r:update_dupdate_engine_file:s0
 /data/service/el1/public/update/dupdate_engine(/.*)?    u:object_r:update_dupdate_engine_file:s0
 
- 
