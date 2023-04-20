@@ -291,6 +291,25 @@ def traverse_folder_in_dir_name(search_dir, folder_suffix):
     return folder_list
 
 
+def build_all_file_contexts_bin(args, output_path, policy_path):
+    file_contexts_list = traverse_folder_in_type(
+        policy_path, "file_contexts")
+
+    combined_file_contexts = os.path.join(output_path, "all_file_contexts")
+    combine_contexts_file(file_contexts_list, combined_file_contexts)
+
+    build_tmp_cmd = ["m4",
+                     "--fatal-warnings",
+                     "-s", combined_file_contexts, ">", os.path.join(output_path, "all_file_contexts.tmp")]
+    run_command(build_tmp_cmd)
+
+    build_bin_cmd = [os.path.join(args.tool_path, "sefcontext_compile"),
+                     "-o", os.path.join(args.dst_dir, "file_contexts.bin"),
+                     "-p", args.policy_file,
+                     os.path.join(output_path, "all_file_contexts.tmp")]
+    run_command(build_bin_cmd)
+
+
 def main(args):
     output_path = args.dst_dir
     policy_path = []
@@ -311,8 +330,10 @@ def main(args):
 
     if args.components == "system":
         build_file_contexts(args, output_path, system_folder_list)
+        build_all_file_contexts_bin(args, output_path, all_folder_list)
     elif args.components == "vendor":
         build_file_contexts(args, output_path, vendor_folder_list)
+        build_all_file_contexts_bin(args, output_path, all_folder_list)
     else:
         build_file_contexts(args, output_path, all_folder_list)
 
