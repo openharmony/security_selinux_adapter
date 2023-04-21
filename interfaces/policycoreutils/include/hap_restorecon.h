@@ -57,7 +57,7 @@ public:
 
 protected:
     int HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& hapFileInfo);
-    int HapFileRecurseRestorecon(char *realPath, HapFileInfo& hapFileInfo);
+    int HapFileRecurseRestorecon(const std::string &realPath, HapFileInfo& hapFileInfo);
     int RestoreconSb(const std::string &pathNameOrig, HapFileInfo& hapFileInfo);
     int GetSecontext(HapFileInfo& hapFileInfo, const std::string &pathNameOrig,
         char **newSecontext, char **oldSecontext);

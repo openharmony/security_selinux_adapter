@@ -97,7 +97,10 @@ static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &s
         DeleteTmpPolicyFile(policyFile);
         return false;
     }
-    size = sb.st_size;
+    if (sb.st_size < 0) {
+        return false;
+    }
+    size = static_cast<size_t>(sb.st_size);
     *data = mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (*data == MAP_FAILED) {
         selinux_log(SELINUX_ERROR, "Mmap policy file failed\n");

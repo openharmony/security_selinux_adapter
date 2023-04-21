@@ -234,7 +234,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
         return -SELINUX_PATH_INVAILD;
     }
 
-    if (!CheckPath(std::string(realPath))) {
+    if (!CheckPath(realPath)) {
         return -SELINUX_PATH_INVAILD;
     }
 
@@ -263,24 +263,30 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, HapFileInfo& 
     return HapFileRecurseRestorecon(realPath, hapFileInfo);
 }
 
-int HapContext::HapFileRecurseRestorecon(char *realPath, HapFileInfo& hapFileInfo)
+int HapContext::HapFileRecurseRestorecon(const std::string &realPath, HapFileInfo& hapFileInfo)
 {
-    char *paths[2] = {NULL, NULL};
-    paths[0] = realPath;
+    char *paths[2] = {nullptr, nullptr};
+    paths[0] = strdup(realPath.c_str());
+    if (paths[0] == nullptr) {
+        return -SELINUX_PTR_NULL;
+    }
+
     int ftsFlags = FTS_PHYSICAL | FTS_NOCHDIR;
-    FTS *fts = fts_open(paths, ftsFlags, NULL);
+    FTS *fts = fts_open(paths, ftsFlags, nullptr);
     if (fts == nullptr) {
         selinux_log(SELINUX_ERROR, "%s on %s: %s\n", GetErrStr(SELINUX_FTS_OPEN_ERROR), paths[0], strerror(errno));
+        free(paths[0]);
         return -SELINUX_FTS_OPEN_ERROR;
     }
 
     FTSENT *ftsent = nullptr;
     int error = 0;
-    while ((ftsent = fts_read(fts)) != NULL) {
+    while ((ftsent = fts_read(fts)) != nullptr) {
         switch (ftsent->fts_info) {
             case FTS_DC:
                 selinux_log(SELINUX_ERROR, "%s on %s\n", GetErrStr(SELINUX_FTS_ELOOP), ftsent->fts_path);
                 (void)fts_close(fts);
+                free(paths[0]);
                 return -SELINUX_FTS_ELOOP;
             case FTS_DP:
                 continue;
@@ -303,6 +309,7 @@ int HapContext::HapFileRecurseRestorecon(char *realPath, HapFileInfo& hapFileInf
         }
     }
     (void)fts_close(fts);
+    free(paths[0]);
     return error;
 }
 
