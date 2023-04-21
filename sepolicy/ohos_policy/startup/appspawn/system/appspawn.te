@@ -25,3 +25,13 @@ allow appspawn data_app_el2_file:dir { search mounton write add_name create seta
 allow appspawn sharefs:dir { create_dir_perms mounton };
 allow appspawn sharefs:filesystem { mount };
 allow appspawn data_service_el2_share:dir { create_dir_perms mounton };
+
+# read cfg from
+#avc:  denied  { getattr } for  pid=1802 comm="appspawn" path="/dev" dev="tmpfs" ino=1 scontext=u:r:appspawn:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0
+allow appspawn dev_file:dir { getattr };
+allow appspawn chip_prod_file:dir { open read search getattr };
+allow appspawn chip_prod_file:file { getattr open read };
+allow appspawn sys_prod_file:dir { open read search getattr };
+allow appspawn sys_prod_file:file { getattr open read };
+allow appspawn vendor_etc_file:dir { open read search getattr };
+allow appspawn vendor_etc_file:file { getattr open read };

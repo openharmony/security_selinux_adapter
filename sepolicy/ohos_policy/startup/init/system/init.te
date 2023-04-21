@@ -108,3 +108,8 @@ allowxperm init dev_block_file:blk_file ioctl { 0x1268 0x2285 };
 
 #for sysrq
 allow init proc_sysrq_trigger_file:file { getattr open write ioctl };
+
+#for init trace
+allow init tracefs_trace_marker_file:file { getattr write open read ioctl };
+allow init tracefs:file { getattr ioctl open read write };
+allow init tracefs:filesystem { mount };
