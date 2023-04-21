@@ -28,7 +28,7 @@ const static std::string TEST_NOT_EXIST_PARA_NAME = "unittest.not.exist";
 
 void SelinuxUnitTest::SetUpTestCase()
 {
-    int res = InitParamSelinux();
+    int res = InitParamSelinux(0);
     ASSERT_EQ(res, SELINUX_SUCC);
     std::cout << "SetUpTestCase: InitParamSelinux" << std::endl;
 }

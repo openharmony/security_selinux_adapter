@@ -270,7 +270,7 @@ int main(int argc, char *argv[])
         PrintUsage();
         exit(0);
     }
-    InitParamSelinux();
+    InitParamSelinux(0);
     testInput testCmd;
     SetOptions(argc, argv, options, testCmd);
     Test(testCmd);

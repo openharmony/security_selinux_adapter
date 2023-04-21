@@ -28,9 +28,9 @@ static const int INVALID_INDEX = -1;
 static ParamContextsTrie *g_contextsTrie = NULL;
 static ParamContextsList *g_contextsList = NULL;
 
-static int ParameterContextsLoad(void)
+static int ParameterContextsLoad(int isInit)
 {
-    if (getpid() == 1) { // process init will load parameter_contexts to shared memory
+    if (isInit) { // process init will load parameter_contexts to shared memory
         int res = LoadParameterContextsToSharedMem();
         if (res != 0) {
             return res;
@@ -42,13 +42,14 @@ static int ParameterContextsLoad(void)
     return 0;
 }
 
-int InitParamSelinux(void)
+int InitParamSelinux(int isInit)
 {
     pthread_mutex_lock(&g_mutex);
     if (g_contextsTrie != NULL) {
+        pthread_mutex_unlock(&g_mutex);
         return 0;
     }
-    int res = ParameterContextsLoad();
+    int res = ParameterContextsLoad(isInit);
     pthread_mutex_unlock(&g_mutex);
     return res;
 }
