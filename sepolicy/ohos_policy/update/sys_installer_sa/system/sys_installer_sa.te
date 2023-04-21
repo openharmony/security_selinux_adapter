@@ -70,3 +70,5 @@ allow sys_installer_sa update_firmware_file:dir { add_name search write remove_n
 allowxperm sys_installer_sa update_firmware_file:dir ioctl { 0x5413 };
 allow sys_installer_sa update_firmware_file:file { append create ioctl open read write rename unlink getattr setattr };
 allowxperm sys_installer_sa update_firmware_file:file ioctl { 0x5413 };
+
+allow sys_installer_sa data_updater_file:file { execute execute_no_trans };
