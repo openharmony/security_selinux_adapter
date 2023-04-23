@@ -96,3 +96,7 @@ allow media_service data_media_log_file:dir { create add_name write search };
 allow media_service normal_hap_data_file:file { write };
 
 allow media_service hilogd:unix_dgram_socket { sendto };
+
+allow media_service sa_avsession_service:samgr_class { get };
+
+allow media_service av_session:binder { call transfer };
