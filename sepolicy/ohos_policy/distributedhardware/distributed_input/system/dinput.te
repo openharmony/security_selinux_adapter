@@ -1,0 +1,95 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow dinput dhardware:binder { call transfer };
+
+allow dinput dinput:unix_dgram_socket { getopt setopt };
+
+allow dinput dev_unix_socket:dir { search };
+
+allow dinput dev_uinput:chr_file { open write ioctl };
+
+allow dinput sa_param_watcher:samgr_class { get };
+
+allow dinput sa_foundation_dms:samgr_class { get };
+
+allow dinput hilog_param:file { open read map };
+
+allow dinput proc_file:file { open read };
+
+allow dinput softbus_server:binder { call transfer };
+
+allow dinput softbus_server:fd { use };
+
+allow dinput softbus_server:tcp_socket { read write };
+
+allow dinput softbus_server:tcp_socket { setopt shutdown };
+
+allow dinput multimodalinput:binder { call };
+
+allow dinput sa_softbus_service:samgr_class { get };
+
+allow dinput sa_distributed_hardware_input_sink_service:samgr_class { add get get_remote };
+
+allow dinput sa_distributed_hardware_input_source_service:samgr_class { add get get_remote };
+
+allow dinput sa_dhardware_service:samgr_class { get };
+
+allow dinput sa_accesstoken_manager_service:samgr_class { get };
+
+allow dinput tracefs:dir { search };
+
+allow dinput accesstoken_service:binder { call };
+
+allow dinput musl_param:file { open read map };
+
+allow dinput foundation:binder { call };
+
+allow dinput system_bin_file:dir { search };
+
+allow dinput dev_input_file:dir { open read watch search };
+
+allow dinput debug_param:file { open read map };
+
+allow foundation data_app_el1_file:file { map };
+
+allow dinput param_watcher:binder { call transfer };
+
+allow dinput dev_input_file:chr_file { open read write setattr getattr };
+
+allow dinput dev_input_file:chr_file { ioctl };
+allowxperm dinput dev_input_file:chr_file ioctl { 0x4501 0x4502 0x4503 0x4506 0x4507 0x4508 0x4509 0x4518 0x4519 0x451b 0x4520 0x4521 0x4522 0x4523 0x4524 0x4525 0x4531 0x4532 0x4535 0x4540 0x4541 0x4558 0x4570 0x4571 0x4574 0x4575 0x4576 0x4578 0x4579 0x457a 0x45a0 0x455a 0x455b 0x4560 };
+
+allow dinput dev_input_file:dir { setattr getattr };
+
+allow dinput vendor_etc_file:dir { search };
+
+allow dinput vendor_etc_file:file { open read getattr };
+
+allow dinput sa_dscreen_sink_service:samgr_class { get };
+
+allow dinput sa_dscreen_source_service:samgr_class { get };
+
+allow dinput dscreen:binder { call };
+
+allow dinput vendor_bin_file:dir { search };
+
+allow dinput msdp_sa:binder { call transfer };
+
+allow dinput dev_console_file:chr_file { read write };
+
+allow dinput sysfs_devices_system_cpu:file { open read getattr };
+
+allow dinput dev_file:dir { getattr };
+
+allow dinput tracefs_trace_marker_file:file { open write };
