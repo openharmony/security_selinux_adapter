@@ -12,33 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//base/security/selinux/selinux.gni")
 import("//base/startup/init/begetd.gni")
 import("//build/ohos.gni")
-
-SELINUX_ROOT_DIR = "//base/security/selinux"
-THIRD_PARTY_SELINUX_DIR = "//third_party/selinux"
-LIBSELINUX_ROOT_DIR = "$THIRD_PARTY_SELINUX_DIR/libselinux"
+import("selinux.gni")
 
 config("selinux_core_config") {
   include_dirs = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "$LIBSELINUX_ROOT_DIR/include",
+    "interfaces/policycoreutils/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/include",
   ]
 }
 
 ohos_shared_library("libload_policy") {
   output_name = "libload_policy"
-  sources =
-      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/load_policy.cpp" ]
+  sources = [ "interfaces/policycoreutils/src/load_policy.cpp" ]
   include_dirs = [
-    "$LIBSELINUX_ROOT_DIR/include",
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "//third_party/selinux/libselinux/src",
+    "$THIRD_PARTY_DIR/selinux/libselinux/include",
+    "interfaces/policycoreutils/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/src",
   ]
   deps = [
     ":libselinux_klog_static",
-    "$THIRD_PARTY_SELINUX_DIR:libselinux",
+    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -51,23 +46,21 @@ ohos_shared_library("libload_policy") {
     "ramdisk",
     "updater",
   ]
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
 }
 
 ohos_shared_library("librestorecon") {
   output_name = "librestorecon"
-  sources = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_restorecon.c",
-  ]
+  sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
   include_dirs = [
-    "$LIBSELINUX_ROOT_DIR/include",
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "//third_party/selinux/libselinux/src",
+    "$THIRD_PARTY_DIR/selinux/libselinux/include",
+    "interfaces/policycoreutils/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/src",
   ]
   public_configs = [ ":selinux_core_config" ]
-  deps = [ "$THIRD_PARTY_SELINUX_DIR:libselinux" ]
+  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -79,7 +72,7 @@ ohos_shared_library("librestorecon") {
     "ramdisk",
     "updater",
   ]
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
 }
@@ -87,20 +80,20 @@ ohos_shared_library("librestorecon") {
 ohos_shared_library("libhap_restorecon") {
   output_name = "libhap_restorecon"
   sources = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/hap_restorecon.cpp",
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/sehap_contexts_trie.cpp",
+    "interfaces/policycoreutils/src/hap_restorecon.cpp",
+    "interfaces/policycoreutils/src/sehap_contexts_trie.cpp",
   ]
   include_dirs = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "$LIBSELINUX_ROOT_DIR/include",
-    "$LIBSELINUX_ROOT_DIR/src",
-    "//third_party/FreeBSD",
+    "interfaces/policycoreutils/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/src",
+    "$THIRD_PARTY_DIR/FreeBSD",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_error_static",
     ":libselinux_hilog_static",
-    "$THIRD_PARTY_SELINUX_DIR:libselinux",
+    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
 
   cflags = [
@@ -109,16 +102,15 @@ ohos_shared_library("libhap_restorecon") {
     "-Werror",
   ]
   install_enable = true
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
 }
 
 ohos_static_library("libselinux_error_static") {
   output_name = "libselinux_error_static"
-  sources =
-      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_error.cpp" ]
-  include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
+  sources = [ "interfaces/policycoreutils/src/selinux_error.cpp" ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-w",
@@ -129,10 +121,9 @@ ohos_static_library("libselinux_error_static") {
 
 ohos_static_library("libselinux_klog_static") {
   output_name = "libselinux_klog_static"
-  sources =
-      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_klog.c" ]
-  include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
-  deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  sources = [ "interfaces/policycoreutils/src/selinux_klog.c" ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
+  deps = [ "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -144,9 +135,9 @@ ohos_static_library("libselinux_klog_static") {
 
 ohos_static_library("libselinux_hilog_static") {
   output_name = "libselinux_hilog_static"
-  sources = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_log.c" ]
-  include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
-  deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+  sources = [ "interfaces/policycoreutils/src/selinux_log.c" ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
+  deps = [ "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared" ]
   external_deps = [ "hilog_native:libhilog" ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -159,34 +150,34 @@ ohos_static_library("libselinux_hilog_static") {
 
 if (!startup_init_with_param_base) {
   inherited_configs = [
-    "//build/config/compiler:afdo",
-    "//build/config/compiler:afdo_optimize_size",
-    "//build/config/compiler:compiler",
-    "//build/config/compiler:compiler_arm_fpu",
-    "//build/config/compiler:compiler_arm_thumb",
-    "//build/config/compiler:chromium_code",
-    "//build/config/compiler:default_include_dirs",
-    "//build/config/compiler:default_optimization",
-    "//build/config/compiler:default_stack_frames",
-    "//build/config/compiler:default_symbols",
-    "//build/config/compiler:export_dynamic",
-    "//build/config/compiler:no_exceptions",
-    "//build/config/compiler:no_rtti",
-    "//build/config/compiler:runtime_library",
-    "//build/config/compiler:thin_archive",
-    "//build/config/sanitizers:default_sanitizer_flags",
+    "$BUILD_CONFIG_DIR/compiler:afdo",
+    "$BUILD_CONFIG_DIR/compiler:afdo_optimize_size",
+    "$BUILD_CONFIG_DIR/compiler:compiler",
+    "$BUILD_CONFIG_DIR/compiler:compiler_arm_fpu",
+    "$BUILD_CONFIG_DIR/compiler:compiler_arm_thumb",
+    "$BUILD_CONFIG_DIR/compiler:chromium_code",
+    "$BUILD_CONFIG_DIR/compiler:default_include_dirs",
+    "$BUILD_CONFIG_DIR/compiler:default_optimization",
+    "$BUILD_CONFIG_DIR/compiler:default_stack_frames",
+    "$BUILD_CONFIG_DIR/compiler:default_symbols",
+    "$BUILD_CONFIG_DIR/compiler:export_dynamic",
+    "$BUILD_CONFIG_DIR/compiler:no_exceptions",
+    "$BUILD_CONFIG_DIR/compiler:no_rtti",
+    "$BUILD_CONFIG_DIR/compiler:runtime_library",
+    "$BUILD_CONFIG_DIR/compiler:thin_archive",
+    "$BUILD_CONFIG_DIR/sanitizers:default_sanitizer_flags",
   ]
 }
 
 source_set("libselinux_parameter_static") {
   output_name = "libselinux_parameter_static"
   sources = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/contexts_trie.c",
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_map.c",
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_parameter.c",
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/selinux_share_mem.c",
+    "interfaces/policycoreutils/src/contexts_trie.c",
+    "interfaces/policycoreutils/src/selinux_map.c",
+    "interfaces/policycoreutils/src/selinux_parameter.c",
+    "interfaces/policycoreutils/src/selinux_share_mem.c",
   ]
-  include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -195,24 +186,23 @@ source_set("libselinux_parameter_static") {
   if (!startup_init_with_param_base) {
     ldflags = [ "-nostdlib" ]
     configs -= inherited_configs
-    configs += [ "//build/config/compiler:compiler" ]
+    configs += [ "$BUILD_CONFIG_DIR/compiler:compiler" ]
   }
 }
 
 ohos_shared_library("libparaperm_checker") {
   output_name = "libparaperm_checker"
-  sources =
-      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/param_checker.c" ]
+  sources = [ "interfaces/policycoreutils/src/param_checker.c" ]
   include_dirs = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "$LIBSELINUX_ROOT_DIR/src",
-    "//third_party/bounds_checking_function/include",
+    "interfaces/policycoreutils/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/src",
+    "$THIRD_PARTY_DIR/bounds_checking_function/include",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_klog_static",
-    "$THIRD_PARTY_SELINUX_DIR:libselinux",
-    "//third_party/bounds_checking_function:libsec_shared",
+    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
+    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
   if (startup_init_with_param_base) {
     deps += [ ":libselinux_parameter_static" ]
@@ -232,20 +222,19 @@ ohos_shared_library("libparaperm_checker") {
 
 ohos_shared_library("libservice_checker") {
   output_name = "libservice_checker"
-  sources =
-      [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/src/service_checker.cpp" ]
+  sources = [ "interfaces/policycoreutils/src/service_checker.cpp" ]
   include_dirs = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "$LIBSELINUX_ROOT_DIR/include",
-    "$LIBSELINUX_ROOT_DIR/src",
-    "//third_party/bounds_checking_function/include",
+    "interfaces/policycoreutils/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/src",
+    "$THIRD_PARTY_DIR/bounds_checking_function/include",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_error_static",
     ":libselinux_hilog_static",
-    "$THIRD_PARTY_SELINUX_DIR:libselinux",
-    "//third_party/bounds_checking_function:libsec_shared",
+    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
+    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -258,15 +247,15 @@ ohos_shared_library("libservice_checker") {
 
 ohos_executable("load_policy") {
   install_enable = true
-  sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/load_policy/load_policy.c" ]
-  include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
+  sources = [ "interfaces/tools/load_policy/load_policy.c" ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [ ":libload_policy" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
     "-Werror",
   ]
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
   install_images = [
@@ -277,21 +266,21 @@ ohos_executable("load_policy") {
 
 ohos_executable("restorecon") {
   install_enable = true
-  sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/restorecon/restorecon.c" ]
+  sources = [ "interfaces/tools/restorecon/restorecon.c" ]
   include_dirs = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "//third_party/bounds_checking_function/include",
+    "interfaces/policycoreutils/include",
+    "$THIRD_PARTY_DIR/bounds_checking_function/include",
   ]
   deps = [
     ":librestorecon",
-    "//third_party/bounds_checking_function:libsec_shared",
+    "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
   ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
     "-Werror",
   ]
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
   install_images = [
@@ -302,8 +291,8 @@ ohos_executable("restorecon") {
 
 ohos_executable("hap_restorecon") {
   install_enable = false
-  sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/hap_restorecon/test.cpp" ]
-  include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
+  sources = [ "interfaces/tools/hap_restorecon/test.cpp" ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [
     ":libhap_restorecon",
     ":libselinux_error_static",
@@ -313,23 +302,23 @@ ohos_executable("hap_restorecon") {
     "-Wall",
     "-Werror",
   ]
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
 }
 
 ohos_executable("param_check") {
   install_enable = false
-  sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/param_check/test.cpp" ]
+  sources = [ "interfaces/tools/param_check/test.cpp" ]
   include_dirs = [
-    "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include",
-    "$LIBSELINUX_ROOT_DIR/include",
+    "interfaces/policycoreutils/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/include",
   ]
   deps = [
     ":libparaperm_checker",
     ":libselinux_error_static",
     ":libselinux_parameter_static",
-    "$THIRD_PARTY_SELINUX_DIR:libselinux",
+    "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
   if (startup_init_with_param_base) {
     deps += [ ":libselinux_parameter_static" ]
@@ -340,15 +329,15 @@ ohos_executable("param_check") {
     "-Wall",
     "-Werror",
   ]
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
 }
 
 ohos_executable("service_check") {
   install_enable = false
-  sources = [ "$SELINUX_ROOT_DIR/interfaces/tools/service_check/test.cpp" ]
-  include_dirs = [ "$SELINUX_ROOT_DIR/interfaces/policycoreutils/include" ]
+  sources = [ "interfaces/tools/service_check/test.cpp" ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [
     ":libselinux_error_static",
     ":libservice_checker",
@@ -358,7 +347,7 @@ ohos_executable("service_check") {
     "-Wall",
     "-Werror",
   ]
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
 }
@@ -378,7 +367,7 @@ action("build_policy") {
   updater_version = "disable"
 
   inputs = exec_script("//build/scripts/find.py",
-                       [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
+                       [ rebase_path("sepolicy") ],
                        "list lines")
   if (selinux_build_path != "default") {
     foreach(src, string_split(selinux_build_path, ":")) {
@@ -389,7 +378,7 @@ action("build_policy") {
     }
   }
 
-  script = "$SELINUX_ROOT_DIR/scripts/build_policy.py"
+  script = "scripts/build_policy.py"
   args = [
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),
@@ -407,8 +396,8 @@ action("build_policy") {
     components,
   ]
   deps = [
-    "$THIRD_PARTY_SELINUX_DIR:checkpolicy($host_toolchain)",
-    "$THIRD_PARTY_SELINUX_DIR:secilc($host_toolchain)",
+    "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
+    "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
   ]
   outputs = [
     target_out_dir + "/policy.31",
@@ -431,7 +420,7 @@ action("build_update_policy") {
   updater_version = "enable"
   components = "default"
   inputs = exec_script("//build/scripts/find.py",
-                       [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
+                       [ rebase_path("sepolicy") ],
                        "list lines")
   if (selinux_build_path != "default") {
     foreach(src, string_split(selinux_build_path, ":")) {
@@ -442,7 +431,7 @@ action("build_update_policy") {
     }
   }
 
-  script = "$SELINUX_ROOT_DIR/scripts/build_policy.py"
+  script = "scripts/build_policy.py"
   args = [
     "--dst-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
@@ -460,15 +449,15 @@ action("build_update_policy") {
     components,
   ]
   deps = [
-    "$THIRD_PARTY_SELINUX_DIR:checkpolicy($host_toolchain)",
-    "$THIRD_PARTY_SELINUX_DIR:secilc($host_toolchain)",
+    "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
+    "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
   ]
   outputs = [ target_out_dir + "/updater/policy.31" ]
 }
 
 action("build_contexts") {
   inputs = exec_script("//build/scripts/find.py",
-                       [ rebase_path("$SELINUX_ROOT_DIR/sepolicy") ],
+                       [ rebase_path("sepolicy") ],
                        "list lines")
   if (selinux_build_path != "default") {
     foreach(src, string_split(selinux_build_path, ":")) {
@@ -479,7 +468,7 @@ action("build_contexts") {
     }
   }
 
-  script = "$SELINUX_ROOT_DIR/scripts/build_contexts.py"
+  script = "scripts/build_contexts.py"
   args = [
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
@@ -496,7 +485,7 @@ action("build_contexts") {
   ]
   deps = [
     ":build_policy",
-    "$THIRD_PARTY_SELINUX_DIR:sefcontext_compile($host_toolchain)",
+    "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
   ]
   outputs = [
     target_out_dir + "/file_contexts.bin",
@@ -510,22 +499,22 @@ action("build_contexts") {
 
 copy("selinux_config") {
   if (selinux_enforce) {
-    sources = [ "$SELINUX_ROOT_DIR/config/config.enforce" ]
+    sources = [ "config/config.enforce" ]
   } else {
-    sources = [ "$SELINUX_ROOT_DIR/config/config.permissive" ]
+    sources = [ "config/config.permissive" ]
   }
   outputs = [ "$target_out_dir/config" ]
 }
 
 copy("updater_selinux_config") {
-  sources = [ "$SELINUX_ROOT_DIR/config/config.permissive" ]
+  sources = [ "config/config.permissive" ]
   outputs = [ "$target_out_dir/updater/config" ]
 }
 
 ohos_prebuilt_etc("build_sepolicy") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/policy.31"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   if (components == "vendor") {
     relative_install_dir = "selinux/prebuild_sepolicy/"
@@ -539,7 +528,7 @@ ohos_prebuilt_etc("build_sepolicy") {
 ohos_prebuilt_etc("build_updater_sepolicy") {
   deps = [ ":build_update_policy" ]
   source = target_out_dir + "/updater/policy.31"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/policy/"
   install_images = [ "updater" ]
@@ -548,7 +537,7 @@ ohos_prebuilt_etc("build_updater_sepolicy") {
 ohos_prebuilt_etc("config") {
   deps = [ ":selinux_config" ]
   source = target_out_dir + "/config"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
@@ -557,7 +546,7 @@ ohos_prebuilt_etc("config") {
 ohos_prebuilt_etc("updater_config") {
   deps = [ ":updater_selinux_config" ]
   source = target_out_dir + "/updater/config"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/"
   install_images = [ "updater" ]
@@ -566,7 +555,7 @@ ohos_prebuilt_etc("updater_config") {
 ohos_prebuilt_etc("sehap_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/sehap_contexts"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
 }
@@ -574,7 +563,7 @@ ohos_prebuilt_etc("sehap_contexts") {
 ohos_prebuilt_etc("parameter_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/parameter_contexts"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
   install_images = [
@@ -586,7 +575,7 @@ ohos_prebuilt_etc("parameter_contexts") {
 ohos_prebuilt_etc("service_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/service_contexts"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
 }
@@ -594,7 +583,7 @@ ohos_prebuilt_etc("service_contexts") {
 ohos_prebuilt_etc("hdf_service_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/hdf_service_contexts"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/targeted/contexts/"
 }
@@ -602,7 +591,7 @@ ohos_prebuilt_etc("hdf_service_contexts") {
 ohos_prebuilt_etc("file_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/file_contexts"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
 
   relative_install_dir = "selinux/targeted/contexts/"
@@ -619,7 +608,7 @@ ohos_prebuilt_etc("file_contexts") {
 ohos_prebuilt_etc("vendor_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/vendor.cil"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
@@ -628,7 +617,7 @@ ohos_prebuilt_etc("vendor_cil") {
 ohos_prebuilt_etc("prebuild_sepolicy_system_cil_sha256") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/prebuild_sepolicy.system.cil.sha256"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
@@ -637,7 +626,7 @@ ohos_prebuilt_etc("prebuild_sepolicy_system_cil_sha256") {
 ohos_prebuilt_etc("system_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/system.cil"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
@@ -646,7 +635,7 @@ ohos_prebuilt_etc("system_cil") {
 ohos_prebuilt_etc("system_cil_sha256") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/system.cil.sha256"
-  license_file = "$SELINUX_ROOT_DIR/LICENSE"
+  license_file = "LICENSE"
   part_name = "selinux"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
@@ -655,45 +644,45 @@ ohos_prebuilt_etc("system_cil_sha256") {
 group("selinux_group") {
   if (build_selinux) {
     deps = [
-      "//base/security/selinux:build_updater_sepolicy",
-      "//base/security/selinux:config",
-      "//base/security/selinux:file_contexts",
-      "//base/security/selinux:hap_restorecon",
-      "//base/security/selinux:hdf_service_contexts",
-      "//base/security/selinux:load_policy",
-      "//base/security/selinux:param_check",
-      "//base/security/selinux:parameter_contexts",
-      "//base/security/selinux:restorecon",
-      "//base/security/selinux:sehap_contexts",
-      "//base/security/selinux:service_check",
-      "//base/security/selinux:service_contexts",
-      "//base/security/selinux:updater_config",
-      "//third_party/selinux:checkpolicy($host_toolchain)",
-      "//third_party/selinux:chkcon",
-      "//third_party/selinux:getenforce",
-      "//third_party/selinux:getfilecon",
-      "//third_party/selinux:getpidcon",
-      "//third_party/selinux:secilc",
-      "//third_party/selinux:secilc($host_toolchain)",
-      "//third_party/selinux:sefcontext_compile($host_toolchain)",
-      "//third_party/selinux:selinux_check_access",
-      "//third_party/selinux:selinuxexeccon",
-      "//third_party/selinux:setenforce",
-      "//third_party/selinux:setfilecon",
+      ":build_updater_sepolicy",
+      ":config",
+      ":file_contexts",
+      ":hap_restorecon",
+      ":hdf_service_contexts",
+      ":load_policy",
+      ":param_check",
+      ":parameter_contexts",
+      ":restorecon",
+      ":sehap_contexts",
+      ":service_check",
+      ":service_contexts",
+      ":updater_config",
+      "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
+      "$THIRD_PARTY_DIR/selinux:chkcon",
+      "$THIRD_PARTY_DIR/selinux:getenforce",
+      "$THIRD_PARTY_DIR/selinux:getfilecon",
+      "$THIRD_PARTY_DIR/selinux:getpidcon",
+      "$THIRD_PARTY_DIR/selinux:secilc",
+      "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
+      "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
+      "$THIRD_PARTY_DIR/selinux:selinux_check_access",
+      "$THIRD_PARTY_DIR/selinux:selinuxexeccon",
+      "$THIRD_PARTY_DIR/selinux:setenforce",
+      "$THIRD_PARTY_DIR/selinux:setfilecon",
     ]
     if (components == "system") {
       deps += [
-        "//base/security/selinux:system_cil",
-        "//base/security/selinux:system_cil_sha256",
+        ":system_cil",
+        ":system_cil_sha256",
       ]
     } else if (components == "vendor") {
       deps += [
-        "//base/security/selinux:build_sepolicy",
-        "//base/security/selinux:prebuild_sepolicy_system_cil_sha256",
-        "//base/security/selinux:vendor_cil",
+        ":build_sepolicy",
+        ":prebuild_sepolicy_system_cil_sha256",
+        ":vendor_cil",
       ]
     } else {
-      deps += [ "//base/security/selinux:build_sepolicy" ]
+      deps += [ ":build_sepolicy" ]
     }
   }
 }

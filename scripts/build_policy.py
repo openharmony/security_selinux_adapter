@@ -170,7 +170,8 @@ def prepare_build_path(dir_list, root_dir, build_dir_list, sepolicy_path):
 
 def filter_out(pattern_file, input_file):
     patterns = []
-    patterns.extend(open(pattern_file).readlines())
+    with open(pattern_file, 'r') as pat_file:
+        patterns.extend(pat_file.readlines())
 
     tmp_output = tempfile.NamedTemporaryFile()
     with open(input_file, 'r') as in_file:

@@ -12,15 +12,15 @@
 # limitations under the License.
 
 import("//build/test.gni")
+import("../selinux.gni")
 
 config("selinux_unittest_config") {
   visibility = [ ":*" ]
   include_dirs = [
+    "../interfaces/policycoreutils/include",
     "unittest/common",
-    "//commonlibrary/c_utils/base/include",
-    "//third_party/googletest/include",
-    "//base/security/selinux/interfaces/policycoreutils/include",
-    "//third_party/selinux/libselinux/include",
+    "$THIRD_PARTY_DIR/selinux/libselinux/include",
+    "$THIRD_PARTY_DIR/googletest/include",
   ]
   cflags = [
     "-D_GNU_SOURCE",
@@ -37,8 +37,11 @@ ohos_unittest("hap_restorecon_unittest") {
     "unittest/common/test_common.cpp",
     "unittest/hap_restorecon/unit_test.cpp",
   ]
-  deps = [ "//third_party/selinux:libselinux" ]
-  external_deps = [ "selinux:libhap_restorecon" ]
+  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
+  external_deps = [
+    "c_utils:utils",
+    "selinux:libhap_restorecon",
+  ]
 }
 
 ohos_unittest("paraperm_checker_unittest") {
@@ -50,8 +53,11 @@ ohos_unittest("paraperm_checker_unittest") {
     "unittest/common/test_common.cpp",
     "unittest/paraperm_checker/unit_test.cpp",
   ]
-  deps = [ "//third_party/selinux:libselinux" ]
-  external_deps = [ "selinux:libparaperm_checker" ]
+  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
+  external_deps = [
+    "c_utils:utils",
+    "selinux:libparaperm_checker",
+  ]
 }
 
 ohos_unittest("service_checker_unittest") {
@@ -63,7 +69,10 @@ ohos_unittest("service_checker_unittest") {
     "unittest/common/test_common.cpp",
     "unittest/service_checker/unit_test.cpp",
   ]
-  external_deps = [ "selinux:libservice_checker" ]
+  external_deps = [
+    "c_utils:utils",
+    "selinux:libservice_checker",
+  ]
 }
 
 ohos_unittest("parameter_static_unittest") {
@@ -72,12 +81,13 @@ ohos_unittest("parameter_static_unittest") {
   module_out_path = part_name + "/" + part_name
   public_configs = [ ":selinux_unittest_config" ]
   sources = [
-    "//base/security/selinux/interfaces/policycoreutils/src/selinux_map.c",
-    "//base/security/selinux/interfaces/policycoreutils/src/selinux_share_mem.c",
+    "../interfaces/policycoreutils/src/selinux_map.c",
+    "../interfaces/policycoreutils/src/selinux_share_mem.c",
     "unittest/common/test_common.cpp",
     "unittest/parameter_static/unit_test.cpp",
   ]
-  deps = [ "//third_party/selinux:libselinux" ]
+  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
+  external_deps = [ "c_utils:utils" ]
 }
 
 group("unittest") {
