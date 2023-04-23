@@ -58,7 +58,7 @@
 /dev/ttyFIQ0                  u:object_r:tty_device:s0
 /dev/ttyS[0-9]*               u:object_r:tty_device:s0
 /dev/usb-ffs(/.*)?            u:object_r:dev_usb_ffs:s0
-
+/dev/asanlog(/.*)?                  u:object_r:dev_asanlog_file:s0
 
 /dev/access_token_id          u:object_r:dev_at_file:s0
 /dev/ashmem          u:object_r:dev_ashmem_file:s0

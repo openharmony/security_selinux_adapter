@@ -112,3 +112,12 @@ allow hiview kernel:unix_stream_socket  { connectto };
 #avc:  denied  { map } for  pid=1594 comm="hiview" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=53 scontext=u:r:hiview:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 allow hiview musl_param:file  { read open map };
 
+allow init dev_asanlog_file:dir { setattr read_dir_perms getattr relabelto create_dir_perms mounton };
+#avc:  denied  { getattr } for  pid=1123 comm="hdcd" path="/dev/asanlog" dev="tmpfs" ino=629 scontext=u:r:hdcd:s0 tcontext=u:object_r:dev_asanlog_file:s0 tclass=dir permissive=0
+allow hdcd dev_asanlog_file:dir { read_dir_perms write add_name create };
+#avc:  denied  { write create open } for  pid=1358 comm="hdcd" path="/dev/asanlog/asan.log.3273" dev="tmpfs" ino=727 scontext=u:r:hdcd:s0 tcontext=u:object_r:dev_asanlog_file:s0 tclass=file permissive=1
+allow hdcd dev_asanlog_file:file { write create read_file_perms };
+#avc:  denied  { read } for  pid=3520 comm="hiview" name="asanlog" dev="tmpfs" ino=726 scontext=u:r:hiview:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=0
+allow hiview dev_asanlog_file:dir { read_dir_perms };
+#avc:  denied  { read } for  pid=449 comm="hiview" name="asan.log.2718" dev="tmpfs" ino=731 scontext=u:r:hiview:s0 tcontext=u:object_r:dev_file:s0 tclass=file permissive=0
+allow hiview dev_asanlog_file:file { read_file_perms };
