@@ -51,4 +51,4 @@ allow updater_sa update_firmware_file:dir { create rmdir setattr };
 allow updater_sa update_dupdate_engine_file:dir { add_name create getattr open read remove_name rmdir search setattr write };
 allow updater_sa update_dupdate_engine_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 allowxperm updater_sa update_dupdate_engine_file:file ioctl { 0x5413 0xf50c };
-
+allow updater_sa servicectrl_param:parameter_service { set };

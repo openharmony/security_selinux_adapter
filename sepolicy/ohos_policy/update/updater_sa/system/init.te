@@ -15,4 +15,4 @@ allow init update_firmware_file:dir { search write create add_name getattr open 
 allow init update_firmware_file:file { getattr };
 allow init update_dupdate_engine_file:dir { getattr open read relabelto search setattr };
 allow init update_dupdate_engine_file:file { getattr relabelto };
-
+allow init updater_sa:file { getattr};
