@@ -139,3 +139,17 @@ allow hiview hitrace_exec:file { execute read open execute_no_trans map };
 allow hiview tracefs:file { write };
 
 allow hiview proc_sysrq_trigger_file:file { open getattr write ioctl };
+
+#avc:  denied  { search } for  pid=252 comm="exportSysEventT" name="app" dev="mmcblk0p12" ino=43 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=0
+allow hiview data_app_file:dir { search };
+
+#avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="el2" dev="mmcblk0p12" ino=47 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
+allow hiview data_app_el2_file:dir { search };
+
+#avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="com.huawei.myapplication" dev="mmcblk0p12" ino=2366 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
+#avc:  denied  { write } for  pid=252 comm="exportSysEventT" name="hiview" dev="mmcblk0p12" ino=2417 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
+#avc:  denied  { add_name } for  pid=251 comm="exportSysEventT" name="Reliability-EVENT-20170816160811-000-0.evt" scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
+allow hiview system_basic_hap_data_file:dir { add_name search read write };
+
+#avc:  denied  { create read write open } for  pid=256 comm="exportSysEventT" name="Reliability-EVENT-20170816164943-000-0.evt" scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
+allow hiview system_basic_hap_data_file:file { create read write open };
