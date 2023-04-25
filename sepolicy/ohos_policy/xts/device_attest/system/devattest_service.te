@@ -52,7 +52,6 @@ allow devattest_service dev_unix_socket:dir { search };
 allow devattest_service system_bin_file:dir { search };
 allow devattest_service system_bin_file:file { execute execute_no_trans map read open };
 
-
 allow devattest_service node:udp_socket { node_bind };
 allow devattest_service port:udp_socket { name_bind };
 allow devattest_service wifi_hal_service:unix_stream_socket { connectto };
@@ -79,13 +78,12 @@ allow devattest_service sa_device_service_manager:samgr_class { get };
 allow devattest_service sa_accesstoken_manager_service:samgr_class { add get };
 allow devattest_service sa_foundation_bms:samgr_class { get };
 
-
 allow devattest_service devinfo_private_param:file { map open read };
 
 allow devattest_service hilog_param:file { map open read };
 allow devattest_service dnsproxy_service:sock_file { write };
 
-# [18.469899] audit: type=1400 audit(1668560965.423:331): avc:  denied  { call } for  pid=349 comm="netmanager" scontext=u:r:netmanager:s0 tcontext=u:r:devattest_service:s0 tclass=binder permissive=0
+#avc:  denied  { call } for  pid=349 comm="netmanager" scontext=u:r:netmanager:s0 tcontext=u:r:devattest_service:s0 tclass=binder permissive=0
 allow netmanager devattest_service:binder { call };
 
 allow normal_hap_attr sa_devattest_service:samgr_class { get };
@@ -103,18 +101,18 @@ allow system_core_hap devattest_service:fd { use };
 allow system_core_hap devattest_service:binder { call transfer };
 allow devattest_service system_core_hap:binder { call transfer };
 
-#[ 6828.513801] audit: type=1400 audit(1682402150.321:1169): avc:  denied  { mounton } for  pid=1983 comm="appspawn" path="/mnt/sandbox/com.ohos.devatteststage/data/storage/el1/bundle/misc" dev="mmcblk0p12" ino=87 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_misc:s0 tclass=dir permissive=0
+#avc:  denied  { mounton } for  pid=1983 comm="appspawn" path="/mnt/sandbox/com.ohos.devatteststage/data/storage/el1/bundle/misc" dev="mmcblk0p12" ino=87 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_misc:s0 tclass=dir permissive=0
 allow appspawn data_misc:dir { mounton };
 
-#[  252.778575] audit: type=1400 audit(1682411916.610:1054): avc:  denied  { open } for  pid=326 comm="IPC_2_436" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:devattest_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
-#[  253.760051] audit: type=1400 audit(1682413340.923:1102): avc:  denied  { map } for  pid=324 comm="devattest_servi" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:devattest_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=326 comm="IPC_2_436" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:devattest_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=324 comm="devattest_servi" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:devattest_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 allow devattest_service musl_param:file { open read map };
 
-#04-25 16:38:42.012   248   279 E C02f02/Selinux: avc:  denied  { get } for service=180 pid=326 scontext=u:r:devattest_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
+#avc:  denied  { get } for service=180 pid=326 scontext=u:r:devattest_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
 allow devattest_service sa_foundation_abilityms:samgr_class { get };
 
-#[  254.276042] audit: type=1400 audit(1682413341.440:1103): avc:  denied  { search } for  pid=324 comm="devattest_servi" name="/" dev="tracefs" ino=1 scontext=u:r:devattest_service:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=0
+#avc:  denied  { search } for  pid=324 comm="devattest_servi" name="/" dev="tracefs" ino=1 scontext=u:r:devattest_service:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=0
 allow devattest_service tracefs:dir { search };
 
-#04-25 17:02:21.555   241   270 E C02f02/Selinux: avc:  denied  { get } for service=3203 pid=324 scontext=u:r:devattest_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
+#avc:  denied  { get } for service=3203 pid=324 scontext=u:r:devattest_service:s0 tcontext=u:object_r:sa_foundation_ans:s0 tclass=samgr_class permissive=0
 allow devattest_service sa_foundation_ans:samgr_class { get };
