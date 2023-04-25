@@ -37,3 +37,8 @@ allow power_host data_service_el0_file:file { getattr };
 
 #avc:  denied  { getattr } for  pid=563 comm="IPC_0_636" path="/sys/devices/virtual/thermal/thermal_zone0/temp" dev="sysfs" ino=5327 scontext=u:r:power_host:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=0
 allow power_host sys_file:file { getattr };
+
+#avc:  denied  { read } for  pid=478 comm="IPC_1_543" name="u:object_r:thermal_log_param:s0" dev="tmpfs" ino=80 scontext=u:r:power_host:s0 tcontext=u:object_r:thermal_log_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=491 comm="IPC_1_542" path="/dev/__parameters__/u:object_r:thermal_log_param:s0" dev="tmpfs" ino=80 scontext=u:r:power_host:s0 tcontext=u:object_r:thermal_log_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=485 comm="IPC_1_594" path="/dev/__parameters__/u:object_r:thermal_log_param:s0" dev="tmpfs" ino=80 scontext=u:r:power_host:s0 tcontext=u:object_r:thermal_log_param:s0 tclass=file permissive=0
+allow power_host thermal_log_param:file { open read map };
