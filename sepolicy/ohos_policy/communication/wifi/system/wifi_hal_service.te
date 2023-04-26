@@ -46,6 +46,7 @@ allow wifi_hal_service wifi_manager_service:file { open read };
 allow wifi_hal_service wifi_manager_service:process { signal };
 allow wifi_hal_service data_service_file:dir { search };
 allow wifi_hal_service sa_cert_manager_service:samgr_class { get };
+allow wifi_hal_service sa_accesstoken_manager_service:samgr_class { get };
 allow wifi_hal_service cert_manager_service:binder { call };
 allow wifi_hal_service huks_service:binder { call };
 allowxperm wifi_hal_service wifi_hal_service:packet_socket ioctl { 0x8927 0x8933 };
@@ -61,6 +62,7 @@ allow wifi_hal_service wifi_hal_service:unix_dgram_socket { sendto };
 allow wifi_hal_service wifi_hal_service:unix_dgram_socket { read };
 allow wifi_hal_service wifi_hal_service:unix_dgram_socket { getopt };
 allow wifi_hal_service wifi_hal_service:unix_dgram_socket { ioctl };
+allow wifi_hal_service dev_hdfwifi:chr_file { read open write getattr ioctl };
 allow wifi_hal_service data_service_el1_file:sock_file { write setattr getattr unlink};
 allow wifi_hal_service data_service_el1_file:dir { create search write getattr add_name };
 
