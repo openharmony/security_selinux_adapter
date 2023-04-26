@@ -34,8 +34,8 @@ allow hiebpf system_bin_file:file { getattr map open read };
 allow hiebpf self:perf_event { cpu kernel open write };
 
 debug_only(`
-	allow hiebpf data_local_tmp:dir { add_name search write };
-	allow hiebpf data_local_tmp:file { read write create map open };
+	allow hiebpf data_local_tmp:dir { add_name search write remove_name };
+	allow hiebpf data_local_tmp:file { read write create map open getattr ioctl link unlink };
 	allow hiebpf self:capability { sys_ptrace sys_resource sys_admin };
 	allow hiebpf self:capability2 { perfmon };
 ')
@@ -76,3 +76,6 @@ allow hiebpf hiprofilerd:fd use;
 allow hiebpf rootfs:file read;
 allow hiebpf sh_exec:file read;
 allow hiebpf sh:fd use;
+
+allow hiebpf tracefs:dir search;
+allow hiebpf tracefs:file { open read write };
