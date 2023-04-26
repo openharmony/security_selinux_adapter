@@ -99,11 +99,14 @@ allow  distributedfiledaemon dev_fuse_file:chr_file { read write };
 #avc:  denied  { write } for  pid=953 comm="cloudfiledaemon" name="cloudfile" dev="mmcblk0p12" ino=1380 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 #avc:  denied  { add_name } for  pid=953 comm="cloudfiledaemon" name="100" scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 #avc:  denied  { create } for  pid=953 comm="cloudfiledaemon" name="100" scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-allow distributedfiledaemon data_service_el1_file:dir { search write add_name create };
+allow distributedfiledaemon data_service_el1_file:dir { search write add_name create remove_name };
 
 #avc:  denied  { create } for  pid=953 comm="cloudfiledaemon" name="com.example.cloudsync" scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 #avc:  denied  { write open } for  pid=953 comm="cloudfiledaemon" path="/data/service/el1/public/cloudfile/100/com.example.cloudsync" dev="mmcblk0p12" ino=1477 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 #avc:  denied  { getattr } for  pid=953 comm="cloudfiledaemon" path="/data/service/el1/public/cloudfile/100/com.example.cloudsync" dev="mmcblk0p12" ino=1477 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 #avc:  denied  { ioctl } for  pid=953 comm="cloudfiledaemon" path="/data/service/el1/public/cloudfile/100/com.example.cloudsync" dev="mmcblk0p12" ino=1477 ioctlcmd=0x5413 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 #avc:  denied  { setattr } for  pid=953 comm="cloudfiledaemon" name="com.example.cloudsync" dev="mmcblk0p12" ino=1477 scontext=u:r:distributedfiledaemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-allow distributedfiledaemon data_service_el1_file:file { create write open getattr ioctl setattr };
+allow distributedfiledaemon data_service_el1_file:file { create write open getattr ioctl setattr read rename unlink };
+
+#avc:  denied  { call } for  pid=552 comm="IPC_1_623" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
+allow distributedfiledaemon hap_domain:binder { call transfer };
