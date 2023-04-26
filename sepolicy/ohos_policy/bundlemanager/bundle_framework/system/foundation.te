@@ -56,6 +56,7 @@ allow foundation data_service_file:dir { search };
 allow foundation data_system_ce:file { lock };
 allow foundation dev_ashmem_file:chr_file { open };
 allow foundation device_usage_stats_service:binder { call transfer };
+allow foundation default_service:samgr_class { get };
 allow foundation deviceauth_service:binder { call transfer };
 allow foundation devinfo_private_param:file { map open read };
 allow foundation dev_unix_socket:dir { search };
