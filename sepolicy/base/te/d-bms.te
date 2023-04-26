@@ -40,6 +40,7 @@ allow d-bms param_watcher:binder { call transfer };
 allow d-bms persist_param:file { map open read };
 allow d-bms persist_sys_param:file { map open read };
 allow d-bms sa_distributed_bundle_mgr_service_service:samgr_class { add };
+allow d-bms sa_foundation_devicemanager_service:samgr_class { get };
 allow d-bms security_param:file { map open read };
 allow d-bms startup_param:file { map open read };
 allow d-bms sys_param:file { map open read };
