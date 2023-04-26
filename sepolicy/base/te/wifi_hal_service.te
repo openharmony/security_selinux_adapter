@@ -59,5 +59,6 @@ allow wifi_hal_service wifi_hal_service_exec:file { entrypoint execute map read 
 allow wifi_hal_service wifi_manager_service:dir { search };
 allow wifi_hal_service wifi_manager_service:file { open read };
 allow wifi_hal_service wifi_manager_service:process { signal };
+allow wifi_hal_service sa_accesstoken_manager_service:samgr_class { get };
 allowxperm wifi_hal_service data_misc:file ioctl { 0x5413 };
 allowxperm wifi_hal_service wifi_hal_service:unix_dgram_socket ioctl { 0x8910 };
