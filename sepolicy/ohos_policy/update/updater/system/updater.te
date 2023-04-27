@@ -64,7 +64,7 @@ allow updater dev_block_file:blk_file { write getattr read open ioctl lock };
 # avc: denied  { ioctl } for  pid=272 comm="mount.ntfs" path="/dev/block/mmcblk1p1" dev="tmpfs" ino=160 ioctlcmd=0x125e scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
 # avc: denied { ioctl } for pid=274 comm="resize.f2fs" path="/dev/block/mmcblk0p12" dev="tmpfs" ino=104 ioctlcmd=0x1268 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied  { ioctl } for  pid=269 comm="mount.ntfs" path="/dev/block/mmcblk1p1" dev="tmpfs" ino=160 ioctlcmd=0x1271 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
-allowxperm updater dev_block_file:blk_file ioctl { 0x1268 0x125e };
+allowxperm updater dev_block_file:blk_file ioctl { 0x1268 0x125e 0x1271 };
 
 #avc: denied { read } for pid=274 comm="resize.f2fs" name="version" dev="proc" ino=4026532114 scontext=u:r:updater:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
 #avc: denied { open } for pid=274 comm="resize.f2fs" path="/proc/version" dev="proc" ino=4026532114 scontext=u:r:updater:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
@@ -212,7 +212,7 @@ allow updater ueventd:netlink_kobject_uevent_socket { read write};
 
 #avc: denied { read } for pid=269 comm="updater_binary" name="u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=18 scontext=u:r:updater:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
 # avc:  denied  { map } for  pid=263 comm="updater_binary" path="/dev/__parameters__/u:object_r:ohos_boot_param:s0" dev="tmpfs" ino=18 scontext=u:r:updater:s0 tcontext=u:object_r:ohos_boot_param:s0 tclass=file permissive=0
-allow updater ohos_boot_param:file { read map };
+allow updater ohos_boot_param:file { read map open };
 
 #avc: denied { mount } for pid=241 comm="updater" name="/" dev="mmcblk0p12" ino=3 scontext=u:r:updater:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=1
 #avc: denied { unmount } for pid=231 comm="updater" scontext=u:r:updater:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=0

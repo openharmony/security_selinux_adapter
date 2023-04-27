@@ -176,11 +176,11 @@ allowxperm updater_binary data_updater_file:file ioctl { 0x5413 };
 
 # avc: denied { read } for pid=279 comm="processdump" name="u:object_r:hilog_param:s0" dev="tmpfs" ino=34 scontext=u:r:updater_binary:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
 # avc:  denied  { open } for  pid=278 comm="processdump" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=34 scontext=u:r:updater_binary:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
-allow updater_binary hilog_param:file { read open };
+# avc:  denied  { map } for  pid=278 comm="processdump" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=34 scontext=u:r:updater_binary:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
+allow updater_binary hilog_param:file { read open map };
 
 # avc:  denied  { read write } for  pid=272 comm="processdump" path="/data/log/faultlog/temp/cppcrash-265-1679413199123" dev="mmcblk0p12" ino=8782 scontext=u:r:updater_binary:s0 tcontext=u:object_r:faultloggerd_temp_file:s0 tclass=file permissive=0
-# avc:  denied  { map } for  pid=278 comm="processdump" path="/dev/__parameters__/u:object_r:hilog_param:s0" dev="tmpfs" ino=34 scontext=u:r:updater_binary:s0 tcontext=u:object_r:hilog_param:s0 tclass=file permissive=0
-allow updater_binary faultloggerd_temp_file:file { read write map };
+allow updater_binary faultloggerd_temp_file:file { read write };
 
 # avc:  denied  { chown } for  pid=270 comm="updater_binary" capability=0  scontext=u:r:updater_binary:s0 tcontext=u:r:updater_binary:s0 tclass=capability permissive=0
 allow updater_binary updater_binary:capability { chown };
