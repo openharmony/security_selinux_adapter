@@ -149,7 +149,15 @@ allow hiview data_app_el2_file:dir { search };
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="com.huawei.myapplication" dev="mmcblk0p12" ino=2366 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
 #avc:  denied  { write } for  pid=252 comm="exportSysEventT" name="hiview" dev="mmcblk0p12" ino=2417 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
 #avc:  denied  { add_name } for  pid=251 comm="exportSysEventT" name="Reliability-EVENT-20170816160811-000-0.evt" scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
-allow hiview system_basic_hap_data_file:dir { add_name search read write };
+allow hiview system_basic_hap_data_file:dir { add_name search write };
 
-#avc:  denied  { create read write open } for  pid=256 comm="exportSysEventT" name="Reliability-EVENT-20170816164943-000-0.evt" scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
-allow hiview system_basic_hap_data_file:file { create read write open };
+#avc:  denied  { create write open } for  pid=256 comm="exportSysEventT" name="Reliability-EVENT-20170816164943-000-0.evt" scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
+allow hiview system_basic_hap_data_file:file { create write open };
+
+#avc:  denied  { search } for  pid=241 comm="exportSysEventT" name="com.huawei.myapplicationtest" dev="mmcblk0p12" ino=1615 scontext=u:r:hiview:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=0
+allow hiview normal_hap_data_file:dir { search };
+
+#avc:  denied  { write } for  pid=245 comm="exportSysEventT" name="cache" dev="mmcblk0p12" ino=1616 scontext=u:r:hiview:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=dir permissive=0
+allow hiview normal_hap_data_file:dir { write add_name };
+
+allow hiview normal_hap_data_file:file { create  write open };
