@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow foundation edm_sa:binder { transfer };
+allow foundation edm_sa:dir { search };
+allow foundation edm_sa:file { read };
