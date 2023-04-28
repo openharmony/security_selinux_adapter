@@ -48,7 +48,7 @@ allow updater_binary tmpfs:dir { search };
 #avc: denied { append } for pid=270 comm="updater_binary" name="updater.log" dev="tmpfs" ino=2 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
 #avc: denied { getattr } for pid=270 comm="updater_binary" path="/tmp/updater.log" dev="tmpfs" ino=2 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
 #avc: denied { ioctl } for pid=270 comm="updater_binary" path="/tmp/updater.log" dev="tmpfs" ino=2 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
-allow updater_binary tmpfs:file { execute read open execute_no_trans append getattr ioctl };
+allow updater_binary tmpfs:file { execute read open execute_no_trans append getattr ioctl create write};
 allowxperm updater_binary tmpfs:file ioctl { 0x5413 };
 
 # avc: denied { fork } for pid=281 comm="updater_binary" scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:updater_binary:s0 tclass=process permissive=1
@@ -223,4 +223,17 @@ allow updater_binary ntfs:file { read open getattr write ioctl };
 # avc:  denied  { ioctl } for  pid=268 comm="updater_binary" path="/sdcard/updater/build_tools.zip.tmp" dev="mmcblk1p1" ino=67 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:ntfs:s0 tclass=file permissive=0
 allowxperm updater_binary ntfs:file ioctl { 0x5413 };
 
+allow updater_binary tmpfs:dir { read write add_name };
+
 ')
+
+allow updater_binary data_file:dir { search };
+allow updater_binary data_updater_file:dir { search };
+allow updater_binary data_updater_file:file { map read open };
+allow updater_binary dev_block_file:blk_file { read write open };
+allow updater_binary dev_block_file:dir { search };
+allow updater_binary dev_block_file:lnk_file { read };
+allow updater_binary dev_block_volfile:dir { search };
+allow updater_binary musl_param:file { read open map };
+allow updater_binary ohos_boot_param:file { open map read };
+allow updater_binary sys_installer_sa:fifo_file { write };

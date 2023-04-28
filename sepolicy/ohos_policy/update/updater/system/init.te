@@ -145,4 +145,15 @@ allow init exfat:filesystem { mount };
 # avc: denied { mounton } for pid=1 comm="init" path="/sdcard" dev="mmcblk1p1" ino=1 scontext=u:r:init:s0 tcontext=u:object_r:exfat:s0 tclass=dir permissive=0
 allow init exfat:dir { mounton };
 
+#avc: denied { execute_no_trans } for pid=234 comm="init" path="/bin/hilog" dev="rootfs" ino=19711 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow init rootfs:file { execute_no_trans };
+
+#avc: denied { relabelfrom } for pid=237 comm="init" name=".persisterInfo_2" dev="rootfs" ino=20763 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { map } for pid=235 comm="hilog" path="/bin/hilog" dev="rootfs" ino=2707 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { open } for pid=1 comm="init" path="/etc/selinux/targeted/contexts/file_contexts" dev="rootfs" ino=18433 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { execute } for pid=1 comm="init" name="updater" dev="rootfs" ino=18818 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { getattr } for pid=1 comm="init" path="/etc/selinux/targeted/contexts/file_contexts" dev="rootfs" ino=18433 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+#avc: denied { read } for pid=1 comm="init" name="file_contexts" dev="rootfs" ino=18433 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow init rootfs:file { map read open relabelfrom setattr getattr };
+
 ')

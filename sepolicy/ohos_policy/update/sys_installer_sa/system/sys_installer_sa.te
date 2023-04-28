@@ -72,3 +72,7 @@ allow sys_installer_sa update_firmware_file:file { append create ioctl open read
 allowxperm sys_installer_sa update_firmware_file:file ioctl { 0x5413 };
 
 allow sys_installer_sa data_updater_file:file { execute execute_no_trans };
+
+allow sys_installer_sa sys_installer_sa:process { setcurrent };
+allow sys_installer_sa updater_binary:process { dyntransition };
+allow sys_installer_sa vendor_etc_file:dir { search };
