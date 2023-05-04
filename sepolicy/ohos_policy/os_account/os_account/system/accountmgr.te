@@ -13,60 +13,45 @@
 
 #type accountmgr, sadomain, domain, samgr_type;
 
+binder_call(accountmgr, foundation);
 binder_call(accountmgr, useriam);
 binder_call(accountmgr, pinauth);
-allow pinauth accountmgr:binder { call };
-
 binder_call(accountmgr, system_core_hap);
-allow system_core_hap accountmgr:binder { call };
-
-allow system_basic_hap accountmgr:binder { call };
 binder_call(accountmgr, system_basic_hap);
-
 binder_call(accountmgr, normal_hap_attr);
-allow normal_hap_attr accountmgr:binder { call };
 
+allow accountmgr init:binder { call transfer };
 allow accountmgr self:unix_dgram_socket{ getopt setopt };
 
 allow accountmgr data_system:dir { getattr write add_name create read open setattr search remove_name rmdir };
 allow accountmgr data_system:file { getattr write create read open setattr ioctl relabelfrom };
-
 allow accountmgr data_service_el1_file:dir { getattr write add_name create read open setattr search remove_name rmdir };
 allow accountmgr data_service_el1_file:file { getattr write create read open setattr ioctl relabelfrom unlink map lock };
 allowxperm accountmgr data_service_el1_file:file ioctl { 0xf50c };
-
 allow accountmgr data_service_file:dir { search };
-
 allow accountmgr account_data_file:file { getattr setattr open ioctl create write read relabelto unlink };
 allow accountmgr account_data_file:dir { getattr search read write };
-
 allow accountmgr vendor_lib_file:file { getattr open read map execute };
 allow accountmgr vendor_lib_file:lnk_file { read };
 allow accountmgr vendor_lib_file:dir { search };
-
 allow accountmgr data_file:dir { search };
-
 allow accountmgr sys_file:file { read open };
 
 allow accountmgr tracefs:dir { search };
 allow accountmgr tracefs_trace_marker_file:file { write open };
-
 allow accountmgr hilog_input_socket:sock_file { write };
-
 allow accountmgr hisysevent_socket:sock_file { write };
-
 allow accountmgr accesstoken_service:binder { call };
-
 allow accountmgr dev_unix_socket:dir { search };
-
 allow accountmgr param_watcher:binder { call };
-
 allow accountmgr storage_manager:binder { call };
-
 allow accountmgr distributeddata:binder { call };
+allow accountmgr data_init_agent:dir { search };
+allow accountmgr data_init_agent:file { read append ioctl open };
+allow accountmgr param_watcher:binder { transfer };
+allow accountmgr devinfo_private_param:file { map open read };
 
 allow accountmgr sa_accountmgr:samgr_class { add };
-
 allow accountmgr sa_param_watcher:samgr_class { get };
 allow accountmgr sa_foundation_appms:samgr_class { get };
 allow accountmgr sa_storage_manager_service:samgr_class { get };
@@ -80,28 +65,10 @@ allow accountmgr sa_useriam_userauth_service:samgr_class { get };
 allow accountmgr sa_useriam_pinauth_service:samgr_class { get };
 allow accountmgr sa_foundation_devicemanager_service:samgr_class { get };
 
-allow accountmgr data_init_agent:dir { search };
-allow accountmgr data_init_agent:file { read append ioctl open };
+# avc: denied { open } for  pid=541 comm="IPC_0_735" path="/dev/ashmem" dev="tmpfs" ino=170 scontext=u:r:accountmgr:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
+allow accountmgr dev_ashmem_file:chr_file { open };
 
-allow accountmgr param_watcher:binder { transfer };
-
-allow accountmgr devinfo_private_param:file { map open read };
-
-# add for xts
-allow sh sa_accountmgr:samgr_class { get };
-allow system_core_hap sa_accountmgr:samgr_class { get };
-allow normal_hap_attr sa_accountmgr:samgr_class { get };
-allow hiview sa_accountmgr:samgr_class { get };
-allow sh accountmgr:binder { transfer };
-allow accountmgr sh:binder { call };
-
-# avc:  denied  { open } for  pid=541 comm="IPC_0_735" path="/dev/ashmem" dev="tmpfs" ino=170 scontext=u:r:accountmgr:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
-allow accountmgr dev_ashmem_file:chr_file {open};
-# avc:  denied  { use } for  pid=554 comm="accountmgr" path="/dev/ashmem" dev="tmpfs" ino=170 scontext=u:r:system_core_hap:s0 tcontext=u:r:accountmgr:s0 tclass=fd permissive=1
-allow hap_domain accountmgr:fd {use};
-
-# avc:  denied  { call } for  pid=858 comm="IPC_1_914" scontext=u:r:pinauth:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
-allow pinauth sh:binder { call };
-
-#avc:  denied  { call } for  pid=510 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
-allow useriam sh:binder { call };
+# add for test
+debug_only(`
+    allow accountmgr sh:binder { call };
+')

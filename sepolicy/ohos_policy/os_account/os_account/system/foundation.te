@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-binder_call(accountmgr, foundation);
 allow foundation accountmgr:binder { call };
 allow foundation accountmgr:dir { search };
 allow foundation accountmgr:file { read open getattr };
