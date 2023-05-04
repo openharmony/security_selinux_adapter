@@ -42,8 +42,8 @@ allow updater_sa update_firmware_file:file {create read append open getattr unli
 allowxperm updater_sa update_firmware_file:file ioctl { 0x5413 };
 allow updater_sa data_file:dir { read open write getattr setattr add_name remove_name };
 allow updater_sa tmpfs:dir { read open };
-allow updater_sa data_updater_file:dir { search };
-allow updater_sa data_updater_file:file { read open getattr };
+allow updater_sa data_updater_file:dir { search getattr write add_name create };
+allow updater_sa data_updater_file:file { read open getattr create append setattr ioctl };
 allow updater_sa dev_console_file:chr_file { read write };
 allow updater_sa sysfs_devices_system_cpu:file { read write open getattr };
 allow updater_sa dev_file:dir { getattr };
@@ -52,3 +52,5 @@ allow updater_sa update_dupdate_engine_file:dir { add_name create getattr open r
 allow updater_sa update_dupdate_engine_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 allowxperm updater_sa update_dupdate_engine_file:file ioctl { 0x5413 0xf50c };
 allow updater_sa servicectrl_param:parameter_service { set };
+allow updater_sa sa_sys_installer_service:samgr_class { get };
+allow updater_sa sys_installer_sa:binder { call transfer };
