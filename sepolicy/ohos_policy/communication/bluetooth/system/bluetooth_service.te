@@ -126,3 +126,8 @@ allow bluetooth_service hdf_bluetooth_audio_session_service:hdf_devmgr_class { g
 allow bluetooth_service a2dp_host:fd { use };
 allow bluetooth_service sa_foundation_battery_service:samgr_class { get };
 
+#avc:  denied  { use } for  pid=351 comm="IPC_0_465" path="socket:[27604]" dev="sockfs" ino=27604 scontext=u:r:system_core_hap:s0 tcontext=u:r:bluetooth_service:s0 tclass=fd permissive=0
+allow system_core_hap bluetooth_service:fd { use };
+
+#avc:  denied  { read write } for  pid=351 comm="bluetooth_servi" path="socket:[27422]" dev="sockfs" ino=27422 scontext=u:r:system_core_hap:s0 tcontext=u:r:bluetooth_service:s0 tclass=unix_stream_socket permissive=0
+allow system_core_hap bluetooth_service:unix_stream_socket { read write };
