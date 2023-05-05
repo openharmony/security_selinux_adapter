@@ -60,9 +60,15 @@ allow camera_host dev_dma_heap_file:chr_file { open };
 allow camera_host dev_dma_heap_file:chr_file { ioctl };
 allow camera_host dev_video_file:chr_file { map };
 allow camera_host normal_hap_attr:binder { call };
+allow camera_host data_file:dir { search };
+allow camera_host debugfs_usb:dir { search };
+allow camera_host hidumper_file:dir { add_name search write };
+allow camera_host hidumper_file:file { append open create getattr ioctl };
+allow camera_host tracefs_trace_marker_file:file { write };
 debug_only(`
     allow camera_host sh:binder { call transfer };
 ')
 allowxperm camera_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
-allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 0x561b 0x564a 0x5602 0x5624 0x564b 0x5625 };
+allowxperm camera_host dev_video_file:chr_file ioctl { 0x5600 0x561b 0x564a 0x5602 0x5624 0x564b 0x5625 0x5616 };
+allowxperm camera_host hidumper_file:file ioctl 0x5413;
 allow camera_host tracefs:dir { search };
