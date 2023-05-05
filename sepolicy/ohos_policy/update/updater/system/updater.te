@@ -298,9 +298,7 @@ allowxperm updater ntfs:file ioctl { 0x5413 };
 # avc:  denied  { mount } for  pid=262 comm="mount.ntfs" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=filesystem permissive=0
 allow updater ntfs:filesystem { mount };
 
-allow updater dev_block_file:blk_file { ioctl };
-allow updater dev_usb_ffs:dir { open };
-allow updater dev_usb_ffs:dir { search };
+allow updater dev_usb_ffs:dir { open search };
 allow updater functionfs:dir { search };
 allow updater rootfs:file { execute_no_trans };
 allow updater sh:process { dyntransition };
@@ -308,9 +306,9 @@ allow updater sys_param:parameter_service { set };
 
 allow updater updater:capability { dac_read_search };
 allow updater updater_flashd_param:parameter_service { set };
-allowxperm updater dev_block_file:blk_file ioctl 0x1272;
-allowxperm updater dev_block_file:blk_file ioctl 0x2285;
-allowxperm updater dev_block_file:blk_file ioctl 0x5413;
+
+allow updater dev_block_file:blk_file { ioctl };
+allowxperm updater dev_block_file:blk_file ioctl { 0x1272 0x2285 0x5413};
 
 allow updater functionfs:file { open };
 debug_only(`
@@ -318,12 +316,11 @@ debug_only(`
 ')
 
 allow updater dev_block_file:blk_file { ioctl };
-allowxperm updater dev_block_file:blk_file ioctl 0x127d;
+allowxperm updater dev_block_file:blk_file ioctl {0x127d};
 
 allow updater dev_ptmx:chr_file { ioctl };
 allow updater dev_ptmx:chr_file { open };
-allowxperm updater dev_ptmx:chr_file ioctl 0x5431;
-allowxperm updater dev_ptmx:chr_file ioctl 0x5430;
+allowxperm updater dev_ptmx:chr_file ioctl {0x5431 0x5430};
 
 allow updater data_updater_file:dir { setattr };
 allow updater sh:process { sigkill };
