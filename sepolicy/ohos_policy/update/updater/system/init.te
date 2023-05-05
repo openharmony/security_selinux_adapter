@@ -30,7 +30,8 @@ allow init rootfs:file { getattr read open execute map };
 # avc: denied { add_name } for pid=1 comm="init" name="config" scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
 # avc: denied { create } for pid=1 comm="init" name="config" scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
 # avc: denied { setattr } for pid=1 comm="init" name="param" dev="rootfs" ino=17987 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
-allow init rootfs:dir { read open write relabelfrom add_name create setattr };
+# avc:  denied  { relabelto } for  pid=1 comm="init" name="/" dev="tmpfs" ino=1 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
+allow init rootfs:dir { read open write relabelfrom add_name create setattr relabelto };
 
 # avc: denied { create } for pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
 # avc: denied { setopt } for pid=1 comm="init" scontext=u:r:init:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
@@ -40,7 +41,8 @@ allow init ueventd:netlink_kobject_uevent_socket { create setopt bind };
 # avc: denied { relabelto } for pid=1 comm="init" name="system" dev="rootfs" ino=17408 scontext=u:r:init:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
 # avc: denied { read } for pid=1 comm="init" name="system" dev="rootfs" ino=17408 scontext=u:r:init:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
 # avc: denied { open } for pid=1 comm="init" path="/system" dev="rootfs" ino=17408 scontext=u:r:init:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
-allow init system_file:dir { read open relabelto };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/system" dev="rootfs" ino=17413 scontext=u:r:init:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=1
+allow init system_file:dir { read open relabelto getattr };
 
 # avc: denied { associate } for pid=1 comm="init" name="system" dev="rootfs" ino=17408 scontext=u:object_r:system_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
 allow system_file rootfs:filesystem { associate };
@@ -49,20 +51,23 @@ allow system_file rootfs:filesystem { associate };
 allow init rootfs:lnk_file { relabelfrom };
 
 #avc: denied { relabelto } for pid=1 comm="init" name="bin" dev="rootfs" ino=2032 scontext=u:r:init:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file permissive=1
-allow init system_bin_file:lnk_file { relabelto };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/system/bin" dev="rootfs" ino=17417 scontext=u:r:init:s0 tcontext=u:object_r:system_bin_file:s0 tclass=lnk_file permissive=1
+allow init system_bin_file:lnk_file { relabelto getattr };
 
 #avc: denied { associate } for pid=1 comm="init" name="bin" dev="rootfs" ino=2032 scontext=u:object_r:system_bin_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
 allow system_bin_file rootfs:filesystem { associate };
 
 #avc: denied { relabelto } for pid=1 comm="init" name="lib" dev="rootfs" ino=2031 scontext=u:r:init:s0 tcontext=u:object_r:system_lib_file:s0 tclass=lnk_file permissive=1
-allow init system_lib_file:lnk_file { relabelto };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/system/lib" dev="rootfs" ino=17416 scontext=u:r:init:s0 tcontext=u:object_r:system_lib_file:s0 tclass=lnk_file permissive=1
+allow init system_lib_file:lnk_file { relabelto getattr };
 
 #avc: denied { associate } for pid=1 comm="init" name="lib" dev="rootfs" ino=2031 scontext=u:object_r:system_lib_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
 allow system_lib_file rootfs:filesystem { associate };
 
 #avc: denied { relabelto } for pid=1 comm="init" name="etc" dev="rootfs" ino=2030 scontext=u:r:init:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
 #avc: denied { read } for pid=235 comm="hilog" name="etc" dev="rootfs" ino=17415 scontext=u:r:init:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
-allow init system_etc_file:lnk_file { relabelto read };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/system/etc" dev="rootfs" ino=17415 scontext=u:r:init:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
+allow init system_etc_file:lnk_file { relabelto read getattr };
 
 #avc: denied { associate } for pid=1 comm="init" name="etc" dev="rootfs" ino=2030 scontext=u:object_r:system_etc_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
 allow system_etc_file rootfs:filesystem { associate };
@@ -70,7 +75,8 @@ allow system_etc_file rootfs:filesystem { associate };
 #avc: denied { read } for pid=1 comm="init" name="vendor" dev="rootfs" ino=16661 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=dir permissive=1
 #avc: denied { open } for pid=1 comm="init" path="/vendor" dev="rootfs" ino=16661 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=dir permissive=1
 #avc: denied { relabelto } for pid=1 comm="init" name="vendor" dev="rootfs" ino=2038 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=dir permissive=1
-allow init vendor_file:dir { relabelto read open };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/vendor" dev="rootfs" ino=17423 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=dir permissive=1
+allow init vendor_file:dir { relabelto read open getattr };
 
 #avc: denied { associate } for pid=1 comm="init" name="vendor" dev="rootfs" ino=16661 scontext=u:object_r:vendor_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=1
 allow vendor_file rootfs:filesystem { associate };
@@ -134,7 +140,8 @@ allowxperm init rootfs:chr_file ioctl { 0x5413 };
 allow init dev_file:lnk_file { read };
 
 #avc: denied { relabelto } for pid=1 comm="init" name="lib64" dev="rootfs" ino=18269 scontext=u:r:init:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=lnk_file permissive=0
-allow init vendor_lib_file:lnk_file { relabelto };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/vendor/lib64" dev="rootfs" ino=17424 scontext=u:r:init:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=lnk_file permissive=1
+allow init vendor_lib_file:lnk_file { relabelto getattr };
 
 #avc: denied { associate } for pid=1 comm="init" name="lib64" dev="rootfs" ino=395 scontext=u:object_r:vendor_lib_file:s0 tcontext=u:object_r:rootfs:s0 tclass=filesystem permissive=0
 allow vendor_lib_file rootfs:filesystem { associate };
@@ -148,16 +155,11 @@ allow init exfat:dir { mounton };
 #avc: denied { execute_no_trans } for pid=234 comm="init" path="/bin/hilog" dev="rootfs" ino=19711 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 allow init rootfs:file { execute_no_trans };
 
-#avc: denied { relabelfrom } for pid=237 comm="init" name=".persisterInfo_2" dev="rootfs" ino=20763 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-#avc: denied { map } for pid=235 comm="hilog" path="/bin/hilog" dev="rootfs" ino=2707 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-#avc: denied { open } for pid=1 comm="init" path="/etc/selinux/targeted/contexts/file_contexts" dev="rootfs" ino=18433 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-#avc: denied { execute } for pid=1 comm="init" name="updater" dev="rootfs" ino=18818 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-#avc: denied { getattr } for pid=1 comm="init" path="/etc/selinux/targeted/contexts/file_contexts" dev="rootfs" ino=18433 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-#avc: denied { read } for pid=1 comm="init" name="file_contexts" dev="rootfs" ino=18433 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
-allow init rootfs:file { map read open relabelfrom setattr getattr };
+# avc:  denied  { getattr } for  pid=238 comm="init" path="/data/log/hilog/.persisterInfo_2" dev="rootfs" ino=27803 scontext=u:r:init:s0 tcontext=u:object_r:data_hilogd_file:s0 tclass=file permissive=1
+# avc:  denied  { relabelto } for  pid=238 comm="init" name=".persisterInfo_2" dev="rootfs" ino=27803 scontext=u:r:init:s0 tcontext=u:object_r:data_hilogd_file:s0 tclass=file permissive=1
+allow init data_hilogd_file:file { getattr relabelto };
 
-allow init data_hilogd_file:file { relabelto };
-allow init rootfs:file { execute_no_trans };
-allow init rootfs:file { relabelfrom };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/proc/235/status" dev="proc" ino=27295 scontext=u:r:init:s0 tcontext=u:r:updater:s0 tclass=file permissive=1
 allow init updater:file { getattr };
+
 ')
