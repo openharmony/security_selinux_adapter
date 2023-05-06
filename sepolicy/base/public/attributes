@@ -152,5 +152,5 @@ attribute cgroup_creator;
 # i.e. /module_update/*
 attribute module_update_file_attr;
 
-attribute cap_violator_devattr;
-attribute cap_violator_devfile;
+attribute dev_attr_violator;
+attribute dev_file_violator;
