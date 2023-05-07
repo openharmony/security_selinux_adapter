@@ -527,3 +527,9 @@ class perf_event
     read
     write
 }
+
+class xpm
+{
+    exec_no_sign
+    exec_anon_mem
+}

@@ -50,6 +50,8 @@ static const std::string APL_PREFIX = "apl=";
 static const std::string NAME_PREFIX = "name=";
 static const std::string DOMAIN_PREFIX = "domain=";
 static const std::string TYPE_PREFIX = "type=";
+static const std::string DEBUGGABLE_PREFIX = "debuggable=";
+static const std::string DEBUGGABLE = "debuggable";
 static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
@@ -92,6 +94,7 @@ static struct SehapInfo DecodeString(std::string &line)
     bool nameVisit = false;
     bool domainVisit = false;
     bool typeVisit = false;
+    bool debuggableVisit = false;
 
     while (input >> tmp) {
         if (!aplVisit && (tmp.find(APL_PREFIX) != tmp.npos)) {
@@ -106,6 +109,9 @@ static struct SehapInfo DecodeString(std::string &line)
         } else if (!typeVisit && (tmp.find(TYPE_PREFIX) != tmp.npos)) {
             contextBuff.type = tmp.substr(tmp.find(TYPE_PREFIX) + TYPE_PREFIX.size());
             typeVisit = true;
+        } else if (!debuggableVisit && (tmp.find(DEBUGGABLE_PREFIX) != tmp.npos)) {
+            std::string debuggable = tmp.substr(tmp.find(DEBUGGABLE_PREFIX) + DEBUGGABLE_PREFIX.size());
+            contextBuff.debuggable = !strcmp(debuggable.c_str(), "true");
         }
     }
 
@@ -138,28 +144,42 @@ static void HapContextsClear()
     }
 }
 
+static std::string GetHapContextKey(struct SehapInfo *hapInfo)
+{
+    std::string keyPara;
+
+    if (hapInfo->debuggable) {
+        keyPara = hapInfo->apl + "." + DEBUGGABLE;
+    } else if (!hapInfo->name.empty()) {
+        keyPara = hapInfo->apl + "." + hapInfo->name;
+    } else {
+        keyPara = hapInfo->apl;
+    }
+
+    return keyPara;
+}
+
 static bool HapContextsInsert(std::string line, int lineNum)
 {
     struct SehapInfo tmpInfo = DecodeString(line);
-    if (tmpInfo.apl.empty()) {
+    std::string keyPara = GetHapContextKey(&tmpInfo);
+    if (keyPara.empty()) {
         selinux_log(SELINUX_ERROR, "hap_contexts read fail in line %d\n", lineNum);
         return false;
     }
-    bool ret = true;
-    if (tmpInfo.name.empty()) {
-        ret = g_sehapContextsTrie->Insert(tmpInfo.apl, tmpInfo.domain, tmpInfo.type);
-        if (!ret) {
-            selinux_log(SELINUX_ERROR, "sehap contexts trie insert fail %s\n", tmpInfo.apl.c_str());
-            return false;
-        }
-    }
-    std::string paraName = tmpInfo.apl + "." + tmpInfo.name;
-    selinux_log(SELINUX_INFO, "insert paraName %s\n", paraName.c_str());
-    ret = g_sehapContextsTrie->Insert(paraName, tmpInfo.domain, tmpInfo.type);
+
+    selinux_log(SELINUX_INFO, "insert keyPara %s\n", keyPara.c_str());
+    bool ret = g_sehapContextsTrie->Insert(keyPara, tmpInfo.domain, tmpInfo.type);
     if (!ret) {
-        selinux_log(SELINUX_ERROR, "sehap contexts trie insert fail %s\n", paraName.c_str());
+        selinux_log(SELINUX_ERROR, "sehap contexts trie insert fail %s\n", keyPara.c_str());
         return false;
     }
+
+    if (tmpInfo.name.empty() && !tmpInfo.debuggable) {
+        keyPara = tmpInfo.apl + ".";
+        ret = g_sehapContextsTrie->Insert(keyPara, tmpInfo.domain, tmpInfo.type);
+    }
+
     return true;
 }
 
@@ -472,15 +492,19 @@ int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const s
         }
     }
 
-    std::string type;
-    if ((hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) == 0) {
-        selinux_log(SELINUX_INFO, "not a preinstall hap, apl: %s", apl.c_str());
-        type = g_sehapContextsTrie->Search(apl, isDomain);
+    std::string keyPara;
+    if (hapFlags & SELINUX_HAP_RESTORECON_PREINSTALLED_APP) {
+        keyPara = apl + "." + packageName;
+        selinux_log(SELINUX_INFO, "preinstall hap, keyPara: %s", keyPara.c_str());
+    } else if (hapFlags & SELINUX_HAP_DEBUGGABLE) {
+        keyPara = apl + "." + DEBUGGABLE;
+        selinux_log(SELINUX_INFO, "debuggable hap, keyPara: %s", keyPara.c_str());
     } else {
-        selinux_log(SELINUX_INFO, "apl: %s, packageName: %s", apl.c_str(), packageName.c_str());
-        type = g_sehapContextsTrie->Search(apl + "." + packageName, isDomain);
+        selinux_log(SELINUX_INFO, "not a preinstall hap, apl: %s", apl.c_str());
+        keyPara = apl;
     }
 
+    std::string type = g_sehapContextsTrie->Search(keyPara, isDomain);
     if (!type.empty()) {
         return TypeSet(type, con);
     }

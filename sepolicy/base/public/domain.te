@@ -317,3 +317,7 @@ neverallow { domain -power_host } self:{ capability2 cap2_userns } block_suspend
 neverallow * self:{ capability2 cap2_userns } audit_read;
 neverallow * self:{ capability2 cap2_userns } checkpoint_restore;
 neverallow { domain -hiperf -cap_violator_perfmon debug_only(`-hiebpf') } self:{ capability2 cap2_userns } perfmon;
+
+#limit domain has exec_no_sign and exec_anon_mem permission
+neverallow { domain -debug_hap debug_only(`-sh') } self:xpm { exec_no_sign };
+neverallow { domain -debug_hap -nwebspawn debug_only(`-sh') } self:xpm { exec_anon_mem };

@@ -14,6 +14,7 @@
 type system_core_hap, domain;
 type system_basic_hap, domain;
 type normal_hap, domain;
+type debug_hap, domain, hap_domain, normal_hap_attr;
 
 hap_set(system_core_hap);
 hap_set(system_basic_hap);
@@ -28,6 +29,7 @@ neverallow { domain -normal_hap_attr -processdump } normal_hap_attr:process ptra
 type system_core_hap_data_file, hap_file_attr, data_file_attr, file_attr;
 type system_basic_hap_data_file, hap_file_attr, data_file_attr, file_attr;
 type normal_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+type debug_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 
 allow hap_domain appspawn:fd use;
 allow hap_domain appspawn:fifo_file write;
