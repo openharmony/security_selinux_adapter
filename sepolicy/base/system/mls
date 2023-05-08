@@ -11,13 +11,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+define(`decl_cat',`dnl
+category c$1;
+ifelse(`$1',`$2',,`decl_cat(incr($1),$2)')dnl
+')
+
 sensitivity s0;
 
 dominance { s0 }
 
-category c0;
+decl_cat(0, 1023)
 
-level s0:c0.c0;
+level s0:c0.c1023;
 
 mlsconstrain filesystem relabelto
     ( h1 dom h2 );
