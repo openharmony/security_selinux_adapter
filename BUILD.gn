@@ -378,7 +378,12 @@ action("build_policy") {
     }
   }
 
-  script = "scripts/build_policy.py"
+  if (special_build_policy_script != "default") {
+    script = special_build_policy_script
+  } else {
+    script = "scripts/build_policy.py"
+  }
+
   args = [
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),
