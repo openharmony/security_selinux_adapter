@@ -164,3 +164,6 @@ neverallow hap_domain exec_attr:file { create write setattr relabelfrom relabelt
 
 #normal_hap or selfdefine should be forbidden to set parameters.
 neverallow { hap_domain -system_core_hap -system_basic_hap } init:unix_stream_socket connectto;
+
+neverallow hiview normal_hap_data_file:file read;
+neverallow hiview system_basic_hap_data_file:file read;
