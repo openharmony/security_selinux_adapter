@@ -163,7 +163,6 @@ allow updater_binary data_file:dir { search add_name create getattr write };
 # avc:  denied  { create } for  pid=268 comm="updater_binary" name="update_tmp" scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=0
 # avc:  denied  { open } for  pid=270 comm="updater_binary" path="/data/updater/update_tmp" dev="mmcblk0p12" ino=1376 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=0
 allow updater_binary data_updater_file:dir { open create setattr add_name search read write getattr remove_name };
-allow updater_binary data_updater_file:dir { open create setattr add_name search read write getattr remove_name };
 
 #avc: denied { read } for pid=270 comm="updater_binary" name="updater.zip" dev="mmcblk0p12" ino=4136 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
 #avc: denied { open } for pid=270 comm="updater_binary" path="/data/updater/updater.zip" dev="mmcblk0p12" ino=4136 scontext=u:r:updater_binary:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
