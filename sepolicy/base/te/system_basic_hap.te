@@ -138,3 +138,4 @@ allow system_basic_hap sa_locationhub_lbsservice_gnss:samgr_class { get };
 allow system_basic_hap sa_locationhub_lbsservice_network:samgr_class { get };
 allow system_basic_hap sa_locationhub_lbsservice_passive:samgr_class { get };
 allow system_basic_hap sa_location_geo_convert_service:samgr_class { get };
+allow system_basic_hap sa_hiview_service:samgr_class { get };
