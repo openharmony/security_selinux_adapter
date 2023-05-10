@@ -180,7 +180,7 @@ def check_sehap_contexts(args, contexts_file, domain):
     err = 0
     with open(contexts_file + "_bk", 'r') as contexts_read, open(contexts_file, 'w') as contexts_write:
         pattern = re.compile(
-            r'apl=(system_core|system_basic|normal)\s+(name=\S+\s+)?domain=(\S+)\s+type=(\S+)\s*\n')
+            r'apl=(system_core|system_basic|normal)\s+((name|debuggable)=\S+\s+)?domain=(\S+)\s+type=(\S+)\s*\n')
         line_index = 0
         for line in contexts_read:
             line_ = line.lstrip()
@@ -191,10 +191,10 @@ def check_sehap_contexts(args, contexts_file, domain):
             match = pattern.match(line_)
             if match:
                 if domain:
-                    line = match.group(1) + " u:r:" + match.group(3) + ":s0\n"
+                    line = match.group(1) + " u:r:" + match.group(4) + ":s0\n"
                 else:
                     line = match.group(1) + " u:object_r:" + \
-                        match.group(4) + ":s0\n"
+                        match.group(5) + ":s0\n"
                 contexts_write.write(line)
             else:
                 print(contexts_file + ":" +

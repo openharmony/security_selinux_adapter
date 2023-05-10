@@ -183,7 +183,6 @@ allow audio_policy data_service_el1_file:dir { add_name create getattr open read
 allow audio_policy data_service_el1_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 
 allow audio_policy accesstoken_service:binder { call transfer };
-allow accesstoken_service audio_policy:binder { call transfer };
 
 allow audio_policy accessibility:binder { call transfer };
 allow audio_policy accessibility_param:file { map open read };

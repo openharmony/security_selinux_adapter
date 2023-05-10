@@ -17,7 +17,7 @@
 #include <deque>
 #include <vector>
 
-#include "callbacks.h"
+#include "src/callbacks.h"
 #include "selinux/selinux.h"
 #include "selinux_log.h"
 

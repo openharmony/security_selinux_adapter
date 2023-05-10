@@ -62,5 +62,14 @@ updater_only(`
     # avc:  denied  { mounton } for  pid=265 comm="mount" path="/sdcard" dev="mmcblk1p1" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=1
     allow sh vfat:dir { mounton };
 
+    # avc:  denied  { use } for  pid=292 comm="dmesg" path="pipe:[20457]" dev="pipefs" ino=20457 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:r:updater:s0 tclass=fd permissive=1
+    allow sh updater:fd { use };
+
+    # avc:  denied  { ioctl } for  pid=292 comm="dmesg" path="pipe:[20457]" dev="pipefs" ino=20457 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:r:updater:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { write } for  pid=292 comm="dmesg" path="pipe:[20457]" dev="pipefs" ino=20457 scontext=u:r:sh:s0 tcontext=u:r:updater:s0 tclass=fifo_file permissive=1
+    allow sh updater:fifo_file { ioctl write };
+
+    # avc:  denied  { ioctl } for  pid=292 comm="dmesg" path="pipe:[20457]" dev="pipefs" ino=20457 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:r:updater:s0 tclass=fifo_file permissive=1
+    allowxperm sh updater:fifo_file ioctl { 0x5413 };
     ')
 ')

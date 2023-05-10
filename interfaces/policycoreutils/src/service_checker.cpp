@@ -31,9 +31,8 @@
 #include <pthread.h>
 #include "selinux/selinux.h"
 
-#include "callbacks.h"
+#include "src/callbacks.h"
 #include "securec.h"
-#include <selinux_internal.h>
 
 #include "selinux_error.h"
 #include "selinux_log.h"

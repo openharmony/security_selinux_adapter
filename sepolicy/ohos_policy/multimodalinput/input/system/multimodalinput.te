@@ -28,6 +28,7 @@ allow multimodalinput dev_dri_file:dir { search };
 allow multimodalinput dev_dri_file:chr_file { open read write getattr ioctl };
 allow multimodalinput dev_kmsg_file:chr_file { open write };
 allow multimodalinput dev_input_file:chr_file { ioctl };
+allow multimodalinput dev_input_file:dir { watch open read search getattr };
 allow multimodalinput dev_unix_socket:dir { search };
 allow multimodalinput dev_unix_socket:sock_file { write };
 allow multimodalinput disp_gralloc_host:binder { call };

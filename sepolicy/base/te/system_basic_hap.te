@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap accesstoken_service:binder { call };
 allow system_basic_hap appspawn_exec:file { getattr map open read };
 allow system_basic_hap bluetooth_service:binder { call transfer };
 allow system_basic_hap bootanimation:fd { use };
@@ -137,3 +136,4 @@ allow system_basic_hap sa_locationhub_lbsservice_gnss:samgr_class { get };
 allow system_basic_hap sa_locationhub_lbsservice_network:samgr_class { get };
 allow system_basic_hap sa_locationhub_lbsservice_passive:samgr_class { get };
 allow system_basic_hap sa_location_geo_convert_service:samgr_class { get };
+allow system_basic_hap sa_hiview_service:samgr_class { get };

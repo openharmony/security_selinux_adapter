@@ -49,6 +49,7 @@ allow xts_devattest_authresult_param tmpfs:filesystem associate;
 allow init xts_devattest_authresult_param:file { map open read relabelto relabelfrom };
 allow init xts_devattest_authresult_param:parameter_service { set };
 allow init hiviewdfx_profiler_param:file { map open read relabelto relabelfrom };
+allow init devpts:chr_file { ioctl };
 
 #for bootchart to read
 allow init { domain }:file { open read };

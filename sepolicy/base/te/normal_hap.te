@@ -125,3 +125,4 @@ allowxperm normal_hap_attr normal_hap_data_file_attr:file ioctl { 0x5413 0xf50c 
 binder_call(normal_hap_attr system_basic_hap);
 allow normal_hap_attr dev_asanlog_file:dir { rw_dir_perms };
 allow normal_hap_attr dev_asanlog_file:file { create_file_perms };
+allow normal_hap_attr sa_hiview_service:samgr_class { get };

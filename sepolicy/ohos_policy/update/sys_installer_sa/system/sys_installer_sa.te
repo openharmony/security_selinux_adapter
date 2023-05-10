@@ -62,7 +62,7 @@ allow sys_installer_sa data_ota_package:file { append create ioctl open read wri
 allow sys_installer_sa data_file:dir { getattr };
 allow sys_installer_sa data_updater_file:dir { add_name search write remove_name getattr };
 allow sys_installer_sa data_updater_file:dir { append ioctl open read };
-allow sys_installer_sa data_updater_file:file { append create ioctl open read write rename unlink getattr setattr relabelfrom };
+allow sys_installer_sa data_updater_file:file { append create ioctl open read write rename unlink getattr setattr relabelfrom map};
 allow sys_installer_sa ohos_dev_param:file { read };
 allow sys_installer_sa sh:binder { call };
 allow sys_installer_sa tmpfs:chr_file { read };
@@ -76,3 +76,13 @@ allow sys_installer_sa data_updater_file:file { execute execute_no_trans };
 allow sys_installer_sa sys_installer_sa:process { setcurrent };
 allow sys_installer_sa updater_binary:process { dyntransition };
 allow sys_installer_sa vendor_etc_file:dir { search };
+
+allow sys_installer_sa musl_param:file { read open map };
+allow sys_installer_sa dev_unix_socket:dir { search };
+allow sys_installer_sa dev_console_file:chr_file { read write };
+allow sys_installer_sa sysfs_devices_system_cpu:file { read open getattr };
+allow sys_installer_sa updater_sa:binder { call };
+allow sys_installer_sa vendor_etc_file:dir { search };
+allow sys_installer_sa dev_block_volfile:dir { search };
+allow sys_installer_sa dev_block_file:lnk_file { read };
+

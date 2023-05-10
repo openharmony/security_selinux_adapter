@@ -22,9 +22,7 @@
         "hilog_native"
       ],
       "third_party": [
-        "selinux",
-        "pcre2",
-        "FreeBSD",
+        "thirdparty_selinux",
         "bounds_checking_function"
       ]
     },

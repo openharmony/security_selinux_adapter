@@ -14,8 +14,8 @@
  */
 
 #include <unistd.h>
-#include "callbacks.h"
-#include "label_internal.h"
+#include "src/callbacks.h"
+#include "src/label_internal.h"
 #include "policycoreutils.h"
 #include "selinux/restorecon.h"
 

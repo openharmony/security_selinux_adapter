@@ -13,8 +13,6 @@
 
 allow sh accessibility:dir { getattr search };
 allow sh accessibility:file { open read };
-allow sh accesstoken_service:dir { getattr search };
-allow sh accesstoken_service:file { open read };
 allow sh appspawn:dir { getattr search };
 allow sh appspawn:file { open read };
 allow sh appspawn:process { getattr };

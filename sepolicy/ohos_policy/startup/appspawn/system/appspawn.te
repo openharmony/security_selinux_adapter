@@ -35,3 +35,7 @@ allow appspawn sys_prod_file:dir { open read search getattr };
 allow appspawn sys_prod_file:file { getattr open read };
 allow appspawn vendor_etc_file:dir { open read search getattr };
 allow appspawn vendor_etc_file:file { getattr open read };
+
+# for appspawn native processor
+#avc:  denied  { execute } for  pid=1762 comm="s.samples.clock" name="sh" dev="mmcblk0p7" ino=358 scontext=u:r:appspawn:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=0
+allow appspawn sh_exec:file { execute execute_no_trans read open };

@@ -21,7 +21,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <vector>
-#include "callbacks.h"
+#include "src/callbacks.h"
 #include "policycoreutils.h"
 #include "selinux/selinux.h"
 #include "selinux_error.h"

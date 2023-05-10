@@ -29,7 +29,7 @@ allow sadomain data_app_el1_file:file { map open read getattr};
 neverallow { domain -samgr } self:binder set_context_mgr;
 # let every sa join sadomain
 # TODO:remove hdfdomain after SA dynamic loading support.
-neverallow { domain -sadomain -init -hap_domain -hdfdomain } samgr:binder transfer;
+neverallow { domain -sadomain -init -hap_domain -hdfdomain -samgr_binder_violator } samgr:binder transfer;
 
 neverallow { sadomain hap_domain } dev_tee_file:chr_file { open read append write ioctl };
 

@@ -108,3 +108,4 @@ class samgr_class
 class hdf_devmgr_class
 class lockdown
 class perf_event
+class xpm

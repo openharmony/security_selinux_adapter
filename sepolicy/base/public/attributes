@@ -151,3 +151,7 @@ attribute cgroup_creator;
 # Type of all module_update file
 # i.e. /module_update/*
 attribute module_update_file_attr;
+
+attribute dev_attr_violator;
+attribute dev_file_violator;
+attribute samgr_binder_violator;

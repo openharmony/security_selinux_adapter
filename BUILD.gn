@@ -26,11 +26,7 @@ config("selinux_core_config") {
 ohos_shared_library("libload_policy") {
   output_name = "libload_policy"
   sources = [ "interfaces/policycoreutils/src/load_policy.cpp" ]
-  include_dirs = [
-    "$THIRD_PARTY_DIR/selinux/libselinux/include",
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/src",
-  ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [
     ":libselinux_klog_static",
     "$THIRD_PARTY_DIR/selinux:libselinux",
@@ -54,11 +50,6 @@ ohos_shared_library("libload_policy") {
 ohos_shared_library("librestorecon") {
   output_name = "librestorecon"
   sources = [ "interfaces/policycoreutils/src/selinux_restorecon.c" ]
-  include_dirs = [
-    "$THIRD_PARTY_DIR/selinux/libselinux/include",
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/src",
-  ]
   public_configs = [ ":selinux_core_config" ]
   deps = [ "$THIRD_PARTY_DIR/selinux:libselinux" ]
   cflags = [
@@ -82,12 +73,6 @@ ohos_shared_library("libhap_restorecon") {
   sources = [
     "interfaces/policycoreutils/src/hap_restorecon.cpp",
     "interfaces/policycoreutils/src/sehap_contexts_trie.cpp",
-  ]
-  include_dirs = [
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/src",
-    "$THIRD_PARTY_DIR/FreeBSD",
   ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
@@ -193,11 +178,6 @@ source_set("libselinux_parameter_static") {
 ohos_shared_library("libparaperm_checker") {
   output_name = "libparaperm_checker"
   sources = [ "interfaces/policycoreutils/src/param_checker.c" ]
-  include_dirs = [
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/src",
-    "$THIRD_PARTY_DIR/bounds_checking_function/include",
-  ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_klog_static",
@@ -223,12 +203,6 @@ ohos_shared_library("libparaperm_checker") {
 ohos_shared_library("libservice_checker") {
   output_name = "libservice_checker"
   sources = [ "interfaces/policycoreutils/src/service_checker.cpp" ]
-  include_dirs = [
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/src",
-    "$THIRD_PARTY_DIR/bounds_checking_function/include",
-  ]
   public_configs = [ ":selinux_core_config" ]
   deps = [
     ":libselinux_error_static",
@@ -267,10 +241,7 @@ ohos_executable("load_policy") {
 ohos_executable("restorecon") {
   install_enable = true
   sources = [ "interfaces/tools/restorecon/restorecon.c" ]
-  include_dirs = [
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/bounds_checking_function/include",
-  ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [
     ":librestorecon",
     "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
@@ -310,10 +281,7 @@ ohos_executable("hap_restorecon") {
 ohos_executable("param_check") {
   install_enable = false
   sources = [ "interfaces/tools/param_check/test.cpp" ]
-  include_dirs = [
-    "interfaces/policycoreutils/include",
-    "$THIRD_PARTY_DIR/selinux/libselinux/include",
-  ]
+  include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [
     ":libparaperm_checker",
     ":libselinux_error_static",
@@ -378,7 +346,12 @@ action("build_policy") {
     }
   }
 
-  script = "scripts/build_policy.py"
+  if (special_build_policy_script != "default") {
+    script = special_build_policy_script
+  } else {
+    script = "scripts/build_policy.py"
+  }
+
   args = [
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),

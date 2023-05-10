@@ -15,13 +15,12 @@
 
 #include "param_checker.h"
 #include <fcntl.h>
-#include <selinux_internal.h>
 #include <unistd.h>
-#include "callbacks.h"
 #include "errno.h"
 #include "securec.h"
 #include "selinux_error.h"
 #include "selinux_klog.h"
+#include "src/callbacks.h"
 
 static pthread_once_t SET_LOG_ONCE = PTHREAD_ONCE_INIT;
 #define BUF_SIZE 512

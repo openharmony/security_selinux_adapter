@@ -69,6 +69,7 @@ allow ueventd dev_hdf_sensor_mgr:chr_file { relabelto };
 allow ueventd dev_hdf_test:chr_file { relabelto };
 allow ueventd dev_hdf_usb_pnp:chr_file { relabelto };
 allow ueventd dev_hdmi_hdcp1x:chr_file { relabelto };
+allow ueventd dev_xpm:chr_file { relabelto };
 allow ueventd dev_hwbinder_file:chr_file { relabelto };
 allow ueventd dev_hwrng:chr_file { relabelto };
 allow ueventd dev_i2c:chr_file { relabelto };

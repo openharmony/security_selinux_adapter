@@ -64,7 +64,10 @@ allow updater dev_block_file:blk_file { write getattr read open ioctl lock };
 # avc: denied  { ioctl } for  pid=272 comm="mount.ntfs" path="/dev/block/mmcblk1p1" dev="tmpfs" ino=160 ioctlcmd=0x125e scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
 # avc: denied { ioctl } for pid=274 comm="resize.f2fs" path="/dev/block/mmcblk0p12" dev="tmpfs" ino=104 ioctlcmd=0x1268 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied  { ioctl } for  pid=269 comm="mount.ntfs" path="/dev/block/mmcblk1p1" dev="tmpfs" ino=160 ioctlcmd=0x1271 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
-allowxperm updater dev_block_file:blk_file ioctl { 0x1268 0x125e 0x1271 };
+# avc:  denied  { ioctl } for  pid=265 comm="updater" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=132 ioctlcmd=0x1272 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { ioctl } for  pid=265 comm="updater" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=132 ioctlcmd=0x127d scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { ioctl } for  pid=278 comm="mkfs.f2fs" path="/dev/block/mmcblk0p12" dev="tmpfs" ino=104 ioctlcmd=0x2285 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
+allowxperm updater dev_block_file:blk_file ioctl { 0x2285 0x5413 0x1268 0x125e 0x1271 0x1272 0x127d };
 
 #avc: denied { read } for pid=274 comm="resize.f2fs" name="version" dev="proc" ino=4026532114 scontext=u:r:updater:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
 #avc: denied { open } for pid=274 comm="resize.f2fs" path="/proc/version" dev="proc" ino=4026532114 scontext=u:r:updater:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
@@ -85,6 +88,7 @@ allow updater sys_file:file { read getattr open };
 #avc: denied { create } for pid=231 comm="updater" name="log" scontext=u:r:updater:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=0
 # avc:  denied  { rmdir } for  pid=231 comm="updater" name="update_tmp" dev="mmcblk0p12" ino=3277 scontext=u:r:updater:s0 tcontext=u:object_r:data_updater_file:s0 tclass=dir permissive=0
 allow updater data_updater_file:dir { read getattr add_name search write open remove_name create rmdir };
+allow updater update_firmware_file:dir { read getattr add_name search write open remove_name create rmdir };
 
 #avc: denied { create } for pid=238 comm="updater" name="updater_log" scontext=u:r:updater:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
 #avc: denied { append } for pid=238 comm="updater" name="updater_log" dev="mmcblk0p12" ino=1037 scontext=u:r:updater:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
@@ -98,14 +102,15 @@ allow updater data_updater_file:dir { read getattr add_name search write open re
 allow updater data_updater_file:file { create open append getattr ioctl read setattr unlink write };
 allowxperm updater data_updater_file:file ioctl { 0x5413 };
 
+allow updater update_firmware_file:file { create open append getattr ioctl read setattr unlink write };
+allowxperm updater update_firmware_file:file ioctl { 0x5413 };
+
 #avc: denied { search } for pid=228 comm="updater" name="block" dev="tmpfs" ino=99 scontext=u:r:updater:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=dir permissive=1
 allow updater dev_block_volfile:dir { search };
 
 # avc: denied { set } for process="updater" parameter=updater.hdc.configfs pid=234 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:updater_hdc_param:s0 tclass=parameter_service permissive=1
 allow updater updater_hdc_param:parameter_service { set };
 
-##allow updater sys_param:parameter_service { set };
-##allow updater updater_flashd_param:parameter_service { set };
 #avc: denied { set } for process="unknown process" parameter=updater.data.configs pid=232 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:updater_data_param:s0 tclass=parameter_service permissive=0
 allow updater updater_data_param:parameter_service { set };
 
@@ -116,10 +121,13 @@ allow updater system_bin_file:lnk_file { read };
 allow updater kernel:system { module_request };
 
 # avc: denied { read } for pid=234 comm="updater" name="usb-ffs" dev="tmpfs" ino=314 scontext=u:r:updater:s0 tcontext=u:object_r:dev_usb_ffs:s0 tclass=dir permissive=1
-allow updater dev_usb_ffs:dir { read };
+# avc:  denied  { open } for  pid=235 comm="updater" path="/dev/usb-ffs" dev="tmpfs" ino=322 scontext=u:r:updater:s0 tcontext=u:object_r:dev_usb_ffs:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=235 comm="updater" name="usb-ffs" dev="tmpfs" ino=322 scontext=u:r:updater:s0 tcontext=u:object_r:dev_usb_ffs:s0 tclass=dir permissive=1
+allow updater dev_usb_ffs:dir { read open search };
 
 # avc: denied { read write } for pid=234 comm="updater" name="ep0" dev="functionfs" ino=27986 scontext=u:r:updater:s0 tcontext=u:object_r:functionfs:s0 tclass=file permissive=1
-allow updater functionfs:file { read write };
+# avc:  denied  { open } for  pid=235 comm="updater" path="/dev/usb-ffs/hdc/ep0" dev="functionfs" ino=18354 scontext=u:r:updater:s0 tcontext=u:object_r:functionfs:s0 tclass=file permissive=1
+allow updater functionfs:file { read write open };
 
 # avc: denied { search } for pid=234 comm="updater" name="local" dev="mmcblk0p12" ino=87 scontext=u:r:updater:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
 allow updater data_local:dir { search };
@@ -205,7 +213,8 @@ allow updater kernel:unix_stream_socket { connectto };
 #avc: denied { getattr } for pid=227 comm="updater" path="/etc/ld-musl-namespace-arm.ini" dev="rootfs" ino=16679 scontext=u:r:updater:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 #avc: denied { write } for pid=221 comm="hilogd.control" path="/data/log/hilog/.persisterInfo_2.info" dev="rootfs" ino=20796 scontext=u:r:hilogd:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 # avc:  denied  { setattr } for  pid=231 comm="updater" name="updater_binary" dev="rootfs" ino=19417 scontext=u:r:updater:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
-allow updater rootfs:file { entrypoint  map read execute open getattr write setattr };
+# avc:  denied  { execute_no_trans } for  pid=278 comm="updater" path="/bin/mkfs.f2fs" dev="rootfs" ino=17686 scontext=u:r:updater:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow updater rootfs:file { entrypoint  map read execute open getattr write setattr execute_no_trans };
 
 #avc: denied { read write } for pid=226 comm="updater" path="socket:[17326]" dev="sockfs" ino=17326 scontext=u:r:updater:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
 allow updater ueventd:netlink_kobject_uevent_socket { read write};
@@ -280,7 +289,7 @@ allow updater vfat:file { create read open getattr write ioctl };
 allowxperm updater vfat:file ioctl { 0x5413 };
 
 # avc:  denied  { open } for  pid=235 comm="updater" path="/sdcard/updater" dev="mmcblk1p1" ino=99 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=0
-allow updater vfat:dir { open };
+allow updater vfat:dir { read write search add_name };
 
 # avc:  denied  { read write } for  pid=235 comm="updater" name="updater" dev="mmcblk1p1" ino=64 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=0
 # avc:  denied  { search } for  pid=235 comm="updater" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=0
@@ -290,12 +299,30 @@ allow updater ntfs:dir { read write search add_name };
 # avc:  denied  { read } for  pid=227 comm="updater" name="updater.zip" dev="mmcblk1p1" ino=65 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=file permissive=0
 # avc:  denied  { open } for  pid=229 comm="updater" path="/sdcard/updater/updater.zip" dev="mmcblk1p1" ino=65 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=file permissive=0
 # avc:  denied  { ioctl } for  pid=233 comm="updater" path="/sdcard/updater/build_tools.zip.tmp" dev="mmcblk1p1" ino=67 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=file permissive=0
-allow updater ntfs:file { read create read open getattr write ioctl };
+allow updater ntfs:file { read create open getattr write ioctl };
 
 # avc:  denied  { ioctl } for  pid=233 comm="updater" path="/sdcard/updater/build_tools.zip.tmp" dev="mmcblk1p1" ino=67 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=file permissive=0
 allowxperm updater ntfs:file ioctl { 0x5413 };
 
 # avc:  denied  { mount } for  pid=262 comm="mount.ntfs" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:ntfs:s0 tclass=filesystem permissive=0
 allow updater ntfs:filesystem { mount };
+
+# avc:  denied  { search } for  pid=235 comm="updater" name="/" dev="functionfs" ino=18353 scontext=u:r:updater:s0 tcontext=u:object_r:functionfs:s0 tclass=dir permissive=1
+allow updater functionfs:dir { search };
+
+# avc:  denied  { dyntransition } for  pid=285 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
+# avc:  denied  { signal } for  pid=231 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
+allow updater sh:process { dyntransition signal };
+
+# avc:  denied  { set } for process="unknown process" parameter=sys.usb.ffs.ready pid=265 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:sys_param:s0 tclass=parameter_service permissive=1
+allow updater sys_param:parameter_service { set };
+
+debug_only(`
+# avc:  denied  { dac_override } for  pid=235 comm="updater" capability=1  scontext=u:r:updater:s0 tcontext=u:r:updater:s0 tclass=capability permissive=1
+allow updater updater:capability { dac_override };
+')
+
+# avc:  denied  { set } for process="unknown process" parameter=updater.flashd.configfs pid=235 uid=0 gid=0 scontext=u:r:updater:s0 tcontext=u:object_r:updater_flashd_param:s0 tclass=parameter_service permissive=1
+allow updater updater_flashd_param:parameter_service { set };
 
 ')

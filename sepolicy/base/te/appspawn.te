@@ -88,3 +88,4 @@ allow appspawn tmpfs:lnk_file { create };
 allow appspawn vendor_lib_file:dir { mounton };
 allow appspawn self:process execmem;
 allowxperm appspawn dev_at_file:chr_file ioctl { 0x4102 };
+allow appspawn dev_xpm:chr_file { open read write ioctl };

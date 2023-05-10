@@ -191,7 +191,7 @@ def generate_hash_file(input_file, output_file):
     run_command(build_policy_cmd)
 
 
-def main(args):
+def compile_sepolicy(args):
     output_path = os.path.abspath(os.path.dirname(args.dst_file))
     build_root = os.path.abspath(os.path.join(args.tool_path, "../../.."))
     sepolicy_path = os.path.join(args.source_root_dir, "base/security/selinux/sepolicy/")
@@ -253,6 +253,21 @@ def main(args):
 
     filter_out(min_cil_path, vendor_cil_path)
     build_policy(args, args.dst_file, vendor_cil_path, system_cil_path)
+
+
+def main(args):
+    # check both debug and release sepolicy
+    origin_debug_version = args.debug_version
+    if args.debug_version == "true":
+        args.debug_version = "false"
+        compile_sepolicy(args)
+    else:
+        args.debug_version = "true"
+        compile_sepolicy(args)
+
+    # build target policy according to desire debug_version
+    args.debug_version = origin_debug_version
+    compile_sepolicy(args)
 
 
 if __name__ == "__main__":
