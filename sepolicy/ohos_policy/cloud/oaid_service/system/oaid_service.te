@@ -31,7 +31,6 @@ allow oaid_service ohos_param:file { map open read };
 allow oaid_service sa_accesstoken_manager_service:samgr_class { get };
 allow oaid_service sa_param_watcher:samgr_class { get };
 allow oaid_service param_watcher:binder { call transfer };
-allow oaid_service sh:binder { call };
 allow oaid_service sys_param:file { map open read };
 allow oaid_service sys_usb_param:file { map open };
 allow oaid_service system_bin_file:dir { search };
@@ -82,5 +81,11 @@ allow oaid_service sys_prod_file:dir { search };
 allow oaid_service vendor_etc_file:dir { search };
 allow oaid_service huks_service:binder { call };
 allow oaid_service sa_huks_service:samgr_class { get };
+allow oaid_service sa_privacy_service:samgr_class { get };
+allow oaid_service privacy_service:binder { call };
+
+debug_only(`
+    allow oaid_service sh:binder { call };
+')
 
 allowxperm oaid_service data_service_el1_file:file ioctl { 0xf50c 0x5413 };
