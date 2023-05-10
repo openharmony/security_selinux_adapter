@@ -52,6 +52,7 @@ allow udevd dev_full:chr_file { getattr write };
 allow udevd dev_fuse_file:chr_file { getattr setattr write };
 allow udevd dev_gpiochip:chr_file { getattr write };
 allow udevd dev_hdmi_hdcp1x:chr_file { getattr write };
+allow udevd dev_xpm:chr_file { getattr write };
 allow udevd dev_hwbinder_file:chr_file { getattr write };
 allow udevd dev_hwrng:chr_file { getattr write };
 allow udevd dev_i2c:chr_file { getattr write };
