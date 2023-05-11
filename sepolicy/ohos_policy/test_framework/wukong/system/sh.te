@@ -15,8 +15,6 @@
 allow sh accessibility:binder { call transfer call transfer };
 allow sh accessibility:dir { getattr search };
 allow sh accessibility:file { open read };
-allow sh accesstoken_service:dir { getattr search };
-allow sh accesstoken_service:file { open read };
 allow sh accountmgr:dir { getattr search };
 allow sh accountmgr:file { open read };
 allow sh appspawn:dir { getattr search };

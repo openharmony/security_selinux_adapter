@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,34 +11,82 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow accesstoken_service accesstoken_data_file:dir { search add_name open read write remove_name };
-
-allow accesstoken_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink };
-
-allow accesstoken_service data_file:dir { search };
-
-allow accesstoken_service data_system:dir { add_name getattr open read remove_name search write };
-allow accesstoken_service data_system:file { create getattr open read unlink write };
-
-allow accesstoken_service devinfo_private_param:file { map open read };
-
-allow accesstoken_service dev_unix_socket:dir { search };
-
-allow accesstoken_service sa_softbus_service:samgr_class { get };
-
-allow accesstoken_service sa_token_sync_manager_service:samgr_class { get };
-
-allow accesstoken_service system_bin_file:dir { search };
-
-allow accesstoken_service token_sync_service:binder { call };
-
-allow accesstoken_service accesstoken_perm_param:parameter_service { set };
-# avc:  denied  { write } for  pid=545 comm="accesstoken_ser" name="paramservice" dev="tmpfs" ino=30 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
-allow accesstoken_service paramservice_socket:sock_file { write };
-allow accesstoken_service kernel:unix_stream_socket { connectto };
 allow { domain -limit_domain } accesstoken_perm_param:file { map open read };
 
+allow accesstoken_service accesstoken_data_file:dir { search add_name open read write remove_name };
+allow accesstoken_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink };
+allow accesstoken_service accesstoken_perm_param:parameter_service { set };
+allow accesstoken_service accesstoken_service:unix_dgram_socket { getopt setopt };
+allow accesstoken_service audio_policy:binder { call transfer };
+allow accesstoken_service bootevent_param:file { map open read };
+allow accesstoken_service bootevent_samgr_param:file { map open read };
+allow accesstoken_service build_version_param:file { map open read };
+allow accesstoken_service camera_service:binder { call transfer };
+allow accesstoken_service const_allow_mock_param:file { map open read };
+allow accesstoken_service const_allow_param:file { map open read };
+allow accesstoken_service const_build_param:file { map open read };
+allow accesstoken_service const_display_brightness_param:file { map open read };
+allow accesstoken_service const_param:file { map open read };
+allow accesstoken_service const_postinstall_fstab_param:file { map open read };
+allow accesstoken_service const_postinstall_param:file { map open read };
+allow accesstoken_service const_product_param:file { map open read };
+allow accesstoken_service data_file:dir { search };
+allow accesstoken_service data_service_el0_file:dir { search };
+allow accesstoken_service data_service_el1_file:dir { add_name getattr open read remove_name search write };
+allow accesstoken_service data_service_el1_file:file { create getattr ioctl lock read write open unlink relabelfrom };
+allow accesstoken_service data_service_file:dir { search };
+allow accesstoken_service data_system:dir { add_name getattr open read remove_name search write };
+allow accesstoken_service data_system:file { create getattr open read unlink write };
+allow accesstoken_service debug_param:file { map open read };
+allow accesstoken_service default_param:file { map open read };
+allow accesstoken_service dev_unix_socket:dir { search };
+allow accesstoken_service dev_unix_socket:sock_file { write };
+#avc:  denied  { call } for  pid=515 comm="accesstoken_ser" scontext=u:r:accesstoken_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for  pid=684 comm="accesstoken_ser" scontext=u:r:accesstoken_service:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+allow accesstoken_service device_manager:binder { call transfer };
+allow accesstoken_service devinfo_private_param:file { map open read };
+allow accesstoken_service distributedsche_param:file { map open read };
+allow accesstoken_service hilog_param:file { map open read };
+allow accesstoken_service hw_sc_build_os_param:file { map open read };
+allow accesstoken_service hw_sc_build_param:file { map open read };
+allow accesstoken_service hw_sc_param:file { map open read };
+allow accesstoken_service init_param:file { map open read };
+allow accesstoken_service init_svc_param:file { map open read };
+allow accesstoken_service input_pointer_device_param:file { map open read };
+allow accesstoken_service kernel:unix_stream_socket { connectto };
+allow accesstoken_service net_param:file { map open read };
+allow accesstoken_service net_tcp_param:file { map open read };
+allow accesstoken_service ohos_boot_param:file { map open read };
+allow accesstoken_service ohos_param:file { map open read };
+allow accesstoken_service param_watcher:binder { call transfer };
+#avc: denied  { write } for  pid=545 comm="accesstoken_ser" name="paramservice" dev="tmpfs" ino=30 scontext=u:r:accesstoken_service:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow accesstoken_service paramservice_socket:sock_file { write };
+allow accesstoken_service persist_param:file { map open read };
+allow accesstoken_service persist_sys_param:file { map open read };
+#avc:  denied  { call } for  pid=504 comm="accesstoken_ser" scontext=u:r:accesstoken_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
+allow accesstoken_service privacy_service:binder { call };
+allow accesstoken_service sa_accesstoken_manager_service:samgr_class { add get };
+allow accesstoken_service sa_foundation_devicemanager_service:samgr_class { get };
+allow accesstoken_service sa_param_watcher:samgr_class { get };
+allow accesstoken_service sa_privacy_service:samgr_class { get };
+allow accesstoken_service sa_softbus_service:samgr_class { get };
+allow accesstoken_service sa_token_sync_manager_service:samgr_class { get };
+allow accesstoken_service security_param:file { map open read };
+allow accesstoken_service startup_param:file { map open read };
+allow accesstoken_service sys_param:file { map open read };
+allow accesstoken_service sys_usb_param:file { map open read };
+allow accesstoken_service system_basic_hap:binder {call};
+allow accesstoken_service system_bin_file:dir { search };
+allow accesstoken_service system_core_hap:binder {call};
+allow accesstoken_service token_sync_service:binder { call };
+allow accesstoken_service tracefs_trace_marker_file:file { open write };
+allow accesstoken_service tracefs:dir { search };
+allowxperm accesstoken_service data_service_el1_file:file ioctl { 0xf50c };
+
 binder_call(accesstoken_service, foundation);
-binder_call(accesstoken_service, sh);
-binder_call(accesstoken_service, softbus_server);
 binder_call(accesstoken_service, privacy_service);
+binder_call(accesstoken_service, softbus_server);
+
+debug_only(`
+    binder_call(accesstoken_service, sh);
+')

@@ -24,7 +24,6 @@ allow camera_service camera_service:unix_dgram_socket { getopt setopt};
 allow camera_service normal_hap_attr:binder { call transfer};
 
 allow camera_service accesstoken_service:binder { call transfer };
-allow accesstoken_service camera_service:binder { call transfer };
 
 allow camera_service privacy_service:binder { call transfer };
 allow privacy_service camera_service:binder { call transfer };
