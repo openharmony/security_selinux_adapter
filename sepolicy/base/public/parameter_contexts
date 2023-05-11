@@ -28,7 +28,6 @@ startup.appspawn.           u:object_r:startup_appspawn_param:s0
 startup.uevent.             u:object_r:startup_uevent_param:s0
 ohos.boot.sn                u:object_r:devinfo_private_param:s0
 const.product.udid          u:object_r:devinfo_private_param:s0
-const.product.devUdid       u:object_r:devinfo_private_param:s0
 persist.appspawn.           u:object_r:startup_appspawn_param:s0
 
 sys.                                    u:object_r:sys_param:s0
