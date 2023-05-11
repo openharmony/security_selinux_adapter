@@ -13,9 +13,6 @@
 
 allow sh accessibility:dir { getattr search };
 allow sh accessibility:file { open read };
-allow sh account_data_file:file { getattr unlink };
-allow sh accountmgr:dir { getattr search };
-allow sh accountmgr:file { open read };
 allow sh appspawn:dir { getattr search };
 allow sh appspawn:file { open read };
 allow sh appspawn:process { getattr };

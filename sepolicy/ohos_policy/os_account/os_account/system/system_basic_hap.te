@@ -12,3 +12,4 @@
 # limitations under the License.
 
 allow system_basic_hap accountmgr:binder { call };
+allow system_basic_hap sa_accountmgr:samgr_class { get };

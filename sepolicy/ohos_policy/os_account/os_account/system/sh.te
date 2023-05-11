@@ -14,4 +14,8 @@
 debug_only(`
     allow sh sa_accountmgr:samgr_class { get };
     allow sh accountmgr:binder { transfer };
+
+    allow sh account_data_file:file { getattr unlink };
+    allow sh accountmgr:dir { getattr search };
+    allow sh accountmgr:file { open read };
 ')
