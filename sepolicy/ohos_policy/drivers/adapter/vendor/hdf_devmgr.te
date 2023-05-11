@@ -20,9 +20,6 @@ allow hdf_devmgr hdf_devmgr_exec:file { entrypoint };
 #avc:  denied  { call } for  pid=242 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:power_host:s0 tclass=binder permissive=1
 allow hdf_devmgr power_host:binder call;
 
-#avc:  denied  { call } for  pid=243 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:camera_host:s0 tclass=binder permissive=1
-allow hdf_devmgr camera_host:binder { call };
-
 #avc:  denied  { check_context } for  pid=243 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:security:s0 tclass=security permissive=1
 #avc:  denied  { compute_av } for  pid=236 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:object_r:security:s0 tclass=security permissive=1
 allow hdf_devmgr security:security { check_context compute_av };
