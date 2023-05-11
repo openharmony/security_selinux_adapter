@@ -480,7 +480,7 @@ copy("selinux_config") {
 }
 
 copy("updater_selinux_config") {
-  sources = [ "config/config.enforce" ]
+  sources = [ "config/config.permissive" ]
   outputs = [ "$target_out_dir/updater/config" ]
 }
 

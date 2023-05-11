@@ -70,6 +70,9 @@ allow sh sa_bluetooth_server:samgr_class { get };
 #avc:  denied  { get } for service=1130 pid=2180 scontext=u:r:a2dp_host:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=1
 allow a2dp_host sa_bluetooth_server:samgr_class { get };
 
+#avc:  denied  { get } for service=3299 pid=348 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow bluetooth_service sa_foundation_cesfwk_service:samgr_class { get };
+
 allow bluetooth_service dev_tun_file:chr_file { open read write ioctl };
 allow bluetooth_service bluetooth_service:udp_socket { create ioctl read write shutdown };
 allowxperm bluetooth_service bluetooth_service:udp_socket ioctl { 0x8927 0x8914 0x8924 0x891c 0x8916 0x8915 };
