@@ -68,10 +68,6 @@ allow distributeddata sa_foundation_devicemanager_service:samgr_class { get };
 allow distributeddata sa_param_watcher:samgr_class { get };
 allow distributeddata samain_exec:file { entrypoint execute read };
 allow distributeddata samgr:binder { call transfer };
-allow distributeddata sh:binder { call transfer };
-allow distributeddata sh:dir { search };
-allow distributeddata sh:fd { use };
-allow distributeddata sh:file { getattr open read };
 allow distributeddata softbus_server:binder { call transfer };
 allow distributeddata softbus_server:tcp_socket { read setopt write };
 allow distributeddata sys_file:dir { search };
@@ -101,3 +97,9 @@ allowxperm distributeddata normal_hap_data_file_attr:file ioctl { 0x5413 };
 allowxperm distributeddata system_core_hap_data_file:file ioctl 0xf50c;
 allowxperm distributeddata system_basic_hap_data_file:file ioctl 0xf50c;
 allow distributeddata locationhub:binder { transfer };
+debug_only(`
+allow distributeddata sh:binder { call transfer };
+allow distributeddata sh:dir { search };
+allow distributeddata sh:fd { use };
+allow distributeddata sh:file { getattr open read };
+')
