@@ -16,6 +16,11 @@ type debugfs_usb, fs_attr, debugfs_attr;
 #avc:  denied  { get } for service=hdf_device_manager pid=343 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
 #avc:  denied  { add } for service=codec_hdi_omx_service pid=343 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_codec_hdi_omx_service:s0 tclass=hdf_devmgr_class
 #avc:  denied  { add } for service=codec_hdi_service pid=354 scontext=u:r:codec_host:s0 tcontext=u:object_r:hdf_codec_hdi_service:s0 tclass=hdf_devmgr_class
+#avc:  denied  { read } for  pid=496 comm="IPC_1_599" name="u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:codec_host:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=497 comm="IPC_2_1294" path="/dev/ashmem" dev="tmpfs" ino=190 scontext=u:r:codec_host:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
+#avc:  denied  { getattr } for  pid=497 comm="omx_msg_hdl" path="/proc/version" dev="proc" ino=4026532114 scontext=u:r:codec_host:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=0
+allow codec_host musl_param:file { open map read };
+allow codec_host dev_ashmem_file:chr_file { open };
 allow codec_host hdf_device_manager:hdf_devmgr_class { get };
 allow codec_host hdf_codec_hdi_omx_service:hdf_devmgr_class { add get };
 allow codec_host hdf_codec_component_manager_service:hdf_devmgr_class { add get };
@@ -27,7 +32,7 @@ allow codec_host sh:fd { use };
 allow codec_host disp_gralloc_host:fd { use };
 allow codec_host dev_dri_file:chr_file { read write open ioctl };
 allow codec_host dev_mpp:chr_file { read write open ioctl };
-allow codec_host proc_version_file:file { read open };
+allow codec_host proc_version_file:file { read open getattr };
 allow codec_host sys_file:file { read open };
 allow codec_host dev_rga:chr_file { read write open ioctl };
 allowxperm codec_host dev_mpp:chr_file ioctl 0x7601;
