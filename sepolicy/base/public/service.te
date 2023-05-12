@@ -198,8 +198,6 @@ type sa_graphic_dumper_command_service, sa_service_attr;
 type sa_animation_server_service, sa_service_attr;
 type sa_device_auth_service, sa_service_attr;
 type sa_subsys_distributed_hardware_service, sa_service_attr;
-type sa_distributed_hardware_audio_source_service, sa_service_attr;
-type sa_distributed_hardware_audio_sink_service, sa_service_attr;
 type sa_distributed_hardware_input_source_service, sa_service_attr;
 type sa_distributed_hardware_input_sink_service, sa_service_attr;
 type sa_device_storage_manager_service, sa_service_attr;
