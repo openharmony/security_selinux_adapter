@@ -12,7 +12,7 @@
 # limitations under the License.
 
 debug_only(`
-allow sh configfs:dir { add_name create search write };
+    allow sh configfs:dir { add_name create search write };
     allow sh configfs:file { open write };
     allow sh d-bms:dir { getattr search };
     allow sh d-bms:file { open read };
