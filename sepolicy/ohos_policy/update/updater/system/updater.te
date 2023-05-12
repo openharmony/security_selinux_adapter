@@ -262,9 +262,11 @@ allow updater exfat:dir { read write search add_name open remove_name };
 # avc:  denied  { create } for  pid=233 comm="updater" name="update.bin.tmp" scontext=u:r:updater:s0 tcontext=u:object_r:exfat:s0 tclass=file permissive=0
 # avc:  denied  { write } for  pid=240 comm="updater" path="/sdcard/updater/update.bin.tmp" dev="mmcblk1p1" ino=101 scontext=u:r:updater:s0 tcontext=u:object_r:exfat:s0 tclass=file permissive=0
 # avc:  denied  { ioctl } for  pid=235 comm="updater" path="/sdcard/updater/build_tools.zip.tmp" dev="mmcblk1p1" ino=102 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:exfat:s0 tclass=file permissive=0
-# avc:  denied  { mount } for  pid=242 comm="updater" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:exfat:s0 tclass=filesystem permissive=0
 # avc: denied { unlink } for pid=238 comm="updater" name="update.bin.tmp" dev="mmcblk1p1" ino=101 scontext=u:r:updater:s0 tcontext=u:object_r:exfat:s0 tclass=file permissive=1
-allow updater exfat:file { read open getattr create write ioctl mount unlink };
+allow updater exfat:file { read open getattr create write ioctl unlink };
+
+# avc:  denied  { mount } for  pid=242 comm="updater" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:exfat:s0 tclass=filesystem permissive=0
+allow updater exfat:filesystem { mount };
 
 # avc:  denied  { ioctl } for  pid=235 comm="updater" path="/sdcard/updater/build_tools.zip.tmp" dev="mmcblk1p1" ino=102 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:exfat:s0 tclass=file permissive=0
 allowxperm updater exfat:file ioctl { 0x5413 };
@@ -281,10 +283,12 @@ allow updater data_file:dir { write search remove_name getattr mounton };
 allow updater updater_binary_exec:file { relabelto unlink };
 
 # avc:  denied  { mount } for  pid=235 comm="updater" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=filesystem permissive=0
+allow updater vfat:filesystem { mount };
+
 # avc:  denied  { read write } for  pid=231 comm="updater" name="updater" dev="mmcblk1p1" ino=99 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=0
 # avc:  denied  { ioctl } for  pid=230 comm="updater" path="/sdcard/updater/build_tools.zip.tmp" dev="mmcblk1p1" ino=102 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=0
 # avc: denied { unlink } for pid=228 comm="updater" name="update.bin.tmp" dev="mmcblk1p1" ino=101 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
-allow updater vfat:file { create read open getattr write ioctl mount unlink };
+allow updater vfat:file { create read open getattr write ioctl unlink };
 
 # avc:  denied  { ioctl } for  pid=230 comm="updater" path="/sdcard/updater/build_tools.zip.tmp" dev="mmcblk1p1" ino=102 ioctlcmd=0x5413 scontext=u:r:updater:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=0
 allowxperm updater vfat:file ioctl { 0x5413 };
