@@ -49,7 +49,7 @@ allow accountmgr inputmethod_service:binder { transfer };
 #avc:  denied  { read } for  pid=1607 comm="SaInit0" name="ime_cfg.json" dev="mmcblk0p12" ino=2292 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 #avc:  denied  { write } for  pid=634 comm="SaInit0" name="ime_cfg.json" dev="mmcblk0p12" ino=2310 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
 #avc:  denied  { open } for  pid=621 comm="SaInit2" path="/data/service/el1/public/imf/ime_cfg/ime_cfg.json" dev="mmcblk0p12" ino=2310 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
-allow sh inputmethod_service:process { signal };
+
 allow inputmethod_service dev_console_file:chr_file { read write };
 allow inputmethod_service musl_param:file { read open map };
 allow inputmethod_service data_service_file:dir { search };
@@ -61,14 +61,15 @@ allow inputmethod_service data_app_file:dir { search };
 #avc:  denied  { search } for  pid=504 comm="IPC_0_1025" name="el1" dev="mmcblk0p12" ino=39 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=0
 allow inputmethod_service data_app_el1_file:dir { search };
 
-# add for TDD
-allow sh sa_inputmethod_service:samgr_class { get };
-allow inputmethod_service sh:binder { call transfer };
-allow sh inputmethod_service:binder { call transfer };
-
 # avc:  denied  { get } for service=4606 pid=1372 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
 allow inputmethod_service sa_foundation_wms:samgr_class { get };
 
 # avc:  denied  { transfer } for  pid=505 comm="WindowManagerSe" scontext=u:r:foundation:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=0
 allow foundation inputmethod_service:binder { transfer };
 
+debug_only(`
+    allow inputmethod_service sh:binder { call transfer };
+    allow sh inputmethod_service:binder { call transfer };
+    allow sh inputmethod_service:process { signal };
+    allow sh sa_inputmethod_service:samgr_class { get };
+')
