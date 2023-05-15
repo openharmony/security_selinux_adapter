@@ -15,7 +15,6 @@ debug_only(`
     allow sh inputmethod_service:process { signal };
 
     # add for TDD
-    allow inputmethod_service sh:binder { call transfer };
     allow sh inputmethod_service:binder { call transfer };
     allow sh sa_inputmethod_service:samgr_class { get };
 ')
