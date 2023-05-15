@@ -65,3 +65,4 @@ allow inputmethod_service sa_foundation_wms:samgr_class { get };
 
 # avc:  denied  { transfer } for  pid=505 comm="WindowManagerSe" scontext=u:r:foundation:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=0
 allow foundation inputmethod_service:binder { transfer };
+
