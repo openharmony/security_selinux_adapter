@@ -275,36 +275,6 @@ allowxperm audio_host data_file:file ioctl { 0x5413 };
 allowxperm audio_host dev_hdf_audio_capture:chr_file ioctl { 0x6201 };
 allowxperm audio_host dev_hdf_audio_control:chr_file ioctl { 0x6201 };
 
-#avc:  denied  { get } for service=5100 pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:default_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=face_auth_interface_service pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:hdf_face_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { get } for service=5100 pid=403 scontext=u:r:face_auth_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
-allow face_auth_host hdf_device_manager:hdf_devmgr_class { get };
-allow face_auth_host hdf_face_auth_interface_service:hdf_devmgr_class { add };
-allow face_auth_host sa_device_service_manager:samgr_class { get };
-
-#avc:  denied  { get } for service=5100 pid=402 scontext=u:r:pin_auth_host:s0 tcontext=u:object_r:default_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=pin_auth_interface_service pid=402 scontext=u:r:pin_auth_host:s0 tcontext=u:object_r:hdf_pin_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { get } for service=5100 pid=402 scontext=u:r:pin_auth_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
-allow pin_auth_host hdf_device_manager:hdf_devmgr_class { get };
-allow pin_auth_host hdf_pin_auth_interface_service:hdf_devmgr_class { add };
-allow pin_auth_host sa_device_service_manager:samgr_class { get };
-allow pin_auth_host data_service_el1_file:file { setattr };
-
-#avc:  denied  { get } for service=hdf_device_manager pid=364 scontext=u:r:user_auth_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=user_auth_interface_service pid=364 scontext=u:r:user_auth_host:s0 tcontext=u:object_r:hdf_user_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { get } for service=5100 pid=364 scontext=u:r:user_auth_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
-allow user_auth_host hdf_device_manager:hdf_devmgr_class { get };
-allow user_auth_host hdf_user_auth_interface_service:hdf_devmgr_class { add };
-allow user_auth_host sa_device_service_manager:samgr_class { get };
-allow user_auth_host data_service_el1_file:file { setattr };
-
-#avc:  denied  { get } for service=5100 pid=369 scontext=u:r:fingerprint_auth_host:s0 tcontext=u:object_r:default_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=fingerprint_auth_interface_service pid=369 scontext=u:r:fingerprint_auth_host:s0 tcontext=u:object_r:hdf_fingerprint_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { get } for service=5100 pid=369 scontext=u:r:fingerprint_auth_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
-allow fingerprint_auth_host hdf_device_manager:hdf_devmgr_class { get };
-allow fingerprint_auth_host hdf_fingerprint_auth_interface_service:hdf_devmgr_class { add };
-allow fingerprint_auth_host sa_device_service_manager:samgr_class { get };
-
 #avc:  denied  { get } for service=hdf_device_manager pid=346 scontext=u:r:motion_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
 #avc:  denied  { add } for service=motion_interface_service pid=346 scontext=u:r:motion_host:s0 tcontext=u:object_r:hdf_motion_interface_service:s0 tclass=hdf_devmgr_class
 allow motion_host hdf_device_manager:hdf_devmgr_class { get };
