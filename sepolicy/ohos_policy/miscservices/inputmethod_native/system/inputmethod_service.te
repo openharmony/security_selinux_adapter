@@ -61,7 +61,9 @@ allow inputmethod_service data_app_file:dir { search };
 allow inputmethod_service data_app_el1_file:dir { search };
 
 # add for TDD
-allow inputmethod_service sh:binder { call transfer };
+debug_only(`
+    allow inputmethod_service sh:binder { call transfer };
+')
 
 # avc:  denied  { get } for service=4606 pid=1372 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
 allow inputmethod_service sa_foundation_wms:samgr_class { get };
