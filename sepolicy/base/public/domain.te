@@ -238,7 +238,7 @@ neverallow { domain -init } debugfs:{ file lnk_file } never_rw_file;
 neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
 
 neverallow { domain -kernel -hap_domain -locationhub
-             -sh debug_only(`-hdcd') -audio_host } data_file:file never_write_file;
+             -sh debug_only(`-hdcd') -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
 neverallow { domain -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf') } data_local_tmp:file open;
 

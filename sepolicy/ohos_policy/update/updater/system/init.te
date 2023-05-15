@@ -162,4 +162,6 @@ allow init data_hilogd_file:file { getattr relabelto };
 # avc:  denied  { getattr } for  pid=1 comm="init" path="/proc/235/status" dev="proc" ino=27295 scontext=u:r:init:s0 tcontext=u:r:updater:s0 tclass=file permissive=1
 allow init updater:file { getattr };
 
+# avc: denied { relabelfrom } for pid=237 comm="init" name=".persisterInfo_1" dev="rootfs" ino=28034 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow init rootfs:file { relabelfrom };
 ')

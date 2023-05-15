@@ -18,7 +18,10 @@ updater_only(`
 #avc: denied { search } for pid=281 comm="updater" name="/" dev="rootfs" ino=1 scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
 # avc:  denied  { read write } for  pid=273 comm="updater_binary" name="updater" dev="rootfs" ino=20121 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
 # avc:  denied  { add_name } for  pid=269 comm="updater_binary" name="loadScript.us" scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=0
-allow updater_binary rootfs:dir { search read write add_name };
+# avc: denied { create } for pid=264 comm="updater_binary" name="update_tmp" scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
+# avc: denied { open } for pid=264 comm="updater_binary" path="/data/updater/update_tmp" dev="rootfs" ino=20420 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
+# avc: denied { remove_name } for pid=264 comm="updater_binary" name="system" dev="rootfs" ino=20402 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
+allow updater_binary rootfs:dir { search read write add_name create open remove_name };
 
 #avc: denied { execute } for pid=279 comm="updater" name="ld-musl-arm.so.1" dev="rootfs" ino=596 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 #avc: denied { read open } for pid=279 comm="updater" path="/lib/ld-musl-arm.so.1" dev="rootfs" ino=596 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
@@ -28,7 +31,9 @@ allow updater_binary rootfs:dir { search read write add_name };
 # avc:  denied  { create } for  pid=267 comm="updater_binary" name="loadScript.us" scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
 # avc:  denied  { write } for  pid=269 comm="updater_binary" path="/data/updater/loadScript.us" dev="rootfs" ino=27819 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
 # avc:  denied  { ioctl } for  pid=265 comm="updater_binary" path="/data/updater/Verse-script.us" dev="rootfs" ino=18908 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
-allow updater_binary rootfs:file { execute read open map getattr execute_no_trans create write };
+# avc: denied { ioctl } for pid=264 comm="updater_binary" path="/data/updater/system" dev="rootfs" ino=20402 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+# avc: denied { rename } for pid=264 comm="updater_binary" name="system" dev="rootfs" ino=20402 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+allow updater_binary rootfs:file { execute read open map getattr execute_no_trans create write ioctl rename };
 
 # avc:  denied  { ioctl } for  pid=265 comm="updater_binary" path="/data/updater/Verse-script.us" dev="rootfs" ino=18908 ioctlcmd=0x5413 scontext=u:r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=0
 allowxperm updater_binary rootfs:file ioctl { 0x5413 };
@@ -228,6 +233,13 @@ allow updater_binary ntfs:file { read open getattr write ioctl };
 allowxperm updater_binary ntfs:file ioctl { 0x5413 };
 
 allow updater_binary tmpfs:dir { read write add_name };
+
+# avc:  denied  { map } for  pid=272 comm="updater_binary" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=38 scontext=u:r:updater_binary:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=272 comm="updater_binary" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=38 scontext=u:r:updater_binary:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=272 comm="updater_binary" name="u:object_r:debug_param:s0" dev="tmpfs" ino=38 scontext=u:r:updater_binary:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow updater_binary debug_param:file { map open read };
+
+allow updater_binary data_file:file { setattr write create };
 
 ')
 
