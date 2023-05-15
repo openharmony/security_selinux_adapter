@@ -77,8 +77,6 @@ allow sh init:file { open read };
 allow sh init:unix_stream_socket { connectto };
 allow sh inputmethod_service:dir { getattr search };
 allow sh inputmethod_service:file { read };
-allow sh input_user_host:dir { getattr search };
-allow sh input_user_host:file { open read };
 allow sh installs:file { open read };
 allow sh ispserver:dir { getattr search };
 allow sh ispserver:file { open read };

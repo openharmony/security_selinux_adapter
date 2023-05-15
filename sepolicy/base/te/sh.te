@@ -183,8 +183,6 @@ allow sh init_svc_param:file { map open read };
 allow sh inputmethod_service:dir { getattr search };
 allow sh inputmethod_service:file { open read };
 allow sh input_pointer_device_param:file { map open read };
-allow sh input_user_host:dir { getattr search };
-allow sh input_user_host:file { open read };
 allow sh installs:dir { getattr search };
 allow sh installs:file { open read };
 allow sh installs:process { getattr };

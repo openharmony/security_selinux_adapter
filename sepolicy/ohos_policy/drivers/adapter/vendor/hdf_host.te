@@ -172,27 +172,6 @@ allowxperm usb_host dev_file:chr_file ioctl { 0x6201 0x6202 0x6203 0x6731 0x6732
 allowxperm usb_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6201 0x6203 };
 allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
 
-#avc:  denied  { call } for  pid=429 comm="input_user_host" scontext=u:r:input_user_host:s0 tcontext=u:r:mmi_uinput_service:s0 tclass=binder permissive=0
-#avc:  denied  { get } for service=hdf_device_manager pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=input_service pid=347 scontext=u:r:input_user_host:s0 tcontext=u:object_r:hdf_input_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { getattr } for  pid=477 comm="input_user_host" path="/dev/hdf_input_event3" dev="tmpfs" ino=498 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=0
-#avc:  denied  { ioctl } for  pid=477 comm="input_user_host" path="/dev/hdf_input_event1" dev="tmpfs" ino=199 ioctlcmd=0x6202 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
-#avc:  denied  { ioctl } for  pid=420 comm="input_user_host" path="/dev/hdf_input_host" dev="tmpfs" ino=192 ioctlcmd=0x6201 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_file:s0 tclass=chr_file permissive=0
-#avc:  denied  { getattr } for  pid=420 comm="input_user_host" path="/dev/dev_mgr" dev="tmpfs" ino=189 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_mgr_file:s0 tclass=chr_file permissive=0
-#avc:  denied  { read write } for  pid=420 comm="input_user_host" name="hdf_input_event1" dev="tmpfs" ino=200 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_hdf_input:s0 tclass=chr_file permissive=0
-allow input_user_host hdf_device_manager:hdf_devmgr_class { get };
-allow input_user_host hdf_input_service:hdf_devmgr_class { add };
-allow input_user_host hdf_input_interfaces_service:hdf_devmgr_class { add };
-allow input_user_host sa_device_service_manager:samgr_class { get };
-allow input_user_host dev_hdf_file:chr_file { ioctl };
-allow input_user_host dev_hdf_input:chr_file { ioctl open read write };
-allow input_user_host dev_mgr_file:chr_file { getattr ioctl open read write };
-allow input_user_host mmi_uinput_service:binder { call };
-allow input_user_host sh:binder { call };
-allowxperm input_user_host dev_hdf_file:chr_file ioctl 0x6201;
-allowxperm input_user_host dev_hdf_input:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
-allowxperm input_user_host dev_mgr_file:chr_file ioctl 0x6201;
-
 #avc:  denied  { get } for service=hdf_device_manager pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 allow wifi_host hdf_device_manager:hdf_devmgr_class { get };
 

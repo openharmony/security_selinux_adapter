@@ -49,7 +49,6 @@ debug_only(`
     allow sh init:dir { getattr search };
     allow sh init:file { open read };
     allow sh init:unix_stream_socket { connectto };
-    allow sh input_user_host:file { read };
     allow sh ispserver:dir { getattr search };
     allow sh ispserver:file { open read };
     allow sh kernel:dir { getattr search };

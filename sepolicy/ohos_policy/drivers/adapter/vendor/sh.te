@@ -38,4 +38,6 @@ debug_only(`
     allowxperm sh dev_dri_file:chr_file ioctl 0x641f;
     allow sh chip_prod_file:dir { read open getattr };
     allow sh chip_prod_file:file { getattr };
+    allow sh input_user_host:dir { getattr search };
+    allow sh input_user_host:file { open read };
 ')
