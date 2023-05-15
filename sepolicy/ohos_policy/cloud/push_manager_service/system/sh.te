@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow sh push_manager_service:binder { call transfer };
-allow sh push_manager_service:dir { getattr search };
-allow sh push_manager_service:file { open read };
+debug_only(`
+    allow sh push_manager_service:binder { call transfer };
+    allow sh push_manager_service:dir { getattr search };
+    allow sh push_manager_service:file { open read };
+')

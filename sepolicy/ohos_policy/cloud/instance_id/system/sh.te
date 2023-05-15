@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow sh instance_id:binder { call transfer };
-allow sh instance_id:dir { getattr search };
-allow sh instance_id:file { open read };
+debug_only(`
+    allow sh instance_id:binder { call transfer };
+    allow sh instance_id:dir { getattr search };
+    allow sh instance_id:file { open read };
+')
