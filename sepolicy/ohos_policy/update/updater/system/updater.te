@@ -351,4 +351,8 @@ allow updater dev_ptmx:chr_file { ioctl open };
 # avc: denied { ioctl } for pid=241 comm="updater" path="/dev/ptmx" dev="tmpfs" ino=245 ioctlcmd=0x5431 scontext=u:r:updater:s0 tcontext=u:object_r:dev_ptmx:s0 tclass=chr_file permissive=1
 allowxperm updater dev_ptmx:chr_file ioctl { 0x5431 0x5430 };
 
+allow updater data_file:dir { add_name create };
+allow updater data_file:file { create getattr ioctl read write open setattr };
+allowxperm updater data_file:file ioctl { 0x5413 };
+
 ')

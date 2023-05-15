@@ -242,6 +242,8 @@ allow updater_binary debug_param:file { map open read };
 # avc:  denied  { execute_no_trans } for  pid=272 comm="updater" path="/tmp/updater_binary" dev="tmpfs" ino=5 scontext=u:r:updater_binary:s0 tcontext=u:object_r:updater_binary_exec:s0 tclass=file permissive=1
 allow updater_binary updater_binary_exec:file { execute_no_trans };
 
+allow updater_binary data_file:file { setattr write create };
+
 ')
 
 allow updater_binary data_file:dir { search };
