@@ -48,6 +48,10 @@ allow distributedsche proc_file:file { open read };
 allow distributedsche softbus_server:binder { call transfer };
 allow distributedsche softbus_server:fd { use };
 allow distributedsche softbus_server:tcp_socket { read setopt shutdown write };
+allow distributedsche sa_device_security_level_manager_service:samgr_class { get };
+allow distributedsche dslm_service:binder { call transfer };
+allow distributedsche dev_console_file:chr_file { read write };
+allow dslm_service distributedsche:binder { call };
 
 allow accountmgr distributedsche:binder { transfer };
 allow init distributedsche:dir { search };
