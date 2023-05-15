@@ -19,7 +19,9 @@ allow msdp_sa msdp_sa:unix_dgram_socket { getopt setopt };
 allow msdp_sa dev_unix_socket:dir { search };
 
 #avc:  denied  { call } for  pid=543 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
-allow msdp_sa sh:binder { call };
+debug_only(`
+    allow msdp_sa sh:binder { call };
+')
 
 #avc:  denied  { call } for  pid=571 comm="msdp" scontext=u:r:msdp_sa:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
 allow msdp_sa accesstoken_service:binder { call };
