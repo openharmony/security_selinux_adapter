@@ -1,0 +1,19 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { get } for service=5100 pid=369 scontext=u:r:fingerprint_auth_host:s0 tcontext=u:object_r:default_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { add } for service=fingerprint_auth_interface_service pid=369 scontext=u:r:fingerprint_auth_host:s0 tcontext=u:object_r:hdf_fingerprint_auth_interface_service:s0 tclass=hdf_devmgr_class permissive=1
+#avc:  denied  { get } for service=5100 pid=369 scontext=u:r:fingerprint_auth_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+allow fingerprint_auth_host hdf_device_manager:hdf_devmgr_class { get };
+allow fingerprint_auth_host hdf_fingerprint_auth_interface_service:hdf_devmgr_class { add };
+allow fingerprint_auth_host sa_device_service_manager:samgr_class { get };
