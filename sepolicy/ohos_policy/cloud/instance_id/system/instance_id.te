@@ -30,7 +30,6 @@ allow instance_id const_postinstall_param:file { map open read };
 allow instance_id const_product_param:file { map open read };
 allow instance_id debug_param:file { map open read };
 allow instance_id default_param:file { read open map };
-allow instance_id dev_block_file:blk_file { read write };
 allow instance_id dev_rtc_file:chr_file { ioctl open read write };
 allow instance_id dev_unix_socket:dir { search };
 allow instance_id distributedsche_param:file { read open map };

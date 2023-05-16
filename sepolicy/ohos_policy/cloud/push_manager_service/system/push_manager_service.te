@@ -30,7 +30,6 @@ allow push_manager_service const_postinstall_param:file { map open read };
 allow push_manager_service const_product_param:file { map open read };
 allow push_manager_service debug_param:file { map open read };
 allow push_manager_service default_param:file { read open map };
-allow push_manager_service dev_block_file:blk_file { read write };
 allow push_manager_service dev_console_file:chr_file { read write };
 allow push_manager_service dev_rtc_file:chr_file { ioctl open read write };
 allow push_manager_service dev_unix_socket:dir { search };
