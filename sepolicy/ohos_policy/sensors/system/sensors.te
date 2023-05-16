@@ -67,12 +67,6 @@ allow sensors sensor_host:binder { transfer };
 #avc:  denied  { use } for  pid=2778 comm="processdump" dev="mmcblk0p11" ino=652843 scontext=u:r:sensors:s0 tcontext=u:r:faultloggerd:s0 tclass=fd permissive=1
 allow sensors faultloggerd:fd { use };
 
-#avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
-allow sensors sh:fd { use };
-
-# avc:  denied  { call } for  pid=687 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
-allow sensors sh:binder { call };
-
 #avc:  denied  { write } for  pid=621 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
 #avc:  denied  { read write } for  pid=2097 comm="jsThread-1" path="socket:[40085]" dev="sockfs" ino=40085 scontext=u:r:sensors:s0 tcontext=u:r:system_core_hap:s0 tclass=unix_stream_socket permissive=1
 allow sensors system_core_hap:unix_stream_socket { write read };
@@ -82,9 +76,6 @@ allow sensors system_core_hap:fd { use };
 
 #avc:  denied  { call } for  pid=687 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
 allow sensors system_core_hap:binder { call };
-
-#avc:  denied  { read write } for  pid=2132 comm="SensorAgentTest" path="socket:[39407]" dev="sockfs" ino=39407 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=unix_stream_socket permissive=0
-allow sensors sh:unix_stream_socket { read write };
 
 #avc:  denied  { get } for service=3505 pid=575 scontext=u:r:sensors:s0 tcontext=u:object_r:sa_privacy_service:s0 tclass=samgr_class permissive=0
 allow sensors sa_privacy_service:samgr_class { get };
@@ -115,3 +106,14 @@ allow sensors foundation:unix_stream_socket { read write };
 
 #avc:  denied  { call } for  pid=585 comm="IPC_2_1283" scontext=u:r:sensors:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
 allow sensors foundation:binder { call };
+
+debug_only(`
+    #avc:  denied  { use } for  pid=2011 comm="SensorAgentTest" path="socket:[39791]" dev="sockfs" ino=39791 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=fd permissive=0
+    allow sensors sh:fd { use };
+
+    # avc:  denied  { call } for  pid=687 comm="sensors" scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+    allow sensors sh:binder { call };
+
+    #avc:  denied  { read write } for  pid=2132 comm="SensorAgentTest" path="socket:[39407]" dev="sockfs" ino=39407 scontext=u:r:sensors:s0 tcontext=u:r:sh:s0 tclass=unix_stream_socket permissive=0
+    allow sensors sh:unix_stream_socket { read write };
+')
