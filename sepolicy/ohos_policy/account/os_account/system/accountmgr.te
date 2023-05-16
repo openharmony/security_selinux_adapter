@@ -85,6 +85,7 @@ allow accountmgr debug_param:file { map open read };
 allow accountmgr default_param:file { map open read };
 allow accountmgr deviceauth_service:binder { transfer };
 
+allow accountmgr time_service:binder { call transfer };
 allow accountmgr distributedfiledaemon:binder { call transfer };
 allow accountmgr distributedsche_param:file { map open read };
 allow accountmgr hilog_param:file { map open read };
