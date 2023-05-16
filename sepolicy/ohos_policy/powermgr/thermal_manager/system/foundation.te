@@ -50,9 +50,6 @@ allow foundation sa_foundation_thermal_service:samgr_class { add };
 #avc:  denied  { search } for  pid=538 comm="foundation" name="thermal_config" dev="mmcblk0p6" ino=874 scontext=u:r:foundation:s0 tcontext=u:object_r:system_etc_thermal_file:s0 tclass=dir permissive=1
 allow foundation system_etc_thermal_file:dir { search };
 
-#avc:  denied  { get } for service=thermal_interface_service pid=481 scontext=u:r:foundation:s0 tcontext=u:object_r:hdf_thermal_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-allow foundation hdf_thermal_interface_service:hdf_devmgr_class { get };
-
 #avc:  denied  { get } for service=801 pid=510 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_accessibleabilityms:s0 tclass=samgr_class permissive=1
 allow foundation sa_accessibleabilityms:samgr_class { get };
 
