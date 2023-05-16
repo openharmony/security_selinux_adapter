@@ -334,8 +334,6 @@ allow sh watchdog_service:process { getattr };
 allow sh wifi_hal_service:dir { getattr search };
 allow sh wifi_hal_service:file { open read };
 allow sh wifi_hal_service:process { getattr };
-allow sh wifi_host:dir { getattr search };
-allow sh wifi_host:file { open read };
 allow sh wifi_manager_service:dir { getattr search };
 allow sh wifi_manager_service:file { open read };
 allow sh dev_mali:chr_file { getattr ioctl map open read write };

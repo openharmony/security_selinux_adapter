@@ -329,7 +329,6 @@ allow init watchdog_service_exec:file { execute getattr read open };
 allow init watchdog_service:process { rlimitinh siginh transition };
 allow init wifi_hal_service_exec:file { execute getattr read read open };
 allow init wifi_hal_service:process { rlimitinh siginh transition };
-allow init wifi_host:process { rlimitinh siginh transition };
 allow init wifi_manager_service:process { rlimitinh siginh transition };
 allow init kernel:unix_dgram_socket { sendto };
 allowxperm init data_file:file ioctl { 0x5413 };
