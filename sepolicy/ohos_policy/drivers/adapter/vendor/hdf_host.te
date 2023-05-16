@@ -99,25 +99,6 @@ allowxperm usb_host dev_file:chr_file ioctl { 0x6201 0x6202 0x6203 0x6731 0x6732
 allowxperm usb_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6201 0x6203 };
 allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
 
-#avc:  denied  { get } for service=hdf_device_manager pid=362 scontext=u:r:blue_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=hci_interface_service pid=362 scontext=u:r:blue_host:s0 tcontext=u:object_r:hdf_hci_interface_service:s0 tclass=hdf_devmgr_class permissive=1
-allow blue_host hdf_device_manager:hdf_devmgr_class { get };
-allow blue_host hdf_hci_interface_service:hdf_devmgr_class { add };
-
-allow a2dp_host hdf_device_manager:hdf_devmgr_class { get };
-allow a2dp_host hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { add };
-allow a2dp_host hdf_bluetooth_audio_session_service:hdf_devmgr_class { add };
-allow a2dp_host sa_device_service_manager:samgr_class { get };
-#avc:  denied  { get } for service=hdf_device_manager pid=363 scontext=u:r:disp_gralloc_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=hdi_display_gralloc_service pid=363 scontext=u:r:disp_gralloc_host:s0 tcontext=u:object_r:hdf_hdi_display_gralloc_service:s0 tclass=hdf_devmgr_class permissive=1
-allow disp_gralloc_host hdf_device_manager:hdf_devmgr_class { get };
-allow disp_gralloc_host hdf_hdi_display_gralloc_service:hdf_devmgr_class { add };
-
-#avc:  denied  { get } for service=hdf_device_manager pid=363 scontext=u:r:allocator_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=hdi_display_gralloc_service pid=363 scontext=u:r:allocator_host:s0 tcontext=u:object_r:hdf_allocator_service:s0 tclass=hdf_devmgr_class permissive=1
-allow allocator_host hdf_device_manager:hdf_devmgr_class { get };
-allow allocator_host hdf_allocator_service:hdf_devmgr_class { add };
-
 #avc:  denied  { get } for service=hdf_device_manager pid=349 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=audio_hdi_service pid=349 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_audio_hdi_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=audio_hdi_pnp_service pid=341 scontext=u:r:audio_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
