@@ -13,4 +13,7 @@
 
 debug_only(`
     allow sh hdf_sensor_interface_service:hdf_devmgr_class { get };
+    allow sh sensor_host:dir { getattr search };
+    allow sh sensor_host:file { open read };
+    allow sh sensors:file { open read };
 ')

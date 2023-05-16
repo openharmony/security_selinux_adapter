@@ -13,4 +13,6 @@
 
 debug_only(`
     allow sh hdf_vibrator_interface_service:hdf_devmgr_class { get };
+    allow sh vibrator_host:dir { getattr search };
+    allow sh vibrator_host:file { open read };
 ')

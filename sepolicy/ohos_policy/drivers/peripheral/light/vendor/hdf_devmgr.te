@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init dev_hdf_misc_vibrator:chr_file { setattr };
-allow init vibrator_host:process { rlimitinh siginh transition };
-allow init dev_hdf_misc_vibrator:chr_file { setattr };
+allow hdf_devmgr light_host:binder { call transfer };
+allow hdf_devmgr light_host:dir { search };
+allow hdf_devmgr light_host:file { open read };
+allow hdf_devmgr light_host:process { getattr };

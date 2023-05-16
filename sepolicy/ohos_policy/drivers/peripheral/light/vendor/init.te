@@ -15,3 +15,6 @@ dontaudit init light_host:process noatsecure;
 dontaudit init light_host:process rlimitinh;
 dontaudit init light_host:process siginh;
 dontaudit init light_host:process transition;
+
+allow init light_host:process { rlimitinh siginh transition };
+allow init dev_hdf_light:chr_file { setattr };

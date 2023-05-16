@@ -13,4 +13,6 @@
 
 debug_only(`
     allow sh hdf_light_interface_service:hdf_devmgr_class { get };
+    allow sh light_host:dir { getattr search };
+    allow sh light_host:file { open read };
 ')
