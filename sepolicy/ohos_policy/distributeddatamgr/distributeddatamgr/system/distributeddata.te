@@ -98,6 +98,7 @@ allowxperm distributeddata normal_hap_data_file_attr:file ioctl { 0x5413 };
 allowxperm distributeddata system_core_hap_data_file:file ioctl 0xf50c;
 allowxperm distributeddata system_basic_hap_data_file:file ioctl 0xf50c;
 allow distributeddata locationhub:binder { transfer };
+allow distributeddata netmanager:binder { transfer };
 allow distributeddata accountmgr:binder { transfer };
 allow distributeddata bootevent_param:file { map open read };
 allow distributeddata bootevent_samgr_param:file { map open read };
