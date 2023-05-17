@@ -18,8 +18,6 @@ allow sh accountmgr:dir { getattr search };
 allow sh accountmgr:file { open read };
 allow sh appspawn:dir { getattr search };
 allow sh appspawn:file { open read };
-allow sh audio_host:dir { getattr search };
-allow sh audio_host:file { open read };
 allow sh audio_policy:dir { getattr search };
 allow sh audio_policy:file { open read };
 allow sh blue_host:dir { getattr search };

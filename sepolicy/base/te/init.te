@@ -17,7 +17,6 @@ allow init accesstoken_data_file:file { getattr open read write relabelto setatt
 allow init accesstoken_service:process { rlimitinh siginh transition };
 allow init appspawn:process { signal };
 allow init appspawn_socket:sock_file { getattr relabelto };
-allow init audio_host:process { rlimitinh siginh transition };
 allow init bgtaskmgr_service:process { rlimitinh siginh transition };
 allow init blue_host:process { rlimitinh siginh transition };
 allow init bluetooth_service:process { rlimitinh siginh transition };
@@ -137,9 +136,6 @@ allow init dev_fscklogs_file:dir { open read relabelto search setattr };
 allow init dev_fuse_file:chr_file { setattr };
 allow init dev_graphics_file:chr_file { setattr };
 allow init dev_graphics_file:dir { search };
-allow init dev_hdf_audio_capture:chr_file { setattr };
-allow init dev_hdf_audio_control:chr_file { setattr };
-allow init dev_hdf_audio_render:chr_file { setattr };
 allow init dev_hdf_disp:chr_file { setattr };
 allow init dev_hdf_file:chr_file { setattr };
 allow init dev_hdf_input:chr_file { setattr };

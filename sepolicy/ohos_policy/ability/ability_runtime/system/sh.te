@@ -17,7 +17,6 @@ debug_only(`
     allow sh accountmgr:dir { getattr search };
     allow sh accountmgr:file { open read };
     allow sh appspawn:file { read };
-    allow sh audio_host:file { read };
     allow sh audio_policy:file { read };
     allow sh bluetooth_service:dir { getattr search };
     allow sh bluetooth_service:file { read };
