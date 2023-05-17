@@ -37,68 +37,6 @@ allow power_host sa_device_service_manager:samgr_class { get };
 allow vibrator_host hdf_device_manager:hdf_devmgr_class { get };
 allow vibrator_host hdf_vibrator_interface_service:hdf_devmgr_class { add };
 
-#avc:  denied  { get } for service=hdf_device_manager pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { add } for service=usbd pid=361 scontext=u:r:usb_host:s0 tcontext=u:object_r:hdf_usbd:s0 tclass=hdf_devmgr_class permissive=1
-allow usb_host accessibility_param:file { map open read open read };
-allow usb_host configfs:dir { add_name create open read search write remove_name rmdir };
-allow usb_host configfs:file { create ioctl open read write getattr };
-allow usb_host configfs:lnk_file { create unlink };
-allow usb_host console:binder { call };
-allow usb_host console:fd { use };
-allow usb_host data_file:dir { search };
-allow usb_host data_init_agent:dir { search };
-allow usb_host data_init_agent:file { ioctl open read append };
-allow usb_host data_log:file { read write };
-allow usb_host debugfs_usb:dir { search };
-allow usb_host debugfs_usb:file { open write };
-allow usb_host dev_bus:dir { search };
-allow usb_host dev_bus_usb_file:chr_file { ioctl map open read write getattr};
-allow usb_host dev_bus_usb_file:dir { search };
-allow usb_host dev_functionfs_file:chr_file { ioctl map open read write getattr };
-allow usb_host dev_functionfs_file:dir { search };
-allow usb_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
-allow usb_host dev_hdf_usb_pnp:chr_file { getattr ioctl open read write };
-allow usb_host dev_usbfn_file:chr_file { getattr ioctl read write open map };
-allow usb_host dev_usbfn_file:dir { search };
-allow usb_host dev_unix_socket:dir { search };
-allow usb_host dev_unix_socket:sock_file { write };
-allow usb_host faultloggerd:fd { use };
-allow usb_host faultloggerd:unix_stream_socket { connectto };
-allow usb_host faultloggerd_socket:sock_file { write };
-allow usb_host hdf_device_manager:hdf_devmgr_class { get };
-allow usb_host hdf_devmgr:binder { call transfer };
-allow usb_host hdf_usb_interface_service:hdf_devmgr_class { add };
-allow usb_host hdf_usbfn_mtp_interface_service:hdf_devmgr_class { add };
-allow usb_host hdf_usb_pnp_manager:hdf_devmgr_class { add };
-allow usb_host hdf_usbd:hdf_devmgr_class { add };
-allow usb_host hdf_usbfn_cdcacm:hdf_devmgr_class { add get };
-allow usb_host hdf_usbfn_cdcecm:hdf_devmgr_class { add get };
-allow usb_host hdf_usbfn:hdf_devmgr_class { add get };
-allow usb_host hiview:binder { call };
-allow usb_host kernel:unix_stream_socket { connectto };
-allow usb_host paramservice_socket:sock_file { write };
-allow usb_host rootfs:chr_file { read write };
-allow usb_host sa_device_service_manager:samgr_class { get };
-allow usb_host samgr:binder { call };
-allow usb_host sys_param:parameter_service { set };
-allow usb_host system_bin_file:dir { search };
-allow usb_host system_bin_file:file { execute execute_no_trans map read open };
-allow usb_host tty_device:chr_file { open read write };
-allow usb_host usb_service:binder { call };
-allow usb_host vendor_bin_file:file { entrypoint execute map read };
-allow usb_host vendor_etc_file:dir { search };
-allow usb_host vendor_etc_file:file { getattr open read };
-allow usb_host vendor_lib_file:dir { search };
-allow usb_host vendor_lib_file:file { execute getattr map open read };
-allow usb_host samgr:binder { transfer };
-allow usb_host sa_usb_service:samgr_class { get };
-allowxperm usb_host configfs:file ioctl { 0x5413 };
-allowxperm usb_host data_init_agent:file ioctl { 0x5413 };
-allowxperm usb_host dev_bus_usb_file:chr_file ioctl { 0x5500 0x5504 0x5508 0x550b 0x550c 0x550f 0x5510 0x550a 0x5512 0x5516 0x551a 0x551b };
-allowxperm usb_host dev_file:chr_file ioctl { 0x6201 0x6202 0x6203 0x6731 0x6732 0x6734 0x673c 0x6782 0x6736 0x673d 0x6735 0x6738 };
-allowxperm usb_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6201 0x6203 };
-allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
-
 #avc:  denied  { get } for service=hdf_device_manager pid=349 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=audio_hdi_service pid=349 scontext=u:r:audio_host:s0 tcontext=u:object_r:hdf_audio_hdi_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=audio_hdi_pnp_service pid=341 scontext=u:r:audio_host:s0 tcontext=u:object_r:default_hdf_service:s0 tclass=hdf_devmgr_class permissive=1
