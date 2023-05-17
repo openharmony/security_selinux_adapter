@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,4 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-distributedsched.continuationmanager.   u:object_r:distributedsche_param:s0
+allow init configfs:dir { add_name create mounton open read search setattr write remove_name };
+allow init configfs:lnk_file { create unlink };
+allow init usb_host:dir { search };
+allow init usb_host:file { open read };
+allow init usb_host:process { rlimitinh siginh transition getattr };
+allow init data_service_el1_file:dir { relabelto getattr search write add_name remove_name read open setattr };
+allow init data_service_el1_file:file { create write open getattr };
