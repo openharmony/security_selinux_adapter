@@ -179,7 +179,7 @@ static bool HapContextsInsert(std::string line, int lineNum)
         ret = g_sehapContextsTrie->Insert(keyPara, tmpInfo.domain, tmpInfo.type);
     }
 
-    return true;
+    return ret;
 }
 
 static bool HapContextsLoad()

@@ -36,7 +36,7 @@ void SetSelinuxKmsgLevel(int logLevel)
 static int g_fd = -1;
 static void SelinuxOpenLogDevice(void)
 {
-    int fd = open("/dev/kmsg", O_WRONLY | O_CLOEXEC, S_IRUSR | S_IWUSR | S_IRGRP | S_IRGRP);
+    int fd = open("/dev/kmsg", O_WRONLY | O_CLOEXEC);
     if (fd >= 0) {
         g_fd = fd;
     }

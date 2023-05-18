@@ -26,7 +26,7 @@ void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)
         return NULL;
     }
     int mode = readOnly ? O_RDONLY : O_CREAT | O_RDWR | O_TRUNC;
-    int fd = open(fileName, mode, S_IRWXU | S_IRWXG | S_IROTH);
+    int fd = open(fileName, mode, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if (fd < 0) {
         return NULL;
     }
