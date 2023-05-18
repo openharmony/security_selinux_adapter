@@ -1,0 +1,39 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the License);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow hdf_devmgr pinauth:binder { call transfer };
+allow hdf_devmgr pinauth:dir { search };
+allow hdf_devmgr pinauth:file { open read };
+allow hdf_devmgr pin_auth_host:binder { call transfer };
+allow hdf_devmgr pin_auth_host:dir { search };
+allow hdf_devmgr pin_auth_host:file { open read };
+allow hdf_devmgr pin_auth_host:process { getattr };
+allow hdf_devmgr pinauth:process { getattr };
+
+allow hdf_devmgr user_auth_host:binder { call transfer };
+allow hdf_devmgr user_auth_host:dir { search };
+allow hdf_devmgr user_auth_host:file { open read };
+allow hdf_devmgr user_auth_host:process { getattr };
+allow hdf_devmgr useriam:binder { transfer call };
+allow hdf_devmgr useriam:dir { search };
+allow hdf_devmgr useriam:file { open read };
+allow hdf_devmgr useriam:process { getattr };
+
+allow hdf_devmgr face_auth_host:binder { call transfer };
+allow hdf_devmgr face_auth_host:dir { search };
+allow hdf_devmgr face_auth_host:file { open read };
+allow hdf_devmgr face_auth_host:process { getattr };
+allow hdf_devmgr fingerprint_auth_host:binder { call transfer };
+allow hdf_devmgr fingerprint_auth_host:dir { search };
+allow hdf_devmgr fingerprint_auth_host:file { open read };
+allow hdf_devmgr fingerprint_auth_host:process { getattr };

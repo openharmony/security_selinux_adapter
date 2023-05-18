@@ -60,7 +60,10 @@ updater_only(`
     allow sh rootfs:dir { mounton };
 
     # avc:  denied  { mounton } for  pid=265 comm="mount" path="/sdcard" dev="mmcblk1p1" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=1
-    allow sh vfat:dir { mounton };
+    # avc: denied { open } for pid=331 comm="sh" path="/sdcard" dev="mmcblk1p1" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=1
+    # avc: denied { read } for pid=331 comm="sh" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=1
+    # avc: denied { search } for pid=331 comm="sh" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:vfat:s0 tclass=dir permissive=1
+    allow sh vfat:dir { open read search mounton };
 
     # avc:  denied  { use } for  pid=292 comm="dmesg" path="pipe:[20457]" dev="pipefs" ino=20457 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:r:updater:s0 tclass=fd permissive=1
     allow sh updater:fd { use };
@@ -71,5 +74,22 @@ updater_only(`
 
     # avc:  denied  { ioctl } for  pid=292 comm="dmesg" path="pipe:[20457]" dev="pipefs" ino=20457 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:r:updater:s0 tclass=fifo_file permissive=1
     allowxperm sh updater:fifo_file ioctl { 0x5413 };
+
+    # avc: denied { getattr } for pid=352 comm="ls" path="/sdcard/updater/updater.zip" dev="mmcblk1p1" ino=100 scontext=u:r:sh:s0 tcontext=u:object_r:vfat:s0 tclass=file permissive=1
+    allow sh vfat:file { getattr };
+
+    # avc: denied { add_name } for pid=309 comm="mkdir" name="updater" scontext=u:r:sh:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=1
+    # avc: denied { create } for pid=309 comm="mkdir" name="updater" scontext=u:r:sh:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=1
+    # avc: denied { open } for pid=284 comm="sh" path="/sdcard" dev="mmcblk1p1" ino=5 scontext=u:r:sh:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=1
+    # avc: denied { read } for pid=284 comm="sh" name="/" dev="mmcblk1p1" ino=5 scontext=u:r:sh:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=1
+    # avc: denied { search } for pid=284 comm="sh" name="/" dev="mmcblk1p1" ino=5 scontext=u:r:sh:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=1
+    # avc: denied { write } for pid=309 comm="mkdir" name="/" dev="mmcblk1p1" ino=5 scontext=u:r:sh:s0 tcontext=u:object_r:ntfs:s0 tclass=dir permissive=1
+    allow sh ntfs:dir { add_name create open read search write };
+
+    # avc: denied { add_name } for pid=300 comm="mkdir" name="updater" scontext=u:r:sh:s0 tcontext=u:object_r:exfat:s0 tclass=dir permissive=1
+    # avc: denied { create } for pid=300 comm="mkdir" name="updater" scontext=u:r:sh:s0 tcontext=u:object_r:exfat:s0 tclass=dir permissive=1
+    # avc: denied { search } for pid=300 comm="mkdir" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:exfat:s0 tclass=dir permissive=1
+    # avc: denied { write } for pid=300 comm="mkdir" name="/" dev="mmcblk1p1" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:exfat:s0 tclass=dir permissive=1
+    allow sh exfat:dir { add_name create search write };
     ')
 ')

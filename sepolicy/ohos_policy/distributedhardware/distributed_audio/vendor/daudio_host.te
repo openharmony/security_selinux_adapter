@@ -1,0 +1,55 @@
+#  Copyright (c) 2023 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+
+allow daudio_host musl_param:file { map read open };
+
+allow daudio_host debug_param:file { open read map };
+
+allow daudio_host hilog_param:file { map open read };
+
+debug_only(`
+    allow daudio_host sh:binder { call transfer };
+')
+
+allow daudio_host hdf_device_manager:hdf_devmgr_class { get };
+
+allow daudio_host hdf_devmgr:binder { call transfer };
+
+allow daudio_host hdf_daudio_primary:hdf_devmgr_class { add };
+
+allow daudio_host hdf_daudio_ext:hdf_devmgr_class { add };
+
+allow daudio_host daudio:binder { call };
+
+allow daudio_host dev_unix_socket:dir { search };
+
+allow daudio_host chip_prod_file:dir { search };
+
+allow daudio_host chip_prod_file:file { read };
+
+allow daudio_host dev_ashmem_file:chr_file { open };
+
+allow daudio_host proc_file:file { open read };
+
+allow daudio_host pulseaudio:binder { transfer };
+
+allow daudio_host sa_device_service_manager:samgr_class { get };
+
+allow daudio_host samgr:binder { call };
+
+allow daudio_host vendor_bin_file:file { entrypoint map read execute };
+
+allow daudio_host vendor_etc_file:dir { search };
+
+allow daudio_host vendor_etc_file:file { getattr open read };

@@ -64,10 +64,11 @@ allow push_manager_service sa_net_conn_manager:samgr_class { get };
 allow push_manager_service sa_param_watcher:samgr_class { get };
 allow push_manager_service sa_time_service:samgr_class { get };
 allow push_manager_service security_param:file { open read map };
-allow push_manager_service sh:binder { call };
 allow push_manager_service startup_param:file { map open read };
 allow push_manager_service sys_param:file { map open read };
+allow push_manager_service sys_prod_file:dir { search };
 allow push_manager_service sys_usb_param:file { map open read };
+allow push_manager_service sysfs_devices_system_cpu:file { read open getattr };
 allow push_manager_service system_basic_hap:binder { call };
 allow push_manager_service system_bin_file:dir { search };
 allow push_manager_service system_core_hap:binder { call };
@@ -80,3 +81,7 @@ allow push_manager_service vendor_bin_file:file { open read };
 allow push_manager_service vendor_etc_file:dir { search };
 allow push_manager_service vendor_etc_file:file { open read };
 allowxperm push_manager_service dev_rtc_file:chr_file ioctl {  0x700a  };
+
+debug_only(`
+    allow push_manager_service sh:binder { call };
+')

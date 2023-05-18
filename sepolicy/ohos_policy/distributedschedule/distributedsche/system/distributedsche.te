@@ -45,37 +45,23 @@ allow distributedsche system_core_hap:binder { call transfer };
 allow distributedsche paramservice_socket:sock_file { write };
 allow distributedsche proc_cpuinfo_file:file { open read };
 allow distributedsche proc_file:file { open read };
-allow distributedsche sh:binder { call };
 allow distributedsche softbus_server:binder { call transfer };
 allow distributedsche softbus_server:fd { use };
 allow distributedsche softbus_server:tcp_socket { read setopt shutdown write };
+allow distributedsche sa_device_security_level_manager_service:samgr_class { get };
+allow distributedsche dslm_service:binder { call transfer };
+allow distributedsche dev_console_file:chr_file { read write };
 
-allow accountmgr distributedsche:binder { transfer };
-allow init distributedsche:dir { search };
-allow init distributedsche:file { open read };
-allow init distributedsche:process { getattr };
-allow sh distributedsche:binder { call transfer };
-allow sh distributedsche:process { sigkill };
-allow softbus_server distributedsche:binder { call };
 allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
 allow distributedsche devinfo_private_param:file { map open read};
 allow distributedsche sa_form_mgr_service:samgr_class { get };
 
-allow foundation dev_console_file:chr_file { read write };
-allow foundation distributedsche_param:parameter_service { set };
-allow foundation musl_param:file { open };
-allow foundation sa_foundation_continuation_manager_service:samgr_class { add };
-allow hidumper_service sa_foundation_continuation_manager_service:samgr_class { get };
 debug_only(`
-    allow sh sa_foundation_continuation_manager_service:samgr_class { get };
+    allow distributedsche sh:binder { call };
 ')
 
 #avc:  denied  { get } for service=1903 pid=469 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_bgtaskmgr:s0 tclass=samgr_class permissive=1
 allow distributedsche sa_bgtaskmgr:samgr_class { get };
-#avc:  denied  { read open } for  pid=551 comm="foundation" scontext=u:r:foundation:s0 tcontext=u:r:distributedsche:s0 tclass=file permissive=1
-allow foundation distributedsche:file { read open };
-#avc:  denied  { search } for  pid=551 comm="foundation" name="469" dev="proc" ino=17886 scontext=u:r:foundation:s0 tcontext=u:r:distributedsche:s0 tclass=dir permissive=1
-allow foundation distributedsche:dir { search };
 #avc:  denied  { get } for service=1909 pid=560 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_memory_manager_service:s0 tclass=samgr_class permissive=0
 allow distributedsche sa_memory_manager_service:samgr_class { get };
 #avc:  denied  { call } for  pid=479 comm="DmsComponentCha" scontext=u:r:distributedsche:s0 tcontext=u:r:memmgrservice:s0 tclass=binder permissive=0

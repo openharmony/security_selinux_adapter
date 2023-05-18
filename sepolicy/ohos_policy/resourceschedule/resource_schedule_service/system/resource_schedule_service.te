@@ -131,4 +131,5 @@ allow resource_schedule_service sa_foundation_powermgr_service:samgr_class { get
 allow resource_schedule_service sa_time_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };
-allow resource_schedule_service sensors:binder {transfer};
+allow resource_schedule_service sensors:binder { transfer };
+allow resource_schedule_service time_service:binder { transfer };

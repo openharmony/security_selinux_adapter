@@ -59,4 +59,7 @@ allow ueventd dev_binder_file:chr_file { relabelto };
 
 #avc: denied { read } for pid=224 comm="ueventd" name="etc" dev="rootfs" ino=17415 scontext=u:r:ueventd:s0 tcontext=u:object_r:system_etc_file:s0 tclass=lnk_file permissive=1
 allow ueventd system_etc_file:lnk_file { read };
+
+# avc:  denied  { relabelto } for  pid=226 comm="ueventd" name="xpm" dev="tmpfs" ino=193 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+allow ueventd dev_xpm:chr_file { relabelto };
 ')

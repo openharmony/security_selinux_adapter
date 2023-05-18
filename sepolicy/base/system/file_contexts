@@ -163,6 +163,17 @@
 
 /chip_prod(/.*)?     u:object_r:chip_prod_file:s0
 
+/eng_system(/.*)?           u:object_r:system_file:s0
+/eng_system/etc(/.*)?       u:object_r:system_etc_file:s0
+/eng_system/lib(/.*)?       u:object_r:system_lib_file:s0
+/eng_system/bin(/.*)?       u:object_r:system_bin_file:s0
+
+/eng_chipset(/.*)?           u:object_r:vendor_file:s0
+/eng_chipset/bin(/.*)?       u:object_r:vendor_bin_file:s0
+/eng_chipset/lib(/.*)?       u:object_r:vendor_lib_file:s0
+/eng_chipset/lib64(/.*)?     u:object_r:vendor_lib_file:s0
+/eng_chipset/etc(/.*)?       u:object_r:vendor_etc_file:s0
+
 /data(/.*)?                   u:object_r:data_file:s0
 /data/app                     u:object_r:data_app_file:s0
 /data/app/(.*)?               u:object_r:data_app_file:s0

@@ -62,10 +62,11 @@ allow instance_id sa_instance_id:samgr_class { add };
 allow instance_id sa_net_conn_manager:samgr_class { get };
 allow instance_id sa_param_watcher:samgr_class { get };
 allow instance_id security_param:file { open read map };
-allow instance_id sh:binder { call };
 allow instance_id startup_param:file { map open read };
 allow instance_id sys_param:file { map open read };
+allow instance_id sys_prod_file:dir { search };
 allow instance_id sys_usb_param:file { map open read };
+allow instance_id sysfs_devices_system_cpu:file { read open getattr };
 allow instance_id system_basic_hap:binder { call };
 allow instance_id system_bin_file:dir { search };
 allow instance_id system_core_hap:binder { call };
@@ -77,3 +78,7 @@ allow instance_id vendor_bin_file:file { open read };
 allow instance_id vendor_etc_file:dir { search };
 allow instance_id vendor_etc_file:file { open read };
 allowxperm instance_id dev_rtc_file:chr_file ioctl {  0x700a  };
+
+debug_only(`
+    allow instance_id sh:binder { call };
+')

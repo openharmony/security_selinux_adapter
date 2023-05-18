@@ -12,40 +12,42 @@
 # limitations under the License.
 
 #add selinux for tdd begin
-#avc: denied { add } for service=1498 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_audio:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_audio:samgr_class { add };
+debug_only(`
+    #avc: denied { add } for service=1498 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_audio:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_audio:samgr_class { add };
 
-#avc: denied { add } for service=1495 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_connection:s0 tclass=samgr_class permissive=1
-#avc: denied { get } for service=1495 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_connection:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_connection:samgr_class { add get };
+    #avc: denied { add } for service=1495 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_connection:s0 tclass=samgr_class permissive=1
+    #avc: denied { get } for service=1495 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_connection:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_connection:samgr_class { add get };
 
-#avc: denied { add } for service=1496 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_incomplete:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_incomplete:samgr_class { add };
+    #avc: denied { add } for service=1496 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_incomplete:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_incomplete:samgr_class { add };
 
-#avc: denied { add } for service=1494 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_listen:s0 tclass=samgr_class permissive=1
-#avc: denied { get } for service=1494 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_listen:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_listen:samgr_class { add get };
+    #avc: denied { add } for service=1494 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_listen:s0 tclass=samgr_class permissive=1
+    #avc: denied { get } for service=1494 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_listen:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_listen:samgr_class { add get };
 
-#avc: denied { add } for service=1499 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_media:s0 tclass=samgr_class permissive=1
-#avc: denied { get } for service=1499 pid=1940 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_media:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_media:samgr_class { add get };
+    #avc: denied { add } for service=1499 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_media:s0 tclass=samgr_class permissive=1
+    #avc: denied { get } for service=1499 pid=1940 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_media:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_media:samgr_class { add get };
 
-#avc: denied { add } for service=1497 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_ondemand:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_ondemand:samgr_class { add };
+    #avc: denied { add } for service=1497 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_ondemand:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_ondemand:samgr_class { add get };
 
-#avc: denied { add } for service=1492 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_oos:s0 tclass=samgr_class permissive=1
-#avc: denied { get } for service=1492 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_oos:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_oos:samgr_class { add get };
+    #avc: denied { add } for service=1492 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_oos:s0 tclass=samgr_class permissive=1
+    #avc: denied { get } for service=1492 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_oos:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_oos:samgr_class { add get };
 
-#avc: denied { add } for service=1491 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_os:s0 tclass=samgr_class permissive=1
-#avc: denied { get } for service=1491 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_os:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_os:samgr_class { add get };
+    #avc: denied { add } for service=1491 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_os:s0 tclass=samgr_class permissive=1
+    #avc: denied { get } for service=1491 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_os:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_os:samgr_class { add get };
 
-#avc: denied { add } for service=1490 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_so:s0 tclass=samgr_class permissive=1
-#avc: denied { get } for service=1490 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_so:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_so:samgr_class { add get };
+    #avc: denied { add } for service=1490 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_so:s0 tclass=samgr_class permissive=1
+    #avc: denied { get } for service=1490 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_so:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_so:samgr_class { add get };
 
-#avc: denied { add } for service=1493 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_tt:s0 tclass=samgr_class permissive=1
-#avc: denied { get } for service=1493 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_tt:s0 tclass=samgr_class permissive=1
-allow sh sa_distributed_sched_test_tt:samgr_class { add get };
+    #avc: denied { add } for service=1493 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_tt:s0 tclass=samgr_class permissive=1
+    #avc: denied { get } for service=1493 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_tt:s0 tclass=samgr_class permissive=1
+    allow sh sa_distributed_sched_test_tt:samgr_class { add get };
+')
 #add selinux for tdd end

@@ -24,7 +24,9 @@ allow pulseaudio audio_host:binder { call };
 allow pulseaudio audio_host:binder { transfer };
 allow pulseaudio audio_host:fd { use };
 
-allow pulseaudio sh:binder { call transfer };
+debug_only(`
+    allow pulseaudio sh:binder { call transfer };
+')
 
 allow pulseaudio normal_hap_attr:binder { call transfer };
 allow pulseaudio dev_ashmem_file:chr_file { open };
@@ -172,3 +174,5 @@ allow pulseaudio vendor_bin_file:dir { search };
 allow pulseaudio musl_param:file { read };
 allow pulseaudio hdf_audio_manager_service:hdf_devmgr_class { get };
 allow pulseaudio sa_audio_policy_service:samgr_class { get };
+
+allow pulseaudio sa_resource_schedule:samgr_class { get };

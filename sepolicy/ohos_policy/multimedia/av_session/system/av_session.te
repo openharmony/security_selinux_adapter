@@ -28,7 +28,11 @@ allow av_session hilog_param:file { map open read };
 allow av_session multimodalinput:binder { call };
 allow av_session multimodalinput:fd { use };
 allow av_session multimodalinput:unix_stream_socket { read write };
-allow av_session sh:binder { call transfer };
+
+debug_only(`
+    allow av_session sh:binder { call transfer };
+')
+
 allow av_session system_core_hap:binder { call transfer };
 allow av_session tracefs:dir { search };
 allow av_session tracefs_trace_marker_file:file { write open };

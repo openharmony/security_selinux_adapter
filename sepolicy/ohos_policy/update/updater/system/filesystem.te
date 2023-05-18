@@ -11,5 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+updater_only(`
 # avc:  denied  { associate } for  pid=1 comm="init" name="/" dev="tmpfs" ino=1 scontext=u:object_r:rootfs:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem permissive=1
 allow rootfs tmpfs:filesystem { associate };
+
+# avc:  denied  { associate } for  pid=233 comm="updater" name="updater_binary" dev="tmpfs" ino=5 scontext=u:object_r:updater_binary_exec:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem permissive=1
+allow updater_binary_exec tmpfs:filesystem { associate };
+')

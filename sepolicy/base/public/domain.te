@@ -238,7 +238,7 @@ neverallow { domain -init } debugfs:{ file lnk_file } never_rw_file;
 neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } { system_file_attr vendor_file_attr }:dir_file_class_set mounton;
 
 neverallow { domain -kernel -hap_domain -locationhub
-             -sh debug_only(`-hdcd') -audio_host } data_file:file never_write_file;
+             -sh debug_only(`-hdcd') -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
 neverallow { domain -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf') } data_local_tmp:file open;
 
@@ -282,8 +282,8 @@ neverallow { domain -appspawn -init -hidumper_service -storage_daemon -hiprofile
 neverallow { domain -init -ueventd -installs -storage_daemon -cap_violator_fowner } self:{ capability cap_userns } fowner;
 neverallow { domain -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -nwebspawn -faultloggerd -foundation -resource_schedule_service -native_daemon -cap_violator_kill } self:{ capability cap_userns } kill;
-neverallow { domain -init -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd') -cap_violator_setuid updater_only(` -updater ') } self:{ capability cap_userns } setuid;
-neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hdcd -hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') updater_only(` -updater ') } self:{ capability cap_userns } setgid;
+neverallow { domain -init -appspawn -nwebspawn -storage_daemon debug_only(`-console -hdcd') -cap_violator_setuid updater_only(` -updater ') } self:{ capability cap_userns } setuid;
+neverallow { domain -init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-console -hdcd -hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') updater_only(` -updater ') } self:{ capability cap_userns } setgid;
 neverallow { domain -init } self:{ capability cap_userns } setpcap;
 neverallow * self:{ capability cap_userns } linux_immutable;
 neverallow { domain -wifi_manager_service -netsysnative } self:{ capability cap_userns } net_bind_service;

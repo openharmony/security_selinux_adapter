@@ -87,7 +87,6 @@ type hdcd_exec, exec_attr, file_attr, system_file_attr;
 
 type audio_host, hdfdomain, domain;
 type camera_host, hdfdomain, domain;
-type codec_host, hdfdomain, domain;
 type input_user_host, hdfdomain, domain;
 
 type motion_host, hdfdomain, domain;
@@ -98,6 +97,5 @@ type usb_host, hdfdomain, domain;
 type vibrator_host, hdfdomain, domain;
 type power_host, hdfdomain, domain;
 type location_host, hdfdomain, domain;
-type wifi_host, hdfdomain, domain;
 
 type updater, nativedomain, domain;

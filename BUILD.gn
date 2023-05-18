@@ -404,7 +404,12 @@ action("build_update_policy") {
     }
   }
 
-  script = "scripts/build_policy.py"
+  if (special_build_policy_script != "default") {
+    script = special_build_policy_script
+  } else {
+    script = "scripts/build_policy.py"
+  }
+
   args = [
     "--dst-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
@@ -480,7 +485,7 @@ copy("selinux_config") {
 }
 
 copy("updater_selinux_config") {
-  sources = [ "config/config.permissive" ]
+  sources = [ "config/config.enforce" ]
   outputs = [ "$target_out_dir/updater/config" ]
 }
 

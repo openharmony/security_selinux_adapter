@@ -17,7 +17,6 @@ debug_only(`
     allow sh accountmgr:dir { getattr search };
     allow sh accountmgr:file { open read };
     allow sh appspawn:file { read };
-    allow sh audio_host:file { read };
     allow sh audio_policy:file { read };
     allow sh bluetooth_service:dir { getattr search };
     allow sh bluetooth_service:file { read };
@@ -49,7 +48,6 @@ debug_only(`
     allow sh init:dir { getattr search };
     allow sh init:file { open read };
     allow sh init:unix_stream_socket { connectto };
-    allow sh input_user_host:file { read };
     allow sh ispserver:dir { getattr search };
     allow sh ispserver:file { open read };
     allow sh kernel:dir { getattr search };

@@ -59,3 +59,6 @@ allow init { domain }:dir { search };
 
 # for init trace
 allow init hiview:unix_dgram_socket { sendto };
+
+# all can read
+allow { domain -limit_domain } musl_param:file { map open read };

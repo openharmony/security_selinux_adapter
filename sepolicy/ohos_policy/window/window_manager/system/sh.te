@@ -11,18 +11,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow sh dev_unix_socket:dir { search };
-allow sh foundation:fd { use };
+debug_only(`
+    allow sh dev_unix_socket:dir { search };
+    allow sh foundation:fd { use };
 
-# UT_TEST
-# avc: denied { get } for service=4607 pid=2022 scontext=u:r:sh:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
-allow sh sa_foundation_dms:samgr_class { get };
+    allow sh sa_foundation_dms:samgr_class { get };
 
-# avc: denied { get } for service=4606 pid=2268 scontext=u:r:sh:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=1
-allow sh sa_foundation_wms:samgr_class { get };
+    allow sh sa_foundation_wms:samgr_class { get };
 
-# avc: denied { call } for pid=2001 comm="wm_input_transf" scontext=u:r:sh:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
-# avc: denied { transfer } for pid=2001 comm="wm_input_transf" scontext=u:r:sh:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
-allow sh render_service:binder { call transfer };
-allow render_service sh:binder { call transfer };
-
+    allow sh render_service:binder { call transfer };
+    allow render_service sh:binder { call transfer };
+')

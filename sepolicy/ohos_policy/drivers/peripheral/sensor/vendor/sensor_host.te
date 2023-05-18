@@ -1,0 +1,82 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#avc:  denied  { get } for service=hdf_device_manager pid=346 scontext=u:r:sensor_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class
+#avc:  denied  { add } for service=sensor_interface_service pid=346 scontext=u:r:sensor_host:s0 tcontext=u:object_r:hdf_sensor_interface_service:s0 tclass=hdf_devmgr_class
+allow sensor_host hdf_device_manager:hdf_devmgr_class { get };
+allow sensor_host hdf_sensor_interface_service:hdf_devmgr_class { add };
+allow sensor_host sa_device_service_manager:samgr_class { get };
+allow sensor_host dev_hdf_sensor_mgr:chr_file { ioctl };
+allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6202;
+#avc:  denied  { ioctl } for  pid=468 comm="sensor_host" path="/dev/hdf_sensor_manager_ap" dev="tmpfs" ino=195 ioctlcmd=0x6206 scontext=u:r:sensor_host:s0 tcontext=u:object_r:dev_hdf_sensor_mgr:s0 tclass=chr_file permissive=0
+allow sensor_host dev_hdf_sensor_mgr:chr_file { ioctl };
+allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl 0x6206;
+#avc:  denied  { call } for  pid=502 comm="sensor_host" scontext=u:r:sensor_host:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+debug_only(`
+    allow sensor_host sh:binder { call };
+')
+#avc:  denied  { get } for service=3901 pid=522 scontext=u:r:sensor_host:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow sensor_host sa_param_watcher:samgr_class { get };
+#avc:  denied  { call } for  pid=522 comm="IPC_1_621" scontext=u:r:sensor_host:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=522 comm="IPC_1_621" scontext=u:r:sensor_host:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+allow sensor_host param_watcher:binder { call transfer };
+#avc:  denied  { write } for  pid=522 comm="IPC_1_621" name="trace_marker" dev="tracefs" ino=17434 scontext=u:r:sensor_host:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=522 comm="IPC_1_621" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=17434 scontext=u:r:sensor_host:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
+allow sensor_host tracefs_trace_marker_file:file { write open };
+#avc:  denied  { search } for  pid=504 comm="IPC_1_628" name="/" dev="tracefs" ino=1 scontext=u:r:sensor_host:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
+allow sensor_host tracefs:dir { search };
+
+allow sensor_host bootevent_param:file { map open read };
+allow sensor_host bootevent_samgr_param:file { map open read };
+allow sensor_host build_version_param:file { map open read };
+allow sensor_host const_allow_mock_param:file { map open read };
+allow sensor_host const_allow_param:file { map open read };
+allow sensor_host const_build_param:file { map open read };
+allow sensor_host const_display_brightness_param:file { map open read };
+allow sensor_host const_param:file { map open read };
+allow sensor_host const_postinstall_fstab_param:file { map open read };
+allow sensor_host const_postinstall_param:file { map open read };
+allow sensor_host const_product_param:file { map open read };
+allow sensor_host debug_param:file { map open read };
+allow sensor_host default_param:file { map open read };
+allow sensor_host dev_hdf_kevent:chr_file { getattr ioctl open read write };
+allow sensor_host dev_hdf_sensor_mgr:chr_file { getattr ioctl open read write };
+allow sensor_host dev_mgr_file:chr_file { getattr ioctl open read write };
+allow sensor_host dev_unix_socket:dir { search };
+allow sensor_host distributedsche_param:file { map read read open };
+allow sensor_host hdf_devmgr:binder { call transfer };
+allow sensor_host hilog_param:file { map open read };
+allow sensor_host hw_sc_build_os_param:file { map open read };
+allow sensor_host hw_sc_build_param:file { map open read };
+allow sensor_host hw_sc_param:file { map open read };
+allow sensor_host init_param:file { map open read };
+allow sensor_host init_svc_param:file { map open read };
+allow sensor_host input_pointer_device_param:file { map open read };
+allow sensor_host net_param:file { map open read };
+allow sensor_host net_tcp_param:file { map open read };
+allow sensor_host ohos_boot_param:file { map open read };
+allow sensor_host ohos_param:file { map open read };
+allow sensor_host persist_param:file { map open read };
+allow sensor_host persist_sys_param:file { map open read };
+allow sensor_host samgr:binder { call };
+allow sensor_host security_param:file { map open read };
+allow sensor_host sensors:binder { call };
+allow sensor_host startup_param:file { map open read };
+allow sensor_host sys_param:file { map open read };
+allow sensor_host system_bin_file:dir { search };
+allow sensor_host sys_usb_param:file { map open read };
+allow sensor_host vendor_etc_file:dir { search };
+allow sensor_host vendor_etc_file:file { getattr open read };
+allowxperm sensor_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
+allowxperm sensor_host dev_hdf_sensor_mgr:chr_file ioctl { 0x6201 0x6203 };
+allowxperm sensor_host dev_mgr_file:chr_file ioctl { 0x6201 };

@@ -63,3 +63,7 @@ allow print_service print_service:unix_dgram_socket { getopt setopt };
 allow print_service sa_foundation_bms:samgr_class { get };
 allow print_service sa_accountmgr:samgr_class { get };
 allowxperm print_service data_service_el1_file:file ioctl { 0x5413 };
+allow print_service accountmgr:binder { call };
+allow print_service system_basic_hap:fd { use };
+allow print_service system_basic_hap_data_file:file { read };
+allow print_service system_core_hap:binder { call };

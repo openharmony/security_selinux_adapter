@@ -1,0 +1,49 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#selinux for tdd
+debug_only(`
+    type listen_test, sadomain, domain;
+    allow listen_test system_bin_file:dir { search };
+    allow listen_test ohos_param:file { read open };
+    allow listen_test dev_unix_socket:dir { search };
+    allow listen_test ohos_param:file {read open map};
+    allow listen_test ohos_boot_param:file {read open map};
+    allow listen_test sys_param:file {read open map};
+    allow listen_test sys_usb_param:file { read open map };
+    allow listen_test sa_softbus_service:samgr_class { get };
+    allow listen_test softbus_server:binder { call transfer };
+    allow listen_test softbus_server:fd { use };
+    allow listen_test softbus_server:tcp_socket { read write };
+    allow listen_test softbus_server:tcp_socket { setopt };
+    allow listen_test softbus_server:tcp_socket { shutdown };
+    allow listen_test net_param:file { read open map };
+    allow listen_test net_tcp_param:file { read open map };
+    allow listen_test hw_sc_param:file { read open map };
+    allow listen_test hw_sc_build_param:file { read open map };
+    allow listen_test hw_sc_build_os_param:file { read open map };
+    allow listen_test init_param:file { read open map };
+    allow listen_test init_svc_param:file { read open map};
+    allow listen_test const_param:file { read open map };
+    allow listen_test const_postinstall_param:file { read open map };
+    allow listen_test const_postinstall_fstab_param:file { read open map };
+    allow listen_test const_allow_param:file { read open map };
+    allow listen_test const_allow_mock_param:file { read open map };
+    allow listen_test const_build_param:file { read open map };
+    allow listen_test const_product_param:file { read open map };
+    allow listen_test hilog_param:file { read open map };
+    allow listen_test persist_param:file { read open map };
+    allow listen_test sa_distributed_sched_test_listen:samgr_class { add get };
+    allow listen_test sa_distributed_sched_test_media:samgr_class { add get };
+    allow listen_test sa_distributed_sched_test_ondemand:samgr_class { add get };
+')

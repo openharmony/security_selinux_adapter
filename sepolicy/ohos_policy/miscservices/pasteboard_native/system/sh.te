@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow sh pasteboard_service:binder { call transfer };
-allow sh pasteboard_service:process { signal };
-allow sh pasteboard_service:fd { use };
+debug_only(`
+    allow sh pasteboard_service:binder { call transfer };
+    allow sh pasteboard_service:process { signal };
+    allow sh pasteboard_service:fd { use };
+')

@@ -11,5 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow sh sa_storage_manager_daemon:samgr_class { get };
-allow sh sa_storage_manager_service:samgr_class { get };
+debug_only(`
+    allow sh sa_storage_manager_daemon:samgr_class { get };
+    allow sh sa_storage_manager_service:samgr_class { get };
+')

@@ -1,0 +1,118 @@
+#  Copyright (c) 2023 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+
+
+allow daudio hilog_param:file { open read map };
+
+allow daudio debug_param:file { open read map };
+
+allow daudio accesstoken_service:binder { call };
+
+allow daudio audio_policy:binder { call transfer };
+
+allow daudio media_service:binder { call transfer};
+
+allow daudio musl_param:file { read open map };
+
+allow daudio data_file:dir { search };
+
+allow daudio data_data_file:dir { search };
+
+allow daudio data_data_pulse_dir:dir { search read open getattr };
+
+allow daudio data_data_pulse_dir:file { read write open lock };
+
+allow daudio dhardware:binder { call };
+
+allow daudio daudio:udp_socket { create setopt };
+
+allow daudio daudio:udp_socket { read write connect };
+
+allow daudio daudio:netlink_route_socket { create write nlmsg_read read };
+
+allow daudio daudio_host:binder { call transfer };
+
+allow daudio daudio:unix_dgram_socket { getopt setopt };
+
+allow daudio dev_unix_socket:dir { search };
+
+allow daudio media_service:fd { use };
+
+allow daudio native_socket:sock_file { write };
+
+allow daudio softbus_server:tcp_socket { setopt write };
+
+allow daudio softbus_server:udp_socket { write read };
+
+allow daudio softbus_server:dir { read };
+
+allow daudio softbus_server:fd { use };
+
+allow daudio softbus_server:binder { call transfer };
+
+allow daudio softbus_server:tcp_socket { shutdown };
+
+allow daudio softbus_server:tcp_socket { read };
+
+allow daudio hilog_param:udp_socket { read };
+
+allow daudio hdf_devmgr:binder { call transfer };
+
+allow daudio hdf_device_manager:hdf_devmgr_class { get };
+
+allow daudio hdf_daudio_ext:hdf_devmgr_class { get };
+
+allow daudio tracefs:dir { search };
+
+allow daudio tracefs_trace_marker_file:file { write open };
+
+allow daudio proc_file:file { read open };
+
+allow daudio pulseaudio:unix_stream_socket { connectto };
+
+allow daudio pulseaudio:binder { call };
+
+allow daudio param_watcher:binder { call transfer };
+
+allow daudio sa_param_watcher:samgr_class { get };
+
+allow daudio sa_distributed_hardware_audio_sink_service:samgr_class { add get_remote };
+
+allow daudio sa_distributed_hardware_audio_source_service:samgr_class { add get_remote };
+
+allow daudio sa_device_service_manager:samgr_class { get };
+
+allow daudio sa_softbus_service:samgr_class { get };
+
+allow daudio sa_media_service:samgr_class { get };
+
+allow daudio sa_audio_policy_service:samgr_class { get };
+
+allow daudio sa_accesstoken_manager_service:samgr_class { get };
+
+allow daudio sa_pulseaudio_audio_service:samgr_class { get };
+
+allow daudio daudio:udp_socket { bind getattr };
+
+allow daudio node:udp_socket { node_bind };
+
+allow daudio system_bin_file:dir { search };
+
+allow daudio vendor_bin_file:dir { search };
+
+allow daudio daudio_host:fd { use };
+
+debug_only(`
+    allow daudio sh:binder { call };
+')

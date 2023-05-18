@@ -1,0 +1,31 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow hdf_devmgr wifi_host:binder { call transfer };
+allow hdf_devmgr wifi_host:dir { search };
+allow hdf_devmgr wifi_host:file { open read };
+allow hdf_devmgr wifi_host:process { getattr };
+debug_only(`
+    #avc:  denied  { search } for  pid=240 comm="hdf_devmgr" name="1833" dev="proc" ino=29030 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:console:s0 tclass=dir permissive=0
+    allow hdf_devmgr console:dir { search };
+
+    #avc:  denied  { read } for  pid=241 comm="hdf_devmgr" name="current" dev="proc" ino=28354 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:console:s0 tclass=file permissive=1
+    #avc:  denied  { open } for  pid=241 comm="f_devmgr" path="/proc/2094/attr/current" dev="proc" ino=28354 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:console:s0 tclass=file permissive=1
+    allow hdf_devmgr console:file { read open };
+
+    #avc:  denied  { getattr } for  pid=241 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:console:s0 tclass=process permissive=1
+    allow hdf_devmgr console:process { getattr };
+
+    #avc:  denied  { transfer } for  pid=241 comm="hdf_devmgr" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:console:s0 tclass=binder permissive=1
+    allow hdf_devmgr console:binder { transfer };
+')

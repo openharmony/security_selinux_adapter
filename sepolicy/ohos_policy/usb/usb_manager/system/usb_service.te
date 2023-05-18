@@ -42,24 +42,6 @@ allow usb_service usb_service:lnk_file { read };
 allow usb_service vendor_file:file { execute getattr map open read };
 allow usb_service vendor_lib_file:dir { search };
 allow usb_service vendor_lib_file:file { execute map getattr open read };
-
-# avc:  denied  { call } for  pid=1914 comm="jsThread-1" scontext=u:r:normal_hap:s0 tcontext=u:r:usb_service:s0 tclass=binder permissive=0
-# avc:  denied  { get } for service=4201 pid=1759 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_usb_service:s0 tclass=samgr_class permissive=0
-# avc:  denied  { transfer } for  pid=1842 comm="usb_service" scontext=u:r:usb_service:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=1
-# avc:  denied  { call } for  pid=659 comm="ui_service" scontext=u:r:ui_service:s0 tcontext=u:r:usb_service:s0 tclass=binder permissive=1
-# avc:  denied  { call } for  pid=1810 comm="IPC_1_1817" scontext=u:r:usb_service:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=1
-# avc:  denied  { get } for service=7001 pid=1830 scontext=u:r:usb_service:s0 tcontext=u:object_r:sa_subsys_ace_service:s0 tclass=samgr_class permissive=0
-# avc:  denied  { get } for service=4607 pid=1830 scontext=u:r:usb_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
-allow normal_hap_attr sa_usb_service:samgr_class { get };
-allow normal_hap_attr usb_service:binder { call };
-allow system_basic_hap sa_usb_service:samgr_class { get };
-allow system_basic_hap usb_service:binder { call };
-allow system_core_hap sa_usb_service:samgr_class { get };
-allow system_core_hap usb_service:binder { call };
-allow ui_service usb_service:binder { call };
-allow foundation usb_service:binder { call transfer };
-allow foundation usb_service:dir { search };
-allow foundation usb_service:file { getattr open read };
 allow usb_service dev_console_file:chr_file { read write };
 allow usb_service sa_foundation_dms:samgr_class { get };
 allow usb_service sa_subsys_ace_service:samgr_class { get };
@@ -71,3 +53,40 @@ allow usb_service system_core_hap:binder { call };
 allow usb_service data_service_file:dir { search };
 allow usb_service data_service_el1_file:dir { search };
 allow usb_service data_service_el1_file:file { ioctl open read write getattr };
+neverallow { domain -system_core_hap -system_basic_hap -usb_service } usb_setting_param:file { map open read };
+neverallow { domain -appspawn -system_core_hap -system_basic_hap } usb_setting_param:parameter_service {set};
+allow usb_service bootevent_param:file { map read open };
+allow usb_service bootevent_samgr_param:file { map open read };
+allow usb_service build_version_param:file { map open read };
+allow usb_service const_allow_mock_param:file { map open read };
+allow usb_service const_allow_param:file { map open read };
+allow usb_service const_build_param:file { map open read };
+allow usb_service const_display_brightness_param:file { map open read };
+allow usb_service const_param:file { map open read };
+allow usb_service const_postinstall_fstab_param:file { map open read };
+allow usb_service const_postinstall_param:file { map open read };
+allow usb_service const_product_param:file { map open read };
+allow usb_service debug_param:file { map open read };
+allow usb_service default_param:file { map open read };
+allow usb_service distributedsche_param:file { map open read };
+allow usb_service hilog_param:file { map open read };
+allow usb_service hw_sc_build_os_param:file { map open read };
+allow usb_service hw_sc_build_param:file { map read open };
+allow usb_service hw_sc_param:file { map open read };
+allow usb_service init_param:file { map open read };
+allow usb_service init_svc_param:file { map open read };
+allow usb_service input_pointer_device_param:file { map open read };
+allow usb_service net_param:file { map open read };
+allow usb_service net_tcp_param:file { map open read };
+allow usb_service ohos_boot_param:file { map open read };
+allow usb_service ohos_param:file { map open read };
+allow usb_service persist_param:file { map open read };
+allow usb_service persist_sys_param:file { map open read };
+allow usb_service security_param:file { map open read };
+allow usb_service startup_param:file { map open read };
+allow usb_service sys_param:file { map open read };
+allow usb_service sys_usb_param:file { map open read };
+allow usb_service data_service_file:dir { search };
+allow usb_service data_service_el1_file:dir { search add_name open write read remove_name };
+allow usb_service data_service_el1_file:file { ioctl open read write getattr create lock map unlink };
+allow usb_service dev_ashmem_file:chr_file { open };

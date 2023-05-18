@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow foundation push_manager_service:binder { transfer call };
+allow foundation push_manager_service:dir { search };
+allow foundation push_manager_service:file { read open getattr };

@@ -23,10 +23,12 @@ allow samgr hdfdomain:dir { search };
 allow samgr hdfdomain:file { open read };
 allow samgr hdfdomain:process { getattr };
 
-allow samgr sh:dir { search };
-allow samgr sh:file { open read };
-allow samgr sh:process { getattr };
-allow samgr sh:binder { call transfer };
+debug_only(`
+    allow samgr sh:dir { search };
+    allow samgr sh:file { open read };
+    allow samgr sh:process { getattr };
+    allow samgr sh:binder { call transfer };
+')
 
 allow samgr bootevent_samgr_param:parameter_service { set };
 
@@ -92,9 +94,4 @@ allow samgr bootevent_param:parameter_service { set };
 
 allowxperm samgr dev_binder_file:chr_file ioctl { 0x6207 };
 
-allow samgr_perf_param tmpfs:filesystem associate;
-
 allow samgr samgr_perf_param:file { map open read };
-
-allow init samgr_perf_param:file { map open read relabelto };
-

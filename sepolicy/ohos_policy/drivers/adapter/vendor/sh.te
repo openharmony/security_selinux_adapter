@@ -25,22 +25,13 @@ debug_only(`
     allow sh hdf_device_manager:hdf_devmgr_class { get };
     allow sh hdf_sample_driver_service:hdf_devmgr_class { get };
     allow sh hdf_sample1_driver_service:hdf_devmgr_class { get };
-    allow sh hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
-    allow sh hdf_codec_component_manager_service:hdf_devmgr_class { get };
-    allow sh hdf_codec_hdi_service:hdf_devmgr_class { get };
-    allow sh hdf_codec_image_jpeg_service:hdf_devmgr_class { get };
-    allow sh codec_host:binder { transfer };
     allow sh proc_boot_id:file { read open };
-    allow sh disp_gralloc_host:binder { call };
-    allow sh disp_gralloc_host:fd { use };
-    allow sh allocator_host:binder { call };
-    allow sh allocator_host:fd { use };
-    allow sh hdf_audio_manager_service:binder { call };
-    allow sh hdf_effect_model_service:binder { call };
     allow sh dev_ashmem_file:chr_file { open read write};
     allow sh dev_dri_file:chr_file { read write open ioctl getattr};
     allow sh dev_dri_file:dir { search };
     allowxperm sh dev_dri_file:chr_file ioctl 0x641f;
     allow sh chip_prod_file:dir { read open getattr };
     allow sh chip_prod_file:file { getattr };
+    allow sh input_user_host:dir { getattr search };
+    allow sh input_user_host:file { open read };
 ')

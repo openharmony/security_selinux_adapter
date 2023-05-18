@@ -60,8 +60,10 @@ allow locationhub data_service_el1_file:file { create read write open getattr se
 
 allow locationhub telephony_sa:binder { call transfer };
 
-#avc:  denied  { call } for pid=353 comm="IPC_1_409" scontext=u:r:locationhub:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
-allow locationhub sh:binder { call };
+debug_only(`
+    #avc:  denied  { call } for pid=353 comm="IPC_1_409" scontext=u:r:locationhub:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+    allow locationhub sh:binder { call };
+')
 
 allow locationhub sa_privacy_service:samgr_class { get };
 
