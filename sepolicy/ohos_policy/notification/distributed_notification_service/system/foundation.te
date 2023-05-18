@@ -22,7 +22,6 @@ allow foundation data_service_el1_file:dir { add_name search write };
 allow foundation data_service_el1_file:file { create getattr ioctl open read write open write };
 allow foundation data_service_file:dir { search };
 allow foundation dev_mali:chr_file { ioctl };
-allow foundation disp_gralloc_host:fd { use };
 allow foundation allocator_host:fd { use };
 allow foundation distributeddata:binder { call transfer };
 allow foundation foundation:unix_dgram_socket { getopt setopt };

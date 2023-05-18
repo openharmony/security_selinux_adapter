@@ -28,7 +28,6 @@ allow bootanimation default_param:file { map open read };
 allow bootanimation dev_kmsg_file:chr_file { open write };
 allow bootanimation dev_mali:chr_file { getattr ioctl map open read write };
 allow bootanimation dev_unix_socket:dir { search };
-allow bootanimation disp_gralloc_host:fd { use };
 allow bootanimation allocator_host:fd { use };
 allow bootanimation distributedsche_param:file { map open read };
 allow bootanimation foundation:binder { call transfer };

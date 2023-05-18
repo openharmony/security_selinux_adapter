@@ -121,8 +121,6 @@ allow sh devpts:chr_file { getattr ioctl read };
 allow sh dev_pts_file:dir { getattr };
 allow sh dev_rfkill:chr_file { open read };
 allow sh dev_usb_ffs:dir { search };
-allow sh disp_gralloc_host:dir { getattr search };
-allow sh disp_gralloc_host:file { open read };
 allow sh allocator_host:dir { getattr search };
 allow sh allocator_host:file { open read };
 allow sh distributeddata:dir { getattr search };

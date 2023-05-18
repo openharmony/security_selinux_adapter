@@ -163,8 +163,11 @@ allow msdp_sa system_usr_file:dir { search };
 #avc:  denied  { open } for  pid=404 comm="msdp" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p7" ino=2928 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
 allow msdp_sa system_usr_file:file { getattr read open };
 
-#avc:  denied  { use } for  pid=474 comm="IPC_1_515" path="/dmabuf:" dev="dmabuf" ino=28462 scontext=u:r:msdp_sa:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
-allow msdp_sa disp_gralloc_host:fd { use };
+
+#avc:  denied  { getattr } for  pid=1613 comm="msdp" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4917 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=1672 comm="msdp" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4917 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=1734 comm="msdp" name="online" dev="sysfs" ino=4917 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+allow msdp_sa sysfs_devices_system_cpu:file { getattr open read };
 
 #avc:  denied  { open } for  pid=421 comm="RSRenderThread" path="/sys/devices/system/cpu" dev="sysfs" ino=4915 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
 #avc:  denied  { read } for  pid=380 comm="RSRenderThread" name="cpu" dev="sysfs" ino=4915 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=0
@@ -185,3 +188,16 @@ allow msdp_sa debug_hap:fd { use };
 
 #avc:  denied  { call } for  pid=3255 comm="mmi_EventHdr" scontext=u:r:msdp_sa:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
 allow msdp_sa distributeddata:binder { call };
+allow msdp_sa allocator_host:fd { use };
+
+#avc:  denied  { getattr } for  pid=433 comm="device_status_s" path="/system/fonts/HarmonyOS_Sans_Condensed_Medium_Italic.ttf" dev="mmcblk0p7" ino=1683 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=426 comm="device_status_s" path="/system/fonts/HarmonyOS_Sans_SC_Light.ttf" dev="mmcblk0p7" ino=1710 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=413 comm="device_status_s" path="/system/fonts/HarmonyOS_Sans_Digit.ttf" dev="mmcblk0p7" ino=1688 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=426 comm="device_status_s" name="HarmonyOS_Sans_SC_Thin.ttf" dev="mmcblk0p7" ino=1713 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=file permissive=0
+allow msdp_sa system_fonts_file:file { getattr map open read };
+
+#avc:  denied  { open } for  pid=435 comm="device_status_s" path="/system/fonts" dev="mmcblk0p7" ino=1671 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=0
+#avc:  denied  { read } for  pid=450 comm="device_status_s" name="fonts" dev="mmcblk0p7" ino=1671 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=0
+#avc:  denied  { search } for  pid=424 comm="device_status_s" name="fonts" dev="mmcblk0p7" ino=1671 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir permissive=0
+allow msdp_sa system_fonts_file:dir { open read search };
+

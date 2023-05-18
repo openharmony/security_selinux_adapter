@@ -120,11 +120,7 @@ allowxperm normal_hap_attr normal_hap_data_file_attr:file ioctl { 0xf50c };
 #avc:  denied  { transfer } for  pid=2377 comm="Geolocation" scontext=u:r:normal_hap:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
 allow normal_hap_attr locationhub:binder { call transfer };
 
-#avc:  denied  { use } for  pid=2526 comm="com.example.web" path="/dmabuf:" dev="dmabuf" ino=35030 ioctlcmd=0x6200 scontext=u:r:normal_hap:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
-allow normal_hap_attr disp_gralloc_host:fd { use };
 
-#avc:  denied  { call } for  pid=2169 comm="com.example.web" path="/dmabuf:" dev="dmabuf" ino=35030 ioctlcmd=0x6200 scontext=u:r:normal_hap:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=1
-allow normal_hap_attr disp_gralloc_host:binder { call };
 
 #avc:  denied  { use } for  pid=2526 comm="com.example.web" path="/dmabuf:" dev="dmabuf" ino=35030 ioctlcmd=0x6200 scontext=u:r:normal_hap:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=1
 allow normal_hap_attr allocator_host:fd { use };

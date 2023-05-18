@@ -36,7 +36,6 @@ type hdf_usbfn, hdf_service_attr;
 type hdf_usbfn_cdcecm, hdf_service_attr;
 type hdf_usbfn_cdcacm, hdf_service_attr;
 type hdf_wlan_hal_service, hdf_service_attr;
-type hdf_hdi_display_gralloc_service, hdf_service_attr;
 type hdf_display_composer_service, hdf_service_attr;
 type hdf_allocator_service, hdf_service_attr;
 type hdf_camera_service, hdf_service_attr;

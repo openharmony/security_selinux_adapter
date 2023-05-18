@@ -51,6 +51,8 @@ allow wifi_host system_bin_file:dir { search };
 allow wifi_host sys_usb_param:file { map open read };
 allow wifi_host vendor_etc_file:dir { search };
 allow wifi_host vendor_etc_file:file { getattr open read };
+allow wifi_host wifi_hal_service:binder { call };
+
 allowxperm wifi_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 
 #avc:  denied  { get } for service=hdf_device_manager pid=358 scontext=u:r:wifi_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1

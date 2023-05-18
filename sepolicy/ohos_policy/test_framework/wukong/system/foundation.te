@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
 allow foundation hdf_allocator_service:hdf_devmgr_class { get };
