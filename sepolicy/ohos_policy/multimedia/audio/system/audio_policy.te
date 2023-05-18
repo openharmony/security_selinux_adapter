@@ -159,7 +159,6 @@ allow audio_policy vendor_etc_file:file { getattr open read };
 
 #avc:  denied  { getattr } for  pid=490 comm="audio_policy" path="/vendor/lib64/libhdi.z.so" dev="mmcblk0p7" ino=98 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=490 comm="audio_policy" path="/vendor/lib64/libhdi.z.so" dev="mmcblk0p7" ino=98 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
-#avc:  denied  { read } for  pid=521 comm="audio_policy" path="/vendor/lib64/libhdi_display_gralloc_client.z.so" dev="mmcblk0p7" ino=108 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
 allow audio_policy vendor_file:file { getattr open read };
 
 #avc:  denied  { search } for  pid=359 comm="audio_policy" name="lib" dev="mmcblk0p6" ino=44 scontext=u:r:audio_policy:s0 tcontext=u:object_r:vendor_lib_file:s0 tclass=dir permissive=1

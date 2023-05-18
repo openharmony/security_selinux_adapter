@@ -17,4 +17,4 @@ allow hdfdomain vendor_bin_file:file { entrypoint execute map read };
 # let every hdf_host join hdf_domain
 neverallow { domain -hdfdomain -sadomain -init -hap_domain -sh } hdf_devmgr:binder call;
 
-neverallow { domain -hdfdomain -sadomain } { hdfdomain -disp_gralloc_host -allocator_host -hdf_public_domain }:binder call;
+neverallow { domain -hdfdomain -sadomain } { hdfdomain -allocator_host -hdf_public_domain }:binder call;

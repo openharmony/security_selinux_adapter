@@ -37,7 +37,6 @@ allow sh deviceauth_service:dir { getattr search };
 allow sh deviceauth_service:file { open read };
 allow sh dev_kmsg_file:chr_file { open read read open };
 allow sh dev_unix_socket:sock_file { write };
-allow sh disp_gralloc_host:file { open read };
 allow sh allocator_host:file { open read };
 allow sh distributeddata:dir { getattr search };
 allow sh distributeddata:file { open read };

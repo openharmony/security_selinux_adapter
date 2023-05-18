@@ -49,8 +49,6 @@ allow sh data_log:file { getattr open read unlink unlink };
 allow sh dev_kmsg_file:chr_file { open read };
 allow sh deviceauth_service:dir { getattr search };
 allow sh deviceauth_service:file { open read };
-allow sh disp_gralloc_host:dir { getattr search };
-allow sh disp_gralloc_host:file { open read };
 allow sh allocator_host:dir { getattr search };
 allow sh allocator_host:file { open read };
 allow sh distributeddata:dir { getattr search };

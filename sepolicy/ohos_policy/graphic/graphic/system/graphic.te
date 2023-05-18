@@ -22,8 +22,6 @@ allow render_service dev_mali:chr_file { ioctl };
 allow render_service dev_rga:chr_file { ioctl };
 allow render_service dev_unix_socket:dir { search };
 allow render_service dev_unix_socket:sock_file { write };
-allow render_service disp_gralloc_host:binder { call };
-allow render_service disp_gralloc_host:fd { use };
 allow render_service allocator_host:binder { call };
 allow render_service allocator_host:fd { use };
 allow render_service foundation:binder { call transfer };
@@ -57,8 +55,5 @@ allowxperm render_service dev_graphics_file:chr_file ioctl 0x4611;
 allowxperm render_service dev_mali:chr_file ioctl { 0x8002 0x8006 0x8007 0x8016 0x8018 0x8019 0x801d 0x801e };
 allowxperm render_service dev_rga:chr_file ioctl 0x5017;
 
-#avc:  denied  { get } for service=hdi_display_gralloc_service pid=437 scontext=u:r:render_service:s0 tcontext=u:object_r:hdf_hdi_display_gralloc_service:s0 tclass=hdf_devmgr_class permissive=1
-hdi_call(render_service, hdf_hdi_display_gralloc_service)
 
-#avc:  denied  { get } for service=hdi_display_gralloc_service pid=437 scontext=u:r:render_service:s0 tcontext=u:object_r:hdf_allocator_service:s0 tclass=hdf_devmgr_class permissive=1
 hdi_call(render_service, hdf_allocator_service)

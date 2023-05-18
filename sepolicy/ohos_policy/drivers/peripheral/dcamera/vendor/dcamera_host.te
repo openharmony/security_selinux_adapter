@@ -24,11 +24,8 @@
 #avc:  denied  { get } for service=hdf_device_manager pid=342 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=distributed_camera_provider_service pid=342 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_distributed_camera_provider_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { add } for service=distributed_camera_service pid=351 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_distributed_camera_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { get } for service=hdi_display_gralloc_service pid=2038 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_hdi_display_gralloc_service:s0 tclass=hdf_devmgr_class permissive=1
-#avc:  denied  { get } for service=hdi_display_gralloc_service pid=2038 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:hdf_allocator_service:s0 tclass=hdf_devmgr_class permissive=1
 #avc:  denied  { call } for  pid=1991 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
 #avc:  denied  { get } for service=5100 pid=2074 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
-#avc:  denied  { use } for  pid=2059 comm="dcamera_host" path="/dmabuf:" dev="dmabuf" ino=30969 ioctlcmd=0x6200 scontext=u:r:dcamera_host:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=fd permissive=1
 #avc:  denied  { use } for  pid=2059 comm="dcamera_host" path="/dmabuf:" dev="dmabuf" ino=30969 ioctlcmd=0x6200 scontext=u:r:dcamera_host:s0 tcontext=u:r:allocator_host:s0 tclass=fd permissive=1
 #avc:  denied  { call } for  pid=2059 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:samgr:s0 tclass=binder permissive=1
 #avc:  denied  { call } for  pid=2059 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
@@ -36,7 +33,6 @@
 #avc:  denied  { map } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_param:s0" dev="tmpfs" ino=57 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_param:s0 tclass=file permissive=1
 #avc:  denied  { read } for  pid=2666 comm="hdf_devhost" name="u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2666 comm="hdf_devhost" path="/dev/__parameters__/u:object_r:const_postinstall_param:s0" dev="tmpfs" ino=58 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:const_postinstall_param:s0 tclass=file permissive=1
-#avc:  denied  { call } for  pid=2582 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:disp_gralloc_host:s0 tclass=binder permissive=0
 #avc:  denied  { call } for  pid=2582 comm="dcamera_host" scontext=u:r:dcamera_host:s0 tcontext=u:r:allocator_host:s0 tclass=binder permissive=0
 #avc:  denied  { read } for  pid=3798 comm="hdf_devhost" name="u:object_r:accessibility_param:s0" dev="tmpfs" ino=53 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:accessibility_param:s0 tclass=file permissive=0
 #avc:  denied  { get } for service=3901 pid=3568 scontext=u:r:dcamera_host:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
@@ -59,11 +55,9 @@ allow dcamera_host dev_unix_socket:dir { search };
 allow dcamera_host hdf_device_manager:hdf_devmgr_class { get };
 allow dcamera_host hdf_distributed_camera_provider_service:hdf_devmgr_class { add };
 allow dcamera_host hdf_distributed_camera_service:hdf_devmgr_class { add };
-allow dcamera_host hdf_hdi_display_gralloc_service:hdf_devmgr_class { get };
 allow dcamera_host hdf_allocator_service:hdf_devmgr_class { get };
 allow dcamera_host hdf_devmgr:binder { call };
 allow dcamera_host sa_device_service_manager:samgr_class { get };
-allow dcamera_host disp_gralloc_host:fd { use };
 allow dcamera_host allocator_host:fd { use };
 allow dcamera_host samgr:binder { call };
 debug_only(`
@@ -71,7 +65,6 @@ debug_only(`
 ')
 allow dcamera_host const_param:file { open read };
 allow dcamera_host const_postinstall_param:file { open map };
-allow dcamera_host disp_gralloc_host:binder { call };
 allow dcamera_host allocator_host:binder { call };
 allow dcamera_host accessibility_param:file { read open map };
 allow dcamera_host normal_hap_attr:binder { call };

@@ -165,7 +165,6 @@ allow hiprofiler_plugins vibrator_host:file read;
 allow hiprofiler_plugins audio_host:file read;
 allow hiprofiler_plugins blue_host:file read;
 allow hiprofiler_plugins camera_host:file read;
-allow hiprofiler_plugins disp_gralloc_host:file read;
 allow hiprofiler_plugins allocator_host:file read;
 allow hiprofiler_plugins input_user_host:file read;
 allow hiprofiler_plugins power_host:file read;

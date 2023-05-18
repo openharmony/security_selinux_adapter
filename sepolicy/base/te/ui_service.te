@@ -30,7 +30,6 @@ allow ui_service default_param:file { map open read };
 allow ui_service dev_kmsg_file:chr_file { open write };
 allow ui_service dev_mali:chr_file { getattr ioctl map open read write };
 allow ui_service dev_unix_socket:dir { search };
-allow ui_service disp_gralloc_host:fd { use };
 allow ui_service allocator_host:fd { use };
 allow ui_service distributedsche_param:file { map read read open };
 allow ui_service foundation:binder { call transfer };

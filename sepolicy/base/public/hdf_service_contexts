@@ -40,7 +40,6 @@ audio_hdi_a2dp_service                  u:object_r:hdf_audio_hdi_a2dp_service:s0
 audio_manager_service                   u:object_r:hdf_audio_manager_service:s0
 effect_model_service                    u:object_r:hdf_effect_model_service:s0
 wlan_hal_service                        u:object_r:hdf_wlan_hal_service:s0
-hdi_display_gralloc_service             u:object_r:hdf_hdi_display_gralloc_service:s0
 display_composer_service                u:object_r:hdf_display_composer_service:s0
 camera_service                          u:object_r:hdf_camera_service:s0
 face_auth_interface_service             u:object_r:hdf_face_auth_interface_service:s0

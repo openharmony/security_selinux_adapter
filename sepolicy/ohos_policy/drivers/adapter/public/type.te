@@ -17,10 +17,8 @@ type blue_host, hdfdomain, domain;
 type a2dp_host, hdfdomain, domain;
 type sample_host, hdfdomain, domain;
 
-type display_gralloc_host, hdfdomain, domain;
 
 type light_host, hdfdomain, domain;
-type disp_gralloc_host, hdfdomain, domain;
 type dcamera_host, hdfdomain, domain;
 type face_auth_host, hdfdomain, domain;
 type pin_auth_host, hdfdomain, domain;

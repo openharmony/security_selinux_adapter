@@ -34,7 +34,6 @@ allow system_basic_hap deviceinfoservice:binder { call };
 allow system_basic_hap dev_mali:chr_file { getattr ioctl map open read write };
 allow system_basic_hap dev_unix_socket:dir { search };
 allow system_basic_hap dev_unix_socket:sock_file { write };
-allow system_basic_hap disp_gralloc_host:fd { use };
 allow system_basic_hap allocator_host:fd { use };
 allow system_basic_hap distributedsche_param:file { map open read };
 allow system_basic_hap download_server:binder { call transfer };
