@@ -11,12 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { open } for  pid=403 comm="power_host" path="/sys/power/state" dev="sysfs" ino=4991 scontext=u:r:power_host:s0 tcontext=u:object_r:sysfs_state:s0 tclass=file permissive=1
-allow power_host sysfs_state:file { open };
-
-#avc:  denied  { read write } for  pid=403 comm="power_host" name="state" dev="sysfs" ino=4991 scontext=u:r:power_host:s0 tcontext=u:object_r:sysfs_state:s0 tclass=file permissive=1
-allow power_host sysfs_state:file { read write };
-
 #avc:  denied  { open } for  pid=478 comm="power_host" path="/data/log/thermal/thermal-log/" dev="sysfs" ino=4991 scontext=u:r:power_host:s0 tcontext=u:object_r:sysfs_state:s0 tclass=file permissive=1
 allow power_host data_log:file { getattr open read write unlink };
 
@@ -42,3 +36,6 @@ allow power_host sys_file:file { getattr };
 #avc:  denied  { open } for  pid=491 comm="IPC_1_542" path="/dev/__parameters__/u:object_r:thermal_log_param:s0" dev="tmpfs" ino=80 scontext=u:r:power_host:s0 tcontext=u:object_r:thermal_log_param:s0 tclass=file permissive=0
 #avc:  denied  { map } for  pid=485 comm="IPC_1_594" path="/dev/__parameters__/u:object_r:thermal_log_param:s0" dev="tmpfs" ino=80 scontext=u:r:power_host:s0 tcontext=u:object_r:thermal_log_param:s0 tclass=file permissive=0
 allow power_host thermal_log_param:file { open read map };
+
+#avc:  denied  { add } for service=thermal_interface_service pid=359 scontext=u:r:power_host:s0 tcontext=u:object_r:hdf_thermal_interface_service:s0 tclass=hdf_devmgr_class
+allow power_host hdf_thermal_interface_service:hdf_devmgr_class { add };
