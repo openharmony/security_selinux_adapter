@@ -18,6 +18,7 @@ allow edm_sa data_service_el1_file:file { create write open ioctl rename read un
 allow edm_sa data_service_file:dir { search };
 allow edm_sa dev_console_file:chr_file { read write };
 allow edm_sa dev_file:dir { getattr };
+allow edm_sa developtools_hdc_control_param:parameter_service { set };
 allow edm_sa devinfo_private_param:file { map open read };
 allow edm_sa distributeddata:binder { call };
 allow edm_sa distributeddata:fd { use };
@@ -37,6 +38,7 @@ allow edm_sa sa_foundation_appms:samgr_class { get };
 allow edm_sa sa_foundation_abilityms:samgr_class { get };
 allow edm_sa sa_foundation_bms:samgr_class { get };
 allow edm_sa sa_softbus_service:samgr_class { get };
+allow edm_sa sa_storage_manager_service:samgr_class { get };
 allow edm_sa sa_time_service:samgr_class { get };
 allow edm_sa sa_update_distributed_service:samgr_class { get };
 allow edm_sa sa_wifi_device_ability:samgr_class { get };
