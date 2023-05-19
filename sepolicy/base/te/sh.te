@@ -282,8 +282,6 @@ allow sh ui_service:process { getattr };
 allow sh updater_file:dir { getattr };
 allow sh updater_sa:dir { getattr search };
 allow sh updater_sa:file { open read };
-allow sh usb_service:dir { getattr search };
-allow sh usb_service:file { open read };
 allow sh useriam:dir { getattr search };
 allow sh useriam:file { open read };
 allow sh vendor_etc_file:dir { search };
