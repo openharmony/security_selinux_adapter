@@ -90,8 +90,6 @@ allow resource_schedule_service musl_param:file { open read map };
 allow resource_schedule_service resource_schedule_service:netlink_socket { read };
 allow resource_schedule_service proc_file:file { read open };
 allow resource_schedule_service param_watcher:file { read };
-allow resource_schedule_service sh:dir { search };
-allow resource_schedule_service sh:file { open };
 allow resource_schedule_service sh_exec:file { execute_no_trans map open read };
 allow resource_schedule_service sys_file:file { getattr write open ioctl create read };
 allow resource_schedule_service sys_file:dir { open read search };
@@ -126,10 +124,14 @@ allow resource_schedule_service sa_device_standby:samgr_class { add get };
 allow resource_schedule_service sensors:binder { call };
 allow resource_schedule_service sa_sensor_service:samgr_class { get };
 allow resource_schedule_service sa_foundation_battery_service:samgr_class { get };
-allow resource_schedule_service sh:binder { call };
 allow resource_schedule_service sa_foundation_powermgr_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:samgr_class { get };
 allow resource_schedule_service sa_time_service:binder { transfer };
 allow resource_schedule_service sa_foundation_bms:samgr_class { get };
 allow resource_schedule_service sensors:binder { transfer };
 allow resource_schedule_service time_service:binder { transfer };
+debug_only{'
+    allow resource_schedule_service sh:dir { search };
+    allow resource_schedule_service sh:file { open };
+    allow resource_schedule_service sh:binder { call };
+'}
