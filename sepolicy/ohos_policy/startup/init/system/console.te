@@ -11,5 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow console paramservice_socket:sock_file { write };
-allow console kernel:unix_stream_socket { connectto };
+debug_only(`
+    allow console paramservice_socket:sock_file { write };
+    allow console kernel:unix_stream_socket { connectto };
+')
