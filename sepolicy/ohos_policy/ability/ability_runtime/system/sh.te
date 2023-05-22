@@ -34,7 +34,6 @@ debug_only(`
     allow sh edm_sa:dir { getattr search };
     allow sh edm_sa:file { open read };
     allow sh face_auth_host:file { read };
-    allow sh faultloggerd:file { read };
     allow sh fingerprint_auth_host:file { read };
     allow sh hdf_devmgr:dir { getattr search };
     allow sh hdf_devmgr:file { open read };

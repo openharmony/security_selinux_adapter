@@ -90,9 +90,7 @@ allow processdump init:netlink_kobject_uevent_socket { read write };
 allow processdump init:unix_dgram_socket { sendto };
 allow processdump init:unix_stream_socket { read write connectto };
 
-#============ sh & foundation ===========
-allow processdump sh:fd use;
-allow processdump sh:fifo_file ioctl;
+#============ foundation ===========
 allow processdump foundation:dir { getattr open read search };
 
 #============ data_xxx ==================

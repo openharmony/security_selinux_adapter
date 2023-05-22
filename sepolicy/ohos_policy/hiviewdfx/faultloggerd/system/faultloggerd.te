@@ -68,11 +68,3 @@ allow faultloggerd_temp_file labeledfs:filesystem { associate };
 
 # allow hap apply pipe fd for mix stack
 allow hap_domain faultloggerd:fifo_file write;
-
-allow sh faultloggerd:dir { getattr search };
-allow sh faultloggerd:fifo_file read;
-allow sh faultloggerd:file { open read };
-allow sh faultloggerd:process getattr;
-allow sh faultloggerd_exec:file getattr;
-allow sh faultloggerd_temp_file:dir { getattr open read remove_name search write };
-allow sh faultloggerd_temp_file:file { getattr write open read unlink };
