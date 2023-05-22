@@ -18,7 +18,6 @@ allow hiprofiler_plugins dev_unix_socket:sock_file write;
 allow hiprofiler_plugins devpts:chr_file { read write };
 allow hiprofiler_plugins hdcd:unix_stream_socket { read write };
 allow hiprofiler_plugins hdcd:fifo_file write;
-allow hiprofiler_plugins sh:fd use;
 allow hiprofiler_plugins tty_device:chr_file { read write };
 allow hiprofiler_plugins dev_unix_socket:dir search;
 allow hiprofiler_plugins proc_cpuinfo_file:file { open read };
@@ -114,8 +113,6 @@ allow hiprofiler_plugins kernel:file { getattr open };
 allow hiprofiler_plugins media_service:dir search;
 allow hiprofiler_plugins proc_meminfo_file:file { getattr open read };
 allow hiprofiler_plugins proc_vmstat_file:file { getattr open read };
-allow hiprofiler_plugins sh:dir { open read };
-allow hiprofiler_plugins sh:file { getattr open };
 allow hiprofiler_plugins sysfs_block_zram:file { open read };
 allow hiprofiler_plugins sysfs_devices_system_cpu:file open;
 
@@ -245,6 +242,9 @@ debug_only(`
 	allow hiprofiler_plugins self:capability { sys_admin };
 	allow hiprofiler_plugins sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofiler_plugins self:capability setgid;
+	allow hiprofiler_plugins sh:fd use;
+	allow hiprofiler_plugins sh:dir { open read };
+	allow hiprofiler_plugins sh:file { getattr open };
 ')
 
 allow hiprofiler_plugins domain:dir { open read getattr search };
