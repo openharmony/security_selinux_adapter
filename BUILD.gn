@@ -63,6 +63,7 @@ ohos_shared_library("librestorecon") {
     "ramdisk",
     "updater",
   ]
+  innerapi_tags = [ "platformsdk_indirect" ]
   license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
