@@ -199,3 +199,9 @@ allow msdp_sa distributeddata:binder { call };
 debug_only(`
 allow msdp_sa debug_hap:fd { use };
 ')
+
+#avc:  denied  { use } for  pid=2822 comm="mos.filemanager" path="/dev/ashmem" dev="tmpfs" ino=480 scontext=u:r:msdp_sa:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=0
+allow msdp_sa system_core_hap:fd { use };
+
+#avc:  denied  { read } for  pid=2361 comm="ClientEventHand" scontext=u:r:system_core_hap:s0 tcontext=u:r:msdp_sa:s0 tclass=unix_stream_socket permissive=1
+allow msdp_sa system_core_hap:unix_stream_socket { read };
