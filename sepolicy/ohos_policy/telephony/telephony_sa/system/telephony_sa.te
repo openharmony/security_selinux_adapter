@@ -60,7 +60,9 @@ allow telephony_sa sa_telephony_tel_ims:samgr_class { add get };
 allow telephony_sa sa_telephony_tel_sms_mms:samgr_class { add get };
 allow telephony_sa sa_time_service:samgr_class get;
 allow telephony_sa self:unix_dgram_socket { getopt setopt };
-allow telephony_sa sh:binder { call transfer };
+debug_only(`
+    allow telephony_sa sh:binder { call transfer };
+')
 allow telephony_sa sysfs_net:dir { open read };
 allow telephony_sa system_basic_hap:binder { call transfer };
 allow telephony_sa system_basic_hap:fd use;

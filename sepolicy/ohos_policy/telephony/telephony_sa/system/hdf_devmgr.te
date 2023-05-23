@@ -15,9 +15,11 @@ allow hdf_devmgr riladapter_host:binder { call transfer };
 allow hdf_devmgr riladapter_host:dir search;
 allow hdf_devmgr riladapter_host:file { open read };
 allow hdf_devmgr riladapter_host:process getattr;
-allow hdf_devmgr sh:binder transfer;
-allow hdf_devmgr sh:dir search;
-allow hdf_devmgr sh:file { open read };
-allow hdf_devmgr sh:process getattr;
+debug_only(`
+    allow hdf_devmgr sh:binder transfer;
+    allow hdf_devmgr sh:dir search;
+    allow hdf_devmgr sh:file { open read };
+    allow hdf_devmgr sh:process getattr;
+')
 allow hdf_devmgr telephony_sa:binder transfer;
 
