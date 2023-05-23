@@ -41,4 +41,7 @@ allow mdnsmanager mdnsmanager:udp_socket { create getopt setopt bind name_bind i
 allow mdnsmanager node:udp_socket { node_bind };
 allow mdnsmanager port:udp_socket { name_bind };
 allow mdnsmanager mdnsmanager:unix_dgram_socket { ioctl getopt setopt };
-allow mdnsmanager sh:binder { call };
+
+debug_only(`
+    allow mdnsmanager sh:binder { call };
+')
