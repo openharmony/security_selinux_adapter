@@ -73,4 +73,34 @@ allow devattest_service tracefs:dir { search };
 allow devattest_service sa_foundation_ans:samgr_class { get };
 
 #avc:  denied  { read } for  pid=320 comm="IPC_1_566" name="u:object_r:persist_param:s0" dev="tmpfs" ino=58 scontext=u:r:devattest_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
-allow devattest_service persist_param:file { read };
+#avc:  denied  { open } for  pid=1587 comm="SaInit0" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=58 scontext=u:r:devattest_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for  pid=1601 comm="SaInit2" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=58 scontext=u:r:devattest_service:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+allow devattest_service persist_param:file { read open map };
+
+#avc:  denied  { get } for service=200 pid=1587 scontext=u:r:devattest_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
+allow devattest_service sa_accountmgr:samgr_class { get };
+
+#avc:  denied  { search } for  pid=2016 comm="devattest_servi" name="usr" dev="mmcblk0p7" ino=3033 scontext=u:r:devattest_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir permissive=0
+allow devattest_service system_usr_file:dir { search };
+
+#avc:  denied  { read } for  pid=2249 comm="sa_main" name="u:object_r:debug_param:s0" dev="tmpfs" ino=60 scontext=u:r:devattest_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2249 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=60 scontext=u:r:devattest_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+#avc:  denied  { map } for  pid=2249 comm="sa_main" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=60 scontext=u:r:devattest_service:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=1
+allow devattest_service debug_param:file { read open map };
+
+#avc:  denied  { write } for  pid=2249 comm="devattest_servi" name="trace_marker" dev="tracefs" ino=17126 scontext=u:r:devattest_service:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2249 comm="devattest_servi" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=17126 scontext=u:r:devattest_service:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
+allow devattest_service tracefs_trace_marker_file:file { write open };
+
+#avc:  denied  { call } for  pid=2249 comm="devattest_servi" scontext=u:r:devattest_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2249 comm="devattest_servi" scontext=u:r:devattest_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
+allow devattest_service param_watcher:binder { call transfer };
+
+#avc:  denied  { getattr } for  pid=2249 comm="devattest_servi" path="/system/usr/ohos_locale_config/supported_regions.xml" dev="mmcblk0p7" ino=3040 scontext=u:r:devattest_service:s0 tcontext=u:object_r:system_usr_file:s0 tclass=file permissive=1
+allow devattest_service system_usr_file:file { getattr };
+
+#avc:  denied  { get } for service=3901 pid=1588 scontext=u:r:devattest_service:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=0
+allow devattest_service sa_param_watcher:samgr_class { get };
+
+#avc:  denied  { call } for  pid=1588 comm="SaInit0" scontext=u:r:devattest_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
+allow devattest_service accountmgr:binder { call };
