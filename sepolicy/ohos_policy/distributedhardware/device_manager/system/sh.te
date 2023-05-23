@@ -11,20 +11,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { read } for  pid=2050 comm="ps" scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=file permissive=1
-#avc:  denied  { open } for  pid=2057 comm="ps" path="/proc/489/stat" dev="proc" ino=39097 scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=file permissive=1
-allow sh device_manager:file { read open };
+debug_only(`
+    #avc:  denied  { read } for  pid=2050 comm="ps" scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=file permissive=1
+    #avc:  denied  { open } for  pid=2057 comm="ps" path="/proc/489/stat" dev="proc" ino=39097 scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=file permissive=1
+    allow sh device_manager:file { read open };
+')
 
-#avc:  denied  { getattr } for  pid=2057 comm="ps" path="/proc/489" dev="proc" ino=35768 scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=dir permissive=1
-#avc:  denied  { search } for  pid=2057 comm="ps" name="489" dev="proc" ino=35768 scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=dir permissive=1
-allow sh device_manager:dir { getattr search };
+debug_only(`
+    #avc:  denied  { getattr } for  pid=2057 comm="ps" path="/proc/489" dev="proc" ino=35768 scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=dir permissive=1
+    #avc:  denied  { search } for  pid=2057 comm="ps" name="489" dev="proc" ino=35768 scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=dir permissive=1
+    allow sh device_manager:dir { getattr search };
+')
 
-#avc:  denied  { call } for  pid=1952 comm="credentialtest" scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=1952 comm="credentialtest" scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
-allow sh device_manager:binder { call transfer };
+debug_only(`
+    #avc:  denied  { call } for  pid=1952 comm="credentialtest" scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
+    #avc:  denied  { transfer } for  pid=1952 comm="credentialtest" scontext=u:r:sh:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
+    allow sh device_manager:binder { call transfer };
+')
 
-#avc:  denied  { get } for service=4802 pid=2136 scontext=u:r:sh:s0 tcontext=u:object_r:sa_foundation_devicemanager_service:s0 tclass=samgr_class permissive=1
-allow sh sa_foundation_devicemanager_service:samgr_class { get };
+debug_only(`
+    #avc:  denied  { get } for service=4802 pid=2136 scontext=u:r:sh:s0 tcontext=u:object_r:sa_foundation_devicemanager_service:s0 tclass=samgr_class permissive=1
+    allow sh sa_foundation_devicemanager_service:samgr_class { get };
+')
 
-#avc:  denied  { get } for service=4801 pid=1855 scontext=u:r:sh:s0 tcontext=u:object_r:sa_dhardware_service:s0 tclass=samgr_class permissive=1
-allow sh sa_dhardware_service:samgr_class { get };
+debug_only(`
+    #avc:  denied  { get } for service=4801 pid=1855 scontext=u:r:sh:s0 tcontext=u:object_r:sa_dhardware_service:s0 tclass=samgr_class permissive=1
+    allow sh sa_dhardware_service:samgr_class { get };
+')

@@ -277,8 +277,10 @@ allow device_manager tracefs_trace_marker_file:file { write open };
 #avc:  denied  { call } for  pid=657 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:token_sync_service:s0 tclass=binder permissive=1
 allow device_manager token_sync_service:binder { call };
 
-#avc:  denied  { call } for  pid=686 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
-allow device_manager sh:binder { call };
+debug_only(`
+    #avc:  denied  { call } for  pid=686 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
+    allow device_manager sh:binder { call };
+')
 
 #avc:  denied  { get } for service=3503 pid=615 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=0
 allow device_manager sa_accesstoken_manager_service:samgr_class { get };
