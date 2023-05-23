@@ -15,4 +15,7 @@ debug_only(`
     allow sh distributedsche:binder { call transfer };
     allow sh distributedsche:process { sigkill };
     allow sh sa_foundation_continuation_manager_service:samgr_class { get };
+    allow sh distributedsche:dir { getattr search };
+    allow sh distributedsche:file { open read };
+    allow sh distributedsche_param:file { map open read };
 ')

@@ -34,11 +34,6 @@ allow ui_service sa_concurrent_task_service:samgr_class { get };
 allow ui_service concurrent_task_service:binder { call };
 #foundation
 allow foundation concurrent_task_service:binder { call transfer };
-#sh
-allow sh concurrent_task_service:file { read open };
-allow sh concurrent_task_service:dir { getattr search };
-allow sh concurrent_task_service:binder { call };
-allow sh sa_concurrent_task_service:samgr_class { get };
 #dev_auth_ctrl
 allow init dev_auth_ctrl:chr_file { setattr };
 allow udevd dev_auth_ctrl:chr_file { getattr write };
@@ -57,3 +52,10 @@ allow system_basic_hap ffrt_param:file { read open map };
 allow system_core_hap ffrt_param:file { read open map };
 allow foundation ffrt_param:file { read open map };
 allow foundation sa_concurrent_task_service:samgr_class { get };
+#sh
+debug_only(`
+    allow sh concurrent_task_service:file { read open };
+    allow sh concurrent_task_service:dir { getattr search };
+    allow sh concurrent_task_service:binder { call };
+    allow sh sa_concurrent_task_service:samgr_class { get };
+')

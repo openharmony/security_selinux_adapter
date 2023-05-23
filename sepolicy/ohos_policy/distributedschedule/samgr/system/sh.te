@@ -49,5 +49,9 @@ debug_only(`
     #avc: denied { add } for service=1493 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_tt:s0 tclass=samgr_class permissive=1
     #avc: denied { get } for service=1493 pid=1990 scontext=u:r:sh:s0 tcontext=u:object_r:sa_distributed_sched_test_tt:s0 tclass=samgr_class permissive=1
     allow sh sa_distributed_sched_test_tt:samgr_class { add get };
+
+    allow sh samgr:dir { getattr search };
+    allow sh samgr:file { open read };
+    allow sh samgr:process { getattr };
 ')
 #add selinux for tdd end

@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+debug_only(`
 allow sh tmpfs:lnk_file { getattr };
 allow sh privacy_service:dir { getattr search };
 allow sh privacy_service:file { open read };
@@ -23,3 +24,4 @@ allow sh media_service:lnk_file { getattr read };
 allow sh normal_hap_attr:dir { open read };
 allow sh normal_hap_attr:lnk_file { getattr read };
 allow sh samain_exec:file { getattr };
+')

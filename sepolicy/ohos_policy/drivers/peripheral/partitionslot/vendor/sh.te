@@ -11,5 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow sh partitionslot_host:dir { getattr search };
-allow sh partitionslot_host:file { open read };
+debug_only(`
+    allow sh partitionslot_host:dir { getattr search };
+    allow sh partitionslot_host:file { open read };
+')
