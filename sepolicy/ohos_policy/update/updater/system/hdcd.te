@@ -27,8 +27,11 @@ allow hdcd rootfs:file { entrypoint map read execute open getattr };
 
 # avc: denied { setcurrent } for pid=270 comm="hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:hdcd:s0 tclass=process permissive=1
 allow hdcd hdcd:process { setcurrent };
+
+debug_only(`
 # avc: denied { dyntransition } for pid=270 comm="hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:sh:s0 tclass=process permissive=1
 allow hdcd sh:process { dyntransition };
+')
 
 #avc: denied { read write } for pid=235 comm="hdcd" path="socket:[20967]" dev="sockfs" ino=20967 scontext=u:r:hdcd:s0 tcontext=u:r:ueventd:s0 tclass=netlink_kobject_uevent_socket permissive=1
 allow hdcd ueventd:netlink_kobject_uevent_socket { read write };

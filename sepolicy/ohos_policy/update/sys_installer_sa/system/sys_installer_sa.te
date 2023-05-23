@@ -64,7 +64,11 @@ allow sys_installer_sa data_updater_file:dir { add_name search write remove_name
 allow sys_installer_sa data_updater_file:dir { append ioctl open read };
 allow sys_installer_sa data_updater_file:file { append create ioctl open read write rename unlink getattr setattr relabelfrom map};
 allow sys_installer_sa ohos_dev_param:file { read };
+
+debug_only(`
 allow sys_installer_sa sh:binder { call };
+')
+
 allow sys_installer_sa tmpfs:chr_file { read };
 allow sys_installer_sa update_firmware_file:dir { add_name search write remove_name getattr append ioctl open read };
 allowxperm sys_installer_sa update_firmware_file:dir ioctl { 0x5413 };
