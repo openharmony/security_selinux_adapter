@@ -15,3 +15,4 @@ allow system_basic_hap data_app_el1_file:file { execute };
 allow system_basic_hap system_basic_hap:tcp_socket { create setopt bind listen accept read write };
 allow system_basic_hap port:tcp_socket { name_bind };
 allow system_basic_hap node:tcp_socket { node_bind };
+allow system_basic_hap sh:binder { call };
