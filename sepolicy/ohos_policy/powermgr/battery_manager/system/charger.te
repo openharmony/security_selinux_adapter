@@ -185,3 +185,24 @@ allow charger dev_graphics_file:chr_file { open read write ioctl };
 
 # avc:  denied  { set } for process="charger" parameter=startup.device.ctl pid=277 uid=6667 gid=6667 scontext=u:r:charger:s0 tcontext=u:object_r:servicectrl_reboot_param:s0 tclass=parameter_service permissive=1
 allow charger servicectrl_reboot_param:parameter_service { set };
+
+#avc:  denied  { get } for service=display_composer_service pid=281 scontext=u:r:charger:s0 tcontext=u:object_r:hdf_display_composer_service:s0 tclass=hdf_devmgr_class permissive=0
+allow charger hdf_display_composer_service:hdf_devmgr_class { get };
+
+#avc:  denied  { call } for  pid=281 comm="charger" scontext=u:r:charger:s0 tcontext=u:r:composer_host:s0 tclass=binder permissive=0
+allow charger composer_host:binder { call };
+
+allow charger dev_console_file:chr_file { read write };
+
+allow charger musl_param:file { map open read };
+
+allow charger chip_prod_file:dir { search };
+
+allow charger dev_ashmem_file:chr_file { open };
+
+allow charger sys_prod_file:dir { search };
+
+allow charger composer_host:fd { use };
+
+#avc:  denied  { open } for  pid=279 comm="charger" path="/dev/__parameters__/u:object_r:debug_param:s0" dev="tmpfs" ino=60 scontext=u:r:charger:s0 tcontext=u:object_r:debug_param:s0 tclass=file permissive=0
+allow charger debug_param:file { open read map };
