@@ -11,14 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-neverallow {
-    domain
-    -storage_daemon
-} data_user_file:file {
-    never_execute_file
-};
+type medialibrary_hap, normal_hap_attr, hap_domain, domain;
 
-allow hap_domain data_user_file:dir create_dir_perms;
-allow hap_domain data_user_file:file create_file_perms;
-allow hap_domain epfs:dir create_dir_perms;
-allow hap_domain epfs:{file lnk_file} create_file_perms;
+type medialibrary_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
+
+allow medialibrary_hap mimetype_file:file { open read getattr };
+allow medialibrary_hap privacy_service:binder call;
+allow medialibrary_hap distributedfiledaemon:binder transfer;
