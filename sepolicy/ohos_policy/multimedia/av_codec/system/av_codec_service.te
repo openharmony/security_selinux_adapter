@@ -29,7 +29,9 @@ allow av_codec_service param_watcher:binder { call transfer };
 
 # avc:  denied  { call } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
-allow av_codec_service sh:binder { call transfer };
+debug_only(`
+    allow av_codec_service sh:binder { call transfer };
+')
 
 # avc:  denied  { use } for  pid=2037 comm="avmuxer_capi_un" path="/data/av_codec_test/Muxer_Create.mp4" dev="mmcblk0p12" ino=1397 scontext=u:r:av_codec_service:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
 allow av_codec_service sh:fd { use };
