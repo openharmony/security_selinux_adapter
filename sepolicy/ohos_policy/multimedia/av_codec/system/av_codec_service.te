@@ -31,10 +31,8 @@ allow av_codec_service param_watcher:binder { call transfer };
 # avc:  denied  { transfer } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
 debug_only(`
     allow av_codec_service sh:binder { call transfer };
+    allow av_codec_service sh:fd { use };
 ')
-
-# avc:  denied  { use } for  pid=2037 comm="avmuxer_capi_un" path="/data/av_codec_test/Muxer_Create.mp4" dev="mmcblk0p12" ino=1397 scontext=u:r:av_codec_service:s0 tcontext=u:r:sh:s0 tclass=fd permissive=1
-allow av_codec_service sh:fd { use };
 
 # avc:  denied  { search } for  pid=1648 comm="dump_tmp_thread" name="bin" dev="mmcblk0p7" ino=115 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
 allow av_codec_service system_bin_file:dir { search };
@@ -50,18 +48,10 @@ allow av_codec_service tracefs:dir { search };
 # avc:  denied  { write } for  pid=1651 comm="av_codec_servic" name="trace_marker" dev="tracefs" ino=17477 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
 allow av_codec_service tracefs_trace_marker_file:file { open write };
 
-allow av_codec_service debug_param:file { map };
-allow av_codec_service debug_param:file { open };
-allow av_codec_service debug_param:file { read };
+allow av_codec_service debug_param:file { map open read };
 allow av_codec_service dev_console_file:chr_file { read write };
 allow av_codec_service dev_file:dir { getattr };
 allow av_codec_service dev_unix_socket:dir { search };
-allow av_codec_service hilog_param:file { map };
-allow av_codec_service hilog_param:file { open };
-allow av_codec_service hilog_param:file { read };
-allow av_codec_service musl_param:file { map };
-allow av_codec_service musl_param:file { open };
-allow av_codec_service musl_param:file { read };
-allow av_codec_service sysfs_devices_system_cpu:file { getattr };
-allow av_codec_service sysfs_devices_system_cpu:file { open };
-allow av_codec_service sysfs_devices_system_cpu:file { read };
+allow av_codec_service hilog_param:file { map open read };
+allow av_codec_service musl_param:file { map open read };
+allow av_codec_service sysfs_devices_system_cpu:file { getattr open read };
