@@ -37,4 +37,5 @@ debug_only(`
 
     #avc: denied { create } for pid=2903 comm="mkdir" name="power_config" scontext=u:r:sh:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
     allow sh vendor_etc_file:dir { create };
+    allow sh power_shell_exec:file { execute execute_no_trans getattr map open read read open };
 ')

@@ -18,7 +18,6 @@ dontaudit console console:capability { dac_read_search };
 allow console const_allow_mock_param:file { map open read };
 allow console const_allow_param:file { map open read };
 allow console const_build_param:file { map open read };
-allow console const_display_brightness_param:file { map open read };
 allow console const_param:file { map open read };
 allow console const_postinstall_fstab_param:file { map open read };
 allow console const_postinstall_param:file { map open read };
