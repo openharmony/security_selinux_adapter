@@ -21,7 +21,9 @@ allow foundation sa_foundation_cesfwk_service:samgr_class { get };
 allow foundation sa_foundation_thermal_service:samgr_class { add };
 
 #avc:  denied  { call } for  pid=472 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
-allow foundation sh:binder { call };
+debug_only(`
+    allow foundation sh:binder { call };
+')
 
 #avc:  denied  { call } for  pid=472 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:normal_hap:s0 tclass=binder permissive=1
 allow foundation normal_hap_attr:binder { call };
