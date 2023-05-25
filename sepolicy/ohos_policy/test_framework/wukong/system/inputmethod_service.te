@@ -12,4 +12,3 @@
 # limitations under the License.
 
 allow inputmethod_service system_core_hap:binder { call };
-

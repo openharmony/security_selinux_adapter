@@ -26,4 +26,3 @@ allow multimodalinput sa_foundation_dms:samgr_class { get };
 allow multimodalinput sa_foundation_wms:samgr_class { get };
 allow multimodalinput sa_multimodalinput_service:samgr_class { get };
 allow multimodalinput sa_render_service:samgr_class { get };
-

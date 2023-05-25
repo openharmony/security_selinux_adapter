@@ -11,19 +11,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+debug_only(`
 allow normal_hap_attr sh:binder { call };
-allow normal_hap_attr build_version_param:file { read };
-allow normal_hap_attr build_version_param:file { open };
-allow normal_hap_attr build_version_param:file { map };
-allow normal_hap_attr bootevent_samgr_param:file { read };
-allow normal_hap_attr bootevent_samgr_param:file { open };
-allow normal_hap_attr bootevent_samgr_param:file { map };
-allow normal_hap_attr input_pointer_device_param:file { read };
-allow normal_hap_attr input_pointer_device_param:file { open };
-allow normal_hap_attr input_pointer_device_param:file { map };
+')
+
+allow normal_hap_attr build_version_param:file { read open map };
+allow normal_hap_attr bootevent_samgr_param:file { read open map };
+allow normal_hap_attr input_pointer_device_param:file { read open map };
 allow normal_hap_attr const_display_brightness_param:file { read };
-allow normal_hap_attr netmanager:binder { call };
-allow normal_hap_attr netmanager:binder { transfer };
+allow normal_hap_attr netmanager:binder { call transfer };
 allow normal_hap_attr const_display_brightness_param:file { map open };
 allow normal_hap_attr default_param:file { map open read };
 allow normal_hap_attr dev_unix_socket:sock_file { write };
@@ -35,3 +31,4 @@ allow normal_hap_attr dev_mali:chr_file { ioctl };
 allow normal_hap_attr dev_unix_socket:sock_file { write };
 allow normal_hap_attr faultloggerd_temp_file:file { read write read write };
 allowxperm normal_hap_attr dev_mali:chr_file ioctl { 0x800f };
+
