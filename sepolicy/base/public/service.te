@@ -224,5 +224,4 @@ type sa_instance_id, sa_service_attr;
 type sa_oaid_service, sa_service_attr;
 type sa_ui_appearance, sa_service_attr;
 type sa_device_standby, sa_service_attr;
-type sa_task_heartbeat_mgr, sa_service_attr;
 type sa_push_manager_service, sa_service_attr;
