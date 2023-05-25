@@ -15,5 +15,7 @@ debug_only(`
     allow sh update_firmware_file:dir { search read write rmdir remove_name open getattr };
     allow sh update_dupdate_engine_file:dir { getattr open read remove_name search write };
     allow sh update_dupdate_engine_file:file { getattr open read unlink write };
+    allow sh updater_sa:dir { getattr search };
+    allow sh updater_sa:file { open read };
 ')
 

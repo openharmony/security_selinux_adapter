@@ -12,5 +12,4 @@
 # limitations under the License.
 
 type data_updater_file, file_attr, data_file_attr;
-type update_firmware_file, data_file_attr, file_attr;
 

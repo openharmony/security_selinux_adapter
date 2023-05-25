@@ -16,5 +16,4 @@
 /data/updater/(.*)?     u:object_r:data_updater_file:s0
 /tmp/updater_binary     u:object_r:updater_binary_exec:s0
 /bin/updater_binary     u:object_r:updater_binary_exec:s0
-/data/update/ota_package(/.*)?  u:object_r:update_firmware_file:s0
 
