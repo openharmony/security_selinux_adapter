@@ -60,6 +60,8 @@ allow privacy_service sa_audio_policy_service:samgr_class { get };
 allow privacy_service sa_camera_service:samgr_class { get };
 allow privacy_service sa_foundation_abilityms:samgr_class { get };
 allow privacy_service sa_foundation_appms:samgr_class { get };
+# avc:  denied  { get } for service=3301 pid=531 scontext=u:r:privacy_service:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
+allow privacy_service sa_foundation_powermgr_service:samgr_class { get };
 allow privacy_service sa_foundation_wms:samgr_class { get };
 allow privacy_service sa_param_watcher:samgr_class { get };
 allow privacy_service sa_privacy_service:samgr_class { add get };
