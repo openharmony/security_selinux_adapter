@@ -13,6 +13,8 @@
 
 debug_only(`
     allow sh pasteboard_service:binder { call transfer };
-    allow sh pasteboard_service:process { signal };
+    allow sh pasteboard_service:dir { getattr search };
     allow sh pasteboard_service:fd { use };
+    allow sh pasteboard_service:file { open read };
+    allow sh pasteboard_service:process { getattr signal };
 ')
