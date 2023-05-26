@@ -146,7 +146,6 @@
 3008	                               u:object_r:sa_camera_service:s0
 3009                                   u:object_r:sa_audio_policy_service:s0
 3010	                               u:object_r:sa_avsession_service:s0
-3011                                   u:object_r:sa_av_codec_service:s0
 3100	                               u:object_r:sa_subsys_multimodainput_service:s0
 3101                                   u:object_r:sa_multimodalinput_service:s0
 3102	                               u:object_r:sa_multimodal_channel_service:s0
