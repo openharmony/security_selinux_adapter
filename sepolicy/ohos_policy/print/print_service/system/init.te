@@ -14,4 +14,3 @@
 allow init print_service:process { rlimitinh siginh transition };
 allow init cupsd_exec:file { execute getattr read open };
 allow init cupsd:process { rlimitinh siginh transition };
-
