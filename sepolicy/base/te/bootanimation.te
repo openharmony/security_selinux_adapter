@@ -58,6 +58,7 @@ allow bootanimation render_service:unix_stream_socket { read read write };
 allow bootanimation sa_foundation_dms:samgr_class { get };
 allow bootanimation sa_foundation_wms:samgr_class { get };
 allow bootanimation sa_media_service:samgr_class { get };
+allow bootanimation sa_av_codec_service:samgr_class { get };
 allow bootanimation sa_multimodalinput_service:samgr_class { get };
 allow bootanimation sa_param_watcher:samgr_class { get };
 allow bootanimation sa_render_service:samgr_class { get };

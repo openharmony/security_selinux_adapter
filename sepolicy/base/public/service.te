@@ -152,6 +152,7 @@ type sa_media_library_service, sa_service_attr;
 type sa_camera_service, sa_service_attr;
 type sa_subsys_ai_service, sa_service_attr;
 type sa_avsession_service, sa_service_attr;
+type sa_av_codec_service, sa_service_attr;
 type sa_subsys_multimodainput_service, sa_service_attr;
 type sa_multimodal_channel_service, sa_service_attr;
 type sa_subsys_ai_ds_service, sa_service_attr;
