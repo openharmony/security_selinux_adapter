@@ -11,7 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-debug_only(`
-    allow system_core_hap data_app_el1_file:file { execute };
-    allow system_core_hap system_core_hap:tcp_socket { create };
-')
+type uitest_exec, exec_attr, file_attr, system_file_attr;
+
+# uitest started by sh, translate to sh domain (in 'start-daemon', parent-process is sh)
+domain_auto_transition_pattern(sh, uitest_exec, sh);
+
+# enable getting accessibility service
+allow sh sa_accessibleabilityms:samgr_class { get };
