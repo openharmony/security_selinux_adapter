@@ -11,11 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-debug_only(`
-    # avc:  denied  { getattr } for  pid=1388 comm="ps" scontext=u:r:sh:s0 tcontext=u:r:av_codec_service:s0 tclass=process permissive=1
-    allow sh av_codec_service:process { getattr };
 
-    allow sh av_codec_service:binder { call transfer };
-    allow sh av_codec_service:dir { getattr search };
-    allow sh av_codec_service:file { open read };
-')
+3011                                   u:object_r:sa_av_codec_service:s0

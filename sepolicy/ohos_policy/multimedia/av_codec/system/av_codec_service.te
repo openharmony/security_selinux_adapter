@@ -12,6 +12,7 @@
 # limitations under the License.
 
 type av_codec_service, sadomain, domain;
+type sa_av_codec_service, sa_service_attr;
 
 # avc:  denied  { getopt } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:av_codec_service:s0 tclass=unix_dgram_socket permissive=1
 # avc:  denied  { setopt } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:av_codec_service:s0 tclass=unix_dgram_socket permissive=1
@@ -48,6 +49,24 @@ allow av_codec_service tracefs:dir { search };
 # avc:  denied  { write } for  pid=1651 comm="av_codec_servic" name="trace_marker" dev="tracefs" ino=17477 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
 allow av_codec_service tracefs_trace_marker_file:file { open write };
 
+# avc:  denied  { get } for service=3901 pid=521 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
+allow av_codec_service sa_param_watcher:samgr_class { get };
+
+allow av_codec_service data_test_media_file:file { write read getattr };
+
+allow av_codec_service system_core_hap:fd { use };
+
+allow av_codec_service system_basic_hap:fd { use };
+
+allow av_codec_service system_basic_hap:binder { transfer call };
+
+allow av_codec_service system_basic_hap_data_file:file { getattr read write };
+
+allow av_codec_service normal_hap_data_file_attr:file { read getattr };
+
+allow av_codec_service normal_hap_data_file:file { write };
+
+allow av_codec_service sa_av_codec_service:samgr_class { add get_remote };
 allow av_codec_service debug_param:file { map open read };
 allow av_codec_service dev_console_file:chr_file { read write };
 allow av_codec_service dev_file:dir { getattr };
