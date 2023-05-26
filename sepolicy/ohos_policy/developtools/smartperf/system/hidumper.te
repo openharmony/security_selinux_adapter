@@ -11,8 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+debug_only(`
 allow hidumper sh:fd { use };
 allow hidumper sh:fifo_file { read write };
+')
 allow hidumper hiprofilerd:fd { use };
 allow hidumper hiprofiler_plugins:fd { use };
 allow hidumper hiprofiler_plugins:fifo_file { write };

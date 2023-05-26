@@ -1,0 +1,7 @@
+allow sh musl_param:file { map open };
+debug_only(`
+allow sh sh:udp_socket { read };
+#allow sh system_basic_hap_data_file:dir { open };
+allow sh system_basic_hap_data_file:dir { search }
+')
+
