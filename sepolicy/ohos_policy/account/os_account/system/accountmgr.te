@@ -70,6 +70,7 @@ allow accountmgr sa_time_service:samgr_class { get };
 
 allow accountmgr accessibility:binder { transfer };
 allow accountmgr bootevent_param:file { map open read };
+allow accountmgr bootevent_param:parameter_service { set };
 allow accountmgr bootevent_samgr_param:file { map open read };
 allow accountmgr build_version_param:file { map open read };
 allow accountmgr const_allow_mock_param:file { map open read };
@@ -84,6 +85,7 @@ allow accountmgr const_product_param:file { map open read };
 allow accountmgr debug_param:file { map open read };
 allow accountmgr default_param:file { map open read };
 allow accountmgr deviceauth_service:binder { transfer };
+allow accountmgr dev_console_file:chr_file { read write };
 
 allow accountmgr time_service:binder { call transfer };
 allow accountmgr distributedfiledaemon:binder { call transfer };
@@ -102,6 +104,7 @@ allow accountmgr net_param:file { map open read };
 allow accountmgr net_tcp_param:file { map open read };
 allow accountmgr ohos_boot_param:file { map open read };
 allow accountmgr ohos_param:file { map open read };
+allow accountmgr paramservice_socket:sock_file { write };
 allow accountmgr persist_param:file { map open read };
 allow accountmgr persist_sys_param:file { map open read };
 allow accountmgr security_param:file { map open read };
@@ -110,6 +113,9 @@ allow accountmgr startup_param:file { map open read };
 allow accountmgr sys_param:file { map open read };
 allow accountmgr system_bin_file:dir { search };
 allow accountmgr sys_usb_param:file { map open read };
+allow accountmgr sysfs_devices_system_cpu:file { open read getattr };
+allow accountmgr kernel:unix_stream_socket { connectto };
+allow accountmgr vendor_etc_file:dir { search };
 
 # avc: denied { open } for  pid=541 comm="IPC_0_735" path="/dev/ashmem" dev="tmpfs" ino=170 scontext=u:r:accountmgr:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow accountmgr dev_ashmem_file:chr_file { open };
