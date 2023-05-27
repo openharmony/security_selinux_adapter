@@ -33,6 +33,7 @@
 /dev(/.*)?       u:object_r:dev_file:s0
 /dev/__parameters__(/.*)?         u:object_r:dev_parameters_file:s0
 /dev/block(/.*)?                u:object_r:dev_block_file:s0
+/dev/block/zram0                u:object_r:zram_device:s0
 /dev/bus(/.*)?                u:object_r:dev_bus_file:s0
 /dev/bus/usb(/.*)?                u:object_r:dev_bus_usb_file:s0
 /dev/char(/.*)?                u:object_r:dev_char_file:s0

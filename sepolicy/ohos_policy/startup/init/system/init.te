@@ -433,3 +433,9 @@ allowxperm init dev_block_file:blk_file ioctl { 0x125e 0x1272 0x127c 0x5413 };
 allowxperm init dev_console_file:chr_file ioctl { 0x540e };
 allowxperm init init:udp_socket ioctl { 0x8913 0x8914 };
 allowxperm init devpts:chr_file ioctl { 0x5413 };
+
+# for hyperhold
+allow init zram_device:blk_file { read open write ioctl getattr };
+allow init hyperhold_sys:dir { search relabelto write add_name getattr setattr };
+allow init hyperhold_sys:file { getattr open read write create rename unlink };
+allowxperm init zram_device:blk_file ioctl { 0x126e };

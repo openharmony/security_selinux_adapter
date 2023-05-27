@@ -88,3 +88,9 @@ allow memmgrservice light_host:file { getattr };
 allow memmgrservice vibrator_host:file { getattr };
 allow memmgrservice sensor_host:file { getattr };
 allow memmgrservice input_user_host:file { getattr };
+
+# nandlife_controller
+allow memmgrservice data_service_file:dir { search };
+allow memmgrservice data_service_el1_file:dir { search write add_name };
+allow memmgrservice data_service_el1_file:file { read open lock write getattr create };
+allow memmgrservice sysfs_devices_system_cpu:file { read open getattr };

@@ -313,3 +313,6 @@ type module_update_lib_file, module_update_file_attr, file_attr;
 type data_module_update, file_attr, data_file_attr;
 type data_module_update_package, file_attr, data_file_attr;
 type system_module_update_file, system_file_attr, file_attr;
+
+# for hyperhold
+type zram_device, dev_attr;
