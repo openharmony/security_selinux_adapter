@@ -20,3 +20,14 @@ allow system_basic_hap sa_miscdevice_service:samgr_class { get };
 #avc:  denied  { call } for  pid=2335 comm="jsThread-1" scontext=u:r:system_basic_hap:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 #avc:  denied  { transfer } for  pid=2335 comm="jsThread-1" scontext=u:r:system_basic_hap:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow system_basic_hap sensors:binder { call transfer };
+
+#avc:  denied  { use } for pid=2519 comm="wei.hmos.health" path="socket:[39017]" dev="sockfs" ino=39017 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=0
+#avc:  denied  { use } for pid=2519 comm="wei.hmos.health" path="socket:[39017]" dev="sockfs" ino=39017 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=1
+allow sensors system_basic_hap:fd { use };
+
+#avc:  denied  { read write } for pid=2748 comm="wei.hmos.health" path="socket:[39036]" dev="sockfs" ino=39036 scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=unix_stream_socket permissive=1
+allow sensors system_basic_hap:unix_stream_socket { read write };
+
+#avc:  denied  { call } for pid=1208 comm="IPC_0_1342" scontext=u:r:sensors:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+allow sensors system_basic_hap:binder { call };
+
