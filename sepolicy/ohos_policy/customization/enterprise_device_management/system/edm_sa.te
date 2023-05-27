@@ -33,6 +33,7 @@ allow edm_sa default_param:file { map open read };
 allow edm_sa dev_console_file:chr_file { read write };
 allow edm_sa dev_file:dir { getattr };
 allow edm_sa dev_unix_socket:dir { search };
+allow edm_sa developtools_hdc_control_param:file { map open read };
 allow edm_sa developtools_hdc_control_param:parameter_service { set };
 allow edm_sa devinfo_private_param:file { map open read };
 allow edm_sa distributeddata:binder { call };
