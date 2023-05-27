@@ -12,10 +12,5 @@
 # limitations under the License.
 
 allow power_host data_log:dir { search };
-allow power_host data_log:file { append };
-allow power_host data_log:file { ioctl };
-allow power_host data_log:file { open };
-allow power_host data_log:file { read };
-allowxperm power_host data_log:file ioctl { 0x5413 };
 allow power_host data_log:file { append ioctl open read };
-
+allowxperm power_host data_log:file ioctl { 0x5413 };
