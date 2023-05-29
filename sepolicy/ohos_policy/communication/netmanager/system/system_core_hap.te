@@ -20,3 +20,5 @@ allow system_core_hap system_core_hap:udp_socket { getattr create setopt bind co
 
 allow system_core_hap system_core_hap:udp_socket { getopt };
 allow system_core_hap fwmark_service:sock_file { write };
+
+allow system_core_hap node:tcp_socket { node_bind };
