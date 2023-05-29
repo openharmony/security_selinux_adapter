@@ -191,3 +191,5 @@ allow bluetooth_service sa_pulseaudio_audio_service:samgr_class { get };
 #bluetooth_service
 allow bluetooth_service resource_schedule_service:binder { call };
 
+allow bluetooth_service persist_param:parameter_service set;
+
