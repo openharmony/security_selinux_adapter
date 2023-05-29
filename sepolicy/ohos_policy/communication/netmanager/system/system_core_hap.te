@@ -22,3 +22,4 @@ allow system_core_hap system_core_hap:udp_socket { getopt };
 allow system_core_hap fwmark_service:sock_file { write };
 
 allow system_core_hap sa_comm_net_stats_manager_service:samgr_class { get };
+allow system_core_hap node:tcp_socket { node_bind };
