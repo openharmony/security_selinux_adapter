@@ -50,3 +50,5 @@ allow huks_service useriam:binder { call transfer };
 allow huks_service huks_service:unix_dgram_socket { getopt setopt };
 
 allow huks_service devinfo_private_param:file { map open read };
+
+allow huks_service sa_ca_daemon_service:samgr_class { get };

@@ -260,3 +260,4 @@ allow storage_daemon distributedfiledaemon:binder { call };
 allow storage_daemon dev_console_file:chr_file { read write };
 allow storage_daemon musl_param:file { open read map};
 allow storage_daemon sa_filemanagement_cloud_daemon_service:samgr_class { get };
+allow storage_daemon sa_ca_daemon_service:samgr_class { get };
