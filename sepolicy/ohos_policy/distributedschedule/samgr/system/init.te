@@ -12,3 +12,6 @@
 # limitations under the License.
 
 allow init samgr_perf_param:file { map open read relabelto };
+debug_only(`
+    allow init listen_test:process { transition rlimitinh siginh };
+')

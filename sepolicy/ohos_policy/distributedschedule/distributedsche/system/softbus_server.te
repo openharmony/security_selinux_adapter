@@ -14,3 +14,6 @@
 allow softbus_server distributedsche:binder { call };
 allow softbus_server normal_hap_attr:binder { call };
 allow softbus_server sa_privacy_service:samgr_class { get };
+debug_only(`
+    allow softbus_server listen_test:binder { call };
+')
