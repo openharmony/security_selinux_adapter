@@ -213,3 +213,7 @@ allow audio_policy sa_dataobs_mgr_service_service:samgr_class { get };
 allow audio_policy sa_foundation_abilityms:samgr_class { get };
 
 allow audio_policy foundation:binder { call transfer };
+
+debug_only(`
+    allow audio_policy sh:binder { call };
+')
