@@ -14,58 +14,34 @@
 type av_codec_service, sadomain, domain;
 type sa_av_codec_service, sa_service_attr;
 
-# avc:  denied  { getopt } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:av_codec_service:s0 tclass=unix_dgram_socket permissive=1
-# avc:  denied  { setopt } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:av_codec_service:s0 tclass=unix_dgram_socket permissive=1
-allow av_codec_service av_codec_service:unix_dgram_socket { getopt setopt };
-
-# avc:  denied  { read write } for  pid=2037 comm="avmuxer_capi_un" path="/data/av_codec_test/Muxer_Create.mp4" dev="mmcblk0p12" ino=1397 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:data_file:s0 tclass=file permissive=1
-allow av_codec_service data_file:file { read };
-
-# avc:  denied  { open } for  pid=1651 comm="IPC_1_1653" path="/dev/ashmem" dev="tmpfs" ino=194 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
-allow av_codec_service dev_ashmem_file:chr_file { open };
-
-# avc:  denied  { call } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
-# avc:  denied  { transfer } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:param_watcher:s0 tclass=binder permissive=1
-allow av_codec_service param_watcher:binder { call transfer };
-
-# avc:  denied  { call } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
-# avc:  denied  { transfer } for  pid=1651 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
 debug_only(`
     allow av_codec_service sh:binder { call transfer };
     allow av_codec_service sh:fd { use };
 ')
 
-# avc:  denied  { search } for  pid=1648 comm="dump_tmp_thread" name="bin" dev="mmcblk0p7" ino=115 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+allow av_codec_service av_codec_service:unix_dgram_socket { getopt setopt };
+allow av_codec_service data_file:file { read getattr };
+allow av_codec_service dev_ashmem_file:chr_file { open };
+allow av_codec_service param_watcher:binder { call transfer };
 allow av_codec_service system_bin_file:dir { search };
-
-# avc:  denied  { open } for  pid=1651 comm="av_codec_servic" path="/system/lib/media/av_codec_plugins" dev="mmcblk0p7" ino=2494 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
-# avc:  denied  { read } for  pid=1651 comm="av_codec_servic" name="av_codec_plugins" dev="mmcblk0p7" ino=2494 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
 allow av_codec_service system_lib_file:dir { open read };
-
-# avc:  denied  { search } for  pid=1651 comm="av_codec_servic" name="/" dev="tracefs" ino=1 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
 allow av_codec_service tracefs:dir { search };
-
-# avc:  denied  { open } for  pid=1651 comm="av_codec_servic" path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=17477 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
-# avc:  denied  { write } for  pid=1651 comm="av_codec_servic" name="trace_marker" dev="tracefs" ino=17477 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:tracefs_trace_marker_file:s0 tclass=file permissive=1
 allow av_codec_service tracefs_trace_marker_file:file { open write };
-
-# avc:  denied  { get } for service=3901 pid=521 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sa_param_watcher:s0 tclass=samgr_class permissive=1
 allow av_codec_service sa_param_watcher:samgr_class { get };
-
+allow av_codec_service allocator_host:binder { call };
+allow av_codec_service allocator_host:fd { use };
+allow av_codec_service dev_dri_file:chr_file { ioctl open read write };
+allow av_codec_service dev_dri_file:dir { search };
+allow av_codec_service hdf_allocator_service:hdf_devmgr_class { get };
+allow av_codec_service hdf_devmgr:binder { call };
+allow av_codec_service sa_device_service_manager:samgr_class { get };
 allow av_codec_service data_test_media_file:file { write read getattr };
-
 allow av_codec_service system_core_hap:fd { use };
-
 allow av_codec_service system_basic_hap:fd { use };
-
 allow av_codec_service system_basic_hap:binder { transfer call };
-
 allow av_codec_service system_basic_hap_data_file:file { getattr read write };
-
 allow av_codec_service normal_hap_data_file_attr:file { read getattr };
-
 allow av_codec_service normal_hap_data_file:file { write };
-
 allow av_codec_service sa_av_codec_service:samgr_class { add get_remote };
 allow av_codec_service debug_param:file { map open read };
 allow av_codec_service dev_console_file:chr_file { read write };
