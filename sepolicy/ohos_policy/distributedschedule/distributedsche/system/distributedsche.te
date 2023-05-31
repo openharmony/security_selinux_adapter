@@ -66,5 +66,9 @@ allow distributedsche sa_bgtaskmgr:samgr_class { get };
 allow distributedsche sa_memory_manager_service:samgr_class { get };
 #avc:  denied  { call } for  pid=479 comm="DmsComponentCha" scontext=u:r:distributedsche:s0 tcontext=u:r:memmgrservice:s0 tclass=binder permissive=0
 allow distributedsche memmgrservice:binder { call };
+#avc:  denied  { get } for service=402 pid=3055 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_distributed_bundle_mgr_service_service:s0 tclass=samgr_class permissive=1
+allow distributedsche sa_distributed_bundle_mgr_service_service:samgr_class { get };
+#avc:  denied  { call } for  pid=479 comm="continue_manage" scontext=u:r:distributedsche:s0 tcontext=u:r:d-bms:s0 tclass=binder permissive=0
+allow distributedsche d-bms:binder { call };
 
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };
