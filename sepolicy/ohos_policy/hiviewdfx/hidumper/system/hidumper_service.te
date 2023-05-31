@@ -294,3 +294,5 @@ allow hidumper_service hiview:binder { transfer };
 allow hidumper_service hiperf:file { getattr };
 
 neverallow hidumper_service *:process ptrace;
+
+allow hidumper_service render_service:binder transfer;
