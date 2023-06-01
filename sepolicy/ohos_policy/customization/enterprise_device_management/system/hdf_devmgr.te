@@ -11,6 +11,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# avc: denied { transfer } for pid=417 comm="IPC_2_858" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:edm_sa:s0 tclass=binder permissive=1
+allow hdf_devmgr edm_sa:binder { transfer };
+
+# avc: denied { search } for pid=461 comm="IPC_41029" name="740" dev="proc" ino=29166 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:edm_sa:s0 tclass=dir permissive=1
 allow hdf_devmgr edm_sa:dir { search };
+
+# avc: denied { read } for pid=461 comm="IPC_41029" name="current" dev="proc" ino=2598 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:edm_sa:s0 tclass=file permissive=1
+# avc: denied { open } for pid=461 comm="IPC_41029" path="/proc/740/attr/current" dev="proc" ino=2598 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:edm_sa:s0 tclass=file permissive=1
 allow hdf_devmgr edm_sa:file { open read };
+
+# avc: denied { getattr } for pid=461 comm="IPC_41029" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:edm_sa:s0 tclass=process permissive=1
 allow hdf_devmgr edm_sa:process { getattr };

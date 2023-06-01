@@ -13,4 +13,6 @@
 
 allow foundation edm_sa:binder { call transfer };
 allow foundation edm_sa:dir { search };
-allow foundation edm_sa:file { open read };
+
+# avc: denied { getattr } for pid=854 comm="IPC_14_1986" path="/proc/2168/cmdline" dev="proc" ino=28981 scontext=u:r:foundation:s0 tcontext=u:r:edm_sa:s0 tclass=file permissive=1
+allow foundation edm_sa:file { open read getattr };
