@@ -94,6 +94,7 @@ allow foundation sa_installd_service:samgr_class { get };
 allow foundation sa_msdp_devicestatus_service:samgr_class { get };
 allow foundation sa_multimodalinput_service:samgr_class { get };
 allow foundation sa_param_watcher:samgr_class { get };
+allow foundation sa_screenlock_service:samgr_class { add };
 allow foundation sa_softbus_service:samgr_class { get };
 allow foundation sa_subsys_ace_service:samgr_class { get };
 allow foundation sa_uri_permission_mgr_service:samgr_class { add get };
