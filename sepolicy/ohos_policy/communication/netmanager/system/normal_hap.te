@@ -18,3 +18,5 @@ allow normal_hap_attr netmanager:binder { call transfer };
 allow normal_hap_attr netsysnative:unix_stream_socket { connectto read write };
 allow normal_hap_attr normal_hap_attr:tcp_socket { getattr create setopt bind connect getopt read write };
 allow normal_hap_attr normal_hap_attr:udp_socket { getattr create setopt bind connect getopt read write };
+
+allow normal_hap sa_comm_net_stats_manager_service:samgr_class { get };
