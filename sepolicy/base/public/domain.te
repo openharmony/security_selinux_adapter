@@ -202,7 +202,7 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-hdcd  -softbus_
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host debug_only(`-hdcd') } dev_file:sock_file *;
 
-neverallow { domain -kernel -init -misc -updater_sa -storage_daemon -partitionslot_host debug_only(`-hdcd') updater_only(`-updater ') -updater_binary -dev_attr_violator} dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -misc -updater_sa -storage_daemon -partitionslot_host debug_only(`-hdcd') updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa} dev_attr:blk_file { open read write };
 # fs operation limit
 neverallow domain *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
 neverallow { domain -init -storage_daemon -appspawn -netsysnative updater_only(`-updater')} *:filesystem mount;
