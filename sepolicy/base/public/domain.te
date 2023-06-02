@@ -129,7 +129,7 @@ neverallow * self:memprotect mmap_zero;
 # only execute file with exec_attr & system_bin_file & vendor_bin_file ToDo delete vendor_file
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
-    -module_update_bin_file -data_updater_file -data_local_arkcache}:file { execute execute_no_trans entrypoint };
+    -module_update_bin_file -data_updater_file -data_local_arkcache -system_file}:file { execute execute_no_trans entrypoint };
 neverallow { domain -installs } data_local_arkcache:file { write };
 neverallow { domain -installs } data_local_arkcache:dir { write };
 
