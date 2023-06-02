@@ -22,6 +22,7 @@ allow mdnsmanager mdnsmanager:binder { call };
 allow mdnsmanager musl_param:file { open read map };
 allow mdnsmanager mdnsmanager:netlink_route_socket { create write read nlmsg_read };
 
+
 allow param_watcher mdnsmanager:binder { call };
 allow system_basic_hap mdnsmanager:binder { transfer call };
 allow mdnsmanager system_basic_hap:binder { call };
@@ -36,6 +37,10 @@ allow mdnsmanager sa_param_watcher:samgr_class { get };
 allow mdnsmanager sa_comm_mdns_manager_service:samgr_class { add };
 allow mdnsmanager sa_accesstoken_manager_service:samgr_class { get };
 allow mdnsmanager accesstoken_service:binder { call };
+
+allow mdnsmanager sa_net_conn_manager:samgr_class { get };
+allow mdnsmanager netmanager:binder { call };
+allow mdnsmanager sysfs_devices_system_cpu:file { open read getattr };
 
 allow mdnsmanager mdnsmanager:udp_socket { create getopt setopt bind name_bind ioctl read write };
 allow mdnsmanager node:udp_socket { node_bind };

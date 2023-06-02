@@ -96,6 +96,9 @@ allow netsysnative fs_bpf:file { create setattr write read };
 allow netsysnative fs_bpf:filesystem { mount };
 allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
 
+allow netsysnative vendor_etc_file:dir { search };
+allow netsysnative vendor_etc_file:file { open read };
+
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 allow netmanager sa_distributed_net_service:samgr_class { add get };
 allow sa_distributed_net_service sa_distributed_net_service:samgr_class { add get };
