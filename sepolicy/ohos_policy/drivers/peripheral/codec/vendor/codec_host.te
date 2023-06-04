@@ -80,4 +80,5 @@ allowxperm codec_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 debug_only(`
     allow codec_host sh:binder { transfer call };
     allow codec_host sh:fd { use };
+    allow codec_host hdcd:fifo_file { write };
 ')
