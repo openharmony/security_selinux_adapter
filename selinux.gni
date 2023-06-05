@@ -18,6 +18,7 @@ declare_args() {
   selinux_build_path = "default"
   components = "default"
   special_build_policy_script = "default"
+  extra_args = "default"
 }
 
 declare_args() {

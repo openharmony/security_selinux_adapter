@@ -368,6 +368,13 @@ action("build_policy") {
     "--components",
     components,
   ]
+
+  if (extra_args != "default") {
+    foreach(arg, string_split(extra_args, " ")) {
+      args += [ arg ]
+    }
+  }
+
   deps = [
     "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
     "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
@@ -426,6 +433,13 @@ action("build_update_policy") {
     "--components",
     components,
   ]
+
+  if (extra_args != "default") {
+    foreach(arg, string_split(extra_args, " ")) {
+      args += [ arg ]
+    }
+  }
+
   deps = [
     "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
     "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
