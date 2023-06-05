@@ -12,8 +12,8 @@
 # limitations under the License.
 
 debug_only(`
-	allow sh print_service:dir { getattr search };
-	allow sh print_service:file { open read };
+    allow sh print_service:dir { getattr search };
+    allow sh print_service:file { open read };
     allow sh sa_print_service:samgr_class { get };
     allow sh cupsd:dir { getattr search };
     allow sh cupsd:file { open read };
