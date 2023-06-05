@@ -96,6 +96,10 @@ allow edm_sa sa_foundation_appms:samgr_class { get };
 allow edm_sa sa_foundation_abilityms:samgr_class { get };
 allow edm_sa sa_foundation_bms:samgr_class { get };
 allow edm_sa sa_foundation_cesfwk_service:samgr_class { get };
+
+# avc: denied { get } for service=1151 pid=759 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
+allow edm_sa sa_net_conn_manager:samgr_class { get };
+
 allow edm_sa sa_param_watcher:samgr_class { get };
 allow edm_sa sa_softbus_service:samgr_class { get };
 
