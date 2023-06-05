@@ -17,6 +17,7 @@ THIRD_PARTY_DIR = "//third_party"
 declare_args() {
   selinux_build_path = "default"
   components = "default"
+  vendor_policy_version = "40"
   special_build_policy_script = "default"
   extra_args = "default"
 }

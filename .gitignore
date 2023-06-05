@@ -37,3 +37,7 @@
 
 # Dirs
 sepolicy/hx*
+
+# py
+__pycache__/
+*.pyc
