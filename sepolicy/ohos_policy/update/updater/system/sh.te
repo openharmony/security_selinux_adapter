@@ -10,11 +10,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-updater_only(`
-    #no need to add debug_only,otherwise hdcd not work
-    #avc: denied { read write } for pid=230 comm="sh" path="/dev/console" dev="tmpfs" ino=246 scontext=u:r:sh:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
-    allow sh dev_console_file:chr_file { read write };
+#no need to add debug_only,otherwise hdcd not work
+#avc: denied { read write } for pid=230 comm="sh" path="/dev/console" dev="tmpfs" ino=246 scontext=u:r:sh:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
+allow sh dev_console_file:chr_file { read write };
 
+updater_only(`
     debug_only(`
     #avc: denied { search } for pid=267 comm="hdcd" name="/" dev="devpts" ino=1 scontext=u:r:sh:s0 tcontext=u:object_r:dev_pts_file:s0 tclass=dir permissive=1
     allow sh dev_pts_file:dir { search };
