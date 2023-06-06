@@ -107,6 +107,7 @@ allow bluetooth_service data_log:dir { read open };
 #avc: denied { open } bluetooth_service a2dp_host tclass=fd
 #avc: denied { open } bluetooth_service sa_foundation_battery_service tclass=samgr_class
 allow bluetooth_service hdf_bluetooth_audio_session_service:hdf_devmgr_class { get };
+allow bluetooth_service hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { get };
 allow bluetooth_service a2dp_host:fd { use };
 allow bluetooth_service sa_foundation_battery_service:samgr_class { get };
 
