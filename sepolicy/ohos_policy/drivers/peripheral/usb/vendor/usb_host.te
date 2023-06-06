@@ -14,8 +14,8 @@
 allow usb_host dev_console_file:chr_file { read write };
 allow usb_host sa_usb_service:samgr_class { add };
 allow usb_host data_service_file:dir { search };
-allow usb_host data_service_el1_file:dir { search };
-allow usb_host data_service_el1_file:file { ioctl open read write getattr };
+allow usb_host data_service_el1_file:dir { search add_name write};
+allow usb_host data_service_el1_file:file { ioctl open read write getattr create map};
 allow usb_host hdf_usbhost_acm_pnp_service:hdf_devmgr_class { add };
 allow usb_host hdf_usbhost_acm_rawapi_service:hdf_devmgr_class { add };
 allow usb_host hdf_usbhost_ecm_pnp_service:hdf_devmgr_class { add };
@@ -78,6 +78,7 @@ allow usb_host configfs:lnk_file { create unlink };
 debug_only(`
     allow usb_host console:binder { call };
     allow usb_host console:fd { use };
+    allow usb_host sh:binder { call };
 ')
 allow usb_host data_file:dir { search };
 allow usb_host data_init_agent:dir { search };
@@ -108,6 +109,7 @@ allow usb_host hdf_usbd:hdf_devmgr_class { add };
 allow usb_host hdf_usbfn_cdcacm:hdf_devmgr_class { add get };
 allow usb_host hdf_usbfn_cdcecm:hdf_devmgr_class { add get };
 allow usb_host hdf_usbfn:hdf_devmgr_class { add get };
+allow usb_host hdf_usb_ddk_service:hdf_devmgr_class { add };
 allow usb_host hiview:binder { call };
 allow usb_host kernel:unix_stream_socket { connectto };
 allow usb_host paramservice_socket:sock_file { write };
