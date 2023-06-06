@@ -354,6 +354,9 @@ allowxperm updater data_file:file ioctl { 0x5413 };
 
 # denied { map } for pid=246 comm="updater" path="/data/update/ota_package/firmware/versions/updater_diff.zip" dev="mmcblk0p12" ino=1409 scontext=u:r:updater:s0 tcontext=u:object_r:update_firmware_file:s0 tclass=file permissive=1
 allow updater update_firmware_file:file { map };
+allow updater exfat:file { map };
+allow updater ntfs:file { map };
+allow updater vfat:file { map };
 
 allow updater data_file:dir { setattr relabelto };
 allow updater unlabeled:dir { getattr relabelfrom };
