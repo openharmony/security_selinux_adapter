@@ -13,4 +13,3 @@
 
 /data/fwmarkd      u:object_r:fwmark_service:s0
 /data/dnsproxyd      u:object_r:dnsproxy_service:s0
-/system/bin/iptables      u:object_r:iptables_exec:s0

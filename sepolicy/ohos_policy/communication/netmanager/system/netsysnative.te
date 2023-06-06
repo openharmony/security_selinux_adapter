@@ -61,8 +61,6 @@ debug_only(`
   allow sh fs_bpf:file { create write read };
   allow sh sa_distributed_net_service:samgr_class { add get };
 ')
-
-allow netsysnative iptables_exec:file { execute };
 allow netsysnative netsysnative:packet_socket { create ioctl };
 allow netsysnative netsysnative:bpf { map_read prog_load map_create prog_run map_write };
 allow netsysnative data_file:file { read };
@@ -121,4 +119,3 @@ allow init cgroup2:file { write };
 allow init cgroup2:lnk_file { create };
 
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr debug_only(`-sh') } netsysnative:binder *;
-neverallow { domain -netsysnative debug_only(`-sh') } iptables_exec:file { execute };
