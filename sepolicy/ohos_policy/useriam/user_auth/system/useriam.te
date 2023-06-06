@@ -62,8 +62,17 @@ allow useriam useriam:unix_dgram_socket { getopt setopt };
 allowxperm useriam dev_at_file:chr_file ioctl { 0x4103 };
 allow useriam face_auth_host:binder { call transfer };
 allow useriam fingerprint_auth_host:binder { call transfer };
-allow useriam render_service:binder { call };
+allow useriam render_service:binder { call transfer };
+allow useriam foundation:binder { call transfer };
 allow useriam normal_hap_attr:binder { call };
+allow useriam sa_render_service:samgr_class { get };
+allow useriam sa_foundation_cesfwk_service:samgr_class { get };
+allow useriam sa_foundation_displaymgr_service:samgr_class { get };
+allow useriam sa_foundation_dms:samgr_class { get };
+allow useriam sa_foundation_powermgr_service:samgr_class { get };
+allow useriam dev_mali:chr_file { getattr ioctl map open read write };
+allow useriam sysfs_devices_system_cpu:dir { read open };
+allow useriam allocator_host:fd { use };
 
 # avc:  denied  { call } for  pid=466 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
 allow useriam huks_service:binder { call };

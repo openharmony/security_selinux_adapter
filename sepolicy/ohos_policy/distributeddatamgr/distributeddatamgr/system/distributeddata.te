@@ -168,3 +168,4 @@ allow distributeddata sh:dir { search };
 allow distributeddata sh:fd { use };
 allow distributeddata sh:file { getattr open read };
 ')
+allow distributeddata wifi_manager_service:binder { call transfer };

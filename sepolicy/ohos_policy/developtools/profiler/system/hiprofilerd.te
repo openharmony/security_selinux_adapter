@@ -19,7 +19,6 @@ allow hiprofilerd hdcd:fifo_file write;
 allow hiprofilerd node:tcp_socket node_bind;
 allow hiprofilerd proc_cpuinfo_file:file { open read };
 allow hiprofilerd proc_file:file { getattr open read };
-allow hiprofilerd sh:fd use;
 allow hiprofilerd tty_device:chr_file { read write };
 allow hiprofilerd data_file:dir search;
 allow hiprofilerd data_init_agent:dir search;
@@ -101,6 +100,7 @@ allow hiprofilerd data_local_tmp:dir { search add_name remove_name write open ge
 debug_only(`
 	allow hiprofilerd sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofilerd self:capability setgid;
+	allow hiprofilerd sh:fd use;
 ')
 
 allow hiprofilerd dev_unix_socket:sock_file write;
