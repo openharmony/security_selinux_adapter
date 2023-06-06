@@ -123,7 +123,7 @@ allow sensors foundation:binder { call };
 
 #avc:  denied { getattr } for  pid=1324 comm="IPC_1_1486" path="/data/storage/el2/base/files/coin_drop.json" dev="sdd78" ino=4521 scontext=u:r:sensors:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 #avc:  denied { read } for  pid=4754 comm="jsThread-1" path="/data/storage/el2/base/files/coin_drop.json" dev="sdd78" ino=4521 scontext=u:r:sensors:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=0
-allow sensors debug_hap_data_file:file { getattr read };
+allow sensors normal_hap_data_file_attr:file { getattr read };
 
 #avc:  denied { getattr } for  pid=1308 comm="IPC_1_1470" path="/data/local/tmp/test_128_event.json" dev="sdd78" ino=8191 scontext=u:r:sensors:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
 #avc:  denied { read } for  pid=3199 comm="HitsVibrateTest" path="/data/local/tmp/test_128_event.json" dev="sdd78" ino=8191 scontext=u:r:sensors:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
