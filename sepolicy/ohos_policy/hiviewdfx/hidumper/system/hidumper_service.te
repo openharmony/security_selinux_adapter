@@ -163,6 +163,8 @@ allow hidumper_service sa_foundation_displaymgr_service:samgr_class { get };
 #avc:  denied  { get } for service=3303 pid=553 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_thermal_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_foundation_thermal_service:samgr_class { get };
 
+allow hidumper_service sa_dfx_sys_hidumper_cpu_ability:samgr_class get;
+
 allow hidumper_service dev_at_file:chr_file ioctl;
 allow hidumper_service dev_block_volfile:dir search;
 allow hidumper_service dev_console_file:chr_file getattr;

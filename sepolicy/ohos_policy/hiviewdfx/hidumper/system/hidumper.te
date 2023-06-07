@@ -28,7 +28,7 @@ allow hidumper hidumper_service:binder { call transfer };
 
 allow hidumper lib_file:lnk_file read;
 
-allow hidumper samgr:binder call;
+allow hidumper samgr:binder { call transfer };
 
 allow hidumper sh:fd use;
 

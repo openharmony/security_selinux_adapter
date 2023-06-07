@@ -17,7 +17,7 @@ allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
 allow storage_daemon hmdfs:filesystem { unmount };
 
-neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc } storage_daemon:{ binder } call;
+neverallow { domain -storage_manager -hidumper_service -hiview -samgr -init -sdc } storage_daemon:{ binder } call;
 
 allow storage_daemon domain:file { read open };
 allow storage_daemon domain:dir { search read open };

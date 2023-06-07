@@ -165,3 +165,275 @@ allow hiview normal_hap_data_file:file { create  write open };
 #avc:  denied  { setattr } for  pid=246 comm="exportSysEventT" name="RELIABILITY-20170806025113-000-0.evt" dev="mmcblk0p12" ino=2052 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
 allow hiview system_basic_hap_data_file:file { setattr };
 allow hiview normal_hap_data_file:file { setattr };
+
+allow hiview sa_dfx_sys_hidumper_cpu_ability:samgr_class { add };
+
+allow hiview appspawn:dir { getattr open read search };
+allow hiview appspawn:file { getattr open read };
+allow hiview appspawn:lnk_file read;
+allow hiview appspawn_exec:file { getattr map open read };
+
+allow hiview data_file:dir { getattr open read search };
+allow hiview data_init_agent:dir search;
+allow hiview data_init_agent:file { append ioctl open read };
+allow hiview data_log:dir { open read search };
+allow hiview data_log:file { getattr open read };
+allow hiview data_misc:dir search;
+
+allow hiview debugfs:dir { open read };
+
+allow hiview dev_block_file:blk_file getattr;
+allow hiview dev_block_file:dir search;
+allow hiview dev_block_file:lnk_file read;
+allow hiview dev_file:dir getattr;
+allow hiview dev_kmsg_file:chr_file { open read };
+allow hiview dev_pts_file:dir getattr;
+allow hiview dev_unix_socket:dir search;
+allow hiview dev_unix_socket:sock_file write;
+
+allow hiview deviceauth_service_exec:file { getattr map open read };
+allow hiview devpts:chr_file { read write };
+
+allow hiview faultloggerd:fifo_file read;
+allow hiview faultloggerd:unix_stream_socket connectto;
+allow hiview faultloggerd_exec:file { getattr map open read };
+
+allow hiview hdcd:dir { getattr open read search };
+allow hiview hdcd:fd use;
+allow hiview hdcd:file { getattr open read };
+allow hiview hdcd:lnk_file read;
+allow hiview hdcd_exec:file { getattr map open read };
+
+allow hiview hdf_devmgr_exec:file { getattr map open read };
+
+allow hiview hidumper:binder call;
+allow hiview hidumper:dir { getattr open read search };
+allow hiview hidumper:file { getattr open read };
+allow hiview hidumper:lnk_file read;
+allow hiview hidumper_exec:file { getattr map open read };
+
+allow hiview hidumper_file:dir { add_name open read remove_name search write };
+allow hiview hidumper_file:file { create ioctl open unlink write };
+
+allow hiview hilogd_exec:file { getattr map open read };
+allow hiview hiview_exec:file { getattr map open read };
+
+allow hiview init:dir { getattr open read search };
+allow hiview init:file { getattr open read };
+allow hiview init:lnk_file read;
+allow hiview init:unix_stream_socket connectto;
+
+allow hiview installs_exec:file { getattr map open read };
+
+allow hiview kernel:dir { getattr open read search };
+allow hiview kernel:file { getattr open read };
+allow hiview kernel:lnk_file read;
+allow hiview kernel:system syslog_read;
+
+allow hiview limit_domain:file { getattr open read };
+allow hiview limit_domain:lnk_file read;
+
+allow hiview normal_hap_attr:dir { getattr open read search };
+allow hiview normal_hap_attr:file { getattr open read };
+allow hiview normal_hap_attr:lnk_file read;
+
+allow hiview proc_cmdline_file:file { getattr open read };
+allow hiview proc_loadavg_file:file { open read };
+allow hiview proc_meminfo_file:file { open read };
+allow hiview proc_modules_file:file { getattr open read };
+allow hiview proc_net:file { getattr open read };
+allow hiview proc_net_tcp_udp:file { open read };
+allow hiview proc_slabinfo_file:file { getattr open read };
+allow hiview proc_stat_file:file { open read };
+allow hiview proc_version_file:file { getattr open read };
+allow hiview proc_vmallocinfo_file:file { getattr open read };
+allow hiview proc_vmstat_file:file { getattr open read };
+allow hiview proc_zoneinfo_file:file { getattr open read };
+
+allow hiview render_service_exec:file { getattr map open read };
+
+allow hiview self:udp_socket { create ioctl };
+
+allow hiview sh_exec:file { execute execute_no_trans getattr map open read };
+allow hiview storage_daemon_exec:file { getattr map open read };
+
+allow hiview sys_file:dir { open read };
+allow hiview sys_file:file { getattr open read };
+
+allow hiview system_basic_hap:dir { getattr open read search };
+allow hiview system_basic_hap:file { getattr open read };
+allow hiview system_basic_hap:lnk_file read;
+
+allow hiview system_bin_file:dir { getattr search };
+allow hiview system_bin_file:file { execute execute_no_trans getattr map open read };
+allow hiview system_bin_file:lnk_file read;
+allow hiview system_file:dir getattr;
+allow hiview system_fonts_file:dir getattr;
+allow hiview system_lib_file:dir getattr;
+allow hiview system_profile_file:dir getattr;
+allow hiview system_usr_file:dir getattr;
+
+allow hiview tty_device:chr_file { open read write };
+
+allow hiview udevd:dir { getattr open read search };
+allow hiview udevd:file { getattr read open };
+allow hiview udevd:lnk_file read;
+allow hiview udevd_exec:file { getattr map open read };
+
+allow hiview ueventd:dir { getattr open read search };
+allow hiview ueventd:file { getattr open read };
+allow hiview ueventd:lnk_file read;
+allow hiview ueventd_exec:file { getattr map open read };
+
+allow hiview uinput_inject_exec:file { getattr map open read };
+
+allow hiview vendor_bin_file:dir search;
+allow hiview vendor_bin_file:file { getattr map open read };
+allow hiview vendor_file:dir getattr;
+allow hiview vendor_lib_file:dir search;
+allow hiview vendor_lib_file:file { getattr map open read };
+
+allow hiview watchdog_service_exec:file { getattr map open read };
+allow hiview wifi_hal_service_exec:file { getattr map open read };
+
+allow hiview { sadomain -installs }:binder call;
+allow hiview { hdfdomain sadomain }:dir { getattr open read search };
+allow hiview { hdfdomain sadomain }:file { getattr open read };
+allow hiview { hdfdomain sadomain }:lnk_file read;
+
+#avc:  denied  { get } for service=3302 pid=581 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_battery_service:s0 tclass=samgr_class permissive=1
+allow hiview sa_foundation_battery_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3308 pid=581 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_displaymgr_service:s0 tclass=samgr_class permissive=1
+allow hiview sa_foundation_displaymgr_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3303 pid=553 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_thermal_service:s0 tclass=samgr_class permissive=1
+allow hiview sa_foundation_thermal_service:samgr_class { get };
+
+allow hiview dev_at_file:chr_file ioctl;
+allow hiview dev_block_volfile:dir search;
+allow hiview dev_console_file:chr_file getattr;
+allow hiview devpts:chr_file getattr;
+allow hiview hidumper_file:dir getattr;
+allow hiview hidumper_file:file read;
+allow hiview hilog_exec:file { execute execute_no_trans getattr map open read };
+allow hiview proc_file:file { open read };
+allow hiview processdump:dir search;
+allow hiview processdump:file { open read };
+allow hiview sh:dir { getattr open read };
+allow hiview sh:fifo_file getattr;
+allow hiview sh:file getattr;
+allow hiview sh:lnk_file read;
+allow hiview sysfs_devices_system_cpu:file { open read getattr};
+allow hiview tty_device:chr_file getattr;
+allow hiview hdcd:fifo_file write;
+allow hiview sh:fd use;
+
+allow hiview sa_accessibleabilityms:samgr_class get;
+allow hiview sa_accountmgr:samgr_class get;
+allow hiview sa_bgtaskmgr:samgr_class get;
+allow hiview sa_bluetooth_server:samgr_class get;
+allow hiview sa_comm_dns_manager_service:samgr_class get;
+allow hiview sa_comm_ethernet_manager_service:samgr_class get;
+allow hiview sa_comm_mdns_manager_service:samgr_class get;
+allow hiview sa_comm_net_stats_manager_service:samgr_class get;
+allow hiview sa_dataobs_mgr_service_service:samgr_class get;
+allow hiview sa_device_usage_statistics_service:samgr_class get;
+allow hiview sa_dfx_sys_hidumper_cpu_ability:samgr_class get;
+allow hiview sa_distributeddata_service:samgr_class get;
+allow hiview sa_distributeschedule:samgr_class get;
+allow hiview sa_enterprise_device_manager_service:samgr_class get;
+allow hiview sa_form_mgr_service:samgr_class get;
+allow hiview sa_foundation_abilityms:samgr_class get;
+allow hiview sa_foundation_appms:samgr_class get;
+allow hiview sa_foundation_bms:samgr_class get;
+allow hiview sa_hiview_service:samgr_class get;
+allow hiview sa_installd_service:samgr_class get;
+allow hiview sa_net_conn_manager:samgr_class get;
+allow hiview sa_net_policy_manager:samgr_class get;
+allow hiview sa_netsys_native_manager:samgr_class get;
+allow hiview sa_render_service:samgr_class get;
+allow hiview sa_resource_schedule:samgr_class get;
+allow hiview sa_resource_schedule_socperf_server:samgr_class get;
+allow hiview sa_sys_event_service:samgr_class get;
+allow hiview sa_uri_permission_mgr_service:samgr_class get;
+allow hiview sa_useriam_authexecutormgr_service:samgr_class get;
+allow hiview sa_useriam_faceauth_service:samgr_class get;
+allow hiview sa_useriam_userauth_service:samgr_class get;
+allow hiview sa_wifi_device_ability:samgr_class get;
+allow hiview sa_wifi_hotspot_ability:samgr_class get;
+allow hiview sa_wifi_p2p_ability:samgr_class get;
+allow hiview sa_wifi_scan_ability:samgr_class get;
+allow hiview sa_work_schedule_service:samgr_class get;
+allow hiview sa_accesstoken_manager_service:samgr_class get;
+allow hiview sa_audio_policy_service:samgr_class get;
+allow hiview sa_camera_service:samgr_class get;
+allow hiview sa_device_auth_service:samgr_class get;
+allow hiview sa_device_profile_service:samgr_class get;
+allow hiview sa_device_security_level_manager_service:samgr_class get;
+allow hiview sa_device_service_manager:samgr_class get;
+allow hiview sa_download_service:samgr_class get;
+allow hiview sa_file_manager_service:samgr_class get;
+allow hiview sa_filemanagement_distributed_file_daemon_service:samgr_class get;
+allow hiview sa_foundation_ans:samgr_class get;
+allow hiview sa_foundation_cesfwk_service:samgr_class get;
+allow hiview sa_foundation_devicemanager_service:samgr_class get;
+allow hiview sa_foundation_dms:samgr_class get;
+allow hiview sa_foundation_tel_call_manager:samgr_class get;
+allow hiview sa_foundation_tel_state_registry:samgr_class get;
+allow hiview sa_huks_service:samgr_class get;
+allow hiview sa_inputmethod_service:samgr_class get;
+allow hiview sa_location_geo_convert_service:samgr_class get;
+allow hiview sa_location_locator_service:samgr_class get;
+allow hiview sa_locationhub_lbsservice_gnss:samgr_class get;
+allow hiview sa_locationhub_lbsservice_network:samgr_class get;
+allow hiview sa_locationhub_lbsservice_passive:samgr_class get;
+allow hiview sa_media_service:samgr_class get;
+allow hiview sa_memory_manager_service:samgr_class get;
+allow hiview sa_msdp_devicestatus_service:samgr_class get;
+allow hiview sa_multimodalinput_service:samgr_class get;
+allow hiview sa_pasteboard_service:samgr_class get;
+allow hiview sa_privacy_service:samgr_class get;
+allow hiview sa_pulseaudio_audio_service:samgr_class get;
+allow hiview sa_screenlock_service:samgr_class get;
+allow hiview sa_softbus_service:samgr_class get;
+allow hiview sa_storage_manager_daemon:samgr_class get;
+allow hiview sa_storage_manager_service:samgr_class get;
+allow hiview sa_subsys_ace_service:samgr_class get;
+allow hiview sa_telephony_tel_cellular_call:samgr_class get;
+allow hiview sa_telephony_tel_cellular_data:samgr_class get;
+allow hiview sa_telephony_tel_core_service:samgr_class get;
+allow hiview sa_telephony_tel_sms_mms:samgr_class get;
+allow hiview sa_time_service:samgr_class get;
+allow hiview sa_update_distributed_service:samgr_class get;
+allow hiview sa_usb_service:samgr_class get;
+allow hiview sa_useriam_pinauth_service:samgr_class get;
+allow hiview sa_useriam_useridm_service:samgr_class get;
+allow hiview sa_wallpaper_manager_service:samgr_class get;
+allow hiview sa_devattest_service:samgr_class get;
+allow hiview sa_device_standby:samgr_class get;
+allow hiview samgr:samgr_class list;
+
+allow hiview hiprofiler_cmd:file getattr;
+allow hiview hiprofiler_plugins:file getattr;
+allow hiview hiprofilerd:file getattr;
+allow hiview musl_param:file { map open read };
+allow hiview native_daemon:dir search;
+allow hiview native_daemon:file { getattr open read };
+allow hiview proc_loadavg_file:file getattr;
+allow hiview proc_meminfo_file:file getattr;
+allow hiview proc_net_tcp_udp:file getattr;
+allow hiview proc_stat_file:file getattr;
+allow hiview self:rawip_socket create;
+allow hiview system_etc_file:file lock;
+
+allow hiview debugfs_failed_transaction_log:file { getattr open read };
+allow hiview debugfs_transactions:file { getattr open read };
+allow hiview debugfs_transaction_log:file { getattr open read };
+allow hiview debugfs_used:file { getattr open read };
+allow hiview debugfs_wakeup_sources:file { getattr open read };
+allow hiview debugfs_stats:file { getattr open read };
+allow hiview debugfs_state:file { getattr open read };
+allow hiview data_log:file { read write };
+allow hiview self:capability dac_read_search;
+

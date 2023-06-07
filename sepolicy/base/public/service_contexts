@@ -76,6 +76,7 @@
 1202	                               u:object_r:sa_hiview_faultlogger_service:s0
 1203                                   u:object_r:sa_sys_event_service:s0
 1212	                               u:object_r:sa_dfx_sys_hidumper_ability:s0
+1215	                               u:object_r:sa_dfx_sys_hidumper_cpu_ability:s0
 1300	                               u:object_r:sa_subsys_distributeddatamng_service:s0
 1301                                   u:object_r:sa_distributeddata_service:s0
 1302	                               u:object_r:sa_distributed_fs_daemon_service:s0

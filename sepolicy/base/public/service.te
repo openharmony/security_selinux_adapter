@@ -218,6 +218,7 @@ type sa_subsys_arvrhardware_service, sa_service_attr;
 type sa_ca_daemon_service, sa_service_attr;
 type sa_subsys_useriam_service, sa_service_attr;
 type sa_dfx_sys_hidumper_ability, sa_service_attr;
+type sa_dfx_sys_hidumper_cpu_ability, sa_service_attr;
 type sa_privacy_service, sa_service_attr;
 type sa_devattest_service, sa_service_attr;
 type sa_instance_id, sa_service_attr;
