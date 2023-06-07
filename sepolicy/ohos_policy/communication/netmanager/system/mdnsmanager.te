@@ -37,9 +37,6 @@ allow mdnsmanager sa_comm_mdns_manager_service:samgr_class { add };
 allow mdnsmanager sa_accesstoken_manager_service:samgr_class { get };
 allow mdnsmanager accesstoken_service:binder { call };
 
-allow mdnsmanager sa_net_conn_manager:samgr_class { get };
-allow mdnsmanager netmanager:binder { call };
-
 allow mdnsmanager mdnsmanager:udp_socket { create getopt setopt bind name_bind ioctl read write };
 allow mdnsmanager node:udp_socket { node_bind };
 allow mdnsmanager port:udp_socket { name_bind };
