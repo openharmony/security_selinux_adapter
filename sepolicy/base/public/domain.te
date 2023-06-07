@@ -77,7 +77,7 @@ allow { domain -limit_domain } selinuxfs:file getattr;
 allow domain debugfs:dir search;
 
 allow domain fs_attr:filesystem getattr;
-allow domain { fs_attr -unlabeled -proc_net }:dir getattr;
+allow domain { fs_attr -unlabeled }:dir getattr;
 
 allow domain etc_file:lnk_file { read };
 
