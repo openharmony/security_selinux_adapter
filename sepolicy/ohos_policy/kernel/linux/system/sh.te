@@ -14,7 +14,6 @@
 debug_only(`
     allow sh data_file:file { map read open };
     allow sh dev_unix_socket:dir { search };
-    allow sh devpts:chr_file { write };
     allow sh lib_file:lnk_file { read };
     allow sh memmgrservice:dir { getattr search};
     allow sh memmgrservice:file { open read };
@@ -24,3 +23,5 @@ debug_only(`
     permissive sh;
     permissive console;
 ')
+
+allow sh devpts:chr_file { write };
