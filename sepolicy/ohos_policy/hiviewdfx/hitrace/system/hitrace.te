@@ -51,7 +51,6 @@ allow hitrace data_local_tmp:file { read write };
 allow hitrace domain:dir { getattr search };
 allow hitrace domain:file { open read };
 allow hitrace hw_sc_build_os_param:file { open read map };
-allow hitrace sh:fifo_file { read write };
 
 allow hitrace hw_sc_build_os_param:file { open read };
 allow hitrace init_param:file { map open read };
@@ -64,3 +63,7 @@ allow hitrace const_postinstall_fstab_param:file { map open read };
 allow hitrace const_postinstall_param:file { map open read };
 
 allow hitrace proc_file:file { read open };
+
+debug_only(`
+	allow hitrace sh:fifo_file { read write };
+')

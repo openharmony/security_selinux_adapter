@@ -51,7 +51,6 @@ allow bytrace data_local_tmp:file { read write };
 allow bytrace domain:dir { getattr search };
 allow bytrace domain:file { open read };
 allow bytrace hw_sc_build_os_param:file { open read map };
-allow bytrace sh:fifo_file { read write };
 
 allow bytrace hw_sc_build_os_param:file { open read };
 allow bytrace init_param:file { map open read };
@@ -66,4 +65,5 @@ allow bytrace const_postinstall_param:file { map open read };
 debug_only(`
 	allow bytrace self:capability { setgid };
 	allow hitrace self:capability { setgid };
+	allow bytrace sh:fifo_file { read write };
 ')

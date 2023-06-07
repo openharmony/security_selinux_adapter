@@ -32,11 +32,14 @@ constexpr int32_t PIPE_NUM = 2;
 constexpr int32_t BUFF_SIZE = 1024;
 constexpr const char SYSTEM_CIL[] = "/system/etc/selinux/system.cil";
 constexpr const char VENDOR_CIL[] = "/vendor/etc/selinux/vendor.cil";
+constexpr const char PUBLIC_CIL[] = "/vendor/etc/selinux/public.cil";
 constexpr const char SYSTEM_CIL_HASH[] = "/system/etc/selinux/system.cil.sha256";
 constexpr const char PRECOMPILED_POLICY_SYSTEM_CIL_HASH[] = "/vendor/etc/selinux/prebuild_sepolicy.system.cil.sha256";
 constexpr const char COMPILE_OUTPUT_POLICY[] = "/dev/policy.31";
 constexpr const char DEFAULT_POLICY[] = "/system/etc/selinux/targeted/policy/policy.31";
 constexpr const char PRECOMPILED_POLICY[] = "/vendor/etc/selinux/prebuild_sepolicy/policy.31";
+constexpr const char VERSION_POLICY_PATH[] = "/vendor/etc/selinux/version";
+constexpr const char COMPATIBLE_CIL_PATH[] = "/system/etc/selinux/compatible/";
 } // namespace
 
 static void InitSelinuxLog(void)
@@ -80,6 +83,14 @@ static void DeleteTmpPolicyFile(const std::string &policyFile)
     if ((policyFile == COMPILE_OUTPUT_POLICY) && (access(policyFile.c_str(), R_OK) == 0)) {
         unlink(policyFile.c_str());
     }
+}
+
+static bool GetVendorPolicyVersion(std::string & version)
+{
+    if (!ReadFileFirstLine(VERSION_POLICY_PATH, version)) {
+        return false;
+    }
+    return !version.empty();
 }
 
 static bool ReadPolicyFile(const std::string &policyFile, void **data, size_t &size)
@@ -188,6 +199,32 @@ static bool LoadPolicy(void *data, size_t size)
     return true;
 }
 
+static bool GetVersionPolicy(std::string &versionPolicy)
+{
+    std::string version;
+    if (!GetVendorPolicyVersion(version)) {
+        selinux_log(SELINUX_ERROR, "Get vendor policy version failed\n");
+        return false;
+    }
+    std::string path(COMPATIBLE_CIL_PATH + version + ".cil");
+    if (access(path.c_str(), F_OK) == 0) {
+        versionPolicy = path;
+        return true;
+    }
+    selinux_log(SELINUX_ERROR, "Get vendor version policy failed\n");
+    return false;
+}
+
+static bool GetPublicPolicy(std::string &publicPolicy)
+{
+    if (access(PUBLIC_CIL, F_OK) == 0) {
+        publicPolicy = PUBLIC_CIL;
+        return true;
+    }
+    selinux_log(SELINUX_ERROR, "Get vendor public policy failed\n");
+    return false;
+}
+
 static std::vector<const char *> CombineCompileCmd(void)
 {
     std::vector<const char *> compileCmd = {
@@ -206,6 +243,16 @@ static std::vector<const char *> CombineCompileCmd(void)
         COMPILE_OUTPUT_POLICY,
     };
     compileCmd.emplace_back(SYSTEM_CIL);
+    std::string versionPolicy;
+    if (GetVersionPolicy(versionPolicy)) {
+        selinux_log(SELINUX_WARNING, "Add policy %s\n", versionPolicy.c_str());
+        compileCmd.emplace_back(versionPolicy.c_str());
+    }
+    std::string publicPolicy;
+    if (GetPublicPolicy(publicPolicy)) {
+        selinux_log(SELINUX_WARNING, "Add policy %s\n", publicPolicy.c_str());
+        compileCmd.emplace_back(publicPolicy.c_str());
+    }
     compileCmd.emplace_back(nullptr);
     return compileCmd;
 }
@@ -265,10 +312,25 @@ static bool CompilePolicy(void)
         return false;
     }
     (void)close(pipeFd[1]);
-    char buf[BUFF_SIZE] = {0};
-    while (read(pipeFd[0], buf, BUFF_SIZE - 1) > 0) {
-        selinux_log(SELINUX_ERROR, "Selinux compile result: %s\n", buf);
+
+    FILE *fp = fdopen(pipeFd[0], "r");
+    if (fp != nullptr) {
+        char buf[BUFF_SIZE] = {0};
+        while (fgets(buf, sizeof(buf) - 1, fp) != nullptr) {
+            size_t n = strlen(buf);
+            if (n == 0) {
+                continue;
+            }
+            if (buf[n - 1] == '\n') {
+                buf[n - 1] = '\0';
+            }
+            if (strstr(buf, "Failed") != nullptr) {
+                selinux_log(SELINUX_ERROR, "SELinux compile result: %s\n", buf);
+            }
+        }
+        fclose(fp);
     }
+
     (void)close(pipeFd[0]);
 
     return WaitForChild(pid);

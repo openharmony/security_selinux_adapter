@@ -12,16 +12,5 @@
 # limitations under the License.
 
 debug_only(`
-    allow sh audio_policy:binder { call transfer };
-    allow sh audio_policy:dir { getattr search };
-    allow sh audio_policy:file { open read };
-    allow sh audio_policy:process { getattr };
-
-    allow sh pulseaudio:binder { call };
-    allow sh pulseaudio:dir { getattr search };
-    allow sh pulseaudio:file { open read };
-    allow sh pulseaudio:process { sigkill };
-
-    allow sh sa_audio_policy_service:samgr_class { get };
-    allow sh sa_pulseaudio_audio_service:samgr_class { get };
+    allow sh iptables_exec:file { execute };
 ')

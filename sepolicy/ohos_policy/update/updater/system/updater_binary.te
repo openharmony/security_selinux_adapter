@@ -241,6 +241,10 @@ allow updater_binary debug_param:file { map open read };
 
 allow updater_binary data_file:file { setattr write create };
 
+allow updater_binary exfat:file { map };
+allow updater_binary ntfs:file { map };
+allow updater_binary vfat:file { map };
+
 ')
 
 allow updater_binary data_file:dir { search };
