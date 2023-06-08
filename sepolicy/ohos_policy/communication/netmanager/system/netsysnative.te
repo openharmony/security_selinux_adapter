@@ -52,25 +52,13 @@ allow init dev_unix_file:sock_file { unlink };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8927 0x8954 };
-debug_only(`
-  allow sh netsysnative:binder { call transfer };
-  allow sh sh:bpf { map_read prog_load map_create map_write };
-  allow sh sa_netsys_ext_service:samgr_class { add get };
-  allow sh fs_bpf:dir { getattr search mounton add_name create write };
-  allow sh netsysnative:lnk_file { read };
-  allow sh fs_bpf:file { create write read };
-  allow sh sa_distributed_net_service:samgr_class { add get };
-')
 
 allow netsysnative iptables_exec:file { execute read open execute_no_trans map };
 allow netsysnative netsysnative:packet_socket { create ioctl };
 allow netsysnative netsysnative:bpf { map_read prog_load map_create prog_run map_write };
 allow netsysnative data_file:file { read };
 allow netsysnative sa_netsys_ext_service:samgr_class { add get };
-allow netmanager sa_netsys_ext_service:samgr_class { add get };
-allow sa_netsys_ext_service sa_netsys_ext_service:samgr_class { add get };
-allow system_basic_hap sa_netsys_ext_service:samgr_class { add get };
-allow system_core_hap sa_netsys_ext_service:samgr_class { add get };
+
 allow netsysnative sys_file:filesystem { mount };
 allow netsysnative netsysnative:process { rlimitinh transition siginh };
 allow netsysnative netsysnative:capability2 { bpf };
@@ -98,14 +86,7 @@ allow netsysnative fs_bpf:file { create setattr write read };
 allow netsysnative fs_bpf:filesystem { mount };
 allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
 
-allow netsysnative vendor_etc_file:dir { search };
-allow netsysnative vendor_etc_file:file { open read };
-
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
-allow netmanager sa_distributed_net_service:samgr_class { add get };
-allow sa_distributed_net_service sa_distributed_net_service:samgr_class { add get };
-allow system_basic_hap sa_distributed_net_service:samgr_class { add get };
-allow system_core_hap sa_distributed_net_service:samgr_class { add get };
 
 allow netsysnative cgroup2:dir { read open };
 

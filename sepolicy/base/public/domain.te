@@ -31,8 +31,10 @@ allow domain init:fd use;
 allow domain tmpfs:dir { getattr search };
 allow domain tmpfs:lnk_file read;
 
-allow domain proc_attr:dir read_dir_perms;
-allow domain proc_attr:lnk_file { getattr read };
+allow { domain -normal_hap_attr } proc_attr:dir read_dir_perms;
+allow { domain -normal_hap_attr } proc_attr:lnk_file { getattr read };
+allow normal_hap_attr { proc_attr -proc_net }:dir read_dir_perms;
+allow normal_hap_attr { proc_attr -proc_net }:lnk_file { getattr read };
 
 allow domain rootfs:dir search;
 allow domain rootfs:lnk_file { read getattr };
