@@ -11,12 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type hidumper_file, file_attr, data_file_attr;
-
-type hidumper_exec, exec_attr, file_attr, system_file_attr;
-
-type hidumper, nativedomain, sadomain, domain;
-
-type sa_dfx_sys_hidumper_cpu_ability, sa_service_attr;
-
-domain_auto_transition_pattern({ nativedomain sadomain }, hidumper_exec, hidumper);
+1215	                               u:object_r:sa_dfx_sys_hidumper_cpu_ability:s0

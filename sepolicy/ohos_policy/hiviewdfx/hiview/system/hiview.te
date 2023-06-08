@@ -166,7 +166,7 @@ allow hiview normal_hap_data_file:file { create  write open };
 allow hiview system_basic_hap_data_file:file { setattr };
 allow hiview normal_hap_data_file:file { setattr };
 
-allow hiview sa_dfx_sys_hidumper_cpu_ability:samgr_class { add };
+allow hiview sa_dfx_sys_hidumper_cpu_ability:samgr_class { add get };
 
 allow hiview appspawn:dir { getattr open read search };
 allow hiview appspawn:file { getattr open read };
@@ -205,12 +205,6 @@ allow hiview hdcd:lnk_file read;
 allow hiview hdcd_exec:file { getattr map open read };
 
 allow hiview hdf_devmgr_exec:file { getattr map open read };
-
-allow hiview hidumper:binder call;
-allow hiview hidumper:dir { getattr open read search };
-allow hiview hidumper:file { getattr open read };
-allow hiview hidumper:lnk_file read;
-allow hiview hidumper_exec:file { getattr map open read };
 
 allow hiview hidumper_file:dir { add_name open read remove_name search write };
 allow hiview hidumper_file:file { create ioctl open unlink write };
@@ -254,7 +248,6 @@ allow hiview render_service_exec:file { getattr map open read };
 
 allow hiview self:udp_socket { create ioctl };
 
-allow hiview sh_exec:file { execute execute_no_trans getattr map open read };
 allow hiview storage_daemon_exec:file { getattr map open read };
 
 allow hiview sys_file:dir { open read };
@@ -296,11 +289,6 @@ allow hiview vendor_lib_file:file { getattr map open read };
 allow hiview watchdog_service_exec:file { getattr map open read };
 allow hiview wifi_hal_service_exec:file { getattr map open read };
 
-allow hiview { sadomain -installs }:binder call;
-allow hiview { hdfdomain sadomain }:dir { getattr open read search };
-allow hiview { hdfdomain sadomain }:file { getattr open read };
-allow hiview { hdfdomain sadomain }:lnk_file read;
-
 #avc:  denied  { get } for service=3302 pid=581 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_battery_service:s0 tclass=samgr_class permissive=1
 allow hiview sa_foundation_battery_service:samgr_class { get };
 
@@ -320,99 +308,9 @@ allow hiview hilog_exec:file { execute execute_no_trans getattr map open read };
 allow hiview proc_file:file { open read };
 allow hiview processdump:dir search;
 allow hiview processdump:file { open read };
-allow hiview sh:dir { getattr open read };
-allow hiview sh:fifo_file getattr;
-allow hiview sh:file getattr;
-allow hiview sh:lnk_file read;
 allow hiview sysfs_devices_system_cpu:file { open read getattr};
 allow hiview tty_device:chr_file getattr;
 allow hiview hdcd:fifo_file write;
-allow hiview sh:fd use;
-
-allow hiview sa_accessibleabilityms:samgr_class get;
-allow hiview sa_accountmgr:samgr_class get;
-allow hiview sa_bgtaskmgr:samgr_class get;
-allow hiview sa_bluetooth_server:samgr_class get;
-allow hiview sa_comm_dns_manager_service:samgr_class get;
-allow hiview sa_comm_ethernet_manager_service:samgr_class get;
-allow hiview sa_comm_mdns_manager_service:samgr_class get;
-allow hiview sa_comm_net_stats_manager_service:samgr_class get;
-allow hiview sa_dataobs_mgr_service_service:samgr_class get;
-allow hiview sa_device_usage_statistics_service:samgr_class get;
-allow hiview sa_dfx_sys_hidumper_cpu_ability:samgr_class get;
-allow hiview sa_distributeddata_service:samgr_class get;
-allow hiview sa_distributeschedule:samgr_class get;
-allow hiview sa_enterprise_device_manager_service:samgr_class get;
-allow hiview sa_form_mgr_service:samgr_class get;
-allow hiview sa_foundation_abilityms:samgr_class get;
-allow hiview sa_foundation_appms:samgr_class get;
-allow hiview sa_foundation_bms:samgr_class get;
-allow hiview sa_hiview_service:samgr_class get;
-allow hiview sa_installd_service:samgr_class get;
-allow hiview sa_net_conn_manager:samgr_class get;
-allow hiview sa_net_policy_manager:samgr_class get;
-allow hiview sa_netsys_native_manager:samgr_class get;
-allow hiview sa_render_service:samgr_class get;
-allow hiview sa_resource_schedule:samgr_class get;
-allow hiview sa_resource_schedule_socperf_server:samgr_class get;
-allow hiview sa_sys_event_service:samgr_class get;
-allow hiview sa_uri_permission_mgr_service:samgr_class get;
-allow hiview sa_useriam_authexecutormgr_service:samgr_class get;
-allow hiview sa_useriam_faceauth_service:samgr_class get;
-allow hiview sa_useriam_userauth_service:samgr_class get;
-allow hiview sa_wifi_device_ability:samgr_class get;
-allow hiview sa_wifi_hotspot_ability:samgr_class get;
-allow hiview sa_wifi_p2p_ability:samgr_class get;
-allow hiview sa_wifi_scan_ability:samgr_class get;
-allow hiview sa_work_schedule_service:samgr_class get;
-allow hiview sa_accesstoken_manager_service:samgr_class get;
-allow hiview sa_audio_policy_service:samgr_class get;
-allow hiview sa_camera_service:samgr_class get;
-allow hiview sa_device_auth_service:samgr_class get;
-allow hiview sa_device_profile_service:samgr_class get;
-allow hiview sa_device_security_level_manager_service:samgr_class get;
-allow hiview sa_device_service_manager:samgr_class get;
-allow hiview sa_download_service:samgr_class get;
-allow hiview sa_file_manager_service:samgr_class get;
-allow hiview sa_filemanagement_distributed_file_daemon_service:samgr_class get;
-allow hiview sa_foundation_ans:samgr_class get;
-allow hiview sa_foundation_cesfwk_service:samgr_class get;
-allow hiview sa_foundation_devicemanager_service:samgr_class get;
-allow hiview sa_foundation_dms:samgr_class get;
-allow hiview sa_foundation_tel_call_manager:samgr_class get;
-allow hiview sa_foundation_tel_state_registry:samgr_class get;
-allow hiview sa_huks_service:samgr_class get;
-allow hiview sa_inputmethod_service:samgr_class get;
-allow hiview sa_location_geo_convert_service:samgr_class get;
-allow hiview sa_location_locator_service:samgr_class get;
-allow hiview sa_locationhub_lbsservice_gnss:samgr_class get;
-allow hiview sa_locationhub_lbsservice_network:samgr_class get;
-allow hiview sa_locationhub_lbsservice_passive:samgr_class get;
-allow hiview sa_media_service:samgr_class get;
-allow hiview sa_memory_manager_service:samgr_class get;
-allow hiview sa_msdp_devicestatus_service:samgr_class get;
-allow hiview sa_multimodalinput_service:samgr_class get;
-allow hiview sa_pasteboard_service:samgr_class get;
-allow hiview sa_privacy_service:samgr_class get;
-allow hiview sa_pulseaudio_audio_service:samgr_class get;
-allow hiview sa_screenlock_service:samgr_class get;
-allow hiview sa_softbus_service:samgr_class get;
-allow hiview sa_storage_manager_daemon:samgr_class get;
-allow hiview sa_storage_manager_service:samgr_class get;
-allow hiview sa_subsys_ace_service:samgr_class get;
-allow hiview sa_telephony_tel_cellular_call:samgr_class get;
-allow hiview sa_telephony_tel_cellular_data:samgr_class get;
-allow hiview sa_telephony_tel_core_service:samgr_class get;
-allow hiview sa_telephony_tel_sms_mms:samgr_class get;
-allow hiview sa_time_service:samgr_class get;
-allow hiview sa_update_distributed_service:samgr_class get;
-allow hiview sa_usb_service:samgr_class get;
-allow hiview sa_useriam_pinauth_service:samgr_class get;
-allow hiview sa_useriam_useridm_service:samgr_class get;
-allow hiview sa_wallpaper_manager_service:samgr_class get;
-allow hiview sa_devattest_service:samgr_class get;
-allow hiview sa_device_standby:samgr_class get;
-allow hiview samgr:samgr_class list;
 
 allow hiview hiprofiler_cmd:file getattr;
 allow hiview hiprofiler_plugins:file getattr;
