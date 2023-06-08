@@ -121,4 +121,4 @@ allow init cgroup2:file { write };
 allow init cgroup2:lnk_file { create };
 
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr debug_only(`-sh') } netsysnative:binder *;
-neverallow { domain -netsysnative debug_only(`-sh') } iptables_exec:file { execute read open execute_no_trans map };
+neverallow { domain -netsysnative debug_only(`-sh') } iptables_exec:file { execute };
