@@ -28,10 +28,6 @@ define(`init_daemon_domain', `
     domain_auto_transition_pattern(init, $1_exec, $1)
 ')
 
-define(`chipset_init_daemon_domain', `
-    domain_auto_transition_pattern(chipset_init, $1_exec, $1)
-')
-
 define(`appspawn _daemon_domain', `
     domain_auto_transition_pattern(appspawn, $1_exec, $1)
 ')

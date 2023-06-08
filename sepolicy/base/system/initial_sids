@@ -18,7 +18,6 @@ sid fs
 sid file
 sid file_labels
 sid init
-sid chipset_init
 sid any_socket
 sid port
 sid netif
