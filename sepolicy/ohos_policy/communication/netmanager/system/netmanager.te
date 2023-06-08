@@ -94,3 +94,6 @@ allow netmanager distributeddata:fd use;
 allow netmanager sa_dataobs_mgr_service_service:samgr_class get;
 allow netmanager sa_distributeddata_service:samgr_class get;
 
+allow netmanager sa_netsys_ext_service:samgr_class { add get };
+allow netmanager sa_distributed_net_service:samgr_class { add get };
+
