@@ -19,6 +19,7 @@ declare_args() {
   components = "default"
   vendor_policy_version = "40"
   special_build_policy_script = "default"
+  special_build_contexts_script = "default"
   extra_args = "default"
 }
 

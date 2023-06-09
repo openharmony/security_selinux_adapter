@@ -472,7 +472,11 @@ action("build_contexts") {
     }
   }
 
-  script = "scripts/build_contexts.py"
+  if (special_build_contexts_script != "default") {
+    script = special_build_contexts_script
+  } else {
+    script = "scripts/build_contexts.py"
+  }
   args = [
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
