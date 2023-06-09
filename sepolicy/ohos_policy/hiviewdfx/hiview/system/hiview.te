@@ -230,9 +230,6 @@ allow hiview kernel:file { getattr open read };
 allow hiview kernel:lnk_file read;
 allow hiview kernel:system syslog_read;
 
-allow hiview limit_domain:file { getattr open read };
-allow hiview limit_domain:lnk_file read;
-
 allow hiview normal_hap_attr:dir { getattr open read search };
 allow hiview normal_hap_attr:file { getattr open read };
 allow hiview normal_hap_attr:lnk_file read;
@@ -320,14 +317,18 @@ allow hiview hilog_exec:file { execute execute_no_trans getattr map open read };
 allow hiview proc_file:file { open read };
 allow hiview processdump:dir search;
 allow hiview processdump:file { open read };
-allow hiview sh:dir { getattr open read };
-allow hiview sh:fifo_file getattr;
-allow hiview sh:file getattr;
-allow hiview sh:lnk_file read;
+
 allow hiview sysfs_devices_system_cpu:file { open read getattr};
 allow hiview tty_device:chr_file getattr;
 allow hiview hdcd:fifo_file write;
-allow hiview sh:fd use;
+
+debug_only(`
+    allow hiview sh:dir { getattr open read };
+    allow hiview sh:fifo_file getattr;
+    allow hiview sh:file getattr;
+    allow hiview sh:lnk_file read;
+    allow hiview sh:fd use;
+')
 
 allow hiview sa_accessibleabilityms:samgr_class get;
 allow hiview sa_accountmgr:samgr_class get;
@@ -436,5 +437,3 @@ allow hiview debugfs_stats:file { getattr open read };
 allow hiview debugfs_state:file { getattr open read };
 allow hiview data_log:file { read write };
 allow hiview self:capability dac_read_search;
-
-
