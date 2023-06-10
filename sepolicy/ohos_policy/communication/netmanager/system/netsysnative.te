@@ -85,6 +85,9 @@ allow netsysnative fs_bpf:dir { getattr search mounton add_name create write };
 allow netsysnative fs_bpf:file { create setattr write read };
 allow netsysnative fs_bpf:filesystem { mount };
 allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getattr listen read nlmsg_read nlmsg_write create write };
+allow netsysnative netsysnative:netlink_tcpdiag_socket { create connect write nlmsg_read read nlmsg_write };
+allow netsysnative system_core_hap:fd { use };
+allow netsysnative system_core_hap:tcp_socket { read write getopt setopt };
 
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 
