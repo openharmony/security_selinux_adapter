@@ -165,3 +165,6 @@ allow hiview normal_hap_data_file:file { create  write open };
 #avc:  denied  { setattr } for  pid=246 comm="exportSysEventT" name="RELIABILITY-20170806025113-000-0.evt" dev="mmcblk0p12" ino=2052 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
 allow hiview system_basic_hap_data_file:file { setattr };
 allow hiview normal_hap_data_file:file { setattr };
+
+#avc:  denied  { get } for service=1208 pid=251 scontext=u:r:hiview:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
+allow hiview default_service:samgr_class { get };
