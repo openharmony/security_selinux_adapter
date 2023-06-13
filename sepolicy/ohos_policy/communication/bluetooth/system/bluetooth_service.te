@@ -194,3 +194,10 @@ allow bluetooth_service resource_schedule_service:binder { call };
 
 allow bluetooth_service persist_param:parameter_service set;
 
+
+#avc:  denied  { write } for  pid=2949 comm="AdapterManager" name="paramservice" dev="tmpfs" ino=85 scontext=u:r:bluetooth_service:s0 tcontext=u:object_r:paramservice_socket:s0 tclass=sock_file permissive=0
+allow bluetooth_service paramservice_socket:sock_file { read write };
+
+#avc:  denied  { connectto } for  pid=2922 comm="AdapterManager" path="/dev/unix/socket/paramservice" scontext=u:r:bluetooth_service:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=0
+allow bluetooth_service kernel:unix_stream_socket { connectto };
+
