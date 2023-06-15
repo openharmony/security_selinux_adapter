@@ -360,5 +360,6 @@ allow updater vfat:file { map };
 
 allow updater data_file:dir { setattr relabelto };
 allow updater unlabeled:dir { getattr relabelfrom };
+allow updater devinfo_private_param:file { map open read };
 
 ')
