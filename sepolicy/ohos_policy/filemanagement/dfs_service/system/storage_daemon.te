@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,11 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type sys_fs_hmdfs, fs_attr, sysfs_attr;
-type vfat, fs_attr;
-type exfat, fs_attr;
-type ntfs, fs_attr;
-
-type distributedfiledaemon, sadomain, domain;
-type data_service_el2_hmdfs, file_attr, data_file_attr;
-type cloudfiledaemon, sadomain, domain;
+allow storage_daemon cloudfiledaemon:fd { use };
+allow storage_daemon cloudfiledaemon:binder { call };
