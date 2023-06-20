@@ -124,7 +124,7 @@ ohos_static_library("libselinux_hilog_static") {
   sources = [ "interfaces/policycoreutils/src/selinux_log.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [ "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared" ]
-  external_deps = [ "hilog_native:libhilog" ]
+  external_deps = [ "hilog:libhilog" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
