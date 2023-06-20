@@ -22,7 +22,7 @@ allow devattest_service data_file:dir { search };
 allow devattest_service data_device_attest:dir { search getattr add_name open read remove_name write create };
 allow devattest_service data_device_attest:file { append map open read create write getattr setattr unlink lock ioctl rename };
 
-allow devattest_service netsysnative:unix_stream_socket { connectto };
+allow devattest_service netsysnative:unix_stream_socket { connectto read write };
 allow devattest_service port:tcp_socket { name_connect };
 allow devattest_service devattest_service:tcp_socket { connect create read setopt write getopt getattr };
 allow devattest_service devattest_service:udp_socket { create bind connect getattr read write };
