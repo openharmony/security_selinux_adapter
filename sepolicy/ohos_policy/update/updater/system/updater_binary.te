@@ -245,6 +245,16 @@ allow updater_binary exfat:file { map };
 allow updater_binary ntfs:file { map };
 allow updater_binary vfat:file { map };
 
+# avc: denied { ioctl } for pid=267 comm="updater" path="/dev/dri/card0" dev="tmpfs" ino=93 ioctlcmd=0x6409 scontext=u:r:updater_binary:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
+allow updater_binary dev_dri_file:chr_file { ioctl };
+
+# avc: denied { execute_no_trans } for pid=267 comm="updater" path="/tmp/updater_binary" dev="tmpfs" ino=5 scontext=u:r:updater_binary:s0 tcontext=u:object_r:updater_binary_exec:s0 tclass=file permissive=0
+allow updater_binary updater_binary_exec:file { execute_no_trans };
+
+# avc: denied { ioctl } for pid=267 comm="updater" path="/dev/dri/card0" dev="tmpfs" ino=93 ioctlcmd=0x6409 scontext=u:r:updater_binary:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
+# avc: denied { ioctl } for pid=267 comm="updater" path="/dev/dri/card0" dev="tmpfs" ino=93 ioctlcmd=0x64af scontext=u:r:updater_binary:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
+allowxperm updater_binary dev_dri_file:chr_file ioctl { 0x6409 0x64af };
+
 ')
 
 allow updater_binary data_file:dir { search };
