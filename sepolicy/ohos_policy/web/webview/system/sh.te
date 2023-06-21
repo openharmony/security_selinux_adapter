@@ -1,0 +1,36 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+debug_only(`
+    # avc:  denied  { getattr } for  pid=4565 comm="ps" path="/proc/3172" dev="proc" ino=34081 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=dir permissive=1
+    # avc:  denied  { search } for  pid=4565 comm="ps" name="3172" dev="proc" ino=34081 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=dir permissive=1
+    allow sh isolated_render:dir { getattr search };
+    
+    # avc:  denied  { open } for  pid=4569 comm="ps" path="/proc/3172/stat" dev="proc" ino=34086 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+    # avc:  denied  { read } for  pid=4569 comm="ps" name="stat" dev="proc" ino=34086 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+    allow sh isolated_render:file { open read };
+    
+    #avc: denied { open } for pid=3754 comm="sh" path="/proc/5054" dev="proc" ino=50017 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=dir permissive=1
+    #avc: denied { read } for pid=3754 comm="sh" name="5054" dev="proc" ino=50017 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=dir permissive=1
+    allow sh isolated_render:dir { open read };
+    
+    #avc: denied { getattr } for pid=3754 comm="sh" path="/proc/5054/environ" dev="proc" ino=54679 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=file permissive=1
+    allow sh isolated_render:file { getattr };
+    
+    #avc: denied { getattr } for pid=3754 comm="sh" path="/proc/5054/cwd" dev="proc" ino=54691 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=lnk_file permissive=1
+    #avc: denied { read } for pid=3754 comm="sh" name="root" dev="proc" ino=54692 scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=lnk_file permissive=1
+    allow sh isolated_render:lnk_file { getattr read };
+
+    #avc: denied { getattr } for pid=4596 comm="ps" scontext=u:r:sh:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
+    allow sh isolated_render:process { getattr };
+')
