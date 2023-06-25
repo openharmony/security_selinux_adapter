@@ -403,7 +403,7 @@ allow init time_service:process { rlimitinh siginh transition };
 allow init tmpfs:blk_file { getattr relabelfrom };
 allow init tmpfs:chr_file { getattr relabelfrom write open read };
 allow init tmpfs:dir { add_name create mounton open read relabelfrom setattr write };
-allow init tmpfs:file { getattr relabelfrom create open mounton };
+allow init tmpfs:file { getattr relabelfrom };
 allow init tmpfs:lnk_file { create getattr relabelfrom };
 allow init tmpfs:sock_file { getattr relabelfrom };
 allow init token_sync_service:process { rlimitinh siginh transition };
