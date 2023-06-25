@@ -201,3 +201,10 @@ allow bluetooth_service paramservice_socket:sock_file { read write };
 #avc:  denied  { connectto } for  pid=2922 comm="AdapterManager" path="/dev/unix/socket/paramservice" scontext=u:r:bluetooth_service:s0 tcontext=u:r:kernel:s0 tclass=unix_stream_socket permissive=0
 allow bluetooth_service kernel:unix_stream_socket { connectto };
 
+allow bluetooth_service distributeddata:binder { call transfer };
+allow bluetooth_service distributeddata:fd { use };
+allow bluetooth_service sa_dataobs_mgr_service_service:samgr_class { get };
+allow bluetooth_service sa_distributeddata_service:samgr_class { get };
+allow bluetooth_service sa_foundation_abilityms:samgr_class { get };
+allow bluetooth_service sa_net_conn_manager:samgr_class { get };
+
