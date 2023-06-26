@@ -20,7 +20,7 @@ debug_only(`
 ')
 
 allow av_codec_service av_codec_service:unix_dgram_socket { getopt setopt };
-allow av_codec_service data_file:file { read getattr };
+allow av_codec_service data_file:file { read getattr search };
 allow av_codec_service dev_ashmem_file:chr_file { open };
 allow av_codec_service param_watcher:binder { call transfer };
 allow av_codec_service system_bin_file:dir { search };
@@ -99,3 +99,10 @@ allow av_codec_service vendor_etc_file:dir { search };
 # avc:  denied  { open } for  pid=548 comm="av_codec_servic" path="/vendor/etc/hdfconfig/hdf_default.hcb" dev="mmcblk0p8" ino=36 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=548 comm="av_codec_servic" name="hdf_default.hcb" dev="mmcblk0p8" ino=36 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 allow av_codec_service vendor_etc_file:file { getattr open read };
+
+# avc:  denied  { call } for  pid=1648 comm="av_codec_servic" scontext=u:r:av_codec_service:s0 tcontext=u:r:codec_host:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=1648 comm="IPC_3_1816" scontext=u:r:av_codec_service:s0 tcontext=u:r:codec_host:s0 tclass=binder permissive=1
+allow av_codec_service codec_host:binder { call transfer };
+
+# avc:  denied  { get } for service=codec_component_manager_service pid=2561 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:hdf_codec_component_manager_service:s0 tclass=hdf_devmgr_class permissive=0
+allow av_codec_service hdf_codec_component_manager_service:hdf_devmgr_class { get };

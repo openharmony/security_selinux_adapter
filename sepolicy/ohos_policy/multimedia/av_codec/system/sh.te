@@ -25,4 +25,7 @@ debug_only(`
 
     # avc:  denied  { write } for  pid=1459 comm="av_codec_demo" name="kmsg" dev="tmpfs" ino=6 scontext=u:r:sh:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
     allow sh dev_kmsg_file:chr_file { write };
+
+    # avc:  denied  { signal } for  pid=821 comm="sh" scontext=u:r:sh:s0 tcontext=u:r:av_codec_service:s0 tclass=process permissive=1
+    allow sh av_codec_service:process { signal };
 ')
