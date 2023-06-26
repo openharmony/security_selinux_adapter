@@ -238,8 +238,6 @@
 5205                                   u:object_r:sa_filemanagement_cloud_daemon_service:s0
 5501	                               u:object_r:sa_devattest_service:s0
 6001	                               u:object_r:sa_device_profile_service:s0
-6100                                   u:object_r:sa_instance_id:s0
-6103                                   u:object_r:sa_push_manager_service:s0
 6101                                   u:object_r:sa_oaid_service:s0
 7001	                               u:object_r:sa_subsys_ace_service:s0
 7002	                               u:object_r:sa_ui_appearance:s0
