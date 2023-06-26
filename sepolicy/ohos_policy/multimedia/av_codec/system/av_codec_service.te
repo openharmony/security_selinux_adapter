@@ -77,3 +77,25 @@ allow av_codec_service node:udp_socket { node_bind };
 
 # avc:  denied  { name_connect } for  pid=546 comm="av_codec_servic" dest=443 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=1
 allow av_codec_service port:tcp_socket { name_connect };
+
+# avc:  denied  { getattr } for  pid=548 comm="omx_msg_hdl" path="/proc/version" dev="proc" ino=4026532114 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=548 comm="omx_msg_hdl" path="/proc/version" dev="proc" ino=4026532114 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=548 comm="omx_msg_hdl" name="version" dev="proc" ino=4026532114 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:proc_version_file:s0 tclass=file permissive=1
+allow av_codec_service proc_version_file:file { getattr open read };
+
+# avc:  denied  { open } for  pid=548 comm="omx_msg_hdl" path="/sys/firmware/devicetree/base/compatible" dev="sysfs" ino=15 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=548 comm="omx_msg_hdl" name="compatible" dev="sysfs" ino=15 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=1
+allow av_codec_service sys_file:file { open read };
+
+# avc:  denied  { map } for  pid=577 comm="IPC_2_1400" path="/dev/__parameters__/u:object_r:sys_param:s0" dev="tmpfs" ino=60 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=577 comm="IPC_2_1400" path="/dev/__parameters__/u:object_r:sys_param:s0" dev="tmpfs" ino=60 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=577 comm="IPC_2_1400" name="u:object_r:sys_param:s0" dev="tmpfs" ino=60 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:sys_param:s0 tclass=file permissive=1
+allow av_codec_service sys_param:file { map open read };
+
+# avc:  denied  { search } for  pid=548 comm="av_codec_servic" name="etc" dev="mmcblk0p8" ino=16 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+allow av_codec_service vendor_etc_file:dir { search };
+
+# avc:  denied  { getattr } for  pid=548 comm="av_codec_servic" path="/vendor/etc/hdfconfig/hdf_default.hcb" dev="mmcblk0p8" ino=36 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=548 comm="av_codec_servic" path="/vendor/etc/hdfconfig/hdf_default.hcb" dev="mmcblk0p8" ino=36 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=548 comm="av_codec_servic" name="hdf_default.hcb" dev="mmcblk0p8" ino=36 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+allow av_codec_service vendor_etc_file:file { getattr open read };
