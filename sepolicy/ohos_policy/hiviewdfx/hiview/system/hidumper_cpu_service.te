@@ -49,7 +49,3 @@ allow hiview self:capability dac_read_search;
 allow hiview sa_foundation_appms:samgr_class get;
 allow hiview sa_foundation_cesfwk_service:samgr_class get;
 
-debug_only(`
-    allow hiview sh:dir { search };
-    allow hiview sh:file { getattr open read };
-')

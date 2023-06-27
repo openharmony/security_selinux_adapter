@@ -162,3 +162,15 @@ allow hiview normal_hap_data_file:file { create  write open };
 #avc:  denied  { setattr } for  pid=246 comm="exportSysEventT" name="RELIABILITY-20170806025113-000-0.evt" dev="mmcblk0p12" ino=2052 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
 allow hiview system_basic_hap_data_file:file { setattr };
 allow hiview normal_hap_data_file:file { setattr };
+
+debug_only(`
+    allow hiview sh:dir { getattr open read search};
+    allow hiview sh:fifo_file getattr;
+    allow hiview sh:lnk_file read;
+    allow hiview sh:fd use;
+    allow hiview sh:file { getattr read open };
+    allow hiview sh:binder { call transfer };
+    allow sh hiview:dir { getattr search };
+    allow sh hiview:file { open };
+    allow sh hiview:process { getattr };
+')
