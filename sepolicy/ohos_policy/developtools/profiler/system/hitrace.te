@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,42 +14,6 @@
 allow hitrace hiprofiler_plugins:fifo_file read;
 allow hitrace hiprofiler_plugins:unix_stream_socket { read write };
 allow hitrace hiprofilerd:fd use;
-
 allow hitrace hiprofiler_plugins:fd use;
 allow hitrace hiprofiler_plugins:fifo_file write;
-
-allow hitrace domain:file { map open read write };
-
-allow hitrace data_local_tmp:dir read;
-
-allow hitrace const_param:file { read map open };
-allow hitrace hw_sc_build_os_param:file map;
-allow hitrace init_param:file { map open read };
-allow hitrace init_svc_param:file { map open read };
-allow hitrace ohos_boot_param:file open;
-allow hitrace tmpfs:file { read write };
-
-allow hitrace const_postinstall_fstab_param:file { read map open };
-allow hitrace const_postinstall_param:file { read map open };
-
-allow hitrace bootevent_param:file { read map open };
-allow hitrace build_version_param:file { read map open };
-allow hitrace const_build_param:file { read map open };
-allow hitrace const_product_param:file { read map open };
-allow hitrace debug_param:file { read map open };
-allow hitrace hilog_param:file { read map open };
-allow hitrace persist_param:file { read map open };
-allow hitrace persist_sys_param:file { read map open };
-allow hitrace security_param:file { read map open };
-allow hitrace startup_param:file { read map open };
-
-allow hitrace bootevent_samgr_param:file { read map open };
-allow hitrace const_display_brightness_param:file { read map open };
-allow hitrace default_param:file { read map open };
-allow hitrace distributedsche_param:file { read map open };
-allow hitrace input_pointer_device_param:file { read map open };
-
 allow hitrace hiprofiler_plugins:fifo_file ioctl;
-
-allow hitrace const_allow_mock_param:file { read map open };
-allow hitrace const_allow_param:file { read map open };
