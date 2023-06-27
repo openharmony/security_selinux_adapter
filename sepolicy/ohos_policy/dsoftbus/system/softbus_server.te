@@ -50,13 +50,13 @@ debug_only(`
 ')
 
 #avc:  denied  { create } for  pid=540 comm="softbus_server" scontext=u:r:softbus_server:s0 tcontext=u:r:softbus_server:s0 tclass=socket permissive=0
-allow softbus_server softbus_server:socket { bind create ioctl setopt shutdown };
+allow softbus_server softbus_server:socket { bind create ioctl setopt shutdown getattr connect accept listen read write getopt };
 
 #avc:  denied  { getopt } for  pid=482 comm="THREAD_POOL" scontext=u:r:softbus_server:s0 tcontext=u:r:softbus_server:s0 tclass=tcp_socket permissive=1
 allow softbus_server softbus_server:tcp_socket { getopt };
 
 #avc:  denied  { ioctl } for  pid=526 comm="softbus_server" path="socket:[36080]" dev="sockfs" ino=36080 ioctlcmd=0x8933 scontext=u:r:softbus_server:s0 tcontext=u:r:softbus_server:s0 tclass=socket permissive=0
-allowxperm softbus_server softbus_server:socket ioctl { 0x8933 };
+allowxperm softbus_server softbus_server:socket ioctl { 0x8933 0x8916 0x890B 0x8913 0x8936 0x890c };
 
 #avc: denied { call } for pid=509 comm="0IPC_686" scontext=u:r:softbus_server:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
 allow softbus_server system_core_hap:binder { call };
@@ -76,3 +76,15 @@ allow softbus_server sa_dataobs_mgr_service_service:samgr_class { get };
 
 #avc:  denied  { get } for service=401 pid=512 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
 allow softbus_server sa_foundation_bms:samgr_class { get };
+
+# avc:  denied  { read write } for  pid=2312 comm="SaInit0" name="btdev0" dev="tmpfs" ino=184 scontext =u:r:softbus_server:s0 tcontext=u:object_r:dev_file:s0 tclass=chr_file permissive=0
+debug_only(`
+    allow softbus_server dev_file:chr_file { read write open ioctl };
+')
+
+#avc:  denied  { read } for  pid=456 comm="softbus_server" name="af_ninet" dev="sysfs" ino=13529 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=0
+allow softbus_server sys_file:file { open read };
+
+#avc:  denied  { read } for  pid=497 comm="softbus_server" name="nip_route" dev="proc" ino=4026532651 scontext=u:r:softbus_server:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=0
+#avc:  denied  { getattr } for  pid=540 comm="SaInit0" path="/proc/540/net/nip_route" dev="proc" ino=4026532673 scontext=u:r:softbus_server:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=0
+allow softbus_server proc_net:file { open getattr read };
