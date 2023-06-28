@@ -491,6 +491,11 @@ action("build_contexts") {
     "--components",
     components,
   ]
+  if (contexts_extra_args != "default") {
+    foreach(arg, string_split(contexts_extra_args, " ")) {
+      args += [ arg ]
+    }
+  }
   deps = [
     ":build_policy",
     "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
