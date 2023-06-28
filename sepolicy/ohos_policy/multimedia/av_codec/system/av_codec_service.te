@@ -109,3 +109,9 @@ allow av_codec_service hdf_codec_component_manager_service:hdf_devmgr_class { ge
 
 # avc:  denied  { search } for  pid=1648 comm="IPC_3_1816" name="/" dev="mmcblk0p14" ino=3 scontext=u:r:av_codec_service:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=1
 allow av_codec_service data_file:dir { search };
+
+allow av_codec_service normal_hap:binder { call transfer };
+
+debug_only(`
+    allow av_codec_service debug_hap:binder { call transfer };
+')
