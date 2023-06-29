@@ -55,3 +55,5 @@ allow resource_schedule_service system_usr_file:file { map open };
 allow resource_schedule_service sys_usb_param:file { map open read };
 allow resource_schedule_service vendor_etc_file:dir { search };
 allowxperm resource_schedule_service sysfs_devices_system_cpu:file ioctl { 0x5413 };
+allow resource_schedule_service sa_multimodalinput_service:samgr_class { get };
+allow resource_schedule_service multimodalinput:unix_stream_socket { read };
