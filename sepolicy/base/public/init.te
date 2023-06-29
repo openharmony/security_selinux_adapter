@@ -19,7 +19,7 @@ neverallow { domain -kernel } init:process dyntransition;
 neverallow { domain -kernel } init:process transition;
 
 #todo need open
-#neverallow init *:process noatsecure;
+neverallow init *:process noatsecure;
 
 neverallow { domain -processdump } init:process ptrace;
 
