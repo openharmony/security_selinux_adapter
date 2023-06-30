@@ -106,3 +106,12 @@ allow media_service sa_avsession_service:samgr_class { get };
 allow media_service av_session:binder { call transfer };
 
 allow media_service sa_foundation_bms:samgr_class { get };
+
+#avc:  denied  { get } for service=4607 pid=624 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=0
+allow media_service sa_foundation_dms:samgr_class { get };
+
+#add selinux for get sa_privacy_service
+allow media_service sa_privacy_service:samgr_class { get };
+
+#add selinux for call privacy_service
+allow media_service privacy_service:binder { call transfer };
