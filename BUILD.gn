@@ -43,7 +43,7 @@ ohos_shared_library("libload_policy") {
     "updater",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -65,7 +65,7 @@ ohos_shared_library("librestorecon") {
   ]
   innerapi_tags = [ "platformsdk_indirect" ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -89,7 +89,7 @@ ohos_shared_library("libhap_restorecon") {
   ]
   install_enable = true
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -101,7 +101,7 @@ ohos_static_library("libselinux_error_static") {
     "-D_GNU_SOURCE",
     "-w",
   ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -115,7 +115,7 @@ ohos_static_library("libselinux_klog_static") {
     "-Wall",
     "-Werror",
   ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -130,7 +130,7 @@ ohos_static_library("libselinux_hilog_static") {
     "-Wall",
     "-Werror",
   ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -197,7 +197,7 @@ ohos_shared_library("libparaperm_checker") {
     "system",
     "updater",
   ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -217,7 +217,7 @@ ohos_shared_library("libservice_checker") {
     "-Werror",
   ]
   innerapi_tags = [ "chipsetsdk" ]
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -232,7 +232,7 @@ ohos_executable("load_policy") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   install_images = [
     "system",
@@ -254,7 +254,7 @@ ohos_executable("restorecon") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   install_images = [
     "system",
@@ -276,7 +276,7 @@ ohos_executable("hap_restorecon") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -300,7 +300,7 @@ ohos_executable("param_check") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -318,7 +318,7 @@ ohos_executable("service_check") {
     "-Werror",
   ]
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
 }
 
@@ -358,7 +358,7 @@ action("build_policy") {
     "--dst-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -433,7 +433,7 @@ action("build_update_policy") {
     "--dst-file",
     rebase_path(target_out_dir + "/updater/policy.31"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
     "--source-root-dir",
     rebase_path("//"),
     "--policy_dir_list",
@@ -481,7 +481,7 @@ action("build_contexts") {
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
     "--tool-path",
-    rebase_path(root_build_dir + "/clang_x64/security/selinux/"),
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
     "--policy-file",
     rebase_path(target_out_dir + "/policy.31"),
     "--source-root-dir",
@@ -528,7 +528,7 @@ ohos_prebuilt_etc("build_sepolicy") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/policy.31"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   if (components == "vendor") {
     relative_install_dir = "selinux/prebuild_sepolicy/"
@@ -543,7 +543,7 @@ ohos_prebuilt_etc("build_updater_sepolicy") {
   deps = [ ":build_update_policy" ]
   source = target_out_dir + "/updater/policy.31"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/policy/"
   install_images = [ "updater" ]
@@ -553,7 +553,7 @@ ohos_prebuilt_etc("selinux_version") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/version"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
@@ -563,7 +563,7 @@ ohos_prebuilt_etc("config") {
   deps = [ ":selinux_config" ]
   source = target_out_dir + "/config"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
@@ -573,7 +573,7 @@ ohos_prebuilt_etc("updater_config") {
   deps = [ ":updater_selinux_config" ]
   source = target_out_dir + "/updater/config"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "updater" ]
@@ -583,7 +583,7 @@ ohos_prebuilt_etc("sehap_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/sehap_contexts"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
 }
@@ -592,7 +592,7 @@ ohos_prebuilt_etc("parameter_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/parameter_contexts"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
   install_images = [
@@ -605,7 +605,7 @@ ohos_prebuilt_etc("service_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/service_contexts"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
 }
@@ -614,7 +614,7 @@ ohos_prebuilt_etc("hdf_service_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/hdf_service_contexts"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
 }
@@ -623,7 +623,7 @@ ohos_prebuilt_etc("file_contexts") {
   deps = [ ":build_contexts" ]
   source = target_out_dir + "/file_contexts"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
   if (components == "vendor") {
@@ -640,7 +640,7 @@ ohos_prebuilt_etc("vendor_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/vendor.cil"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
@@ -650,7 +650,7 @@ ohos_prebuilt_etc("public_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/public.cil"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
@@ -660,7 +660,7 @@ ohos_prebuilt_etc("version_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/$vendor_policy_version.cil"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/compatible/"
   install_images = [ "system" ]
@@ -670,7 +670,7 @@ ohos_prebuilt_etc("prebuild_sepolicy_system_cil_sha256") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/prebuild_sepolicy.system.cil.sha256"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "vendor" ]
@@ -680,7 +680,7 @@ ohos_prebuilt_etc("system_cil") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/system.cil"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
@@ -690,7 +690,7 @@ ohos_prebuilt_etc("system_cil_sha256") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/system.cil.sha256"
   license_file = "LICENSE"
-  part_name = "selinux"
+  part_name = "selinux_adapter"
   subsystem_name = "security"
   relative_install_dir = "selinux/"
   install_images = [ "system" ]
