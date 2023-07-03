@@ -13,7 +13,7 @@
 
 
 #allow sh data_local_tmp:dir { add_name remove_name };
-allow sh data_local_tmp:file { create ioctl rename write append};
+
 debug_only(`
     allow sh hiperf:process sigkill;
     allow sh data_file:file rename;
