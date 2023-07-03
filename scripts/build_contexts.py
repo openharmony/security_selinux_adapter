@@ -228,35 +228,40 @@ def check_sehap_contexts(args, contexts_file, domain):
         os.unlink(contexts_file + ".bin")
 
 
-def build_file_contexts(args, output_path, policy_path):
-    file_contexts_list = traverse_folder_in_type(
-        policy_path, "file_contexts")
+def build_file_contexts(args, output_path, policy_path, all_policy_path):
+    if args.components == "default":
+        all_combined_file_contexts = os.path.join(output_path, "file_contexts")
+    else:
+        all_combined_file_contexts = os.path.join(output_path, "all_file_contexts")
+        file_contexts_list = traverse_folder_in_type(policy_path, "file_contexts")
+        combined_file_contexts = os.path.join(output_path, "file_contexts")
+        combine_contexts_file(file_contexts_list, combined_file_contexts)
 
-    combined_file_contexts = os.path.join(output_path, "file_contexts")
-    combine_contexts_file(file_contexts_list, combined_file_contexts)
+    all_file_contexts_list = traverse_folder_in_type(
+        all_policy_path, "file_contexts")
+    combine_contexts_file(all_file_contexts_list, all_combined_file_contexts)
 
-    build_tmp_cmd = ["m4",
-                     "--fatal-warnings",
-                     "-s", combined_file_contexts, ">", os.path.join(output_path, "file_contexts.tmp")]
-    run_command(build_tmp_cmd)
-
-    check_redefinition(combined_file_contexts)
+    check_redefinition(all_combined_file_contexts)
 
     build_bin_cmd = [os.path.join(args.tool_path, "sefcontext_compile"),
                      "-o", os.path.join(args.dst_dir, "file_contexts.bin"),
                      "-p", args.policy_file,
-                     os.path.join(output_path, "file_contexts.tmp")]
+                     all_combined_file_contexts]
     run_command(build_bin_cmd)
 
 
-def build_common_contexts(args, output_path, contexts_file_name, policy_path):
-    contexts_list = traverse_folder_in_type(
-        policy_path, contexts_file_name)
+def build_common_contexts(args, output_path, contexts_file_name, policy_path, all_policy_path):
+    if args.components == "default":
+        all_combined_contexts = output_path + contexts_file_name
+    else:
+        all_combined_contexts = output_path + "all_" + contexts_file_name
+        contexts_list = traverse_folder_in_type(policy_path, contexts_file_name)
+        combined_contexts = output_path + contexts_file_name
+        combine_contexts_file(contexts_list, combined_contexts)
 
-    combined_contexts = output_path + contexts_file_name
-    combine_contexts_file(contexts_list, combined_contexts)
-
-    check_common_contexts(args, combined_contexts)
+    all_contexts_list = traverse_folder_in_type(all_policy_path, contexts_file_name)
+    combine_contexts_file(all_contexts_list, all_combined_contexts)
+    check_common_contexts(args, all_combined_contexts)
 
 
 def build_sehap_contexts(args, output_path, policy_path):
@@ -294,25 +299,6 @@ def traverse_folder_in_dir_name(search_dir, folder_suffix):
     return folder_list
 
 
-def build_all_file_contexts_bin(args, output_path, policy_path):
-    file_contexts_list = traverse_folder_in_type(
-        policy_path, "file_contexts")
-
-    combined_file_contexts = os.path.join(output_path, "all_file_contexts")
-    combine_contexts_file(file_contexts_list, combined_file_contexts)
-
-    build_tmp_cmd = ["m4",
-                     "--fatal-warnings",
-                     "-s", combined_file_contexts, ">", os.path.join(output_path, "all_file_contexts.tmp")]
-    run_command(build_tmp_cmd)
-
-    build_bin_cmd = [os.path.join(args.tool_path, "sefcontext_compile"),
-                     "-o", os.path.join(args.dst_dir, "file_contexts.bin"),
-                     "-p", args.policy_file,
-                     os.path.join(output_path, "all_file_contexts.tmp")]
-    run_command(build_bin_cmd)
-
-
 def main(args):
     output_path = args.dst_dir
     policy_path = []
@@ -331,18 +317,19 @@ def main(args):
     vendor_folder_list = public_policy + vendor_policy
     all_folder_list = public_policy + system_policy + vendor_policy
 
-    if args.components == "system":
-        build_file_contexts(args, output_path, system_folder_list)
-        build_all_file_contexts_bin(args, output_path, all_folder_list)
-    elif args.components == "vendor":
-        build_file_contexts(args, output_path, vendor_folder_list)
-        build_all_file_contexts_bin(args, output_path, all_folder_list)
-    else:
-        build_file_contexts(args, output_path, all_folder_list)
+    folder_list = []
 
-    build_common_contexts(args, output_path, "service_contexts", all_folder_list)
-    build_common_contexts(args, output_path, "hdf_service_contexts", all_folder_list)
-    build_common_contexts(args, output_path, "parameter_contexts", all_folder_list)
+    if args.components == "system":
+        folder_list = system_folder_list
+    elif args.components == "vendor":
+        folder_list = vendor_folder_list
+    else:
+        folder_list = all_folder_list
+
+    build_file_contexts(args, output_path, folder_list, all_folder_list)
+    build_common_contexts(args, output_path, "service_contexts", folder_list, all_folder_list)
+    build_common_contexts(args, output_path, "hdf_service_contexts", folder_list, all_folder_list)
+    build_common_contexts(args, output_path, "parameter_contexts", folder_list, all_folder_list)
     build_sehap_contexts(args, output_path, all_folder_list)
 
 

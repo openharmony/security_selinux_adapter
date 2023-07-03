@@ -96,6 +96,8 @@ def traverse_file_in_each_type(folder_list, sepolicy_type_list, build_root):
             type_file_list, flag = traverse_folder_in_type(
                 folder, policy_type, build_root)
             err |= flag
+            if len(type_file_list) == 0:
+                continue
             policy_files_list.extend(type_file_list)
     if err:
         raise Exception(err)
