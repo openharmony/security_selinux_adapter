@@ -43,7 +43,7 @@ allow download_server system_basic_hap:fd { use };
 #avc:  denied  { get } for service=501 pid=1640 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow download_server sa_foundation_appms:samgr_class { get };
 #avc:  denied  { search } for  pid=1640 comm="SaInit0" name="/" dev="mmcblk0p12" ino=3 scontext=u:r:download_server:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
-allow download_server data_file:dir { search };
+allow download_server data_file:dir { add_name open read search write };
 #avc:  denied  { open read map } for  pid=1640 comm="SaInit0" name="u:object_r:musl_param:s0" dev="tmpfs" ino=55 scontext=u:r:download_server:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 allow download_server musl_param:file { open read map };
 #avc:  denied  { write } for  pid=1689 comm="SaInit0" name="dnsproxyd" dev="mmcblk0p12" ino=3397 scontext=u:r:download_server:s0 tcontext=u:object_r:dnsproxy_service:s0 tclass=sock_file permissive=0
@@ -68,3 +68,17 @@ allow download_server system_basic_hap_data_file:file { getattr };
 allow download_server system_core_hap_data_file:file { getattr };
 #avc:  denied  { getattr } for  pid=1593 comm="IPC_3_1711" path="/data/storage/el2/base/haps/entry/cache/upload1.txt" dev="mmcblk0p12" ino=1926 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=0
 allow download_server debug_hap_data_file:file { getattr };
+# avc:  denied  { getattr } for  pid=1574 comm="IPC_2_1581" path="/data/service/el1/public/database/request/request.db" dev="mmcblk0p14" ino=3889 scontext=u:r:download_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow download_server data_service_el1_file:dir { add_name create open read remove_name search write };
+#avc:  denied  { read write } for  pid=1574 comm="IPC_2_1581" name="request.db" dev="mmcblk0p14" ino=3889 scontext=u:r:download_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow download_server data_service_el1_file:file { create lock ioctl map getattr open read setattr unlink write };
+#avc:  denied  { search } for  pid=1574 comm="IPC_2_1581" name="service" dev="mmcblk0p14" ino=7 scontext=u:r:download_server:s0 tcontext=u:object_r:data_service_file:s0 tclass=dir permissive=1
+allow download_server data_service_file:dir { search };
+#avc:  denied  { ioctl } for  pid=1574 comm="IPC_2_1581" path="/data/service/el1/public/database/request/request.db" dev="mmcblk0p14" ino=3889 ioctlcmd=0xf50c scontext=u:r:download_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allowxperm download_server data_service_el1_file:file ioctl { 0xf50c 0x5413 };
+#avc:  denied  { open } for  pid=1574 comm="download_server" path="/dev/ashmem" dev="tmpfs" ino=230 scontext=u:r:download_server:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+allow download_server dev_ashmem_file:chr_file { open };
+#avc:  denied  { call } for  pid=1524 comm="IPC_1_1526" scontext=u:r:download_server:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
+allow download_server huks_service:binder { call };
+#avc:  denied  { get } for service=3510 pid=1524 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_huks_service:s0 tclass=samgr_class permissive=1
+allow download_server sa_huks_service:samgr_class { get };
