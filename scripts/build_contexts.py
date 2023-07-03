@@ -276,7 +276,7 @@ def build_sehap_contexts(args, output_path, policy_path):
 
 
 def prepare_build_path(dir_list, root_dir, build_dir_list):
-    build_contexts_list = ["base/security/selinux/sepolicy/base", "base/security/selinux/sepolicy/ohos_policy"]
+    build_contexts_list = ["base/security/selinux_adapter/sepolicy/base", "base/security/selinux_adapter/sepolicy/ohos_policy"]
     build_contexts_list += dir_list.split(":")
 
     for i in build_contexts_list:
@@ -300,6 +300,8 @@ def traverse_folder_in_dir_name(search_dir, folder_suffix):
 
 
 def main(args):
+    libpcre2_path = os.path.realpath("./clang_x64/thirdparty/pcre2/")
+    os.environ['LD_LIBRARY_PATH'] = libpcre2_path
     output_path = args.dst_dir
     policy_path = []
     prepare_build_path(args.policy_dir_list, args.source_root_dir, policy_path)

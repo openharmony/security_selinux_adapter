@@ -299,7 +299,7 @@ def prepare_build_path(dir_list, root_dir, build_dir_list, sepolicy_path):
 
 
 def get_policy_dir_list(args):
-    sepolicy_path = os.path.join(args.source_root_dir, "base/security/selinux/sepolicy/")
+    sepolicy_path = os.path.join(args.source_root_dir, "base/security/selinux_adapter/sepolicy/")
     dir_list = []
     prepare_build_path(args.policy_dir_list, args.source_root_dir, dir_list, sepolicy_path)
     min_policy_dir_list = [os.path.join(sepolicy_path, "min")]
