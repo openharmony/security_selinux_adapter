@@ -93,6 +93,7 @@ allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getat
 allow netsysnative netsysnative:netlink_tcpdiag_socket { create connect write nlmsg_read read nlmsg_write };
 allow netsysnative system_core_hap:fd { use };
 allow netsysnative system_core_hap:tcp_socket { read write getopt setopt };
+allow netsysnative edm_sa:binder { call };
 
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 
@@ -109,5 +110,5 @@ allow init cgroup2:filesystem { mount };
 allow init cgroup2:file { write };
 allow init cgroup2:lnk_file { create };
 
-neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr debug_only(`-sh') } netsysnative:binder *;
+neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa debug_only(`-sh') } netsysnative:binder *;
 neverallow { domain -netsysnative debug_only(`-sh') } iptables_exec:file { execute };
