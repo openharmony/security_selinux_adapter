@@ -80,6 +80,7 @@ allow netmanager dev_console_file:chr_file { read write };
 allow netmanager sa_accountmgr:samgr_class { get };
 allow netmanager accountmgr:binder { call };
 allow accountmgr netmanager:binder { transfer };
+allow netmanager sa_foundation_bms:samgr_class { get };
 
 debug_only(`
     allow sh sa_comm_ethernet_manager_service:samgr_class { add get };
