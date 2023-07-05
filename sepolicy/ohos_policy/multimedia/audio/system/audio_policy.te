@@ -202,7 +202,9 @@ allow audio_policy vendor_bin_file:dir { search };
 
 allow audio_policy sa_foundation_devicemanager_service:samgr_class { get };
 
-allow audio_policy device_manager:binder { call };
+allow audio_policy device_manager:binder { transfer call };
+
+allow audio_policy sa_foundation_bms:samgr_class { get };
 
 allow audio_policy a2dp_host:binder { call };
 
