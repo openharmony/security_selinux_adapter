@@ -25,7 +25,7 @@ input_service                           u:object_r:hdf_input_service:s0
 codec_hdi_omx_service                   u:object_r:hdf_codec_hdi_omx_service:s0
 codec_component_manager_service         u:object_r:hdf_codec_component_manager_service:s0
 codec_hdi_service                       u:object_r:hdf_codec_hdi_service:s0
-codec_image_jpeg_service                u:object_r:hdf_codec_image_jpeg_service:s0
+codec_image_service                     u:object_r:hdf_codec_image_service:s0
 battery_interface_service               u:object_r:hdf_battery_interface_service:s0
 power_interface_service                 u:object_r:hdf_power_interface_service:s0
 light_interface_service                 u:object_r:hdf_light_interface_service:s0
