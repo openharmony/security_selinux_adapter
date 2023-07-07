@@ -206,6 +206,16 @@ allow audio_policy device_manager:binder { transfer call };
 
 allow audio_policy sa_foundation_bms:samgr_class { get };
 
+allow audio_policy musl_param:file { open map read };
+
+allow audio_policy distributeddata:fd { use };
+
+allow audio_policy sa_dataobs_mgr_service_service:samgr_class { get };
+
+allow audio_policy sa_foundation_abilityms:samgr_class { get };
+
+allow audio_policy foundation:binder { call transfer };
+
 allow audio_policy a2dp_host:binder { call };
 
 allow audio_policy hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { get };
