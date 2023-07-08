@@ -78,3 +78,23 @@ debug_only(`
 allow hdf_ext_devmgr sh:binder {call};
 ')
 
+# avc:  denied  { call } for  pid=599 comm="hdf_ext_devmgr" scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder permissive=1
+allow hdf_ext_devmgr accesstoken_service:binder { call };
+
+# avc:  denied  { write } for  pid=599 comm="hdf_ext_devmgr" name="uinput" dev="tmpfs" ino=234 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_uinput:s0 tclass=chr_file permissive=1
+allow hdf_ext_devmgr dev_uinput:chr_file { write ioctl open };
+
+# avc:  denied  { get } for service=3503 pid=599 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
+allow hdf_ext_devmgr sa_accesstoken_manager_service:samgr_class { get };
+
+# avc:  denied  { get } for service=180 pid=599 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=1
+allow hdf_ext_devmgr sa_foundation_abilityms:samgr_class { get };
+
+# avc:  denied  { call } for  pid=1750 comm="hdf_ext_devmgr" scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
+allow hdf_ext_devmgr system_core_hap:binder { call };
+allow hdf_ext_devmgr system_basic_hap:binder { call };
+
+# avc:  denied  { ioctl } for  pid=1294 comm="IPC_2_1491" path="/dev/uinput" dev="tmpfs" ino=223 ioctlcmd=0x5502 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_uinput:s0 tclass=chr_file permissive=1
+# avc:  denied  { ioctl } for  pid=1750 comm="hdf_ext_devmgr" path="/dev/uinput" dev="tmpfs" ino=223 ioctlcmd=0x5564 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_uinput:s0 tclass=chr_file permissive=1
+allowxperm hdf_ext_devmgr dev_uinput:chr_file ioctl { 0x5502 0x5564 0x5501 0x5565 0x5567 0x556e };
+
