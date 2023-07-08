@@ -324,4 +324,4 @@ neverallow { domain -hiperf -cap_violator_perfmon debug_only(`-hiebpf') } self:{
 
 #limit domain has exec_no_sign and exec_anon_mem permission
 neverallow { domain -debug_hap debug_only(`-sh') } self:xpm { exec_no_sign };
-neverallow { domain -debug_hap -nwebspawn debug_only(`-sh') } self:xpm { exec_anon_mem };
+neverallow { domain -debug_hap -isolated_render debug_only(`-sh') } self:xpm { exec_anon_mem };
