@@ -171,3 +171,19 @@ debug_only(`
     allow sh hiview:file { open };
     allow sh hiview:process { getattr };
 ')
+
+#avc:  denied  { call } for  pid=256 comm="IPC_3_1647" scontext=u:r:hiview:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0
+allow hiview system_basic_hap:binder { call };
+
+#avc:  denied  { getattr } for  pid=1989 comm="sysevent_source" path="/dev/unix/socket/hisysevent" scontext=u:r:hiview:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=1
+allow hiview hiview:unix_dgram_socket { getattr };
+
+#avc:  denied  { open } for  pid=262 comm="hiview" path="/dev/ashmem" dev="tmpfs" ino=177 scontext=u:r:hiview:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+allow hiview dev_ashmem_file:chr_file { open };
+
+#avc:  denied  { search } for  pid=2001 comm="hiview" name="etc" dev="mmcblk0p8" ino=16 scontext=u:r:hiview:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+allow hiview vendor_etc_file:dir { search };
+
+#avc:  denied  { read } for  pid=2001 comm="hiview" name="hisysevent.def" dev="mmcblk0p8" ino=265 scontext=u:r:hiview:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=2001 comm="hiview" path="/vendor/etc/hiview/hisysevent.def" dev="mmcblk0p8" ino=265 scontext=u:r:hiview:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
+allow hiview vendor_etc_file:file { read open };
