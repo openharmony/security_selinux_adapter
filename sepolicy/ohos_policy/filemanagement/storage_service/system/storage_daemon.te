@@ -41,9 +41,9 @@ allow storage_daemon data_init_agent:file { read append open ioctl };
 #avc:  denied  { getattr } for  pid=182 comm="kworker/u8:5" path="/data/service/el2/100/hmdfs/account/data" dev="mmcblk0p11" ino=1044557 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el2_file:s0 tclass=dir permissive=1
 #avc:  denied  { rmdir } for  pid=254 comm="storage_daemon" name="101" dev="mmcblk0p11" ino=914136 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow storage_daemon data_service_el2_file:file { create_file_perms };
-allow storage_daemon data_service_el1_file:file { create_file_perms };
+allow storage_daemon data_service_el1_file:file { create_file_perms relabelto relabelfrom };
 allow storage_daemon data_service_el2_file:dir { rw_dir_perms rmdir ioctl getattr search rename };
-allow storage_daemon data_service_el1_file:dir { rw_dir_perms rmdir ioctl getattr search rename };
+allow storage_daemon data_service_el1_file:dir { rw_dir_perms rmdir ioctl getattr search rename relabelto relabelfrom };
 
 #avc:  denied  { create } for  pid=246 comm="storage_daemon" name="fscrypt_version" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
 #avc:  denied  { write open } for  pid=246 comm="storage_daemon" path="/data/service/el0/storage_daemon/sd/fscrypt_version" dev="mmcblk0p11" ino=1044790 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
@@ -267,3 +267,9 @@ allow storage_daemon sa_ca_daemon_service:samgr_class { get };
 # avc:  denied  { relabelfrom } for  pid=253 comm="IPC_1_271" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=filesystem permissive=0
 allow storage_daemon unlabeled:filesystem { relabelfrom };
 allow storage_daemon hmdfs:filesystem { relabelfrom relabelto };
+# avc:  denied  { add_name } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { create } for  pid=250 comm="storage_daemon" name="3056-3B24" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { mounton } for  pid=250 comm="storage_daemon" path="/mnt/external/3056-3B24" dev="tmpfs" ino=307 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { search } for  pid=250 comm="storage_daemon" name="external" dev="tmpfs" ino=57 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=250 comm="storage_daemon" name="external" dev="tmpfs" ino=57 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:mnt_external_file:s0 tclass=dir permissive=1
+allow storage_daemon permissions_mount_file_attr:dir { add_name create mounton search write relabelto relabelfrom };
