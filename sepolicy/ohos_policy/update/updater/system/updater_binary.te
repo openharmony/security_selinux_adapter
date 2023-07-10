@@ -266,4 +266,5 @@ allow updater_binary dev_block_file:lnk_file { read };
 allow updater_binary dev_block_volfile:dir { search };
 allow updater_binary musl_param:file { read open map };
 allow updater_binary ohos_boot_param:file { open map read };
-allow updater_binary sys_installer_sa:fifo_file { write };
+allow updater_binary sys_installer_sa:fifo_file { write getattr };
+allow updater_binary sys_installer_sa:fd { use };
