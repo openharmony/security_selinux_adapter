@@ -16,8 +16,8 @@
 binder_call(accountmgr, foundation);
 binder_call(accountmgr, useriam);
 binder_call(accountmgr, pinauth);
-binder_call(accountmgr, system_core_hap);
-binder_call(accountmgr, system_basic_hap);
+binder_call(accountmgr, system_core_hap_attr);
+binder_call(accountmgr, system_basic_hap_attr);
 binder_call(accountmgr, normal_hap_attr);
 
 allow accountmgr init:binder { call transfer };

@@ -13,8 +13,8 @@
 
 type work_scheduler_service, sadomain, domain;
 
-allow system_core_hap sa_work_schedule_service:samgr_class { get };
-allow system_basic_hap sa_work_schedule_service:samgr_class { get };
+allow system_core_hap_attr sa_work_schedule_service:samgr_class { get };
+allow system_basic_hap_attr sa_work_schedule_service:samgr_class { get };
 allow work_scheduler_service data_file:dir { search };
 allow work_scheduler_service data_service_el1_file:dir { add_name write search };
 allow work_scheduler_service data_service_el1_file:file { create getattr ioctl open read write };

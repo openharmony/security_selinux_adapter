@@ -69,15 +69,15 @@ allow samgr softbus_server:fd { use };
 #avc:  denied  { get } for service=4700 pid=245 scontext=u:r:samgr:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=1
 allow samgr sa_softbus_service:samgr_class { get };
 
-allow samgr system_basic_hap:binder { call };
-allow samgr system_basic_hap:dir { search };
-allow samgr system_basic_hap:file { open read };
-allow samgr system_basic_hap:process { getattr };
+allow samgr system_basic_hap_attr:binder { call };
+allow samgr system_basic_hap_attr:dir { search };
+allow samgr system_basic_hap_attr:file { open read };
+allow samgr system_basic_hap_attr:process { getattr };
 
-allow samgr system_core_hap:binder { call };
-allow samgr system_core_hap:dir { search };
-allow samgr system_core_hap:file { open read };
-allow samgr system_core_hap:process { getattr };
+allow samgr system_core_hap_attr:binder { call };
+allow samgr system_core_hap_attr:dir { search };
+allow samgr system_core_hap_attr:file { open read };
+allow samgr system_core_hap_attr:process { getattr };
 
 allow samgr system_bin_file:dir { search };
 

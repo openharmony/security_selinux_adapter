@@ -70,17 +70,17 @@ allow privacy_service security_param:file { map open read };
 allow privacy_service startup_param:file { map open read };
 allow privacy_service sys_param:file { map open read };
 allow privacy_service sys_usb_param:file { map open read };
-allow privacy_service system_basic_hap:binder {call};
+allow privacy_service system_basic_hap_attr:binder {call};
 allow privacy_service system_bin_file:dir { search };
-allow privacy_service system_core_hap:binder {call};
+allow privacy_service system_core_hap_attr:binder {call};
 allow privacy_service tracefs_trace_marker_file:file { open write };
 allow privacy_service tracefs:dir { search };
 
 binder_call(foundation, privacy_service);
 binder_call(privacy_service, accesstoken_service);
 binder_call(privacy_service, foundation);
-binder_call(system_basic_hap, privacy_service);
-binder_call(system_core_hap, privacy_service);
+binder_call(system_basic_hap_attr, privacy_service);
+binder_call(system_core_hap_attr, privacy_service);
 
 debug_only(`
     binder_call(privacy_service, sh);

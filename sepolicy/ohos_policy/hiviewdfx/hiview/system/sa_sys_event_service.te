@@ -13,6 +13,6 @@
 
 #avc:  denied  { get } for service=1203 pid=1913 scontext=u:r:normal_hap:s0 tcontext=u:object_r:sa_sys_event_service:s0 tclass=samgr_class permissive=0
 allow normal_hap_attr sa_sys_event_service:samgr_class { get };
-allow system_basic_hap sa_sys_event_service:samgr_class { get };
-allow system_core_hap sa_sys_event_service:samgr_class { get };
+allow system_basic_hap_attr sa_sys_event_service:samgr_class { get };
+allow system_core_hap_attr sa_sys_event_service:samgr_class { get };
 

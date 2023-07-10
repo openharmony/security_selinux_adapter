@@ -48,8 +48,8 @@ debug_only(`
     allow sh sh:unix_dgram_socket { getopt setopt };
     allow sh sysfs_hctosys:file { open read };
     allow sh sysfs_rtc:dir { open read };
-    allow sh system_basic_hap_data_file:dir { getattr };
-    allow sh system_core_hap:dir { getattr search };
+    allow sh system_basic_hap_data_file_attr:dir { getattr };
+    allow sh system_core_hap_attr:dir { getattr search };
     allow sh tmpfs:dir { add_name write };
     allow sh tmpfs:file { create open open write write write open };
     allow sh watchdog_service:file { open read };

@@ -40,8 +40,8 @@ debug_only(`
     allow sh sh:unix_dgram_socket { getopt setopt };
     allow sh sysfs_hctosys:file { open read };
     allow sh sysfs_rtc:dir { open read };
-    allow sh system_basic_hap_data_file:dir { getattr };
-    allow sh system_core_hap_data_file:dir { getattr open read search };
+    allow sh system_basic_hap_data_file_attr:dir { getattr };
+    allow sh system_core_hap_data_file_attr:dir { getattr open read search };
     allow sh system_file:file { getattr };
     allow sh tmpfs:file { open write };
     allow sh sa_service_router_mgr_service:samgr_class { get };

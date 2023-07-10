@@ -136,7 +136,7 @@ allow hdcd sys_param:parameter_service { set };
 allow hdcd persist_param:parameter_service { set };
 allow hdcd servicectrl_reboot_param:parameter_service { set };
 
-allow hdcd { normal_hap_attr system_basic_hap system_core_hap sh }:unix_stream_socket { connectto };
+allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
 
 allow hdcd hiprofiler_plugins:process { signal };
 allow hdcd hiprofilerd:process { signal };
@@ -175,9 +175,9 @@ debug_only(`
     allow hdcd { file_attr -data_hilogd_file -data_parameters -data_local_arkcache }:dir create_dir_perms;
     allow hdcd { file_attr -data_hilogd_file -dev_parameters_file -data_parameters -data_local_arkcache }:file create_file_perms;
 
-    allow hdcd system_core_hap_data_file:file { create write open };
-    allow hdcd system_core_hap_data_file:dir { add_name search write getattr open };
-    allow hdcd system_basic_hap_data_file:dir { read open getattr };
+    allow hdcd system_core_hap_data_file_attr:file { create write open };
+    allow hdcd system_core_hap_data_file_attr:dir { add_name search write getattr open };
+    allow hdcd system_basic_hap_data_file_attr:dir { read open getattr };
     allow hdcd normal_hap_data_file_attr:dir { read open search};
 ')
 

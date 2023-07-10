@@ -193,9 +193,9 @@ allow storage_daemon screenlock_server:lnk_file { read };
 allow storage_daemon sys_fs_hmdfs:file { setattr };
 
 #avc:  denied  { search } for  pid=246 comm="storage_daemon" name="1692" dev="proc" ino=25045 scontext=u:r:storage_daemon:s0 tcontext=u:r:system_basic_hap:s0 tclass=dir permissive=1
-allow storage_daemon system_basic_hap:dir { search };
+allow storage_daemon system_basic_hap_attr:dir { search };
 #avc:  denied  { read } for  pid=246 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:system_basic_hap:s0 tclass=file permissive=1
-allow storage_daemon system_basic_hap:file { read };
+allow storage_daemon system_basic_hap_attr:file { read };
 
 #avc:  denied  { read } for  pid=2061 comm="blkid" path="/system/bin/blkid" dev="mmcblk0p6" ino=122 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 #avc:  denied  { execute } for  pid=1662 comm="storage_daemon" name="restorecon" dev="mmcblk0p6" ino=335 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
@@ -210,11 +210,11 @@ allow storage_daemon sys_file:file { getattr read };
 allow storage_daemon storage_manager:binder { call };
 
 #avc:  denied  { read } for  pid=241 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:system_core_hap:s0 tclass=file permissive=1
-allow storage_daemon system_core_hap:file { open read };
+allow storage_daemon system_core_hap_attr:file { open read };
 #avc:  denied  { search } for  pid=241 comm="storage_daemon" name="1875" dev="proc" ino=28270 scontext=u:r:storage_daemon:s0 tcontext=u:r:system_core_hap:s0 tclass=dir permissive=1
-allow storage_daemon system_core_hap:dir { search };
+allow storage_daemon system_core_hap_attr:dir { search };
 #avc:  denied  { read } for  pid=254 comm="storage_daemon" name="cwd" dev="proc" ino=52653 scontext=u:r:storage_daemon:s0 tcontext=u:r:system_core_hap:s0 tclass=lnk_file permissive=0
-allow storage_daemon system_core_hap:lnk_file { read };
+allow storage_daemon system_core_hap_attr:lnk_file { read };
 
 #avc:  denied  { read } for  pid=254 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:storage_daemon:s0 tclass=netlink_kobject_uevent_socket permissive=1
 allow storage_daemon storage_daemon:netlink_kobject_uevent_socket { read };
@@ -239,10 +239,10 @@ allow storage_daemon watchdog_service:lnk_file { read };
 #avc:  denied  { read } for  pid=258 comm="storage_daemon" name="com.ohos.launcher" dev="mmcblk0p11" ino=654143 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
 allow storage_daemon normal_hap_data_file_attr:dir { create_dir_perms };
 allow storage_daemon normal_hap_data_file_attr:file { create_file_perms };
-allow storage_daemon system_basic_hap_data_file:dir { create_dir_perms };
-allow storage_daemon system_basic_hap_data_file:file { create_file_perms };
-allow storage_daemon system_core_hap_data_file:dir { create_dir_perms };
-allow storage_daemon system_core_hap_data_file:file { create_file_perms };
+allow storage_daemon system_basic_hap_data_file_attr:dir { create_dir_perms };
+allow storage_daemon system_basic_hap_data_file_attr:file { create_file_perms };
+allow storage_daemon system_core_hap_data_file_attr:dir { create_dir_perms };
+allow storage_daemon system_core_hap_data_file_attr:file { create_file_perms };
 allow storage_daemon labeledfs:filesystem { unmount quotaget quotamod };
 allow storage_daemon sharefs:filesystem { unmount };
 allow storage_daemon sharefs:dir { create_dir_perms mounton };

@@ -99,7 +99,7 @@ allowxperm nwebspawn data_init_agent:file ioctl { 0x5413 };
 allowxperm nwebspawn dev_at_file:chr_file ioctl { 0x4102 };
 
 allow nwebspawn accessibility_param:file { open read map };
-allow nwebspawn system_basic_hap_data_file:dir { mounton };
+allow nwebspawn system_basic_hap_data_file_attr:dir { mounton };
 
 allow nwebspawn dev_console_file:chr_file { read write };
 allow nwebspawn kernel:unix_stream_socket { connectto };

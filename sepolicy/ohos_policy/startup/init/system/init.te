@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -17,9 +17,9 @@ allow init data_parameters:file { getattr };
 allow init data_udev:dir { relabelfrom };
 allow init privacy_service:process { transition };
 allow init hisysevent_socket:sock_file { unlink setattr };
-allow init system_core_hap:file { read open };
-allow init system_core_hap:dir { search };
-allow init system_core_hap:process { getattr };
+allow init system_core_hap_attr:file { read open };
+allow init system_core_hap_attr:dir { search };
+allow init system_core_hap_attr:process { getattr };
 allow init system_lib_file:dir { open read };
 
 allow init accessibility_param:file { map open read relabelto relabelfrom };
@@ -386,9 +386,9 @@ allow init sysfs_power:file { setattr };
 allow init sysfs_state:file { setattr };
 allow init sysfs_wake_lck:file { setattr };
 allow init sys_param:file { map open read relabelto };
-allow init system_basic_hap:dir { search };
-allow init system_basic_hap:file { open read };
-allow init system_basic_hap:process { getattr };
+allow init system_basic_hap_attr:dir { search };
+allow init system_basic_hap_attr:file { open read };
+allow init system_basic_hap_attr:process { getattr };
 allow init system_bin_file:dir { search };
 allow init system_bin_file:file { execute execute_no_trans getattr map open read read open };
 allow init system_bin_file:lnk_file { read };
