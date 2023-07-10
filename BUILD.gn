@@ -710,14 +710,41 @@ ohos_prebuilt_etc("system_cil_sha256") {
   install_images = [ "system" ]
 }
 
+ohos_copy("libselinux_toolchain") {
+  deps = [ "$THIRD_PARTY_DIR/selinux:libselinux($host_toolchain)" ]
+  sources = [ "$root_build_dir/clang_x64/thirdparty/selinux/libselinux.so" ]
+  outputs = [ "$root_build_dir/clang_x64/security/selinux/libselinux.so" ]
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+}
+
+ohos_copy("libpcre2_toolchain") {
+  deps = [ "$THIRD_PARTY_DIR/pcre2:libpcre2($host_toolchain)" ]
+  sources = [ "$root_build_dir/clang_x64/thirdparty/pcre2/libpcre2.so" ]
+  outputs = [ "$root_build_dir/clang_x64/security/selinux/libpcre2.so" ]
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+}
+
+ohos_copy("filecontexts_toolchain") {
+  deps = [ ":build_contexts" ]
+  sources = [ "$target_out_dir/file_contexts.bin" ]
+  outputs = [ "$target_out_dir/../security/selinux/file_contexts.bin" ]
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+}
+
 group("selinux_group") {
   if (build_selinux) {
     deps = [
       ":build_updater_sepolicy",
       ":config",
       ":file_contexts",
+      ":filecontexts_toolchain",
       ":hap_restorecon",
       ":hdf_service_contexts",
+      ":libpcre2_toolchain",
+      ":libselinux_toolchain",
       ":load_policy",
       ":param_check",
       ":parameter_contexts",
