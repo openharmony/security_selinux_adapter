@@ -78,10 +78,10 @@ debug_only(`
     #avc:  denied  { open } for  pid=4183 comm="chmod" path="/data/app/el2/100/base/ohos.acts.multimedia.audio.audioencoder/haps/entry/files" dev="mmcblk0p11" ino=1307313 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
     #avc:  denied  { add_name } for  pid=2007 comm="mkdir" name="entry" scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
     #avc:  denied  { create } for  pid=2007 comm="mkdir" name="entry" scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=dir permissive=1
-    #allow sh system_core_hap_data_file:dir { getattr open read search setattr getattr add_name create };
+    #allow sh system_core_hap_data_file_attr:dir { getattr open read search setattr getattr add_name create };
     #avc:  denied  { getattr } for  pid=4183 comm="chmod" path="/data/app/el2/100/base/ohos.acts.multimedia.audio.audioencoder/haps/entry/files/S16LE.pcm" dev="mmcblk0p11" ino=1307314 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
     #avc:  denied  { setattr } for  pid=4183 comm="chmod" name="S16LE.pcm" dev="mmcblk0p11" ino=1307314 scontext=u:r:sh:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
-    allow sh system_core_hap_data_file:file { getattr setattr };
+    allow sh system_core_hap_data_file_attr:file { getattr setattr };
     #avc:  denied  { open } for  pid=8136 comm="bm" path="/system/app/ActsVideoDecoderJsTest.hap" dev="mmcblk0p6" ino=2547 scontext=u:r:sh:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
     allow sh system_file:file { open read };
     #avc:  denied  { getattr } for  pid=2232 comm="sh" path="/system/lib64" dev="mmcblk0p6" ino=1579 scontext=u:r:sh:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1

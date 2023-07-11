@@ -59,7 +59,7 @@ allow softbus_server softbus_server:tcp_socket { getopt };
 allowxperm softbus_server softbus_server:socket ioctl { 0x8933 0x8916 0x890B 0x8913 0x8936 0x890c };
 
 #avc: denied { call } for pid=509 comm="0IPC_686" scontext=u:r:softbus_server:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
-allow softbus_server system_core_hap:binder { call };
+allow softbus_server system_core_hap_attr:binder { call };
 
 binder_call(softbus_server, privacy_service);
 

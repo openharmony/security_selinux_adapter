@@ -110,9 +110,9 @@ allow hidumper_service storage_daemon_exec:file { getattr map open read };
 allow hidumper_service sys_file:dir { open read };
 allow hidumper_service sys_file:file { getattr open read };
 
-allow hidumper_service system_basic_hap:dir { getattr open read search };
-allow hidumper_service system_basic_hap:file { getattr open read };
-allow hidumper_service system_basic_hap:lnk_file read;
+allow hidumper_service system_basic_hap_attr:dir { getattr open read search };
+allow hidumper_service system_basic_hap_attr:file { getattr open read };
+allow hidumper_service system_basic_hap_attr:lnk_file read;
 
 allow hidumper_service system_bin_file:dir { getattr search };
 allow hidumper_service system_bin_file:file { execute execute_no_trans getattr map open read };

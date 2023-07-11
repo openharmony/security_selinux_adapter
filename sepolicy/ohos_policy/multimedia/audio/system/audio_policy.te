@@ -130,13 +130,13 @@ allow audio_policy sa_param_watcher:samgr_class { get };
 allow audio_policy sa_pulseaudio_audio_service:samgr_class { get };
 
 #avc:  denied  { call } for  pid=368 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
-allow audio_policy system_basic_hap:binder { call };
+allow audio_policy system_basic_hap_attr:binder { call };
 
 #avc:  denied  { search } for  pid=377 comm="sa_main" name="bin" dev="mmcblk0p6" ino=103 scontext=u:r:audio_policy:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
 allow audio_policy system_bin_file:dir { search };
 
 #avc:  denied  { call } for  pid=371 comm="audio_policy" scontext=u:r:audio_policy:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
-allow audio_policy system_core_hap:binder { call };
+allow audio_policy system_core_hap_attr:binder { call };
 
 #avc:  denied  { search } for  pid=338 comm="audio_policy" name="/" dev="tracefs" ino=1 scontext=u:r:audio_policy:s0 tcontext=u:object_r:tracefs:s0 tclass=dir permissive=1
 allow audio_policy tracefs:dir { search };

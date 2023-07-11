@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow pasteboard_service system_core_hap:binder { call transfer };
-allow pasteboard_service system_basic_hap:binder { call transfer };
+allow pasteboard_service system_core_hap_attr:binder { call transfer };
+allow pasteboard_service system_basic_hap_attr:binder { call transfer };
 allow pasteboard_service normal_hap_attr:binder { call transfer };
 allow pasteboard_service time_service:binder { call };
 allow pasteboard_service dev_unix_socket:dir { search };
@@ -69,6 +69,6 @@ debug_only(`
 allow pasteboard_service sa_foundation_abilityms:samgr_class { get };
 
 #avc:  denied  { use } for  pid=2176 comm="jsThread-1" path="/dev/ashmem" dev="tmpfs" ino=176 scontext=u:r:pasteboard_service:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=1
-allow pasteboard_service system_core_hap:fd { use };
+allow pasteboard_service system_core_hap_attr:fd { use };
 
-allow pasteboard_service system_basic_hap:fd { use };
+allow pasteboard_service system_basic_hap_attr:fd { use };

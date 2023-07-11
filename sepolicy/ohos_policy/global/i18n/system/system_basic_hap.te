@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap system_usr_file:file { open read getattr };
-allow system_basic_hap system_usr_file:dir { open read getattr };
-allow system_basic_hap sysfs_devices_system_cpu:file { getattr };
+allow system_basic_hap_attr system_usr_file:file { open read getattr };
+allow system_basic_hap_attr system_usr_file:dir { open read getattr };
+allow system_basic_hap_attr sysfs_devices_system_cpu:file { getattr };

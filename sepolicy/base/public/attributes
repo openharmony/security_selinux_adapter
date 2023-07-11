@@ -92,12 +92,24 @@ attribute hap_domain;
 # Type of all haps in apl normal.
 attribute normal_hap_attr;
 
+# Type of all haps in apl system_basic.
+attribute system_basic_hap_attr;
+
+# Type of all haps in apl system_core.
+attribute system_core_hap_attr;
+
 # File type of all processes in the hap format.
 # i.e. com.ohos.setting
 attribute hap_file_attr;
 
 # File type of all haps in apl normal.
 attribute normal_hap_data_file_attr;
+
+# File type of all haps in apl system_basic.
+attribute system_basic_hap_data_file_attr;
+
+# File type of all haps in apl system_core.
+attribute system_core_hap_data_file_attr;
 
 # Type of hdf processes.
 # i.e. hdv_devmgr,

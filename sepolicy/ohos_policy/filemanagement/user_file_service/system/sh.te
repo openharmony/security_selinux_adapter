@@ -15,7 +15,7 @@ debug_only(`
 allow sh tmpfs:lnk_file { getattr };
 allow sh privacy_service:dir { getattr search };
 allow sh privacy_service:file { open read };
-allow sh system_core_hap:dir { getattr };
+allow sh system_core_hap_attr:dir { getattr };
 allow sh dev_block_file:blk_file { getattr };
 allow sh dev_block_volfile:blk_file { getattr };
 allow sh media_service:dir { open read };

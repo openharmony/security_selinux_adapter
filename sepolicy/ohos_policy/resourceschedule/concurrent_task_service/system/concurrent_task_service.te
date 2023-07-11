@@ -17,8 +17,8 @@ type concurrent_task_service, sadomain, domain;
 allow concurrent_task_service foundation:binder { call transfer };
 
 #system
-allow concurrent_task_service system_basic_hap:process { setsched };
-allow concurrent_task_service system_core_hap:process { setsched };
+allow concurrent_task_service system_basic_hap_attr:process { setsched };
+allow concurrent_task_service system_core_hap_attr:process { setsched };
 allow concurrent_task_service system_usr_file:dir { search map };
 allow concurrent_task_service system_usr_file:file { getattr read };
 allow concurrent_task_service system_lib_file:dir { search };
