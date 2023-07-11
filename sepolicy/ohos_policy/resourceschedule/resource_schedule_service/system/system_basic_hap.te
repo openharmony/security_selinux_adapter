@@ -12,4 +12,4 @@
 # limitations under the License.
 
 #system_basic_hap
-allow system_basic_hap resource_schedule_service:binder { call };
+allow system_basic_hap_attr resource_schedule_service:binder { call };

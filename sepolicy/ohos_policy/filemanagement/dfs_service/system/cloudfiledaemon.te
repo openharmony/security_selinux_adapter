@@ -62,3 +62,4 @@ allow cloudfiledaemon system_core_hap:fd { use };
 allow cloudfiledaemon sa_dataobs_mgr_service_service:samgr_class { get };
 allow cloudfiledaemon sa_distributeddata_service:samgr_class { get };
 allow cloudfiledaemon normal_hap_attr:fd { use };
+allow cloudfiledaemon system_core_hap_attr:fd { use };

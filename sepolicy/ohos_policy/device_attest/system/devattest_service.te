@@ -59,8 +59,8 @@ allow devattest_service devinfo_private_param:file { map open read };
 allow devattest_service hilog_param:file { map open read };
 
 allow devattest_service normal_hap_attr:binder { call transfer };
-allow devattest_service system_basic_hap:binder { call transfer };
-allow devattest_service system_core_hap:binder { call transfer };
+allow devattest_service system_basic_hap_attr:binder { call transfer };
+allow devattest_service system_core_hap_attr:binder { call transfer };
 
 #avc:  denied  { open } for  pid=326 comm="IPC_2_436" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:devattest_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 #avc:  denied  { map } for  pid=324 comm="devattest_servi" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:devattest_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0

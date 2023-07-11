@@ -125,9 +125,9 @@ allow edm_sa sysfs_devices_system_cpu:file { getattr open read };
 
 allow edm_sa sysfs_hctosys:file { open read };
 allow edm_sa sysfs_rtc:dir { open read };
-allow edm_sa system_basic_hap:binder { call };
+allow edm_sa system_basic_hap_attr:binder { call };
 allow edm_sa system_bin_file:dir { search };
-allow edm_sa system_core_hap:binder { call };
+allow edm_sa system_core_hap_attr:binder { call };
 allow edm_sa system_lib_file:dir { open read };
 allow edm_sa time_service:binder { call };
 allow edm_sa tracefs:dir { search };

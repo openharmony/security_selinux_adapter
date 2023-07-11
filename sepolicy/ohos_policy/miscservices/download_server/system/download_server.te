@@ -33,13 +33,13 @@ allow download_server sa_foundation_ans:samgr_class { get };
 # avc:  denied  { read write } for  pid=2360 comm="sa_main" path="/dev/console" dev="tmpfs" ino=19 scontext=u:r:download_server:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=0
 allow download_server dev_console_file:chr_file { read write };
 #avc:  denied  { call } for  pid=2168 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=0
-allow download_server system_core_hap:binder { call };
+allow download_server system_core_hap_attr:binder { call };
 #avc:  denied  { use } for  pid=2588 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=0
-allow download_server system_core_hap:fd { use };
+allow download_server system_core_hap_attr:fd { use };
 #avc:  denied  { call } for  pid=2158 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0
-allow download_server system_basic_hap:binder { call };
+allow download_server system_basic_hap_attr:binder { call };
 #avc:  denied  { use } for  pid=2568 comm="download_server" scontext=u:r:download_server:s0 tcontext=u:r:system_basic_hap:s0 tclass=fd permissive=0
-allow download_server system_basic_hap:fd { use };
+allow download_server system_basic_hap_attr:fd { use };
 #avc:  denied  { get } for service=501 pid=1640 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
 allow download_server sa_foundation_appms:samgr_class { get };
 #avc:  denied  { search } for  pid=1640 comm="SaInit0" name="/" dev="mmcblk0p12" ino=3 scontext=u:r:download_server:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
@@ -63,9 +63,9 @@ allow download_server data_data_file:dir { search };
 #avc:  denied  { get } for service=180 pid=1535 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
 allow download_server sa_foundation_abilityms:samgr_class { get };
 #avc:  denied  { getattr } for  pid=1782 comm="IPC_2_1869" path="/data/storage/el2/base/haps/entry/cache/cacert.pem" dev="mmcblk0p12" ino=2874 scontext=u:r:download_server:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
-allow download_server system_basic_hap_data_file:file { getattr };
+allow download_server system_basic_hap_data_file_attr:file { getattr };
 #avc:  denied  { getattr } for  pid=1584 comm="IPC_3_1733" path="/data/storage/el2/base/haps/entry/cache/cacert.pem" dev="mmcblk0p12" ino=2862 scontext=u:r:download_server:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=0
-allow download_server system_core_hap_data_file:file { getattr };
+allow download_server system_core_hap_data_file_attr:file { getattr };
 #avc:  denied  { getattr } for  pid=1593 comm="IPC_3_1711" path="/data/storage/el2/base/haps/entry/cache/upload1.txt" dev="mmcblk0p12" ino=1926 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=0
 allow download_server debug_hap_data_file:file { getattr };
 # avc:  denied  { getattr } for  pid=1574 comm="IPC_2_1581" path="/data/service/el1/public/database/request/request.db" dev="mmcblk0p14" ino=3889 scontext=u:r:download_server:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1

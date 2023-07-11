@@ -17,5 +17,5 @@ allow dev_attr tmpfs:filesystem associate;
 
 neverallow storage_daemon ~{ exfat vfat ntfs hmdfs sharefs labeledfs }:filesystem unmount;
 neverallow appspawn ~{ labeledfs }:filesystem unmount;
-neverallow nwebspawn ~{ tmpfs }:filesystem unmount;
+neverallow nwebspawn ~{ tmpfs labeledfs }:filesystem unmount;
 neverallow hdcd ~{ labeledfs }:filesystem remount;

@@ -12,4 +12,4 @@
 # limitations under the License.
 
 #avc:  denied  { get } for  service = 7002 pid=4595 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_ui_appearance:s0 tclass=samgr_class permissive=1
-allow system_basic_hap sa_ui_appearance:samgr_class { get };
+allow system_basic_hap_attr sa_ui_appearance:samgr_class { get };

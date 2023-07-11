@@ -91,10 +91,10 @@ allow isolated_render hap_domain:unix_stream_socket { read write shutdown };
 # avc:  denied  { read write } for  pid=4973 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E70454F426E6F202864656C6574656429 dev="sdd78" ino=9413 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=3067 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E4E474B684865202864656C6574656429 dev="sdd78" ino=8404 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=1
 # avc:  denied  { write } for  pid=5077 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E6C4A696E6267202864656C6574656429 dev="sdd78" ino=6786 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_core_hap_data_file:s0 tclass=file permissive=0
-allow isolated_render system_core_hap_data_file:file { read write };
+allow isolated_render system_core_hap_data_file_attr:file { read write };
 
 #avc: denied { read write } for pid=16501 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E4B4749446162202864656C6574656429 dev="sdd78" ino=8091 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=1
-allow isolated_render system_basic_hap_data_file:file { read write };
+allow isolated_render system_basic_hap_data_file_attr:file { read write };
 
 # avc:  denied  { getattr } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
 # avc:  denied  { map } for  pid=5103 comm="ei.hmos.browser" path="/system/app/NWeb/NWeb.hap" dev="sdd74" ino=123 scontext=u:r:isolated_render:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1

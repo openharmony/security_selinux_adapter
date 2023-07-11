@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -98,11 +98,11 @@ allow appspawn selinuxfs:file { open read write };
 allow appspawn startup_param:file { map open read };
 allow appspawn sys_file:dir { mounton };
 allow appspawn sys_param:file { map open read };
-allow appspawn system_basic_hap_data_file:dir { mounton };
-allow appspawn system_basic_hap:process { dyntransition sigkill };
+allow appspawn system_basic_hap_data_file_attr:dir { mounton };
+allow appspawn system_basic_hap_attr:process { dyntransition sigkill };
 allow appspawn system_bin_file:dir { mounton search };
-allow appspawn system_core_hap_data_file:dir { mounton };
-allow appspawn system_core_hap:process { dyntransition };
+allow appspawn system_core_hap_data_file_attr:dir { mounton };
+allow appspawn system_core_hap_attr:process { dyntransition };
 allow appspawn system_etc_file:dir { mounton };
 allow appspawn system_file:dir { mounton };
 allow appspawn system_fonts_file:dir { mounton open read search };
@@ -119,3 +119,4 @@ allow appspawn self:process execmem;
 allowxperm appspawn dev_at_file:chr_file ioctl { 0x4102 };
 allow appspawn dev_xpm:chr_file { open read write ioctl };
 allow appspawn system_file:file { map };
+allow appspawn nwebspawn:process{ dyntransition };

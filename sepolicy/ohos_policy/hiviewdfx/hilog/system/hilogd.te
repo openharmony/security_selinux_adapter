@@ -109,7 +109,7 @@ neverallow { domain -init -processdump } hilogd:process ptrace;
 neverallow hilogd system_file:dir_file_class_set write;
 
 # write to hap files
-neverallow hilogd { normal_hap_data_file_attr system_basic_hap_data_file system_core_hap_data_file }:dir_file_class_set write;
+neverallow hilogd { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr }:dir_file_class_set write;
 
 # only init is allowed to enter the hilogd domain via exec()
 neverallow { domain -init } hilogd:process transition;
@@ -123,11 +123,11 @@ neverallow {
     -sh                 # write is covered next
     -hiview             # write is covered next
     -hdcd               # write is covered next
-    -system_basic_hap   # write is covered next
-    -system_core_hap    # write is covered next
+    -system_basic_hap_attr   # write is covered next
+    -system_core_hap_attr    # write is covered next
     -normal_hap_attr         # write is covered next
 } data_hilogd_file:file { rw_file_perms };
 
 # shell can read but cannot write hilogd files
-neverallow { sh hiview hdcd system_basic_hap system_core_hap } data_hilogd_file:file { append create rename setattr write };
+neverallow { sh hiview hdcd system_basic_hap_attr system_core_hap_attr } data_hilogd_file:file { append create rename setattr write };
 

@@ -99,7 +99,7 @@ allowxperm nwebspawn data_init_agent:file ioctl { 0x5413 };
 allowxperm nwebspawn dev_at_file:chr_file ioctl { 0x4102 };
 
 allow nwebspawn accessibility_param:file { open read map };
-allow nwebspawn system_basic_hap_data_file:dir { mounton };
+allow nwebspawn system_basic_hap_data_file_attr:dir { mounton };
 
 allow nwebspawn dev_console_file:chr_file { read write };
 allow nwebspawn kernel:unix_stream_socket { connectto };
@@ -112,6 +112,33 @@ allow nwebspawn data_misc:file { create map open read write unlink };
 
 # avc:  denied  { dyntransition } for  pid=5103 comm="ei.hmos.browser" scontext=u:r:nwebspawn:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
 allow nwebspawn isolated_render:process { dyntransition };
+
+# avc:  denied  { ioctl } for  pid=1405 comm="com.ohos.note" path="/dev/xpm" dev="tmpfs" ino=224 ioctlcmd=0x7801 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+# avc:  denied  { open } for  pid=1405 comm="com.ohos.note" path="/dev/xpm" dev="tmpfs" ino=224 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+# avc:  denied  { read write } for  pid=1405 comm="com.ohos.note" name="xpm" dev="tmpfs" ino=224 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+allow nwebspawn dev_xpm:chr_file { ioctl open read write };
+
+# avc:  denied  { ioctl } for  pid=1405 comm="com.ohos.note" path="/dev/xpm" dev="tmpfs" ino=224 ioctlcmd=0x7801 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
+allowxperm nwebspawn dev_xpm:chr_file ioctl { 0x7801 };
+
+# avc:  denied  { search } for  pid=308 comm="appspawn" name="etc" dev="mmcblk0p8" ino=16 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=dir permissive=1
+allow nwebspawn vendor_etc_file:dir { search };
+
+# avc: denied { use } for pid=306 comm="appspawn" path="socket:[19696]" dev="sockfs" ino=19696 scontext=u:r:nwebspawn:s0 tcontext=u:r:appspawn:s0 tclass=fd permissive=0
+# avc:  denied  { use } for  pid=308 comm="appspawn" path="socket:[19920]" dev="sockfs" ino=19920 scontext=u:r:nwebspawn:s0 tcontext=u:r:appspawn:s0 tclass=fd permissive=1
+allow nwebspawn appspawn:fd { use };
+
+# avc:  denied  { connect } for  pid=306 comm="appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:appspawn:s0 tclass=unix_dgram_socket permissive=0
+# avc:  denied  { write } for  pid=308 comm="appspawn" path="socket:[19920]" dev="sockfs" ino=19920 scontext=u:r:nwebspawn:s0 tcontext=u:r:appspawn:s0 tclass=unix_dgram_socket permissive=1
+allow nwebspawn appspawn:unix_dgram_socket { connect write };
+
+
+# avc: denied { getopt } for pid=426 comm="appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=1
+# avc: denied { setopt } for pid=426 comm="appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=1
+allow nwebspawn nwebspawn:unix_dgram_socket { getopt setopt };
+
+# avc: denied { unmount } for pid=1365 comm="appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem permissive=0
+allow nwebspawn labeledfs:filesystem { unmount };
 
 debug_only(`
     allow nwebspawn data_storage:dir { mounton };

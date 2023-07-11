@@ -91,8 +91,8 @@ allow hdf_ext_devmgr sa_accesstoken_manager_service:samgr_class { get };
 allow hdf_ext_devmgr sa_foundation_abilityms:samgr_class { get };
 
 # avc:  denied  { call } for  pid=1750 comm="hdf_ext_devmgr" scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:system_core_hap:s0 tclass=binder permissive=1
-allow hdf_ext_devmgr system_core_hap:binder { call };
-allow hdf_ext_devmgr system_basic_hap:binder { call };
+allow hdf_ext_devmgr system_core_hap_attr:binder { call };
+allow hdf_ext_devmgr system_basic_hap_attr:binder { call };
 
 # avc:  denied  { ioctl } for  pid=1294 comm="IPC_2_1491" path="/dev/uinput" dev="tmpfs" ino=223 ioctlcmd=0x5502 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_uinput:s0 tclass=chr_file permissive=1
 # avc:  denied  { ioctl } for  pid=1750 comm="hdf_ext_devmgr" path="/dev/uinput" dev="tmpfs" ino=223 ioctlcmd=0x5564 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_uinput:s0 tclass=chr_file permissive=1
