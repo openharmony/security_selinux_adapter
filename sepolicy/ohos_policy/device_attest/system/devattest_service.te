@@ -104,3 +104,6 @@ allow devattest_service sa_param_watcher:samgr_class { get };
 
 #avc:  denied  { call } for  pid=1588 comm="SaInit0" scontext=u:r:devattest_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
 allow devattest_service accountmgr:binder { call };
+
+#avc:  denied  { get } for service=3510 pid=1486 scontext=u:r:devattest_service:s0 tcontext=u:object_r:sa_huks_service:s0 tclass=samgr_class permissive=0
+allow devattest_service sa_huks_service:samgr_class { get };
