@@ -12,7 +12,6 @@
 # limitations under the License.
 
 /system/bin/hiview              u:object_r:hiview_exec:s0
-/system/bin/hisysevent          u:object_r:hisysevent_exec:s0
 /system/bin/usage_report        u:object_r:usage_report_exec:s0
 
 /dev/unix/socket/hisysevent     u:object_r:hisysevent_socket:s0

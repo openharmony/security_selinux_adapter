@@ -187,3 +187,7 @@ allow hiview vendor_etc_file:dir { search };
 #avc:  denied  { read } for  pid=2001 comm="hiview" name="hisysevent.def" dev="mmcblk0p8" ino=265 scontext=u:r:hiview:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 #avc:  denied  { open } for  pid=2001 comm="hiview" path="/vendor/etc/hiview/hisysevent.def" dev="mmcblk0p8" ino=265 scontext=u:r:hiview:s0 tcontext=u:object_r:vendor_etc_file:s0 tclass=file permissive=1
 allow hiview vendor_etc_file:file { read open };
+
+allow hiview hisysevent:binder { call transfer };
+allow hiview hisysevent:dir { search };
+allow hiview hisysevent:file { read open getattr };
