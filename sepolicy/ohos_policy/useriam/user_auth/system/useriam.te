@@ -73,6 +73,7 @@ allow useriam sa_foundation_powermgr_service:samgr_class { get };
 allow useriam dev_mali:chr_file { getattr ioctl map open read write };
 allow useriam sysfs_devices_system_cpu:dir { read open };
 allow useriam allocator_host:fd { use };
+allow useriam sa_foundation_abilityms:samgr_class { get };
 
 # avc:  denied  { call } for  pid=466 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
 allow useriam huks_service:binder { call };
