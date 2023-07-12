@@ -90,6 +90,7 @@ type sysfs_wake_lck, sysfs_attr, fs_attr;
 type sysfs_kernel_notes, sysfs_attr, fs_attr;
 type sysfs_wakeup_reasons, sysfs_attr, fs_attr;
 type sysfs_hctosys, sysfs_attr, fs_attr;
+type sysfs_hungtask_userlist, sysfs_attr, fs_attr;
 
 type config_usb_gadget, fs_attr;
 
