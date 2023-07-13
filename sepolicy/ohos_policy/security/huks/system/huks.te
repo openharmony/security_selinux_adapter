@@ -53,4 +53,4 @@ allow huks_service devinfo_private_param:file { map open read };
 
 #avc:  denied  { get } for service=401 pid=342 scontext=u:r:huks_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
 allow huks_service sa_foundation_bms:samgr_class { get };
-allow huks_service sa_ca_daemon_service:samgr_class { get };
+allow huks_service sa_ca_daemon_service:samgr_class { add get };
