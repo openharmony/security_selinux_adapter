@@ -378,4 +378,7 @@ allow updater devinfo_private_param:file { map open read };
 # avc: denied { relabelto } for pid=232 comm="updater" name="updater_binary" dev="tmpfs" ino=5 scontext=u:r:updater:s0 tcontext=u:object_r:updater_binary_exec:s0 tclass=file permissive=1
 allow updater updater_binary_exec:file { relabelto };
 
+# avc: denied { syslog_read } for pid=230 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:kernel:s0 tclass=system permissive=1
+allow updater kernel:system { syslog_read };
+
 ')
