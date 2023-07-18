@@ -55,6 +55,7 @@ allow netsysnative system_basic_hap_attr:fd { use };
 allow netsysnative system_basic_hap_attr:tcp_socket { read write getopt setopt };
 allow netsysnative dev_tun_file:chr_file { open read write ioctl };
 allow netsysnative netsysnative:tun_socket { create relabelfrom relabelto };
+allow netsysnative system_basic_hap_attr:udp_socket { read write getopt setopt };
 
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8927 0x8954 };
 
