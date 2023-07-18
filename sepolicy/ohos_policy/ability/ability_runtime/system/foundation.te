@@ -94,5 +94,6 @@ allow foundation storage_manager:dir { search };
 allow foundation storage_manager:file { open read write getattr };
 allow foundation sa_storage_manager_service:samgr_class { get };
 allow foundation netmanager:binder { transfer };
+allow foundation faultloggerd:fifo_file { read };
 neverallow foundation *:process ptrace;
 
