@@ -65,6 +65,8 @@ allow multimodalinput data_file:dir { remove_name };
 allow multimodalinput data_multimodalinput:file { lock };
 allow multimodalinput sysfs_devices_system_cpu:file { open read getattr };
 allow multimodalinput data_file:sock_file { setattr create unlink };
+# avc:  denied  { get } for service=3299 pid=722 scontext=u:r:multimodalinput:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow multimodalinput sa_foundation_cesfwk_service:samgr_class { get };
 allow normal_hap_attr multimodalinput:unix_stream_socket { read write };
 allow normal_hap_attr sa_multimodalinput_service:samgr_class { get };
 allow system_basic_hap_attr multimodalinput:unix_stream_socket { read };
