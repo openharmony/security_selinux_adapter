@@ -161,6 +161,10 @@ allow dcamera accesstoken_service:binder { call };
 #avc:  denied  { get } for service=4802 pid=3227 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_foundation_devicemanager_service:s0 tclass=samgr_class permissive=1
 allow dcamera sa_foundation_devicemanager_service:samgr_class { get };
 
+#avc:  denied  { call } for  pid=2169 comm="dcamera" scontext=u:r:dcamera:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+#avc:  denied  { transfer } for  pid=2712 comm="IPC_1_2732" scontext=u:r:dcamera:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=1
+allow dcamera device_manager:binder { call transfer };
+
 allow dcamera bootevent_param:file { map open read };
 allow dcamera bootevent_samgr_param:file { map open read };
 allow dcamera build_version_param:file { map open read };

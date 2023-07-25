@@ -18,3 +18,4 @@ type ntfs, fs_attr;
 
 type distributedfiledaemon, sadomain, domain;
 type data_service_el2_hmdfs, file_attr, data_file_attr;
+type cloudfiledaemon, sadomain, domain;

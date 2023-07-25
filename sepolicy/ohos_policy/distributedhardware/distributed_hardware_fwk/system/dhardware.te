@@ -158,3 +158,37 @@ allow hidumper_service sa_dhardware_service:samgr_class { get };
 
 #avc:  denied  { search } for  pid=2662 comm="sa_main" name="bin" dev="sdd72" ino=12 scontext=u:r:dcamera:s0 tcontext=u:object_r:vendor_bin_file:s0 tclass=dir permissive=0
 allow dhardware vendor_bin_file:dir { search };
+
+#avc:  denied  { get } for service=5100 pid=2376 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
+allow dhardware sa_device_service_manager:samgr_class { get };
+
+#avc:  denied  { get } for service=codec_hdi_omx_service pid=1690 scontext=u:r:dhardware:s0 tcontext=u:object_r:hdf_codec_hdi_omx_service:s0 tclass=hdf_devmgr_class permissive=1
+allow dhardware hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
+
+#avc:  denied  { read } for  pid=2292 comm="dhardware" name="online" dev="sysfs" ino=4917 scontext=u:r:dhardware:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=2954 comm="dhardware" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4917 scontext=u:r:dhardware:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=2954 comm="dhardware" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4917 scontext=u:r:dhardware:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow dhardware sysfs_devices_system_cpu:file { read open getattr };
+
+#avc:  denied  { read } for  pid=2292 comm="SendOnLine" name="histreamer_plugins" dev="mmcblk0p7" ino=2372 scontext=u:r:dhardware:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=0
+#avc:  denied  { open } for  pid=2954 comm="SendOnLine" path="/system/lib/media/histreamer_plugins" dev="mmcblk0p7" ino=2372 scontext=u:r:dhardware:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
+allow dhardware system_lib_file:dir { read open };
+
+#avc:  denied  { call } for  pid=2954 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:hdf_devmgr:s0 tclass=binder permissive=1
+allow dhardware hdf_devmgr:binder { call };
+
+#avc:  denied  { search } for  pid=239 comm="IPC_3_485" name="2954" dev="proc" ino=33347 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:dhardware:s0 tclass=dir permissive=1
+allow hdf_devmgr dhardware:dir { search };
+
+#avc:  denied  { read } for  pid=254 comm="IPC_2_482" name="current" dev="proc" ino=34925 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:dhardware:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=254 comm="IPC_2_482" path="/proc/3100/attr/current" dev="proc" ino=34925 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:dhardware:s0 tclass=file permissive=1
+allow hdf_devmgr dhardware:file { read open };
+
+#avc:  denied  { getattr } for  pid=254 comm="IPC_2_482" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:dhardware:s0 tclass=process permissive=1
+allow hdf_devmgr dhardware:process { getattr };
+
+#avc:  denied  { transfer } for  pid=254 comm="IPC_2_482" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:dhardware:s0 tclass=binder permissive=1
+allow hdf_devmgr dhardware:binder { transfer };
+
+#avc:  denied  { call } for  pid=3100 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:codec_host:s0 tclass=binder permissive=1
+allow dhardware codec_host:binder { call };

@@ -62,4 +62,7 @@ allow ueventd system_etc_file:lnk_file { read };
 
 # avc:  denied  { relabelto } for  pid=226 comm="ueventd" name="xpm" dev="tmpfs" ino=193 scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_xpm:s0 tclass=chr_file permissive=1
 allow ueventd dev_xpm:chr_file { relabelto };
+
+# avc: denied { create } for pid=234 comm="ueventd" name="by-name" scontext=u:r:ueventd:s0 tcontext=u:object_r:dev_block_volfile:s0 tclass=dir permissive=1
+allow ueventd dev_block_volfile:dir { create };
 ')

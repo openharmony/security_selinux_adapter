@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow foundation push_manager_service:binder { transfer call };
-allow foundation push_manager_service:dir { search };
-allow foundation push_manager_service:file { read open getattr };
+neverallow { domain -foundation -riladapter_host } hdf_power_interface_service:hdf_devmgr_class get;

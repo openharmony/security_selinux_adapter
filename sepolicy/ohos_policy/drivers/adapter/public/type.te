@@ -12,6 +12,8 @@
 # limitations under the License.
 
 type hdf_devmgr, sadomain, domain;
+type hdf_ext_devmgr, sadomain, domain;
+type sa_hdf_ext_devmgr, sa_service_attr;
 
 type blue_host, hdfdomain, domain;
 type a2dp_host, hdfdomain, domain;

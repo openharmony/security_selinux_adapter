@@ -11,4 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init push_manager_service:process { rlimitinh siginh transition };
+debug_only(`
+    allow sh iptables_exec:file { execute read open execute_no_trans map};
+    allow sh netsysnative:binder { call transfer };
+    allow sh sh:bpf { map_read prog_load map_create map_write };
+    allow sh sa_netsys_ext_service:samgr_class { add get };
+    allow sh fs_bpf:dir { getattr search mounton add_name create write };
+    allow sh netsysnative:lnk_file { read };
+    allow sh fs_bpf:file { create write read };
+    allow sh sa_distributed_net_service:samgr_class { add get };
+')

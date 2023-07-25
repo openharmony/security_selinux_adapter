@@ -35,7 +35,7 @@ allow hiview hiview_file:file { getattr setattr append ioctl unlink map read wri
 
 allow hiview data_file:dir { search };
 allow hiview data_log:dir { add_name open read search watch write create remove_name };
-allow hiview data_log:file { create getattr lock map open read write unlink };
+allow hiview data_log:file { create getattr lock map open read write unlink rename };
 allow hiview data_system:dir { search getattr };
 allow hiview system_etc_file:dir { open read };
 allow hiview system_bin_file:dir { search };
@@ -47,8 +47,6 @@ allow hiview dev_bbox:chr_file { read open };
 allow hiview normal_hap_attr:dir { search };
 allow hiview normal_hap_attr:file { read open };
 allow hiview proc_cpuinfo_file:file { read open };
-allow hiview sh:file { read open };
-allow hiview sh:dir { search };
 allow hiview rootfs:chr_file { read write };
 allow hiview faultloggerd_temp_file:file { getattr };
 allow hiview faultloggerd:fifo_file { read };
@@ -72,7 +70,6 @@ allow hiview resource_schedule_service:binder { call transfer };
 allow hiview normal_hap_attr:binder { call transfer };
 allow hiview system_basic_hap:binder { call transfer };
 allow hiview system_core_hap:binder { call transfer };
-allow hiview sh:binder { call transfer };
 allow hiview accountmgr:binder { call transfer };
 allow hiview device_usage_stats_service:binder { call transfer };
 
@@ -165,3 +162,12 @@ allow hiview normal_hap_data_file:file { create  write open };
 #avc:  denied  { setattr } for  pid=246 comm="exportSysEventT" name="RELIABILITY-20170806025113-000-0.evt" dev="mmcblk0p12" ino=2052 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=file permissive=0
 allow hiview system_basic_hap_data_file:file { setattr };
 allow hiview normal_hap_data_file:file { setattr };
+
+debug_only(`
+    allow hiview sh:dir { getattr open read search};
+    allow hiview sh:file { getattr read open };
+    allow hiview sh:binder { call transfer };
+    allow sh hiview:dir { getattr search };
+    allow sh hiview:file { open };
+    allow sh hiview:process { getattr };
+')

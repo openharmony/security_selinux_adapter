@@ -56,3 +56,8 @@ allowxperm wifi_manager_service wifi_manager_service:udp_socket ioctl { 0x890B 0
 allowxperm wifi_manager_service wifi_manager_service:unix_dgram_socket ioctl { 0x8910 };
 allow wifi_manager_service musl_param:file { open };
 allow wifi_manager_service musl_param:file { map };
+allow wifi_manager_service distributeddata:binder { call transfer };
+allow wifi_manager_service distributeddata:fd { use };
+allow wifi_manager_service sa_dataobs_mgr_service_service:samgr_class { get };
+allow wifi_manager_service sa_distributeddata_service:samgr_class { get };
+allow wifi_manager_service sa_foundation_abilityms:samgr_class { get };

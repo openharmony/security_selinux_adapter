@@ -14,8 +14,8 @@
 allow usb_host dev_console_file:chr_file { read write };
 allow usb_host sa_usb_service:samgr_class { add };
 allow usb_host data_service_file:dir { search };
-allow usb_host data_service_el1_file:dir { search };
-allow usb_host data_service_el1_file:file { ioctl open read write getattr };
+allow usb_host data_service_el1_file:dir { search add_name write};
+allow usb_host data_service_el1_file:file { ioctl open read write getattr create map};
 allow usb_host hdf_usbhost_acm_pnp_service:hdf_devmgr_class { add };
 allow usb_host hdf_usbhost_acm_rawapi_service:hdf_devmgr_class { add };
 allow usb_host hdf_usbhost_ecm_pnp_service:hdf_devmgr_class { add };
@@ -78,6 +78,7 @@ allow usb_host configfs:lnk_file { create unlink };
 debug_only(`
     allow usb_host console:binder { call };
     allow usb_host console:fd { use };
+    allow usb_host sh:binder { call };
 ')
 allow usb_host data_file:dir { search };
 allow usb_host data_init_agent:dir { search };
@@ -108,6 +109,7 @@ allow usb_host hdf_usbd:hdf_devmgr_class { add };
 allow usb_host hdf_usbfn_cdcacm:hdf_devmgr_class { add get };
 allow usb_host hdf_usbfn_cdcecm:hdf_devmgr_class { add get };
 allow usb_host hdf_usbfn:hdf_devmgr_class { add get };
+allow usb_host hdf_usb_ddk_service:hdf_devmgr_class { add };
 allow usb_host hiview:binder { call };
 allow usb_host kernel:unix_stream_socket { connectto };
 allow usb_host paramservice_socket:sock_file { write };
@@ -132,3 +134,7 @@ allowxperm usb_host dev_bus_usb_file:chr_file ioctl { 0x5500 0x5504 0x5508 0x550
 allowxperm usb_host dev_file:chr_file ioctl { 0x6201 0x6202 0x6203 0x6731 0x6732 0x6734 0x673c 0x6782 0x6736 0x673d 0x6735 0x6738 };
 allowxperm usb_host dev_hdf_kevent:chr_file ioctl { 0x6202 0x6201 0x6203 };
 allowxperm usb_host dev_hdf_usb_pnp:chr_file ioctl { 0x6201 0x6202 0x6203 0x6206 };
+# avc:  denied  { add } for service=5110 pid=512 scontext=u:r:usb_host:s0 tcontext=u:object_r:sa_hdf_ext_devmgr:s0 tclass=samgr_class permissive=1
+# avc:  denied  { get } for service=5110 pid=512 scontext=u:r:usb_host:s0 tcontext=u:object_r:sa_hdf_ext_devmgr:s0 tclass=samgr_class permissive=1
+allow usb_host sa_hdf_ext_devmgr:samgr_class { add get };
+allow usb_host hdf_ext_devmgr:binder { call };

@@ -19,7 +19,7 @@
     "ram": "3072KB",
     "deps": {
       "components": [
-        "hilog_native"
+        "hilog"
       ],
       "third_party": [
         "pcre2",

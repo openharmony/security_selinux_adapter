@@ -31,7 +31,6 @@ allow hiprofiler_cmd dev_unix_socket:dir search;
 allow hiprofiler_cmd hdcd:fifo_file write;
 allow hiprofiler_cmd ohos_boot_param:file { map open read };
 allow hiprofiler_cmd ohos_param:file { map open read };
-allow hiprofiler_cmd sh:fifo_file write;
 allow hiprofiler_cmd system_bin_file:dir search;
 
 allow hiprofiler_cmd const_param:file { map open read };
@@ -87,8 +86,6 @@ allow hiprofiler_cmd input_pointer_device_param:file { map open read };
 allow hiprofiler_cmd const_display_brightness_param:file map;
 allow hiprofiler_cmd default_param:file { map open read };
 
-allow hiprofiler_cmd sh:fifo_file ioctl;
-
 allow hiprofiler_cmd tty_device:chr_file { ioctl open };
 
 allow hiprofiler_cmd rootfs:file getattr;
@@ -135,6 +132,8 @@ debug_only(`
 	allow hiprofiler_cmd data_local_tmp:dir { add_name write search getattr };
 	allow hiprofiler_cmd sh_exec:file { execute execute_no_trans map open read };
 	allow hiprofiler_cmd self:capability { setgid };
+	allow hiprofiler_cmd sh:fifo_file write;
+	allow hiprofiler_cmd sh:fifo_file ioctl;
 ')
 allow hiprofiler_cmd self:capability sys_ptrace;
 

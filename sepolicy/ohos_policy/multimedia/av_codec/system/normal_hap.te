@@ -13,4 +13,4 @@
 
 allow normal_hap_attr sa_av_codec_service:samgr_class { get };
 allow normal_hap_attr av_codec_service:binder { call transfer };
-
+allow normal_hap_attr av_codec_service:fd { use };

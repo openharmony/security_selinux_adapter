@@ -63,6 +63,7 @@ ohos_shared_library("librestorecon") {
     "ramdisk",
     "updater",
   ]
+  innerapi_tags = [ "platformsdk_indirect" ]
   license_file = "LICENSE"
   part_name = "selinux"
   subsystem_name = "security"
@@ -123,7 +124,7 @@ ohos_static_library("libselinux_hilog_static") {
   sources = [ "interfaces/policycoreutils/src/selinux_log.c" ]
   include_dirs = [ "interfaces/policycoreutils/include" ]
   deps = [ "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared" ]
-  external_deps = [ "hilog_native:libhilog" ]
+  external_deps = [ "hilog:libhilog" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -215,6 +216,7 @@ ohos_shared_library("libservice_checker") {
     "-Wall",
     "-Werror",
   ]
+  innerapi_tags = [ "chipsetsdk" ]
   part_name = "selinux"
   subsystem_name = "security"
 }
@@ -368,6 +370,20 @@ action("build_policy") {
     "--components",
     components,
   ]
+
+  if (components != "default") {
+    args += [
+      "--vendor-policy-version",
+      "$vendor_policy_version",
+    ]
+  }
+
+  if (extra_args != "default") {
+    foreach(arg, string_split(extra_args, " ")) {
+      args += [ arg ]
+    }
+  }
+
   deps = [
     "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
     "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
@@ -378,6 +394,9 @@ action("build_policy") {
     target_out_dir + "/prebuild_sepolicy.system.cil.sha256",
     target_out_dir + "/system.cil",
     target_out_dir + "/system.cil.sha256",
+    target_out_dir + "/$vendor_policy_version.cil",
+    target_out_dir + "/version",
+    target_out_dir + "/public.cil",
   ]
 }
 
@@ -426,6 +445,13 @@ action("build_update_policy") {
     "--components",
     components,
   ]
+
+  if (extra_args != "default") {
+    foreach(arg, string_split(extra_args, " ")) {
+      args += [ arg ]
+    }
+  }
+
   deps = [
     "$THIRD_PARTY_DIR/selinux:checkpolicy($host_toolchain)",
     "$THIRD_PARTY_DIR/selinux:secilc($host_toolchain)",
@@ -446,7 +472,11 @@ action("build_contexts") {
     }
   }
 
-  script = "scripts/build_contexts.py"
+  if (special_build_contexts_script != "default") {
+    script = special_build_contexts_script
+  } else {
+    script = "scripts/build_contexts.py"
+  }
   args = [
     "--dst-dir",
     rebase_path(target_out_dir + "/"),
@@ -461,6 +491,11 @@ action("build_contexts") {
     "--components",
     components,
   ]
+  if (contexts_extra_args != "default") {
+    foreach(arg, string_split(contexts_extra_args, " ")) {
+      args += [ arg ]
+    }
+  }
   deps = [
     ":build_policy",
     "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
@@ -512,6 +547,16 @@ ohos_prebuilt_etc("build_updater_sepolicy") {
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/policy/"
   install_images = [ "updater" ]
+}
+
+ohos_prebuilt_etc("selinux_version") {
+  deps = [ ":build_policy" ]
+  source = target_out_dir + "/version"
+  license_file = "LICENSE"
+  part_name = "selinux"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/"
+  install_images = [ "vendor" ]
 }
 
 ohos_prebuilt_etc("config") {
@@ -601,6 +646,26 @@ ohos_prebuilt_etc("vendor_cil") {
   install_images = [ "vendor" ]
 }
 
+ohos_prebuilt_etc("public_cil") {
+  deps = [ ":build_policy" ]
+  source = target_out_dir + "/public.cil"
+  license_file = "LICENSE"
+  part_name = "selinux"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/"
+  install_images = [ "vendor" ]
+}
+
+ohos_prebuilt_etc("version_cil") {
+  deps = [ ":build_policy" ]
+  source = target_out_dir + "/$vendor_policy_version.cil"
+  license_file = "LICENSE"
+  part_name = "selinux"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/compatible/"
+  install_images = [ "system" ]
+}
+
 ohos_prebuilt_etc("prebuild_sepolicy_system_cil_sha256") {
   deps = [ ":build_policy" ]
   source = target_out_dir + "/prebuild_sepolicy.system.cil.sha256"
@@ -664,11 +729,14 @@ group("selinux_group") {
       deps += [
         ":system_cil",
         ":system_cil_sha256",
+        ":version_cil",
       ]
     } else if (components == "vendor") {
       deps += [
         ":build_sepolicy",
         ":prebuild_sepolicy_system_cil_sha256",
+        ":public_cil",
+        ":selinux_version",
         ":vendor_cil",
       ]
     } else {

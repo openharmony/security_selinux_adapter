@@ -62,7 +62,6 @@ type time_param, parameter_attr;
 type accesstoken_perm_param, parameter_attr;
 type ffrt_param, parameter_attr;
 type hiviewdfx_profiler_param, parameter_attr;
-type netmanager_base_param, parameter_attr;
 type bluetooth_param, parameter_attr;
 
 allow init parameter_attr:file relabelto;

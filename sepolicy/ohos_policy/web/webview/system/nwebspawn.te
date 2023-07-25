@@ -11,6 +11,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# avc:  denied  { open } for  pid=1601 comm="nwebspawn" path="/system/bin/nwebspawn" dev="mmcblk0p7" ino=300 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+allow nwebspawn system_bin_file:file { open };
+
+# avc:  denied  { execute_no_trans } for  pid=1601 comm="nwebspawn" path="/system/bin/nwebspawn" dev="mmcblk0p7" ino=300 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+allow nwebspawn system_bin_file:file { execute_no_trans };
+
+# avc:  denied  { execute } for  pid=1601 comm="nwebspawn" path="/system/app/com.ohos.nweb/NWeb.hap" dev="mmcblk0p7" ino=78 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+allow nwebspawn system_file:file { execute };
+
 #avc:  denied  { search } for  pid=1852 comm="nwebspawn" name="socket" dev="tmpfs" ino=40 scontext=u:r:nwebspawn:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
 allow nwebspawn dev_unix_socket:dir { search };
 

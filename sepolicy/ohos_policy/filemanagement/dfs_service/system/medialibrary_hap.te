@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap push_manager_service:binder { call };
-allow system_basic_hap sa_push_manager_service:samgr_class { get };
+allow medialibrary_hap cloudfiledaemon:binder { transfer };

@@ -1,0 +1,25 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# avc:  denied  { transfer } for  pid=243 comm="IPC_3_507" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=binder permissive=1
+allow hdf_devmgr hdf_ext_devmgr:binder { transfer };
+
+# avc:  denied  { search } for  pid=243 comm="IPC_3_507" name="721" dev="proc" ino=20918 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=dir permissive=1
+allow hdf_devmgr hdf_ext_devmgr:dir { search };
+
+# avc:  denied  { open } for  pid=243 comm="IPC_3_507" path="/proc/721/attr/current" dev="proc" ino=29742 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=243 comm="IPC_3_507" name="current" dev="proc" ino=29742 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=file permissive=1
+allow hdf_devmgr hdf_ext_devmgr:file { open read };
+
+# avc:  denied  { getattr } for  pid=243 comm="IPC_3_507" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:hdf_ext_devmgr:s0 tclass=process permissive=1
+allow hdf_devmgr hdf_ext_devmgr:process { getattr };

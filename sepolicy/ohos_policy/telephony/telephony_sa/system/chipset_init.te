@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow time_service push_manager_service:binder { call };
+allow chipset_init riladapter_host:process { rlimitinh siginh transition };
+

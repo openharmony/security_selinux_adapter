@@ -307,3 +307,6 @@ allow device_manager dev_console_file:chr_file { read write };
 #avc:  denied  { open } for  pid=249 comm="device_manager" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:device_manager:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 #avc:  denied  { map } for  pid=248 comm="IPC_1_281" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=56 scontext=u:r:device_manager:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=0
 allow device_manager musl_param:file { read open map };
+
+#avc:  denied  { call } for  pid=255 comm="IPC_0_273" scontext=u:r:device_manager:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
+allow device_manager dcamera:binder { call };

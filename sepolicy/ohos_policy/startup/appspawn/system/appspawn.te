@@ -32,7 +32,7 @@ allow appspawn dev_file:dir { getattr };
 allow appspawn chip_prod_file:dir { open read search getattr };
 allow appspawn chip_prod_file:file { getattr open read };
 allow appspawn sys_prod_file:dir { open read search getattr };
-allow appspawn sys_prod_file:file { getattr open read };
+allow appspawn sys_prod_file:file { getattr open read map };
 allow appspawn vendor_etc_file:dir { open read search getattr };
 allow appspawn vendor_etc_file:file { getattr open read };
 
@@ -118,3 +118,4 @@ allow appspawn vendor_lib_file:dir { mounton };
 allow appspawn self:process execmem;
 allowxperm appspawn dev_at_file:chr_file ioctl { 0x4102 };
 allow appspawn dev_xpm:chr_file { open read write ioctl };
+allow appspawn system_file:file { map };

@@ -15,3 +15,5 @@ allow foundation bgtaskmgr_service:binder { call transfer };
 
 allow foundation device_usage_stats_service:binder { call transfer };
 allow foundation sa_resource_schedule:samgr_class { get };
+allow foundation bgtaskmgr_service:dir { search };
+allow foundation bgtaskmgr_service:file { getattr open read };

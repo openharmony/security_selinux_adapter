@@ -384,6 +384,16 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon008, TestSize.Level1)
     ASSERT_EQ(true, RemoveDirectory(TEST_HAP_PATH));
 }
 
+static bool CompareContexts(const std::string &path, const std::string &label)
+{
+    char *secontext = nullptr;
+    getfilecon(path.c_str(), &secontext);
+    bool res = (strcmp(label.c_str(), secontext) == 0);
+    freecon(secontext);
+    secontext = nullptr;
+    return res;
+}
+
 /**
  * @tc.name: HapFileRestorecon009
  * @tc.desc: test HapFileRestorecon input multi path/file no recurse.
@@ -401,61 +411,30 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon009, TestSize.Level1)
     char *secontextOld = nullptr;
     getfilecon(TEST_SUB_PATH_2_FILE_1.c_str(), &secontextOld);
 
-    std::vector<std::string> tmp;
-    tmp.emplace_back(TEST_SUB_PATH_1);
-    tmp.emplace_back(TEST_SUB_PATH_2);
-    tmp.emplace_back(TEST_SUB_PATH_1_FILE_1);
-    tmp.emplace_back(TEST_SUB_PATH_1_FILE_2);
-    tmp.emplace_back(TEST_UNSIMPLIFY_FILE);
-    tmp.emplace_back(TEST_UNSIMPLIFY_PATH);
-
     HapFileInfo hapFileInfo = {
-        .pathNameOrig = tmp,
+        .pathNameOrig = {TEST_SUB_PATH_1, TEST_SUB_PATH_2, TEST_SUB_PATH_1_FILE_1, TEST_SUB_PATH_1_FILE_2,
+                         TEST_UNSIMPLIFY_FILE, TEST_UNSIMPLIFY_PATH},
         .apl = SYSTEM_CORE_APL,
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 0,
         .hapFlags = 1,
     };
-    int ret = test.HapFileRestorecon(hapFileInfo);
-    ASSERT_EQ(SELINUX_SUCC, ret);
+
+    ASSERT_EQ(SELINUX_SUCC, test.HapFileRestorecon(hapFileInfo));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_2, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1_FILE_1, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1_FILE_2, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_3_FILE_1, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_4, TEST_HAP_DATA_FILE_LABEL));
 
     char *secontext = nullptr;
-    getfilecon(TEST_SUB_PATH_1.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_2.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_1_FILE_1.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_1_FILE_2.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
     getfilecon(TEST_SUB_PATH_2_FILE_1.c_str(), &secontext); // this file should not be restorecon
     EXPECT_STREQ(secontextOld, secontext);
     freecon(secontext);
     freecon(secontextOld);
     secontext = nullptr;
     secontextOld = nullptr;
-
-    getfilecon(TEST_SUB_PATH_3_FILE_1.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_4.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
 
     ASSERT_EQ(true, RemoveDirectory(TEST_HAP_PATH));
 }
@@ -477,76 +456,29 @@ HWTEST_F(SelinuxUnitTest, HapFileRestorecon010, TestSize.Level1)
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_4_FILE_1));
     ASSERT_EQ(true, CreateFile(TEST_SUB_PATH_4_FILE_2));
 
-    std::vector<std::string> tmp;
-    tmp.emplace_back(TEST_SUB_PATH_1);
-    tmp.emplace_back(TEST_SUB_PATH_2);
-    tmp.emplace_back(TEST_UNSIMPLIFY_FILE); // TEST_SUB_PATH_3_FILE_1
-    tmp.emplace_back(TEST_UNSIMPLIFY_PATH); // TEST_SUB_PATH_4
-
     char *secontextOld = nullptr;
     getfilecon(TEST_SUB_PATH_3_FILE_2.c_str(), &secontextOld);
 
     HapFileInfo hapFileInfo = {
-        .pathNameOrig = tmp,
+        .pathNameOrig = { TEST_SUB_PATH_1, TEST_SUB_PATH_2, TEST_UNSIMPLIFY_FILE, TEST_UNSIMPLIFY_PATH },
         .apl = SYSTEM_CORE_APL,
         .packageName = TEST_HAP_BUNDLE_NAME,
         .flags = 1,
         .hapFlags = 1,
     };
-    int ret = test.HapFileRestorecon(hapFileInfo);
-    ASSERT_EQ(SELINUX_SUCC, ret);
+    ASSERT_EQ(SELINUX_SUCC, test.HapFileRestorecon(hapFileInfo));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_2, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_4, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1_FILE_1, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_1_FILE_2, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_2_FILE_1, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_2_FILE_2, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_4_FILE_1, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_4_FILE_2, TEST_HAP_DATA_FILE_LABEL));
+    EXPECT_TRUE(CompareContexts(TEST_SUB_PATH_3_FILE_1, TEST_HAP_DATA_FILE_LABEL));
 
     char *secontext = nullptr;
-    getfilecon(TEST_SUB_PATH_1.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_2.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_4.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_1_FILE_1.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_1_FILE_2.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_2_FILE_1.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_2_FILE_2.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_4_FILE_1.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_4_FILE_2.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
-    getfilecon(TEST_SUB_PATH_3_FILE_1.c_str(), &secontext);
-    EXPECT_STREQ(TEST_HAP_DATA_FILE_LABEL.c_str(), secontext);
-    freecon(secontext);
-    secontext = nullptr;
-
     getfilecon(TEST_SUB_PATH_3_FILE_2.c_str(), &secontext);
     EXPECT_STREQ(secontextOld, secontext);
     freecon(secontext);

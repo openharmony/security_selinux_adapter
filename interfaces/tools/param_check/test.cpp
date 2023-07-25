@@ -202,6 +202,34 @@ static void SetOptions(int argc, char *argv[], const option *options, testInput 
     }
 }
 
+static void TestWriteParameters(testInput &testCmd)
+{
+    int fd[2];
+    if (socketpair(AF_UNIX, SOCK_DGRAM, 0, fd) < 0) {
+        perror("socketpair");
+        exit(EXIT_FAILURE);
+    }
+
+    SrcInfo info;
+    info.uc.pid = getpid();
+    info.uc.uid = getuid();
+    info.uc.gid = getgid();
+    info.sockFd = fd[0];
+    if (!testCmd.paraName.empty()) {
+        TestSetPara(testCmd.paraName, &info);
+        close(fd[0]);
+        close(fd[1]);
+        exit(0);
+    }
+    std::string paraName;
+    while (std::cin >> paraName) {
+        TestSetPara(paraName, &info);
+    }
+    close(fd[0]);
+    close(fd[1]);
+    exit(0);
+}
+
 static void Test(testInput &testCmd)
 {
     std::string paraName;
@@ -227,29 +255,7 @@ static void Test(testInput &testCmd)
             exit(0);
         }
         case 'w': {
-            int fd[2];
-            if (socketpair(AF_UNIX, SOCK_DGRAM, 0, fd) < 0) {
-                perror("socketpair");
-                exit(EXIT_FAILURE);
-            }
-
-            SrcInfo info;
-            info.uc.pid = getpid();
-            info.uc.uid = getuid();
-            info.uc.gid = getgid();
-            info.sockFd = fd[0];
-            if (!testCmd.paraName.empty()) {
-                TestSetPara(testCmd.paraName, &info);
-                close(fd[0]);
-                close(fd[1]);
-                exit(0);
-            }
-            while (std::cin >> paraName) {
-                TestSetPara(paraName, &info);
-            }
-            close(fd[0]);
-            close(fd[1]);
-            exit(0);
+            TestWriteParameters(testCmd);
         }
         default:
             PrintUsage();

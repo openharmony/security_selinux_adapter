@@ -20,4 +20,12 @@ allow system_basic_hap netsysnative:unix_stream_socket { connectto read write };
 allow system_basic_hap system_basic_hap:tcp_socket { getattr create setopt bind connect getopt read write };
 allow system_basic_hap system_basic_hap:udp_socket { getattr create setopt bind connect getopt read write };
 
+allow system_basic_hap netmsg:tcp_socket { node_bind name_connect };
+allow system_basic_hap sa_comm_vpn_manager_service:samgr_class { get };
+allow system_basic_hap netsysnative:fd { use };
+allow system_basic_hap dev_tun_file:chr_file { read write };
+
 allow system_basic_hap sa_comm_net_stats_manager_service:samgr_class { get };
+
+allow system_basic_hap sa_netsys_ext_service:samgr_class { add get };
+allow system_basic_hap sa_distributed_net_service:samgr_class { add get };

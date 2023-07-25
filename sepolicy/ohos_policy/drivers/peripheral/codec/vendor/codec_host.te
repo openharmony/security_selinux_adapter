@@ -81,4 +81,5 @@ debug_only(`
     allow codec_host sh:binder { transfer call };
     allow codec_host sh:fd { use };
     allow codec_host hdcd:fifo_file { write };
+    allow codec_host hdcd:fifo_file { read };
 ')

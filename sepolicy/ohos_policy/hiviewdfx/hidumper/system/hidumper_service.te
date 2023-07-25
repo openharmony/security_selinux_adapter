@@ -163,6 +163,8 @@ allow hidumper_service sa_foundation_displaymgr_service:samgr_class { get };
 #avc:  denied  { get } for service=3303 pid=553 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:sa_foundation_thermal_service:s0 tclass=samgr_class permissive=1
 allow hidumper_service sa_foundation_thermal_service:samgr_class { get };
 
+allow hidumper_service sa_dfx_sys_hidumper_cpu_ability:samgr_class get;
+
 allow hidumper_service dev_at_file:chr_file ioctl;
 allow hidumper_service dev_block_volfile:dir search;
 allow hidumper_service dev_console_file:chr_file getattr;
@@ -173,14 +175,9 @@ allow hidumper_service hilog_exec:file { execute execute_no_trans getattr map op
 allow hidumper_service proc_file:file { open read };
 allow hidumper_service processdump:dir search;
 allow hidumper_service processdump:file { open read };
-allow hidumper_service sh:dir { getattr open read };
-allow hidumper_service sh:fifo_file getattr;
-allow hidumper_service sh:file getattr;
-allow hidumper_service sh:lnk_file read;
-allow hidumper_service sysfs_devices_system_cpu:file { open read };
+allow hidumper_service sysfs_devices_system_cpu:file { getattr open read };
 allow hidumper_service tty_device:chr_file getattr;
 allow hidumper_service hdcd:fifo_file write;
-allow hidumper_service sh:fd use;
 
 allow hidumper_service sa_accessibleabilityms:samgr_class get;
 allow hidumper_service sa_accountmgr:samgr_class get;

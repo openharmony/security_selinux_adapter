@@ -75,3 +75,14 @@ allow blue_host vendor_etc_file:file { getattr open read };
 allowxperm blue_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allowxperm blue_host tty_device:chr_file ioctl { 0x5401 0x5402 0x540b };
 
+
+#avc:  denied  { add_name } for  pid=987 comm="IPC_3_3086" name="bluetooth" dev="sdd78" ino=7746 scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=dir permissive=0
+#avc:  denied  { write } for  pid=990 comm="IPC_0_1010" name="bluetooth" dev="sdd78" ino=7746 scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=dir permissive=0
+allow blue_host data_vendor:dir { add_name write };
+
+#avc:  denied  { create } for  pid=986 comm="IPC_3_2618" name="btmac.txt" scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=file permissive=0
+#avc:  denied  { read write open } for  pid=1007 comm="IPC_1_1005" path="/data/vender/bluetooth/btmac.txt" dev="sdd78" ino=8371 scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=file permissive=0
+#avc:  denied  { read } for  pid=1007 comm="IPC_3_3026" name="btmac.txt" dev="sdd78" ino=8371 scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=file permissive=0
+#avc:  denied  { read write } for  pid=1007 comm="IPC_3_3026" name="btmac.txt" dev="sdd78" ino=8371 scontext=u:r:blue_host:s0 tcontext=u:object_r:data_vendor:s0 tclass=file permissive=0
+allow blue_host data_vendor:file { create read write open };
+

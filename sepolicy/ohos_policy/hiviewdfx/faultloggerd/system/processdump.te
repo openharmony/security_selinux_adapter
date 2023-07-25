@@ -92,6 +92,8 @@ allow processdump init:unix_stream_socket { read write connectto };
 
 #============ foundation ===========
 allow processdump foundation:dir { getattr open read search };
+allow processdump foundation:binder { call transfer };
+allow processdump sa_foundation_abilityms:samgr_class { get };
 
 #============ data_xxx ==================
 allow processdump data_init_agent:file { append ioctl open read };
@@ -114,6 +116,8 @@ allow processdump system_lib_file:dir { search };
 allow processdump system_lib_file:file { execute getattr map open read };
 allow processdump system_etc_file:dir { getattr open read search };
 allow processdump system_etc_file:file { getattr open read };
+allow processdump system_usr_file:dir { search };
+allow processdump system_usr_file:file { getattr read open map };
 
 #============ vendor_xxx =================
 allow processdump vendor_file:file { getattr map open read };

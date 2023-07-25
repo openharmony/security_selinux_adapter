@@ -168,6 +168,17 @@ def check_common_contexts(args, contexts_file):
         os.unlink(contexts_file + ".bin")
 
 
+def echo_error():
+    print("***********************************************************")
+    print("please check whether the format meets the following rules:")
+    print("[required format]: apl=* name=* domain=* type=*")
+    print("apl=*, apl should be one of system_core|system_basic|normal")
+    print("name=*, name is 'optional'")
+    print("domain=*, hapdomain selinux type")
+    print("type=*, hapdatafile selinux type")
+    print("***********************************************************")
+
+
 def check_sehap_contexts(args, contexts_file, domain):
     """
     check domain or type defined in sehap_contexts.
@@ -200,18 +211,9 @@ def check_sehap_contexts(args, contexts_file, domain):
                 print(contexts_file + ":" +
                       str(line_index) + " format check fail")
                 err = 1
-        contexts_read.close()
-        contexts_write.close()
     if err:
         shutil.move(contexts_file + "_bk", contexts_file)
-        print("***********************************************************")
-        print("please check whether the format meets the following rules:")
-        print("[required format]: apl=* name=* domain=* type=*")
-        print("apl=*, apl should be one of system_core|system_basic|normal")
-        print("name=*, name is 'optional'")
-        print("domain=*, hapdomain selinux type")
-        print("type=*, hapdatafile selinux type")
-        print("***********************************************************")
+        echo_error()
         raise Exception(err)
     check_cmd = [os.path.join(args.tool_path, "sefcontext_compile"),
                  "-o", contexts_file + ".bin",

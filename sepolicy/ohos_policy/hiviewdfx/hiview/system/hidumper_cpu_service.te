@@ -1,0 +1,51 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+allow hiview sa_dfx_sys_hidumper_cpu_ability:samgr_class { add get };
+
+allow hiview appspawn:dir search;
+allow hiview appspawn:file { getattr open read };
+
+allow hiview chipset_init:dir search;
+allow hiview chipset_init:file { getattr open read };
+
+allow hiview hdcd:dir search;
+allow hiview hdcd:file { getattr open read };
+
+allow hiview init:dir { getattr open read search };
+allow hiview init:file { getattr open read };
+
+allow hiview kernel:dir { getattr open read search };
+allow hiview kernel:file { getattr open read };
+
+allow hiview medialibrary_hap:file getattr;
+
+allow hiview normal_hap:file getattr;
+
+allow hiview proc_loadavg_file:file { getattr open read };
+allow hiview proc_stat_file:file {getattr open read };
+
+allow hiview ueventd:dir search;
+allow hiview ueventd:file { getattr open read };
+
+allow hiview udevd:dir search;
+allow hiview udevd:file { getattr open read };
+
+allow hiview { hdfdomain sadomain }:dir { getattr open read search };
+allow hiview { hdfdomain sadomain }:file { getattr open read };
+
+allow hiview self:capability dac_read_search;
+
+allow hiview sa_foundation_appms:samgr_class get;
+allow hiview sa_foundation_cesfwk_service:samgr_class get;
+

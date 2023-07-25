@@ -34,9 +34,14 @@ define(`control_hilog', `
 ###################################
 ## Read/Use/Control hilog rules: ##
 ###################################
-read_hilog(sh)
+debug_only(`
+    read_hilog(sh)
+    control_hilog(sh)
+    allow sh data_hilogd_file:dir { read_dir_perms };
+    allow sh data_hilogd_file:file { read_file_perms };
+
+')
 read_hilog(hap_domain)
-control_hilog(sh)
 
 use_hilog({ domain -kernel })
 
@@ -57,8 +62,8 @@ allow hilogd data_hilogd_file:dir { create_dir_perms };
 allow hilogd data_hilogd_file:file { create_file_perms };
 
 allow init data_hilogd_file:dir { create_dir_perms };
-allow { sh hiview hdcd } data_hilogd_file:dir { read_dir_perms };
-allow { sh hiview hdcd } data_hilogd_file:file { read_file_perms };
+allow { hiview hdcd } data_hilogd_file:dir { read_dir_perms };
+allow { hiview hdcd } data_hilogd_file:file { read_file_perms };
 
 allow hilogd data_file:dir { search };
 allow hilogd data_log:dir { getattr open read search };

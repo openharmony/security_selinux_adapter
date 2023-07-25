@@ -66,6 +66,7 @@ allow distributeddata sa_dataobs_mgr_service_service:samgr_class { get };
 allow distributeddata sa_distributeddata_service:samgr_class { add get };
 allow distributeddata sa_foundation_abilityms:samgr_class { get };
 allow distributeddata sa_foundation_devicemanager_service:samgr_class { get };
+allow distributeddata sa_filemanagement_cloud_sync_service:samgr_class { get };
 allow distributeddata sa_param_watcher:samgr_class { get };
 allow distributeddata samain_exec:file { entrypoint execute read };
 allow distributeddata samgr:binder { call transfer };
@@ -168,3 +169,5 @@ allow distributeddata sh:dir { search };
 allow distributeddata sh:fd { use };
 allow distributeddata sh:file { getattr open read };
 ')
+allow distributeddata wifi_manager_service:binder { call transfer };
+allow distributeddata bluetooth_service:binder { call transfer };

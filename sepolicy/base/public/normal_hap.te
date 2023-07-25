@@ -68,3 +68,6 @@ neverallow normal_hap_attr debugfs_attr:{ file lnk_file } read;
 neverallow normal_hap_attr domain:netlink_socket *;
 
 neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
+
+neverallow normal_hap_attr proc_net:file rw_file_perms;
+neverallow normal_hap_attr proc_net:dir ~{ getattr };
