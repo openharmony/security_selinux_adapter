@@ -33,7 +33,7 @@ allow isolated_render hap_domain:fd { use };
 allow isolated_render isolated_render:xpm { exec_anon_mem };
 
 # avc:  denied  { read write } for  pid=5103 comm="Chrome_ChildIOT" path=2F646174612F73746F726167652F656C322F626173652F63616368652F7765622F2E6F72672E6368726F6D69756D2E4368726F6D69756D2E416F6E624B66202864656C6574656429 dev="sdd78" ino=9424 scontext=u:r:isolated_render:s0 tcontext=u:object_r:normal_hap_data_file:s0 tclass=file permissive=1
-allow isolated_render normal_hap_data_file_attr:file { read write };
+allow isolated_render normal_hap_data_file_attr:file { read write getattr lock };
 
 # avc:  denied  { use } for  pid=5103 comm="ei.hmos.browser" path="socket:[33368]" dev="sockfs" ino=33368 scontext=u:r:isolated_render:s0 tcontext=u:r:nwebspawn:s0 tclass=fd permissive=1
 allow isolated_render nwebspawn:fd { use };
