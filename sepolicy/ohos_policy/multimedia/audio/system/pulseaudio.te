@@ -175,4 +175,6 @@ allow pulseaudio musl_param:file { read };
 allow pulseaudio hdf_audio_manager_service:hdf_devmgr_class { get };
 allow pulseaudio sa_audio_policy_service:samgr_class { get };
 
+allow pulseaudio audio_policy:fd { use };
+
 allow pulseaudio sa_resource_schedule:samgr_class { get };
