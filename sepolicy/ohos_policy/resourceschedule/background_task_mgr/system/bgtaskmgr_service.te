@@ -51,7 +51,6 @@ allow bgtaskmgr_service sys_prod_file:file { map open read getattr };
 allow bgtaskmgr_service vendor_file:file { map open read getattr };
 allow bgtaskmgr_service chip_prod_file:file { map open read getattr };
 allow bgtaskmgr_service sa_time_service:samgr_class { get };
-allow bgtaskmgr_service code_sign_utils:file { read };
 allow bgtaskmgr_service sysfs_devices_system_cpu:file { read };
 allow pulseaudio bgtaskmgr_service:binder { call transfer };
 allow audio_policy bgtaskmgr_service:binder { call transfer };
