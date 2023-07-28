@@ -22,7 +22,8 @@ allow system_core_hap_attr pulseaudio:unix_stream_socket { connectto };
 allow system_core_hap_attr native_socket:sock_file { write };
 
 #avc:  denied  { call } for  pid=1649 comm="jsThread-1" scontext=u:r:system_core_hap:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
-allow system_core_hap_attr pulseaudio:binder { call };
+allow system_core_hap_attr pulseaudio:binder { call transfer };
+allow system_core_hap_attr pulseaudio:fd { use };
 
 #avc:  denied  { get } for service=3009 pid=1741 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
 allow system_core_hap_attr sa_audio_policy_service:samgr_class { get };

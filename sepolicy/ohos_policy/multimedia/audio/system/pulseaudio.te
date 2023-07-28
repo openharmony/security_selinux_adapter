@@ -29,6 +29,7 @@ debug_only(`
 ')
 
 allow pulseaudio normal_hap_attr:binder { call transfer };
+allow pulseaudio system_core_hap_attr:binder { call transfer };
 allow pulseaudio dev_ashmem_file:chr_file { open };
 
 #avc:  denied  { search } for  pid=285 comm="pulseaudio" name="data" dev="mmcblk0p7" ino=1436162 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
