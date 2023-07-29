@@ -145,6 +145,16 @@ attribute cap_violator_sysmodule;
 attribute cap_violator_syslog;
 attribute cap_violator_sysrawio;
 
+attribute data_local_tmp_violator_file_open;
+attribute system_core_hap_data_file_attr_violator_dir;
+attribute system_basic_hap_data_file_attr_violator_dir;
+attribute normal_hap_data_file_attr_violator_dir;
+attribute normal_hap_data_file_attr_violator_file_open;
+attribute accesstoken_data_file_violator_dir;
+attribute accesstoken_data_file_violator_file;
+attribute module_update_file_violator_file_dir;
+attribute module_update_binary_file_violator_file_dir;
+
 attribute data_user_file_dir_violator;
 attribute data_user_file_file_violator;
 

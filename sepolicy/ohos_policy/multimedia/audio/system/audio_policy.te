@@ -220,6 +220,8 @@ allow audio_policy a2dp_host:binder { call };
 
 allow audio_policy hdf_audio_bluetooth_hdi_service:hdf_devmgr_class { get };
 
+allow audio_policy dev_ashmem_file:chr_file { open };
+
 debug_only(`
     allow audio_policy sh:binder { call };
 ')

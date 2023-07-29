@@ -15,11 +15,11 @@
 
 #include "unit_test.h"
 
-#include "gtest/gtest.h"
 #include <iostream>
 #include <new>
 #include <selinux/selinux.h>
 #include <vector>
+#include "gtest/gtest.h"
 #include "contexts_trie.h"
 #include "selinux_error.h"
 #include "selinux_map.h"

@@ -25,4 +25,7 @@ allow sh normal_hap_attr:dir { open read };
 allow sh normal_hap_attr:lnk_file { getattr read };
 allow sh samain_exec:file { getattr };
 allow sh permissions_mount_file_attr:dir { open read search getattr };
+allow sh share_public_file:file { getattr open read };
+allow sh data_user_file:dir { getattr open read search setattr };
+allow sh mnt_external_file:dir { remove_name rmdir write };
 ')
