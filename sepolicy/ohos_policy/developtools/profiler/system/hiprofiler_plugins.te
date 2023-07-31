@@ -273,3 +273,5 @@ allow hiprofiler_plugins storage_daemon_exec:file { getattr map open read };
 allow hiprofiler_plugins vendor_bin_file:file { getattr map open read };
 allow hiprofiler_plugins vendor_bin_file:dir search;
 allow hiprofiler_plugins dev_file:dir getattr;
+
+allow hiprofiler_plugins hisysevent:process sigkill;

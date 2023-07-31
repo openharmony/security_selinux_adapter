@@ -35,3 +35,6 @@ allow samgr hisysevent:binder { call transfer };
 
 allow hisysevent tty_device:chr_file { read write };
 allow hisysevent devpts:chr_file { read write };
+
+allow hisysevent hiprofiler_plugins:fd { use };
+allow hisysevent hiprofiler_plugins:fifo_file { ioctl write };
