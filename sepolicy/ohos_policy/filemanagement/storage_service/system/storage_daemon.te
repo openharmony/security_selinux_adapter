@@ -256,7 +256,6 @@ allow storage_daemon data_service_el2_share:file { create_file_perms mounton };
 # { open } for  pid=2153 comm="storage_daemon" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
 # avc:  denied  { map } for  pid=2153 comm="storage_daemon" path="/dev/__parameters__/u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1
 # avc:  denied  { get } for service=5205 pid=249 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:sa_filemanagement_cloud_daemon_service:s0 tclass=samgr_class permissive=0
-allow storage_daemon distributedfiledaemon:binder { call };
 allow storage_daemon dev_console_file:chr_file { read write };
 allow storage_daemon musl_param:file { open read map};
 allow storage_daemon sa_filemanagement_cloud_daemon_service:samgr_class { get };
