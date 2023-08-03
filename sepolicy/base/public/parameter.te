@@ -63,6 +63,7 @@ type accesstoken_perm_param, parameter_attr;
 type ffrt_param, parameter_attr;
 type hiviewdfx_profiler_param, parameter_attr;
 type bluetooth_param, parameter_attr;
+type ui_appearance_param, parameter_attr;
 
 allow init parameter_attr:file relabelto;
 allow parameter_attr tmpfs:filesystem associate;
