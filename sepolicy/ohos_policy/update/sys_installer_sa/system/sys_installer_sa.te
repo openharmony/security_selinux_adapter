@@ -91,3 +91,4 @@ allow sys_installer_sa dev_block_volfile:dir { search };
 allow sys_installer_sa dev_block_file:lnk_file { read };
 allow sys_installer_sa update_firmware_file:file { map };
 allow sys_installer_sa dev_block_file:blk_file { write getattr read open };
+allow sys_installer_sa system_bin_file:file { getattr };

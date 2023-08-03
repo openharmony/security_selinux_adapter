@@ -42,7 +42,6 @@ allow devinfo_public_param tmpfs:filesystem associate;
 allow telephony_param tmpfs:filesystem associate;
 allow useriam_fwkready_param tmpfs:filesystem associate;
 allow bluetooth_param tmpfs:filesystem associate;
-allow ui_appearance_param tmpfs:filesystem associate;
 
 allow init servicectrl_param:file { map open read relabelto relabelfrom };
 allow init servicectrl_reboot_param:file { map open read relabelto relabelfrom };
@@ -54,7 +53,6 @@ allow init devinfo_public_param:file { map open read relabelto relabelfrom };
 allow init telephony_param:file { map open read relabelto relabelfrom };
 allow init useriam_fwkready_param:file { map open read relabelto relabelfrom };
 allow init bluetooth_param:file { map open read relabelto relabelfrom };
-allow init ui_appearance_param:file { map open read relabelto relabelfrom };
 
 #for set
 allow { init samgr hdf_devmgr } servicectrl_param:parameter_service { set };
@@ -68,7 +66,6 @@ allow { sadomain hdfdomain nativedomain } bootevent_param:parameter_service { se
 allow { init telephony_sa riladapter_host } telephony_param:parameter_service { set };
 allow { useriam } useriam_fwkready_param:parameter_service { set };
 allow { init bluetooth_service } bluetooth_param:parameter_service { set };
-allow { init ui_service } ui_appearance_param:parameter_service { set };
 
 #for read
 allow { domain -limit_domain } servicectrl_param:file { map open read };
@@ -80,7 +77,6 @@ allow { domain -limit_domain } devinfo_public_param:file { map open read };
 allow { domain -limit_domain } telephony_param:file { map open read };
 allow { domain -limit_domain } useriam_fwkready_param:file { map open read };
 allow { domain -limit_domain } bluetooth_param:file { map open read };
-allow { domain -limit_domain } ui_appearance_param:file { map open read };
 
 #for udid
 allow { init deviceinfoservice sh samgr hdf_devmgr softbus_server } devinfo_private_param:file { map open read };

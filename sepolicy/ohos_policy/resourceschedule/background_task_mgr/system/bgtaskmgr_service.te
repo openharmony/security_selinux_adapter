@@ -50,6 +50,8 @@ allow bgtaskmgr_service sys_prod_file:dir { search };
 allow bgtaskmgr_service sys_prod_file:file { map open read getattr };
 allow bgtaskmgr_service vendor_file:file { map open read getattr };
 allow bgtaskmgr_service chip_prod_file:file { map open read getattr };
+allow bgtaskmgr_service sa_time_service:samgr_class { get };
+allow bgtaskmgr_service sysfs_devices_system_cpu:file { read };
 allow pulseaudio bgtaskmgr_service:binder { call transfer };
 allow audio_policy bgtaskmgr_service:binder { call transfer };
 allow hiview bgtaskmgr_service:dir { getattr open read };
@@ -70,6 +72,7 @@ binder_call(bgtaskmgr_service, system_basic_hap_attr);
 binder_call(bgtaskmgr_service, hiview);
 binder_call(bgtaskmgr_service, distributedsche);
 binder_call(bgtaskmgr_service, bluetooth_service);
+binder_call(bgtaskmgr_service, time_service)
 binder_call(normal_hap_attr, bgtaskmgr_service);
 binder_call(system_core_hap_attr, bgtaskmgr_service);
 binder_call(param_watcher, bgtaskmgr_service);

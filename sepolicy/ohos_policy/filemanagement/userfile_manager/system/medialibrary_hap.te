@@ -17,4 +17,3 @@ type medialibrary_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_
 
 allow medialibrary_hap mimetype_file:file { open read getattr };
 allow medialibrary_hap privacy_service:binder call;
-allow medialibrary_hap distributedfiledaemon:binder transfer;
