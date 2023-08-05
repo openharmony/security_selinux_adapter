@@ -61,6 +61,7 @@ static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
 static std::unique_ptr<SehapContextsTrie> g_sehapContextsTrie = nullptr;
+std::mutex g_loadContextsLock;
 } // namespace
 
 static void SelinuxSetCallback()
@@ -140,14 +141,6 @@ static bool CheckApl(const std::string &apl)
     return false;
 }
 
-static void HapContextsClear()
-{
-    if (g_sehapContextsTrie != nullptr) {
-        g_sehapContextsTrie->Clear();
-        g_sehapContextsTrie = nullptr;
-    }
-}
-
 static std::string GetHapContextKey(struct SehapInfo *hapInfo)
 {
     std::string keyPara;
@@ -192,7 +185,6 @@ static bool HapContextsLoad()
     // load sehap_contexts file
     std::ifstream contextsFile(SEHAP_CONTEXTS_FILE);
     if (contextsFile) {
-        HapContextsClear();
         g_sehapContextsTrie = std::make_unique<SehapContextsTrie>();
         if (g_sehapContextsTrie == nullptr) {
             selinux_log(SELINUX_ERROR, "malloc g_sehapContextsTrie fail");
@@ -490,9 +482,12 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
 int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName,
     context_t con, unsigned int hapFlags)
 {
-    if (g_sehapContextsTrie == nullptr) {
-        if (!HapContextsLoad()) {
-            return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+    {
+        std::lock_guard<std::mutex> lock(g_loadContextsLock);
+        if (g_sehapContextsTrie == nullptr) {
+            if (!HapContextsLoad()) {
+                return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+            }
         }
     }
 
