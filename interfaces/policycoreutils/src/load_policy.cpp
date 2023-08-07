@@ -226,38 +226,6 @@ static bool GetPublicPolicy(std::string &publicPolicy)
     return false;
 }
 
-static std::vector<const char *> CombineCompileCmd(void)
-{
-    std::vector<const char *> compileCmd = {
-        "/system/bin/secilc",
-        VENDOR_CIL,
-        "-m",
-        "-N",
-        "-M",
-        "true",
-        "-G",
-        "-c",
-        "31",
-        "-f",
-        "/sys/fs/selinux/null",
-        "-o",
-        COMPILE_OUTPUT_POLICY,
-    };
-    compileCmd.emplace_back(SYSTEM_CIL);
-    std::string versionPolicy;
-    if (GetVersionPolicy(versionPolicy)) {
-        selinux_log(SELINUX_WARNING, "Add policy %s\n", versionPolicy.c_str());
-        compileCmd.emplace_back(versionPolicy.c_str());
-    }
-    std::string publicPolicy;
-    if (GetPublicPolicy(publicPolicy)) {
-        selinux_log(SELINUX_WARNING, "Add policy %s\n", publicPolicy.c_str());
-        compileCmd.emplace_back(publicPolicy.c_str());
-    }
-    compileCmd.emplace_back(nullptr);
-    return compileCmd;
-}
-
 static bool WaitForChild(pid_t pid)
 {
     int status = -1;
@@ -281,18 +249,16 @@ static bool WaitForChild(pid_t pid)
     return false;
 }
 
-static bool CompilePolicy(void)
+static bool CompilePolicyWithFork(std::vector<const char *> &compileCmd)
 {
-    std::vector<const char *> compileCmd = CombineCompileCmd();
-
     int pipeFd[PIPE_NUM];
     if (pipe(pipeFd) < 0) {
-        selinux_log(SELINUX_ERROR, "Create pipe failed\n");
+        selinux_log(SELINUX_ERROR, "Create pipe failed, %d, %s\n", errno, strerror(errno));
         return false;
     }
     pid_t pid = fork();
     if (pid < 0) {
-        selinux_log(SELINUX_ERROR, "Fork subprocess failed\n");
+        selinux_log(SELINUX_ERROR, "Fork subprocess failed, %d, %s\n", errno, strerror(errno));
         (void)close(pipeFd[0]);
         (void)close(pipeFd[1]);
         return false;
@@ -300,13 +266,13 @@ static bool CompilePolicy(void)
     if (pid == 0) {
         (void)close(pipeFd[0]);
         if (dup2(pipeFd[1], STDERR_FILENO) == -1) {
-            selinux_log(SELINUX_ERROR, "Dup2 failed\n");
+            selinux_log(SELINUX_ERROR, "Dup2 failed, %d, %s\n", errno, strerror(errno));
             (void)close(pipeFd[1]);
             _exit(1);
         }
         (void)close(pipeFd[1]);
         if (execv(compileCmd[0], const_cast<char **>(compileCmd.data())) == -1) {
-            selinux_log(SELINUX_ERROR, "Execv subprocess failed\n");
+            selinux_log(SELINUX_ERROR, "Execv subprocess failed, %d, %s\n", errno, strerror(errno));
             return false;
         }
         _exit(1);
@@ -335,6 +301,39 @@ static bool CompilePolicy(void)
     (void)close(pipeFd[0]);
 
     return WaitForChild(pid);
+}
+
+static bool CompilePolicy(void)
+{
+    std::vector<const char *> compileCmd = {
+        "/system/bin/secilc",
+        VENDOR_CIL,
+        "-m",
+        "-N",
+        "-M",
+        "true",
+        "-G",
+        "-c",
+        "31",
+        "-f",
+        "/sys/fs/selinux/null",
+        "-o",
+        COMPILE_OUTPUT_POLICY,
+    };
+    compileCmd.emplace_back(SYSTEM_CIL);
+    std::string versionPolicy;
+    if (GetVersionPolicy(versionPolicy)) {
+        selinux_log(SELINUX_WARNING, "Add policy %s\n", versionPolicy.c_str());
+        compileCmd.emplace_back(versionPolicy.c_str());
+    }
+    std::string publicPolicy;
+    if (GetPublicPolicy(publicPolicy)) {
+        selinux_log(SELINUX_WARNING, "Add policy %s\n", publicPolicy.c_str());
+        compileCmd.emplace_back(publicPolicy.c_str());
+    }
+    compileCmd.emplace_back(nullptr);
+
+    return CompilePolicyWithFork(compileCmd);
 }
 
 static bool GetPolicyFile(std::string &policyFile)
