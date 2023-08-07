@@ -12,6 +12,8 @@
 # limitations under the License.
 
 allow ui_service accessibility:binder { call transfer };
+allow ui_service arkui_param:parameter_service { set };
+allow ui_service arkui_param:file { map open read };
 allow ui_service bootevent_param:file { map open read };
 allow ui_service bootevent_samgr_param:file { map open read };
 allow ui_service build_version_param:file { map open read };
@@ -37,6 +39,7 @@ allow ui_service hilog_param:file { map open read };
 allow ui_service hw_sc_build_os_param:file { map open read };
 allow ui_service hw_sc_build_param:file { map open read };
 allow ui_service hw_sc_param:file { map open read };
+allow ui_service kernel:unix_stream_socket { connectto };
 allow ui_service init_param:file { map open read };
 allow ui_service init_svc_param:file { map open read };
 allow ui_service inputmethod_service:binder { call transfer };
@@ -50,6 +53,7 @@ allow ui_service normal_hap_attr:fd { use };
 allow ui_service ohos_boot_param:file { map open read };
 allow ui_service ohos_param:file { map open read };
 allow ui_service param_watcher:binder { call transfer };
+allow ui_service paramservice_socket:sock_file { write };
 allow ui_service persist_param:file { map open read };
 allow ui_service persist_sys_param:file { map open read };
 allow ui_service render_service:binder { call transfer };
@@ -57,6 +61,7 @@ allow ui_service render_service:fd { use };
 allow ui_service render_service:unix_stream_socket { read read write };
 allow ui_service resource_schedule_service:binder { call };
 allow ui_service sa_accessibleabilityms:samgr_class { get };
+allow ui_service sa_foundation_appms:samgr_class { get };
 allow ui_service sa_foundation_dms:samgr_class { get };
 allow ui_service sa_foundation_wms:samgr_class { get };
 allow ui_service sa_inputmethod_service:samgr_class { get };
