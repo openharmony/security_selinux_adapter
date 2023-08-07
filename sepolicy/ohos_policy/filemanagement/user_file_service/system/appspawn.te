@@ -13,3 +13,7 @@
 
 allow appspawn data_service_el1_file:dir { mounton search };
 allow appspawn permissions_mount_file_attr:dir { mounton };
+# avc:  denied  { add_name } for  pid=1344 comm="appspawn" name="Download" scontext=u:r:appspawn:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
+# avc:  denied  { create } for  pid=1344 comm="appspawn" name="Download" scontext=u:r:appspawn:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=1344 comm="appspawn" name="Docs" dev="mmcblk0p14" ino=757 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_user_file:s0 tclass=dir permissive=1
+allow appspawn data_user_file:dir { add_name create write };

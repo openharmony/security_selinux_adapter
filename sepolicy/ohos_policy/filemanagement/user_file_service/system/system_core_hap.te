@@ -15,3 +15,6 @@ allow system_core_hap_attr data_service_el1_file:file { read write };
 allow system_core_hap_attr vfat:file { read write };
 allow system_core_hap_attr exfat:file { read write };
 allow system_core_hap_attr ntfs:file { read write };
+# avc:  denied  { open } for  pid=1406 comm="RSRenderThread" path="/sys/devices/system/cpu" dev="sysfs" ino=4915 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+# avc:  denied  { read } for  pid=1406 comm="RSRenderThread" name="cpu" dev="sysfs" ino=4915 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+allow system_core_hap_attr sysfs_devices_system_cpu:dir { open read };
