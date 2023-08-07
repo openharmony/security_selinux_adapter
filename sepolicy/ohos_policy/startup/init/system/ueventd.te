@@ -164,9 +164,6 @@ allow ueventd vendor_etc_file:dir { search };
 allow ueventd init:unix_dgram_socket { read write };
 allow ueventd paramservice_socket:sock_file { write };
 allow ueventd kernel:unix_stream_socket { connectto };
-allow ueventd dev_block_file:blk_file { relabelfrom };
-allow ueventd dev_block_file:lnk_file { relabelfrom getattr };
-allow ueventd dev_block_file:dir { open read };
 
 # for hyperhold
 allow ueventd zram_device:blk_file { relabelto getattr setattr };
