@@ -167,6 +167,7 @@ allow ueventd kernel:unix_stream_socket { connectto };
 allow ueventd dev_block_file:blk_file { relabelfrom };
 allow ueventd dev_block_file:lnk_file { relabelfrom getattr };
 allow ueventd dev_block_file:dir { open read };
+allow ueventd dev_block_volfile:lnk_file { setattr getattr relabelfrom};
 
 # for hyperhold
 allow ueventd zram_device:blk_file { relabelto getattr setattr };
