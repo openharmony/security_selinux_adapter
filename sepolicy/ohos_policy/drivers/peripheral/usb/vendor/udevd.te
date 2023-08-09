@@ -16,3 +16,4 @@ allow udevd dev_functionfs_file:chr_file { getattr };
 allow udevd dev_functionfs_file:dir { search };
 allow udevd dev_usbfn_file:chr_file { getattr };
 allow udevd dev_usbfn_file:chr_file { setattr write };
+allow udevd dev_functionfs_file:chr_file { setattr write };
