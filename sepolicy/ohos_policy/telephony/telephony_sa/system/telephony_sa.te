@@ -60,6 +60,14 @@ allow telephony_sa sa_telephony_tel_cellular_data:samgr_class { add get };
 allow telephony_sa sa_telephony_tel_core_service:samgr_class { add get };
 allow telephony_sa sa_telephony_tel_ims:samgr_class { add get };
 allow telephony_sa sa_telephony_tel_sms_mms:samgr_class { add get };
+allow telephony_sa netsysnative:unix_stream_socket connectto;
+allow telephony_sa port:tcp_socket name_connect;
+allow telephony_sa self:tcp_socket { connect create getattr getopt read setopt write };
+allow telephony_sa self:udp_socket create;
+allow telephony_sa sysfs_devices_system_cpu:file read;
+allow telephony_sa locationhub:binder call;
+allow telephony_sa sysfs_devices_system_cpu:file { getattr open };
+allow telephony_sa data_app_file:file { getattr open read };
 allow telephony_sa sa_time_service:samgr_class get;
 allow telephony_sa self:unix_dgram_socket { getopt setopt };
 debug_only(`
