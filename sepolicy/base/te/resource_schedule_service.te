@@ -59,7 +59,6 @@ allow resource_schedule_service sa_multimodalinput_service:samgr_class { get };
 allow resource_schedule_service multimodalinput:unix_stream_socket { read };
 allow resource_schedule_service sa_work_schedule_service:samgr_class { get };
 
-allow resource_schedule_service telephony_sa:samgr_class { get };
 allow resource_schedule_service telephony_sa:binder { call };
 
 allow resource_schedule_service distributeddata:binder { call };
@@ -78,3 +77,4 @@ allow resource_schedule_service netmanager:binder { call };
 allow resource_schedule_service sa_net_policy_manager:samgr_class { get };
 
 allow resource_schedule_service proc_net:file { getattr read open };
+
