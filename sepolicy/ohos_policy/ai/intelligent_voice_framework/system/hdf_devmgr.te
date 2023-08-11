@@ -11,20 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc:  denied  { call } for  pid=463 comm="IPC_4_1056" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=1
-allow hdf_devmgr intell_voice_service:binder { call };
-
 # avc:  denied  { search } for  pid=482 comm="IPC_1_493" name="618" dev="proc" ino=19537 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=dir permissive=0
 allow hdf_devmgr intell_voice_service:dir { search };
 
 # avc:  denied  { read } for  pid=482 comm="IPC_5_1102" name="current" dev="proc" ino=404 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=file permissive=0
-allow hdf_devmgr intell_voice_service:file { read };
-
 # avc:  denied  { open } for  pid=485 comm="IPC_3_1005" path="/proc/626/attr/current" dev="proc" ino=18879 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=file permissive=0
-allow hdf_devmgr intell_voice_service:file { open };
+allow hdf_devmgr intell_voice_service:file { open read };
 
 # avc:  denied  { getattr } for  pid=484 comm="IPC_0_494" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=process permissive=0
 allow hdf_devmgr intell_voice_service:process { getattr };
 
+# avc:  denied  { call } for  pid=463 comm="IPC_4_1056" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for  pid=476 comm="IPC_1_486" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
-allow hdf_devmgr intell_voice_service:binder { transfer };
+allow hdf_devmgr intell_voice_service:binder { call transfer };

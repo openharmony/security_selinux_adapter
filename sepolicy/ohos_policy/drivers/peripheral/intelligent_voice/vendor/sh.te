@@ -11,10 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc:  denied  { getattr } for  pid=26110 comm="ps" path="/proc/20339" dev="proc" ino=192822 scontext=u:r:sh:s0 tcontext=u:r:intell_voice_host:s0 tclass=dir permissive=1
-# avc:  denied  { search } for  pid=26110 comm="ps" name="20339" dev="proc" ino=192822 scontext=u:r:sh:s0 tcontext=u:r:intell_voice_host:s0 tclass=dir permissive=1
-allow sh intell_voice_host:dir { getattr search };
+debug_only(`
+    # avc:  denied  { getattr } for  pid=26110 comm="ps" path="/proc/20339" dev="proc" ino=192822 scontext=u:r:sh:s0 tcontext=u:r:intell_voice_host:s0 tclass=dir permissive=1
+    # avc:  denied  { search } for  pid=26110 comm="ps" name="20339" dev="proc" ino=192822 scontext=u:r:sh:s0 tcontext=u:r:intell_voice_host:s0 tclass=dir permissive=1
+    allow sh intell_voice_host:dir { getattr search };
 
-# avc:  denied  { open } for  pid=26110 comm="ps" path="/proc/20339/stat" dev="proc" ino=209925 scontext=u:r:sh:s0 tcontext=u:r:intell_voice_host:s0 tclass=file permissive=1
-# avc:  denied  { read } for  pid=26110 comm="ps" name="stat" dev="proc" ino=209925 scontext=u:r:sh:s0 tcontext=u:r:intell_voice_host:s0 tclass=file permissive=1
-allow sh intell_voice_host:file { open read };
+    # avc:  denied  { open } for  pid=26110 comm="ps" path="/proc/20339/stat" dev="proc" ino=209925 scontext=u:r:sh:s0 tcontext=u:r:intell_voice_host:s0 tclass=file permissive=1
+    # avc:  denied  { read } for  pid=26110 comm="ps" name="stat" dev="proc" ino=209925 scontext=u:r:sh:s0 tcontext=u:r:intell_voice_host:s0 tclass=file permissive=1
+    allow sh intell_voice_host:file { open read };
+')

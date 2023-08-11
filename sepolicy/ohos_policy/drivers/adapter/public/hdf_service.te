@@ -70,3 +70,6 @@ type hdf_input_interfaces_service, hdf_service_attr;
 type hdf_sample_service, hdf_service_attr;
 type hdf_sample1_driver_service, hdf_service_attr;
 # for testcase end
+
+type hdf_intell_voice_engine_manager_service, hdf_service_attr;
+type hdf_intell_voice_trigger_manager_service, hdf_service_attr;

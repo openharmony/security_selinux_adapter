@@ -11,12 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc:  denied  { add } for service=6105 pid=1349 scontext=u:r:foundation:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
-# avc:  denied  { get } for service=66816 pid=1233 scontext=u:r:foundation:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
-allow foundation default_service:samgr_class { add get };
-
 # avc:  denied  { call } for  pid=1180 comm="InnerInputManag" scontext=u:r:foundation:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=1
 allow foundation intell_voice_service:binder { call };
-
-# avc:  denied  { call } for  pid=1180 comm="delayed_worker" scontext=u:r:foundation:s0 tcontext=u:r:wireless_hid_accessory_manager_service:s0 tclass=binder permissive=1
-allow foundation wireless_hid_accessory_manager_service:binder { call };

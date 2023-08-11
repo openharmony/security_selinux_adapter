@@ -12,8 +12,9 @@
 # limitations under the License.
 
 # avc:  denied  { transition } for  pid=989 comm="init" path="/system/bin/sa_main" dev="sdd74" ino=462 scontext=u:r:init:s0 tcontext=u:r:intell_voice_service:s0 tclass=process permissive=0
-allow init intell_voice_service:process { transition };
-
 # avc:  denied  { rlimitinh } for  pid=622 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:intell_voice_service:s0 tclass=process permissive=0
 # avc:  denied  { siginh } for  pid=622 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:intell_voice_service:s0 tclass=process permissive=0
-allow init intell_voice_service:process { rlimitinh siginh };
+allow init intell_voice_service:process { transition rlimitinh siginh };
+
+# avc:  denied  { transition } for  pid=7035 comm="init" path="/vendor/bin/hdf_devhost" dev="sdd72" ino=34 scontext=u:r:init:s0 tcontext=u:r:intell_voice_host:s0 tclass=process permissive=0
+allow init intell_voice_host:process { transition };

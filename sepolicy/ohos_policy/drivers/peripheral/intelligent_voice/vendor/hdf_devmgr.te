@@ -15,16 +15,12 @@
 allow hdf_devmgr intell_voice_host:dir { search };
 
 # avc:  denied  { read } for  pid=462 comm="IPC_4_1121" name="current" dev="proc" ino=18729 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_host:s0 tclass=file permissive=0
-allow hdf_devmgr intell_voice_host:file { read };
-
 # avc:  denied  { open } for  pid=472 comm="IPC_0_482" path="/proc/1293/attr/current" dev="proc" ino=31125 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_host:s0 tclass=file permissive=0
-allow hdf_devmgr intell_voice_host:file { open };
+allow hdf_devmgr intell_voice_host:file { open read };
 
 # avc:  denied  { getattr } for  pid=463 comm="IPC_1_474" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_host:s0 tclass=process permissive=0
 allow hdf_devmgr intell_voice_host:process { getattr };
 
 # avc:  denied  { transfer } for  pid=462 comm="IPC_2_805" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_host:s0 tclass=binder permissive=0
-allow hdf_devmgr intell_voice_host:binder { transfer };
-
 # avc:  denied  { call } for  pid=475 comm="IPC_1_486" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:intell_voice_host:s0 tclass=binder permissive=0
-allow hdf_devmgr intell_voice_host:binder { call };
+allow hdf_devmgr intell_voice_host:binder { transfer call };

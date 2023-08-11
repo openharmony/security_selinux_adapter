@@ -12,8 +12,6 @@
 # limitations under the License.
 
 # avc:  denied  { transition } for  pid=997 comm="init" path="/vendor/bin/hdf_devhost" dev="sdd72" ino=34 scontext=u:r:init:s0 tcontext=u:r:intell_voice_host:s0 tclass=process permissive=0
-allow init intell_voice_host:process { transition };
-
 # avc:  denied  { rlimitinh } for  pid=1256 comm="hdf_devhost" scontext=u:r:init:s0 tcontext=u:r:intell_voice_host:s0 tclass=process permissive=0
 # avc:  denied  { siginh } for  pid=1256 comm="hdf_devhost" scontext=u:r:init:s0 tcontext=u:r:intell_voice_host:s0 tclass=process permissive=0
-allow init intell_voice_host:process { rlimitinh siginh };
+allow init intell_voice_host:process { transition rlimitinh siginh };

@@ -12,10 +12,8 @@
 # limitations under the License.
 
 # avc:  denied  { get } for service=312 pid=3548 scontext=u:r:normal_hap:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=0
-allow normal_hap default_service:samgr_class { get };
+allow normal_hap_attr sa_intell_voice_service:samgr_class { get };
 
 # avc:  denied  { call } for  pid=11051 comm="IPC_3_11213" scontext=u:r:normal_hap:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
-allow normal_hap intell_voice_service:binder { call };
-
 # avc:  denied  { transfer } for  pid=14997 comm="hmos.vassistant" scontext=u:r:normal_hap:s0 tcontext=u:r:intell_voice_service:s0 tclass=binder permissive=0
-allow normal_hap intell_voice_service:binder { transfer };
+allow normal_hap_attr intell_voice_service:binder { call transfer };
