@@ -13,3 +13,4 @@
 
 allow normal_hap_attr edm_sa:binder { call };
 allow normal_hap_attr sa_enterprise_device_manager_service:samgr_class { get };
+allow system_core_hap_attr edm_sa:fd { use };
