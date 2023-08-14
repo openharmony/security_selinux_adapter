@@ -68,45 +68,11 @@ allow print_service system_basic_hap_attr:fd { use };
 allow print_service system_basic_hap_data_file_attr:file { read };
 allow print_service system_core_hap_attr:binder { call };
 allow print_service sysfs_devices_system_cpu:file { open read };
-# avc:  denied  { search } for  pid=1643 comm="sh" name="local" dev="mmcblk0p14" ino=96 scontext=u:r:print_service:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
 allow print_service data_local:dir { search };
-# avc:  denied  { write search } for  pid=1643 comm="sh" name="tmp" dev="mmcblk0p14" ino=99 scontext=u:r:print_service:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
 allow print_service data_local_tmp:dir { write search };
-# avc:  denied  { remove_name } for  pid=1676 comm="cupsd" name="printers.conf.O" dev="mmcblk0p14" ino=2005 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 allow print_service data_service_el1_file:dir { remove_name };
-# avc:  denied  { getattr } for  pid=1676 comm="cupsd" path="/data/service/el1/public/cups/printers.conf.N" dev="mmcblk0p14" ino=2059 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-# avc:  denied  { rename } for  pid=1676 comm="cupsd" name="printers.conf" dev="mmcblk0p14" ino=2012 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-# avc:  denied  { setattr } for  pid=1676 comm="cupsd" name="printers.conf.N" dev="mmcblk0p14" ino=2059 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-# avc:  denied  { unlink } for  pid=1676 comm="cupsd" name="printers.conf.O" dev="mmcblk0p14" ino=2005 scontext=u:r:print_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allow print_service data_service_el1_file:file { getattr rename setattr unlink };
-# avc:  denied  { read write } for  pid=1462 comm="sa_main" path="/dev/console" dev="tmpfs" ino=40 scontext=u:r:print_service:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
-allow print_service dev_console_file:chr_file { read write };
-# avc:  denied  { name_connect } for  pid=1746 comm="ipp" dest=631 scontext=u:r:print_service:s0 tcontext=u:object_r:port:s0 tclass=tcp_socket permissive=1
 allow print_service port:tcp_socket { name_connect };
-# avc:  denied  { accept } for  pid=1676 comm="cupsd" laddr=::1 lport=1631 scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=tcp_socket permissive=1
-# avc:  denied  { connect } for  pid=1746 comm="ipp" scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=tcp_socket permissive=1
-# avc:  denied  { create } for  pid=1746 comm="ipp" scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=tcp_socket permissive=1
-# avc:  denied  { getattr } for  pid=1676 comm="cupsd" laddr=::1 lport=1631 faddr=::1 fport=60034 scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=tcp_socket permissive=1
-# avc:  denied  { read } for  pid=1746 comm="ipp" laddr=192.168.43.57 lport=52766 faddr=192.168.43.111 fport=631 scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=tcp_socket permissive=1
-# avc:  denied  { setopt } for  pid=1746 comm="ipp" scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=tcp_socket permissive=1
-# avc:  denied  { write } for  pid=1746 comm="ipp" laddr=192.168.43.57 lport=52766 faddr=192.168.43.111 fport=631 scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=tcp_socket permissive=1
 allow print_service print_service:tcp_socket { accept connect create getattr read setopt write };
-# avc:  denied  { create } for  pid=1746 comm="ipp" scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=udp_socket permissive=1
-# avc:  denied  { setopt } for  pid=1746 comm="ipp" scontext=u:r:print_service:s0 tcontext=u:r:print_service:s0 tclass=udp_socket permissive=1
-allow print_service print_service:udp_socket { create setopt };
-# avc:  denied  { execute } for  pid=1673 comm="print_service" name="sh" dev="mmcblk0p7" ino=373 scontext=u:r:print_service:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
-# avc:  denied  { execute_no_trans } for  pid=1643 comm="print_service" path="/system/bin/sh" dev="mmcblk0p7" ino=373 scontext=u:r:print_service:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
-# avc:  denied  { map } for  pid=1643 comm="sh" path="/system/bin/sh" dev="mmcblk0p7" ino=373 scontext=u:r:print_service:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
-# avc:  denied  { read open } for  pid=1673 comm="print_service" path="/system/bin/sh" dev="mmcblk0p7" ino=373 scontext=u:r:print_service:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
-allow print_service sh_exec:file { execute execute_no_trans map read open };
-# avc:  denied  { getattr } for  pid=1462 comm="print_service" path="/sys/devices/system/cpu/online" dev="sysfs" ino=4917 scontext=u:r:print_service:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 allow print_service sysfs_devices_system_cpu:file { getattr };
-# avc:  denied  { execute } for  pid=1744 comm="cupsd" name="cups-exec" dev="mmcblk0p7" ino=165 scontext=u:r:print_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-# avc:  denied  { execute_no_trans } for  pid=1744 comm="cupsd" path="/system/bin/cups/daemon/cups-exec" dev="mmcblk0p7" ino=165 scontext=u:r:print_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-# avc:  denied  { getattr } for  pid=1676 comm="cupsd" path="/system/bin/cups/filter/imagetoraster" dev="mmcblk0p7" ino=167 scontext=u:r:print_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-# avc:  denied  { map } for  pid=1744 comm="cups-exec" path="/system/bin/cups/daemon/cups-exec" dev="mmcblk0p7" ino=165 scontext=u:r:print_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-# avc:  denied  { read open } for  pid=1744 comm="cupsd" path="/system/bin/cups/daemon/cups-exec" dev="mmcblk0p7" ino=165 scontext=u:r:print_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 allow print_service system_bin_file:file { execute execute_no_trans getattr map read open };
-# avc:  denied  { open } for  pid=1643 comm="sh" path="/dev/tty" dev="tmpfs" ino=41 scontext=u:r:print_service:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
-# avc:  denied  { read write } for  pid=1643 comm="sh" name="tty" dev="tmpfs" ino=41 scontext=u:r:print_service:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
-allow print_service tty_device:chr_file { open read write };
