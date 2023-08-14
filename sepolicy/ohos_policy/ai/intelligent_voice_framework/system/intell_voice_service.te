@@ -176,24 +176,19 @@ allow intell_voice_service pulseaudio:binder { call };
 # avc:  denied  { get } for service=401 pid=627 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
 allow intell_voice_service sa_foundation_bms:samgr_class { get };
 
+# avc:  denied  { write open } for  pid=596 comm="IPC_2_7119" path="/data/data/intell_voice/pcm_data/2023_07_16_16_41_33_.pcm" dev="sdd78" ino=11625 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
+# avc:  denied  { getattr } for  pid=596 comm="intell_voice_se" path="/data/data/intell_voice/pcm_data/2023_07_16_17_05_39_.pcm" dev="sdd78" ino=11994 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
+# avc:  denied  { ioctl } for  pid=596 comm="intell_voice_se" path="/data/data/intell_voice/pcm_data/2023_07_16_17_05_39_.pcm" dev="sdd78" ino=11994 ioctlcmd=0x5413 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
 # avc:  denied  { create } for  pid=587 comm="intell_voice_se" name="2023_07_16_16_30_28_.pcm" scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
-allow intell_voice_service data_data_file:file { create };
+allow intell_voice_service data_data_file:file { write open getattr ioctl create };
+allowxperm intell_voice_service data_data_file:file ioctl { 0x5413 };
 
 # avc:  denied  { use } for  pid=7010 comm="IPC_0_7020" path="/dev/ashmem" dev="tmpfs" ino=581 scontext=u:r:intell_voice_service:s0 tcontext=u:r:intell_voice_host:s0 tclass=fd permissive=0
 allow intell_voice_service intell_voice_host:fd { use };
-
-# avc:  denied  { write open } for  pid=596 comm="IPC_2_7119" path="/data/data/intell_voice/pcm_data/2023_07_16_16_41_33_.pcm" dev="sdd78" ino=11625 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
-allow intell_voice_service data_data_file:file { write open };
-
-# avc:  denied  { getattr } for  pid=596 comm="intell_voice_se" path="/data/data/intell_voice/pcm_data/2023_07_16_17_05_39_.pcm" dev="sdd78" ino=11994 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
-# avc:  denied  { ioctl } for  pid=596 comm="intell_voice_se" path="/data/data/intell_voice/pcm_data/2023_07_16_17_05_39_.pcm" dev="sdd78" ino=11994 ioctlcmd=0x5413 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
-allow intell_voice_service data_data_file:file { getattr ioctl };
 
 # avc:  denied  { get } for service=180 pid=600 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_foundation_abilityms:s0 tclass=samgr_class permissive=0
 allow intell_voice_service sa_foundation_abilityms:samgr_class { get };
 
 # avc:  denied  { transfer } for  pid=596 comm="IPC_3_7292" scontext=u:r:intell_voice_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0
-allow intell_voice_service system_basic_hap_attr:binder { transfer };
-
 # avc:  denied  { call } for  pid=608 comm="intell_voice_se" scontext=u:r:intell_voice_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0
-allow intell_voice_service system_basic_hap_attr:binder { call };
+allow intell_voice_service system_basic_hap_attr:binder { transfer call };

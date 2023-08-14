@@ -102,6 +102,7 @@ allow intell_voice_host vendor_etc_file:file { map read getattr open };
 # avc:  denied  { unlink } for  pid=5173 comm="IPC_0_5184" name="tmp.pcm" dev="sdd78" ino=10211 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
 # avc:  denied  { map } for  pid=11633 comm="AsrEngineThread" path="/data/service/el0/intellligent_voice/wakeup/tmp/tmpap_fst/wakeup.w2p" dev="sdd78" ino=10240 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=0
 allow intell_voice_host data_service_el0_file:file { create map write write open getattr ioctl read rename append unlink };
+allowxperm intell_voice_host data_service_el0_file:file ioctl { 0x5413 };
 
 # avc:  denied  { open } for  pid=7263 comm="IPC_3_27758" path="/dev/ashmem" dev="tmpfs" ino=581 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=0
 allow intell_voice_host dev_ashmem_file:chr_file { open };
