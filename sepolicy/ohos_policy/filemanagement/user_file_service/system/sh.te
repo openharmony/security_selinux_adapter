@@ -29,9 +29,3 @@ allow sh share_public_file:file { getattr open read };
 allow sh data_user_file:dir { getattr open read search setattr };
 allow sh mnt_external_file:dir { remove_name rmdir write };
 ')
-
-#avc:  denied  { get } for service=5010 pid=1696 scontext=u:r:sh:s0 tcontext=u:object_r:sa_file_access_service:s0 tclass=samgr_class permissive=1
-allow sh sa_file_access_service:samgr_class { get };
-
-#avc:  denied  { call } for  pid=1853 comm="external_file_a" scontext=u:r:sh:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=1
-allow sh storage_manager:binder { call };
