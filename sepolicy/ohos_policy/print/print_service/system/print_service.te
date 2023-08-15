@@ -83,3 +83,5 @@ allow print_service print_service:udp_socket { create setopt };
 allow print_service sh_exec:file { execute_no_trans map read open };
 allow print_service system_bin_file:lnk_file { read };
 allow print_service tty_device:chr_file { open read write };
+allow print_service cupsd:dir { search };
+allow print_service cupsd:file { open read };

@@ -19,3 +19,4 @@ allow normal_hap sharefs:file { map };
 allowxperm normal_hap normal_hap_data_file:file ioctl { 0xf501 0xf502 };
 allow normal_hap print_service:fd { use };
 allow normal_hap print_service:tcp_socket { read write };
+allow normal_hap print_service:binder { transfer };
