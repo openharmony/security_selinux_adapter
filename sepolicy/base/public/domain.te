@@ -266,7 +266,7 @@ neverallow { domain debug_only(`-hdcd') -sh updater_only(`-init -updater -update
 #limit domain access to sh_exec
 neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon') -hidumper_service -netsysnative
-    -wifi_hal_service -sh_exec_violator -print_service } sh_exec:file execute;
+    -wifi_hal_service -sh_exec_violator } sh_exec:file execute;
 
 #limit execmem use
 neverallow { domain -appspawn -hap_domain } self:process execmem;
