@@ -80,6 +80,6 @@ allow print_service system_bin_file:file { execute execute_no_trans getattr map 
 allow print_service data_local:dir { search };
 allow print_service data_local_tmp:dir { getattr };
 allow print_service print_service:udp_socket { create setopt };
-allow print_service sh_exec:file { execute_no_trans map read open };
+allow print_service sh_exec:file { execute execute_no_trans map read open };
 allow print_service system_bin_file:lnk_file { read };
 allow print_service tty_device:chr_file { open read write };
