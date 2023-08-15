@@ -76,7 +76,6 @@ allow print_service normal_hap:fd { use };
 allow print_service normal_hap_data_file_attr:file { read };
 allow print_service port:tcp_socket { name_connect };
 allow print_service print_service:tcp_socket { accept connect create getattr read setopt write };
-allow print_service system_bin_file:file { execute execute_no_trans getattr map read open };
 allow print_service data_local:dir { search };
 allow print_service data_local_tmp:dir { getattr };
 allow print_service print_service:udp_socket { create setopt };
