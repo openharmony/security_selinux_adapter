@@ -11,9 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-debug_only(`
-    type bms_param, parameter_attr;
-')
+type bms_param, parameter_attr;
 
 #domain_auto_transition_pattern(init, samain_exec, foundation);
 #allow init samain_exec:file execute_no_trans;
