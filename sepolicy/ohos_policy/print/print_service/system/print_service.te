@@ -67,5 +67,10 @@ allow print_service accountmgr:binder { call };
 allow print_service system_basic_hap_attr:fd { use };
 allow print_service system_basic_hap_data_file_attr:file { read };
 allow print_service system_core_hap_attr:binder { call };
-allow print_service sysfs_devices_system_cpu:file { open read };
-
+allow print_service sysfs_devices_system_cpu:file { open read getattr };
+allow print_service dev_console_file:chr_file { read write };
+allow print_service normal_hap_attr:binder { call };
+allow print_service normal_hap_attr:fd { use };
+allow print_service normal_hap_data_file_attr:file { read };
+allow print_service port:tcp_socket { name_connect };
+allow print_service print_service:tcp_socket { connect create read setopt write };
