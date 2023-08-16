@@ -12,11 +12,8 @@
 # limitations under the License.
 
 allow normal_hap_attr appspawn:unix_stream_socket { read write };
-allow normal_hap_attr normal_hap_data_file:file { ioctl };
-allow normal_hap_attr print_service:binder { call };
+allow normal_hap_attr normal_hap_data_file_attr:file { ioctl };
+allow normal_hap_attr print_service:binder { call transfer };
 allow normal_hap_attr sa_print_service:samgr_class { get };
-allow normal_hap_attr sharefs:file { map };
-allowxperm normal_hap_attr normal_hap_data_file:file ioctl { 0xf501 0xf502 };
-allow normal_hap_attr print_service:fd { use };
-allow normal_hap_attr print_service:tcp_socket { read write };
-allow normal_hap_attr print_service:binder { transfer };
+allow normal_hap_attr sharefs:file { lock };
+allowxperm normal_hap_attr normal_hap_data_file_attr:file ioctl { 0xf501 0xf502 };
