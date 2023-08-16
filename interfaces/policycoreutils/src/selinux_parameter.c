@@ -45,6 +45,7 @@ int InitParamSelinux(void)
 {
     pthread_mutex_lock(&g_mutex);
     if (g_contextsTrie != NULL) {
+        pthread_mutex_unlock(&g_mutex);
         return 0;
     }
     int res = ParameterContextsLoad();

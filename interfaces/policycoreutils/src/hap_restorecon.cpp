@@ -54,7 +54,8 @@ static const char *DEFAULT_CONTEXT = "u:object_r:unlabeled:s0";
 static const int CONTEXTS_LENGTH_MIN = 20; // sizeof("apl=x domain= type=")
 static const int CONTEXTS_LENGTH_MAX = 1024;
 static pthread_once_t FC_ONCE = PTHREAD_ONCE_INIT;
-static std::unordered_map<std::string, struct SehapInfo> sehapContextsBuff;
+static std::unordered_map<std::string, struct SehapInfo> g_sehapContextsMap;
+std::mutex g_loadContextsLock;
 } // namespace
 
 static void SelinuxSetCallback()
@@ -130,19 +131,11 @@ static bool CheckApl(const std::string &apl)
     return false;
 }
 
-static void HapContextsClear()
-{
-    if (!sehapContextsBuff.empty()) {
-        sehapContextsBuff.clear();
-    }
-}
-
 static bool HapContextsLoad()
 {
     // load sehap_contexts file
     std::ifstream contextsFile(SEHAP_CONTEXTS_FILE);
     if (contextsFile) {
-        HapContextsClear();
         int lineNum = 0;
         std::string line;
         while (getline(contextsFile, line)) {
@@ -152,7 +145,7 @@ static bool HapContextsLoad()
             }
             struct SehapInfo tmpInfo = DecodeString(line);
             if (!tmpInfo.apl.empty()) {
-                sehapContextsBuff.emplace(tmpInfo.apl + tmpInfo.name, tmpInfo);
+                g_sehapContextsMap.emplace(tmpInfo.apl + tmpInfo.name, tmpInfo);
             } else {
                 selinux_log(SELINUX_INFO, "hap_contexts read fail in line %d\n", lineNum);
             }
@@ -194,18 +187,21 @@ int HapContext::TypeSet(std::unordered_map<std::string, SehapInfo>::iterator &it
 
 int HapContext::HapContextsLookup(bool isDomain, const std::string &apl, const std::string &packageName, context_t con)
 {
-    if (sehapContextsBuff.empty()) {
-        if (!HapContextsLoad()) {
-            return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+    {
+        std::lock_guard<std::mutex> lock(g_loadContextsLock);
+        if (g_sehapContextsMap.empty()) {
+            if (!HapContextsLoad()) {
+                return -SELINUX_CONTEXTS_FILE_LOAD_ERROR;
+            }
         }
     }
 
-    auto iter = sehapContextsBuff.find(std::string(apl) + std::string(packageName));
-    if (iter != sehapContextsBuff.end() && apl != "normal") {
+    auto iter = g_sehapContextsMap.find(std::string(apl) + std::string(packageName));
+    if (iter != g_sehapContextsMap.end() && apl != "normal") {
         return TypeSet(iter, isDomain, con);
     } else {
-        iter = sehapContextsBuff.find(std::string(apl));
-        if (iter != sehapContextsBuff.end()) {
+        iter = g_sehapContextsMap.find(std::string(apl));
+        if (iter != g_sehapContextsMap.end()) {
             return TypeSet(iter, isDomain, con);
         }
     }
