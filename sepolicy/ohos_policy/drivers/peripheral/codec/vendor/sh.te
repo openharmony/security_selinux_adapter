@@ -15,6 +15,6 @@ debug_only(`
     allow sh hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
     allow sh hdf_codec_component_manager_service:hdf_devmgr_class { get };
     allow sh hdf_codec_hdi_service:hdf_devmgr_class { get };
-    allow sh hdf_codec_image_jpeg_service:hdf_devmgr_class { get };
+    allow sh hdf_codec_image_service:hdf_devmgr_class { get };
     allow sh codec_host:binder { transfer };
 ')
