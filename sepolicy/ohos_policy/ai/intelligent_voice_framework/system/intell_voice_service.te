@@ -144,7 +144,10 @@ allow intell_voice_service audio_policy:binder { call transfer };
 # avc:  denied  { add_name } for  pid=627 comm="IPC_2_7260" name="2023_07_16_16_09_16_.pcm" scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=0
 # avc:  denied  { write } for  pid=25639 comm="IPC_1_25766" name="pcm_data" dev="sdd78" ino=4761 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=0
 # avc:  denied  { search } for  pid=12584 comm="IPC_3_12689" name="data" dev="sdd78" ino=4235 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=0
-allow intell_voice_service data_data_file:dir { search write add_name };
+# avc:  denied  { getattr } for  pid=700 comm="threaded-ml" path="/data/data/intell_voice/cache" dev="sdd91" ino=4770 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { open } for  pid=700 comm="threaded-ml" path="/data/data/intell_voice/cache" dev="sdd91" ino=4770 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
+# avc:  denied  { remove_name } for  pid=700 comm="IPC_2_2968" name="cookie" dev="sdd91" ino=13095 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=dir permissive=1
+allow intell_voice_service data_data_file:dir { search write add_name getattr open remove_name };
 
 # avc:  denied  { getattr } for  pid=23348 comm="threaded-ml" path="/data/data/.pulse_dir/state" dev="sdd78" ino=4737 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=0
 # avc:  denied  { open } for  pid=23848 comm="threaded-ml" path="/data/data/.pulse_dir/state" dev="sdd78" ino=4737 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_pulse_dir:s0 tclass=dir permissive=0
@@ -172,16 +175,20 @@ allow intell_voice_service intell_voice_service:unix_dgram_socket { getopt setop
 allow intell_voice_service sa_pulseaudio_audio_service:samgr_class { get };
 
 # avc:  denied  { call } for  pid=25639 comm="IPC_1_25766" scontext=u:r:intell_voice_service:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=0
-allow intell_voice_service pulseaudio:binder { call };
+# avc:  denied  { transfer } for  pid=700 comm="SaOndemand" scontext=u:r:intell_voice_service:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
+allow intell_voice_service pulseaudio:binder { call transfer };
 
 # avc:  denied  { get } for service=401 pid=627 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
 allow intell_voice_service sa_foundation_bms:samgr_class { get };
 
+# avc:  denied  { lock } for  pid=700 comm="threaded-ml" path="/data/data/intell_voice/cache/cookie" dev="sdd91" ino=13095 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=700 comm="threaded-ml" name="cookie" dev="sdd91" ino=13095 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=1
+# avc:  denied  { unlink } for  pid=700 comm="IPC_2_2968" name="cookie" dev="sdd91" ino=13095 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=1
 # avc:  denied  { write open } for  pid=596 comm="IPC_2_7119" path="/data/data/intell_voice/pcm_data/2023_07_16_16_41_33_.pcm" dev="sdd78" ino=11625 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
 # avc:  denied  { getattr } for  pid=596 comm="intell_voice_se" path="/data/data/intell_voice/pcm_data/2023_07_16_17_05_39_.pcm" dev="sdd78" ino=11994 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
 # avc:  denied  { ioctl } for  pid=596 comm="intell_voice_se" path="/data/data/intell_voice/pcm_data/2023_07_16_17_05_39_.pcm" dev="sdd78" ino=11994 ioctlcmd=0x5413 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
 # avc:  denied  { create } for  pid=587 comm="intell_voice_se" name="2023_07_16_16_30_28_.pcm" scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:data_data_file:s0 tclass=file permissive=0
-allow intell_voice_service data_data_file:file { write open getattr ioctl create };
+allow intell_voice_service data_data_file:file { write open getattr ioctl create lock read unlink };
 allowxperm intell_voice_service data_data_file:file ioctl { 0x5413 };
 
 # avc:  denied  { use } for  pid=7010 comm="IPC_0_7020" path="/dev/ashmem" dev="tmpfs" ino=581 scontext=u:r:intell_voice_service:s0 tcontext=u:r:intell_voice_host:s0 tclass=fd permissive=0

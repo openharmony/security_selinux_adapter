@@ -133,3 +133,20 @@ allow audio_host dev_file:sock_file { write };
 # avc:  denied  { ioctl } for  pid=1063 comm="IPC_0_1116" path="/dev/hifi_misc" dev="tmpfs" ino=583 ioctlcmd=0x417e scontext=u:r:audio_host:s0 tcontext=u:object_r:dev_hifi_misc:s0 tclass=chr_file permissive=0
 allow audio_host dev_hifi_misc:chr_file { ioctl };
 allowxperm audio_host dev_hifi_misc:chr_file ioctl { 0x417e };
+
+# avc:  denied  { map } for  pid=1102 comm="audio_host" path="/dev/__parameters__/u:object_r:ro_hw_param:s0" dev="tmpfs" ino=204 scontext=u:r:audio_host:s0 tcontext=u:object_r:ro_hw_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1102 comm="audio_host" path="/dev/__parameters__/u:object_r:ro_hw_param:s0" dev="tmpfs" ino=204 scontext=u:r:audio_host:s0 tcontext=u:object_r:ro_hw_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=1102 comm="audio_host" name="u:object_r:ro_hw_param:s0" dev="tmpfs" ino=204 scontext=u:r:audio_host:s0 tcontext=u:object_r:ro_hw_param:s0 tclass=file permissive=1
+allow audio_host ro_hw_param:file { map open read };
+
+# avc:  denied  { map } for  pid=1102 comm="audio_host" path="/dev/__parameters__/u:object_r:ro_product_param:s0" dev="tmpfs" ino=205 scontext=u:r:audio_host:s0 tcontext=u:object_r:ro_product_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1102 comm="audio_host" path="/dev/__parameters__/u:object_r:ro_product_param:s0" dev="tmpfs" ino=205 scontext=u:r:audio_host:s0 tcontext=u:object_r:ro_product_param:s0 tclass=file permissive=1
+# avc:  denied  { read } for  pid=1102 comm="audio_host" name="u:object_r:ro_product_param:s0" dev="tmpfs" ino=205 scontext=u:r:audio_host:s0 tcontext=u:object_r:ro_product_param:s0 tclass=file permissive=1
+allow audio_host ro_product_param:file { map open read };
+
+# avc:  denied  { map } for  pid=1102 comm="IPC_0_1127" path="/dev/__parameters__/u:object_r:ro_runmode_param:s0" dev="tmpfs" ino=208 scontext=u:r:audio_host:s0 tcontext=u:object_r:ro_runmode_param:s0 tclass=file permissive=1
+# avc:  denied  { open } for  pid=1102 comm="IPC_0_1127" path="/dev/__parameters__/u:object_r:ro_runmode_param:s0" dev="tmpfs" ino=208 scontext=u:r:audio_host:s0 tcontext=u:object_r:ro_runmode_param:s0 tclass=file permissive=1
+allow audio_host ro_runmode_param:file { map open };
+
+# avc:  denied  { search } for  pid=1102 comm="IPC_0_1127" name="lib64" dev="sdd85" ino=83 scontext=u:r:audio_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=1
+allow audio_host sys_prod_file:dir { search };
