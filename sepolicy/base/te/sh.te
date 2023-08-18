@@ -48,7 +48,6 @@ allow sh data_bluetooth:file { getattr };
 allow sh data_startup:dir { getattr };
 allow sh data_cache:dir { getattr };
 allow sh data_chipset_file:dir { getattr };
-allow sh data_data_file:dir { getattr search };
 allow sh data_data_pulse_dir:dir { getattr open read search };
 allow sh data_data_pulse_dir:file { lock open read write };
 allow sh data_service_el1_file:dir { getattr };
@@ -78,7 +77,6 @@ allow sh data_service_el1_public_huksService_file:dir { getattr open read remove
 allow sh data_service_el1_public_huksService_file:file { getattr unlink };
 allow sh data_service_el2_public_huksService_file:dir { getattr open read remove_name rmdir search write };
 allow sh data_service_el2_public_huksService_file:file { getattr unlink };
-allow sh data_service_el2_file:dir { getattr open read search };
 allow sh data_service_el2_hmdfs:dir { getattr open read search };
 allow sh data_service_file:dir { getattr open read remove_name write };
 allow sh data_ss:dir { getattr };
@@ -138,8 +136,6 @@ allow sh init_svc_param:file { map open read };
 allow sh inputmethod_service:dir { getattr search };
 allow sh inputmethod_service:file { open read };
 allow sh input_pointer_device_param:file { map open read };
-allow sh installs:dir { getattr search };
-allow sh installs:file { open read };
 allow sh installs:process { getattr };
 allow sh ispserver:dir { getattr search };
 allow sh ispserver:file { open read };
@@ -258,3 +254,11 @@ allowxperm sh sh:unix_dgram_socket ioctl { 0x8933 };
 allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 };
 allow sh sa_memory_manager_service:samgr_class { get };
 allow sh memmgrservice:binder { call transfer };
+debug_only(`
+    allow sh data_service_el2_file:dir { getattr open read search };
+    allow sh installs:dir { getattr search };
+    allow sh data_data_file:dir { getattr search };
+    allow sh installs:file { open read };
+    allow sh installs:process getattr;
+    allow sh sa_foundation_bms:samgr_class get;
+')
