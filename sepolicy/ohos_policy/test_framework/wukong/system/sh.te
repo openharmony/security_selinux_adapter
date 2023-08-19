@@ -104,8 +104,10 @@ allow sh location_host:dir { getattr search };
 allow sh location_host:file { open read };
 allow sh locationhub:dir { getattr search };
 allow sh locationhub:file { open read };
-allow sh media_service:dir { getattr search };
-allow sh media_service:file { open read };
+debug_only(`
+    allow sh media_service:dir { getattr search };
+    allow sh media_service:file { open read };
+')
 allow sh mmi_uinput_service:dir { getattr search };
 allow sh mmi_uinput_service:file { open read open read };
 allow sh msdp_sa:dir { getattr search };

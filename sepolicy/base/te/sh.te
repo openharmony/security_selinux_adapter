@@ -167,8 +167,10 @@ allow sh kernel:unix_stream_socket { connectto };
 allow sh lib_file:lnk_file { getattr };
 allow sh locationhub:dir { getattr search };
 allow sh locationhub:file { open read };
-allow sh media_service:dir { getattr search };
-allow sh media_service:file { open read };
+debug_only(`
+    allow sh media_service:dir { getattr search };
+    allow sh media_service:file { open read };
+')
 allow sh mmi_uinput_service:dir { getattr search };
 allow sh mmi_uinput_service:file { open read };
 allow sh mmi_uinput_service:process { getattr };
