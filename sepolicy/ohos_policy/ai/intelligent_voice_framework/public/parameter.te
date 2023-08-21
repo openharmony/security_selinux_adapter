@@ -14,3 +14,4 @@
 type ro_hw_param, parameter_attr;
 type ro_product_param, parameter_attr;
 type ro_runmode_param, parameter_attr;
+
