@@ -14,4 +14,12 @@
 debug_only(`
     allow sh sa_storage_manager_daemon:samgr_class { get };
     allow sh sa_storage_manager_service:samgr_class { get };
+    allow sh dev_block_volfile:dir { search };
+    allow sh data_service_el1_file:dir { getattr open read remove_name rmdir write };
+    allow sh data_service_file:dir {getattr open read remove_name write };
+    allow sh distributedfiledaemon:dir { getattr search };
+    allow sh distributedfiledaemon:file { open read };
+    allow sh storage_daemon:process { getattr };
+    allow sh storage_manager:process { getattr };
+    allow sh data_backup:dir { getattr };
 ')
