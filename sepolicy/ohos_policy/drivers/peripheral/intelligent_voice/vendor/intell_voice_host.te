@@ -121,3 +121,6 @@ allow intell_voice_host sys_prod_file:dir { getattr search };
 # avc:  denied  { open } for  pid=7069 comm="IPC_1_7081" path="/sys_prod/variant/region_comm/china/etc/intellvoice/wakeup/vpr/vpr_domainDict_03.dat" dev="sdd73" ino=174 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=0
 # avc:  denied  { map } for  pid=7236 comm="IPC_1_7248" path="/sys_prod/variant/region_comm/china/etc/intellvoice/wakeup/ap/condict/kws2_domainDict_01.dat" dev="sdd73" ino=121 scontext=u:r:intell_voice_host:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=file permissive=0
 allow intell_voice_host sys_prod_file:file { open read map getattr read };
+
+# avc:  denied  { exec_no_sign } for  pid=2336 comm="AsrEngineThread" scontext=u:r:intell_voice_host:s0 tcontext=u:r:intell_voice_host:s0 tclass=xpm permissive=0
+allow intell_voice_host intell_voice_host:xpm { exec_no_sign };
