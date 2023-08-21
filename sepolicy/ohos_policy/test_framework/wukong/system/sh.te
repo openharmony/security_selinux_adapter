@@ -12,7 +12,6 @@
 # limitations under the License.
 
 
-allow sh accessibility:binder { call transfer };
 #allow sh data_local_tmp:dir { add_name create };
 allow sh data_local:dir { open read };
 allow sh data_log:dir { watch };
@@ -21,6 +20,7 @@ allow sh hiview:binder { call transfer };
 #allow sh sh:capability { dac_read_search };
 
 debug_only(`
+allow sh accessibility:binder { call transfer };
 allow sh accessibility:dir { getattr search };
 allow sh accessibility:file { open read };
 #allow sh sh:capability { dac_override sys_ptrace sys_ptrace };
