@@ -14,3 +14,4 @@
 allow system_basic_hap_attr system_usr_file:file { open read getattr };
 allow system_basic_hap_attr system_usr_file:dir { open read getattr };
 allow system_basic_hap_attr sysfs_devices_system_cpu:file { getattr };
+allow system_basic_hap_attr persist_param:parameter_service { set };
