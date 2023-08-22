@@ -104,8 +104,6 @@ allow sh devpts:chr_file { getattr ioctl read };
 allow sh dev_pts_file:dir { getattr };
 allow sh dev_rfkill:chr_file { open read };
 allow sh dev_usb_ffs:dir { search };
-allow sh distributeddata:dir { getattr search };
-allow sh distributeddata:file { open read };
 allow sh distributedfiledaemon:dir { getattr search };
 allow sh distributedfiledaemon:file { open read };
 allow sh download_server:dir { getattr search };
@@ -147,8 +145,10 @@ debug_only(`
     allow sh locationhub:dir { getattr search };
     allow sh locationhub:file { open read };
 ')
-allow sh media_service:dir { getattr search };
-allow sh media_service:file { open read };
+debug_only(`
+    allow sh media_service:dir { getattr search };
+    allow sh media_service:file { open read };
+')
 allow sh mmi_uinput_service:dir { getattr search };
 allow sh mmi_uinput_service:file { open read };
 allow sh mmi_uinput_service:process { getattr };
@@ -263,4 +263,6 @@ debug_only(`
     allow sh installs:file { open read };
     allow sh installs:process getattr;
     allow sh sa_foundation_bms:samgr_class get;
+    allow sh distributeddata:dir { getattr search };
+    allow sh distributeddata:file { open read };
 ')
