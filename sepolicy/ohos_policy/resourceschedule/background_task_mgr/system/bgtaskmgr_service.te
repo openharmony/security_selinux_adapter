@@ -54,7 +54,6 @@ allow bgtaskmgr_service sa_time_service:samgr_class { get };
 allow bgtaskmgr_service sysfs_devices_system_cpu:file { read };
 allow pulseaudio bgtaskmgr_service:binder { call transfer };
 allow audio_policy bgtaskmgr_service:binder { call transfer };
-allow sh bgtaskmgr_service:binder { transfer };
 allow hiview bgtaskmgr_service:dir { getattr open read };
 allow hiview bgtaskmgr_service:file { getattr };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
@@ -82,3 +81,7 @@ binder_call(hiview, bgtaskmgr_service);
 binder_call(distributedsche, bgtaskmgr_service);
 binder_call(bluetooth_service, bgtaskmgr_service);
 binder_call(system_basic_hap_attr, bgtaskmgr_service);
+
+debug_only(`
+    allow sh bgtaskmgr_service:binder { transfer };
+')
