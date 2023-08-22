@@ -25,6 +25,7 @@ allow work_scheduler_service proc_meminfo_file:file { open read };
 allow work_scheduler_service tracefs:dir { search };
 allow work_scheduler_service tracefs_trace_marker_file:file { open write };
 allow work_scheduler_service work_scheduler_service:unix_dgram_socket { getopt setopt };
+allow sh work_scheduler_service:binder { transfer };
 allowxperm work_scheduler_service data_service_el1_file:file ioctl 0x5413;
 
 binder_call(work_scheduler_service, accountmgr);
