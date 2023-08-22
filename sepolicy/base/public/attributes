@@ -178,5 +178,6 @@ attribute dev_attr_violator;
 attribute dev_file_violator;
 attribute samgr_binder_violator;
 attribute installs_binder_violator;
+attribute binder_call_installs_violators;
 attribute permissions_mount_file_attr;
 attribute log_file_attr;
