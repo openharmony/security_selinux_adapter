@@ -36,5 +36,5 @@ binder_call(foundation, work_scheduler_service);
 binder_call(normal_hap_attr, work_scheduler_service);
 
 debug_only(`
-    allow sh work_scheduler_service:binder { transfer };
+    binder_call(work_scheduler_service, sh);
 ')
