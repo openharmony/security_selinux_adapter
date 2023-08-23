@@ -66,7 +66,6 @@ binder_call(bgtaskmgr_service, memmgrservice);
 binder_call(bgtaskmgr_service, normal_hap_attr);
 binder_call(bgtaskmgr_service, param_watcher);
 binder_call(bgtaskmgr_service, resource_schedule_service);
-binder_call(bgtaskmgr_service, sh);
 binder_call(bgtaskmgr_service, system_core_hap_attr);
 binder_call(bgtaskmgr_service, system_basic_hap_attr);
 binder_call(bgtaskmgr_service, hiview);
@@ -81,7 +80,3 @@ binder_call(hiview, bgtaskmgr_service);
 binder_call(distributedsche, bgtaskmgr_service);
 binder_call(bluetooth_service, bgtaskmgr_service);
 binder_call(system_basic_hap_attr, bgtaskmgr_service);
-
-debug_only(`
-    allow sh bgtaskmgr_service:binder { transfer };
-')
