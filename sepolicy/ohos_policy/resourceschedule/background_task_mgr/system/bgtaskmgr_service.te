@@ -80,3 +80,7 @@ binder_call(hiview, bgtaskmgr_service);
 binder_call(distributedsche, bgtaskmgr_service);
 binder_call(bluetooth_service, bgtaskmgr_service);
 binder_call(system_basic_hap_attr, bgtaskmgr_service);
+
+debug_only(`
+    allow sh bgtaskmgr_service:binder { transfer };
+')
