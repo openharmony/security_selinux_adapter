@@ -70,10 +70,6 @@ allow sh data_preloads:dir { getattr };
 allow sh data_resourcecache:dir { getattr };
 allow sh data_service_el1_file:file { read write };
 allow sh data_service_el1_public_deviceauthService_file:dir { getattr open read remove_name rmdir search write };
-allow sh data_service_el1_public_huksService_file:dir { getattr open read remove_name rmdir search write };
-allow sh data_service_el1_public_huksService_file:file { getattr unlink };
-allow sh data_service_el2_public_huksService_file:dir { getattr open read remove_name rmdir search write };
-allow sh data_service_el2_public_huksService_file:file { getattr unlink };
 allow sh data_service_el2_hmdfs:dir { getattr open read search };
 allow sh data_ss:dir { getattr };
 allow sh data_system_ce:dir { getattr open remove_name search write };
@@ -116,8 +112,6 @@ allow sh hdcd:unix_stream_socket { read write };
 allow sh hidumper_file:dir { getattr };
 allow sh hidumper_service:dir { getattr search };
 allow sh hidumper_service:file { open read };
-allow sh huks_service:dir { getattr search };
-allow sh huks_service:file { open read };
 allow sh hw_sc_build_os_param:file { map open read };
 allow sh hw_sc_build_param:file { map open read };
 allow sh hw_sc_param:file { map open read };
@@ -254,4 +248,12 @@ debug_only(`
     allow sh sa_foundation_bms:samgr_class get;
     allow sh distributeddata:dir { getattr search };
     allow sh distributeddata:file { open read };
+')
+debug_only(`
+    allow sh data_service_el1_public_huksService_file:dir { getattr open read remove_name rmdir search write };
+    allow sh data_service_el1_public_huksService_file:file { getattr unlink };
+    allow sh data_service_el2_public_huksService_file:dir { getattr open read remove_name rmdir search write };
+    allow sh data_service_el2_public_huksService_file:file { getattr unlink };
+    allow sh huks_service:dir { getattr search };
+    allow sh huks_service:file { open read };
 ')
