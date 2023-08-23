@@ -102,8 +102,10 @@ debug_only(`
     allow sh inputmethod_service:dir { getattr search };
     allow sh inputmethod_service:file { open read };
 ')
-allow sh installs:dir { getattr search };
-allow sh installs:file { open read };
+debug_only(`
+    allow sh installs:dir { getattr search };
+    allow sh installs:file { open read };
+')
 allow sh kernel:dir { getattr search };
 allow sh kernel:file { open read };
 allow sh kernel:system { syslog_read };

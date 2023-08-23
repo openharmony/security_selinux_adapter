@@ -125,7 +125,6 @@ debug_only(`
     allow sh inputmethod_service:file { open read };
 ')
 allow sh input_pointer_device_param:file { map open read };
-allow sh installs:process { getattr };
 allow sh ispserver:dir { getattr search };
 allow sh ispserver:file { open read };
 allow sh kernel:process { getattr };
@@ -175,7 +174,6 @@ allow sh render_service:dir { getattr search };
 allow sh render_service:file { open read };
 allow sh render_service:process { getattr };
 allow sh rootfs:dir { open read };
-allow sh sa_foundation_bms:samgr_class { get };
 allow sh sa_foundation_dms:samgr_class { get };
 allow sh sa_multimodalinput_service:samgr_class { get };
 allow sh sa_param_watcher:samgr_class { get };
@@ -254,8 +252,8 @@ debug_only(`
     allow sh installs:dir { getattr search };
     allow sh data_data_file:dir { getattr search };
     allow sh installs:file { open read };
-    allow sh installs:process getattr;
-    allow sh sa_foundation_bms:samgr_class get;
+    allow sh installs:process { getattr };
+    allow sh sa_foundation_bms:samgr_class { get };
     allow sh distributeddata:dir { getattr search };
     allow sh distributeddata:file { open read };
 ')
