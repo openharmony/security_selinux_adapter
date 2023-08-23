@@ -106,8 +106,10 @@ allow sh devpts:chr_file { getattr ioctl read };
 allow sh dev_pts_file:dir { getattr };
 allow sh dev_rfkill:chr_file { open read };
 allow sh dev_usb_ffs:dir { search };
-allow sh distributeddata:dir { getattr search };
-allow sh distributeddata:file { open read };
+debug_only(`
+    allow sh distributeddata:dir { getattr search };
+    allow sh distributeddata:file { open read };
+')
 allow sh distributedfiledaemon:dir { getattr search };
 allow sh distributedfiledaemon:file { open read };
 allow sh download_server:dir { getattr search };
