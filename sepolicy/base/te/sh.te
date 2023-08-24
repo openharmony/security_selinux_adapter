@@ -19,8 +19,10 @@ allow sh bluetooth_service:file { open read };
 allow sh bootevent_param:file { map open read };
 allow sh bootevent_samgr_param:file { map open read };
 allow sh build_version_param:file { map open read };
-allow sh camera_service:dir { getattr search };
-allow sh camera_service:file { open read };
+debug_only(`
+    allow sh camera_service:dir { getattr search };
+    allow sh camera_service:file { open read };
+')
 allow sh console:dir { getattr search };
 allow sh console:file { open read };
 allow sh console:lnk_file { read };
