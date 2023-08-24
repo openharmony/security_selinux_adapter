@@ -70,5 +70,7 @@ allow distributedsche memmgrservice:binder { call };
 allow distributedsche sa_distributed_bundle_mgr_service_service:samgr_class { get };
 #avc:  denied  { call } for  pid=479 comm="continue_manage" scontext=u:r:distributedsche:s0 tcontext=u:r:d-bms:s0 tclass=binder permissive=0
 allow distributedsche d-bms:binder { call };
+#avc:  denied  { get } for service=4606 pid=2716 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=1
+allow distributedsche sa_foundation_wms:samgr_class { get };
 
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };
