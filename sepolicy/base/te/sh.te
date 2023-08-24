@@ -100,9 +100,9 @@ allow sh dev_usb_ffs:dir { search };
 debug_only(`
     allow sh download_server:dir { getattr search };
     allow sh download_server:file { open read };
+    allow sh dslm_service:dir { getattr search };
+    allow sh dslm_service:file { open read };
 ')
-allow sh dslm_service:dir { getattr search };
-allow sh dslm_service:file { open read };
 allow sh etc_file:lnk_file { getattr };
 allow sh foundation:binder { call transfer };
 allow sh foundation:dir { getattr search };
