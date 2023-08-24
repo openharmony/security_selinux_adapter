@@ -12,6 +12,7 @@
 # limitations under the License.
 
 type default_service, sa_service_attr;
+type sa_samgr_service, sa_service_attr;
 type sa_foundation_abilityms, sa_service_attr;
 type sa_accountmgr, sa_service_attr;
 type sa_foundation_bms, sa_service_attr;
