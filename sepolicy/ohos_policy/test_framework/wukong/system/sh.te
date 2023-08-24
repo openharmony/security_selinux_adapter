@@ -56,8 +56,10 @@ allow sh data_local:file { create ioctl write open create getattr ioctl };
 allow sh data_log:dir { open read remove_name search write };
 allow sh data_log:file { getattr unlink };
 allow sh dev_kmsg_file:chr_file { open read };
-allow sh deviceauth_service:dir { getattr search };
-allow sh deviceauth_service:file { open read };
+debug_only(`
+    allow sh deviceauth_service:dir { getattr search };
+    allow sh deviceauth_service:file { open read };
+')
 allow sh allocator_host:dir { getattr search };
 allow sh allocator_host:file { open read };
 allow sh distributeddata:dir { getattr search };

@@ -27,8 +27,10 @@ debug_only(`
     allow sh data_file:dir { write };
     allow sh dev_kmsg_file:chr_file { open read };
     allow sh dev_unix_socket:sock_file { write };
-    allow sh deviceauth_service:dir { getattr search };
-    allow sh deviceauth_service:file { read };
+    debug_only(`
+        allow sh deviceauth_service:dir { getattr search };
+        allow sh deviceauth_service:file { read };
+    ')
     debug_only(`
         allow sh download_server:file { read };
     ')
