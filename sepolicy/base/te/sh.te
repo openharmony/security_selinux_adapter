@@ -190,8 +190,10 @@ allow sh sh:packet_socket { bind create ioctl setopt write };
 allow sh sh:rawip_socket { create ioctl };
 allow sh sh:udp_socket { bind create ioctl write };
 allow sh sh:unix_dgram_socket { ioctl };
+debug_only(`
 allow sh softbus_server:dir { getattr search };
 allow sh softbus_server:file { open read };
+')
 allow sh startup_param:file { map open read };
 allow sh sys_param:file { map open read };
 dontaudit sh system_basic_hap_data_file_attr:dir { remove_name write };
