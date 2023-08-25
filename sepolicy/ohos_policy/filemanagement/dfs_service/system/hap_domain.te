@@ -14,3 +14,4 @@
 allow hap_domain sa_filemanagement_cloud_sync_service:samgr_class { get };
 allow hap_domain cloudfiledaemon:binder { call transfer };
 allow hap_domain cloudfiledaemon:binder { call };
+allow hap_domain cloudfiledaemon:fd { use };
