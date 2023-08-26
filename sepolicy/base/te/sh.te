@@ -65,10 +65,10 @@ allow sh data_media:dir { getattr };
 allow sh data_misc_ce:dir { getattr };
 allow sh data_misc_de:dir { getattr };
 allow sh data_misc:dir { getattr search };
-allow sh data_nfc:dir { getattr remove_name rmdir };
 allow sh data_preloads:dir { getattr };
 allow sh data_resourcecache:dir { getattr };
 debug_only(`
+    allow sh data_nfc:dir { getattr remove_name rmdir };
     allow sh data_service_el1_public_deviceauthService_file:dir { getattr open read remove_name rmdir search write };
 ')
 allow sh data_service_el2_hmdfs:dir { getattr open read search };
