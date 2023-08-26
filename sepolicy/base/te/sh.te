@@ -65,7 +65,9 @@ allow sh data_media:dir { getattr };
 allow sh data_misc_ce:dir { getattr };
 allow sh data_misc_de:dir { getattr };
 allow sh data_misc:dir { getattr search };
-allow sh data_nfc:dir { getattr remove_name rmdir };
+debug_only(`
+    allow sh data_nfc:dir { getattr remove_name rmdir };
+')
 allow sh data_ota:dir { getattr };
 allow sh data_ota_package:dir { getattr };
 allow sh data_preloads:dir { getattr };
