@@ -66,8 +66,6 @@ allow sh data_misc_ce:dir { getattr };
 allow sh data_misc_de:dir { getattr };
 allow sh data_misc:dir { getattr search };
 allow sh data_nfc:dir { getattr remove_name rmdir };
-allow sh data_ota:dir { getattr };
-allow sh data_ota_package:dir { getattr };
 allow sh data_preloads:dir { getattr };
 allow sh data_resourcecache:dir { getattr };
 debug_only(`
@@ -79,7 +77,6 @@ allow sh data_system_ce:dir { getattr open remove_name search write };
 allow sh data_system_ce:file { unlink };
 allow sh data_system_de:dir { getattr read rmdir search };
 allow sh data_system:dir { getattr };
-allow sh data_updater_file:dir { getattr };
 allow sh data_user_de:dir { getattr };
 allow sh data_user:dir { getattr read search };
 allow sh data_vendor_ce:dir { getattr };
@@ -224,7 +221,6 @@ allow sh ueventd:file { open read };
 allow sh ui_service:dir { getattr search };
 allow sh ui_service:file { open read };
 allow sh ui_service:process { getattr };
-allow sh updater_file:dir { getattr };
 allow sh vendor_etc_file:dir { search };
 allow sh vendor_etc_file:file { open read };
 allow sh vendor_file:dir { getattr };
@@ -258,6 +254,10 @@ debug_only(`
     allow sh sa_foundation_bms:samgr_class { get };
     allow sh distributeddata:dir { getattr search };
     allow sh distributeddata:file { open read };
+    allow sh data_updater_file:dir { getattr };
+    allow sh updater_file:dir { getattr };
+    allow sh data_ota:dir { getattr };
+    allow sh data_ota_package:dir { getattr };
 ')
 debug_only(`
     allow sh data_service_el1_public_huksService_file:dir { getattr open read remove_name rmdir search write };
