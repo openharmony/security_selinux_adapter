@@ -24,6 +24,7 @@ allow domain self:dir read_dir_perms;
 allow domain self:lnk_file read_file_perms;
 allow domain self:unix_dgram_socket { connect create write };
 allow domain self:unix_stream_socket { accept bind connect create getattr listen read getopt setopt write connectto ioctl lock append shutdown map };
+allowxperm normal_hap_attr self:unix_stream_socket ioctl ~{ 0x8927 };
 allow domain self:lockdown confidentiality;
 
 allow domain init:fd use;
