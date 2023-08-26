@@ -22,4 +22,5 @@ debug_only(`
     allow sh storage_daemon:process { getattr };
     allow sh storage_manager:process { getattr };
     allow sh data_backup:dir { getattr };
+    allow sh data_service_el1_file:file { read write };
 ')

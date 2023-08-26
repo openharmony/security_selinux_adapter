@@ -70,7 +70,6 @@ allow sh data_ota:dir { getattr };
 allow sh data_ota_package:dir { getattr };
 allow sh data_preloads:dir { getattr };
 allow sh data_resourcecache:dir { getattr };
-allow sh data_service_el1_file:file { read write };
 debug_only(`
     allow sh data_service_el1_public_deviceauthService_file:dir { getattr open read remove_name rmdir search write };
 ')
