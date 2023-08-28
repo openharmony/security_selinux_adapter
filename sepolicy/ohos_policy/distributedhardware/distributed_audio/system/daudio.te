@@ -113,6 +113,15 @@ allow daudio vendor_bin_file:dir { search };
 
 allow daudio daudio_host:fd { use };
 
+allow daudio sa_dhardware_service:samgr_class { get };
+
+allow daudio hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
+
+allow daudio sa_foundation_bms:samgr_class { get };
+
+allow daudio foundation:binder { call };
+
+allow daudio dhardware:binder { transfer };
 debug_only(`
     allow daudio sh:binder { call };
 ')
