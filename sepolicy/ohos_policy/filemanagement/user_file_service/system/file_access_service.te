@@ -15,14 +15,8 @@ type file_access_service, sadomain, domain;
 allow file_access_service sa_file_access_service:samgr_class { add get };
 
 #avc:  denied  { call } for  pid=611 comm="IPC_0_654" scontext=u:r:file_access_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=0
-#avc:  denied  { call } for  pid=1770 comm="external_file_a" scontext=u:r:sh:s0 tcontext=u:r:file_access_service:s0 tclass=binder permissive=1
-#avc:  denied  { transfer } for  pid=1770 comm="external_file_a" scontext=u:r:sh:s0 tcontext=u:r:file_access_service:s0 tclass=binder permissive=1
-#avc:  denied  { read } for  pid=2390 comm="ps" name="stat" dev="proc" ino=29695 scontext=u:r:sh:s0 tcontext=u:r:file_access_service:s0 tclass=file permissive=1
-#avc:  denied  { open } for  pid=2390 comm="ps" path="/proc/1672/stat" dev="proc" ino=29695 scontext=u:r:sh:s0 tcontext=u:r:file_access_service:s0 tclass=file permissive=1
 debug_only(`
     allow file_access_service sh:binder { call };
-    allow sh file_access_service:binder { call transfer };
-    allow sh file_access_service:file { read open };
 ')
 
 #avc:  denied  { read } for  pid=812 comm="sa_main" name="u:object_r:musl_param:s0" dev="tmpfs" ino=62 scontext=u:r:file_access_service:s0 tcontext=u:object_r:musl_param:s0 tclass=file permissive=1

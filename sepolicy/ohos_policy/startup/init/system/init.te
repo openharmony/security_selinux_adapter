@@ -76,13 +76,13 @@ allow { domain -limit_domain } startup_uevent_param:file { map open read };
 allow { domain -limit_domain } devinfo_public_param:file { map open read };
 allow { domain -limit_domain } telephony_param:file { map open read };
 allow { domain -limit_domain -sh -console } useriam_fwkready_param:file { map open read };
-allow { domain -limit_domain } bluetooth_param:file { map open read };
+allow { domain -limit_domain -sh -console } bluetooth_param:file { map open read };
 
 #for udid
 allow { init deviceinfoservice sh samgr hdf_devmgr softbus_server } devinfo_private_param:file { map open read };
 allow { distributedsche accountmgr device_manager foundation d-bms } devinfo_private_param:file { map open read };
 
-allow { domain -limit_domain } accessibility_param:file { map open read };
+allow { domain -limit_domain -sh -console } accessibility_param:file { map open read };
 allow { domain -limit_domain } default_param:file { map open read };
 
 #for connect to param service

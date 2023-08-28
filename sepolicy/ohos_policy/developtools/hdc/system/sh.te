@@ -1,0 +1,81 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# for debug version
+debug_only(`
+    permissive sh;
+    permissive console;
+')
+
+# for shell
+allow sh devpts:chr_file { getattr ioctl read write };
+allowxperm sh devpts:chr_file ioctl { 0x5413 };
+allow sh dev_console_file:chr_file { getattr read write };
+
+# for toybox command execute
+allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
+allow sh system_bin_file:lnk_file { read };
+
+# for toybox command auto complete
+allow sh system_bin_file:dir { search getattr open read };
+
+# for terminal
+allow sh tty_device:chr_file { getattr ioctl open read write };
+allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
+
+# for reboot
+allow sh dev_unix_socket:dir { search };
+allow sh servicectrl_reboot_param:parameter_service set;
+
+# for hdc shell command
+allow sh hdcd:fifo_file { read };
+allow sh hdcd:fd { use };
+allow sh hdcd:unix_stream_socket { read write };
+allow sh hdcd:fifo_file { ioctl write };
+allowxperm sh hdcd:fifo_file ioctl { 0x5413 };
+
+# for data/local/tmp
+allow sh data_file:dir { search getattr};
+allow sh data_local:dir read_dir_perms;
+allow sh data_local_tmp:dir rw_dir_perms;
+allow sh data_local_tmp:file { create_file_perms };
+
+# for ps -efZ
+allow sh domain:dir { getattr search };
+allow sh domain:file { open read };
+allow sh domain:process { getattr };
+
+# for reboot
+allow sh paramservice_socket:sock_file { write };
+allow sh kernel:unix_stream_socket { connectto };
+
+# for bm install
+allow sh debug_param:file { map read open };
+allow sh hilog_param:file { map read open };
+allow sh samgr:binder { call };
+allow samgr sh:dir { search };
+allow samgr sh:file { open read };
+allow samgr sh:process { getattr };
+allow samgr sh:binder { call transfer };
+allow sh sa_foundation_bms:samgr_class { get };
+allow sh foundation:binder { call transfer };
+allow sh foundation:fd { use };
+allow sh data_service_el1_file:file { read write };
+
+# for aa start in deveco
+allow sh persist_sys_param:file { map open read };
+allow sh sa_foundation_abilityms:samgr_class { get };
+
+# for recv /data/log
+allow hdcd data_log:dir { getattr read open };
+allow hdcd data_log:file { getattr read open };

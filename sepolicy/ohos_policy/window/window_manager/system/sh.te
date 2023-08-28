@@ -12,13 +12,5 @@
 # limitations under the License.
 
 debug_only(`
-    allow sh dev_unix_socket:dir { search };
-    allow sh foundation:fd { use };
-
-    allow sh sa_foundation_dms:samgr_class { get };
-
-    allow sh sa_foundation_wms:samgr_class { get };
-
-    allow sh render_service:binder { call transfer };
     allow render_service sh:binder { call transfer };
 ')
