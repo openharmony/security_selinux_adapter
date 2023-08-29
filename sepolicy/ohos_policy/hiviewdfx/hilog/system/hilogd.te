@@ -34,12 +34,9 @@ define(`control_hilog', `
 ###################################
 ## Read/Use/Control hilog rules: ##
 ###################################
+read_hilog(sh)
 debug_only(`
-    read_hilog(sh)
     control_hilog(sh)
-    allow sh data_hilogd_file:dir { read_dir_perms };
-    allow sh data_hilogd_file:file { read_file_perms };
-
 ')
 read_hilog(hap_domain)
 

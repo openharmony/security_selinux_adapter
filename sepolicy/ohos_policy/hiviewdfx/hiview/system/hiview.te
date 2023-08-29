@@ -167,9 +167,6 @@ debug_only(`
     allow hiview sh:dir { getattr open read search};
     allow hiview sh:file { getattr read open };
     allow hiview sh:binder { call transfer };
-    allow sh hiview:dir { getattr search };
-    allow sh hiview:file { open };
-    allow sh hiview:process { getattr };
 ')
 
 #avc:  denied  { call } for  pid=256 comm="IPC_3_1647" scontext=u:r:hiview:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=0

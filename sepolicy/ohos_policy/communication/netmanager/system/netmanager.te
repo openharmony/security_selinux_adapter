@@ -83,10 +83,7 @@ allow accountmgr netmanager:binder { transfer };
 allow netmanager sa_foundation_bms:samgr_class { get };
 
 debug_only(`
-    allow sh sa_comm_ethernet_manager_service:samgr_class { add get };
     allow netmanager sh:binder { call };
-    allow sh sa_comm_net_tethering_manager_service:samgr_class { get };
-    allow sh netmanager:binder { call transfer };
 ')
 
 allow sa_comm_ethernet_manager_service sa_comm_ethernet_manager_service:samgr_class { add get };
