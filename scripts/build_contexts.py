@@ -59,7 +59,7 @@ def traverse_folder_in_type(search_dir_list, file_suffix):
     flag = 0
     policy_file_list = []
     for item in search_dir_list:
-        for root, _, files in os.walk(item):
+        for root, _, files in sorted(os.walk(item)):
             for each_file in files:
                 file_name = os.path.basename(each_file)
                 if file_name == file_suffix:
@@ -292,7 +292,7 @@ def prepare_build_path(dir_list, root_dir, build_dir_list):
 
 def traverse_folder_in_dir_name(search_dir, folder_suffix):
     folder_list = []
-    for root, dirs, _ in os.walk(search_dir):
+    for root, dirs, _ in sorted(os.walk(search_dir)):
         for dir_i in dirs:
             if dir_i == folder_suffix:
                 folder_list.append(os.path.join(root, dir_i))
