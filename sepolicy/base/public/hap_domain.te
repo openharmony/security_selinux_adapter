@@ -119,6 +119,18 @@ neverallow { hap_domain -system_core_hap_attr -isolated_render } system_core_hap
 
 neverallow { hap_domain -system_basic_hap_attr -isolated_render } system_basic_hap_data_file_attr:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
+# dir_file_class_set defines { dir { { blk_file chr_file } { fifo_file file lnk_file sock_file } } }, need to subtract file
+neverallow { isolated_render } system_core_hap_data_file_attr: { dir blk_file chr_file fifo_file lnk_file sock_file } { create write setattr relabelfrom relabelto append unlink link rename };
+
+# access already open hap data files received by ipc
+neverallow { isolated_render } system_core_hap_data_file_attr: file ~{ read write };
+
+# dir_file_class_set defines { dir { { blk_file chr_file } { fifo_file file lnk_file sock_file } } }, need to subtract file
+neverallow { isolated_render } system_basic_hap_data_file_attr: { dir blk_file chr_file fifo_file lnk_file sock_file } { create write setattr relabelfrom relabelto append unlink link rename };
+
+# access already open hap data files received by ipc
+neverallow { isolated_render } system_basic_hap_data_file_attr: file ~{ read write };
+
 neverallow hap_domain { sysfs_attr proc_attr }:dir_file_class_set write;
 
 neverallow hap_domain exec_attr:file { create write setattr relabelfrom relabelto append unlink link rename };
