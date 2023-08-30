@@ -67,7 +67,7 @@ class PolicyFileList(object):
 
 def traverse_folder_in_dir_name(search_dir, folder_suffix):
     folder_list = []
-    for root, dirs, _ in os.walk(search_dir):
+    for root, dirs, _ in sorted(os.walk(search_dir)):
         for dir_i in dirs:
             if dir_i == folder_suffix:
                 folder_list.append(os.path.join(root, dir_i))
@@ -77,7 +77,7 @@ def traverse_folder_in_dir_name(search_dir, folder_suffix):
 def traverse_folder_in_type(search_dir, file_suffix, build_root):
     policy_file_list = []
     flag = 0
-    for root, _, files in os.walk(search_dir):
+    for root, _, files in sorted(os.walk(search_dir)):
         for each_file in files:
             if each_file.endswith(file_suffix):
                 path = os.path.join(root, each_file)
