@@ -16,6 +16,15 @@ allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
 allow storage_daemon ntfs:dir { read search setattr getattr mounton };
 allow storage_daemon hmdfs:filesystem { unmount };
+allow storage_daemon hmdfs:file { mounton };
+allow storage_daemon data_service_el2_hmdfs:file { mounton };
+allow storage_daemon data_user_file:file { mounton };
+allow storage_daemon data_app_el1_file:file { mounton };
+allow storage_daemon data_local_arkcache:file { mounton };
+allow storage_daemon data_local:file { mounton };
+allow storage_daemon normal_hap_data_file_attr:file { mounton };
+allow storage_daemon system_core_hap_data_file_attr:file { mounton };
+allow storage_daemon system_basic_hap_data_file_attr:file { mounton };
 
 neverallow { domain -storage_manager -hidumper_service -samgr -init -sdc } storage_daemon:{ binder } call;
 
