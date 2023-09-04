@@ -116,4 +116,8 @@ allow av_codec_service normal_hap_attr:binder { call transfer };
 allow av_codec_service render_service:binder { transfer };
 
 allow av_codec_service render_service:fd { use };
-allow av_codec_service dev_mpp:chr_file { read write };
+allow av_codec_service dev_mpp:chr_file { open read write ioctl };
+allowxperm av_codec_service dev_mpp:chr_file ioctl { 0x7601 };
+
+allow av_codec_service dev_rga:chr_file { open read write ioctl };
+allowxperm av_codec_service dev_rga:chr_file ioctl { 0x601b 0x5017 };
