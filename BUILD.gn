@@ -511,6 +511,36 @@ action("build_contexts") {
   ]
 }
 
+action("selinux_check") {
+  script = "scripts/selinux_check/selinux_check_main.py"
+
+  args = [
+    "--output-path",
+    rebase_path(target_out_dir),
+    "--source-root-dir",
+    rebase_path("//"),
+  ]
+
+  if (special_selinux_check_config != "default") {
+    args += [
+      "--selinux-check-config",
+      special_selinux_check_config,
+    ]
+  } else {
+    args += [
+      "--selinux-check-config",
+      "base/security/selinux_adapter/scripts/selinux_check/config/selinux_check.json",
+    ]
+  }
+
+  outputs = [ "$target_out_dir" ]
+
+  deps = [
+    ":build_contexts",
+    ":build_policy",
+  ]
+}
+
 copy("selinux_config") {
   if (selinux_enforce) {
     sources = [ "config/config.enforce" ]
@@ -751,6 +781,7 @@ group("selinux_group") {
       ":parameter_contexts",
       ":restorecon",
       ":sehap_contexts",
+      ":selinux_check",
       ":service_check",
       ":service_contexts",
       ":updater_config",
