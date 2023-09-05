@@ -72,3 +72,4 @@ allow wifi_hal_service data_service_el1_file:sock_file { write setattr getattr u
 allow wifi_hal_service data_service_el1_file:dir { create search write getattr add_name };
 allow wifi_hal_service data_local_tmp:dir { write search };
 allow wifi_hal_service wifi_hal_service:udp_socket {  ioctl };
+
