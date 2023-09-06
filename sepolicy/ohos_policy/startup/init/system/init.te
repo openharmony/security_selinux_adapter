@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow init nwebspawn_socket:sock_file { unlink };
+allow init appspawn_socket:sock_file { unlink };
 allow init data_ethernet:dir { getattr };
 allow init data_log:file { getattr };
 allow init data_parameters:file { getattr };
