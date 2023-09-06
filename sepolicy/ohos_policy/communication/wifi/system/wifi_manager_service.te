@@ -61,3 +61,4 @@ allow wifi_manager_service distributeddata:fd { use };
 allow wifi_manager_service sa_dataobs_mgr_service_service:samgr_class { get };
 allow wifi_manager_service sa_distributeddata_service:samgr_class { get };
 allow wifi_manager_service sa_foundation_abilityms:samgr_class { get };
+allow wifi_manager_service sys_file:file { read open };
