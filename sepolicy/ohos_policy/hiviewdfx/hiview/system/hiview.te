@@ -188,3 +188,5 @@ allow hiview vendor_etc_file:file { read open };
 allow hiview hisysevent:binder { call transfer };
 allow hiview hisysevent:dir { search };
 allow hiview hisysevent:file { read open getattr };
+
+allow hiview dev_ucollection:chr_file { ioctl open read write };
