@@ -227,4 +227,4 @@ allow dscreen dhardware:binder { transfer };
 allow dscreen hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
 allow dscreen codec_host:binder { transfer };
 allow dscreen codec_host:binder { call transfer };
-allow dscreen codec_host:binder { cal };
+allow dscreen codec_host:binder { call };
