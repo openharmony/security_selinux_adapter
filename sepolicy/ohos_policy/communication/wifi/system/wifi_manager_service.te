@@ -61,6 +61,7 @@ allow wifi_manager_service distributeddata:fd { use };
 allow wifi_manager_service sa_dataobs_mgr_service_service:samgr_class { get };
 allow wifi_manager_service sa_distributeddata_service:samgr_class { get };
 allow wifi_manager_service sa_foundation_abilityms:samgr_class { get };
+allow wifi_manager_service sa_wifi_device_ability:samgr_class { get };
 allow wifi_manager_service sys_file:file { read open };
 # avc:  denied  { read write } for  pid=7931 comm="sa_main" path="/dev/console" dev="tmpfs" ino=40 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
 allow wifi_manager_service dev_console_file:chr_file { read write };
