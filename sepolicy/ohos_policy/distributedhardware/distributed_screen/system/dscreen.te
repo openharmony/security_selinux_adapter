@@ -219,8 +219,6 @@ allow dscreen sysfs_devices_system_cpu:file { read open getattr };
 #avc:  denied  { node_bind } for  pid=2876 comm="IPC_1_2884" saddr=127.0.0.1 src=7000 scontext=u:r:dscreen:s0 tcontext=u:object_r:node:s0 tclass=tcp_socket permissive=1
 allow dscreen node:tcp_socket { node_bind };
 
-allow dscreen sceneboard_hap:binder { call };
-allow dscreen sceneboard_hap:binder { call transfer };
 allow dscreen system_lib_file:dir { open read };
 allow dscreen dev_ashmem_file:chr_file { open };
 allow dscreen dhardware:binder { transfer };
