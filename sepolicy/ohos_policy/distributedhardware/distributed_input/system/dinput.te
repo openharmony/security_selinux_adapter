@@ -93,3 +93,5 @@ allow dinput sysfs_devices_system_cpu:file { open read getattr };
 allow dinput dev_file:dir { getattr };
 
 allow dinput tracefs_trace_marker_file:file { open write };
+
+allow dinput sa_foundation_wms:samgr_class { get };
