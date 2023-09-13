@@ -223,6 +223,4 @@ allow dscreen system_lib_file:dir { open read };
 allow dscreen dev_ashmem_file:chr_file { open };
 allow dscreen dhardware:binder { transfer };
 allow dscreen hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
-allow dscreen codec_host:binder { transfer };
 allow dscreen codec_host:binder { call transfer };
-allow dscreen codec_host:binder { call };
