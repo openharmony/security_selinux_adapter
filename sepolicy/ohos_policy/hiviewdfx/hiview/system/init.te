@@ -21,3 +21,5 @@ allow init hiview_file:dir { write add_name create };
 
 #avc:  denied  { setattr } for pid=899 comm="init" name="userlist" dev="sysfs" scontext=u:r:init:s0 tcontext=u:object_r:sysfs_hungtask_userlist:s0 tclass=file permissive=0
 allow init sysfs_hungtask_userlist:file { setattr };
+
+allow init dev_ucollection:chr_file { setattr };
