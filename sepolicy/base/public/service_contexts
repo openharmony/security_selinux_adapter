@@ -12,6 +12,7 @@
 # limitations under the License.
 
 
+0                                      u:object_r:sa_samgr_service:s0
 10                                     u:object_r:sa_render_service:s0
 116	                                   u:object_r:sa_ability_tools_service:s0
 179	                                   u:object_r:sa_ability_test_service:s0
