@@ -190,3 +190,8 @@ allow hiview hisysevent:dir { search };
 allow hiview hisysevent:file { read open getattr };
 
 allow hiview dev_ucollection:chr_file { ioctl open read write };
+
+#avc:  denied  { read } for  pid=1853 comm="plat_shared" name="possible" dev="sysfs" ino=4918 scontext=u:r:hiview:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=1853 comm="plat_shared" path="/sys/devices/system/cpu/possible" dev="sysfs" ino=4918 scontext=u:r:hiview:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=1853 comm="plat_shared" path="/sys/devices/system/cpu/possible" dev="sysfs" ino=4918 scontext=u:r:hiview:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
+allow hiview sysfs_devices_system_cpu:file { read open getattr };
