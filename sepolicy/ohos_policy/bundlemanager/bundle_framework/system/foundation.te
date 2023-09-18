@@ -35,6 +35,7 @@ type bms_param, parameter_attr;
 
 # "/system/profile/foundation.xml", O_RDONLY
 #allow foundation system_file:file read_file_perms;
+domain_auto_transition_pattern(sh, bm_exec, bm);
 
 allow foundation multimodalinput:binder call;
 allow foundation multimodalinput:unix_stream_socket write;
@@ -99,7 +100,6 @@ allow foundation sa_telephony_tel_cellular_call:samgr_class { get };
 allow foundation sa_time_service:samgr_class { get };
 allow foundation screenlock_server:binder { call transfer };
 allow foundation sensors:binder { call };
-allow foundation sh:binder { call transfer };
 allow foundation softbus_server:binder { call transfer };
 allow foundation storage_manager:binder { call transfer };
 allow foundation sys_file:dir { open read };
@@ -117,7 +117,20 @@ allow foundation servicectrl_param:parameter_service { set };
 allowxperm foundation data_service_el1_file:file ioctl { 0x5413 };
 allowxperm foundation dev_mali:chr_file ioctl { 0x8002 0x8005 0x8006 0x8007 0x800e 0x800f 0x8011 0x8016 0x8019 0x801d 0x801e 0x8026 };
 allowxperm foundation sys_file:file ioctl { 0x5413 };
+
 debug_only(`
+    allow foundation sh:binder { call transfer };
+    allow samgr sh:dir { search };
+    allow samgr sh:file { open read };
+    allow samgr sh:process { getattr };
+    allow samgr sh:binder { call transfer };
+    allow bm samgr:binder { call };
+    allow bm debug_param:file { map read open };
+    allow bm hilog_param:file { map read open };
+    allow bm sa_foundation_bms:samgr_class { get };
+    allow bm foundation:binder { call transfer };
+    allow bm foundation:fd { use };
+    allow bm data_service_el1_file:file { read write };
     allow bms_param tmpfs:filesystem associate;
     allow init bms_param:file { map open read relabelto relabelfrom };
     allow { domain -limit_domain } bms_param:file { map open read };
