@@ -11,8 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow sh accountmgr:binder { call };
-allow sh data_file:dir { open read };
-allow sh edm_sa:binder { call };
-allow sh sa_accountmgr:samgr_class { get };
-allow sh sa_foundation_abilityms:samgr_class { get };
+debug_only(`
+    allow sh accountmgr:binder { call };
+    allow sh data_file:dir { open read };
+    allow sh edm_sa:binder { call };
+    allow sh edm_sa:dir { getattr search };
+    allow sh edm_sa:file { open read };
+    allow sh edm_sa:process { getattr };
+    allow sh sa_accountmgr:samgr_class { get };
+    allow sh sa_foundation_abilityms:samgr_class { get };
+')
