@@ -36,7 +36,8 @@ type bms_param, parameter_attr;
 # "/system/profile/foundation.xml", O_RDONLY
 #allow foundation system_file:file read_file_perms;
 
-#domain_auto_transition_pattern(sh, bm_exec, bm);
+domain_auto_transition_pattern(sh, bm_exec, bm);
+domain_auto_transition_pattern(sh, bundle_test_tool_exec, bundle_test_tool);
 
 allow foundation multimodalinput:binder call;
 allow foundation multimodalinput:unix_stream_socket write;
@@ -130,11 +131,39 @@ allow bm sa_foundation_bms:samgr_class { get };
 allow bm foundation:binder { call transfer };
 allow bm foundation:fd { use };
 allow bm data_service_el1_file:file { read write };
+allow bm hdcd:fd { use };
+allow bm sh:fd { use };
+allow bm hdcd:fifo_file { read write ioctl };
+allowxperm bm hdcd:fifo_file ioctl { 0x5413 };
+allow bm data_file:dir { search getattr};
+allow bm data_local:dir read_dir_perms;
+allow bm data_local_tmp:dir read_dir_perms;
+allow foundation bm:binder { call transfer };
+allow bm hdcd:unix_stream_socket { read write };
+allow bm data_local_tmp:file { read_file_perms };
+
+allow bm dev_console_file:chr_file { read write };
+allow bm dev_unix_socket:dir { search };
+allow bm data_file:file { getattr };
+allow bm sh:fifo_file { write };
+allow bm tracefs:dir { search };
+
+allow samgr bundle_test_tool:dir { search };
+allow samgr bundle_test_tool:file { open read };
+allow samgr bundle_test_tool:process { getattr };
+allow samgr bundle_test_tool:binder { call transfer };
+allow bundle_test_tool samgr:binder { call };
+allow bundle_test_tool debug_param:file { map read open };
+allow bundle_test_tool hilog_param:file { map read open };
+allow bundle_test_tool sa_foundation_bms:samgr_class { get };
+allow bundle_test_tool foundation:binder { call transfer };
+allow bundle_test_tool foundation:fd { use };
+allow bundle_test_tool data_service_el1_file:file { read write };
 
 debug_only(`
     allow bms_param tmpfs:filesystem associate;
     allow init bms_param:file { map open read relabelto relabelfrom };
-    allow { domain -limit_domain } bms_param:file { map open read };
+    allow { domain -limit_domain -sh -console } bms_param:file { map open read };
     allow { param_watcher } bms_param:parameter_service { set };
 ')
 
