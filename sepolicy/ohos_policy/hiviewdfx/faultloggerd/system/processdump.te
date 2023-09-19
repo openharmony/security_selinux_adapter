@@ -38,8 +38,8 @@ processdump_cmd({
 })
 
 #============= domain =================
-allow domain processdump:process { share sigchld };
-allow domain self:fifo_file { write };
+allow { domain -limit_domain -sh -console } processdump:process { share sigchld };
+allow { domain -limit_domain -sh -console } self:fifo_file { write };
 allow processdump { domain -processdump -kernel }:process ptrace;
 allow processdump domain:fd use;
 allow processdump domain:fifo_file { read write };

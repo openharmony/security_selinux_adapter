@@ -17,7 +17,7 @@ define(`use_hisysevent', `
     allow $1 hisysevent_socket:sock_file write;
 ')
 
-use_hisysevent({ domain -kernel })
+use_hisysevent({ domain -kernel -sh -console })
 
 allow hiview hiview:capability2 { syslog };
 allow hiview hiview:dir { search };

@@ -18,11 +18,33 @@ debug_only(`
 ')
 
 # for shell
+allow sh rootfs:dir { search };
+allow sh rootfs:lnk_file { read };
+allow sh init:fd { use };
+allow sh dev_file:dir { search };
+allow sh dev_null_file:chr_file { read write open };
+allow sh dev_unix_file:dir { search };
 allow sh devpts:chr_file { getattr ioctl read write };
-allowxperm sh devpts:chr_file ioctl { 0x5413 };
+allowxperm sh devpts:chr_file ioctl { 0x5413 0x5403 };
 allow sh dev_console_file:chr_file { getattr read write };
+allow sh sh:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
+allow sh sh:fd use;
+allow sh sh:file rw_file_perms;
+allow sh sh:fifo_file rw_file_perms;
+allow sh sh:dir read_dir_perms;
+allow sh sh:lnk_file read_file_perms;
+allow sh sh:unix_dgram_socket { connect create write };
 
 # for toybox command execute
+allow sh system_file:dir { search };
+allow sh vendor_file:dir { search };
+allow sh system_lib_file:dir { search };
+allow sh vendor_lib_file:dir { search };
+allow sh system_etc_file:dir { search };
+allow sh lib_file:lnk_file { read };
+allow sh etc_file:lnk_file { read };
+allow sh system_etc_file:file { read open getattr };
+
 allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
 allow sh system_bin_file:lnk_file { read };
 
@@ -51,9 +73,13 @@ allow sh data_local_tmp:dir rw_dir_perms;
 allow sh data_local_tmp:file { create_file_perms };
 
 # for ps -efZ
+allow sh proc_file:dir { search read open getattr };
+allow sh proc_file:lnk_file { read };
+allow sh sys_file:dir { search };
 allow sh domain:dir { getattr search };
 allow sh domain:file { open read };
 allow sh domain:process { getattr };
+allow sh selinuxfs:filesystem { getattr };
 
 # for reboot
 allow sh paramservice_socket:sock_file { write };
@@ -71,6 +97,11 @@ allow sh sa_foundation_bms:samgr_class { get };
 allow sh foundation:binder { call transfer };
 allow sh foundation:fd { use };
 allow sh data_service_el1_file:file { read write };
+allow sh dev_parameters_file:dir { search };
+allow sh dev_parameters_file:file read_file_perms;
+allow sh dev_random_file:chr_file read_file_perms;
+allow sh dev_binder_file:chr_file { ioctl map open read write };
+allowxperm sh dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f };
 
 # for aa start in deveco
 allow sh persist_sys_param:file { map open read };
@@ -79,3 +110,9 @@ allow sh sa_foundation_abilityms:samgr_class { get };
 # for recv /data/log
 allow hdcd data_log:dir { getattr read open };
 allow hdcd data_log:file { getattr read open };
+
+# for hdc shell
+allow sh kernel:fd { use };
+allow sh init:netlink_kobject_uevent_socket { read write };
+allow sh init:unix_stream_socket { read write };
+allow sh system_lib_file:file { map read execute open getattr };
