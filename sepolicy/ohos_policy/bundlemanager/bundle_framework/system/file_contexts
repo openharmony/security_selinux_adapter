@@ -19,4 +19,3 @@
 
 # for bm tool
 /system/bin/bm u:object_r:bm_exec:s0
-domain_auto_transition_pattern(sh, bm_exec, bm);
