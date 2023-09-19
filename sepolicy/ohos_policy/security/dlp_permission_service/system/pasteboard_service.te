@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Copyright (C) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,11 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow fs_attr self:filesystem associate;
-allow file_attr labeledfs:filesystem associate;
-allow dev_attr tmpfs:filesystem associate;
+# avc:  denied  { call } for  pid=1192 comm="pasteboard_serv" scontext=u:r:pasteboard_service:s0 tcontext=u:r:dlp_permission_service:s0 tclass=binder permissive=1
+allow pasteboard_service dlp_permission_service:binder { call };
 
-neverallow storage_daemon ~{ exfat vfat ntfs hmdfs sharefs labeledfs }:filesystem unmount;
-neverallow appspawn ~{ labeledfs fuse_file}:filesystem unmount;
-neverallow nwebspawn ~{ tmpfs labeledfs }:filesystem unmount;
-neverallow hdcd ~{ labeledfs }:filesystem remount;
+# avc:  denied  { get } for service=3521 pid=1192 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_dlp_permission:s0 tclass=samgr_class permissive=1
+allow pasteboard_service sa_dlp_permission:samgr_class { get };
