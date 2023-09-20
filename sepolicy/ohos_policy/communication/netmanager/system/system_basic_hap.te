@@ -20,6 +20,9 @@ allow system_basic_hap_attr netsysnative:unix_stream_socket { connectto read wri
 allow system_basic_hap_attr system_basic_hap_attr:tcp_socket { getattr create setopt bind connect getopt read write shutdown };
 allow system_basic_hap_attr system_basic_hap_attr:udp_socket { getattr create setopt bind connect getopt read write shutdown };
 
+allow debug_hap debug_hap:tcp_socket { getattr create setopt bind connect getopt read write shutdown };
+allow debug_hap debug_hap:udp_socket { getattr create setopt bind connect getopt read write shutdown };
+
 allow system_basic_hap_attr netmsg:tcp_socket { node_bind name_connect };
 allow system_basic_hap_attr sa_comm_vpn_manager_service:samgr_class { get };
 allow system_basic_hap_attr netsysnative:fd { use };
