@@ -14,16 +14,17 @@
 # for debug version
 debug_only(`
     permissive sh;
+    permissive su;
     permissive console;
 ')
 
 # for shell
 allow sh rootfs:dir { search };
 allow sh rootfs:lnk_file { read };
-allow sh init:fd { use };
 allow sh dev_file:dir { search };
 allow sh dev_null_file:chr_file { read write open };
 allow sh dev_unix_file:dir { search };
+allow sh dev_unix_socket:dir { search };
 allow sh devpts:chr_file { getattr ioctl read write };
 allowxperm sh devpts:chr_file ioctl { 0x5413 0x5403 };
 allow sh dev_console_file:chr_file { getattr read write };
@@ -34,6 +35,9 @@ allow sh sh:fifo_file rw_file_perms;
 allow sh sh:dir read_dir_perms;
 allow sh sh:lnk_file read_file_perms;
 allow sh sh:unix_dgram_socket { connect create write };
+allow sh sh:unix_stream_socket { connect create write read setopt };
+## for musl.so
+allow sh system_lib_file:file { map read execute open getattr };
 
 # for toybox command execute
 allow sh system_file:dir { search };
@@ -47,8 +51,7 @@ allow sh system_etc_file:file { read open getattr };
 
 allow sh system_bin_file:file { execute execute_no_trans getattr map read open };
 allow sh system_bin_file:lnk_file { read };
-
-# for toybox command auto complete
+## for toybox command auto complete, like tab
 allow sh system_bin_file:dir { search getattr open read };
 
 # for terminal
@@ -56,8 +59,10 @@ allow sh tty_device:chr_file { getattr ioctl open read write };
 allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
 
 # for reboot
-allow sh dev_unix_socket:dir { search };
 allow sh servicectrl_reboot_param:parameter_service set;
+allow sh paramservice_socket:sock_file { write };
+## for /dev/unix/socket/parameterservice
+allow sh kernel:unix_stream_socket { connectto };
 
 # for hdc shell command
 allow sh hdcd:fifo_file { read };
@@ -72,6 +77,10 @@ allow sh data_local:dir read_dir_perms;
 allow sh data_local_tmp:dir rw_dir_perms;
 allow sh data_local_tmp:file { create_file_perms };
 
+# for data/log/hilog
+allow sh data_hilogd_file:dir read_dir_perms;
+allow sh data_hilogd_file:file read_file_perms;
+
 # for ps -efZ
 allow sh proc_file:dir { search read open getattr };
 allow sh proc_file:lnk_file { read };
@@ -81,38 +90,28 @@ allow sh domain:file { open read };
 allow sh domain:process { getattr };
 allow sh selinuxfs:filesystem { getattr };
 
-# for reboot
-allow sh paramservice_socket:sock_file { write };
-allow sh kernel:unix_stream_socket { connectto };
-
-# for bm install
-allow sh debug_param:file { map read open };
-allow sh hilog_param:file { map read open };
-allow sh samgr:binder { call };
-allow samgr sh:dir { search };
-allow samgr sh:file { open read };
-allow samgr sh:process { getattr };
-allow samgr sh:binder { call transfer };
-allow sh sa_foundation_bms:samgr_class { get };
-allow sh foundation:binder { call transfer };
-allow sh foundation:fd { use };
-allow sh data_service_el1_file:file { read write };
+# for param_get
 allow sh dev_parameters_file:dir { search };
 allow sh dev_parameters_file:file read_file_perms;
-allow sh dev_random_file:chr_file read_file_perms;
-allow sh dev_binder_file:chr_file { ioctl map open read write };
-allowxperm sh dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f };
+allow sh debug_param:file { map read open };
+allow sh hilog_param:file { map read open };
+allow sh developtools_hdc_control_param:file { map read open };
 
-# for aa start in deveco
-allow sh persist_sys_param:file { map open read };
-allow sh sa_foundation_abilityms:samgr_class { get };
+# for bin run
+## for bm install
+## domain_auto_transition_pattern(sh, bm_exec, bm);
+## for aa start in deveco
+## domain_auto_transition_pattern(sh, aa_exec, aa);
+domain_auto_transition_pattern(sh, hiperf_exec, hiperf);
+domain_auto_transition_pattern(sh, hiprofiler_cmd_exec, hiprofiler_cmd);
+domain_auto_transition_pattern(sh, hidumper_exec, hidumper);
+domain_auto_transition_pattern(sh, hitrace_exec, hitrace);
+domain_auto_transition_pattern(sh, bytrace_exec, bytrace);
 
-# for recv /data/log
-allow hdcd data_log:dir { getattr read open };
-allow hdcd data_log:file { getattr read open };
+# for sh process crash faultlog
+allow sh processdump:process { share sigchld };
 
-# for hdc shell
-allow sh kernel:fd { use };
-allow sh init:netlink_kobject_uevent_socket { read write };
-allow sh init:unix_stream_socket { read write };
-allow sh system_lib_file:file { map read execute open getattr };
+# for hilog
+use_hilog(sh)
+read_hilog(sh)
+control_hilog(sh)
