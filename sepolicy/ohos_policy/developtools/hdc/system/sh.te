@@ -107,11 +107,19 @@ domain_auto_transition_pattern(sh, hiprofiler_cmd_exec, hiprofiler_cmd);
 domain_auto_transition_pattern(sh, hidumper_exec, hidumper);
 domain_auto_transition_pattern(sh, hitrace_exec, hitrace);
 domain_auto_transition_pattern(sh, bytrace_exec, bytrace);
+domain_auto_transition_pattern(sh, hisysevent_exec, hisysevent);
 
 # for sh process crash faultlog
 allow sh processdump:process { share sigchld };
+domain_auto_transition_pattern(sh, processdump_exec, processdump);
 
 # for hilog
 use_hilog(sh)
 read_hilog(sh)
 control_hilog(sh)
+
+# uitest started by sh, translate to sh domain (in 'start-daemon', parent-process is sh)
+domain_auto_transition_pattern(sh, uitest_exec, sh);
+
+# enable getting accessibility service
+allow sh sa_accessibleabilityms:samgr_class { get };
