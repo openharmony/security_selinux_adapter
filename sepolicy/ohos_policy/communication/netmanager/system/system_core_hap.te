@@ -15,8 +15,8 @@ allow system_core_hap_attr netmanager:binder { call };
 allow system_core_hap_attr netmanager:binder { transfer };
 
 allow system_core_hap_attr netsysnative:unix_stream_socket { connectto read write };
-allow system_core_hap_attr system_core_hap_attr:tcp_socket { getattr create setopt bind connect getopt read write };
-allow system_core_hap_attr system_core_hap_attr:udp_socket { getattr create setopt bind connect getopt read write };
+allow system_core_hap_attr system_core_hap_attr:tcp_socket { getattr create setopt bind connect getopt read write shutdown };
+allow system_core_hap_attr system_core_hap_attr:udp_socket { getattr create setopt bind connect getopt read write shutdown };
 
 allow system_core_hap_attr system_core_hap_attr:udp_socket { getopt };
 allow system_core_hap_attr fwmark_service:sock_file { write };
@@ -26,3 +26,5 @@ allow system_core_hap_attr node:tcp_socket { node_bind };
 
 allow system_core_hap_attr sa_netsys_ext_service:samgr_class { add get };
 allow system_core_hap_attr sa_distributed_net_service:samgr_class { add get };
+
+allow debug_hap debug_hap:udp_socket { shutdown };
