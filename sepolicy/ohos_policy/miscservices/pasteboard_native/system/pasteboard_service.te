@@ -72,3 +72,6 @@ allow pasteboard_service sa_foundation_abilityms:samgr_class { get };
 allow pasteboard_service system_core_hap_attr:fd { use };
 
 allow pasteboard_service system_basic_hap_attr:fd { use };
+
+#avc:  denied  { get } for service=183 pid=1599 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_uri_permission_mgr_service:s0 tclass=samgr_class permissive=1
+allow pasteboard_service sa_uri_permission_mgr_service:samgr_class { get };
