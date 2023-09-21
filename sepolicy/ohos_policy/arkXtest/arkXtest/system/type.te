@@ -12,3 +12,7 @@
 # limitations under the License.
 
 type uitest_exec, exec_attr, file_attr, system_file_attr;
+
+debug_only(`
+    allow render_service sh:binder { call transfer };
+')
