@@ -1,0 +1,3 @@
+type sa_ecological_rule_mgr_service, sa_service_attr;
+6105	                               u:object_r:sa_ecological_rule_mgr_service:s0
+allow foundation sa_ecological_rule_mgr_service:samgr_class { add get };
