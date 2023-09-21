@@ -14,7 +14,7 @@
 ## Read/Use/Control hilog rules: ##
 ###################################
 read_hilog(hap_domain)
-use_hilog({ domain -kernel -sh })
+use_hilog({ domain -kernel -sh -console })
 
 #######################
 ## Allow rule below: ##
