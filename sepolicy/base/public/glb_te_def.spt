@@ -57,6 +57,13 @@ define(`hap_set', `
     neverallow { domain -$1 -processdump } $1:process ptrace;
 ')
 
+# policy only for developer version
+# developer_only(`
+#    developer_only
+# ')
+#
+define(`developer_only', ifelse(build_with_developer, `enable', $1, ))
+
 # policy only for debug version
 # debug_only(`
 #    debug_policy

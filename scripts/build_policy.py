@@ -40,6 +40,8 @@ def parse_args():
                         help='build for debug target', required=True)
     parser.add_argument('--updater-version',
                         help='build for updater target', required=True)
+    parser.add_argument('--developer-version',
+                        help='build for developer target', required=True)
     parser.add_argument('--components',
                         help='system or vendor or default', required=True)
     parser.add_argument('--vendor-policy-version',

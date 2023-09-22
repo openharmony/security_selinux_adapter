@@ -129,9 +129,11 @@ def run_command(in_cmd):
         raise Exception(ret)
 
 
-def build_conf(args, output_conf, file_list):
+def build_conf(args, output_conf, file_list, with_developer=False):
     m4_args = ["-D", "build_with_debug=" + args.debug_version]
     m4_args += ["-D", "build_with_updater=" + args.updater_version]
+    if with_developer:
+        m4_args += ["-D", "build_with_developer=enable"]
     build_conf_cmd = ["m4", "-s", "--fatal-warnings"] + m4_args + file_list
     with open(output_conf, 'w') as fd:
         ret = subprocess.run(build_conf_cmd, shell=False, stdout=fd).returncode
@@ -371,8 +373,15 @@ def generate_version_file(args, output_file):
     run_command(cmd)
 
 
-def generate_default_policy(args, system_policy_file_list, vendor_policy_file_list, min_policy_file_list):
-    output_path = os.path.abspath(os.path.dirname(args.dst_file))
+def generate_default_policy(args, policy, with_developer=False):
+    if with_developer:
+        if args.developer_version == "false":
+            return []
+        output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
+    else:
+        output_path = os.path.abspath(os.path.dirname(args.dst_file))
     system_output_conf = os.path.join(output_path, "system.conf")
     vendor_output_conf = os.path.join(output_path, "vendor.conf")
     min_output_conf = os.path.join(output_path, "min.conf")
@@ -382,17 +391,17 @@ def generate_default_policy(args, system_policy_file_list, vendor_policy_file_li
     min_cil_path = os.path.join(output_path, "min.cil")
 
     # build system.conf
-    build_conf(args, system_output_conf, system_policy_file_list)
+    build_conf(args, system_output_conf, policy.system_policy_file_list, with_developer)
     # build system.cil
     build_cil(args, system_cil_path, system_output_conf)
 
     # build vendor.conf
-    build_conf(args, vendor_output_conf, vendor_policy_file_list)
+    build_conf(args, vendor_output_conf, policy.vendor_policy_file_list, with_developer)
     # build vendor.cil
     build_cil(args, vendor_cil_path, vendor_output_conf)
 
     # build min.conf
-    build_conf(args, min_output_conf, min_policy_file_list)
+    build_conf(args, min_output_conf, policy.min_policy_file_list)
     # build min.cil
     build_cil(args, min_cil_path, min_output_conf)
 
@@ -401,9 +410,15 @@ def generate_default_policy(args, system_policy_file_list, vendor_policy_file_li
     return [vendor_cil_path, system_cil_path]
 
 
-def generate_special_policy(args, system_policy_file_list, vendor_policy_file_list, public_policy_file_list,
-                            min_policy_file_list):
-    output_path = os.path.abspath(os.path.dirname(args.dst_file))
+def generate_special_policy(args, policy, with_developer=False):
+    if with_developer:
+        if args.developer_version == "false":
+            return []
+        output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
+    else:
+        output_path = os.path.abspath(os.path.dirname(args.dst_file))
     system_output_conf = os.path.join(output_path, "system.conf")
     vendor_output_conf = os.path.join(output_path, "vendor.conf")
     public_output_conf = os.path.join(output_path, "public.conf")
@@ -420,23 +435,23 @@ def generate_special_policy(args, system_policy_file_list, vendor_policy_file_li
     type_version_cil_path = os.path.join(output_path, "".join([args.vendor_policy_version, ".cil"]))
 
     # build system.conf
-    build_conf(args, system_output_conf, system_policy_file_list)
+    build_conf(args, system_output_conf, policy.system_policy_file_list, with_developer)
     # build system.cil
     build_cil(args, system_cil_path, system_output_conf)
 
     # build min.cil
-    build_conf(args, min_output_conf, min_policy_file_list)
+    build_conf(args, min_output_conf, policy.min_policy_file_list)
     build_cil(args, min_cil_path, min_output_conf)
 
     # build public.cil
-    build_conf(args, public_output_conf, public_policy_file_list)
+    build_conf(args, public_output_conf, policy.public_policy_file_list, with_developer)
     build_cil(args, public_origin_cil_path, public_output_conf)
     type_set = get_type_set(public_origin_cil_path)
     filter_out(min_cil_path, public_origin_cil_path)
     build_version_cil(args.vendor_policy_version, public_origin_cil_path, public_version_cil_path, type_set)
 
     # build vendor.cil
-    build_conf(args, vendor_output_conf, vendor_policy_file_list)
+    build_conf(args, vendor_output_conf, policy.vendor_policy_file_list, with_developer)
     build_cil(args, vendor_origin_cil_path, vendor_output_conf)
     filter_out(min_cil_path, vendor_origin_cil_path)
     build_version_cil(args.vendor_policy_version, vendor_origin_cil_path, vendor_cil_path, type_set)
@@ -458,22 +473,50 @@ def generate_special_policy(args, system_policy_file_list, vendor_policy_file_li
     return [vendor_cil_path, system_cil_path, type_version_cil_path, public_version_cil_path]
 
 
+def generate_developer_cil(args):
+    developer_output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
+    output_path = os.path.abspath(os.path.dirname(args.dst_file))
+
+    system_cil_path = os.path.join(output_path, "system.cil")
+    developer_system_cil_path = os.path.join(developer_output_path, "system.cil")
+    filter_out(system_cil_path, developer_system_cil_path)
+
+    vendor_cil_path = os.path.join(output_path, "vendor.cil")
+    developer_vendor_cil_path = os.path.join(developer_output_path, "vendor.cil")
+    filter_out(vendor_cil_path, developer_vendor_cil_path)
+
+    if args.components != "default":
+        public_cil_path = os.path.join(output_path, "public.cil")
+        developer_public_cil_path = os.path.join(developer_output_path, "public.cil")
+        filter_out(public_cil_path, developer_public_cil_path)
+
+
+def build_developer_binary_policy(args, check_neverallow, cil_list, developer_cil_list):
+    if args.developer_version == "false":
+        return
+    developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
+    build_binary_policy(args.tool_path, developer_policy_path, check_neverallow, developer_cil_list)
+    generate_developer_cil(args)
+    build_binary_policy(args.tool_path, developer_policy_path, check_neverallow, cil_list + developer_cil_list)
+
+
 def compile_sepolicy(args):
     dir_list_object = get_policy_dir_list(args)
     file_list_object = get_policy_file_list(args, dir_list_object)
 
-    cil_list = []
-    if args.components == "default" or args.updater_version == "enable":
-        cil_list += generate_default_policy(args, file_list_object.system_policy_file_list,
-                                            file_list_object.vendor_policy_file_list,
-                                            file_list_object.min_policy_file_list)
+    if args.updater_version == "enable":
+        cil_list = generate_default_policy(args, file_list_object, False)
+        build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
     else:
-        cil_list += generate_special_policy(args, file_list_object.system_policy_file_list,
-                                            file_list_object.vendor_policy_file_list,
-                                            file_list_object.public_policy_file_list,
-                                            file_list_object.min_policy_file_list)
+        if args.components == "default":
+            cil_list = generate_default_policy(args, file_list_object, False)
+            developer_cil_list = generate_default_policy(args, file_list_object, True)
+        else:
+            cil_list = generate_special_policy(args, file_list_object, False)
+            developer_cil_list = generate_special_policy(args, file_list_object, True)
 
-    build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
+        build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
+        build_developer_binary_policy(args, True, cil_list, developer_cil_list)
 
 
 def main(args):
