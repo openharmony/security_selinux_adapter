@@ -36,7 +36,7 @@ ohos_shared_library("libload_policy") {
     "-Wall",
     "-Werror",
   ]
-  if (support_developer_mode == "true") {
+  if (support_developer_mode) {
     cflags += [ "-DWITH_DEVELOPER" ]
   }
   install_enable = true
@@ -372,7 +372,7 @@ action("build_policy") {
     "--updater-version",
     updater_version,
     "--developer-version",
-    support_developer_mode,
+    "$support_developer_mode",
     "--components",
     components,
   ]
@@ -405,7 +405,7 @@ action("build_policy") {
     target_out_dir + "/public.cil",
   ]
 
-  if (support_developer_mode == "true") {
+  if (support_developer_mode) {
     outputs += [
       target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256",
       target_out_dir + "/developer/system.cil.sha256",
@@ -759,7 +759,7 @@ ohos_prebuilt_etc("system_cil_sha256") {
   install_images = [ "system" ]
 }
 
-if (support_developer_mode == "true") {
+if (support_developer_mode) {
   ohos_prebuilt_etc("system_developer_cil") {
     deps = [ ":build_policy" ]
     source = target_out_dir + "/developer/system.cil"
@@ -895,7 +895,7 @@ group("selinux_group") {
         ":system_cil_sha256",
         ":version_cil",
       ]
-      if (support_developer_mode == "true") {
+      if (support_developer_mode) {
         deps += [
           ":system_developer_cil",
           ":system_developer_cil_sha256",
@@ -909,7 +909,7 @@ group("selinux_group") {
         ":selinux_version",
         ":vendor_cil",
       ]
-      if (support_developer_mode == "true") {
+      if (support_developer_mode) {
         deps += [
           ":developer_policy",
           ":prebuild_sepolicy_system_developer_cil_sha256",
@@ -919,7 +919,7 @@ group("selinux_group") {
       }
     } else {
       deps += [ ":build_sepolicy" ]
-      if (support_developer_mode == "true") {
+      if (support_developer_mode) {
         deps += [ ":developer_policy" ]
       }
     }
