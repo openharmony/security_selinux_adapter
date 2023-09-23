@@ -23,7 +23,7 @@ declare_args() {
   special_selinux_check_config = "default"
   extra_args = "default"
   contexts_extra_args = "default"
-  support_developer_mode = "false"
+  support_developer_mode = false
 }
 
 declare_args() {
