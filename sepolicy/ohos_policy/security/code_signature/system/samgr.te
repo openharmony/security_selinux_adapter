@@ -11,12 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type uitest_exec, exec_attr, file_attr, system_file_attr;
+allow samgr key_enable:dir { search open read getattr };
 
-# uitest started by sh, translate to sh domain (in 'start-daemon', parent-process is sh)
-domain_auto_transition_pattern(sh, uitest_exec, sh);
+allow samgr key_enable:file { open read };
 
-# enable getting accessibility service
-debug_only(`
-allow sh sa_accessibleabilityms:samgr_class { get };
-')
+allow samgr key_enable:process { getattr };

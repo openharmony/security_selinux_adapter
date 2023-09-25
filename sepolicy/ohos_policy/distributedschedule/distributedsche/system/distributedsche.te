@@ -51,6 +51,7 @@ allow distributedsche softbus_server:tcp_socket { read setopt shutdown write };
 allow distributedsche sa_device_security_level_manager_service:samgr_class { get };
 allow distributedsche dslm_service:binder { call transfer };
 allow distributedsche dev_console_file:chr_file { read write };
+allow distributedsche sa_foundation_wms:samgr_class { get };
 
 allow distributedsche sa_foundation_devicemanager_service:samgr_class { get };
 allow distributedsche devinfo_private_param:file { map open read};

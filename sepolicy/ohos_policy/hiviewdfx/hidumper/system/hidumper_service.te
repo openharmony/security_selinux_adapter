@@ -179,6 +179,7 @@ allow hidumper_service sysfs_devices_system_cpu:file { getattr open read };
 allow hidumper_service tty_device:chr_file getattr;
 allow hidumper_service hdcd:fifo_file write;
 
+allow hidumper_service sa_samgr_service:samgr_class get;
 allow hidumper_service sa_accessibleabilityms:samgr_class get;
 allow hidumper_service sa_accountmgr:samgr_class get;
 allow hidumper_service sa_bgtaskmgr:samgr_class get;

@@ -20,8 +20,10 @@ declare_args() {
   vendor_policy_version = "40"
   special_build_policy_script = "default"
   special_build_contexts_script = "default"
+  special_selinux_check_config = "default"
   extra_args = "default"
   contexts_extra_args = "default"
+  support_developer_mode = false
 }
 
 declare_args() {
