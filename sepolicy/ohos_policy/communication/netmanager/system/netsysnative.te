@@ -97,7 +97,6 @@ allow netsysnative system_core_hap_attr:fd { use };
 allow netsysnative system_core_hap_attr:tcp_socket { read write getopt setopt };
 allow netsysnative edm_sa:binder { call };
 allow netsysnative sysfs_devices_system_cpu:file { read open getattr };
-allow netsysnative sys_file:file { read open };
 
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 
