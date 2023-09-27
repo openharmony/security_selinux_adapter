@@ -26,7 +26,7 @@ allow netsysnative proc_net:file { getattr };
 allow netsysnative system_bin_file:file { execute execute_no_trans getattr map open read };
 allow netsysnative system_etc_file:file { lock };
 allow netsysnative tty_device:chr_file { open read write };
-allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write create ioctl };
+allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write ioctl };
 allow netsysnative port:udp_socket { name_bind };
 allow netsysnative node:udp_socket { node_bind };
 allow netsysnative netsysnative:netlink_nflog_socket { read };
