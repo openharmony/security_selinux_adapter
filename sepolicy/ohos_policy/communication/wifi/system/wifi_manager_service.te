@@ -85,4 +85,6 @@ allow wifi_manager_service netsysnative:unix_stream_socket { connectto };
 
 # avc:  denied  { connect } for  pid=1828 comm="NetCheckThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=tcp_socket permissive=1
 # avc:  denied  { create } for  pid=1828 comm="NetCheckThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=tcp_socket permissive=1
-allow wifi_manager_service wifi_manager_service:tcp_socket { connect create };
+allow wifi_manager_service wifi_manager_service:tcp_socket { connect create getopt read write };
+allow wifi_manager_service port:tcp_socket { name_connect };
+
