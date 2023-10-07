@@ -61,6 +61,7 @@ allow wifi_manager_service distributeddata:fd { use };
 allow wifi_manager_service sa_dataobs_mgr_service_service:samgr_class { get };
 allow wifi_manager_service sa_distributeddata_service:samgr_class { get };
 allow wifi_manager_service sa_foundation_abilityms:samgr_class { get };
+allow wifi_manager_service sa_wifi_device_ability:samgr_class { get };
 allow wifi_manager_service sys_file:file { read open };
 # avc:  denied  { read write } for  pid=7931 comm="sa_main" path="/dev/console" dev="tmpfs" ino=40 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
 allow wifi_manager_service dev_console_file:chr_file { read write };
@@ -78,3 +79,12 @@ allow wifi_manager_service sysfs_net:dir { open read };
 # avc:  denied  { getopt } for  pid=7931 comm="RunHandleThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=unix_dgram_socket permissive=1
 # avc:  denied  { setopt } for  pid=7931 comm="RunHandleThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=unix_dgram_socket permissive=1
 allow wifi_manager_service wifi_manager_service:unix_dgram_socket { getopt setopt };
+
+# avc:  denied  { connectto } for  pid=1828 comm="GetHostThread" path="/dev/unix/socket/dnsproxyd" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:netsysnative:s0 tclass=unix_stream_socket permissive=1
+allow wifi_manager_service netsysnative:unix_stream_socket { connectto };
+
+# avc:  denied  { connect } for  pid=1828 comm="NetCheckThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=tcp_socket permissive=1
+# avc:  denied  { create } for  pid=1828 comm="NetCheckThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=tcp_socket permissive=1
+allow wifi_manager_service wifi_manager_service:tcp_socket { connect create getopt read write };
+allow wifi_manager_service port:tcp_socket { name_connect };
+

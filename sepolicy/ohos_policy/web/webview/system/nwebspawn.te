@@ -131,6 +131,7 @@ allow nwebspawn appspawn:fd { use };
 # avc:  denied  { connect } for  pid=306 comm="appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:appspawn:s0 tclass=unix_dgram_socket permissive=0
 # avc:  denied  { write } for  pid=308 comm="appspawn" path="socket:[19920]" dev="sockfs" ino=19920 scontext=u:r:nwebspawn:s0 tcontext=u:r:appspawn:s0 tclass=unix_dgram_socket permissive=1
 allow nwebspawn appspawn:unix_dgram_socket { connect write };
+allow nwebspawn appspawn:unix_stream_socket { getopt setopt getattr listen accept read write };
 
 
 # avc: denied { getopt } for pid=426 comm="appspawn" scontext=u:r:nwebspawn:s0 tcontext=u:r:nwebspawn:s0 tclass=unix_dgram_socket permissive=1

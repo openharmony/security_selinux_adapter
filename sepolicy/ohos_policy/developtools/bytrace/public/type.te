@@ -15,4 +15,4 @@ type bytrace_exec, exec_attr, file_attr, system_file_attr;
 
 type bytrace, nativedomain, domain;
 
-domain_auto_transition_pattern(nativedomain, bytrace_exec, bytrace);
+domain_auto_transition_pattern({ nativedomain -sh -console }, bytrace_exec, bytrace);

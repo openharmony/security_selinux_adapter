@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow updater_binary data_updater_file:file { execute execute_no_trans };
-
 updater_only(`
 
 #avc: denied { search } for pid=281 comm="updater" name="/" dev="rootfs" ino=1 scontext=u:object_r:updater_binary:s0 tcontext=u:object_r:rootfs:s0 tclass=dir permissive=1
@@ -257,18 +255,3 @@ allowxperm updater_binary dev_dri_file:chr_file ioctl { 0x6409 0x64af };
 
 ')
 
-allow updater_binary data_file:dir { search };
-allow updater_binary data_updater_file:dir { search };
-allow updater_binary data_updater_file:file { map read open append };
-allow updater_binary dev_block_file:blk_file { read write open };
-allow updater_binary dev_block_file:dir { search };
-allow updater_binary dev_block_file:lnk_file { read };
-allow updater_binary dev_block_volfile:dir { search };
-allow updater_binary musl_param:file { read open map };
-allow updater_binary ohos_boot_param:file { open map read };
-allow updater_binary sys_installer_sa:fifo_file { write getattr };
-allow updater_binary sys_installer_sa:fd { use };
-allow updater_binary dev_unix_socket:dir { search };
-allow updater_binary sys_installer_sa:unix_dgram_socket { connect write };
-allow updater_binary system_bin_file:dir { search };
-allow updater_binary system_bin_file:file { execute execute_no_trans read open map };
