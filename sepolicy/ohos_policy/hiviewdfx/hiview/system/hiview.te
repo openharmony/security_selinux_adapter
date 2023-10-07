@@ -195,3 +195,11 @@ allow hiview dev_ucollection:chr_file { ioctl open read write };
 #avc:  denied  { open } for  pid=1853 comm="plat_shared" path="/sys/devices/system/cpu/possible" dev="sysfs" ino=4918 scontext=u:r:hiview:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 #avc:  denied  { getattr } for  pid=1853 comm="plat_shared" path="/sys/devices/system/cpu/possible" dev="sysfs" ino=4918 scontext=u:r:hiview:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=1
 allow hiview sysfs_devices_system_cpu:file { read open getattr };
+
+#avc:  denied  { read } for  pid=260 comm="IPC_2_721" name="tracing_on" dev="tracefs" ino=18185 scontext=u:r:hiview:s0 tcontext=u:object_r:tracefs:s0 tclass=file permissive=0
+#avc:  denied  { open } for  pid=262 comm="IPC_3_1102" path="/sys/kernel/debug/tracing/events/binder/binder_transaction/enable" dev="tracefs" ino=15693 scontext=u:r:hiview:s0 tcontext=u:object_r:tracefs:s0 tclass=file permissive=1
+#avc:  denied  { ioctl } for  pid=262 comm="IPC_3_1102" path="/sys/kernel/debug/tracing/events/binder/binder_transaction/enable" dev="tracefs" ino=15693 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:tracefs:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=262 comm="IPC_3_1102" path="/sys/kernel/debug/tracing/events/binder/binder_transaction/enable" dev="tracefs" ino=15693 scontext=u:r:hiview:s0 tcontext=u:object_r:tracefs:s0 tclass=file permissive=1
+allow hiview tracefs:file { read open ioctl getattr };
+allowxperm hiview tracefs:file ioctl { 0x5413 };
+
