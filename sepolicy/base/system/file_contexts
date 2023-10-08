@@ -257,6 +257,8 @@
 /data/sadata/(.*)?                 u:object_r:data_sadata:s0
 /data/sadata_de                       u:object_r:data_sadata_de:s0
 /data/sadata_de/(.*)?                 u:object_r:data_sadata_de:s0
+/data/samgr                       u:object_r:data_samgr:s0
+/data/samgr/(.*)?                 u:object_r:data_samgr:s0
 /data/ss                       u:object_r:data_ss:s0
 /data/ss/(.*)?                 u:object_r:data_ss:s0
 /data/system                       u:object_r:data_system:s0
