@@ -224,3 +224,6 @@ allow dscreen dev_ashmem_file:chr_file { open };
 allow dscreen dhardware:binder { transfer };
 allow dscreen hdf_codec_hdi_omx_service:hdf_devmgr_class { get };
 allow dscreen codec_host:binder { call transfer };
+
+#avc:  denied  { get } for service=401 pid=1478 scontext=u:r:dscreen:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
+allow dscreen sa_foundation_bms:samgr_class { get };
