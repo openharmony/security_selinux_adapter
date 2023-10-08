@@ -29,10 +29,10 @@ type native_daemon, nativedomain, domain;
 
 type hiprofiler_socket, dev_attr, file_attr;
 
-domain_auto_transition_pattern(nativedomain, hiprofilerd_exec, hiprofilerd);
+domain_auto_transition_pattern({ nativedomain -sh -console }, hiprofilerd_exec, hiprofilerd);
 
-domain_auto_transition_pattern(nativedomain, hiprofiler_cmd_exec, hiprofiler_cmd);
+domain_auto_transition_pattern({ nativedomain -sh -console }, hiprofiler_cmd_exec, hiprofiler_cmd);
 
-domain_auto_transition_pattern(nativedomain, hiprofiler_plugins_exec, hiprofiler_plugins);
+domain_auto_transition_pattern({ nativedomain -sh -console }, hiprofiler_plugins_exec, hiprofiler_plugins);
 
-domain_auto_transition_pattern(nativedomain, native_daemon_exec, native_daemon);
+domain_auto_transition_pattern({ nativedomain -sh -console }, native_daemon_exec, native_daemon);

@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,10 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# please put short path ahead.
-# use relative path to mount point.
-
-genfscon sysfs /fs/f2fs          u:object_r:f2fs_hc_file:s0
-
-# for memory, transparent_hugepage
-genfscon sysfs /kernel/mm/transparent_hugepage u:object_r:sysfs_transparent_hugepage:s0
+allow ui_service arkui_param:parameter_service { set };
+allow ui_service arkui_param:file { map open read };
+allow ui_service kernel:unix_stream_socket { connectto };
+allow ui_service paramservice_socket:sock_file { write };
+allow ui_service sa_foundation_appms:samgr_class { get };
+allow ui_service sa_ui_appearance:samgr_class { add };

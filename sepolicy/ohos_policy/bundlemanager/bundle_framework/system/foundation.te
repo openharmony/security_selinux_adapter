@@ -117,6 +117,7 @@ allow foundation time_service:binder { call transfer };
 allow foundation vendor_lib_file:dir { search };
 allow foundation work_scheduler_service:binder { call };
 allow foundation servicectrl_param:parameter_service { set };
+allow foundation sa_download_service:samgr_class get;
 allowxperm foundation data_service_el1_file:file ioctl { 0x5413 };
 allowxperm foundation dev_mali:chr_file ioctl { 0x8002 0x8005 0x8006 0x8007 0x800e 0x800f 0x8011 0x8016 0x8019 0x801d 0x801e 0x8026 };
 allowxperm foundation sys_file:file ioctl { 0x5413 };

@@ -35,7 +35,7 @@ define(`use_faultloggerd_crash', `
 ##########################################
 ## Read/Use/Control faultloggerd rules: ##
 ##########################################
-use_faultloggerd({ domain -limit_domain })
+use_faultloggerd({ domain -limit_domain -sh -console })
 use_faultloggerd_crash({ processdump })
 use_faultloggerd_file({ hiview hidumper })
 

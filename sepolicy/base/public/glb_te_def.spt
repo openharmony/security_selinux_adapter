@@ -57,6 +57,13 @@ define(`hap_set', `
     neverallow { domain -$1 -processdump } $1:process ptrace;
 ')
 
+# policy only for developer version
+# developer_only(`
+#    developer_only
+# ')
+#
+define(`developer_only', ifelse(build_with_developer, `enable', $1, ))
+
 # policy only for debug version
 # debug_only(`
 #    debug_policy
@@ -70,3 +77,23 @@ define(`debug_only', ifelse(build_with_debug, `enable', $1, ))
 # ')
 #
 define(`updater_only', ifelse(build_with_updater, `enable', $1, ))
+
+###################
+## Macro define: ##
+###################
+define(`use_hilog', `
+    allow $1 hilog_input_socket:sock_file write;
+    allow $1 hilogd:unix_dgram_socket sendto;
+')
+
+define(`read_hilog', `
+    allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
+    allow $1 hilog_output_socket:sock_file write;
+    allow $1 hilogd:unix_stream_socket connectto;
+')
+
+define(`control_hilog', `
+    allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
+    allow $1 hilog_control_socket:sock_file write;
+    allow $1 hilogd:unix_stream_socket connectto;
+')

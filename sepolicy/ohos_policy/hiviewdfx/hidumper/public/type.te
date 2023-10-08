@@ -19,4 +19,4 @@ type hidumper, nativedomain, sadomain, domain;
 
 type sa_dfx_sys_hidumper_cpu_ability, sa_service_attr;
 
-domain_auto_transition_pattern({ nativedomain sadomain }, hidumper_exec, hidumper);
+domain_auto_transition_pattern({ nativedomain sadomain -sh -console }, hidumper_exec, hidumper);
