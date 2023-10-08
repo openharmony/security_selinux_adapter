@@ -38,7 +38,7 @@ allow module_update_service system_bin_file:dir { search };
 allow module_update_service system_module_update_file:dir { getattr open read search };
 allow module_update_service vendor_bin_file:dir { search };
 allow module_update_service system_file:dir { read search getattr open };
-allow module_update_service update_firmware_file:dir { add_name search write remove_name getattr append ioctl open read };
+allow module_update_service update_firmware_file:dir { add_name search write remove_name getattr append read open };
 allow module_update_service update_firmware_file:file { append create open read write rename unlink getattr setattr map };
 allow module_update_service data_updater_file:dir { add_name search write remove_name getattr };
 allow module_update_service data_updater_file:file { append create open read write rename unlink getattr setattr relabelfrom };
