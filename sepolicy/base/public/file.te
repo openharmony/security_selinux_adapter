@@ -144,6 +144,7 @@ type data_preloads, file_attr, data_file_attr;
 type data_resourcecache, file_attr, data_file_attr;
 type data_sadata, file_attr, data_file_attr;
 type data_sadata_de, file_attr, data_file_attr;
+type data_samgr, file_attr, data_file_attr;
 type data_ss, file_attr, data_file_attr;
 type data_storage, file_attr, data_file_attr;
 type data_system, file_attr, data_file_attr;
