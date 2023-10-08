@@ -145,7 +145,7 @@ allow bm data_local_tmp:file { read_file_perms };
 
 allow bm dev_console_file:chr_file { read write };
 allow bm dev_unix_socket:dir { search };
-allow bm data_file:file { getattr read };
+allow bm data_file:file { getattr read open };
 allow bm sh:fifo_file { write ioctl };
 allow bm tracefs:dir { search };
 allowxperm bm sh:fifo_file ioctl { 0x5413 };
