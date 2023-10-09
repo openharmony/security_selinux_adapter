@@ -19,6 +19,3 @@
 
 # for bm tool
 /system/bin/bm u:object_r:bm_exec:s0
-
-# for bundle_test_tool
-/system/bin/bundle_test_tool u:object_r:bundle_test_tool_exec:s0
