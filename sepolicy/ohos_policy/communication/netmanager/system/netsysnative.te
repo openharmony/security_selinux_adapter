@@ -114,3 +114,7 @@ allow init cgroup2:lnk_file { create };
 
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa debug_only(`-sh') } netsysnative:binder *;
 neverallow { domain -netsysnative debug_only(`-sh') } iptables_exec:file { execute };
+
+allow sh sysfs_hctosys:file { read open };
+allow sh dev_kmsg_file:chr_file { read open };
+allow sh sys_file:lnk_file { read getattr };
