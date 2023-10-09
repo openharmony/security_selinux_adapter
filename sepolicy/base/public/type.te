@@ -88,3 +88,4 @@ type bm, nativedomain, domain;
 type bm_exec, exec_attr, file_attr, system_file_attr;
 
 type updater, nativedomain, domain;
+type cupsd, sadomain,  domain;
