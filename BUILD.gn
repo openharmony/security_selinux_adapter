@@ -690,7 +690,10 @@ ohos_prebuilt_etc("file_contexts") {
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
   if (components == "vendor") {
-    install_images = [ "vendor" ]
+    install_images = [
+      "vendor",
+      "updater_vendor",
+    ]
   } else {
     install_images = [
       "system",
