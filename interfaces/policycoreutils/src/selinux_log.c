@@ -15,7 +15,6 @@
 
 #include "selinux_log.h"
 #include "securec.h"
-#undef HILOG_RAWFORMAT
 #include "hilog/log.h"
 
 
