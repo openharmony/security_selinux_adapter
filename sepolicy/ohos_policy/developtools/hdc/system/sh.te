@@ -123,3 +123,9 @@ domain_auto_transition_pattern(sh, uitest_exec, sh);
 
 # enable getting accessibility service
 allow sh sa_accessibleabilityms:samgr_class { get };
+
+#Selinux: avc:  denied  { get } for service=4607 pid=2148 scontext=u:r:sh:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow sh sa_foundation_dms:samgr_class { get };
+
+#Selinux: avc:  denied  { get } for service=3301 pid=1434 scontext=u:r:sh:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
+allow sh sa_foundation_powermgr_service:samgr_class { get };
