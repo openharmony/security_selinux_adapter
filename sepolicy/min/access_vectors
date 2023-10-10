@@ -533,3 +533,10 @@ class xpm
     exec_no_sign
     exec_anon_mem
 }
+
+class hideaddr
+{
+    hide_exec_anon_mem
+    nohide_exec_anon_mem
+}
+
