@@ -119,3 +119,7 @@ allow sys_installer_sa tmpfs:file { create getattr ioctl open setattr unlink };
 
 # avc:  denied  { ioctl } for  pid=1092 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 ioctlcmd=0x5413 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
 allowxperm sys_installer_sa tmpfs:file ioctl { 0x5413 };
+
+allow sys_installer_sa misc_file:lnk_file { read };
+allow sys_installer_sa misc_file:blk_file { write getattr read open };
+
