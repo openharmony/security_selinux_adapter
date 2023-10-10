@@ -502,7 +502,7 @@ def build_developer_binary_policy(args, check_neverallow, cil_list, developer_ci
     developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
     build_binary_policy(args.tool_path, developer_policy_path, check_neverallow, developer_cil_list)
     generate_developer_cil(args)
-    build_binary_policy(args.tool_path, developer_policy_path, check_neverallow, cil_list + developer_cil_list)
+    build_binary_policy(args.tool_path, developer_policy_path, False, cil_list + developer_cil_list)
 
 
 def compile_sepolicy(args):

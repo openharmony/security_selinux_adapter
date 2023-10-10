@@ -101,9 +101,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh } data_local_tmp:dir never_write_dir;
+neverallow { domain -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -bm} data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') } data_local_tmp:dir { open search };
+neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -bm } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -133,7 +133,7 @@ neverallow * self:memprotect mmap_zero;
 # only execute file with exec_attr & system_bin_file & vendor_bin_file ToDo delete vendor_file
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
-    -module_update_bin_file -data_updater_file -data_local_arkcache -system_file}:file { execute execute_no_trans entrypoint };
+    -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file}:file { execute execute_no_trans entrypoint };
 neverallow { domain -installs } data_local_arkcache:file { write };
 neverallow { domain -installs } data_local_arkcache:dir { write };
 
@@ -246,7 +246,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } { system_file_
 neverallow { domain -kernel -hap_domain -locationhub
              -sh debug_only(`-hdcd') -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
-neverallow { domain -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -data_local_tmp_violator_file_open } data_local_tmp:file open;
+neverallow { domain -bm -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -data_local_tmp_violator_file_open } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -325,5 +325,5 @@ neverallow * self:{ capability2 cap2_userns } checkpoint_restore;
 neverallow { domain -hiperf -cap_violator_perfmon debug_only(`-hiebpf') } self:{ capability2 cap2_userns } perfmon;
 
 #limit domain has exec_no_sign and exec_anon_mem permission
-neverallow { domain -debug_hap debug_only(`-sh') } self:xpm { exec_no_sign };
-neverallow { domain -debug_hap -isolated_render debug_only(`-sh') } self:xpm { exec_anon_mem };
+neverallow { domain developer_only(`-debug_hap') debug_only(`-sh') } self:xpm { exec_no_sign };
+neverallow { domain developer_only(`-debug_hap') debug_only(`-sh') -isolated_render } self:xpm { exec_anon_mem };
