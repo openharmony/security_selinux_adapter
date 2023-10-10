@@ -99,17 +99,14 @@ allow hdf_ext_devmgr system_basic_hap_attr:binder { call };
 allowxperm hdf_ext_devmgr dev_uinput:chr_file ioctl { 0x5502 0x5564 0x5501 0x5565 0x5567 0x556e };
 
 allow hdf_ext_devmgr data_file:dir { search };
-allow hdf_ext_devmgr persist_sys_param:file { read };
-allow hdf_ext_devmgr data_service_el1_file:dir { search write };
-allow hdf_ext_devmgr data_service_el1_file:file { getattr ioctl lock open read write };
 allow hdf_ext_devmgr data_service_file:dir { search };
-allow hdf_ext_devmgr persist_sys_param:file { map open };
-allowxperm hdf_ext_devmgr data_service_el1_file:file ioctl { 0xf50c };
-allow hdf_ext_devmgr data_service_el1_file:dir { add_name search write };
-allow hdf_ext_devmgr data_service_el1_file:file { create getattr ioctl lock open read write };
-allow hdf_ext_devmgr data_service_el1_file:dir { add_name read remove_name search write };
-allow hdf_ext_devmgr data_service_el1_file:file { create getattr ioctl lock open read write unlink };
-allow hdf_ext_devmgr data_service_el1_file:dir { add_name open read remove_name search write };
-allow hdf_ext_devmgr data_service_el1_file:file { create getattr ioctl lock map open read write setattr unlink };
+allow hdf_ext_devmgr persist_sys_param:file { map open read };
 allow hdf_ext_devmgr dev_ashmem_file:chr_file { open };
 allow hdf_ext_devmgr system_bin_file:dir { search };
+allowxperm hdf_ext_devmgr hdf_ext_devmgr_file:file ioctl { 0xf50c };
+allow hdf_ext_devmgr hdf_ext_devmgr_file:dir { add_name open read remove_name search write };
+allow hdf_ext_devmgr hdf_ext_devmgr_file:file { create getattr ioctl lock map open read write setattr unlink };
+
+# avc:  denied  { search } for  pid=659 comm="SaInit0" name="el1" dev="mmcblk0p14" ino=12 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
+allow hdf_ext_devmgr data_service_el1_file:dir { search };
+
