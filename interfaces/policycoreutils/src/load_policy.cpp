@@ -371,7 +371,7 @@ static bool IsDeveloperMode()
         return false;
     }
     selinux_log(SELINUX_WARNING, "Get developer mode, %s\n", devMode.c_str());
-    return devMode == "1";
+    return devMode == "const.security.developermode=1";
 #else
     return false;
 #endif
