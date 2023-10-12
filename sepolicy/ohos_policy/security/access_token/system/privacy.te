@@ -76,6 +76,9 @@ allow privacy_service system_core_hap_attr:binder {call};
 allow privacy_service tracefs_trace_marker_file:file { open write };
 allow privacy_service tracefs:dir { search };
 
+allow privacy_service sa_foundation_cesfwk_service:samgr_class { get };
+allow privacy_service sa_screenlock_service:samgr_class { get };
+
 binder_call(foundation, privacy_service);
 binder_call(privacy_service, accesstoken_service);
 binder_call(privacy_service, foundation);
