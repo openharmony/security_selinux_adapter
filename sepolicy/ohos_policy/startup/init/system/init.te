@@ -442,3 +442,6 @@ allow init zram_device:blk_file { read open write ioctl getattr };
 allow init hyperhold_sys:dir { search relabelto write add_name getattr setattr };
 allow init hyperhold_sys:file { getattr open read write create rename unlink };
 allowxperm init zram_device:blk_file ioctl { 0x126e };
+
+# for developer
+allow init proc_developer_file:file { open read getattr };
