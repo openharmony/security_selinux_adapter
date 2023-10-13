@@ -63,3 +63,6 @@ allow cloudfiledaemon sa_dataobs_mgr_service_service:samgr_class { get };
 allow cloudfiledaemon sa_distributeddata_service:samgr_class { get };
 allow cloudfiledaemon normal_hap_attr:fd { use };
 allow cloudfiledaemon system_core_hap_attr:fd { use };
+allow cloudfiledaemon hmdfs:file { write };
+allow cloudfiledaemon data_service_el2_hmdfs:file { lock };
+allow cloudfiledaemon data_storage:dir { search };
