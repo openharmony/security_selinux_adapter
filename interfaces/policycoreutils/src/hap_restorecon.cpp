@@ -37,8 +37,8 @@
 #include "selinux/context.h"
 #include "selinux/selinux.h"
 
-#include "callbacks.h"
 #include <selinux_internal.h>
+#include "callbacks.h"
 #include "selinux_error.h"
 #include "selinux_log.h"
 
@@ -339,12 +339,23 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
         return res;
     }
 
+    return HapFileRecurseRestorecon(realPath, apl, packageName);
+}
+
+int HapContext::HapFileRecurseRestorecon(const std::string &realPath,
+                                         const std::string &apl, const std::string &packageName)
+{
     char *paths[2] = {NULL, NULL};
-    paths[0] = static_cast<char *>(realPath);
+    paths[0] = strdup(realPath.c_str());
+    if (paths[0] == nullptr) {
+        return -SELINUX_PTR_NULL;
+    }
+
     int ftsFlags = FTS_PHYSICAL | FTS_NOCHDIR;
     FTS *fts = fts_open(paths, ftsFlags, NULL);
     if (fts == nullptr) {
         selinux_log(SELINUX_ERROR, "%s on %s: %s\n", GetErrStr(SELINUX_FTS_OPEN_ERROR), paths[0], strerror(errno));
+        free(paths[0]);
         return -SELINUX_FTS_OPEN_ERROR;
     }
 
@@ -355,6 +366,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
             case FTS_DC:
                 selinux_log(SELINUX_ERROR, "%s on %s\n", GetErrStr(SELINUX_FTS_ELOOP), ftsent->fts_path);
                 (void)fts_close(fts);
+                free(paths[0]);
                 return -SELINUX_FTS_ELOOP;
             case FTS_DP:
                 continue;
@@ -377,6 +389,7 @@ int HapContext::HapFileRestorecon(const std::string &pathNameOrig, const std::st
         }
     }
     (void)fts_close(fts);
+    free(paths[0]);
     return error;
 }
 
