@@ -150,7 +150,7 @@ allow bm tracefs:dir { search };
 allow bm data_app_file:dir { search };
 allow bm devpts:chr_file { read write ioctl };
 allow bm tty_device:chr_file { read write };
-allow bm system_file:file { getattr read };
+allow bm system_file:file { getattr read open };
 allowxperm bm devpts:chr_file ioctl { 0x5413 };
 allowxperm bm sh:fifo_file ioctl { 0x5413 };
 
