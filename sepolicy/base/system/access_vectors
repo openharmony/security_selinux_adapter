@@ -533,3 +533,8 @@ class xpm
     exec_no_sign
     exec_anon_mem
 }
+
+class code_sign
+{
+    add_cert_chain
+}
