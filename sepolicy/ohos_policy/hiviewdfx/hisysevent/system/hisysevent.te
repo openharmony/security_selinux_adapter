@@ -34,7 +34,15 @@ allow samgr hisysevent:process { getattr };
 allow samgr hisysevent:binder { call transfer };
 
 allow hisysevent tty_device:chr_file { read write };
-allow hisysevent devpts:chr_file { read write };
+allow hisysevent devpts:chr_file { read write ioctl };
+allowxperm hisysevent devpts:chr_file ioctl { 0x5413 };
 
 allow hisysevent hiprofiler_plugins:fd { use };
 allow hisysevent hiprofiler_plugins:fifo_file { ioctl write };
+
+allow hisysevent sh:fifo_file { write ioctl };
+allowxperm hisysevent sh:fifo_file ioctl { 0x5413 };
+
+allow hisysevent data_local_tmp:file { write ioctl };
+allowxperm hisysevent data_local_tmp:file ioctl { 0x5413 };
+
