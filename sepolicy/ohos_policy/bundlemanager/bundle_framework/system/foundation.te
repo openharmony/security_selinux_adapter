@@ -152,6 +152,7 @@ allow bm devpts:chr_file { read write ioctl };
 allow bm tty_device:chr_file { read write };
 allow bm system_file:file { getattr read open };
 allow bm data_app_el2_file:dir { search };
+allow bm bm:capability { dac_override dac_read_search };
 allowxperm bm devpts:chr_file ioctl { 0x5413 };
 allowxperm bm sh:fifo_file ioctl { 0x5413 };
 
