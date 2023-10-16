@@ -18,4 +18,4 @@ allow hdfdomain vendor_bin_file:file { entrypoint execute map read };
 neverallow { domain -hdfdomain -sadomain -init -hap_domain -sh } hdf_devmgr:binder call;
 
 neverallow { domain -hdfdomain -sadomain -hap_domain } hdfdomain:binder call;
-neverallow { hap_domain } { hdfdomain -allocator_host -hdf_public_domain -codec_host}:binder call;
+neverallow { hap_domain } { hdfdomain -allocator_host -hdf_public_domain -codec_host -usb_host }:binder call;

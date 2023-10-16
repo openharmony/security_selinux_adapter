@@ -110,3 +110,14 @@ allow hdf_ext_devmgr hdf_ext_devmgr_file:file { create getattr ioctl lock map op
 # avc:  denied  { search } for  pid=659 comm="SaInit0" name="el1" dev="mmcblk0p14" ino=12 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=0
 allow hdf_ext_devmgr data_service_el1_file:dir { search };
 
+# avc:  denied  { call } for  pid=1391 comm="hdf_ext_devmgr" scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:r:debug_hap:s0 tclass=binder permissive=1
+allow hdf_ext_devmgr hap_domain:binder { call };
+
+# avc:  denied  { read } for  pid=1723 comm="hdf_ext_devmgr" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=82 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+allow hdf_ext_devmgr arkcompiler_param:file { read open map };
+
+# avc:  denied  { ioctl } for  pid=1382 comm="hdf_ext_devmgr" path="/dev/uinput" dev="tmpfs" ino=225 ioctlcmd=0x5568 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_uinput:s0 tclass=chr_file permissive=1
+allow hdf_ext_devmgr dev_uinput:chr_file { ioctl };
+
+# avc:  denied  { ioctl } for  pid=1382 comm="hdf_ext_devmgr" path="/dev/uinput" dev="tmpfs" ino=225 ioctlcmd=0x5568 scontext=u:r:hdf_ext_devmgr:s0 tcontext=u:object_r:dev_uinput:s0 tclass=chr_file permissive=1
+allowxperm hdf_ext_devmgr dev_uinput:chr_file ioctl { 0x5568 };
