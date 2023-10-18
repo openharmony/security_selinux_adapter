@@ -11,7 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 debug_only(`
-    allow sh dev_code_sign:chr_file { ioctl read write open };
-    allowxperm sh dev_code_sign:chr_file ioctl { 0x6b01 };
     allow sh sh:code_sign { add_cert_chain };
 ')
