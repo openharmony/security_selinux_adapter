@@ -109,3 +109,4 @@ class hdf_devmgr_class
 class lockdown
 class perf_event
 class xpm
+class code_sign
