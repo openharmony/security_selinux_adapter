@@ -32,4 +32,6 @@ allow normal_hap_attr appspawn_exec:file { getattr map open read };
 allow normal_hap_attr dev_unix_socket:sock_file { write };
 allow normal_hap_attr faultloggerd_temp_file:file { read write read write };
 
+allow normal_hap wukong:binder { call };
+
 

@@ -90,3 +90,9 @@ type bm_exec, exec_attr, file_attr, system_file_attr;
 type updater, nativedomain, domain;
 type cupsd, sadomain,  domain;
 type file_guard_server, sadomain,  domain;
+
+type wukong, nativedomain, domain;
+type wukong_exec, exec_attr, file_attr, system_file_attr;
+
+type SP_daemon, nativedomain, domain;
+type SP_daemon_exec, exec_attr, file_attr, system_file_attr;

@@ -13,3 +13,5 @@
 
 allow hiview hiview_file:dir { add_name write };
 allow hiview hiview_file:file { create };
+allow hiview SP_daemon:dir { search };
+allow hiview SP_daemon:file { getattr open read };

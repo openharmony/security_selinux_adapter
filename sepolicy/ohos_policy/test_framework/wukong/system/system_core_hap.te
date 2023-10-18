@@ -19,3 +19,5 @@ allow system_core_hap_attr system_basic_hap_attr:binder { call };
 allow system_core_hap_attr dev_unix_socket:sock_file { write };
 allow system_core_hap_attr distributedsche_param:file { map open read };
 allow system_core_hap_attr faultloggerd_temp_file:file { read write write };
+allow system_core_hap wukong:binder { call };
+

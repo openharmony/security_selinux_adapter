@@ -12,3 +12,6 @@
 # limitations under the License.
 
 allow foundation hdf_allocator_service:hdf_devmgr_class { get };
+
+allow foundation wukong:binder { call };
+
