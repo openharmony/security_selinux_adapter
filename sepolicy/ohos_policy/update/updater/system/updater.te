@@ -410,7 +410,7 @@ allowxperm updater unlabeled:file ioctl { 0x5413 };
 # avc: denied { relabelto } for pid=238 comm="updater" name="updater_log" dev="mmcblk0p18" ino=8 scontext=u:r:updater:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
 allow updater data_updater_file:file { relabelto };
 
-allow updater misc_file:blk_file { write getattr read open ioctl lock };
-allowxperm updater misc_file:blk_file ioctl { 0x2285 0x5413 0x1268 0x125e 0x1271 0x1272 0x127d 0x1277 };
-allow updater misc_file:lnk_file { read };
+allow updater updater_block_file:blk_file { write getattr read open ioctl lock };
+allowxperm updater updater_block_file:blk_file ioctl { 0x2285 0x5413 0x1268 0x125e 0x1271 0x1272 0x127d 0x1277 };
+allow updater updater_block_file:lnk_file { read };
 ')

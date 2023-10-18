@@ -57,7 +57,7 @@ allow updater_sa sys_usb_param:file { map open read };
 allow updater_sa tracefs:dir { search };
 allow updater_sa tracefs_trace_marker_file:file { open write };
 
-allow updater_sa misc_file:blk_file { getattr ioctl open read write };
-allow updater_sa misc_file:dir { search };
-allow updater_sa misc_file:lnk_file { read };
-allowxperm updater_sa misc_file:blk_file ioctl { 0x5413 };
+allow updater_sa updater_block_file:blk_file { getattr ioctl open read write };
+allow updater_sa updater_block_file:dir { search };
+allow updater_sa updater_block_file:lnk_file { read };
+allowxperm updater_sa updater_block_file:blk_file ioctl { 0x5413 };

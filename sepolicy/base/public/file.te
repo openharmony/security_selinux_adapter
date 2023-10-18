@@ -206,7 +206,7 @@ type proc_max_user_watches, fs_attr, proc_attr;
 
 type dev_parameters_file, dev_attr, file_attr;
 type dev_block_file, dev_attr;
-type misc_file, dev_attr;
+type updater_block_file, dev_attr;
 type dev_bus_file, dev_attr;
 type dev_bus_usb_file, dev_attr;
 type dev_char_file, dev_attr;

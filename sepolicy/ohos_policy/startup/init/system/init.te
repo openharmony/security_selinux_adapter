@@ -443,18 +443,18 @@ allow init hyperhold_sys:dir { search relabelto write add_name getattr setattr }
 allow init hyperhold_sys:file { getattr open read write create rename unlink };
 allowxperm init zram_device:blk_file ioctl { 0x126e };
 
-# avc:  denied  { getattr } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:misc_file:s0 tclass=blk_file permissive=1
-# avc:  denied  { ioctl } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:misc_file:s0 tclass=blk_file permissive=1
-# avc:  denied  { open } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:misc_file:s0 tclass=blk_file permissive=1
-# avc:  denied  { read } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:misc_file:s0 tclass=blk_file permissive=1
-# avc:  denied  { write } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:misc_file:s0 tclass=blk_file permissive=1
-allow init misc_file:blk_file { getattr ioctl open read write };
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { ioctl } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { open } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { read } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+# avc:  denied  { write } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+allow init updater_block_file:blk_file { getattr ioctl open read write };
 
-# avc:  denied  { ioctl } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:misc_file:s0 tclass=blk_file permissive=1
-allowxperm init misc_file:blk_file ioctl { 0x5413 };
+# avc:  denied  { ioctl } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+allowxperm init updater_block_file:blk_file ioctl { 0x5413 };
 
-# avc:  denied  { relabelto } for  pid=1 comm="init" name="misc" dev="tmpfs" ino=37 scontext=u:r:init:s0 tcontext=u:object_r:misc_file:s0 tclass=lnk_file permissive=0
-allow init misc_file:lnk_file { relabelto };
+# avc:  denied  { relabelto } for  pid=1 comm="init" name="misc" dev="tmpfs" ino=37 scontext=u:r:init:s0 tcontext=u:object_r:updater_block_file:s0 tclass=lnk_file permissive=0
+allow init updater_block_file:lnk_file { relabelto };
 
 # avc:  denied  { ioctl } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=1
 allowxperm init tmpfs:blk_file ioctl { 0x5413 };
