@@ -11,7 +11,55 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type uitest_exec, exec_attr, file_attr, system_file_attr;
+# uitest started by sh, translate to sh domain (in 'start-daemon', parent-process is sh)
+domain_auto_transition_pattern(sh, uitest_exec, uitest);
+
+allow uitest sa_accessibleabilityms:samgr_class { get };
+allow uitest accessibility:binder { call transfer };
+
+allow uitest foundation:binder { call transfer };
+allow uitest sa_foundation_dms:samgr_class { get };
+allow uitest sa_foundation_cesfwk_service:samgr_class { get };
+allow uitest sa_foundation_abilityms:samgr_class { get };
+
+allow uitest multimodalinput:binder { call };
+allow uitest sa_multimodalinput_service:samgr_class { get };
+
+allow uitest normal_hap_data_file:file { getattr ioctl read write };
+allow uitest normal_hap:fd { use };
+allow uitest normal_hap:binder { call };
+allowxperm uitest normal_hap_data_file:file ioctl { 0x5413 };
+
+allow uitest render_service:fd { use };
+
+allow uitest data_file:dir { search };
+allow uitest data_local:dir { search };
+allow uitest data_local_tmp:file { read create write open ioctl getattr };
+allow uitest data_local_tmp:dir { search map open create write read add_name};
+allowxperm uitest data_local_tmp:file ioctl { 0x5413 };
+
+allow uitest dev_unix_socket:dir { search };
+allow uitest dev_ashmem_file:chr_file { open };
+allow uitest dev_console_file:chr_file { read write };
+
+allow uitest hdcd:fifo_file { read write ioctl };
+allow uitest hdcd:fd { use };
+allow uitest hdcd:unix_stream_socket { read write };
+allowxperm uitest hdcd:fifo_file ioctl { 0x5413 };
+
+allow uitest param_watcher:binder { call transfer };
+allow uitest persist_sys_param:file { map read open };
+allow uitest tracefs:dir { search };
+
+allow uitest hilog_param:file { map open read };
+allow uitest samgr:binder { call };
+allow uitest sh:fd { use };
+allow uitest sh:fifo_file { write };
+allow uitest tty_device:chr_file { read write };
+
+allow uitest debug_param:file { map open read }; 
+
+allow uitest sa_param_watcher:samgr_class { get };
 
 debug_only(`
     allow render_service sh:binder { call transfer };
