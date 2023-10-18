@@ -111,4 +111,3 @@ allow devattest_service huks_service:binder { call };
 allow devattest_service sa_huks_service:samgr_class { get };
 
 allow devattest_service sysfs_devices_system_cpu:file { open read getattr};
-allow devattest_service unlabeled:dir { search };
