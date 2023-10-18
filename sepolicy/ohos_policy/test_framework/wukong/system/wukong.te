@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -217,12 +217,17 @@ allow wukong ui_service:file { read };
 allow wukong av_codec_service:dir { search };
 allow wukong av_session:dir { search };
 allow wukong bootanimation:dir { search };
-allow wukong cloudfiledaemon:file { read };
+allow wukong cloudfiledaemon:file { read open };
 allow wukong distributeddata:dir { search };
 allow wukong faultloggerd:file { read };
 allow wukong netsysnative:dir { search };
 allow wukong privacy_service:file { read };
 allow wukong render_service:dir { search };
 allow wukong useriam:dir { search };
-
+allow wukong accesstoken_data_file:file { getattr };
+allow wukong arkcompiler_param:file { read };
+allow wukong data_local:dir { read };
+allow wukong render_service:file { read };
+allow wukong useriam:file { read };
+allow wukong wukong:capability { dac_override dac_read_search };
 

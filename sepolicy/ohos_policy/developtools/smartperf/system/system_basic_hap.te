@@ -24,4 +24,4 @@ allow system_basic_hap_attr system_basic_hap_data_file_attr:dir { search };
 allow system_basic_hap_attr system_basic_hap_data_file_attr:file { lock };
 allow system_basic_hap_attr system_usr_file:dir { search };
 allow system_basic_hap_attr vendor_file:dir { search };
-allow system_basic_hap SP_daemon:binder { call };
+allow system_basic_hap_attr SP_daemon:binder { call };
