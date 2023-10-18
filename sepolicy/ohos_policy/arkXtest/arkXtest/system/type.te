@@ -30,6 +30,9 @@ allow uitest normal_hap:fd { use };
 allow uitest normal_hap:binder { call };
 allowxperm uitest normal_hap_data_file:file ioctl { 0x5413 };
 
+allow uitest arkui_param:file { map open read };
+allow uitest debug_hap:binder { call };
+allow uitest system_bin_file:dir { search };
 allow uitest render_service:fd { use };
 
 allow uitest data_file:dir { search };
