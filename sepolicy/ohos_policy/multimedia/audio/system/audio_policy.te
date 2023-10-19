@@ -111,6 +111,9 @@ allow audio_policy rootfs:chr_file { read write };
 #avc:  denied  { get } for service=3503 pid=341 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_accesstoken_manager_service:s0 tclass=samgr_class permissive=1
 allow audio_policy sa_accesstoken_manager_service:samgr_class { get };
 
+#avc:  denied  { get } for service=3301 pid=876 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
+allow audio_policy sa_foundation_powermgr_service:samgr_class { get };
+
 #avc:  denied  { add } for service=3009 pid=385 scontext=u:r:audio_policy:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
 allow audio_policy sa_audio_policy_service:samgr_class { add };
 

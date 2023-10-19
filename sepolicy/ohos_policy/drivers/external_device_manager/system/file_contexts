@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2022 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,8 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow init print_service:process { rlimitinh siginh transition };
-allow init cupsd_exec:file { execute getattr read open };
-allow init cupsd:process { rlimitinh siginh transition };
-allow init data_service_el1_public_print_service_file:dir { add_name create write getattr open read relabelto search setattr };
-allow init data_service_el1_public_print_service_file:file { relabelto };
+/data/service/el1/public/pkg_service(/.*)?    u:object_r:hdf_ext_devmgr_file:s0
+

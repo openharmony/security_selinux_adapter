@@ -10,9 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-allow init print_service:process { rlimitinh siginh transition };
-allow init cupsd_exec:file { execute getattr read open };
-allow init cupsd:process { rlimitinh siginh transition };
-allow init data_service_el1_public_print_service_file:dir { add_name create write getattr open read relabelto search setattr };
-allow init data_service_el1_public_print_service_file:file { relabelto };
+debug_only(`
+    allow sh sh:code_sign { add_cert_chain };
+')

@@ -77,3 +77,10 @@ allow hiview tty_device:chr_file { open read write };
 
 allow sadomain hiview:unix_dgram_socket { sendto };
 allowxperm hiview dev_at_file:chr_file ioctl { 0x4103 };
+
+# hiview param
+allow hiviewdfx_hiview_param tmpfs:filesystem associate;
+allow init hiviewdfx_hiview_param:file { map open read relabelto relabelfrom };
+allow hiview hiviewdfx_hiview_param:parameter_service { set };
+allow hiview hiviewdfx_hiview_param:file { map open read };
+allow hiview paramservice_socket:sock_file { read write };

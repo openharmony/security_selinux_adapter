@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow debug_hap self:xpm { exec_no_sign exec_anon_mem };
-allow composer_host debug_hap:fd { use };
+developer_only(`
+    allow debug_hap self:xpm { exec_no_sign exec_anon_mem };
+')
