@@ -32,6 +32,10 @@ def read_file(input_file):
 
 def check_regex_path(path):
     regex_set = set("")
+    # remove all escape
+    path = re.sub(r'\\\\', '', path)
+    path = re.sub(r'\\/', '/', path)
+
     path_elements = path.split('/')
     second_dir_name = path_elements[2]
 
@@ -52,11 +56,15 @@ def check_file_contexts(args, file_contexts, whitelist_path):
     err = False
     for line in file_contexts:
         line_index += 1
-        if line.startswith("/data/"):
-            path = line.split(None, 1)[0]
+        split_list = line.split(None, 1)
+        if len(split_list) == 0:
+            continue
+        path = split_list[0]
+        normalize_path = os.path.normpath(path)
+        if normalize_path.startswith("/data/"):
             if path in whitelist_set:
                 continue
-            if not check_regex_path(path):
+            if not check_regex_path(normalize_path):
                 continue
             print("Regex is not allowed in the secondary directory under data,",
                 "check '{}' failed in file {}:{}\n".format(path, args.file_contexts, line_index),
