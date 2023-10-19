@@ -11,6 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow useriam sa_sensor_service:samgr_class { get };
+allow useriam sa_miscdevice_service:samgr_class { get };
+allow useriam sensors:binder { call };
+
 allow useriam accesstoken_service:binder { call };
 allow useriam accountmgr:binder { call };
 allow useriam bootevent_param:file { map open read };

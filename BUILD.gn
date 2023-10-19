@@ -84,6 +84,7 @@ ohos_shared_library("libhap_restorecon") {
     ":libselinux_hilog_static",
     "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
+  external_deps = [ "hilog:libhilog" ]
 
   cflags = [
     "-D_GNU_SOURCE",
@@ -214,6 +215,7 @@ ohos_shared_library("libservice_checker") {
     "$THIRD_PARTY_DIR/bounds_checking_function:libsec_shared",
     "$THIRD_PARTY_DIR/selinux:libselinux",
   ]
+  external_deps = [ "hilog:libhilog" ]
   cflags = [
     "-D_GNU_SOURCE",
     "-Wall",
@@ -690,7 +692,10 @@ ohos_prebuilt_etc("file_contexts") {
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
   if (components == "vendor") {
-    install_images = [ "vendor" ]
+    install_images = [
+      "vendor",
+      "updater_vendor",
+    ]
   } else {
     install_images = [
       "system",

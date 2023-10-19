@@ -539,3 +539,8 @@ class hideaddr
     hide_exec_anon_mem
     hide_exec_anon_mem_debug
 }
+
+class code_sign
+{
+    add_cert_chain
+}
