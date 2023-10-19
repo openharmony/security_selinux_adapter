@@ -537,6 +537,6 @@ class xpm
 class hideaddr
 {
     hide_exec_anon_mem
-    nohide_exec_anon_mem
+    hide_exec_anon_mem_debug
 }
 
