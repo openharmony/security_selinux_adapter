@@ -99,6 +99,9 @@ allow SP_daemon hiview:dir { search };
 allow SP_daemon hiview:file { open read };
 allow SP_daemon param_watcher:dir { search };
 allow SP_daemon param_watcher:file { open read };
-allow SP_daemon SP_daemon:capability { sys_ptrace };
 allow SP_daemon proc_stat_file:file { read };
 allow SP_daemon usb_setting_param:file { read map open };
+
+debug_only(`
+allow SP_daemon SP_daemon:capability { sys_ptrace };
+')

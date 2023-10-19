@@ -229,5 +229,9 @@ allow wukong arkcompiler_param:file { read };
 allow wukong data_local:dir { read };
 allow wukong render_service:file { read };
 allow wukong useriam:file { read };
+
+debug_only(`
 allow wukong wukong:capability { dac_override dac_read_search };
+')
+
 
