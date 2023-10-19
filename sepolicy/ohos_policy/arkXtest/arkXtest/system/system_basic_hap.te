@@ -17,5 +17,5 @@ developer_only(`
     allow system_basic_hap_attr port:tcp_socket { name_bind };
     allow system_basic_hap_attr node:tcp_socket { node_bind };
     allow system_basic_hap_attr uitest:binder { call };
-    allow system_basic_hap ffrt_param:parameter_service { set };
+    allow system_basic_hap_attr ffrt_param:parameter_service { set };
 ')

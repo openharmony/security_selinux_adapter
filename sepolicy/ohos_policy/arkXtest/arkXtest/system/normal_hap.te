@@ -12,5 +12,5 @@
 # limitations under the License.
 
 developer_only(`
-    allow normal_hap uitest:binder { call transfer };
+    allow normal_hap_attr uitest:binder { call transfer };
 ')

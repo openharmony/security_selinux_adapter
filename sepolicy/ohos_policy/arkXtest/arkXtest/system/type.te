@@ -21,12 +21,11 @@ developer_only(`
     allow uitest sa_foundation_abilityms:samgr_class { get };
     allow uitest multimodalinput:binder { call };
     allow uitest sa_multimodalinput_service:samgr_class { get };
-    allow uitest normal_hap_data_file:file { getattr ioctl read write };
-    allow uitest normal_hap:fd { use };
-    allow uitest normal_hap:binder { call };
-    allowxperm uitest normal_hap_data_file:file ioctl { 0x5413 };
+    allow uitest normal_hap_data_file_attr:file { getattr ioctl read write };
+    allow uitest normal_hap_attr:fd { use };
+    allow uitest normal_hap_attr:binder { call };
+    allowxperm uitest normal_hap_data_file_attr:file ioctl { 0x5413 };
     allow uitest arkui_param:file { map open read };
-    allow uitest debug_hap:binder { call };
     allow uitest system_bin_file:dir { search };
     allow uitest render_service:fd { use };
     allow uitest data_file:dir { search };
