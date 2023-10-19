@@ -11,7 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow samgr uitest:dir { search read };
-allow samgr uitest:file { map open read };
-allow samgr uitest:process { getattr };
-allow samgr uitest:binder { transfer };
+developer_only(`
+    allow samgr uitest:dir { search read };
+    allow samgr uitest:file { map open read };
+    allow samgr uitest:process { getattr };
+    allow samgr uitest:binder { transfer };
+')

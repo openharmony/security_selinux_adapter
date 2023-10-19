@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow hiview module_update_service:binder { call };
-allow hiview uitest:dir { search };
-allow hiview uitest:file { getattr open read };
+developer_only(`
+    allow hiview module_update_service:binder { call };
+    allow hiview uitest:dir { search };
+    allow hiview uitest:file { getattr open read };
+')
