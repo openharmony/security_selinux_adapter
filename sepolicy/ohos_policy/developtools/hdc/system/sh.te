@@ -97,6 +97,10 @@ allow sh debug_param:file { map read open };
 allow sh hilog_param:file { map read open };
 allow sh developtools_hdc_control_param:file { map read open };
 
+allow sh data_service_el2_file:dir { search };
+allow sh data_service_el2_hmdfs:dir { search };
+allow sh data_service_el2_share:dir { getattr };
+
 # for bin run
 ## for bm install
 ## domain_auto_transition_pattern(sh, bm_exec, bm);

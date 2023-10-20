@@ -229,9 +229,32 @@ allow wukong arkcompiler_param:file { read };
 allow wukong data_local:dir { read };
 allow wukong render_service:file { read };
 allow wukong useriam:file { read };
-
-debug_only(`
 allow wukong wukong:capability { dac_override dac_read_search };
-')
 
+allow wukong accesstoken_data_file:file { read };
+allow wukong arkcompiler_param:file { open };
+allow wukong av_session:file { read };
+allow wukong data_file:dir { read };
+allow wukong data_local:dir { open };
+allow wukong media_service:dir { search };
+allow wukong privacy_service:file { open };
+allow wukong render_service:file { open };
 
+allow wukong accesstoken_data_file:file { open write };
+allow wukong arkcompiler_param:file { map };
+allow wukong av_session:file { open };
+allow wukong data_file:dir { open };
+allow wukong faultloggerd:file { open };
+allow wukong media_service:file { read };
+allow wukong softbus_server:file { read };
+allow wukong useriam:file { open };
+
+allow wukong domain: dir { search };
+allow wukong domain: file { open read };
+
+allow wukong accesstoken_service:binder { call };
+allow wukong data_local_tmp:file { read };
+allow wukong dev_kmsg_file:chr_file { open write };
+allow wukong multimodalinput:fd { use };
+allow wukong multimodalinput:unix_stream_socket { write };
+allow wukong tracefs:dir { search };
