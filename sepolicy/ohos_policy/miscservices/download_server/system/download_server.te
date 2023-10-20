@@ -84,3 +84,5 @@ allow download_server huks_service:binder { call };
 allow download_server sa_huks_service:samgr_class { get };
 #avc:  denied  { get } for service=4606 pid=12649 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
 allow download_server sa_foundation_wms:samgr_class { get };
+#avc:  denied  { get } for service=3299 pid=1836 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
+allow download_server sa_foundation_cesfwk_service:samgr_class { get };
