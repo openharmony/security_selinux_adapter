@@ -118,8 +118,6 @@ use_hilog(sh)
 read_hilog(sh)
 control_hilog(sh)
 
-# uitest started by sh, translate to sh domain (in 'start-daemon', parent-process is sh)
-domain_auto_transition_pattern(sh, uitest_exec, sh);
 
 domain_auto_transition_pattern(sh, wukong_exec, wukong);
 

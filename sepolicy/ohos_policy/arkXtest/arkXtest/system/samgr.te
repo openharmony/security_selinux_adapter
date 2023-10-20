@@ -11,6 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/system/lib(64)?/libcode_sign_utils.z.so      u:object_r:code_sign_utils:s0
-
-/dev/code_sign                           u:object_r:dev_code_sign:s0
+developer_only(`
+    allow samgr uitest:dir { search read };
+    allow samgr uitest:file { map open read };
+    allow samgr uitest:process { getattr };
+    allow samgr uitest:binder { transfer };
+')
