@@ -11,7 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# enable accessibility call binder in sh (binder of accessibility-client in uitest process)
 developer_only(`
-    allow accessibility uitest:binder { call transfer };
+    allow hiview module_update_service:binder { call };
+    allow hiview uitest:dir { search };
+    allow hiview uitest:file { getattr open read };
 ')

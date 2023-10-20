@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# enable accessibility call binder in sh (binder of accessibility-client in uitest process)
 developer_only(`
-    allow accessibility uitest:binder { call transfer };
+    allow param_watcher dev_console_file:chr_file { read write };
+    allow param_watcher uitest:binder { call };
 ')
