@@ -45,6 +45,7 @@ allow render_service vendor_bin_file:dir { search };
 allow render_service paramservice_socket:sock_file { write };
 allow render_service kernel:unix_stream_socket { connectto };
 allow render_service debug_param:parameter_service { set };
+allow render_service sa_resource_schedule_socperf_server:samgr_class { get };
 
 debug_only(`
     allow render_service sh:fd { use };
