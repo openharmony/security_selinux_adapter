@@ -229,7 +229,7 @@ allow wukong arkcompiler_param:file { read };
 allow wukong data_local:dir { read };
 allow wukong render_service:file { read };
 allow wukong useriam:file { read };
-allow wukong wukong:capability { dac_override dac_read_search };
+#allow wukong wukong:capability { dac_override dac_read_search };
 
 allow wukong accesstoken_data_file:file { read };
 allow wukong arkcompiler_param:file { open };
@@ -258,3 +258,12 @@ allow wukong dev_kmsg_file:chr_file { open write };
 allow wukong multimodalinput:fd { use };
 allow wukong multimodalinput:unix_stream_socket { write };
 allow wukong tracefs:dir { search };
+
+allow wukong sa_accessibleabilityms:samgr_class { get };
+allow wukong sa_accesstoken_manager_service:samgr_class { get };
+allow wukong sa_foundation_abilityms:samgr_class { get };
+allow wukong sa_foundation_bms:samgr_class { get };
+allow wukong sa_foundation_dms:samgr_class { get };
+allow wukong sa_multimodalinput_service:samgr_class { get };
+allow wukong sa_param_watcher:samgr_class { get };
+allow wukong sa_sys_event_service:samgr_class { get };
