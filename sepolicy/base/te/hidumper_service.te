@@ -57,6 +57,6 @@ allow hidumper_service tracefs:dir { search };
 allow hidumper_service tracefs_trace_marker_file:file { open write };
 
 debug_only(`
-    allow hidumper_service sh:dir { search };
-    allow hidumper_service sh:file { getattr open read };
+    allow hidumper_service su:dir { search };
+    allow hidumper_service su:file { getattr open read };
 ')
