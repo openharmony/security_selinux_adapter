@@ -323,3 +323,5 @@ allow SP_daemon SP_daemon:udp_socket { create read };
 allow SP_daemon bootanimation:dir { search };
 allow SP_daemon intell_voice_service:dir { search };
 allow SP_daemon proc_stat_file:file { setattr };
+allow SP_daemon SP_daemon:tcp_socket { accept };
+allow SP_daemon SP_daemon:udp_socket { read };
