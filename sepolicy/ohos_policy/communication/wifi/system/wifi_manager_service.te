@@ -88,3 +88,5 @@ allow wifi_manager_service netsysnative:unix_stream_socket { connectto };
 allow wifi_manager_service wifi_manager_service:tcp_socket { connect create getopt read write };
 allow wifi_manager_service port:tcp_socket { name_connect };
 
+# avc:  denied  { get } for service=4010 pid=2059 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_telephony_tel_core_service:s0 tclass=samgr_class permissive=1
+allow wifi_manager_service sa_telephony_tel_core_service:samgr_class { get };
