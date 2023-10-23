@@ -210,24 +210,13 @@ debug_only(`
     allow system_core_hap_attr su:binder { call };
     allow module_update_service su:binder { call transfer };
     allow sys_installer_sa su:binder { call };
-    # avc: denied { dyntransition } for pid=270 comm="hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=process permissive=1
-    allow hdcd su:process { dyntransition };
     # avc:  denied  { dyntransition } for  pid=285 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:su:s0 tclass=process permissive=1
     # avc:  denied  { signal } for  pid=231 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:su:s0 tclass=process permissive=1
     # avc: denied { sigkill } for pid=241 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:su:s0 tclass=process permissive=1
-    allow updater su:process { dyntransition signal sigkill };
+    allow updater su:process { signal sigkill };
     allow foundation su:binder { call transfer };
 
 # sh.te baseline to su
-    allow su rootfs:dir { search };
-    allow su rootfs:lnk_file { read };
-    allow su dev_file:dir { search };
-    allow su dev_null_file:chr_file { read write open };
-    allow su dev_unix_file:dir { search };
-    allow su dev_unix_socket:dir { search };
-    allow su devpts:chr_file { getattr ioctl read write };
-    allowxperm su devpts:chr_file ioctl { 0x5413 0x5403 };
-    allow su dev_console_file:chr_file { getattr read write };
     allow su su:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
     allow su su:fd use;
     allow su su:file rw_file_perms;
@@ -236,72 +225,12 @@ debug_only(`
     allow su su:lnk_file read_file_perms;
     allow su su:unix_dgram_socket { connect create write };
     allow su su:unix_stream_socket { connect create write read setopt };
-    ## for musl.so
-    allow su system_lib_file:file { map read execute open getattr };
-
-    # for toybox command execute
-    allow su system_file:dir { search };
-    allow su vendor_file:dir { search };
-    allow su system_lib_file:dir { search };
-    allow su vendor_lib_file:dir { search };
-    allow su system_etc_file:dir { search };
-    allow su lib_file:lnk_file { read };
-    allow su etc_file:lnk_file { read };
-    allow su system_etc_file:file { read open getattr };
-
-    allow su system_bin_file:file { execute execute_no_trans getattr map read open };
-    allow su system_bin_file:lnk_file { read };
-    ## for toybox command auto complete, like tab
-    allow su system_bin_file:dir { search getattr open read };
-
-    # for terminal
-    allow su tty_device:chr_file { getattr ioctl open read write };
-    allowxperm su tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
-
-    # for reboot
-    allow su servicectrl_reboot_param:parameter_service set;
-    allow su paramservice_socket:sock_file { write };
-    ## for /dev/unix/socket/parameterservice
-    allow su kernel:unix_stream_socket { connectto };
-
-    # for hdc shell command
-    allow su hdcd:fifo_file { read };
-    allow su hdcd:fd { use };
-    allow su hdcd:unix_stream_socket { read write };
-    allow su hdcd:fifo_file { ioctl write };
-    allowxperm su hdcd:fifo_file ioctl { 0x5413 };
-
-    # for data/local/tmp
-    allow su data_file:dir { search getattr};
-    allow su data_local:dir read_dir_perms;
-    allow su data_local_tmp:dir rw_dir_perms;
-    allow su data_local_tmp:file { create_file_perms };
-
-    # for data/log/hilog
-    allow su data_hilogd_file:dir read_dir_perms;
-    allow su data_hilogd_file:file read_file_perms;
-
-    # for ps -efZ
-    allow su proc_file:dir { search read open getattr };
-    allow su proc_file:lnk_file { read };
-    allow su sys_file:dir { search };
-    allow su domain:dir { getattr search };
-    allow su domain:file { open read };
-    allow su domain:process { getattr };
-    allow su selinuxfs:filesystem { getattr };
-
-    # for param_get
-    allow su dev_parameters_file:dir { search };
-    allow su dev_parameters_file:file read_file_perms;
-    allow su debug_param:file { map read open };
-    allow su hilog_param:file { map read open };
-    allow su developtools_hdc_control_param:file { map read open };
 
     # for bin run
     ## for bm install
-    ## domain_auto_transition_pattern(su, bm_exec, bm);
+    domain_auto_transition_pattern(su, bm_exec, bm);
     ## for aa start in deveco
-    ## domain_auto_transition_pattern(su, aa_exec, aa);
+    domain_auto_transition_pattern(su, aa_exec, aa);
     domain_auto_transition_pattern(su, hiperf_exec, hiperf);
     domain_auto_transition_pattern(su, hiprofiler_cmd_exec, hiprofiler_cmd);
     domain_auto_transition_pattern(su, hidumper_exec, hidumper);
