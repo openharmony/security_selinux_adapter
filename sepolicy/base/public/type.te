@@ -96,3 +96,5 @@ type uitest, nativedomain, domain;
 
 type aa, nativedomain, domain;
 type aa_exec, exec_attr, file_attr, system_file_attr;
+
+type su, nativedomain, domain;

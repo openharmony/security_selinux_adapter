@@ -13,13 +13,13 @@
 
 debug_only(`
 	allow native_daemon self:capability setgid;
-        allow { domain -limit_domain -sh -console } dev_unix_socket:sock_file write;
-        allow { domain -limit_domain -sh -console } dev_unix_file:sock_file write;
+        allow { domain -limit_domain -sh -su -console } dev_unix_socket:sock_file write;
+        allow { domain -limit_domain -sh -su -console } dev_unix_file:sock_file write;
         allow native_daemon sh_exec:file execute;
         allow native_daemon sh:fd use;
         allow native_daemon sh:file read;
 ')
-allow { domain -limit_domain -sh -console } hiprofiler_socket:sock_file { getattr write unlink };
+allow { domain -limit_domain -sh -su -console } hiprofiler_socket:sock_file { getattr write unlink };
 allow init hiprofiler_socket:sock_file { relabelto };
 
 allow native_daemon data_local_tmp:file { create read open write lock getattr ioctl map };
@@ -53,9 +53,9 @@ allow native_daemon system_bin_file:file { execute execute_no_trans getattr map 
 
 allow native_daemon domain:dir { open read getattr search };
 allow native_daemon domain:file { open read getattr };
-allow { domain -limit_domain -sh -console } native_daemon:fd use;
-allow { domain -limit_domain -sh -console } native_daemon:unix_stream_socket connectto;
-allow { domain -limit_domain -sh -console } hiprofilerd:unix_stream_socket connectto;
+allow { domain -limit_domain -sh -su -console } native_daemon:fd use;
+allow { domain -limit_domain -sh -su -console } native_daemon:unix_stream_socket connectto;
+allow { domain -limit_domain -sh -su -console } hiprofilerd:unix_stream_socket connectto;
 allow native_daemon dev_unix_socket:dir { add_name remove_name write search };
 allow native_daemon dev_unix_socket:sock_file { unlink create getattr setattr write };
 allow native_daemon domain:process signal;
