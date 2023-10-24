@@ -89,7 +89,9 @@ neverallow * hilogd:process dyntransition;
 # protect persist tmp file and info file
 neverallow {
     domain
+	developer_only(`
     -wukong
+	')
     -init
     -hilogd
     -sh                 # write is covered next
