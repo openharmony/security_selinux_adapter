@@ -147,6 +147,12 @@ allow bm dev_unix_socket:dir { search };
 allow bm data_file:file { getattr read open };
 allow bm sh:fifo_file { write ioctl };
 allow bm tracefs:dir { search };
+allow bm data_app_file:dir { search };
+allow bm devpts:chr_file { read write ioctl };
+allow bm tty_device:chr_file { read write };
+allow bm system_file:file { getattr read open };
+allow bm data_app_el2_file:dir { search };
+allowxperm bm devpts:chr_file ioctl { 0x5413 };
 allowxperm bm sh:fifo_file ioctl { 0x5413 };
 
 debug_only(`
@@ -155,4 +161,5 @@ debug_only(`
     allow { domain -limit_domain -sh -console } bms_param:file { map open read };
     allow { param_watcher } bms_param:parameter_service { set };
 ')
+allow foundation arkui_param:file { map open read };
 

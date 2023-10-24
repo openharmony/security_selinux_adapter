@@ -10,7 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-/system/lib(64)?/libcode_sign_utils.z.so      u:object_r:code_sign_utils:s0
-
-/dev/code_sign                           u:object_r:dev_code_sign:s0
+debug_only(`
+    allow sh sh:code_sign { add_cert_chain };
+')

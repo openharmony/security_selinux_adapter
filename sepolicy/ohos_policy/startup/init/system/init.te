@@ -464,3 +464,5 @@ allowxperm init tmpfs:blk_file ioctl { 0x5413 };
 # avc:  denied  { read } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=1
 # avc:  denied  { write } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=1
 allow init tmpfs:blk_file { ioctl open read write };
+# for developer
+allow init proc_developer_file:file { open read getattr };
