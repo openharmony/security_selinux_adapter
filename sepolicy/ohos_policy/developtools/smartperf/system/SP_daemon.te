@@ -317,6 +317,8 @@ allow SP_daemon wifi_host:dir { search };
 allow SP_daemon wifi_host:file { open read };
 allow SP_daemon wifi_manager_service:dir { search };
 allow SP_daemon wifi_manager_service:file { open read };
+allow SP_daemon domain: dir { search };
+allow SP_daemon domain: file { open read };
 
 allow SP_daemon SP_daemon:tcp_socket { create accept bind };
 allow SP_daemon SP_daemon:udp_socket { create read };

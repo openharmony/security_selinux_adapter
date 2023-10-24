@@ -50,5 +50,4 @@ allow system_basic_hap_attr sys_param:file { map open read };
 allow system_basic_hap_attr sys_usb_param:file { map open read };
 allow system_basic_hap_attr system_basic_hap_attr:process { ptrace };
 allow system_basic_hap_attr system_bin_file:dir { search };
-allow system_basic_hap_attr wukong:binder { call };
 
