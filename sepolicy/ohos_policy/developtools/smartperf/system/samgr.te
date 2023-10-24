@@ -11,7 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+developer_only(`
 allow samgr SP_daemon:dir { search };
 allow samgr SP_daemon:binder { transfer };
 allow samgr SP_daemon:file { open read };
 allow samgr SP_daemon:process { getattr };
+')

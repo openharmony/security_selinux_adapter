@@ -21,5 +21,8 @@ allow init samain_exec:file { execute };
 allow init tmpfs:chr_file { getattr };
 allow init tmpfs:dir { relabelfrom };
 
+developer_only(`
 allow init cgroup:file { ioctl };
 allowxperm init cgroup:file ioctl 0x5413;
+')
+

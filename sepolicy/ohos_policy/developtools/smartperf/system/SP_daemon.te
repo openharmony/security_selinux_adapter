@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
+developer_only(`
 allow SP_daemon data_file:dir { search };
 allow SP_daemon data_local:dir { search };
 allow SP_daemon data_local_tmp:dir { add_name getattr search write search create open read remove_name };
@@ -327,3 +328,4 @@ allow SP_daemon intell_voice_service:dir { search };
 allow SP_daemon proc_stat_file:file { setattr };
 allow SP_daemon SP_daemon:tcp_socket { accept };
 allow SP_daemon SP_daemon:udp_socket { read };
+')

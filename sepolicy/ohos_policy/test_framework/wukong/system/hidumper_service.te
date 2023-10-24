@@ -11,8 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+developer_only(`
 allow hidumper_service wukong:file { read };
 allow hidumper_service wukong:dir { search };
 allow hidumper_service wukong:file { getattr };
 allow hidumper_service wukong:file { open };
-
+')

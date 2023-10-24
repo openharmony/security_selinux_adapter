@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+developer_only(`
 allow wukong accessibility:binder { call transfer };
 allow wukong accessibility:dir { search };
 allow wukong accessibility:file { open read };
@@ -262,3 +263,4 @@ allow wukong sa_foundation_dms:samgr_class { get };
 allow wukong sa_multimodalinput_service:samgr_class { get };
 allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_sys_event_service:samgr_class { get };
+')

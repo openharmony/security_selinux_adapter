@@ -13,7 +13,10 @@
 
 allow samgr processdump:binder { transfer };
 
+developer_only(`
 allow samgr wukong:binder { transfer };
 allow samgr wukong:dir { search };
 allow samgr wukong:file { open read };
 allow samgr wukong:process { getattr };
+')
+

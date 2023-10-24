@@ -19,5 +19,7 @@ allow hidumper hiprofilerd:fd { use };
 allow hidumper hiprofiler_plugins:fd { use };
 allow hidumper hiprofiler_plugins:fifo_file { write };
 allow hidumper hiprofiler_plugins:unix_stream_socket { read write };
+developer_only(`
 allow hidumper SP_daemon:fd { use };
 allow hidumper SP_daemon:fifo_file { write };
+')

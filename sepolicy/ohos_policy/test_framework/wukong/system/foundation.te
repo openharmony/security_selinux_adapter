@@ -13,5 +13,8 @@
 
 allow foundation hdf_allocator_service:hdf_devmgr_class { get };
 
+developer_only(`
 allow foundation wukong:binder { call };
+')
+
 

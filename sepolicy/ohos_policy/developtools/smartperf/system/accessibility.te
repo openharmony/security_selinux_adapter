@@ -16,4 +16,6 @@ allow accessibility data_service_el1_file:dir { getattr search };
 allow accessibility data_service_el1_file:file { getattr open read };
 allow accessibility data_service_file:dir { search };
 allow accessibility dev_unix_socket:dir { search };
+developer_only(`
 allow accessibility SP_daemon:binder { call transfer };
+')
