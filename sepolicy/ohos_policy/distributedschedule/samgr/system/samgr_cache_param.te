@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apl=normal name=com.ohos.medialibrary.medialibrarydata domain=medialibrary_hap type=medialibrary_hap_data_file
-apl=normal name=com.ohos.medialibrary.medialibrarydata:fileAccess domain=medialibrary_hap type=medialibrary_hap_data_file
-apl=normal name=com.ohos.medialibrary.medialibrarydata:backup domain=medialibrary_hap type=medialibrary_hap_data_file
+allow samgr_writable_param tmpfs:filesystem associate;

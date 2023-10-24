@@ -260,6 +260,7 @@ allow hiprofiler_plugins dev_unix_file:sock_file write;
 allow hiprofiler_plugins hisysevent_exec:file { open read execute execute_no_trans map};
 allow hiprofiler_plugins samgr:binder call;
 allow hiprofiler_plugins sa_sys_event_service:samgr_class get;
+allow hiprofiler_plugins sa_hiview_service:samgr_class get;
 allow hiprofiler_plugins hiview:binder { call transfer };
 allow hiprofiler_plugins dev_console_file:chr_file { read write };
 allow hiprofiler_plugins proc_diskstats_file:file getattr;
@@ -278,3 +279,8 @@ allow hiprofiler_plugins hisysevent:process sigkill;
 allow hiprofiler_plugins sa_accountmgr:samgr_class get;
 allow hiprofiler_plugins sa_foundation_bms:samgr_class get;
 allow hiprofiler_plugins hiview:fd use;
+
+allow samgr hiprofiler_plugins:dir { search };
+allow samgr hiprofiler_plugins:file { read open };
+allow samgr hiprofiler_plugins:process { getattr };
+allow samgr hiprofiler_plugins:binder { call transfer };
