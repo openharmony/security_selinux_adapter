@@ -17,4 +17,4 @@ allow storage_daemon fuse_file:dir { search };
 # avc:  denied  { getattr } for  pid=494 comm="storage_daemon" path="/mnt/sandbox/com.ohos.dlpmanager/mnt/data/fuse/com.example.ohnotes_1_1690421751019.txt.dlp.link" dev="fuse" ino=548086857696 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=file permissive=1
 # avc:  denied  { getattr } for  pid=494 comm="storage_daemon" path="/mnt/sandbox/com.ohos.dlpmanager/mnt/data/fuse/com.example.ohnotes_1_1690421704467.txt.dlp.link" dev="fuse" ino=545122760448 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=file permissive=1
 # avc:  denied  { getattr } for  pid=494 comm="storage_daemon" path="/mnt/sandbox/com.ohos.dlpmanager/mnt/data/fuse/com.example.ohnotes_1_1690421742601.txt.dlp.link" dev="fuse" ino=548086857696 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:fuse_file:s0 tclass=file permissive=1
-allow storage_daemon fuse_file:file { getattr };
+allow storage_daemon fuse_file:file { getattr mounton write };
