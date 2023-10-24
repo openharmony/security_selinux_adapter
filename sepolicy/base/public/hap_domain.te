@@ -155,7 +155,7 @@ neverallow { domain -hap_domain -installs -storage_daemon debug_only(`-hdcd')  -
 neverallow normal_hap_attr system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file_attr
-neverallow { domain -hap_domain -installs debug_only(`-hdcd') -distributeddata -storage_daemon -hiview } normal_hap_data_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs debug_only(`-hdcd') -distributeddata -storage_daemon -hiview -normal_hap_data_file_attr_violator_dir_file_create_unlink } normal_hap_data_file_attr:dir_file_class_set { create unlink };
 
 neverallow { domain -hap_domain -installs -appspawn -nwebspawn debug_only(`-hdcd') -distributeddata -sh -storage_daemon -hiview -cloudfiledaemon -normal_hap_data_file_attr_violator_dir} normal_hap_data_file_attr:dir *;
 
