@@ -37,14 +37,19 @@ allow SP_daemon uitest_exec:file { execute execute_no_trans getattr map read ope
 allowxperm SP_daemon devpts:chr_file ioctl 0x5413;
 allowxperm SP_daemon tty_device:chr_file ioctl 0x5413;
 allow SP_daemon multimodalinput:binder { call };
-allow SP_daemon SP_daemon:tcp_socket { create accept bind };
-allow SP_daemon SP_daemon:udp_socket { create read };
+allow SP_daemon SP_daemon:tcp_socket { create accept bind listen };
+allow SP_daemon SP_daemon:udp_socket { create read bind write };
 allow SP_daemon foundation:binder { call };
 allow SP_daemon samgr:binder { call };
 allow SP_daemon tracefs:dir { search };
 allow SP_daemon accessibility:binder { call transfer };
 allow SP_daemon param_watcher:binder { call transfer };
 allow SP_daemon proc_stat_file:file { read open getattr setattr };
+allow SP_daemon node:tcp_socket { node_bind };
+allow SP_daemon node:udp_socket { node_bind };
+allow SP_daemon port:tcp_socket { name_bind };
+allow SP_daemon port:udp_socket { name_bind };
+allow SP_daemon system_basic_hap:file { getattr };
 
 allow SP_daemon sa_accessibleabilityms:samgr_class { get };
 allow SP_daemon sa_param_watcher:samgr_class { get };
