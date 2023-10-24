@@ -183,3 +183,5 @@ attribute binder_call_installs_violators;
 attribute permissions_mount_file_attr;
 attribute log_file_attr;
 attribute appspawn_unmount_filesystem_violators;
+
+attribute filesystem_violator;
