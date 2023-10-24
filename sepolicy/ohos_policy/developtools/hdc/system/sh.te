@@ -118,6 +118,10 @@ use_hilog(sh)
 read_hilog(sh)
 control_hilog(sh)
 
+developer_only(`
+domain_auto_transition_pattern(sh, wukong_exec, wukong);
+domain_auto_transition_pattern(sh, SP_daemon_exec, SP_daemon);
+')
 
 # enable getting accessibility service
 allow sh sa_accessibleabilityms:samgr_class { get };

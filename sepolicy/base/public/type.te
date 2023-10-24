@@ -94,5 +94,11 @@ type file_guard_server, sadomain,  domain;
 type uitest_exec, exec_attr, file_attr, system_file_attr;
 type uitest, nativedomain, domain;
 
+type wukong, nativedomain, domain;
+type wukong_exec, exec_attr, file_attr, system_file_attr;
+
+type SP_daemon, nativedomain, domain;
+type SP_daemon_exec, exec_attr, file_attr, system_file_attr;
+
 type aa, nativedomain, domain;
 type aa_exec, exec_attr, file_attr, system_file_attr;

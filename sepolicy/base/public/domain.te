@@ -101,9 +101,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -bm -uitest -aa } data_local_tmp:dir never_write_dir;
+neverallow { domain developer_only(`-wukong -SP_daemon') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -bm -uitest -aa } data_local_tmp:dir never_write_dir;
 
-neverallow { domain -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -bm -uitest -aa } data_local_tmp:dir { open search };
+neverallow { domain developer_only(`-wukong -SP_daemon') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -bm -uitest -aa } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -246,7 +246,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } { system_file_
 neverallow { domain -kernel -hap_domain -locationhub
              -sh debug_only(`-hdcd') -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
-neverallow { domain -bm -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -data_local_tmp_violator_file_open } data_local_tmp:file open;
+neverallow { domain developer_only(`-wukong -SP_daemon') -bm -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -data_local_tmp_violator_file_open } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -266,7 +266,7 @@ neverallow { domain debug_only(`-hdcd') -sh updater_only(`-init -updater -update
 neverallow { domain debug_only(`-hdcd') -sh updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
-neverallow { domain -console -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
+neverallow { domain developer_only(`-wukong -SP_daemon') -console -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host') -hidumper_service -netsysnative
     -wifi_hal_service -sh_exec_violator -aa } sh_exec:file execute;
 
