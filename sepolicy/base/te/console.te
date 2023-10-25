@@ -10,6 +10,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+debug_only(`
+    permissive console;
+')
 
 allow console bootevent_param:file { map open read };
 allow console bootevent_samgr_param:file { map open read };

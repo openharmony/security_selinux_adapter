@@ -12,12 +12,6 @@
 # limitations under the License.
 
 # for debug version
-debug_only(`
-    permissive sh;
-    permissive su;
-    permissive console;
-')
-
 # for shell
 allow sh rootfs:dir { search };
 allow sh rootfs:lnk_file { read };

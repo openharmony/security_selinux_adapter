@@ -102,3 +102,5 @@ type SP_daemon_exec, exec_attr, file_attr, system_file_attr;
 
 type aa, nativedomain, domain;
 type aa_exec, exec_attr, file_attr, system_file_attr;
+
+type su, nativedomain, domain;
