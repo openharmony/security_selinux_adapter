@@ -215,6 +215,8 @@ debug_only(`
     # avc: denied { sigkill } for pid=241 comm="updater" scontext=u:r:updater:s0 tcontext=u:r:su:s0 tclass=process permissive=1
     allow updater su:process { signal sigkill };
     allow foundation su:binder { call transfer };
+    allow { SP_daemon wukong uitest } su:fd { use };
+    allow { SP_daemon wukong uitest }  su:unix_stream_socket { read write };
 
 # sh.te baseline to su
     allow su su:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
