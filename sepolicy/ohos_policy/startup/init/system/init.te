@@ -70,22 +70,22 @@ allow { useriam } useriam_fwkready_param:parameter_service { set };
 allow { init bluetooth_service } bluetooth_param:parameter_service { set };
 
 #for read
-allow { domain -limit_domain -sh -console } servicectrl_param:file { map open read };
-allow { domain -limit_domain -sh -console } servicectrl_reboot_param:file { map open read };
-allow { domain -limit_domain -sh -console } startup_init_param:file { map open read };
-allow { domain -limit_domain -sh -console } startup_appspawn_param:file { map open read };
-allow { domain -limit_domain -sh -console } startup_uevent_param:file { map open read };
-allow { domain -limit_domain -sh -console } devinfo_public_param:file { map open read };
-allow { domain -limit_domain -sh -console } telephony_param:file { map open read };
-allow { domain -limit_domain -sh -console } useriam_fwkready_param:file { map open read };
-allow { domain -limit_domain -sh -console } bluetooth_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } servicectrl_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } servicectrl_reboot_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } startup_init_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } startup_appspawn_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } startup_uevent_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } devinfo_public_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } telephony_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } useriam_fwkready_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } bluetooth_param:file { map open read };
 
 #for udid
 allow { init deviceinfoservice samgr hdf_devmgr softbus_server } devinfo_private_param:file { map open read };
 allow { distributedsche accountmgr device_manager foundation d-bms } devinfo_private_param:file { map open read };
 
-allow { domain -limit_domain -sh -console } accessibility_param:file { map open read };
-allow { domain -limit_domain -sh -console } default_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } accessibility_param:file { map open read };
+allow { domain -limit_domain -sh -su -console } default_param:file { map open read };
 
 #for connect to param service
 allow deviceinfoservice paramservice_socket:sock_file { write };

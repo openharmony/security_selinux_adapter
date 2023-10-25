@@ -156,37 +156,6 @@ allow hdcd data_log:file { getattr read open };
 allow hdcd data_hilogd_file:dir { getattr read open };
 allow hdcd data_hilogd_file:file { getattr read open };
 
-debug_only(`
-    allow hdcd self:capability { setuid setgid dac_override dac_read_search sys_admin };
-
-    allow hdcd data_file:file { unlink write create setattr };
-    allow hdcd dev_block_file:blk_file { open read };
-
-    allow hdcd system_file:dir { add_name write };
-    allow hdcd system_file:file { create write };
-    allow hdcd system_bin_file:dir { add_name create write };
-    allow hdcd system_bin_file:file { create write };
-    allow hdcd system_etc_file:dir { add_name write };
-    allow hdcd system_etc_file:file { create write };
-
-    allow hdcd data_app_el1_file:dir { add_name getattr search write };
-    allow hdcd data_app_el1_file:file { create write open };
-    allow hdcd data_app_file:dir { search };
-
-    allow hdcd vendor_lib_file:dir { write };
-    allow hdcd vendor_lib_file:file { write };
-
-    allow hdcd labeledfs:filesystem { remount };
-
-    allow hdcd { file_attr -data_hilogd_file -data_parameters -data_local_arkcache }:dir create_dir_perms;
-    allow hdcd { file_attr -data_hilogd_file -dev_parameters_file -data_parameters -data_local_arkcache }:file create_file_perms;
-
-    allow hdcd system_core_hap_data_file_attr:file { create write open };
-    allow hdcd system_core_hap_data_file_attr:dir { add_name search write getattr open };
-    allow hdcd system_basic_hap_data_file_attr:dir { read open getattr };
-    allow hdcd normal_hap_data_file_attr:dir { read open search};
-')
-
 domain_auto_transition_pattern(hdcd, sh_exec, sh);
 
 # hdc control

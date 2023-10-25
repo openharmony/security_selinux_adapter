@@ -142,6 +142,17 @@ allow aa accessibility:binder { call transfer };
 allow aa normal_hap_attr:binder { call transfer };
 allow aa param_watcher:binder { call transfer };
 allow aa uitest_exec:file { execute execute_no_trans getattr map read open };
+allow aa dev_ashmem_file:chr_file { open };
+allow aa multimodalinput:binder { call };
+allow aa hap_domain:fd { use };
+allow aa hap_file_attr:file { getattr ioctl read write };
+allow aa render_service:fd { use };
+allow aa sa_accessibleabilityms:samgr_class { get };
+allow aa sa_foundation_cesfwk_service:samgr_class { get };
+allow aa sa_foundation_dms:samgr_class { get };
+allow aa sa_multimodalinput_service:samgr_class { get };
+allow aa sa_param_watcher:samgr_class { get };
+allowxperm aa hap_file_attr:file ioctl { 0x5413 };
 allowxperm aa sh:fifo_file ioctl { 0x5413 };
 allowxperm aa devpts:chr_file ioctl { 0x5413 };
 allowxperm aa tty_device:chr_file ioctl { 0x5413 };
@@ -158,6 +169,8 @@ allow hdcd aa:process { signal };
 allow param_watcher aa:binder { call };
 allow accessibility aa:binder { call transfer };
 allow normal_hap_attr aa:binder { transfer };
+allow hidumper_service aa:dir { search };
+allow hidumper_service aa:file { getattr open read };
 
 # avc:  denied  { getattr } for  pid=4155 comm="sh" path="/data/local/tmp" dev="mmcblk0p14" ino=106 scontext=u:r:aa:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
 # avc:  denied  { write search } for  pid=4155 comm="sh" name="tmp" dev="mmcblk0p14" ino=106 scontext=u:r:aa:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
