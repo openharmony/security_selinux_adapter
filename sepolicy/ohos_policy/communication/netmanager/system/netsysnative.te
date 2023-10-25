@@ -95,6 +95,7 @@ allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getat
 allow netsysnative netsysnative:netlink_tcpdiag_socket { create connect write nlmsg_read read nlmsg_write };
 allow netsysnative system_core_hap_attr:fd { use };
 allow netsysnative system_core_hap_attr:tcp_socket { read write getopt setopt };
+allow netsysnative system_core_hap_attr:udp_socket { read write getopt setopt };
 allow netsysnative edm_sa:binder { call };
 allow netsysnative sysfs_devices_system_cpu:file { read open getattr };
 

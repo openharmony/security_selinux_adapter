@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -9,13 +9,7 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License
+# limitations under the License.
 
-allow hiview hiview_file:dir { add_name write };
-allow hiview hiview_file:file { create };
-
-developer_only(`
-allow hiview SP_daemon:dir { search };
-allow hiview SP_daemon:file { getattr open read };
-')
-
+# for wukong tool
+/system/bin/wukong u:object_r:wukong_exec:s0
