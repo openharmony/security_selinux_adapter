@@ -66,9 +66,9 @@ allow sh hdcd:fifo_file { ioctl write };
 allowxperm sh hdcd:fifo_file ioctl { 0x5413 };
 
 # for data/local/tmp
-allow sh data_file:dir { search getattr};
+allow sh data_file:dir { search getattr };
 allow sh data_local:dir read_dir_perms;
-allow sh data_local_tmp:dir rw_dir_perms;
+allow sh data_local_tmp:dir { create_dir_perms read_dir_perms };
 allow sh data_local_tmp:file { create_file_perms };
 
 # for data/log/hilog
@@ -93,15 +93,20 @@ allow sh developtools_hdc_control_param:file { map read open };
 
 # for bin run
 ## for bm install
-## domain_auto_transition_pattern(sh, bm_exec, bm);
+domain_auto_transition_pattern(sh, bm_exec, bm);
 ## for aa start in deveco
-## domain_auto_transition_pattern(sh, aa_exec, aa);
+domain_auto_transition_pattern(sh, aa_exec, aa);
 domain_auto_transition_pattern(sh, hiperf_exec, hiperf);
 domain_auto_transition_pattern(sh, hiprofiler_cmd_exec, hiprofiler_cmd);
 domain_auto_transition_pattern(sh, hidumper_exec, hidumper);
 domain_auto_transition_pattern(sh, hitrace_exec, hitrace);
 domain_auto_transition_pattern(sh, bytrace_exec, bytrace);
 domain_auto_transition_pattern(sh, hisysevent_exec, hisysevent);
+developer_only(`
+    domain_auto_transition_pattern(sh, wukong_exec, wukong);
+    domain_auto_transition_pattern(sh, SP_daemon_exec, SP_daemon);
+    domain_auto_transition_pattern(sh, uitest_exec, uitest);
+')
 
 # for sh process crash faultlog
 allow sh processdump:process { share sigchld };
@@ -111,11 +116,3 @@ domain_auto_transition_pattern(sh, processdump_exec, processdump);
 use_hilog(sh)
 read_hilog(sh)
 control_hilog(sh)
-
-developer_only(`
-domain_auto_transition_pattern(sh, wukong_exec, wukong);
-domain_auto_transition_pattern(sh, SP_daemon_exec, SP_daemon);
-')
-
-# enable getting accessibility service
-allow sh sa_accessibleabilityms:samgr_class { get };
