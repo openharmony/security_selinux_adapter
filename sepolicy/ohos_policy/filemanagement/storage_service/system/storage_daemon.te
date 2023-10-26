@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow storage_daemon hmdfs:dir { create_dir_perms mounton };
+allow storage_daemon hmdfs:dir { create_dir_perms_without_ioctl mounton };
 neverallow storage_daemon hmdfs:dir ioctl;
 allow storage_daemon vfat:dir { read search setattr getattr mounton };
 allow storage_daemon exfat:dir { read search setattr getattr mounton };
@@ -153,7 +153,7 @@ allow storage_daemon huks_service:binder { call };
 #avc:  denied  { read } for  pid=179 comm="kworker/u8:3" name="IMG_2022629_152726.jpg" dev="hmdfs" ino=2305843009213824715 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 #avc:  denied  { read write } for  pid=179 comm="kworker/u8:3" name="IMG_2022629_152726.jpg" dev="hmdfs" ino=2305843009213824715 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
 #avc:  denied  { read write open } for  pid=179 comm="kworker/u8:3" path="/mnt/hmdfs/100/account/device_view/local/files/Camera/IMG_2022629_152726.jpg" dev="hmdfs" ino=2305843009213824715 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:hmdfs:s0 tclass=file permissive=1
-allow storage_daemon hmdfs:file { create_file_perms };
+allow storage_daemon hmdfs:file { create_file_perms_without_ioctl };
 neverallow storage_daemon hmdfs:file ioctl;
 
 #avc:  denied  { read } for  pid=253 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:init:s0 tclass=file permissive=0
