@@ -195,11 +195,6 @@ allow msdp_sa allocator_host:fd { use };
 #avc:  denied  { call } for  pid=3255 comm="mmi_EventHdr" scontext=u:r:msdp_sa:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
 allow msdp_sa distributeddata:binder { call };
 
-#avc:  denied  { use } for  pid=3612 comm="e.myapplication" path="/dev/ashmem" dev="tmpfs" ino=480 scontext=u:r:msdp_sa:s0 tcontext=u:r:debug_hap:s0 tclass=fd permissive=1
-debug_only(`
-allow msdp_sa debug_hap:fd { use };
-')
-
 #avc:  denied  { use } for  pid=2822 comm="mos.filemanager" path="/dev/ashmem" dev="tmpfs" ino=480 scontext=u:r:msdp_sa:s0 tcontext=u:r:system_core_hap:s0 tclass=fd permissive=0
 allow msdp_sa system_core_hap_attr:fd { use };
 

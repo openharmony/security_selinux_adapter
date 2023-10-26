@@ -26,7 +26,7 @@ allow netsysnative proc_net:file { getattr };
 allow netsysnative system_bin_file:file { execute execute_no_trans getattr map open read };
 allow netsysnative system_etc_file:file { lock };
 allow netsysnative tty_device:chr_file { open read write };
-allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write };
+allow netsysnative netsysnative:udp_socket { bind read getopt setopt connect write ioctl };
 allow netsysnative port:udp_socket { name_bind };
 allow netsysnative node:udp_socket { node_bind };
 allow netsysnative netsysnative:netlink_nflog_socket { read };
@@ -49,7 +49,7 @@ allow netsysnative normal_hap_attr:unix_dgram_socket { read write getopt setopt 
 allow netsysnative normal_hap_attr:udp_socket { read write getopt setopt };
 allow netsysnative normal_hap_attr:unix_stream_socket { read write getopt setopt };
 allow init dev_unix_file:sock_file { unlink };
-allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8933 };
+allowxperm netsysnative netsysnative:udp_socket ioctl { 0x8933 0x8953 0x8955 0x8915 0x891b 0x8913 0x8927 0x8914 };
 allowxperm netsysnative netsysnative:unix_dgram_socket ioctl { 0x8933 };
 
 allow netsysnative system_basic_hap_attr:fd { use };
@@ -95,7 +95,9 @@ allow netsysnative netsysnative:netlink_route_socket { setopt bind setattr getat
 allow netsysnative netsysnative:netlink_tcpdiag_socket { create connect write nlmsg_read read nlmsg_write };
 allow netsysnative system_core_hap_attr:fd { use };
 allow netsysnative system_core_hap_attr:tcp_socket { read write getopt setopt };
+allow netsysnative system_core_hap_attr:udp_socket { read write getopt setopt };
 allow netsysnative edm_sa:binder { call };
+allow netsysnative sysfs_devices_system_cpu:file { read open getattr };
 
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 
@@ -112,5 +114,5 @@ allow init cgroup2:filesystem { mount };
 allow init cgroup2:file { write };
 allow init cgroup2:lnk_file { create };
 
-neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa debug_only(`-sh') } netsysnative:binder *;
-neverallow { domain -netsysnative debug_only(`-sh') } iptables_exec:file { execute };
+neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa } netsysnative:binder *;
+neverallow { domain -netsysnative } iptables_exec:file { execute };

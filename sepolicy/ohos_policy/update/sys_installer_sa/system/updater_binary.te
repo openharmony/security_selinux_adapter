@@ -62,3 +62,6 @@ allow updater_binary update_firmware_file:file { map open read };
 # avc:  denied  { open } for  pid=1156 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 scontext=u:r:updater_binary:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
 allow updater_binary tmpfs:file { execute execute_no_trans open };
 
+allow updater_binary updater_block_file:blk_file { read write open };
+allow updater_binary updater_block_file:dir { search };
+allow updater_binary updater_block_file:lnk_file { read };

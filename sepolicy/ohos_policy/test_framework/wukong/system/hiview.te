@@ -11,6 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+developer_only(`
 allow hiview faultloggerd_temp_file:file { getattr };
 allow hiview system_basic_hap_attr:dir { search };
 allow hiview system_basic_hap_attr:file { open read };
+allow hiview wukong:binder { call };
+allow hiview wukong:dir { search };
+allow hiview wukong:file { getattr open read };
+')
+

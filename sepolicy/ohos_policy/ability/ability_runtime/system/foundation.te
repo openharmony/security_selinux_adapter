@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+domain_auto_transition_pattern(sh, aa_exec, aa);
+
 allow foundation accessibility:binder { call };
 allow foundation accesstoken_service:binder { call };
 allow foundation accountmgr:binder { call };
@@ -98,3 +100,84 @@ allow foundation netmanager:binder { transfer };
 allow foundation faultloggerd:fifo_file { read };
 neverallow foundation *:process ptrace;
 
+# add for aa
+allow aa samgr:binder { call };
+allow aa debug_param:file { map read open };
+allow aa hilog_param:file { map read open };
+allow aa sa_foundation_bms:samgr_class { get };
+allow aa foundation:binder { call transfer };
+allow aa foundation:fd { use };
+allow aa data_service_el1_file:file { read write };
+allow aa dev_console_file:chr_file { read write };
+allow aa hdcd:fd { use };
+allow aa hdcd:unix_stream_socket { read write };
+allow aa sh:fd { use };
+allow aa tty_device:chr_file { read write open ioctl };
+allow aa dev_unix_socket:dir { search };
+allow aa hdcd:fifo_file { ioctl read write };
+allow aa persist_sys_param:file { map open read };
+allow aa devpts:chr_file { ioctl read write };
+allow aa data_file:dir { search getattr};
+allow aa sa_foundation_abilityms:samgr_class { get };
+allow aa tracefs:dir { search };
+allow aa system_bin_file:dir { search };
+allow aa system_bin_file:file { getattr execute read open execute_no_trans map };
+allow aa system_bin_file:lnk_file { read };
+allow aa data_local:dir { search };
+allow aa aa_exec:file { execute_no_trans };
+allow aa hilog_output_socket:sock_file { write };
+allow aa hilog_control_socket:sock_file { write };
+allow aa hilogd:unix_stream_socket { connectto };
+allow aa sa_accountmgr:samgr_class { get };
+allow aa sa_foundation_bms:samgr_class { get };
+allow aa hilog_exec:file { getattr execute execute_no_trans map read open };
+allow aa init:dir { getattr search };
+allow aa init:file { open read };
+allow aa kernel:dir { getattr search };
+allow aa kernel:file { open read };
+allow aa watchdog_service:dir { getattr search };
+allow aa sh:fifo_file { ioctl write };
+allow aa arkcompiler_param:file { map open read };
+allow aa accessibility:binder { call transfer };
+allow aa normal_hap_attr:binder { call transfer };
+allow aa param_watcher:binder { call transfer };
+allow aa uitest_exec:file { execute execute_no_trans getattr map read open };
+allow aa dev_ashmem_file:chr_file { open };
+allow aa multimodalinput:binder { call };
+allow aa hap_domain:fd { use };
+allow aa hap_file_attr:file { getattr ioctl read write };
+allow aa render_service:fd { use };
+allow aa sa_accessibleabilityms:samgr_class { get };
+allow aa sa_foundation_cesfwk_service:samgr_class { get };
+allow aa sa_foundation_dms:samgr_class { get };
+allow aa sa_multimodalinput_service:samgr_class { get };
+allow aa sa_param_watcher:samgr_class { get };
+allowxperm aa hap_file_attr:file ioctl { 0x5413 };
+allowxperm aa sh:fifo_file ioctl { 0x5413 };
+allowxperm aa devpts:chr_file ioctl { 0x5413 };
+allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
+allow foundation aa:binder { call };
+allow samgr aa:dir { search };
+allow samgr aa:file { open read };
+allow samgr aa:process { getattr };
+allow samgr aa:binder { call transfer };
+allow hap_domain aa:binder { call };
+allow hiview aa:dir { search };
+allow hiview aa:file { read open getattr };
+allow hdcd aa:process { signal };
+allow param_watcher aa:binder { call };
+allow accessibility aa:binder { call transfer };
+allow normal_hap_attr aa:binder { transfer };
+allow hidumper_service aa:dir { search };
+allow hidumper_service aa:file { getattr open read };
+
+# avc:  denied  { getattr } for  pid=4155 comm="sh" path="/data/local/tmp" dev="mmcblk0p14" ino=106 scontext=u:r:aa:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+# avc:  denied  { write search } for  pid=4155 comm="sh" name="tmp" dev="mmcblk0p14" ino=106 scontext=u:r:aa:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+allow aa data_local_tmp:dir { getattr write search };
+
+# avc:  denied  { execute } for  pid=4176 comm="EventRunner#1" name="sh" dev="mmcblk0p7" ino=381 scontext=u:r:aa:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
+# avc:  denied  { execute_no_trans } for  pid=4176 comm="EventRunner#1" path="/system/bin/sh" dev="mmcblk0p7" ino=381 scontext=u:r:aa:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
+# avc:  denied  { map } for  pid=4176 comm="sh" path="/system/bin/sh" dev="mmcblk0p7" ino=381 scontext=u:r:aa:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
+# avc:  denied  { read open } for  pid=4176 comm="EventRunner#1" path="/system/bin/sh" dev="mmcblk0p7" ino=381 scontext=u:r:aa:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
+allow aa sh_exec:file { execute execute_no_trans map read open };

@@ -14,7 +14,7 @@
 ## Read/Use/Control hilog rules: ##
 ###################################
 read_hilog(hap_domain)
-use_hilog({ domain -kernel -sh -console })
+use_hilog({ domain -kernel -sh -su -console })
 
 #######################
 ## Allow rule below: ##
@@ -89,6 +89,7 @@ neverallow * hilogd:process dyntransition;
 # protect persist tmp file and info file
 neverallow {
     domain
+    developer_only(`-wukong')
     -init
     -hilogd
     -sh                 # write is covered next
