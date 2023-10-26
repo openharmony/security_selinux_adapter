@@ -119,6 +119,8 @@ allow samgr hdcd:binder { transfer };
 
 allow hdcd hmdfs:dir create_dir_perms;
 allow hdcd hmdfs:file create_file_perms;
+neverallow hdcd hmdfs:dir ioctl;
+neverallow hdcd hmdfs:file ioctl;
 
 allow param_watcher hdcd:binder { call };
 allow hdcd samgr:binder { call };
