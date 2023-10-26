@@ -84,6 +84,9 @@ type hdcd, nativedomain, domain;
 type hdcd_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, hdcd_exec, hdcd);
 
+type atm, nativedomain, domain;
+type atm_exec, exec_attr, file_attr, system_file_attr;
+
 type bm, nativedomain, domain;
 type bm_exec, exec_attr, file_attr, system_file_attr;
 
