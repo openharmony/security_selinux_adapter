@@ -164,4 +164,7 @@ allow init updater:file { getattr };
 
 # avc: denied { relabelfrom } for pid=237 comm="init" name=".persisterInfo_1" dev="rootfs" ino=28034 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 allow init rootfs:file { relabelfrom };
+
+allow init updater_block_file:blk_file { getattr ioctl open read write };
+allowxperm init updater_block_file:blk_file ioctl { 0x5413 };
 ')
