@@ -26,3 +26,5 @@ allow system_core_hap_attr node:tcp_socket { node_bind };
 
 allow system_core_hap_attr sa_netsys_ext_service:samgr_class { add get };
 allow system_core_hap_attr sa_distributed_net_service:samgr_class { add get };
+
+allow system_core_hap_attr sa_common_vpn_manager_service:samgr_class { get };
