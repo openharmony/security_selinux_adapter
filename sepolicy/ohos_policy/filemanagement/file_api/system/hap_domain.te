@@ -15,3 +15,5 @@ allow hap_domain data_service_el2_hmdfs:file { watch watch_reads create_file_per
 allow hap_domain data_service_el2_hmdfs:dir { watch watch_reads create_dir_perms };
 allow hap_domain hmdfs:file { watch watch_reads create_file_perms };
 allow hap_domain hmdfs:dir { watch watch_reads create_dir_perms };
+neverallow hap_domain hmdfs:file ioctl;
+neverallow hap_domain hmdfs:dir ioctl;
