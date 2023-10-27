@@ -253,5 +253,7 @@ allow updater_binary dev_dri_file:chr_file { ioctl };
 # avc: denied { ioctl } for pid=267 comm="updater" path="/dev/dri/card0" dev="tmpfs" ino=93 ioctlcmd=0x64af scontext=u:r:updater_binary:s0 tcontext=u:object_r:dev_dri_file:s0 tclass=chr_file permissive=0
 allowxperm updater_binary dev_dri_file:chr_file ioctl { 0x6409 0x64af };
 
+allow updater_binary updater_block_file:blk_file { read write open map getattr ioctl };
+allowxperm updater_binary updater_block_file:blk_file ioctl { 0x1277 };
 ')
 

@@ -37,6 +37,9 @@ allow accountmgr vendor_lib_file:lnk_file { read };
 allow accountmgr vendor_lib_file:dir { search };
 allow accountmgr data_file:dir { search };
 allow accountmgr sys_file:file { read open };
+# avc:  denied  { lock } for  pid=4779 comm="IPC_1_4783" path="/data/service/el1/public/account/100/account_info.json" dev="mmcblk0p14" ino=7594 scontext=u:r:accountmgr:s0 tcontext=u:object_r:account_data_file:s0 tclass=file permissive=1
+# avc:  denied  { watch } for  pid=4779 comm="SaInit0" path="/data/service/el1/public/account/104/account_info.json" dev="mmcblk0p14" ino=14953 scontext=u:r:accountmgr:s0 tcontext=u:object_r:account_data_file:s0 tclass=file permissive=1
+allow accountmgr account_data_file:file { lock watch };
 
 allow accountmgr tracefs:dir { search };
 allow accountmgr tracefs_trace_marker_file:file { write open };
@@ -67,6 +70,13 @@ allow accountmgr sa_useriam_userauth_service:samgr_class { get };
 allow accountmgr sa_useriam_pinauth_service:samgr_class { get };
 allow accountmgr sa_foundation_devicemanager_service:samgr_class { get };
 allow accountmgr sa_time_service:samgr_class { get };
+allow accountmgr sa_huks_service:samgr_class { get };
+# avc:  denied  { transfer } for  pid=4779 comm="IPC_4_4794" scontext=u:r:accountmgr:s0 tcontext=u:r:dlp_permission_service:s0 tclass=binder permissive=1
+allow accountmgr dlp_permission_service:binder { transfer };
+
+# avc:  denied  { call } for  pid=4779 comm="IPC_1_4783" scontext=u:r:accountmgr:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
+allow accountmgr huks_service:binder { call };
+
 
 allow accountmgr accessibility:binder { transfer };
 allow accountmgr bootevent_param:file { map open read };
