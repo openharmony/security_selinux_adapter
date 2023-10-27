@@ -398,6 +398,7 @@ action("build_policy") {
   ]
   outputs = [
     target_out_dir + "/policy.31",
+    target_out_dir + "/user_policy",
     target_out_dir + "/vendor.cil",
     target_out_dir + "/prebuild_sepolicy.system.cil.sha256",
     target_out_dir + "/system.cil",
@@ -539,6 +540,10 @@ action("selinux_check") {
     rebase_path(target_out_dir),
     "--source-root-dir",
     rebase_path("//"),
+    "--user-policy",
+    rebase_path(target_out_dir + "/user_policy"),
+    "--tool-path",
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
   ]
 
   if (special_selinux_check_config != "default") {
