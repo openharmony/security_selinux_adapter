@@ -121,5 +121,3 @@ allowxperm sys_installer_sa tmpfs:file ioctl { 0x5413 };
 allow sys_installer_sa updater_block_file:lnk_file { read };
 allow sys_installer_sa updater_block_file:blk_file { write getattr read open };
 
-allow sys_installer_sa accesstoken_service:binder { call };
-allow sys_installer_sa sa_accesstoken_manager_service:samgr_class { get };
