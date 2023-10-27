@@ -34,6 +34,7 @@ allow cloudfiledaemon data_service_el2_hmdfs:dir { create search read open write
 allow cloudfiledaemon data_service_el2_hmdfs:file { create setattr getattr read open write append ioctl rename unlink };
 allow cloudfiledaemon hmdfs:dir { search write remove_name add_name create open read rmdir };
 allow cloudfiledaemon hmdfs:file { read open getattr create append rename unlink };
+neverallow cloudfiledaemon hmdfs:file ioctl;
 allow cloudfiledaemon storage_daemon:fd { use };
 allow cloudfiledaemon sa_filemanagement_cloud_sync_service:samgr_class { add };
 allow cloudfiledaemon hap_domain:binder { call transfer };
