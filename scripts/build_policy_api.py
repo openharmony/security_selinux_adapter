@@ -527,16 +527,32 @@ def compile_sepolicy(args):
             build_developer_binary_policy(args, True, cil_list, developer_cil_list)
 
 
+def copy_user_policy(args):
+    if args.updater_version == "enable":
+        return
+
+    user_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "user_policy")
+    if args.developer_version == "true":
+        src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
+    else:
+        src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "policy.31")
+    shutil.copyfile(src_policy_path, user_policy_path)
+
+
 def main(args):
     # check both debug and release sepolicy
     origin_debug_version = args.debug_version
-    if args.debug_version == "true":
-        args.debug_version = "false"
+    if args.debug_version == "enable":
+        args.debug_version = "disable"
         compile_sepolicy(args)
+        copy_user_policy(args)
     else:
-        args.debug_version = "true"
+        args.debug_version = "enable"
         compile_sepolicy(args)
 
     # build target policy according to desire debug_version
     args.debug_version = origin_debug_version
     compile_sepolicy(args)
+
+    if args.debug_version == "disable":
+        copy_user_policy(args)
