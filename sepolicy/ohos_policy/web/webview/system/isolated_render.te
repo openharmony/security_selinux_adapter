@@ -134,6 +134,8 @@ allow isolated_render data_app_el1_file:file { execute };
 
 allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem };
 
+allow isolated_render sa_resource_schedule:samgr_class { get };
+
 debug_only(`
     allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem_debug };
 ')
