@@ -93,3 +93,4 @@ allow wifi_manager_service sa_telephony_tel_core_service:samgr_class { get };
  
 # avc:  denied  { call } for  pid=3727 comm="RunHandleThread" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:telephony_sa:s0 tclass=binder permissive=0
 allow wifi_manager_service telephony_sa:binder { call };
+
