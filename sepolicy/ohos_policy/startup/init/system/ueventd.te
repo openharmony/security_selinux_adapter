@@ -175,7 +175,8 @@ allow ueventd zram_device:blk_file { relabelto getattr setattr };
 # avc:  denied  { getattr } for  pid=250 comm="ueventd" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
 # avc:  denied  { relabelfrom } for  pid=250 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
 # avc:  denied  { setattr } for  pid=250 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=0
-allow ueventd updater_block_file:blk_file { getattr relabelfrom setattr };
+# avc:  denied  { relabelto } for  pid=245 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:updater_block_file:s0 tclass=blk_file permissive=1
+allow ueventd updater_block_file:blk_file { getattr relabelfrom setattr relabelto };
 
 # avc:  denied  { getattr } for  pid=242 comm="ueventd" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=0
 # avc:  denied  { relabelfrom } for  pid=242 comm="ueventd" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:ueventd:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=0
