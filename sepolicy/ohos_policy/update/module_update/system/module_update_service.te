@@ -45,8 +45,6 @@ allow module_update_service data_updater_file:file { append create open read wri
 allow module_update_service kernel:unix_stream_socket { connectto };
 allow module_update_service servicectrl_reboot_param:parameter_service { set };
 allow module_update_service paramservice_socket:sock_file { write };
-allow module_update_service accesstoken_service:binder { call };
-allow module_update_service sa_accesstoken_manager_service:samgr_class { get };
 debug_only(`
     allow module_update_service sh:binder { call transfer };
 ')
