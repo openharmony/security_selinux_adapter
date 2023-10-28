@@ -132,12 +132,6 @@ allow isolated_render nwebspawn:unix_dgram_socket { connect };
 #avc: denied { execute } for pid=2265 comm="e.myapplication" path="/data/storage/el1/bundle/nweb/libs/arm/libweb_engine.so" dev="mmcblk0p14" ino=600 scontext=u:r:isolated_render:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=file permissive=0
 allow isolated_render data_app_el1_file:file { execute };
 
-#avc: denied { call } for pid=3693 comm="e.myapplication" scontext=u:r:isolated_render:s0 tcontext=u:r:time_service:s0 tclass=binder permissive=1
-allow isolated_render time_service:binder { call };
-
-#avc: denied { get } for service=3702 pid=13433 scontext=u:r:isolated_render:s0 tcontext=u:object_r:sa_time_service:s0 tclass=samgr_class permissive=0
-allow isolated_render sa_time_service:samgr_class { get };
-
 allow isolated_render isolated_render:hideaddr { hide_exec_anon_mem };
 
 debug_only(`
