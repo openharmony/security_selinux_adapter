@@ -30,6 +30,7 @@
 namespace {
 constexpr int32_t PIPE_NUM = 2;
 constexpr int32_t BUFF_SIZE = 1024;
+constexpr const char UPDATER_EXE[] = "/bin/updater";
 constexpr const char SYSTEM_CIL[] = "/system/etc/selinux/system.cil";
 constexpr const char SYSTEM_DEVELOPER_CIL[] = "/system/etc/selinux/system_developer.cil";
 constexpr const char VENDOR_CIL[] = "/vendor/etc/selinux/vendor.cil";
@@ -377,8 +378,20 @@ static bool IsDeveloperMode()
 #endif
 }
 
+// Check if in updater mode.
+static bool IsUpdaterMode(void)
+{
+    return access(UPDATER_EXE, X_OK) == 0;
+}
+
 static bool GetPolicyFile(std::string &policyFile, bool devMode)
 {
+    if (IsUpdaterMode()) {
+        policyFile = DEFAULT_POLICY;
+        selinux_log(SELINUX_WARNING, "Updater mode, load %s\n", policyFile.c_str());
+        return true;
+    }
+
     if (access(SYSTEM_CIL, R_OK) != 0) { // no system.cil file
         policyFile = devMode ? DEFAULT_DEVELOPER_POLICY : DEFAULT_POLICY;
         selinux_log(SELINUX_WARNING, "No cil file found, load %s\n", policyFile.c_str());
