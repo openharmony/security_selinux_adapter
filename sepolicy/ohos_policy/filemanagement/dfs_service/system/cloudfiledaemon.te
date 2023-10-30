@@ -44,8 +44,10 @@ debug_only(`
 allow cloudfiledaemon sa_net_conn_manager:samgr_class { get };
 allow cloudfiledaemon dev_console_file:chr_file { read write };
 allow cloudfiledaemon sa_filemanagement_cloud_daemon_service:samgr_class { add };
-allow cloudfiledaemon data_service_el1_file:dir { search write add_name create remove_name };
-allow cloudfiledaemon data_service_el1_file:file { create write open getattr ioctl setattr read rename unlink };
+allow cloudfiledaemon data_service_el1_file:dir { search write add_name create remove_name read open };
+allow cloudfiledaemon data_service_el1_file:file { create write open getattr setattr read rename unlink lock map };
+allow cloudfiledaemon cloudfile_data_file:dir { search write add_name create remove_name read open };
+allow cloudfiledaemon cloudfile_data_file:file { create write open getattr setattr read rename unlink lock map };
 allow cloudfiledaemon hap_domain:binder { call };
 allow cloudfiledaemon data_file:dir { search };
 allow cloudfiledaemon dev_ashmem_file:chr_file { open };
