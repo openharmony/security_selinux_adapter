@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-domain_auto_transition_pattern(sh, aa_exec, aa);
-
 allow foundation accessibility:binder { call };
 allow foundation accesstoken_service:binder { call };
 allow foundation accountmgr:binder { call };

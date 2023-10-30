@@ -36,8 +36,6 @@ type bms_param, parameter_attr;
 # "/system/profile/foundation.xml", O_RDONLY
 #allow foundation system_file:file read_file_perms;
 
-domain_auto_transition_pattern(sh, bm_exec, bm);
-
 allow foundation multimodalinput:binder call;
 allow foundation multimodalinput:unix_stream_socket write;
 
