@@ -75,3 +75,12 @@ allow pasteboard_service system_basic_hap_attr:fd { use };
 
 #avc:  denied  { get } for service=183 pid=1599 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_uri_permission_mgr_service:s0 tclass=samgr_class permissive=1
 allow pasteboard_service sa_uri_permission_mgr_service:samgr_class { get };
+
+#avc:  denied  { get } for service=5201 pid=1972 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_filemanagement_distributed_file_daemon_service:s0 tclass=samgr_class permissive=1
+allow pasteboard_service sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
+
+#avc:  denied  { get } for service=4700 pid=1972 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_softbus_service:s0 tclass=samgr_class permissive=1
+allow pasteboard_service sa_softbus_service:samgr_class { get };
+
+#avc:  denied  { get } for service=3299 pid=2135 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow pasteboard_service sa_foundation_cesfwk_service:samgr_class { get };
