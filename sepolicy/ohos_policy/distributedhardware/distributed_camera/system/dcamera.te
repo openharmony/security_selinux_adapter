@@ -118,6 +118,9 @@ allow dcamera sa_camera_service:samgr_class { get };
 #avc:  denied  { get } for service=401 pid=2490 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
 allow dcamera sa_foundation_bms:samgr_class { get };
 
+#avc:  denied  { get } for service=4607 pid=1562 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
+allow dcamera sa_foundation_dms:samgr_class { get };
+
 #avc:  denied  { get } for service=4606 pid=3551 scontext=u:r:dcamera:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=1
 allow dcamera sa_foundation_wms:samgr_class { get };
 
