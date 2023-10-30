@@ -81,3 +81,8 @@ allow useriam sa_foundation_abilityms:samgr_class { get };
 
 # avc:  denied  { call } for  pid=466 comm="useriam" scontext=u:r:useriam:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
 allow useriam huks_service:binder { call };
+
+allow useriam sensors:binder { transfer };
+allow sensors useriam:fd { use };
+allow sensors useriam:unix_stream_socket { read write };
+allow sensors useriam:binder { call };
