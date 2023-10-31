@@ -183,3 +183,5 @@ allow hdf_devmgr dhardware:binder { transfer };
 allow dhardware codec_host:binder { call };
 
 allow dhardware sa_foundation_wms:samgr_class { get };
+
+allow dhardware paramservice_socket:sock_file { write };
