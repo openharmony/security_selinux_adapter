@@ -25,4 +25,4 @@ allow normal_hap_attr sa_comm_net_tethering_manager_service:samgr_class { get };
 allow normal_hap_attr sa_net_policy_manager:samgr_class { get };
 
 allow normal_hap_attr sa_comm_vpn_manager_service:samgr_class { get };
-allow normal_hap port:udp_socket { name_bind };
+allow normal_hap_attr port:udp_socket { name_bind };
