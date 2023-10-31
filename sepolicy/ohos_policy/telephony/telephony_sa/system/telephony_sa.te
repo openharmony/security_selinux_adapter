@@ -50,6 +50,7 @@ allow telephony_sa sa_foundation_cesfwk_service:samgr_class get;
 allow telephony_sa sa_foundation_powermgr_service:samgr_class get;
 allow telephony_sa sa_foundation_tel_call_manager:samgr_class get;
 allow telephony_sa sa_foundation_tel_state_registry:samgr_class get;
+allow telephony_sa sa_location_locator_service:samgr_class get;
 allow telephony_sa sa_netsys_native_manager:samgr_class get;
 allow telephony_sa sa_net_conn_manager:samgr_class get;
 allow telephony_sa sa_net_policy_manager:samgr_class get;
