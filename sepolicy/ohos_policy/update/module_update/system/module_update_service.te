@@ -22,6 +22,8 @@ allow module_update_service data_module_update:dir { getattr open read remove_na
 allow module_update_service data_module_update_package:dir { open read remove_name rmdir search write getattr setattr add_name relabelto create };
 allow module_update_service data_module_update_package:file { create read write open unlink ioctl getattr map link };
 allowxperm module_update_service data_module_update_package:file ioctl { 0x5413 };
+allow module_update_service data_module_update:file { create read write open unlink ioctl getattr map link };
+allowxperm module_update_service data_module_update:file ioctl { 0x5413 };
 allow module_update_service debug_param:file { map open read };
 allow module_update_service dev_console_file:chr_file { open read write };
 allow module_update_service dev_unix_socket:dir { search };
