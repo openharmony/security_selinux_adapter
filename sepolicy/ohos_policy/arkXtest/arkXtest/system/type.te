@@ -12,7 +12,6 @@
 # limitations under the License.
 
 developer_only(`
-    domain_auto_transition_pattern(sh, uitest_exec, uitest);
     allow uitest sa_accessibleabilityms:samgr_class { get };
     allow uitest accessibility:binder { call transfer };
     allow uitest foundation:binder { call transfer };
