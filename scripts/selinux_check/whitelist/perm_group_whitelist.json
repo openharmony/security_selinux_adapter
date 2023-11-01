@@ -77,7 +77,6 @@
                 "aa hilog_exec",
                 "aa sh_exec",
                 "aa system_bin_file",
-                "aa uitest_exec",
                 "cupsd data_service_el1_public_print_service_file",
                 "SP_daemon sh_exec",
                 "SP_daemon system_bin_file",

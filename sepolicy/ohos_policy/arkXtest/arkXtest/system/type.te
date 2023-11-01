@@ -50,4 +50,16 @@ developer_only(`
     allow uitest debug_param:file { map open read };
     allow uitest sa_param_watcher:samgr_class { get };
     allow render_service sh:binder { call transfer };
+
+    
+    allow hdcd uitest:process {signal};
+    allow uitest system_basic_hap:binder { call };
+    allow uitest sa_foundation_wms:samgr_class { get };
+    allow uitest arkcompiler_param:file { open read map };
+    allow uitest devpts:chr_file { read write };
+    allow uitest system_basic_hap:fd { use };
+    allow uitest system_basic_hap_data_file:file { read write ioctl getattr write };
+    allow hidumper_service uitest:dir { search };
+    allow hidumper_service uitest:file { open getattr };
+    allow uitest aa:fd { use };
 ')
