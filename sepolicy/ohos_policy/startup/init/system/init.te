@@ -216,7 +216,7 @@ allow init data_system_de:dir { getattr open read relabelto setattr };
 allow init data_system:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_udev:dir { getattr open read relabelto search setattr };
 allow init data_updater_file:dir { getattr open read relabelto search setattr };
-allow init data_updater_file:file { relabelto };
+allow init data_updater_file:file { relabelto create getattr map open read rename setattr unlink write append };
 allow init data_user_de:dir { getattr open read relabelto setattr };
 allow init data_user:dir { add_name getattr open read relabelto search setattr write };
 allow init data_user:lnk_file { create };
