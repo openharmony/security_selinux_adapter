@@ -51,6 +51,7 @@ developer_only(`
     allow uitest sa_param_watcher:samgr_class { get };
     allow render_service sh:binder { call transfer };
 
+    domain_auto_transition_pattern(aa, uitest_exec, uitest);
     allow hdcd uitest:process {signal};
     allow uitest system_basic_hap:binder { call };
     allow uitest sa_foundation_wms:samgr_class { get };

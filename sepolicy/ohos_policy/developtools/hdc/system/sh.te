@@ -106,7 +106,6 @@ developer_only(`
     domain_auto_transition_pattern(sh, wukong_exec, wukong);
     domain_auto_transition_pattern(sh, SP_daemon_exec, SP_daemon);
     domain_auto_transition_pattern(sh, uitest_exec, uitest);
-    domain_auto_transition_pattern(aa, uitest_exec, uitest);
 ')
 
 # for sh process crash faultlog
