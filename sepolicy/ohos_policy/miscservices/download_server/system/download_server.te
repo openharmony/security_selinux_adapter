@@ -86,3 +86,9 @@ allow download_server sa_huks_service:samgr_class { get };
 allow download_server sa_foundation_wms:samgr_class { get };
 #avc:  denied  { get } for service=3299 pid=1836 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
 allow download_server sa_foundation_cesfwk_service:samgr_class { get };
+#avc:  denied  { read } for pid=6848 comm="download_server" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=154 scontext=u:r:download_server:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+#avc:  denied  { map } for pid=3942 comm="download_server" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=154 scontext=u:r:download_server:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+#avc:  denied  { open } for pid=3942 comm="download_server" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=154 scontext=u:r:download_server:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+allow download_server arkcompiler_param:file { read map open };
+#avc:  denied  { write } for pid=6848 comm="async-2" name="dnsproxyd" dev="tmpfs" ino=185 scontext=u:r:download_server:s0 tcontext=u:dev_unix_file:sock_file:s0 tclass=sock_file permissive=1
+allow download_server dev_unix_file:sock_file { write };
