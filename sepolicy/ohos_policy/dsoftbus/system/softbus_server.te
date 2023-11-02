@@ -85,6 +85,10 @@ debug_only(`
 #avc:  denied  { read } for  pid=456 comm="softbus_server" name="af_ninet" dev="sysfs" ino=13529 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sys_file:s0 tclass=file permissive=0
 allow softbus_server sys_file:file { open read };
 
+#avc:  denied  { call } for  pid=2167 scontext=u:r:softbus_server:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for  pid=2167 scontext=u:r:softbus_server:s0 tcontext=u:r:pasteboard_service:s0 tclass=binder permissive=1
+allow softbus_server pasteboard_service:binder { call transfer };
+
 #avc:  denied  { read } for  pid=497 comm="softbus_server" name="nip_route" dev="proc" ino=4026532651 scontext=u:r:softbus_server:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=0
 #avc:  denied  { getattr } for  pid=540 comm="SaInit0" path="/proc/540/net/nip_route" dev="proc" ino=4026532673 scontext=u:r:softbus_server:s0 tcontext=u:object_r:proc_net:s0 tclass=file permissive=0
 allow softbus_server proc_net:file { open getattr read };
