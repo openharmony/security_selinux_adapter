@@ -58,7 +58,8 @@ developer_only(`
     allow uitest arkcompiler_param:file { open read map };
     allow uitest devpts:chr_file { read write };
     allow uitest system_basic_hap_attr:fd { use };
-    allowxperm uitest system_basic_hap_data_file_attr:file { read write ioctl getattr write };
+    allow uitest system_basic_hap_data_file_attr:file { read write getattr write };
+    allowxperm uitest system_basic_hap_data_file_attr:file ioctl { 0x5413 0xf50c };
     allow hidumper_service uitest:dir { search };
     allow hidumper_service uitest:file { open getattr };
     allow uitest aa:fd { use };
