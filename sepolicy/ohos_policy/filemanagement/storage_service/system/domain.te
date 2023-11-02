@@ -12,4 +12,4 @@
 # limitations under the License.
 
 #avc:  denied  { search } for  pid=601 comm="foundation" scontext=u:r:foundation:s0 tcontext=u:r:storage_daemon:s0 tclass=key permissive=0
-allow { domain -limit_domain -sh -su -console } storage_daemon:key { search };
+allow domain storage_daemon:key { search };

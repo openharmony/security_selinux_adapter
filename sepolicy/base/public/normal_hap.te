@@ -21,7 +21,7 @@ irda_socket pppox_socket llc_socket can_socket tipc_socket bluetooth_socket iucv
 isdn_socket phonet_socket ieee802154_socket caif_socket alg_socket nfc_socket vsock_socket kcm_socket 
 qipcrtr_socket smc_socket xdp_socket  } *;
 
-neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
+neverallow normal_hap_attr { domain sh }:netlink_kobject_uevent_socket *;
 
 neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
@@ -29,7 +29,7 @@ neverallow normal_hap_attr { domain -normal_hap_attr }:netlink_route_socket { bi
 
 neverallow normal_hap_attr *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 
-#neverallowxperm normal_hap domain:{ icmp_socket rawip_socket tcp_socket udp_socket } ioctl 
+#neverallowxperm normal_hap { domain sh }:{ icmp_socket rawip_socket tcp_socket udp_socket } ioctl 
 
 neverallow normal_hap_attr dev_kmsg_file:chr_file never_rw_file;
 
@@ -65,9 +65,9 @@ neverallow normal_hap_attr cgroup:file *;
 #todo closing for debug building.
 neverallow normal_hap_attr debugfs_attr:{ file lnk_file } read;
 
-neverallow normal_hap_attr domain:netlink_socket *;
+neverallow normal_hap_attr { domain sh }:netlink_socket *;
 
-neverallow normal_hap_attr domain:netlink_kobject_uevent_socket *;
+neverallow normal_hap_attr { domain sh }:netlink_kobject_uevent_socket *;
 
 neverallow normal_hap_attr proc_net:file rw_file_perms;
 neverallow normal_hap_attr proc_net:dir ~{ getattr };

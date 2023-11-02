@@ -14,8 +14,8 @@
 allow memmgrservice data_file:dir { search };
 allow memmgrservice data_init_agent:dir { search };
 allow memmgrservice data_init_agent:file { ioctl open read append };
-allow memmgrservice domain:dir { search };
-allow memmgrservice domain:file { open read getattr };
+allow memmgrservice { domain sh }:dir { search };
+allow memmgrservice { domain sh }:file { open read getattr };
 allow memmgrservice accountmgr:binder { call transfer };
 allow memmgrservice dev_unix_socket:dir { search };
 allow memmgrservice bgtaskmgr_service:binder { call transfer };

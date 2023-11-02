@@ -79,6 +79,6 @@ allow wukong sa_multimodalinput_service:samgr_class { get };
 allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_sys_event_service:samgr_class { get };
 # ps -ef
-allow wukong domain: dir { search };
-allow wukong domain: file { open read };
+allow wukong { domain sh }: dir { search };
+allow wukong { domain sh }: file { open read };
 ')

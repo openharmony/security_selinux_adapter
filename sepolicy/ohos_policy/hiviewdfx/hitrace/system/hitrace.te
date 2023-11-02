@@ -50,8 +50,8 @@ allow hitrace net_tcp_param:file { map open };
 
 allow hitrace data_local_tmp:file { read write };
 
-allow hitrace domain:dir { getattr search };
-allow hitrace domain:file { open read };
+allow hitrace { domain sh }:dir { getattr search };
+allow hitrace { domain sh }:file { open read };
 allow hitrace hw_sc_build_os_param:file { open read map };
 
 allow hitrace hw_sc_build_os_param:file { open read };

@@ -14,7 +14,7 @@
 type chipset_init, nativedomain, domain;
 allow chipset_init self:capability { chown dac_override dac_read_search fsetid setgid setuid sys_admin sys_boot sys_chroot sys_rawio sys_resource fowner };
 
-allow { domain -limit_domain -sh -su -console } chipset_init:fd use;
+allow domain chipset_init:fd use;
 
 allow init init:process { setcurrent };
 allow init chipset_init:process { setcurrent dyntransition };

@@ -18,7 +18,7 @@ allow bytrace hiprofilerd:fd use;
 allow bytrace hiprofiler_plugins:fd use;
 allow bytrace hiprofiler_plugins:fifo_file write;
 
-allow bytrace domain:file { map open read write };
+allow bytrace { domain sh }:file { map open read write };
 
 allow bytrace data_local_tmp:dir read;
 

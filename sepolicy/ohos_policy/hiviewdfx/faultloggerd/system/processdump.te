@@ -38,12 +38,12 @@ processdump_cmd({
 })
 
 #============= domain =================
-allow { domain -limit_domain -sh -su -console } processdump:process { share sigchld };
-allow { domain -limit_domain -sh -su -console } self:fifo_file { write };
+allow domain processdump:process { share sigchld };
+allow domain self:fifo_file { write };
 allow processdump { domain -processdump -kernel }:process ptrace;
-allow processdump domain:fd use;
-allow processdump domain:fifo_file { read write };
-allow processdump domain:dir { getattr open read search };
+allow processdump { domain sh }:fd use;
+allow processdump { domain sh }:fifo_file { read write };
+allow processdump { domain sh }:dir { getattr open read search };
 
 #============= write event to hiview =========
 allow processdump hiview:binder { call transfer };

@@ -14,7 +14,7 @@
 ## Read/Use/Control hilog rules: ##
 ###################################
 read_hilog(hap_domain)
-use_hilog({ domain -kernel -sh -su -console })
+use_hilog({ domain -kernel })
 
 #######################
 ## Allow rule below: ##
@@ -58,8 +58,8 @@ allow hilogd init:file { getattr };
 
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
 
-allow hilogd domain:dir { search };
-allow hilogd domain:file { open read getattr };
+allow hilogd { domain sh }:dir { search };
+allow hilogd { domain sh }:file { open read getattr };
 ############################
 ## Neverallow rule below: ##
 ############################
@@ -71,7 +71,7 @@ neverallow hilogd {
 }:file { create write append };
 
 # ptrace any other app
-neverallow hilogd domain:process ptrace;
+neverallow hilogd { domain sh }:process ptrace;
 
 # ... and nobody may ptrace me (except init)
 neverallow { domain -init -processdump } hilogd:process ptrace;
@@ -92,7 +92,6 @@ neverallow {
     developer_only(`-wukong')
     -init
     -hilogd
-    -sh                 # write is covered next
     -hiview             # write is covered next
     -hdcd               # write is covered next
     -system_basic_hap_attr   # write is covered next

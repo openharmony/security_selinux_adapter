@@ -60,7 +60,7 @@ allow init { domain }:dir { search };
 allow init hiview:unix_dgram_socket { sendto };
 
 # all can read
-allow { domain -limit_domain -sh -su -console } musl_param:file { map open read };
+allow domain musl_param:file { map open read };
 
 #for crash handle
 allow init init_exec:file { open read getattr map };

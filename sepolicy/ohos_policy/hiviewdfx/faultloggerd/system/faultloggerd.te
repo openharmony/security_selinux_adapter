@@ -35,7 +35,7 @@ define(`use_faultloggerd_crash', `
 ##########################################
 ## Read/Use/Control faultloggerd rules: ##
 ##########################################
-use_faultloggerd({ domain -limit_domain -sh -su -console })
+use_faultloggerd(domain)
 use_faultloggerd_crash({ processdump })
 use_faultloggerd_file({ hiview hidumper })
 
@@ -44,9 +44,9 @@ use_faultloggerd_file({ hiview hidumper })
 #########################
 allow faultloggerd init:unix_stream_socket { accept getattr getopt listen setopt };
 
-allow faultloggerd domain:file { open read };
-allow faultloggerd domain:dir { getattr search };
-allow faultloggerd domain:process signal;
+allow faultloggerd { domain sh }:file { open read };
+allow faultloggerd { domain sh }:dir { getattr search };
+allow faultloggerd { domain sh }:process signal;
 
 allow faultloggerd data_file:dir search;
 allow faultloggerd data_init_agent:dir search;
