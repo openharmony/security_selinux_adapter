@@ -51,6 +51,7 @@ constexpr const char BACKUP_PRECOMPILED_POLICY[] = "/system/etc/selinux/policy.3
 constexpr const char BACKUP_PRECOMPILED_DEVELOPER_POLICY[] = "/system/etc/selinux/developer_policy";
 constexpr const char VERSION_POLICY_PATH[] = "/vendor/etc/selinux/version";
 constexpr const char COMPATIBLE_CIL_PATH[] = "/system/etc/selinux/compatible/";
+constexpr const char COMPATIBLE_DEVELOPER_CIL_PATH[] = "/system/etc/selinux/compatible_developer/";
 #ifdef WITH_DEVELOPER
 constexpr const char PROC_DSMM_DEVELOPER[] = "/proc/dsmm/developer";
 #endif
@@ -213,29 +214,19 @@ static bool LoadPolicy(void *data, size_t size)
     return true;
 }
 
-static bool GetVersionPolicy(std::string &versionPolicy)
+static bool GetVersionPolicy(std::string &versionPolicy, bool devMode)
 {
     std::string version;
     if (!GetVendorPolicyVersion(version)) {
         selinux_log(SELINUX_ERROR, "Get vendor policy version failed\n");
         return false;
     }
-    std::string path(COMPATIBLE_CIL_PATH + version + ".cil");
+    std::string path((devMode ? COMPATIBLE_DEVELOPER_CIL_PATH : COMPATIBLE_CIL_PATH) + version + ".cil");
     if (access(path.c_str(), F_OK) == 0) {
         versionPolicy = path;
         return true;
     }
     selinux_log(SELINUX_ERROR, "Get vendor version policy failed\n");
-    return false;
-}
-
-static bool GetPublicPolicy(std::string &publicPolicy)
-{
-    if (access(PUBLIC_CIL, F_OK) == 0) {
-        publicPolicy = PUBLIC_CIL;
-        return true;
-    }
-    selinux_log(SELINUX_ERROR, "Get vendor public policy failed\n");
     return false;
 }
 
@@ -316,7 +307,7 @@ static bool CompilePolicyWithFork(std::vector<const char *> &compileCmd)
     return WaitForChild(pid);
 }
 
-static void AddDevPolicy(std::vector<const char *> &compileCmd, const char *policyPath)
+static void AddPolicy(std::vector<const char *> &compileCmd, const char *policyPath)
 {
     if (access(policyPath, F_OK) == 0) {
         selinux_log(SELINUX_WARNING, "Add policy %s\n", policyPath);
@@ -329,7 +320,6 @@ static bool CompilePolicy(bool devMode)
 {
     std::vector<const char *> compileCmd = {
         "/system/bin/secilc",
-        VENDOR_CIL,
         "-m",
         "-N",
         "-M",
@@ -342,22 +332,16 @@ static bool CompilePolicy(bool devMode)
         "-o",
         COMPILE_OUTPUT_POLICY,
     };
-    compileCmd.emplace_back(SYSTEM_CIL);
+    compileCmd.emplace_back(devMode ? SYSTEM_DEVELOPER_CIL : SYSTEM_CIL);
+    compileCmd.emplace_back(devMode ? VENDOR_DEVELOPER_CIL : VENDOR_CIL);
+
     std::string versionPolicy;
-    if (GetVersionPolicy(versionPolicy)) {
+    if (GetVersionPolicy(versionPolicy, devMode)) {
         selinux_log(SELINUX_WARNING, "Add policy %s\n", versionPolicy.c_str());
         compileCmd.emplace_back(versionPolicy.c_str());
     }
-    std::string publicPolicy;
-    if (GetPublicPolicy(publicPolicy)) {
-        selinux_log(SELINUX_WARNING, "Add policy %s\n", publicPolicy.c_str());
-        compileCmd.emplace_back(publicPolicy.c_str());
-    }
-    if (devMode) {
-        AddDevPolicy(compileCmd, PUBLIC_DEVELOPER_CIL);
-        AddDevPolicy(compileCmd, VENDOR_DEVELOPER_CIL);
-        AddDevPolicy(compileCmd, SYSTEM_DEVELOPER_CIL);
-    }
+
+    AddPolicy(compileCmd, devMode ? PUBLIC_DEVELOPER_CIL : PUBLIC_CIL);
 
     compileCmd.emplace_back(nullptr);
 
