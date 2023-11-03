@@ -80,9 +80,6 @@ allow hidumper_service kernel:file { getattr open read };
 allow hidumper_service kernel:lnk_file read;
 allow hidumper_service kernel:system syslog_read;
 
-allow hidumper_service limit_domain:file { getattr open read };
-allow hidumper_service limit_domain:lnk_file read;
-
 allow hidumper_service normal_hap_attr:dir { getattr open read search };
 allow hidumper_service normal_hap_attr:file { getattr open read };
 allow hidumper_service normal_hap_attr:lnk_file read;
