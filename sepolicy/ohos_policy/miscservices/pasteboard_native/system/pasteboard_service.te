@@ -92,5 +92,13 @@ allow pasteboard_service distributedfiledaemon:binder { call };
 #avc:  denied  { transfer } for  pid=2167 scontext=u:r:pasteboard_service:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=1
 allow pasteboard_service softbus_server:binder { call transfer };
 
+allow pasteboard_service data_service_el2_file:dir { search };
+
+allow pasteboard_service data_app_file:dir { search };
+
+allow pasteboard_service data_service_el2_hmdfs:lnk_file { create };
+
+allow pasteboard_service debug_hap_data_file:dir { search };
+
 #avc:  denied  { get } for service=3299 pid=2135 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow pasteboard_service sa_foundation_cesfwk_service:samgr_class { get };
