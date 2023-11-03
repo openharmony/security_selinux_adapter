@@ -90,6 +90,6 @@ allow SP_daemon updater_data_param:file { map read open};
 allow SP_daemon updater_flashd_param:file { map read open };
 allow SP_daemon updater_hdc_param:file { map read open };
 # ps -ef
-allow SP_daemon { domain sh }: dir { search };
-allow SP_daemon { domain sh }: file { open read };
+allow SP_daemon { domain terminal_domain limit_domain_attr }: dir { search };
+allow SP_daemon { domain terminal_domain limit_domain_attr }: file { open read };
 ')

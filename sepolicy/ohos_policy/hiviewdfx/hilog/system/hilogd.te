@@ -58,8 +58,8 @@ allow hilogd init:file { getattr };
 
 allowxperm hilogd data_init_agent:file ioctl { 0x5413 };
 
-allow hilogd { domain sh }:dir { search };
-allow hilogd { domain sh }:file { open read getattr };
+allow hilogd { domain terminal_domain limit_domain_attr }:dir { search };
+allow hilogd { domain terminal_domain limit_domain_attr }:file { open read getattr };
 ############################
 ## Neverallow rule below: ##
 ############################
@@ -71,7 +71,7 @@ neverallow hilogd {
 }:file { create write append };
 
 # ptrace any other app
-neverallow hilogd { domain sh }:process ptrace;
+neverallow hilogd { domain terminal_domain limit_domain_attr }:process ptrace;
 
 # ... and nobody may ptrace me (except init)
 neverallow { domain -init -processdump } hilogd:process ptrace;

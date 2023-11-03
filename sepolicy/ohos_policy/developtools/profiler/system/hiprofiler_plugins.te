@@ -247,8 +247,8 @@ debug_only(`
 	allow hiprofiler_plugins console:file read;
 ')
 
-allow hiprofiler_plugins { domain sh }:dir { open read getattr search };
-allow hiprofiler_plugins { domain sh }:file { open read getattr };
+allow hiprofiler_plugins { domain terminal_domain limit_domain_attr }:dir { open read getattr search };
+allow hiprofiler_plugins { domain terminal_domain limit_domain_attr }:file { open read getattr };
 
 allow hiprofiler_plugins data_local_tmp:file ioctl;
 allow hiprofiler_plugins hilogd:unix_stream_socket connectto;

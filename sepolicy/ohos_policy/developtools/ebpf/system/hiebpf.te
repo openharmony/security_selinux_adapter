@@ -26,8 +26,8 @@ allow hiebpf foundation:file { getattr open read };
 allow hiebpf hidumper_service:file read;
 allow hiebpf normal_hap_attr:file read;
 
-allow hiebpf { domain sh }:dir { open read getattr search };
-allow hiebpf { domain sh }:file { open read getattr };
+allow hiebpf { domain terminal_domain limit_domain_attr }:dir { open read getattr search };
+allow hiebpf { domain terminal_domain limit_domain_attr }:file { open read getattr };
 
 allow hiebpf system_bin_file:dir search;
 allow hiebpf system_bin_file:file { getattr map open read };

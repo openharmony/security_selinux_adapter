@@ -48,8 +48,8 @@ allow bytrace net_tcp_param:file { map open };
 
 allow bytrace data_local_tmp:file { read write };
 
-allow bytrace { domain sh }:dir { getattr search };
-allow bytrace { domain sh }:file { open read };
+allow bytrace { domain terminal_domain limit_domain_attr }:dir { getattr search };
+allow bytrace { domain terminal_domain limit_domain_attr }:file { open read };
 allow bytrace hw_sc_build_os_param:file { open read map };
 
 allow bytrace hw_sc_build_os_param:file { open read };

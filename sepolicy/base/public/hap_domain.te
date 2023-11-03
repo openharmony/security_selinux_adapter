@@ -100,7 +100,7 @@ neverallowxperm hap_domain dev_bbox:chr_file ioctl ~{ 0xab01 0xab04 0xab09 0xad0
 neverallow { hap_domain -dev_fuse_file_violator -dlpmanager_hap } dev_fuse_file:chr_file { open ioctl read write};
 
 #limit hap use kobject netlink.
-neverallow hap_domain { domain sh }:netlink_kobject_uevent_socket { write append };
+neverallow hap_domain { domain terminal_domain limit_domain_attr }:netlink_kobject_uevent_socket { write append };
 
 #no use ptrace
 neverallow hap_domain { domain -hap_domain }:process ptrace;
@@ -166,9 +166,9 @@ neverallow { domain -installs } normal_hap_data_file_attr:dir_file_class_set { r
 neverallow hap_domain { domain -hap_domain -processdump }:process transition;
 neverallow hap_domain { domain -hap_domain }:process dyntransition;
 
-neverallow hap_domain { domain sh }:{ netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_audit_socket netlink_dnrt_socket } *;
+neverallow hap_domain { domain terminal_domain limit_domain_attr }:{ netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_audit_socket netlink_dnrt_socket } *;
 
-neverallow hap_domain { domain sh }:netlink_kobject_uevent_socket { write append };
+neverallow hap_domain { domain terminal_domain limit_domain_attr }:netlink_kobject_uevent_socket { write append };
 
 neverallow hap_domain *:netlink_selinux_socket *;
 
