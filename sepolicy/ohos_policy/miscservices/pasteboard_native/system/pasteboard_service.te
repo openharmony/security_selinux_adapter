@@ -101,8 +101,5 @@ allow pasteboard_service data_app_file:dir { search };
 #avc:  denied  { create } for  pid=2147 comm="IPC_3_2709" name="t3.jpeg" scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:data_service_el2_hmdfs:s0 tclass=lnk_file permissive=0
 allow pasteboard_service data_service_el2_hmdfs:lnk_file { create };
 
-#avc:  denied  { search } for  pid=2174 comm="IPC_3_2797" dev="sdd91" ino=9141 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=0
-allow pasteboard_service debug_hap_data_file:dir { search };
-
 #avc:  denied  { get } for service=3299 pid=2135 scontext=u:r:pasteboard_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
 allow pasteboard_service sa_foundation_cesfwk_service:samgr_class { get };
