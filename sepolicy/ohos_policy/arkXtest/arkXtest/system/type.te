@@ -63,4 +63,5 @@ developer_only(`
     allow hidumper_service uitest:dir { search };
     allow hidumper_service uitest:file { open getattr };
     allow uitest aa:fd { use };
+    allow foundation uitest:binder {transfer};
 ')
