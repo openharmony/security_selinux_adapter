@@ -353,4 +353,6 @@ debug_only(`
 
     allow hdcd su:fd { use };
     allow hdcd su:unix_dgram_socket { read write connect };
+
+    allow hdcd hdcd:capability { dac_override };
 ')
