@@ -51,7 +51,6 @@ type startup_uevent_param, parameter_attr;
 type devinfo_private_param, parameter_attr;
 type devinfo_public_param, parameter_attr;
 type const_telephony_param, parameter_attr;
-type persist_telephony_param, parameter_attr;
 type telephony_param, parameter_attr;
 type bootevent_wms_param, parameter_attr;
 type dhardware_dm_param, parameter_attr;
