@@ -147,11 +147,11 @@ neverallow domain { domain -sadomain -hdfdomain -hap_domain -nativedomain }:proc
 
 # keep file based type belong to file_attr , fs_attr, dev_attr, parameter_attr.
 # first label class
-neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr } :{ dir notdevfile_class_set } *;
+neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr limit_domain_attr } :{ dir notdevfile_class_set } *;
 
 # second level for file based label class
 neverallow domain ~{ domain fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
-    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr }:{ file dir } *;
+    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr limit_domain_attr }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
