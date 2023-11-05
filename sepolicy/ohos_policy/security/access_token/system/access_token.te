@@ -93,4 +93,5 @@ binder_call(accesstoken_service, softbus_server);
 
 debug_only(`
     binder_call(accesstoken_service, sh);
+    binder_call(accesstoken_service, su);
 ')

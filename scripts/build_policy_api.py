@@ -478,31 +478,11 @@ def generate_special_policy(args, policy, with_developer=False):
     return [vendor_cil_path, system_cil_path, type_version_cil_path, public_version_cil_path]
 
 
-def generate_developer_cil(args):
-    developer_output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
-    output_path = os.path.abspath(os.path.dirname(args.dst_file))
-
-    system_cil_path = os.path.join(output_path, "system.cil")
-    developer_system_cil_path = os.path.join(developer_output_path, "system.cil")
-    filter_out(system_cil_path, developer_system_cil_path)
-
-    vendor_cil_path = os.path.join(output_path, "vendor.cil")
-    developer_vendor_cil_path = os.path.join(developer_output_path, "vendor.cil")
-    filter_out(vendor_cil_path, developer_vendor_cil_path)
-
-    if args.components != "default":
-        public_cil_path = os.path.join(output_path, "public.cil")
-        developer_public_cil_path = os.path.join(developer_output_path, "public.cil")
-        filter_out(public_cil_path, developer_public_cil_path)
-
-
 def build_developer_binary_policy(args, check_neverallow, cil_list, developer_cil_list):
     if args.developer_version == "false":
         return
     developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
     build_binary_policy(args.tool_path, developer_policy_path, check_neverallow, developer_cil_list)
-    generate_developer_cil(args)
-    build_binary_policy(args.tool_path, developer_policy_path, False, cil_list + developer_cil_list)
 
 
 def compile_sepolicy(args):

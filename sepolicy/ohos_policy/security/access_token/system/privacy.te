@@ -87,4 +87,5 @@ binder_call(system_core_hap_attr, privacy_service);
 
 debug_only(`
     binder_call(privacy_service, sh);
+    binder_call(privacy_service, su);
 ')
