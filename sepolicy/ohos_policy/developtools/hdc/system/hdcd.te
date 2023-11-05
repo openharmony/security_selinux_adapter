@@ -165,6 +165,5 @@ neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:par
 
 allow hdcd hdcd:process { setcurrent };
 allow hdcd kernel:fd { use };
-allow hdcd hdcd:capability { dac_override };
 allow hdcd hook_param:file { read open map };
 allow sh init:netlink_kobject_uevent_socket { read write };

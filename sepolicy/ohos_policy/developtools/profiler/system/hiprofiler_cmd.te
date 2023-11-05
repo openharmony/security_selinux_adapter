@@ -110,8 +110,8 @@ allow hiprofiler_cmd sys_usb_param:file read;
 allow hiprofiler_cmd hilogd:file read;
 allow hiprofiler_cmd hiprofilerd:process signal;
 
-allow hiprofiler_cmd { domain terminal_domain limit_domain_attr }:dir { search open read };
-allow hiprofiler_cmd { domain terminal_domain limit_domain_attr }:file { getattr map open read };
+allow hiprofiler_cmd domain:dir { search open read };
+allow hiprofiler_cmd domain:file { getattr map open read };
 
 allow hiprofiler_cmd dev_unix_socket:dir write;
 allow hiprofiler_cmd dev_unix_socket:sock_file write;
@@ -137,7 +137,7 @@ debug_only(`
 ')
 allow hiprofiler_cmd self:capability sys_ptrace;
 
-allow hiprofiler_cmd { domain terminal_domain limit_domain_attr }:process signal;
+allow hiprofiler_cmd domain:process signal;
 allow hiprofiler_cmd hiview_exec:file { getattr map open read };
 
 allow domain hiprofiler_cmd:fd use;

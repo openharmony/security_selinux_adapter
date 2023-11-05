@@ -51,14 +51,14 @@ allow native_daemon paramservice_socket:sock_file write;
 allow native_daemon system_bin_file:lnk_file read;
 allow native_daemon system_bin_file:file { execute execute_no_trans getattr map open read };
 
-allow native_daemon { domain terminal_domain limit_domain_attr }:dir { open read getattr search };
-allow native_daemon { domain terminal_domain limit_domain_attr }:file { open read getattr };
+allow native_daemon domain:dir { open read getattr search };
+allow native_daemon domain:file { open read getattr };
 allow domain native_daemon:fd use;
 allow domain native_daemon:unix_stream_socket connectto;
 allow domain hiprofilerd:unix_stream_socket connectto;
 allow native_daemon dev_unix_socket:dir { add_name remove_name write search };
 allow native_daemon dev_unix_socket:sock_file { unlink create getattr setattr write };
-allow native_daemon { domain terminal_domain limit_domain_attr }:process signal;
+allow native_daemon domain:process signal;
 allow native_daemon appspawn_exec:file read;
 allow native_daemon kernel:unix_stream_socket connectto;
 allow native_daemon dev_unix_file:sock_file unlink;

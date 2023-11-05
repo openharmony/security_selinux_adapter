@@ -79,9 +79,9 @@ allow sh data_hilogd_file:file read_file_perms;
 allow sh proc_file:dir { search read open getattr };
 allow sh proc_file:lnk_file { read };
 allow sh sys_file:dir { search };
-allow sh { domain terminal_domain limit_domain_attr }:dir { getattr search };
-allow sh { domain terminal_domain limit_domain_attr }:file { open read };
-allow sh { domain terminal_domain limit_domain_attr }:process { getattr };
+allow sh domain:dir { getattr search };
+allow sh domain:file { open read };
+allow sh domain:process { getattr };
 allow sh selinuxfs:filesystem { getattr };
 
 # for param_get

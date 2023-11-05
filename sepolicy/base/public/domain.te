@@ -13,7 +13,7 @@
 
 
 allow domain init:process sigchld;
-allow init { domain terminal_domain limit_domain_attr }:process sigkill;
+allow init domain:process sigkill;
 
 allow domain self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
 
@@ -90,7 +90,7 @@ allow { domain -hap_domain } init:unix_stream_socket { read write };
 allow { domain -hap_domain } init:netlink_kobject_uevent_socket { read write };
 
 # deny access for noatsecure
-dontaudit domain { domain terminal_domain limit_domain_attr }:process noatsecure;
+dontaudit domain domain:process noatsecure;
 # neverallow rules
 neverallow { domain -init } dev_parameters_file:file write;
 neverallow { domain -init } data_parameters:dir never_write_dir;
@@ -119,7 +119,7 @@ neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 #ioctl cmd TIOCSTI, dangerous cmd.
 neverallowxperm * devpts:chr_file ioctl 0x5412;
 
-neverallow { domain } dev_port:chr_file ~{ create relabelto unlink setattr getattr };
+neverallow domain dev_port:chr_file ~{ create relabelto unlink setattr getattr };
 
 neverallow * *:{ blk_file chr_file } rename;
 
@@ -140,18 +140,18 @@ neverallow { domain -installs } data_local_arkcache:dir { write };
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file entrypoint;
 
 # keep every process join the domain attribute.
-neverallow ~{ domain terminal_domain } domain:process { transition dyntransition };
+neverallow ~domain domain:process { transition dyntransition };
 
 # everyone should in { sadomain hdfdomain hap_domain nativedomain }
 neverallow domain { domain -sadomain -hdfdomain -hap_domain -nativedomain }:process { transition dyntransition };
 
 # keep file based type belong to file_attr , fs_attr, dev_attr, parameter_attr.
 # first label class
-neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr terminal_domain limit_domain_attr } :{ dir notdevfile_class_set } *;
+neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr } :{ dir notdevfile_class_set } *;
 
 # second level for file based label class
 neverallow domain ~{ domain fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
-    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr terminal_domain limit_domain_attr }:{ file dir } *;
+    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
@@ -188,7 +188,7 @@ neverallow { domain -kernel } kernel:security setcheckreqprot;
 neverallow { domain -init } kernel:security setsecparam;
 
 # can't use domain type as exec target.
-neverallow * { domain terminal_domain limit_domain_attr }:file { execute execute_no_trans entrypoint };
+neverallow * domain:file { execute execute_no_trans entrypoint };
 
 # never use set stack and heap executable.
 neverallow * self:process { execstack execheap };
@@ -259,7 +259,7 @@ neverallow { domain developer_only(`-wukong -SP_daemon -atm') -bm -uitest -hdcd 
 #[OHOS ERROR]       (allow hdcd hdcd (tcp_socket (connect getopt name_connect)))
 #[OHOS ERROR]       (allow hdcd self (tcp_socket (ioctl read write create getattr bind listen accept setopt)))
 #
-neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver console } { domain terminal_domain limit_domain_attr }:{ tcp_socket udp_socket rawip_socket } *; 
+neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver console } domain:{ tcp_socket udp_socket rawip_socket } *; 
 
 #ensure no write access to readonly filesystem.
 
@@ -274,7 +274,7 @@ neverallow { domain developer_only(`-wukong -SP_daemon') -console -init -hdcd -f
 #limit execmem use
 neverallow { domain -appspawn -hap_domain } self:process execmem;
 
-neverallow { domain -processdump -hap_domain } { domain terminal_domain limit_domain_attr }:process ptrace;
+neverallow { domain -processdump -hap_domain } domain:process ptrace;
 
 # limit capability use.
 # for exemption add rule like this:

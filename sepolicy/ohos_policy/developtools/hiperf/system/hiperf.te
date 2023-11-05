@@ -121,8 +121,8 @@ allow hiperf sysfs_devices_system_cpu:file { open read };
 allow hiperf uinput_inject_exec:file { getattr map open read };
 allow hiperf vendor_bin_file:dir search;
 
-allow hiperf { domain terminal_domain limit_domain_attr }:dir { add_name getattr search open read write };
-allow hiperf { domain terminal_domain limit_domain_attr }:file { getattr map open read };
+allow hiperf domain:dir { add_name getattr search open read write };
+allow hiperf domain:file { getattr map open read };
 
 allow hiperf camera_service:dir { open read };
 allow hiperf camera_service:process signull;
@@ -146,7 +146,7 @@ allow hiperf system_bin_file:lnk_file read;
 allow hiperf ui_service:dir { open read };
 allow hiperf ui_service:process signull;
 allow hiperf hiview:process signull;
-allow hiperf { domain terminal_domain limit_domain_attr }:process signull;
+allow hiperf domain:process signull;
 
 allow hiperf accessibility_param:file { map open read };
 allow hiperf ohos_dev_param:file { map open read };

@@ -53,8 +53,8 @@ allow init hiviewdfx_profiler_param:file { map open read relabelto relabelfrom }
 allow init devpts:chr_file { ioctl };
 
 #for bootchart to read
-allow init { domain }:file { open read };
-allow init { domain }:dir { search };
+allow init domain:file { open read };
+allow init domain:dir { search };
 
 # for init trace
 allow init hiview:unix_dgram_socket { sendto };
