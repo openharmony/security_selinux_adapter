@@ -113,7 +113,7 @@ allow hiprofiler_plugins kernel:file { getattr open };
 allow hiprofiler_plugins media_service:dir search;
 allow hiprofiler_plugins proc_meminfo_file:file { getattr open read };
 allow hiprofiler_plugins proc_vmstat_file:file { getattr open read };
-allow hiprofiler_plugins sysfs_block_zram:file { open read };
+allow hiprofiler_plugins sysfs_block_zram:file { getattr open read };
 allow hiprofiler_plugins sysfs_devices_system_cpu:file open;
 
 allow hiprofiler_plugins tracefs:file write;
@@ -284,3 +284,8 @@ allow samgr hiprofiler_plugins:dir { search };
 allow samgr hiprofiler_plugins:file { read open };
 allow samgr hiprofiler_plugins:process { getattr };
 allow samgr hiprofiler_plugins:binder { call transfer };
+allow hiprofiler_plugins arkcompiler_param:file { read open map };
+allow hiprofiler_plugins accountmgr:binder { call };
+allow hiprofiler_plugins foundation:binder { call };
+allow accountmgr hiprofiler_plugins:binder { transfer };
+allow hiprofiler_plugins system_bin_file:lnk_file read;
