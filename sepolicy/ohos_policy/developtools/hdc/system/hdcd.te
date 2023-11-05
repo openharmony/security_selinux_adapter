@@ -162,8 +162,3 @@ domain_auto_transition_pattern(hdcd, sh_exec, sh);
 
 # hdc control
 neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:parameter_service { set };
-
-allow hdcd hdcd:process { setcurrent };
-allow hdcd kernel:fd { use };
-allow hdcd hook_param:file { read open map };
-allow sh init:netlink_kobject_uevent_socket { read write };
