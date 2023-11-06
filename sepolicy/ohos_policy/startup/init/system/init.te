@@ -461,3 +461,7 @@ allowxperm init tmpfs:blk_file ioctl { 0x5413 };
 allow init tmpfs:blk_file { ioctl open read write };
 # for developer
 allow init proc_developer_file:file { open read getattr };
+allow init appspawn:file { read open write };
+allow init render_service:file { read open write };
+allow init foundation:file { read open write };
+
