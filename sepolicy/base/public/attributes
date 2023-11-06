@@ -187,5 +187,6 @@ attribute appspawn_unmount_filesystem_violators;
 
 attribute filesystem_violator;
 
-# Type of unlable process
-attribute limit_domain_attr;
+# Type of develop process
+# i.e. sh
+attribute develop_domain;
