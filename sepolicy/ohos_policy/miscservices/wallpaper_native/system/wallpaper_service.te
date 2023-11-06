@@ -41,6 +41,7 @@ allow wallpaper_service sa_foundation_wms:samgr_class { get };
 allow wallpaper_service dev_ashmem_file:chr_file { open };
 allow wallpaper_service sa_uri_permission_mgr_service:samgr_class { get };
 allow wallpaper_service sys_prod_file:dir { search };
+allow wallpaper_service sa_device_service_manager:samgr_class { get };
 debug_only(`
     allow wallpaper_service sh:fd { use };
     allow wallpaper_service sh:fifo_file { read };
