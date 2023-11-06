@@ -14,3 +14,5 @@
 neverallow { domain -samgr -foundation -binder_call_installs_violators} installs:binder call;
 
 neverallow installs { domain -installs_binder_violator -samgr -storage_manager -local_code_sign }:binder call;
+
+allow installs data_service_el2_file:dir { relabelfrom };
