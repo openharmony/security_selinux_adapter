@@ -97,6 +97,8 @@ allow foundation sa_storage_manager_service:samgr_class { get };
 allow foundation netmanager:binder { transfer };
 allow foundation faultloggerd:fifo_file { read };
 allow foundation exfat:file { read write };
+allow foundation vfat:file { read write };
+allow foundation ntfs:file { read write };
 neverallow foundation *:process ptrace;
 
 # add for aa
