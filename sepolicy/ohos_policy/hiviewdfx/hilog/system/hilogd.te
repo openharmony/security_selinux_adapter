@@ -92,7 +92,6 @@ neverallow {
     developer_only(`-wukong')
     -init
     -hilogd
-    -sh             # write is covered next
     -hiview             # write is covered next
     -hdcd               # write is covered next
     -system_basic_hap_attr   # write is covered next

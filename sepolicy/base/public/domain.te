@@ -259,7 +259,7 @@ neverallow { domain developer_only(`-wukong -SP_daemon -atm') -bm -uitest -hdcd 
 #[OHOS ERROR]       (allow hdcd hdcd (tcp_socket (connect getopt name_connect)))
 #[OHOS ERROR]       (allow hdcd self (tcp_socket (ioctl read write create getattr bind listen accept setopt)))
 #
-neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver console } domain:{ tcp_socket udp_socket rawip_socket } *; 
+neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver console } domain:{ tcp_socket udp_socket rawip_socket } *;
 
 #ensure no write access to readonly filesystem.
 
