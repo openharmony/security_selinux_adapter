@@ -53,14 +53,14 @@ allow init hiviewdfx_profiler_param:file { map open read relabelto relabelfrom }
 allow init devpts:chr_file { ioctl };
 
 #for bootchart to read
-allow init { domain }:file { open read };
-allow init { domain }:dir { search };
+allow init domain:file { open read };
+allow init domain:dir { search };
 
 # for init trace
 allow init hiview:unix_dgram_socket { sendto };
 
 # all can read
-allow { domain -limit_domain -sh -su -console } musl_param:file { map open read };
+allow domain musl_param:file { map open read };
 
 #for crash handle
 allow init init_exec:file { open read getattr map };

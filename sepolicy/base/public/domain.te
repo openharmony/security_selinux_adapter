@@ -12,82 +12,82 @@
 # limitations under the License.
 
 
-allow { domain -limit_domain -sh -su -console } init:process sigchld;
+allow domain init:process sigchld;
 allow init domain:process sigkill;
 
-allow { domain -limit_domain -sh -su -console } self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
+allow domain self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
 
-allow { domain -limit_domain -sh -su -console } self:fd use;
-allow { domain -limit_domain -sh -su -console } self:file rw_file_perms;
-allow { domain -limit_domain -sh -su -console } self:fifo_file rw_file_perms;
-allow { domain -limit_domain -sh -su -console } self:dir read_dir_perms;
-allow { domain -limit_domain -sh -su -console } self:lnk_file read_file_perms;
-allow { domain -limit_domain -sh -su -console } self:unix_dgram_socket { connect create write };
-allow { domain -limit_domain -sh -su -console } self:unix_stream_socket { accept bind connect create getattr listen read getopt setopt write connectto ioctl lock append shutdown map };
+allow domain self:fd use;
+allow domain self:file rw_file_perms;
+allow domain self:fifo_file rw_file_perms;
+allow domain self:dir read_dir_perms;
+allow domain self:lnk_file read_file_perms;
+allow domain self:unix_dgram_socket { connect create write };
+allow domain self:unix_stream_socket { accept bind connect create getattr listen read getopt setopt write connectto ioctl lock append shutdown map };
 allowxperm normal_hap_attr self:unix_stream_socket ioctl ~{ 0x8927 };
-allow { domain -limit_domain -sh -su -console } self:lockdown confidentiality;
+allow domain self:lockdown confidentiality;
 
-allow { domain -limit_domain -sh -su -console } init:fd use;
+allow domain init:fd use;
 
-allow { domain -limit_domain -sh -su -console } tmpfs:dir { getattr search };
-allow { domain -limit_domain -sh -su -console } tmpfs:lnk_file read;
+allow domain tmpfs:dir { getattr search };
+allow domain tmpfs:lnk_file read;
 
-allow { domain -normal_hap_attr -sh -su -console } proc_attr:dir read_dir_perms;
-allow { domain -normal_hap_attr -sh -su -console } proc_attr:lnk_file { getattr read };
+allow { domain -normal_hap_attr } proc_attr:dir read_dir_perms;
+allow { domain -normal_hap_attr } proc_attr:lnk_file { getattr read };
 allow normal_hap_attr { proc_attr -proc_net }:dir read_dir_perms;
 allow normal_hap_attr { proc_attr -proc_net }:lnk_file { getattr read };
 
-allow { domain -limit_domain -sh -su -console } rootfs:dir search;
-allow { domain -limit_domain -sh -su -console } rootfs:lnk_file { read getattr };
+allow domain rootfs:dir search;
+allow domain rootfs:lnk_file { read getattr };
 
-allow { domain -limit_domain -sh -su -console } dev_file:dir search;
-allow { domain -limit_domain -sh -su -console } dev_null_file:chr_file rw_file_perms;
-allow { domain -limit_domain -sh -su -console } dev_zero_file:chr_file rw_file_perms;
-allow { domain -limit_domain -sh -su -console } dev_ashmem_file:chr_file { getattr read ioctl lock map append write };
-allow { domain -limit_domain -sh -su -console } dev_binder_file:chr_file { ioctl map open read write };
-allowxperm { domain -limit_domain -sh -su -console } dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f };
-allow { domain -limit_domain -sh -su -console } dev_at_file:chr_file { ioctl open read write };
-allowxperm { domain -limit_domain -sh -su -console } dev_at_file:chr_file ioctl { 0x4101 0x4103 0x4104 };
+allow domain dev_file:dir search;
+allow domain dev_null_file:chr_file rw_file_perms;
+allow domain dev_zero_file:chr_file rw_file_perms;
+allow domain dev_ashmem_file:chr_file { getattr read ioctl lock map append write };
+allow domain dev_binder_file:chr_file { ioctl map open read write };
+allowxperm domain dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f };
+allow domain dev_at_file:chr_file { ioctl open read write };
+allowxperm domain dev_at_file:chr_file ioctl { 0x4101 0x4103 0x4104 };
 
-allow { domain -limit_domain -sh -su -console } dev_unix_file:dir search;
-allow { domain -limit_domain -sh -su -console } dev_unix_socket_file:dir { search };
-allow { domain -limit_domain -sh -su -console } dev_unix_socket_file:sock_file { write };
+allow domain dev_unix_file:dir search;
+allow domain dev_unix_socket_file:dir { search };
+allow domain dev_unix_socket_file:sock_file { write };
 
-allow { domain -limit_domain -sh -su -console } dev_random_file:chr_file rw_file_perms;
-allow { domain -limit_domain -sh -su -console } dev_parameters_file:dir { getattr search };
-allow { domain -limit_domain -sh -su -console } dev_parameters_file:file read_file_perms;
+allow domain dev_random_file:chr_file rw_file_perms;
+allow domain dev_parameters_file:dir { getattr search };
+allow domain dev_parameters_file:file read_file_perms;
 
-allow { domain -limit_domain -sh -su -console } system_etc_file:dir { open read search getattr };
-allow { domain -limit_domain -sh -su -console } system_etc_file:file { getattr map open read };
+allow domain system_etc_file:dir { open read search getattr };
+allow domain system_etc_file:file { getattr map open read };
 
-allow { domain -limit_domain -sh -su -console } system_file:dir { search };
-allow { domain -limit_domain -sh -su -console } vendor_file:dir search;
+allow domain system_file:dir { search };
+allow domain vendor_file:dir search;
 
-allow { domain -limit_domain -sh -su -console } { lib_file system_lib_file vendor_lib_file }:dir { search };
-allow { domain -limit_domain -sh -su -console } { lib_file system_lib_file vendor_lib_file }:file { execute getattr map open read };
-allow { domain -limit_domain -sh -su -console } { lib_file system_lib_file vendor_lib_file }:lnk_file { read };
-
-
-allow { domain -limit_domain -sh -su -console } system_profile_file:dir search;
-
-allow { domain -limit_domain -sh -su -console } sysfs_attr:lnk_file { getattr read };
-allow { domain -limit_domain -sh -su -console } sysfs_attr:dir search;
-
-allow { domain -limit_domain -sh -su -console } selinuxfs:file getattr;
-
-allow { domain -limit_domain -sh -su -console } debugfs:dir search;
-
-allow { domain -limit_domain -sh -su -console } fs_attr:filesystem getattr;
-allow { domain -limit_domain -sh -su -console } { fs_attr -unlabeled }:dir getattr;
-
-allow { domain -limit_domain -sh -su -console } etc_file:lnk_file { read };
+allow domain { lib_file system_lib_file vendor_lib_file }:dir { search };
+allow domain { lib_file system_lib_file vendor_lib_file }:file { execute getattr map open read };
+allow domain { lib_file system_lib_file vendor_lib_file }:lnk_file { read };
 
 
-allow { domain -hap_domain -limit_domain -sh -su -console } kernel:fd use;
+allow domain system_profile_file:dir search;
 
-allow { domain -limit_domain -sh -su -console } init:unix_dgram_socket { sendto };
-allow { domain -hap_domain -limit_domain -sh -su -console } init:unix_stream_socket { read write };
-allow { domain -hap_domain -limit_domain -sh -su -console } init:netlink_kobject_uevent_socket { read write };
+allow domain sysfs_attr:lnk_file { getattr read };
+allow domain sysfs_attr:dir search;
+
+allow domain selinuxfs:file getattr;
+
+allow domain debugfs:dir search;
+
+allow domain fs_attr:filesystem getattr;
+allow domain { fs_attr -unlabeled }:dir getattr;
+
+allow domain etc_file:lnk_file { read };
+
+
+allow { domain -hap_domain } kernel:fd use;
+
+allow domain init:unix_dgram_socket { sendto };
+allow { domain -hap_domain } init:unix_stream_socket { read write };
+allow { domain -hap_domain } init:netlink_kobject_uevent_socket { read write };
 
 # deny access for noatsecure
 dontaudit domain domain:process noatsecure;
@@ -119,7 +119,7 @@ neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 #ioctl cmd TIOCSTI, dangerous cmd.
 neverallowxperm * devpts:chr_file ioctl 0x5412;
 
-neverallow { domain } dev_port:chr_file ~{ create relabelto unlink setattr getattr };
+neverallow domain dev_port:chr_file ~{ create relabelto unlink setattr getattr };
 
 neverallow * *:{ blk_file chr_file } rename;
 
@@ -140,18 +140,18 @@ neverallow { domain -installs } data_local_arkcache:dir { write };
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file entrypoint;
 
 # keep every process join the domain attribute.
-neverallow ~domain domain:process { transition dyntransition };
+neverallow ~{ domain develop_domain } { domain develop_domain }:process { transition dyntransition };
 
 # everyone should in { sadomain hdfdomain hap_domain nativedomain }
 neverallow domain { domain -sadomain -hdfdomain -hap_domain -nativedomain }:process { transition dyntransition };
 
 # keep file based type belong to file_attr , fs_attr, dev_attr, parameter_attr.
 # first label class
-neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr } :{ dir notdevfile_class_set } *;
+neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr develop_domain } :{ dir notdevfile_class_set } *;
 
 # second level for file based label class
-neverallow domain ~{ domain fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
-    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr}:{ file dir } *;
+neverallow { domain develop_domain } ~{ domain fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
+    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
