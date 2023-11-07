@@ -14,7 +14,7 @@
 ##################
 ## Type define: ##
 ##################
-type hilog, nativedomain, domain;
+type hilog, native_system_domain, domain;
 
 allow hilog proc_file:file { open read };
 allow hilog musl_param:file { open read map };

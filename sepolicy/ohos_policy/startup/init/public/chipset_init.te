@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type chipset_init, nativedomain, domain;
+type chipset_init, native_chipset_domain, domain;
 allow chipset_init self:capability { chown dac_override dac_read_search fsetid setgid setuid sys_admin sys_boot sys_chroot sys_rawio sys_resource fowner };
 
 allow { domain -limit_domain -sh -su -console } chipset_init:fd use;

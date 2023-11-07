@@ -1,0 +1,75 @@
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# u:object_r:vendor_file:s0       /vendor(/.*)?         /eng_chipset(/.*)?    
+# u:object_r:vendor_bin_file:s0   /vendor/bin(/.*)?     /eng_chipset/bin(/.*)?       
+# u:object_r:vendor_lib_file:s0   /vendor/lib(/.*)?     /vendor/lib64(/.*)?     /eng_chipset/lib(/.*)?     /eng_chipset/lib64(/.*)?    
+# u:object_r:vendor_etc_file:s0   /vendor/etc(/.*)?     /eng_chipset/etc(/.*)?   
+
+
+neverallow { system_domain } { vendor_file }:dir ~{ search getattr relabelto read open };
+neverallow { su console } { vendor_file }:dir { search };
+neverallow { system_domain -hdcd -hidumper_service -init -processdump} { vendor_file }:dir { getattr };
+neverallow { system_domain -init } { vendor_file }:dir { relabelto };
+neverallow { system_domain -init -processdump } { vendor_file }:dir { read };
+neverallow { system_domain -init -processdump } { vendor_file }:dir { open };
+
+neverallow { system_domain } { vendor_file }:file ~{ map open read getattr execute};
+neverallow { system_domain -sadomain -processdump } { vendor_file }:file { map };
+neverallow { system_domain -sadomain -processdump } { vendor_file }:file { open };
+neverallow { system_domain -sadomain -processdump } { vendor_file }:file { read };
+neverallow { system_domain -sadomain -processdump } { vendor_file }:file { getattr };
+neverallow { system_domain -bluetooth_service -distributeddata -foundation -pulseaudio -device_usage_stats_service -resource_schedule_service -usb_service } { vendor_file }:file { execute };
+
+neverallow { system_domain } { vendor_file }:{ blk_file chr_file fifo_file lnk_file sock_file } *;
+
+
+neverallow { system_domain } { vendor_bin_file }:dir ~{ search };
+# neverallow { system_domain -accessibility -bootanimation -nfc_service -hiebpf -hiprofiler_cmd -hiprofilerd -daudio -dcamera -dhardware -dinput -dscreen 
+#    -render_service -processdump -hidumper_service -hiview -locationhub -audio_policy -pulseaudio -av_session -device_usage_stats_service -resource_schedule_service 
+#    -dlp_permission_service -security_component_service -init -module_update_service -hiprofiler_plugins -hiperf} { vendor_bin_file }:dir { search };
+
+neverallow { system_domain } { vendor_bin_file }:file ~{ entrypoint execute map read getattr open };
+neverallow { system_domain -ispserver } { vendor_bin_file }:file { entrypoint };
+neverallow { system_domain -ispserver -init } { vendor_bin_file }:file { execute };
+neverallow { system_domain -ispserver -hiebpf -hidumper_service -hiperf -hiprofiler_plugins -processdump } { vendor_bin_file }:file { map };
+neverallow { system_domain -ispserver -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump } { vendor_bin_file }:file { read };
+neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump } { vendor_bin_file }:file { getattr };
+neverallow { system_domain -hiebpf -hidumper_service -init -hiperf -hiprofiler_plugins -processdump } { vendor_bin_file }:file { open };
+
+neverallow { system_domain } { vendor_bin_file }:{ blk_file chr_file fifo_file lnk_file sock_file } *;
+
+
+neverallow { system_domain } { vendor_etc_file }:dir ~{ search getattr read open };
+# neverallow { system_domain -bootanimation -ispserver -media_service -misc -multimodalinput -resource_schedule_service -samgr -foundation -accountmgr 
+#    -nfc_service -wifi_hal_service -telephony_sa -dhardware -dinput -hdf_devmgr -hiview -memmgrservice -msdp_sa -audio_policy -pulseaudio
+#    -multimodalinput -charger -resource_schedule_service -dlp_permission_service -sensors -appspawn -init 
+#    -ueventd -telephony_sa -sys_installer_sa -updater_binary -nwebspawn } { vendor_etc_file }:dir { search };
+neverallow { system_domain -nfc_service -charger -init -appspawn } { vendor_etc_file }:dir { getattr };
+neverallow { system_domain -init -appspawn } { vendor_etc_file }:dir { read };
+neverallow { system_domain -init -appspawn } { vendor_etc_file }:dir { open };
+
+neverallow { system_domain } { vendor_etc_file }:file ~{ map open read getattr };
+#neverallow { system_domain -bootanimation -media_service -memmgrservice -resource_schedule_service } { vendor_etc_file }:file { map };
+# neverallow { system_domain -bootanimation -ispserver -media_service -misc -accountmgr -wifi_hal_service -dhardware -dinput -foundation 
+#    -hdf_devmgr -hiview -memmgrservice -audio_policy -pulseaudio -sensors -multimodalinput -charger 
+#    -resource_schedule_service -appspawn -init -telephony_sa } { vendor_etc_file }:file { open };
+# neverallow { system_domain -bootanimation -ispserver -media_service -misc -accountmgr -wifi_hal_service -dhardware -dinput -msdp_sa -foundation 
+#    -hdf_devmgr -hiview -memmgrservice -audio_policy -pulseaudio -sensors -multimodalinput -charger 
+#    -resource_schedule_service -appspawn -init -telephony_sa } { vendor_etc_file }:file { read };
+# neverallow { system_domain -bootanimation -ispserver -media_service -misc -accountmgr -wifi_hal_service -dhardware -dinput -foundation 
+#    -hdf_devmgr -memmgrservice -audio_policy -pulseaudio -sensors -multimodalinput -charger  
+#    -resource_schedule_service -appspawn -init  } { vendor_etc_file }:file { getattr };
+
+neverallow { system_domain } { vendor_etc_file }:{ blk_file chr_file fifo_file lnk_file sock_file } *;

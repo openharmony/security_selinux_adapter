@@ -119,10 +119,13 @@ attribute hdfdomain;
 # i.e. at,
 attribute sadomain;
 
-# Type of left native processes not in sadomain.
-# i.e. appspawn,
-#      media
-attribute nativedomain;
+# Type of all native system processes not in sadomain.
+# i.e. init,
+attribute native_system_domain;
+
+# Type of all native chipset processes not in sadomain.
+# i.e. chipset-init,
+attribute native_chipset_domain;
 
 #define some violator attribute for neverallows.
 attribute cap_violator_chown;
