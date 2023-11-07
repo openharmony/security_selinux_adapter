@@ -464,4 +464,5 @@ allow init proc_developer_file:file { open read getattr };
 allow init appspawn:file { read open write };
 allow init render_service:file { read open write };
 allow init foundation:file { read open write };
+allow init sysfs_hungtask_userlist:file { read open write };
 
