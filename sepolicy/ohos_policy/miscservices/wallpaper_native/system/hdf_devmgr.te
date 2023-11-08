@@ -11,4 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow domain pasteboard_param:file { map open read };
+allow hdf_devmgr wallpaper_service:dir { search };
+allow hdf_devmgr wallpaper_service:file { read open };
+allow hdf_devmgr wallpaper_service:process { getattr };
+allow hdf_devmgr wallpaper_service:binder { transfer };

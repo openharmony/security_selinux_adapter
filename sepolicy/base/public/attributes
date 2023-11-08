@@ -189,3 +189,7 @@ attribute log_file_attr;
 attribute appspawn_unmount_filesystem_violators;
 
 attribute filesystem_violator;
+
+# Type of develop process
+# i.e. sh
+attribute develop_domain;

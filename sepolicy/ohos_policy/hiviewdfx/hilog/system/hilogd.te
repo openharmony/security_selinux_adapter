@@ -14,7 +14,7 @@
 ## Read/Use/Control hilog rules: ##
 ###################################
 read_hilog(hap_domain)
-use_hilog({ domain -kernel -sh -su -console })
+use_hilog({ domain -kernel })
 
 #######################
 ## Allow rule below: ##
@@ -92,7 +92,6 @@ neverallow {
     developer_only(`-wukong')
     -init
     -hilogd
-    -sh                 # write is covered next
     -hiview             # write is covered next
     -hdcd               # write is covered next
     -system_basic_hap_attr   # write is covered next
