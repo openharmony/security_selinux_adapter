@@ -99,8 +99,8 @@ define(`control_hilog', `
 ')
 
 # define(`native_system_domain', `sh hdcd atm bm updater uitest wukong SP_daemon aa su bytrace hiebpf 
-# hiperf hiprofilerd hiprofiler_cmd hiprofiler_plugins native_daemon processdump 
-# hidumper hisysevent hitrace udevadm udevd key_enable appspawn init ueventd updater_binary hilog')
+# hiperf hiprofilerd hiprofiler_cmd hiprofiler_plugins native_daemon processdump hidumper hisysevent 
+# write_updater hitrace udevadm udevd key_enable appspawn init ueventd updater_binary hilog')
 
 # define(`native_chipset_domain', `chipset_init')
 
