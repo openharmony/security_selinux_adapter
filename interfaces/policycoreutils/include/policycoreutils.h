@@ -25,6 +25,7 @@ extern "C" {
 int LoadPolicy(void);
 int Restorecon(const char *path);
 int RestoreconRecurse(const char *path);
+int RestoreconRecurseParallel(const char *path, unsigned int nthreads);
 
 #ifdef __cplusplus
 #if __cplusplus
