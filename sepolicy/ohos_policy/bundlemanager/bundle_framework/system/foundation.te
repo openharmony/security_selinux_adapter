@@ -130,7 +130,6 @@ allow accountmgr bm:binder { transfer };
 allow hiview bm:dir { search };
 allow hiview bm:file { read open getattr};
 allow hiview sa_multimodalinput_service:samgr_class { get };
-allow bm samgr:binder { call transfer };
 allow bm debug_param:file { map read open };
 allow bm hilog_param:file { map read open };
 allow bm sa_foundation_bms:samgr_class { get };
