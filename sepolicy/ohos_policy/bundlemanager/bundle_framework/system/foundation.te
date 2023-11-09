@@ -125,7 +125,7 @@ allow samgr bm:dir { search };
 allow samgr bm:file { open read };
 allow samgr bm:process { getattr };
 allow samgr bm:binder { call transfer };
-allow bm samgr:binder { call };
+allow bm samgr:binder { call transfer };
 allow accountmgr bm:binder { transfer };
 allow hiview bm:dir { search };
 allow hiview bm:file { read open getattr};
@@ -161,6 +161,8 @@ allow bm tty_device:chr_file { read write };
 allow bm system_file:file { getattr read open };
 allow bm data_app_el2_file:dir { search };
 allow bm quick_fix:binder { call transfer };
+allow bm sa_foundation_cesfwk_service:samgr_class { get };
+allow bm sa_quick_fix_mgr_service:samgr_class { get };
 allowxperm bm devpts:chr_file ioctl { 0x5413 };
 allowxperm bm sh:fifo_file ioctl { 0x5413 };
 
