@@ -28,7 +28,7 @@ allow netmanager dev_unix_socket:dir { search };
 allow netmanager download_server:binder { call };
 allow netmanager foundation:binder { call transfer };
 allow netmanager kernel:unix_stream_socket { connectto };
-allow netmanager musl_param:file { read open };
+allow netmanager musl_param:file { read open map };
 allow netmanager netmanager:capability { net_admin };
 allow netmanager netmanager:capability { net_raw };
 allow netmanager netmanager:netlink_route_socket { create nlmsg_read read write };
