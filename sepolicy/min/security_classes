@@ -111,3 +111,4 @@ class perf_event
 class xpm
 class hideaddr
 class code_sign
+class hmpsf
