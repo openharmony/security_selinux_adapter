@@ -61,3 +61,8 @@ allow installs data_service_el1_public_print_service_file:file { unlink rename }
 allow installs dev_console_file:chr_file { read write };
 allow installs sysfs_devices_system_cpu:file { read };
 allow installs tracefs:dir { search };
+allow installs data_app_el1_file:file { ioctl };
+allow installs sysfs_devices_system_cpu:file { open };
+allow installs kernel:key { search };
+allow installs installs:unix_dgram_socket { getopt setopt };
+allowxperm installs data_app_el1_file:file ioctl { 0x6601 0x66c8 };
