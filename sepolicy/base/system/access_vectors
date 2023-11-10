@@ -543,6 +543,7 @@ class hideaddr
 class code_sign
 {
     add_cert_chain
+    remove_cert_chain
 }
 
 class hmpsf
