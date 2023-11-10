@@ -86,6 +86,21 @@ allow download_server sa_huks_service:samgr_class { get };
 allow download_server sa_foundation_wms:samgr_class { get };
 #avc:  denied  { get } for service=3299 pid=1836 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
 allow download_server sa_foundation_cesfwk_service:samgr_class { get };
+#avc:  denied  { search } for  pid=2496 comm="IPC_2_2504" name="app" dev="mmcblk0p14" ino=54 scontext=u:r:download_server:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
+allow download_server data_app_file:dir { search };
+#avc:  denied  { search } for  pid=2496 comm="IPC_2_2504" name="el2" dev="mmcblk0p14" ino=58 scontext=u:r:download_server:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
+allow download_server data_app_el2_file:dir { search };
+#avc:  denied  { search } for  pid=2496 comm="IPC_2_2504" name="com.example.mytest1" dev="mmcblk0p14" ino=1984 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { write } for  pid=2496 comm="IPC_2_2504" name="updown" dev="mmcblk0p14" ino=2026 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1     
+#avc:  denied  { add_name } for  pid=2496 comm="IPC_2_2504" name="test.txt" scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+allow download_server normal_hap_data_file_attr:dir { search write add_name };
+allow download_server system_basic_hap_data_file_attr:dir { search write add_name };
+allow download_server system_core_hap_data_file_attr:dir { search write add_name };
+#avc:  denied  { create } for  pid=2496 comm="IPC_2_2504" name="test.txt" scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { append open } for  pid=2496 comm="IPC_2_2504" path="/data/app/el2/100/base/com.example.mytest1/cache/updown/test.txt" dev="mmcblk0p14" ino=2027 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+allow download_server normal_hap_data_file_attr:file {create append open};
+allow download_server system_basic_hap_data_file_attr:file { create append open };
+allow download_server system_core_hap_data_file_attr:file { create append open };
 #avc:  denied  { read } for pid=6848 comm="download_server" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=154 scontext=u:r:download_server:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
 #avc:  denied  { map } for pid=3942 comm="download_server" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=154 scontext=u:r:download_server:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
 #avc:  denied  { open } for pid=3942 comm="download_server" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=154 scontext=u:r:download_server:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
