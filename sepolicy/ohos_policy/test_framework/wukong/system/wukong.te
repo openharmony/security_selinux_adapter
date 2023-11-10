@@ -51,7 +51,6 @@ allow wukong accesstoken_service:binder { call };
 allow wukong dev_kmsg_file:chr_file { open write };
 allow wukong multimodalinput:fd { use };
 allow wukong tracefs:dir { search };
-allow wukong unlabeled:dir { search };
 
 allow wukong hdcd:unix_stream_socket { read write };
 allow wukong multimodalinput:unix_stream_socket { read };
