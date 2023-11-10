@@ -544,3 +544,12 @@ class code_sign
 {
     add_cert_chain
 }
+
+class hmpsf
+{
+    map_create
+    map_read
+    map_write
+    module_load
+    module_run
+}
