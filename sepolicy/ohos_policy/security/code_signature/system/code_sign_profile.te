@@ -11,8 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/system/lib(64)?/libcode_sign_utils.z.so      u:object_r:code_sign_utils:s0
+type trusted_profile_data_file, file_attr, data_file_attr;
 
-/dev/code_sign                           u:object_r:dev_code_sign:s0
-
-/data/service/el0/profiles(/.*)?               u:object_r:trusted_profile_data_file:s0
+neverallow {domain -installs} trusted_profile_data_file:file { write };
