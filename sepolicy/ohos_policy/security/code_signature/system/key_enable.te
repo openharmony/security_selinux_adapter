@@ -65,3 +65,13 @@ allowxperm key_enable dev_code_sign:chr_file ioctl { 0x6b01 };
 allow key_enable key_enable:code_sign { add_cert_chain };
 
 allowxperm key_enable tmpfs:chr_file ioctl { 0x6201 0x6209};
+
+allow key_enable data_file:dir { search };
+
+allow key_enable data_service_el0_file:dir { search };
+
+allow key_enable data_service_file:dir { search };
+
+allow key_enable trusted_profile_data_file:dir { open read search };
+
+allow key_enable trusted_profile_data_file:file { getattr open read };
