@@ -19,4 +19,3 @@ allow hap_domain sa_hdf_ext_devmgr:samgr_class { get };
 
 # avc:  denied  { call } for  pid=1405 comm="ffrtwk/CPU-2-0" scontext=u:r:debug_hap:s0 tcontext=u:r:usb_host:s0 tclass=binder permissive=1
 allow hap_domain usb_host:binder { call };
-

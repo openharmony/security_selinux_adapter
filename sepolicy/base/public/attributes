@@ -190,3 +190,5 @@ attribute filesystem_violator;
 # Type of develop process
 # i.e. sh
 attribute develop_domain;
+
+attribute hdf_service_violators;
