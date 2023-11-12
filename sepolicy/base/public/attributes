@@ -149,6 +149,7 @@ attribute data_local_tmp_violator_file_open;
 attribute system_core_hap_data_file_attr_violator_dir;
 attribute system_basic_hap_data_file_attr_violator_dir;
 attribute normal_hap_data_file_attr_violator_dir;
+attribute normal_hap_data_file_attr_violator_dir_file_create_unlink;
 attribute normal_hap_data_file_attr_violator_file_open;
 attribute accesstoken_data_file_violator_dir;
 attribute accesstoken_data_file_violator_file;
@@ -183,3 +184,9 @@ attribute binder_call_installs_violators;
 attribute permissions_mount_file_attr;
 attribute log_file_attr;
 attribute appspawn_unmount_filesystem_violators;
+
+attribute filesystem_violator;
+
+# Type of develop process
+# i.e. sh
+attribute develop_domain;

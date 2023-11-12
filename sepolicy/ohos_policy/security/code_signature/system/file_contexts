@@ -14,3 +14,5 @@
 /system/lib(64)?/libcode_sign_utils.z.so      u:object_r:code_sign_utils:s0
 
 /dev/code_sign                           u:object_r:dev_code_sign:s0
+
+/data/service/el0/profiles(/.*)?               u:object_r:trusted_profile_data_file:s0

@@ -12,10 +12,10 @@
 # limitations under the License.
 
 developer_only(`
-    allow system_basic_hap_attr data_app_el1_file:file { execute };
-    allow system_basic_hap_attr system_basic_hap_attr:tcp_socket { create setopt bind listen accept read write };
-    allow system_basic_hap_attr port:tcp_socket { name_bind };
-    allow system_basic_hap_attr node:tcp_socket { node_bind };
-    allow system_basic_hap_attr uitest:binder { call };
+    allow system_basic_hap_attr uitest:binder { call transfer };
     allow system_basic_hap_attr ffrt_param:parameter_service { set };
 ')
+allow system_basic_hap_attr data_app_el1_file:file { execute };
+allow system_basic_hap_attr system_basic_hap_attr:tcp_socket { create setopt bind listen accept read write };
+allow system_basic_hap_attr port:tcp_socket { name_bind };
+allow system_basic_hap_attr node:tcp_socket { node_bind };

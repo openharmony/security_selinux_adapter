@@ -85,9 +85,7 @@ allow sys_installer_sa sysfs_devices_system_cpu:file { read open getattr };
 allow sys_installer_sa updater_sa:binder { call };
 allow sys_installer_sa vendor_etc_file:dir { search };
 allow sys_installer_sa dev_block_volfile:dir { search };
-allow sys_installer_sa dev_block_file:lnk_file { read };
 allow sys_installer_sa update_firmware_file:file { map };
-allow sys_installer_sa dev_block_file:blk_file { write getattr read open };
 allow sys_installer_sa system_bin_file:file { getattr };
 
 # avc:  denied  { create } for  pid=1109 comm="IPC_1_1111" name="updater_binary" scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:data_updater_file:s0 tclass=file permissive=1
@@ -119,3 +117,7 @@ allow sys_installer_sa tmpfs:file { create getattr ioctl open setattr unlink };
 
 # avc:  denied  { ioctl } for  pid=1092 comm="IPC_2_1112" path="/mnt/sys_installer/updater_binary" dev="tmpfs" ino=110 ioctlcmd=0x5413 scontext=u:r:sys_installer_sa:s0 tcontext=u:object_r:tmpfs:s0 tclass=file permissive=1
 allowxperm sys_installer_sa tmpfs:file ioctl { 0x5413 };
+
+allow sys_installer_sa updater_block_file:lnk_file { read };
+allow sys_installer_sa updater_block_file:blk_file { write getattr read open };
+

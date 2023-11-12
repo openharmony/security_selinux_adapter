@@ -15,6 +15,6 @@
 # musl c reads /sys/kernel/mm/transparent_hugepage/enabled
 type sysfs_transparent_hugepage, fs_attr, sysfs_attr;
 
-allow { domain -limit_domain -sh -console } sysfs_transparent_hugepage:dir { search };
-allow { domain -limit_domain -sh -console } sysfs_transparent_hugepage:file { open read };
+allow domain sysfs_transparent_hugepage:dir { search };
+allow domain sysfs_transparent_hugepage:file { open read };
 

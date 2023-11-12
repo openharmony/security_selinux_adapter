@@ -20,14 +20,7 @@ limitations under the License.
 import argparse
 import os
 import re
-
-
-def read_file(input_file):
-    lines = []
-    with open(input_file, 'r') as fp:
-        for line in fp.readlines():
-            lines.append(line.strip())
-    return lines
+from check_common import *
 
 
 def check_regex_path(path):

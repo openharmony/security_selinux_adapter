@@ -20,14 +20,7 @@ limitations under the License.
 import argparse
 import os
 from collections import defaultdict
-
-
-def read_file(input_file):
-    lines = []
-    with open(input_file, 'r') as fp:
-        for line in fp.readlines():
-            lines.append(line.strip())
-    return lines
+from check_common import *
 
 
 def check_file_contexts(args, file_contexts, whitelist_path, label_list):

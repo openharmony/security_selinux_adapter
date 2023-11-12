@@ -25,7 +25,7 @@ allow inputmethod_service paramservice_socket:sock_file { write };
 allow inputmethod_service sa_subsys_ace_service:samgr_class { get };
 allow inputmethod_service pasteboard_service:binder { call transfer };
 allow inputmethod_service inputmethod_param:parameter_service { set };
-allow { domain -limit_domain -sh -console } inputmethod_param:file { map open read };
+allow domain inputmethod_param:file { map open read };
 #avc:  denied  { get } for service=200 pid=475 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=0
 #avc:  denied  { call } for  pid=485 comm="IPC_1_1016" scontext=u:r:inputmethod_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
 #avc:  denied  { transfer } for  pid=504 comm="IPC_1_928" scontext=u:r:accountmgr:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=0
@@ -73,3 +73,5 @@ allow inputmethod_service sa_foundation_wms:samgr_class { get };
 # avc:  denied  { transfer } for  pid=505 comm="WindowManagerSe" scontext=u:r:foundation:s0 tcontext=u:r:inputmethod_service:s0 tclass=binder permissive=0
 allow foundation inputmethod_service:binder { transfer };
 
+#avc:  denied  { get } for service=1301 pid=1216 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_distributeddate_service:s0 tclass=samgr_class permissive=0
+allow inputmethod_service sa_distributeddata_service:samgr_class { get };

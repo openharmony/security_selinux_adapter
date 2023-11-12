@@ -59,22 +59,27 @@ static void SetFileContextsHandle(void)
     selinux_restorecon_set_sehandle(g_fcHandle);
 }
 
-static int RestoreconCommon(const char *path, unsigned int flag)
+static int RestoreconCommon(const char *path, unsigned int flag, unsigned int nthreads)
 {
     __selinux_once(g_fcOnce, SetFileContextsHandle);
     if (g_fcHandle == NULL) {
         selinux_log(SELINUX_ERROR, "File_contexts handle is null\n");
         return -1;
     }
-    return selinux_restorecon(path, flag);
+    return selinux_restorecon_parallel(path, flag, nthreads);
 }
 
 int Restorecon(const char *path)
 {
-    return RestoreconCommon(path, SELINUX_RESTORECON_REALPATH);
+    return RestoreconCommon(path, SELINUX_RESTORECON_REALPATH, 1);
 }
 
 int RestoreconRecurse(const char *path)
 {
-    return RestoreconCommon(path, SELINUX_RESTORECON_REALPATH | SELINUX_RESTORECON_RECURSE);
+    return RestoreconCommon(path, SELINUX_RESTORECON_REALPATH | SELINUX_RESTORECON_RECURSE, 1);
+}
+
+int RestoreconRecurseParallel(const char *path, unsigned int nthreads)
+{
+    return RestoreconCommon(path, SELINUX_RESTORECON_REALPATH | SELINUX_RESTORECON_RECURSE, nthreads);
 }

@@ -95,6 +95,10 @@ allow edm_sa sa_accesstoken_manager_service:samgr_class { get };
 allow edm_sa sa_accountmgr:samgr_class { get };
 allow edm_sa sa_cert_manager_service:samgr_class { get };
 allow edm_sa sa_comm_ethernet_manager_service:samgr_class { get };
+# avc:  denied  { get } for service=3704 pid=2004 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_screenlock_service:samgr_class { get };
+# avc:  denied  { get } for service=3301 pid=2779 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_foundation_powermgr_service:samgr_class { get };
 
 # avc: denied { get } for service=5100 pid=740 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 allow edm_sa sa_device_service_manager:samgr_class { get };
@@ -127,6 +131,8 @@ allow edm_sa sa_wifi_hotspot_ability:samgr_class { get };
 allow edm_sa sa_wifi_p2p_ability:samgr_class { get };
 allow edm_sa security_param:file { map open read };
 allow edm_sa startup_param:file { map open read };
+allow edm_sa sa_bluetooth_server:samgr_class { get };
+allow edm_sa bluetooth_service:binder { call };
 
 # avc: denied { call } for pid=740 comm="edm" scontext=u:r:edm_sa:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=1
 allow edm_sa storage_manager:binder { call };

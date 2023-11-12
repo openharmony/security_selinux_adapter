@@ -17,7 +17,7 @@ define(`use_hisysevent', `
     allow $1 hisysevent_socket:sock_file write;
 ')
 
-use_hisysevent({ domain -kernel -sh -console })
+use_hisysevent({ domain -kernel })
 
 allow hiview hiview:capability2 { syslog };
 allow hiview hiview:dir { search };
@@ -203,3 +203,7 @@ allow hiview sysfs_devices_system_cpu:file { read open getattr };
 allow hiview tracefs:file { read open ioctl getattr };
 allowxperm hiview tracefs:file ioctl { 0x5413 };
 
+#avc:  denied  { read } for  pid=3130 comm="plat_shared" name="diskstats" dev="proc" ino=4026532227 scontext=u:r:hiview:s0 tcontext=u:object_r:proc_diskstats_file:s0 tclass=file permissive=1
+#avc:  denied  { open } for  pid=3130 comm="plat_shared" path="/proc/diskstats" dev="proc" ino=4026532227 scontext=u:r:hiview:s0 tcontext=u:object_r:proc_diskstats_file:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=3130 comm="plat_shared" path="/proc/diskstats" dev="proc" ino=4026532227 scontext=u:r:hiview:s0 tcontext=u:object_r:proc_diskstats_file:s0 tclass=file permissive=1
+allow hiview proc_diskstats_file:file { read open getattr };

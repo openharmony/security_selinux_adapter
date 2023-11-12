@@ -22,6 +22,8 @@ allow module_update_service data_module_update:dir { getattr open read remove_na
 allow module_update_service data_module_update_package:dir { open read remove_name rmdir search write getattr setattr add_name relabelto create };
 allow module_update_service data_module_update_package:file { create read write open unlink ioctl getattr map link };
 allowxperm module_update_service data_module_update_package:file ioctl { 0x5413 };
+allow module_update_service data_module_update:file { create read write open unlink ioctl getattr link map };
+allowxperm module_update_service data_module_update:file ioctl { 0x5413 };
 allow module_update_service debug_param:file { map open read };
 allow module_update_service dev_console_file:chr_file { open read write };
 allow module_update_service dev_unix_socket:dir { search };
@@ -45,6 +47,10 @@ allow module_update_service data_updater_file:file { append create open read wri
 allow module_update_service kernel:unix_stream_socket { connectto };
 allow module_update_service servicectrl_reboot_param:parameter_service { set };
 allow module_update_service paramservice_socket:sock_file { write };
+allow module_update_service accesstoken_service:binder { call };
+allow module_update_service sa_accesstoken_manager_service:samgr_class { get };
+allow module_update_service updater_sa:binder { call };
+allow module_update_service vendor_etc_file:dir { search };
 debug_only(`
     allow module_update_service sh:binder { call transfer };
 ')

@@ -49,7 +49,7 @@ type mdnsmanager, sadomain, domain;
 type hidumper_service, sadomain, domain;
 type console, sadomain, domain;
 type bootanimation, sadomain, domain;
-type limit_domain, domain;
+type limit_domain, develop_domain;
 type device_usage_statistics_service, sadomain, domain;
 type thermal_sa, sadomain, domain;
 type nfc_service, sadomain, domain;
@@ -76,13 +76,16 @@ type thermal_protector, sadomain, domain;
 type thermal_protector_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, thermal_protector_exec, thermal_protector);
 
-type sh, nativedomain, domain;
+type sh, develop_domain;
 type sh_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, sh_exec, sh);
 
 type hdcd, nativedomain, domain;
 type hdcd_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, hdcd_exec, hdcd);
+
+type atm, nativedomain, domain;
+type atm_exec, exec_attr, file_attr, system_file_attr;
 
 type bm, nativedomain, domain;
 type bm_exec, exec_attr, file_attr, system_file_attr;
@@ -93,3 +96,16 @@ type file_guard_server, sadomain,  domain;
 
 type uitest_exec, exec_attr, file_attr, system_file_attr;
 type uitest, nativedomain, domain;
+
+type wukong, nativedomain, domain;
+type wukong_exec, exec_attr, file_attr, system_file_attr;
+
+type SP_daemon, nativedomain, domain;
+type SP_daemon_exec, exec_attr, file_attr, system_file_attr;
+
+type aa, nativedomain, domain;
+type aa_exec, exec_attr, file_attr, system_file_attr;
+
+debug_only(`
+    type su, nativedomain, domain;
+')

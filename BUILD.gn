@@ -398,6 +398,7 @@ action("build_policy") {
   ]
   outputs = [
     target_out_dir + "/policy.31",
+    target_out_dir + "/user_policy",
     target_out_dir + "/vendor.cil",
     target_out_dir + "/prebuild_sepolicy.system.cil.sha256",
     target_out_dir + "/system.cil",
@@ -411,6 +412,7 @@ action("build_policy") {
     outputs += [
       target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256",
       target_out_dir + "/developer/system.cil.sha256",
+      target_out_dir + "/developer/$vendor_policy_version.cil",
       target_out_dir + "/developer/policy.31",
       target_out_dir + "/developer/vendor.cil",
       target_out_dir + "/developer/system.cil",
@@ -539,6 +541,10 @@ action("selinux_check") {
     rebase_path(target_out_dir),
     "--source-root-dir",
     rebase_path("//"),
+    "--user-policy",
+    rebase_path(target_out_dir + "/user_policy"),
+    "--tool-path",
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
   ]
 
   if (special_selinux_check_config != "default") {
@@ -798,6 +804,16 @@ if (support_developer_mode) {
     install_images = [ "vendor" ]
   }
 
+  ohos_prebuilt_etc("version_developer_cil") {
+    deps = [ ":build_policy" ]
+    source = target_out_dir + "/developer/$vendor_policy_version.cil"
+    license_file = "LICENSE"
+    part_name = "selinux_adapter"
+    subsystem_name = "security"
+    relative_install_dir = "selinux/compatible_developer/"
+    install_images = [ "system" ]
+  }
+
   ohos_prebuilt_etc("developer_policy") {
     deps = [ ":build_policy" ]
     source = target_out_dir + "/developer/policy.31"
@@ -904,6 +920,7 @@ group("selinux_group") {
         deps += [
           ":system_developer_cil",
           ":system_developer_cil_sha256",
+          ":version_developer_cil",
         ]
       }
     } else if (components == "vendor") {

@@ -15,4 +15,4 @@ type hitrace_exec, exec_attr, file_attr, system_file_attr;
 
 type hitrace, nativedomain, domain;
 
-domain_auto_transition_pattern({ nativedomain -sh -console }, hitrace_exec, hitrace);
+domain_auto_transition_pattern(nativedomain, hitrace_exec, hitrace);

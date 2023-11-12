@@ -73,5 +73,13 @@ allow distributedsche sa_distributed_bundle_mgr_service_service:samgr_class { ge
 allow distributedsche d-bms:binder { call };
 #avc:  denied  { get } for service=4606 pid=2716 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=1
 allow distributedsche sa_foundation_wms:samgr_class { get };
+#avc:  denied  { get } for service=3299 pid=3829 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow distributedsche sa_foundation_cesfwk_service:samgr_class { get };
+#avc:  denied  { read } for  pid=2255 comm="distributedsche" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=148 scontext=u:r:distributedsche:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+allow distributedsche arkcompiler_param:file { read map open };
+#avc:  denied  { read } for  pid=2255 comm="distributedsche" name="online" dev="sysfs" ino=27676 scontext=u:r:distributedsche:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=file permissive=0
+allow distributedsche sysfs_devices_system_cpu:file { read };
+#avc:  denied  { setattr } for  pid=2255 comm="dmsDataStorageH" name="gen_natural_store.db" dev="sdd78" ino=60840 scontext=u:r:distributedsche:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=0
+allow distributedsche data_service_el1_file:file { setattr };
 
 neverallow {domain -samgr -distributedsche} sa_distributeschedule:samgr_class { get_remote };

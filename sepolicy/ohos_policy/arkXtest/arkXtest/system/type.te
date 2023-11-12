@@ -12,7 +12,6 @@
 # limitations under the License.
 
 developer_only(`
-    domain_auto_transition_pattern(sh, uitest_exec, uitest);
     allow uitest sa_accessibleabilityms:samgr_class { get };
     allow uitest accessibility:binder { call transfer };
     allow uitest foundation:binder { call transfer };
@@ -51,4 +50,18 @@ developer_only(`
     allow uitest debug_param:file { map open read };
     allow uitest sa_param_watcher:samgr_class { get };
     allow render_service sh:binder { call transfer };
+
+    domain_auto_transition_pattern(aa, uitest_exec, uitest);
+    allow hdcd uitest:process {signal};
+    allow uitest system_basic_hap_attr:binder { call };
+    allow uitest sa_foundation_wms:samgr_class { get };
+    allow uitest arkcompiler_param:file { open read map };
+    allow uitest devpts:chr_file { read write };
+    allow uitest system_basic_hap_attr:fd { use };
+    allow uitest system_basic_hap_data_file_attr:file { read write getattr write };
+    allowxperm uitest system_basic_hap_data_file_attr:file ioctl { 0x5413 0xf50c };
+    allow hidumper_service uitest:dir { search };
+    allow hidumper_service uitest:file { open getattr };
+    allow uitest aa:fd { use };
+    allow foundation uitest:binder {transfer};
 ')

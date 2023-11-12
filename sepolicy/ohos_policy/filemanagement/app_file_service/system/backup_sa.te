@@ -45,3 +45,7 @@ debug_only(`
 allow backup_sa hap_domain:binder { call };
 allow backup_sa hap_domain:fd { use };
 allow backup_sa foundation:fd { use };
+allow backup_sa system_core_hap_data_file_attr:file { getattr read };
+allow backup_sa normal_hap_data_file_attr:file { getattr read };
+allow backup_sa system_basic_hap_data_file_attr:file { getattr read };
+allow backup_sa data_storage:dir { search };

@@ -18,23 +18,8 @@ limitations under the License.
 """
 
 import argparse
-import json
 import os
-import subprocess
-
-
-def read_json_file(input_file):
-    data = None
-    try:
-        with open(input_file, 'r') as input_f:
-            data = json.load(input_f)
-    except json.decoder.JSONDecodeError:
-        print("The file '{}' format is incorrect.".format(input_file))
-        raise
-    except:
-        print("read file '{}' failed.".format(input_file))
-        raise
-    return data
+from check_common import *
 
 
 def get_request_args(args, request):
@@ -44,14 +29,18 @@ def get_request_args(args, request):
         if arg == "--file_contexts":
             request_args.append(arg)
             request_args.append(os.path.join(args.output_path, "file_contexts"))
+        if arg == "--cil_file":
+            request_args.append(arg)
+            request_args.append(os.path.join(args.output_path, "all.cil"))
     return request_args
 
 
-def run_command(in_cmd):
-    cmdstr = " ".join(in_cmd)
-    ret = subprocess.run(cmdstr, shell=True).returncode
-    if ret != 0:
-        raise Exception(ret)
+def build_cil(args):
+    check_policy_cmd = [os.path.join(args.tool_path, "checkpolicy"),
+                        "-b " + args.user_policy,
+                        "-M -C -S -O",
+                        "-o " + os.path.join(args.output_path, "all.cil")]
+    run_command(check_policy_cmd)
 
 
 def parse_args():
@@ -59,11 +48,14 @@ def parse_args():
     parser.add_argument('--output-path', help='the selinux compile output path', required=True)
     parser.add_argument('--source-root-dir', help='the project root path', required=True)
     parser.add_argument('--selinux-check-config', help='the selinux check config file path', required=True)
+    parser.add_argument('--user-policy', help='the user policy file', required=True)
+    parser.add_argument('--tool-path', help='the policy tool bin path', required=True)
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
+    build_cil(args)
     check_config = read_json_file(os.path.join(args.source_root_dir, args.selinux_check_config))
     check_list = check_config.get("selinux_check")
     for check in check_list:

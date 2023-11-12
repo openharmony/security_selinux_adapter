@@ -20,4 +20,5 @@ type distributedfiledaemon, sadomain, domain;
 type data_service_el2_hmdfs, file_attr, data_file_attr;
 type cloudfiledaemon, sadomain, domain;
 type fuse_file, fs_attr;
+type cloudfile_data_file, file_attr, data_file_attr;
 

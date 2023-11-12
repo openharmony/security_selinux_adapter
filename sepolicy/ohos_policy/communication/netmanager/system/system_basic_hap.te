@@ -29,3 +29,5 @@ allow system_basic_hap_attr sa_comm_net_stats_manager_service:samgr_class { get 
 
 allow system_basic_hap_attr sa_netsys_ext_service:samgr_class { add get };
 allow system_basic_hap_attr sa_distributed_net_service:samgr_class { add get };
+
+allow system_basic_hap_attr sa_net_policy_manager:samgr_class { add get };

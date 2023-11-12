@@ -70,7 +70,7 @@ allow hidumper_service hiview_exec:file { getattr map open read };
 
 allow hidumper_service init:dir { getattr open read search };
 allow hidumper_service init:file { getattr open read };
-allow hidumper_service init:lnk_file read;
+allow hidumper_service init:lnk_file { read getattr };
 allow hidumper_service init:unix_stream_socket connectto;
 
 allow hidumper_service installs_exec:file { getattr map open read };
@@ -79,9 +79,6 @@ allow hidumper_service kernel:dir { getattr open read search };
 allow hidumper_service kernel:file { getattr open read };
 allow hidumper_service kernel:lnk_file read;
 allow hidumper_service kernel:system syslog_read;
-
-allow hidumper_service limit_domain:file { getattr open read };
-allow hidumper_service limit_domain:lnk_file read;
 
 allow hidumper_service normal_hap_attr:dir { getattr open read search };
 allow hidumper_service normal_hap_attr:file { getattr open read };
@@ -294,3 +291,5 @@ allow hidumper_service hiperf:file { getattr };
 neverallow hidumper_service *:process ptrace;
 
 allow hidumper_service render_service:binder transfer;
+
+allow hidumper_service arkcompiler_param:file { map open read };
