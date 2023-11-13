@@ -10,6 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-debug_only(`
-    allow sh sh:code_sign { add_cert_chain remove_cert_chain };
-')
+
+type trusted_profile_data_file, file_attr, data_file_attr;
+
+neverallow {domain -installs} trusted_profile_data_file:file { write };

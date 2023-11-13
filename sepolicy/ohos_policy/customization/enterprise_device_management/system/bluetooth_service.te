@@ -10,6 +10,5 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-debug_only(`
-    allow sh sh:code_sign { add_cert_chain remove_cert_chain };
-')
+
+allow bluetooth_service edm_sa:binder { call };

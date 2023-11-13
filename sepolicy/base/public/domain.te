@@ -101,9 +101,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain developer_only(`-wukong -SP_daemon -atm') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -bm -uitest -aa } data_local_tmp:dir never_write_dir;
+neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -bm -uitest } data_local_tmp:dir never_write_dir;
 
-neverallow { domain developer_only(`-wukong -SP_daemon -atm') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -bm -uitest -aa } data_local_tmp:dir { open search };
+neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -bm -uitest } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -206,8 +206,8 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server'
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
 
-neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -dlp_permission_service} dev_attr:blk_file { open read write };
-neverallow { updater_sa sys_installer_sa } {dev_attr -updater_block_file}:blk_file { open read write };
+neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -dlp_permission_service -write_updater } dev_attr:blk_file { open read write };
+neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file}:blk_file { open read write };
 # fs operation limit
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
 neverallow { domain -init -storage_daemon -appspawn -netsysnative updater_only(`-updater')} *:filesystem mount;
@@ -267,9 +267,9 @@ neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs sys
 neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
-neverallow { domain developer_only(`-wukong -SP_daemon') -console -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
+neverallow { domain developer_only(`-wukong -SP_daemon -aa') -console -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host') -hidumper_service -netsysnative
-    -wifi_hal_service -sh_exec_violator -aa } sh_exec:file execute;
+    -wifi_hal_service -sh_exec_violator } sh_exec:file execute;
 
 #limit execmem use
 neverallow { domain -appspawn -hap_domain } self:process execmem;
