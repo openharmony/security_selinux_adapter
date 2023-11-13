@@ -13,4 +13,9 @@
 
 type trusted_profile_data_file, file_attr, data_file_attr;
 
-neverallow {domain -installs} trusted_profile_data_file:file { write };
+neverallow {domain -installs -trusted_profile_data_file_violator_file_write } trusted_profile_data_file:file { write };
+
+debug_only(`
+allow su trusted_profile_data_file:dir { getattr open read remove_name rmdir search write };
+allow su trusted_profile_data_file:file { getattr unlink };
+')
