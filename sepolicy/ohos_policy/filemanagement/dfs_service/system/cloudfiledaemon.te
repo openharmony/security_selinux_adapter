@@ -69,3 +69,5 @@ allow cloudfiledaemon system_core_hap_attr:fd { use };
 allow cloudfiledaemon hmdfs:file { write };
 allow cloudfiledaemon data_service_el2_hmdfs:file { lock };
 allow cloudfiledaemon data_storage:dir { search };
+allow cloudfiledaemon data_service_el2_hmdfs:file { create_file_perms_without_ioctl };
+allow cloudfiledaemon data_service_el2_hmdfs:dir { create_dir_perms_without_ioctl };
