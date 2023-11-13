@@ -138,8 +138,6 @@ allow hdcd sys_param:parameter_service { set };
 allow hdcd persist_param:parameter_service { set };
 allow hdcd servicectrl_reboot_param:parameter_service { set };
 
-allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
-
 allow hdcd hiprofiler_plugins:process { signal };
 allow hdcd hiprofilerd:process { signal };
 allow hdcd bytrace:process { signal };
@@ -157,6 +155,10 @@ allow hdcd data_log:dir { getattr read open };
 allow hdcd data_log:file { getattr read open };
 allow hdcd data_hilogd_file:dir { getattr read open };
 allow hdcd data_hilogd_file:file { getattr read open };
+
+developer_only(`
+    allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
+')
 
 domain_auto_transition_pattern(hdcd, sh_exec, sh);
 
