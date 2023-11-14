@@ -103,7 +103,7 @@ debug_only(`
     allow camera_host system_lib_file:dir { getattr };
     allow camera_host tty_device:chr_file { read write open };
     allow camera_host data_local_tmp:dir { write search getattr add_name create };
-    allow camera_host data_local_tmp:file { getattr create append open ioctl };
+    allow camera_host data_local_tmp:file { getattr create append open ioctl read };
     allowxperm camera_host data_local_tmp:file ioctl { 0x5413 };
     allowxperm camera_host dev_video_file:chr_file ioctl { 0x516c };
 ')
