@@ -119,10 +119,13 @@ attribute hdfdomain;
 # i.e. at,
 attribute sadomain;
 
-# Type of left native processes not in sadomain.
-# i.e. appspawn,
-#      media
-attribute nativedomain;
+# Type of all native system processes not in sadomain.
+# i.e. init,
+attribute native_system_domain;
+
+# Type of all native chipset processes not in sadomain.
+# i.e. chipset-init,
+attribute native_chipset_domain;
 
 #define some violator attribute for neverallows.
 attribute cap_violator_chown;
@@ -190,3 +193,54 @@ attribute filesystem_violator;
 # Type of develop process
 # i.e. sh
 attribute develop_domain;
+
+# define some violator attribute for neverallows.
+attribute vendor_file_violator_dir;
+attribute vendor_file_violator_dir_getattr;
+attribute vendor_file_violator_dir_relabelto;
+attribute vendor_file_violator_dir_read;
+attribute vendor_file_violator_dir_open;
+attribute vendor_file_violator_file;
+attribute vendor_file_violator_file_map;
+attribute vendor_file_violator_file_open;
+attribute vendor_file_violator_file_read;
+attribute vendor_file_violator_file_getattr;
+attribute vendor_file_violator_file_execute;
+attribute vendor_bin_file_violator_dir;
+attribute vendor_bin_file_violator_dir_search;
+attribute vendor_bin_file_violator_file;
+attribute vendor_bin_file_violator_file_entrypoint;
+attribute vendor_bin_file_violator_file_execute;
+attribute vendor_bin_file_violator_file_map;
+attribute vendor_bin_file_violator_file_read;
+attribute vendor_bin_file_violator_file_getattr;
+attribute vendor_bin_file_violator_file_open;
+attribute vendor_etc_file_violator_dir;
+attribute vendor_etc_file_violator_dir_search;
+attribute vendor_etc_file_violator_dir_getattr;
+attribute vendor_etc_file_violator_dir_read;
+attribute vendor_etc_file_violator_dir_open;
+attribute vendor_etc_file_violator_file;
+attribute vendor_etc_file_violator_file_map;
+attribute vendor_etc_file_violator_file_open;
+attribute vendor_etc_file_violator_file_read;
+attribute vendor_etc_file_violator_file_getattr;
+
+attribute system_file_violator_dir;
+attribute system_file_violator_file;
+attribute system_bin_file_violator_dir;
+attribute system_bin_file_violator_dir_search;
+attribute system_bin_file_violator_dir_getattr;
+attribute system_bin_file_violator_file;
+attribute system_bin_file_violator_file_execute;
+attribute system_bin_file_violator_file_execute_no_trans;
+attribute system_bin_file_violator_file_map;
+attribute system_bin_file_violator_file_read;
+attribute system_bin_file_violator_file_open;
+attribute system_bin_file_violator_file_getattr;
+attribute system_bin_file_violator_lnk_file;
+attribute system_bin_file_violator_lnk_file_read;
+attribute system_etc_file_violator_dir;
+attribute system_etc_file_violator_file;
+attribute system_etc_file_violator_lnk_file;
+attribute system_profile_file_violator_dir;

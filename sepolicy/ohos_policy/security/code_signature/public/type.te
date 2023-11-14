@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type key_enable, nativedomain, domain;
+type key_enable, native_system_domain, domain;
 
 type local_code_sign, sadomain, domain;
