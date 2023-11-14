@@ -140,7 +140,7 @@ allow bm hdcd:fd { use };
 allow bm sh:fd { use };
 allow bm hdcd:fifo_file { read write ioctl };
 allowxperm bm hdcd:fifo_file ioctl { 0x5413 };
-allow bm data_file:dir { search getattr};
+allow bm data_file:dir { search getattr read open };
 allow bm data_local:dir read_dir_perms;
 allow bm data_local_tmp:dir read_dir_perms;
 allow foundation bm:binder { call transfer };
