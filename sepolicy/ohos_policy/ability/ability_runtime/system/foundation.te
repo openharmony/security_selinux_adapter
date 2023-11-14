@@ -103,6 +103,7 @@ neverallow foundation *:process ptrace;
 
 # add for aa
 developer_only(`
+    allow aa sa_foundation_appms:samgr_class { get };
     allow aa samgr:binder { call };
     allow aa debug_param:file { map read open };
     allow aa hilog_param:file { map read open };
