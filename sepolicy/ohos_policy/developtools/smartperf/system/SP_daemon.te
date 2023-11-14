@@ -56,6 +56,7 @@ allow SP_daemon sa_param_watcher:samgr_class { get };
 allow SP_daemon sa_foundation_abilityms:samgr_class { get };
 allow SP_daemon sa_foundation_dms:samgr_class { get };
 allow SP_daemon sa_multimodalinput_service:samgr_class { get };
+allow SP_daemon sa_foundation_wms:samgr_class { get };
 
 allow SP_daemon hilog_param:file { map open read };
 allow SP_daemon persist_sys_param:file { map open read };
