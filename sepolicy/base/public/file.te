@@ -42,7 +42,6 @@ type updater_file, system_file_attr, file_attr;
 type config_file, system_file_attr, file_attr;
 type system_lib_file, system_file_attr, file_attr;
 type system_etc_file, system_file_attr, file_attr;
-type system_data_file, system_file_attr, file_attr;
 type system_hap_file, system_file_attr, file_attr;
 type system_fonts_file, system_file_attr, file_attr;
 type system_profile_file, system_file_attr, file_attr;
