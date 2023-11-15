@@ -12,7 +12,7 @@
 # limitations under the License.
 
 allow system_basic_hap_attr bluetooth_service:fd { use };
-allow system_basic_hap_attr bluetooth_service:unix_stream_socket { read write };
+allow system_basic_hap_attr bluetooth_service:unix_stream_socket { read write shutdown };
 allow system_basic_hap_attr softbus_server:fd { use };
 allow system_basic_hap_attr sa_bgtaskmgr:samgr_class { get };
 allow system_core_hap_attr sa_bgtaskmgr:samgr_class { get };
