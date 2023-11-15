@@ -14,8 +14,8 @@
 #avc:  denied  { use } for  pid=351 comm="IPC_0_465" path="socket:[27604]" dev="sockfs" ino=27604 scontext=u:r:system_core_hap:s0 tcontext=u:r:bluetooth_service:s0 tclass=fd permissive=0
 allow system_core_hap_attr bluetooth_service:fd { use };
 
-#avc:  denied  { read write } for  pid=351 comm="bluetooth_servi" path="socket:[27422]" dev="sockfs" ino=27422 scontext=u:r:system_core_hap:s0 tcontext=u:r:bluetooth_service:s0 tclass=unix_stream_socket permissive=0
-allow system_core_hap_attr bluetooth_service:unix_stream_socket { read write };
+#avc:  denied  { read write shutdown } for  pid=351 comm="bluetooth_servi" path="socket:[27422]" dev="sockfs" ino=27422 scontext=u:r:system_core_hap:s0 tcontext=u:r:bluetooth_service:s0 tclass=unix_stream_socket permissive=0
+allow system_core_hap_attr bluetooth_service:unix_stream_socket { read write shutdown };
 
 #avc:  denied  { call } for  pid=1934 comm="jsThread-1" scontext=u:r:system_core_hap:s0 tcontext=u:r:bluetooth_service:s0 tclass=binder permissive=0
 allow system_core_hap_attr bluetooth_service:binder { call transfer };
