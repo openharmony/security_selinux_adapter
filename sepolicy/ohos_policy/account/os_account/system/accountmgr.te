@@ -75,8 +75,7 @@ allow accountmgr sa_huks_service:samgr_class { get };
 allow accountmgr dlp_permission_service:binder { transfer };
 
 # avc:  denied  { call } for  pid=4779 comm="IPC_1_4783" scontext=u:r:accountmgr:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=1
-allow accountmgr huks_service:binder { call };
-
+allow accountmgr huks_service:binder { call transfer };
 
 allow accountmgr accessibility:binder { transfer };
 allow accountmgr bootevent_param:file { map open read };
