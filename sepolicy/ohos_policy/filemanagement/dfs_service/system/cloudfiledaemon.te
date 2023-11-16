@@ -74,3 +74,5 @@ allow cloudfiledaemon data_service_el2_hmdfs:file { create_file_perms_without_io
 allow cloudfiledaemon data_service_el2_hmdfs:dir { create_dir_perms_without_ioctl };
 allow cloudfiledaemon accountmgr:binder { call };
 allow accountmgr cloudfiledaemon:binder { transfer };
+allow cloudfiledaemon sa_accountmgr:samgr_class { get };
+allow cloudfiledaemon sa_foundation_powermgr_service:samgr_class { get };
