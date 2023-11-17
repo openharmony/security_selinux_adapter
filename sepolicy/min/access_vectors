@@ -557,5 +557,5 @@ class hmpsf
 
 class ced
 {
-    container_escape_no_check
+    container_escape_check
 }
