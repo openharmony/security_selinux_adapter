@@ -36,7 +36,6 @@ typeattribute system_basic_hap system_basic_hap_attr;
 neverallow system_basic_hap_attr { domain -system_basic_hap_attr }:file never_rw_file;
 neverallow { hap_domain -system_basic_hap_attr } system_basic_hap_attr:file never_rw_file;
 neverallow { domain -system_basic_hap_attr -processdump } system_basic_hap_attr:process ptrace;
-neverallow { hap_domain processdump } self:ced { container_escape_no_check };
 
 type system_core_hap_data_file, system_core_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 type system_basic_hap_data_file, system_basic_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
@@ -62,7 +61,7 @@ allow hap_domain data_log:file { read write };
 allow hap_domain sa_dataobs_mgr_service_service:binder { call };
 allow hap_domain sa_dataobs_mgr_service_service:samgr_class { get };
 
-allow { domain -hap_domain -processdump } self:ced { container_escape_no_check };
+allow hap_domain self:ced { container_escape_check };
 
 binder_call(hap_domain, samgr);
 binder_call(hap_domain, render_service);
