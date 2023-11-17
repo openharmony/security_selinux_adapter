@@ -97,3 +97,5 @@ allow usb_service sa_distributeddata_service:samgr_class { get };
 allow usb_service data_service_el1_file:file { setattr };
 allow usb_service distributeddata:binder { call };
 allow usb_service developtools_hdc_control_param:file { map open read };
+allow usb_service sa_foundation_ans:samgr_class { get };
+allow usb_service sa_accountmgr:samgr_class { get };
