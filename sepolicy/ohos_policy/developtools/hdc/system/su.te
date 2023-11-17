@@ -180,7 +180,7 @@ debug_only(`
     allow resource_schedule_service su:dir { search };
     allow resource_schedule_service su:file { open };
     allow resource_schedule_service su:binder { call };
-    allow su su:code_sign { add_cert_chain };
+    allow su su:code_sign { add_cert_chain remove_cert_chain };
     # avc:  denied  { call } for  pid=12263 comm="IPC_1_12275" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
     allow dlp_permission_service su:binder { call };
     # avc:  denied  { call } for  pid=2854 comm="IPC_1_2877" scontext=u:r:security_component_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
