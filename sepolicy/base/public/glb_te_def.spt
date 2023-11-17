@@ -90,6 +90,7 @@ define(`read_hilog', `
     allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
     allow $1 hilog_output_socket:sock_file write;
     allow $1 hilogd:unix_stream_socket connectto;
+    allow $1 time_param:file { read open map };
 ')
 
 define(`control_hilog', `
