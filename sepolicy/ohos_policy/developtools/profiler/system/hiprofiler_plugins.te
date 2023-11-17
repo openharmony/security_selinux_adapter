@@ -160,6 +160,7 @@ allow hiprofiler_plugins vibrator_host:file read;
 
 allow hiprofiler_plugins audio_host:file read;
 allow hiprofiler_plugins blue_host:file read;
+allow hiprofiler_plugins clearplay_host:file read;
 allow hiprofiler_plugins camera_host:file read;
 allow hiprofiler_plugins allocator_host:file read;
 allow hiprofiler_plugins input_user_host:file read;
@@ -169,6 +170,7 @@ allow hiprofiler_plugins wifi_host:file read;
 
 allow hiprofiler_plugins camera_service:file read;
 allow hiprofiler_plugins faultloggerd:file read;
+allow hiprofiler_plugins drm_service:file read;
 allow hiprofiler_plugins media_service:file read;
 allow hiprofiler_plugins render_service:file read;
 allow hiprofiler_plugins useriam:file read;

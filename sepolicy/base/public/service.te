@@ -151,6 +151,7 @@ type sa_audio_swift_service, sa_service_attr;
 type sa_update_distributed_service, sa_service_attr;
 type sa_media_library_service, sa_service_attr;
 type sa_camera_service, sa_service_attr;
+type sa_drm_service, sa_service_attr;
 type sa_subsys_ai_service, sa_service_attr;
 type sa_avsession_service, sa_service_attr;
 type sa_subsys_multimodainput_service, sa_service_attr;

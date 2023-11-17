@@ -22,6 +22,7 @@ allow accesstoken_service bootevent_param:file { map open read };
 allow accesstoken_service bootevent_samgr_param:file { map open read };
 allow accesstoken_service build_version_param:file { map open read };
 allow accesstoken_service camera_service:binder { call transfer };
+allow accesstoken_service drm_service:binder { call transfer };
 allow accesstoken_service const_allow_mock_param:file { map open read };
 allow accesstoken_service const_allow_param:file { map open read };
 allow accesstoken_service const_build_param:file { map open read };

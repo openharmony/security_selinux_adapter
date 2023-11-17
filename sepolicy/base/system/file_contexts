@@ -224,6 +224,8 @@
 /data/data/(.*)?                 u:object_r:data_data_file:s0
 /data/drm                       u:object_r:data_drm:s0
 /data/drm/(.*)?                 u:object_r:data_drm:s0
+/data/drm                       u:object_r:data_drm:s0
+/data/drm/(.*)?                 u:object_r:data_drm:s0
 /data/ethernet                  u:object_r:data_ethernet:s0
 /data/ethernet/(.*)?                 u:object_r:data_ethernet:s0
 /data/file\.log                 u:object_r:data_filelog:s0
@@ -237,6 +239,8 @@
 /data/local/ark-cache(/.*)?                 u:object_r:data_local_arkcache:s0
 /data/log                       u:object_r:data_log:s0
 /data/log/(.*)?                 u:object_r:data_log:s0
+/data/mediadrm                       u:object_r:data_mediadrm:s0
+/data/mediadrm/(.*)?                 u:object_r:data_mediadrm:s0
 /data/media                       u:object_r:data_media:s0
 /data/media/(.*)?                 u:object_r:data_media:s0
 /data/mediadrm                       u:object_r:data_mediadrm:s0

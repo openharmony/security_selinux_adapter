@@ -126,6 +126,8 @@ allow hiperf domain:file { getattr map open read };
 
 allow hiperf camera_service:dir { open read };
 allow hiperf camera_service:process signull;
+allow hiperf drm_service:dir { open read };
+allow hiperf drm_service:process signull;
 allow hiperf data_file:dir { add_name getattr open read write };
 
 allow hiperf dev_mali:chr_file { getattr open read };

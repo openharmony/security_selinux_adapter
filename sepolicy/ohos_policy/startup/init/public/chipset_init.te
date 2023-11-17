@@ -105,3 +105,8 @@ allow chipset_init self:capability { net_admin };
 
 # avc:  denied  { getopt } for  pid=245 comm="chipset_init" scontext=u:r:chipset_init:s0 tcontext=u:r:init:s0 tclass=unix_stream_socket permissive=0
 allow chipset_init init:unix_stream_socket { getopt };
+# avc:  denied  { rlimitinh } for  pid=491 comm="hdf_devhost" scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
+# avc:  denied  { siginh } for  pid=491 comm="hdf_devhost" scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
+# avc:  denied  { transition } for  pid=491 comm="init" path="/vendor/bin/hdf_devhost" dev="mmcblk0p8" ino=13 scontext=u:r:chipset_init:s0 tcontext=u:r:clearplay_host:s0 tclass=process permissive=1
+allow chipset_init clearplay_host:process { rlimitinh siginh transition };
+
