@@ -274,6 +274,14 @@ def get_type_set(cil_file_input):
     return type_set
 
 
+def add_base_typeattr_prefix(cil_file, prefix):
+    with open(cil_file, 'r') as cil_read:
+        data = cil_read.read()
+        data = data.replace('base_typeattr_', '_'.join([prefix, 'base_typeattr_']))
+        with open(cil_file, 'w') as cil_write:
+            cil_write.write(data)
+
+
 def build_binary_policy(tool_path, output_policy, check_neverallow, cil_list):
     build_policy_cmd = [os.path.join(tool_path, "secilc"),
                         " ".join(cil_list),
@@ -401,6 +409,7 @@ def generate_default_policy(args, policy, with_developer=False):
     build_conf(args, vendor_output_conf, policy.vendor_policy_file_list, with_developer)
     # build vendor.cil
     build_cil(args, vendor_cil_path, vendor_output_conf)
+    add_base_typeattr_prefix(vendor_cil_path, 'vendor')
 
     # build min.conf
     build_conf(args, min_output_conf, policy.min_policy_file_list)
