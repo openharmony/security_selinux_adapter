@@ -97,3 +97,5 @@ allow wifi_manager_service telephony_sa:binder { call };
 # avc:  denied  { transfer } for  pid=2121 comm="IPC_2_2419" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:locationhub:s0 tclass=binder permissive=1
 allow wifi_manager_service locationhub:binder { transfer };
 
+# avc:  denied  { get } for  service=3301 pid=1449 scontext=u:r:wifi_manager_service:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=0
+allow wifi_manager_service sa_foundation_powermgr_service:samgr_class { get };
