@@ -373,8 +373,6 @@ action("build_policy") {
     debug_version,
     "--updater-version",
     updater_version,
-    "--developer-version",
-    "$support_developer_mode",
     "--components",
     components,
   ]
@@ -408,17 +406,16 @@ action("build_policy") {
     target_out_dir + "/public.cil",
   ]
 
-  if (support_developer_mode) {
-    outputs += [
-      target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256",
-      target_out_dir + "/developer/system.cil.sha256",
-      target_out_dir + "/developer/$vendor_policy_version.cil",
-      target_out_dir + "/developer/policy.31",
-      target_out_dir + "/developer/vendor.cil",
-      target_out_dir + "/developer/system.cil",
-      target_out_dir + "/developer/public.cil",
-    ]
-  }
+  outputs += [
+    target_out_dir + "/developer/prebuild_sepolicy.system.cil.sha256",
+    target_out_dir + "/developer/system.cil.sha256",
+    target_out_dir + "/developer/$vendor_policy_version.cil",
+    target_out_dir + "/developer/developer_policy",
+    target_out_dir + "/developer/policy.31",
+    target_out_dir + "/developer/vendor.cil",
+    target_out_dir + "/developer/system.cil",
+    target_out_dir + "/developer/public.cil",
+  ]
 }
 
 action("build_update_policy") {
@@ -463,8 +460,6 @@ action("build_update_policy") {
     debug_version,
     "--updater-version",
     updater_version,
-    "--developer-version",
-    "false",
     "--components",
     components,
   ]
@@ -543,8 +538,12 @@ action("selinux_check") {
     rebase_path("//"),
     "--user-policy",
     rebase_path(target_out_dir + "/user_policy"),
+    "--developer-policy",
+    rebase_path(target_out_dir + "/developer/developer_policy"),
     "--tool-path",
     rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    "--policy-dir-list",
+    selinux_build_path,
   ]
 
   if (special_selinux_check_config != "default") {
@@ -591,6 +590,9 @@ ohos_prebuilt_etc("build_sepolicy") {
     relative_install_dir = "selinux/prebuild_sepolicy/"
     install_images = [ "vendor" ]
   } else if (components == "default") {
+    if (!support_developer_mode) {
+      source = target_out_dir + "/developer/policy.31"
+    }
     relative_install_dir = "selinux/targeted/policy/"
     install_images = [ "system" ]
   }

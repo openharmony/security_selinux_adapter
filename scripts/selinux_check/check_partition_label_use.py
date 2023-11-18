@@ -22,16 +22,9 @@ import os
 from collections import defaultdict
 from check_common import *
 
+WHITELIST_FILE_NAME = "partition_label_use_whitelist.txt"
 
-def check_file_contexts(args, file_contexts, whitelist_path, label_list):
-    whitelist = read_file(whitelist_path)
-    whitelist_map = defaultdict(list)
-    for it in whitelist:
-        split_str = it.split()
-        if len(split_str) < 2:
-            continue
-        whitelist_map[split_str[1]].append(split_str[0])
-
+def check_file_contexts(args, file_contexts, whitelist_map, label_list):
     label_list_set = set()
     for it in label_list:
         label_list_set.add(it)
@@ -51,11 +44,25 @@ def check_file_contexts(args, file_contexts, whitelist_path, label_list):
             print("partition label is not allow to use,",
                   "check '{} {}' failed in file {}:{}\n".format(path, label, args.file_contexts, line_index),
                   "There are two solutions:\n",
-                  "1. Add '{} {}' to whitelist file '{}';\n".format(path, label, whitelist_path),
+                  "1. Add '{} {}' to whitelist file \'{}\' under \'{}\';\n".format(
+                        path, label, WHITELIST_FILE_NAME, args.policy_dir_list),
                   "2. Change '{} {}' to avoid using label in {}\n".format(path, label, label_list))
             err = True
     if err:
         raise Exception(-1)
+
+
+def get_whitelist(args):
+    whitelist_file_list = traverse_file_in_each_type(args.policy_dir_list, WHITELIST_FILE_NAME)
+    whitelist_map = defaultdict(list)
+    for path in whitelist_file_list:
+        whitelist = read_file(path)
+        for it in whitelist:
+            split_str = it.split()
+            if len(split_str) < 2:
+                continue
+            whitelist_map[split_str[1]].append(split_str[0])
+    return whitelist_map
 
 
 def parse_args():
@@ -63,7 +70,7 @@ def parse_args():
     parser.add_argument(
         '--file_contexts', help='the file_contexts file path', required=True)
     parser.add_argument(
-        '--whitelist', help='the whitelist file path', required=True)
+        '--policy-dir-list', help='the whitelist path list', required=True)
     parser.add_argument(
         '--config', help='the config file path', required=True)
     return parser.parse_args()
@@ -72,10 +79,10 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
     script_path = os.path.dirname(os.path.realpath(__file__))
-    whitelist_path = os.path.join(script_path, args.whitelist)
+    whitelist_map = get_whitelist(args)
 
     label_path = os.path.join(script_path, args.config)
     label_list = read_file(label_path)
 
     file_contexts = read_file(args.file_contexts)
-    check_file_contexts(args, file_contexts, whitelist_path, label_list)
+    check_file_contexts(args, file_contexts, whitelist_map, label_list)

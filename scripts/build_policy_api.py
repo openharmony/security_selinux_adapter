@@ -382,16 +382,12 @@ def generate_version_file(args, output_file):
 
 
 def generate_default_policy(args, policy, with_developer=False):
-    if args.updater_version != "enable" and args.developer_version == "false":
-        with_developer = True
-        output_path = os.path.abspath(os.path.dirname(args.dst_file))
+    if with_developer:
+        output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
     else:
-        if with_developer:
-            output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
-            if not os.path.exists(output_path):
-                os.makedirs(output_path)
-        else:
-            output_path = os.path.abspath(os.path.dirname(args.dst_file))
+        output_path = os.path.abspath(os.path.dirname(args.dst_file))
     system_output_conf = os.path.join(output_path, "system.conf")
     vendor_output_conf = os.path.join(output_path, "vendor.conf")
     min_output_conf = os.path.join(output_path, "min.conf")
@@ -422,16 +418,12 @@ def generate_default_policy(args, policy, with_developer=False):
 
 
 def generate_special_policy(args, policy, with_developer=False):
-    if args.developer_version == "false":
-        with_developer = True
-        output_path = os.path.abspath(os.path.dirname(args.dst_file))
+    if with_developer:
+        output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
     else:
-        if with_developer:
-            output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
-            if not os.path.exists(output_path):
-                os.makedirs(output_path)
-        else:
-            output_path = os.path.abspath(os.path.dirname(args.dst_file))
+        output_path = os.path.abspath(os.path.dirname(args.dst_file))
 
     system_output_conf = os.path.join(output_path, "system.conf")
     vendor_output_conf = os.path.join(output_path, "vendor.conf")
@@ -487,13 +479,6 @@ def generate_special_policy(args, policy, with_developer=False):
     return [vendor_cil_path, system_cil_path, type_version_cil_path, public_version_cil_path]
 
 
-def build_developer_binary_policy(args, check_neverallow, cil_list, developer_cil_list):
-    if args.developer_version == "false":
-        return
-    developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
-    build_binary_policy(args.tool_path, developer_policy_path, check_neverallow, developer_cil_list)
-
-
 def compile_sepolicy(args):
     dir_list_object = get_policy_dir_list(args)
     file_list_object = get_policy_file_list(args, dir_list_object)
@@ -504,28 +489,27 @@ def compile_sepolicy(args):
     else:
         if args.components == "default":
             cil_list = generate_default_policy(args, file_list_object, False)
-            if args.developer_version == "true":
-                developer_cil_list = generate_default_policy(args, file_list_object, True)
+            developer_cil_list = generate_default_policy(args, file_list_object, True)
         else:
             cil_list = generate_special_policy(args, file_list_object, False)
-            if args.developer_version == "true":
-                developer_cil_list = generate_special_policy(args, file_list_object, True)
+            developer_cil_list = generate_special_policy(args, file_list_object, True)
 
         build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
-        if args.developer_version == "true":
-            build_developer_binary_policy(args, True, cil_list, developer_cil_list)
+        developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
+        build_binary_policy(args.tool_path, developer_policy_path, True, developer_cil_list)
 
 
 def copy_user_policy(args):
     if args.updater_version == "enable":
         return
 
-    user_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "user_policy")
-    if args.developer_version == "true":
-        src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
-    else:
-        src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "policy.31")
-    shutil.copyfile(src_policy_path, user_policy_path)
+    src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
+    dest_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/developer_policy")
+    shutil.copyfile(src_policy_path, dest_policy_path)
+
+    src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "policy.31")
+    dest_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "user_policy")
+    shutil.copyfile(src_policy_path, dest_policy_path)
 
 
 def main(args):
