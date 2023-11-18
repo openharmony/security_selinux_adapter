@@ -2,7 +2,7 @@
     "whitelist": [
         {
             "name": "execute and execute_no_trans",
-            "contexts": [
+            "user": [
                 "appspawn appspawn_exec",
                 "appspawn sh_exec",
                 "audio_host system_bin_file",
@@ -17,7 +17,7 @@
                 "isolated_render hilog_exec",
                 "medialibrary_hap hilog_exec",
                 "formrenderservice_hap hilog_exec",
-		"normal_hap hilog_exec",
+                "normal_hap hilog_exec",
                 "permissionmanager_hap hilog_exec",
                 "system_basic_hap hilog_exec",
                 "system_core_hap hilog_exec",
@@ -25,7 +25,7 @@
                 "dlpmanager_hap system_bin_file",
                 "isolated_render system_bin_file",
                 "medialibrary_hap system_bin_file",
-		"formrenderservice_hap system_bin_file",
+                "formrenderservice_hap system_bin_file",
                 "normal_hap system_bin_file",
                 "permissionmanager_hap system_bin_file",
                 "system_basic_hap system_bin_file",
@@ -73,15 +73,17 @@
                 "wifi_hal_service sh_exec",
                 "wifi_hal_service system_bin_file",
                 "wifi_manager_service system_bin_file",
-                "aa aa_exec",
+                "cupsd data_service_el1_public_print_service_file"
+            ],
+            "developer": [
                 "aa hilog_exec",
                 "aa sh_exec",
-                "aa system_bin_file",
-                "cupsd data_service_el1_public_print_service_file",
-                "SP_daemon sh_exec",
-                "SP_daemon system_bin_file",
                 "SP_daemon uitest_exec",
+                "SP_daemon system_bin_file",
+                "aa system_bin_file",
+                "aa aa_exec",
                 "wukong sh_exec",
+                "SP_daemon sh_exec",
                 "wukong system_bin_file"
             ]
         }

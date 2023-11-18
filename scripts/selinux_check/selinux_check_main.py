@@ -32,6 +32,8 @@ def get_request_args(args, request):
         if arg == "--cil_file":
             request_args.append(arg)
             request_args.append(os.path.join(args.output_path, "all.cil"))
+            request_args.append("--developer_cil_file")
+            request_args.append(os.path.join(args.output_path, "developer/all.cil"))
     return request_args
 
 
@@ -41,6 +43,29 @@ def build_cil(args):
                         "-M -C -S -O",
                         "-o " + os.path.join(args.output_path, "all.cil")]
     run_command(check_policy_cmd)
+    check_policy_cmd = [os.path.join(args.tool_path, "checkpolicy"),
+                        "-b " + args.developer_policy,
+                        "-M -C -S -O",
+                        "-o " + os.path.join(args.output_path, "developer/all.cil")]
+    run_command(check_policy_cmd)
+
+
+def get_policy_dir_list(args):
+    path_list = ["base/security/selinux_adapter/sepolicy"]
+    path_list += args.policy_dir_list.split(":")
+
+    build_dir_list = []
+    for i in path_list:
+        if i == "" or i == "default":
+            continue
+        path = os.path.join(args.source_root_dir, i)
+        if (os.path.exists(path)):
+            build_dir_list.append(path)
+        else:
+            print("following path not exists {}".format(path))
+            raise Exception(-1)
+
+    return build_dir_list
 
 
 def parse_args():
@@ -49,13 +74,16 @@ def parse_args():
     parser.add_argument('--source-root-dir', help='the project root path', required=True)
     parser.add_argument('--selinux-check-config', help='the selinux check config file path', required=True)
     parser.add_argument('--user-policy', help='the user policy file', required=True)
+    parser.add_argument('--developer-policy', help='the developer policy file', required=True)
     parser.add_argument('--tool-path', help='the policy tool bin path', required=True)
+    parser.add_argument('--policy-dir-list', help='policy dirs need to be included', required=True)
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
     build_cil(args)
+    policy_dir_list = get_policy_dir_list(args)
     check_config = read_json_file(os.path.join(args.source_root_dir, args.selinux_check_config))
     check_list = check_config.get("selinux_check")
     for check in check_list:
@@ -65,4 +93,5 @@ if __name__ == "__main__":
         cmd.extend(request_args)
         extra_args = [check.get("extra_args")]
         cmd.extend(extra_args)
+        cmd.extend(["--policy-dir-list", ":".join(policy_dir_list)])
         run_command(cmd)

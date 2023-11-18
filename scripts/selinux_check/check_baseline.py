@@ -23,7 +23,8 @@ from collections import defaultdict
 
 from check_common import *
 
-WHITELIST_FILE_NAME = "perm_group_whitelist.json"
+BASELINE_SUFFIX = ".baseline"
+
 
 class PolicyDb(object):
     def __init__(self, attributes_map, allow_map, class_map):
@@ -54,25 +55,25 @@ def deal_with_allow(cil_file, allow_map, attributes_map):
                 for scon in attributes_map[scontext]:
                     # allow attribute self
                     if tcontext == 'self':
-                        allow_map[(scon, scon)][tclass] += perm
+                        allow_map[scon][(scon, tclass)] += perm
                     # allow attribute attribute
                     elif tcontext in attributes_map:
                         for tcon in attributes_map[tcontext]:
-                            allow_map[(scon, tcon)][tclass] += perm
+                            allow_map[scon][(tcon, tclass)] += perm
                     # allow attribute type
                     else:
-                        allow_map[(scon, tcontext)][tclass] += perm
+                        allow_map[scon][(tcontext, tclass)] += perm
             else:
                 # allow type self
                 if tcontext == 'self':
-                    allow_map[(scontext, scontext)][tclass] += perm
+                    allow_map[scontext][(scontext, tclass)] += perm
                 # allow type attribute
                 elif tcontext in attributes_map:
                     for tcon in attributes_map[tcontext]:
-                        allow_map[(scontext, tcon)][tclass] += perm
+                        allow_map[scontext][(tcon, tclass)] += perm
                 # allow type type
                 else:
-                    allow_map[(scontext, tcontext)][tclass] += perm
+                    allow_map[scontext][(tcontext, tclass)] += perm
 
 
 def deal_with_typeattributeset(cil_file, attributes_map):
@@ -129,90 +130,62 @@ def generate_database(cil_file):
     return PolicyDb(attributes_map, allow_map, class_map)
 
 
-class CheckPermGroup(object):
-    def __init__(self, check_class_list, check_perms):
-        self.check_class_list = check_class_list
-        self.check_perms = check_perms
+def build_conf(output_conf, file_list, with_developer=False):
+    m4_args = []
+    if with_developer:
+        m4_args += ["-D", "build_with_developer=enable"]
+    build_conf_cmd = ["m4", "-s", "--fatal-warnings"] + m4_args + file_list
+    with open(output_conf, 'w') as fd:
+        ret = subprocess.run(build_conf_cmd, shell=False, stdout=fd).returncode
+        if ret != 0:
+            raise Exception(ret)
 
 
-def get_check_class_list(check_tclass, check_perms, class_map):
-    if check_tclass == '*':
-        check_class_list = []
-        for tclass in class_map.keys():
-            if set(check_perms) <= set(class_map[tclass]):
-                check_class_list.append(tclass)
-        return check_class_list
-    return [check_tclass]
+def get_baseline_file(args):
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    baseline_file_list = [os.path.join(script_path, "config/glb_def.txt")]
+    baseline_file_list += traverse_file_in_each_type(args.policy_dir_list, BASELINE_SUFFIX)
+    return baseline_file_list
 
 
-def get_perm_group_list(rule, class_map):
-    check_perm_group_list = []
-    perm_group_list = rule.get('perm_group')
-    for perm_group in perm_group_list:
-        check_tclass = perm_group.get('tclass')
-        check_perms = perm_group.get('perm').split(' ')
-        check_class_list = get_check_class_list(check_tclass, check_perms, class_map)
-        check_perm_group_list.append(CheckPermGroup(check_class_list, check_perms))
-    return check_perm_group_list
+def generate_baseline_database(args, domain, attributes_map, with_developer):
+    baseline_file_list = get_baseline_file(args)
+    output_path = os.path.dirname(os.path.realpath(args.developer_cil_file if with_developer else args.cil_file))
+    output_baseline = os.path.join(output_path, domain + BASELINE_SUFFIX)
+    build_conf(output_baseline, baseline_file_list, with_developer)
+    baseline_map = defaultdict(lambda: defaultdict(list))
+    deal_with_allow(output_baseline, baseline_map, attributes_map)
+    return baseline_map[domain]
 
 
-def get_whitelist(args, check_name, with_developer):
-    whitelist_file_list = traverse_file_in_each_type(args.policy_dir_list, WHITELIST_FILE_NAME)
-    contexts_list = []
-    for path in whitelist_file_list:
-        white_list = read_json_file(path).get('whitelist')
-        for item in white_list:
-            if item.get('name') == check_name:
-                contexts_list.extend(item.get('user'))
-                if with_developer:
-                    contexts_list.extend(item.get('developer'))
-    return contexts_list
+def check_baseline(args, domain, policy_db, with_developer):
+    baseline_map = generate_baseline_database(args, domain, policy_db.attributes_map, with_developer)
+    none_baseline_list = set()
+    domain_policy = policy_db.allow_map[domain]
+    baseline_diff = domain_policy.keys() ^ baseline_map.keys()
+    for diff in baseline_diff:
+        expect_perm = ''.join(['(', ' '.join(set(baseline_map.get(diff, ''))), ')))'])
+        expect = ' '.join(['expect rule: (allow', domain, ' ('.join(diff), expect_perm])
+        actual_perm = ''.join(['(', ' '.join(set(domain_policy.get(diff, ''))), ')))'])
+        actual = ' '.join(['actual rule: (allow', domain, ' ('.join(diff), actual_perm])
+        none_baseline_list.add('; '.join([expect, actual]))
 
+    for contexts in domain_policy.keys():
+        if set(baseline_map.get(contexts, '')) != set(domain_policy.get(contexts, '')):
+            expect_perm = ''.join(['(', ' '.join(set(baseline_map.get(contexts, ''))), ')))'])
+            expect = ' '.join(['expect rule: (allow', domain, ' ('.join(contexts), expect_perm])
+            actual_perm = ''.join(['(', ' '.join(set(domain_policy.get(contexts, ''))), ')))'])
+            actual = ' '.join(['actual rule: (allow', domain, ' ('.join(contexts), actual_perm])
+            none_baseline_list.add('; '.join([expect, actual]))
 
-def check_perm_group(args, rule, policy_db, with_developer = False):
-    check_name = rule.get('name')
-    check_perm_group_list = get_perm_group_list(rule, policy_db.class_map)
-    contexts_list = get_whitelist(args, check_name, with_developer)
-
-    non_exempt_violator_list = []
-    violator_list = []
-    for contexts in policy_db.allow_map.keys():
-        check_result = 0
-        for perm_group in check_perm_group_list:
-            check_success = False
-            for check_class in perm_group.check_class_list:
-                if set(perm_group.check_perms) <= set(policy_db.allow_map[contexts][check_class]):
-                    check_success = True
-            if check_success:
-                check_result += 1
-        if check_result != len(check_perm_group_list):
-            continue
-        violater = ' '.join(contexts)
-        # all violation list
-        violator_list.append(violater)
-        # if not in whitelist
-        if violater not in contexts_list:
-            non_exempt_violator_list.append(violater)
-
-    if len(non_exempt_violator_list):
-        print('\tcheck rule \'{}\' in {} mode failed, {}'.format(
-            check_name, "developer" if with_developer else "user", rule.get('description')))
-        print('\tviolation list (scontext tcontext):')
-        for violation in non_exempt_violator_list:
+    if len(none_baseline_list):
+        print('\tcheck \'{}\' baseline in {} mode failed'.format(domain, "developer" if with_developer else "user"))
+        for violation in none_baseline_list:
             print('\t\t{}'.format(violation))
         print('\tThere are two solutions:\n',
-              '\t1. Add the above list to whitelist file \'{}\' under \'{}\' in \'{}\' part of \'{}\'\n'.format(
-                    WHITELIST_FILE_NAME, args.policy_dir_list, "developer" if with_developer else "user", check_name),
-              '\t2. Change the policy to avoid violating rule \'{}\'\n'.format(check_name))
-        return True
-
-    diff_list = list(set(contexts_list) - set(violator_list))
-    if len(diff_list):
-        print('\tcheck rule \'{}\' failed in whitelist file \'{}\'\n'.format(check_name, WHITELIST_FILE_NAME),
-              '\tremove the following unnecessary whitelists in rule \'{}\' part \'{}\':'.format(
-                    check_name, 'developer' if with_developer else 'user'))
-        for diff in diff_list:
-            print('\t\t{}'.format(diff))
+            '\t1. Add the above actual rule to baseline file \'{}\' under \'{}\'{}\n'.format(
+                domain + BASELINE_SUFFIX, args.policy_dir_list, " and add developer_only" if with_developer else ""),
+            '\t2. Change the policy to satisfy expect rule\n')
         return True
     return False
 
@@ -224,9 +197,9 @@ def parse_args():
     parser.add_argument(
         '--developer_cil_file', help='the developer cil file path', required=True)
     parser.add_argument(
-        '--policy-dir-list', help='the whitelist path list', required=True)
-    parser.add_argument(
         '--config', help='the config file path', required=True)
+    parser.add_argument(
+        '--policy-dir-list', help='the policy dir list', required=True)
     return parser.parse_args()
 
 
@@ -236,10 +209,10 @@ if __name__ == '__main__':
 
     policy_db = generate_database(args.cil_file)
     developer_policy_db = generate_database(args.developer_cil_file)
-    check_rules = read_json_file(os.path.join(script_path, args.config)).get('check_rules')
+    baselines = read_json_file(os.path.join(script_path, args.config)).get('baseline')
     check_result = False
-    for rule in check_rules:
-        check_result |= check_perm_group(args, rule, policy_db, False)
-        check_result |= check_perm_group(args, rule, developer_policy_db, True)
+    for domain in baselines:
+        check_result |= check_baseline(args, domain, policy_db, False)
+        check_result |= check_baseline(args, domain, developer_policy_db, True)
     if check_result:
         raise Exception(-1)
