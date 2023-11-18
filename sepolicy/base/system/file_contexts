@@ -235,6 +235,7 @@
 /data/local/traces(/.*)?                 u:object_r:data_local_traces:s0
 /data/local/tmp(/.*)?                 u:object_r:data_local_tmp:s0
 /data/local/ark-cache(/.*)?                 u:object_r:data_local_arkcache:s0
+/data/local/ark-profile(/.*)?               u:object_r:data_local_arkprofile:s0
 /data/log                       u:object_r:data_log:s0
 /data/log/(.*)?                 u:object_r:data_log:s0
 /data/media                       u:object_r:data_media:s0
