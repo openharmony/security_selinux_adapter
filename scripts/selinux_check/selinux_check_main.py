@@ -19,7 +19,7 @@ limitations under the License.
 
 import argparse
 import os
-from check_common import *
+from check_common import read_json_file, run_command
 
 
 def get_request_args(args, request):
@@ -39,14 +39,14 @@ def get_request_args(args, request):
 
 def build_cil(args):
     check_policy_cmd = [os.path.join(args.tool_path, "checkpolicy"),
-                        "-b " + args.user_policy,
-                        "-M -C -S -O",
-                        "-o " + os.path.join(args.output_path, "all.cil")]
+                        "-b", args.user_policy,
+                        "-M", "-C", "-S", "-O",
+                        "-o", os.path.join(args.output_path, "all.cil")]
     run_command(check_policy_cmd)
     check_policy_cmd = [os.path.join(args.tool_path, "checkpolicy"),
-                        "-b " + args.developer_policy,
-                        "-M -C -S -O",
-                        "-o " + os.path.join(args.output_path, "developer/all.cil")]
+                        "-b", args.developer_policy,
+                        "-M", "-C", "-S", "-O",
+                        "-o", os.path.join(args.output_path, "developer/all.cil")]
     run_command(check_policy_cmd)
 
 
@@ -81,17 +81,17 @@ def parse_args():
 
 
 if __name__ == "__main__":
-    args = parse_args()
-    build_cil(args)
-    policy_dir_list = get_policy_dir_list(args)
-    check_config = read_json_file(os.path.join(args.source_root_dir, args.selinux_check_config))
+    input_args = parse_args()
+    build_cil(input_args)
+    policy_dir_list = get_policy_dir_list(input_args)
+    check_config = read_json_file(os.path.join(input_args.source_root_dir, input_args.selinux_check_config))
     check_list = check_config.get("selinux_check")
     for check in check_list:
-        script = os.path.join(args.source_root_dir, check.get("script"))
+        script = os.path.join(input_args.source_root_dir, check.get("script"))
         cmd = ["python", script]
-        request_args = get_request_args(args, check.get("args"))
-        cmd.extend(request_args)
-        extra_args = [check.get("extra_args")]
-        cmd.extend(extra_args)
+        cmd.extend(get_request_args(input_args, check.get("args")))
+        extra_args = check.get("extra_args").split()
+        if len(extra_args):
+            cmd.extend(extra_args)
         cmd.extend(["--policy-dir-list", ":".join(policy_dir_list)])
         run_command(cmd)

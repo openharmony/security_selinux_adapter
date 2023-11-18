@@ -20,8 +20,8 @@ limitations under the License.
 import argparse
 import os
 from collections import defaultdict
-
-from check_common import *
+import subprocess
+from check_common import read_json_file, traverse_file_in_each_type
 
 BASELINE_SUFFIX = ".baseline"
 
@@ -47,33 +47,38 @@ def deal_with_allow(cil_file, allow_map, attributes_map):
             # (allow A B (dir (getattr)))
             if len(elem_list) < 5:
                 continue
-            scontext = elem_list[1]
-            tcontext = elem_list[2]
-            tclass = elem_list[3]
-            perm = elem_list[4:]
-            if scontext in attributes_map:
-                for scon in attributes_map[scontext]:
-                    # allow attribute self
-                    if tcontext == 'self':
-                        allow_map[scon][(scon, tclass)] += perm
-                    # allow attribute attribute
-                    elif tcontext in attributes_map:
-                        for tcon in attributes_map[tcontext]:
-                            allow_map[scon][(tcon, tclass)] += perm
-                    # allow attribute type
-                    else:
-                        allow_map[scon][(tcontext, tclass)] += perm
-            else:
-                # allow type self
-                if tcontext == 'self':
-                    allow_map[scontext][(scontext, tclass)] += perm
-                # allow type attribute
-                elif tcontext in attributes_map:
-                    for tcon in attributes_map[tcontext]:
-                        allow_map[scontext][(tcon, tclass)] += perm
-                # allow type type
-                else:
-                    allow_map[scontext][(tcontext, tclass)] += perm
+            split_attribute(elem_list, allow_map, attributes_map)
+
+
+def split_attribute(elem_list, allow_map, attributes_map):
+    scontext = elem_list[1]
+    tcontext = elem_list[2]
+    tclass = elem_list[3]
+    perm = elem_list[4:]
+    if scontext not in attributes_map:
+        # allow type self
+        if tcontext == 'self':
+            allow_map[scontext][(scontext, tclass)] += perm
+        # allow type attribute
+        elif tcontext in attributes_map:
+            for tcon in attributes_map[tcontext]:
+                allow_map[scontext][(tcon, tclass)] += perm
+        # allow type type
+        else:
+            allow_map[scontext][(tcontext, tclass)] += perm
+        return
+
+    for scon in attributes_map[scontext]:
+        # allow attribute self
+        if tcontext == 'self':
+            allow_map[scon][(scon, tclass)] += perm
+        # allow attribute attribute
+        elif tcontext in attributes_map:
+            for tcon in attributes_map[tcontext]:
+                allow_map[scon][(tcon, tclass)] += perm
+        # allow attribute type
+        else:
+            allow_map[scon][(tcontext, tclass)] += perm
 
 
 def deal_with_typeattributeset(cil_file, attributes_map):
@@ -135,7 +140,7 @@ def build_conf(output_conf, file_list, with_developer=False):
     if with_developer:
         m4_args += ["-D", "build_with_developer=enable"]
     build_conf_cmd = ["m4", "-s", "--fatal-warnings"] + m4_args + file_list
-    with open(output_conf, 'w') as fd:
+    with open(output_conf, 'w', encoding="utf-8") as fd:
         ret = subprocess.run(build_conf_cmd, shell=False, stdout=fd).returncode
         if ret != 0:
             raise Exception(ret)
@@ -204,15 +209,15 @@ def parse_args():
 
 
 if __name__ == '__main__':
-    args = parse_args()
-    script_path = os.path.dirname(os.path.realpath(__file__))
+    input_args = parse_args()
+    script_dir = os.path.dirname(os.path.realpath(__file__))
 
-    policy_db = generate_database(args.cil_file)
-    developer_policy_db = generate_database(args.developer_cil_file)
-    baselines = read_json_file(os.path.join(script_path, args.config)).get('baseline')
+    user_policy_db = generate_database(input_args.cil_file)
+    developer_policy_db = generate_database(input_args.developer_cil_file)
+    baselines = read_json_file(os.path.join(script_dir, input_args.config)).get('baseline')
     check_result = False
-    for domain in baselines:
-        check_result |= check_baseline(args, domain, policy_db, False)
-        check_result |= check_baseline(args, domain, developer_policy_db, True)
+    for label_name in baselines:
+        check_result |= check_baseline(input_args, label_name, user_policy_db, False)
+        check_result |= check_baseline(input_args, label_name, developer_policy_db, True)
     if check_result:
         raise Exception(-1)

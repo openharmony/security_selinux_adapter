@@ -20,9 +20,10 @@ limitations under the License.
 import argparse
 import os
 from collections import defaultdict
-from check_common import *
+from check_common import read_file, traverse_file_in_each_type
 
 WHITELIST_FILE_NAME = "partition_label_use_whitelist.txt"
+
 
 def check_file_contexts(args, file_contexts, whitelist_map, label_list):
     label_list_set = set()
@@ -77,12 +78,12 @@ def parse_args():
 
 
 if __name__ == "__main__":
-    args = parse_args()
+    input_args = parse_args()
     script_path = os.path.dirname(os.path.realpath(__file__))
-    whitelist_map = get_whitelist(args)
+    whitelist_data = get_whitelist(input_args)
 
-    label_path = os.path.join(script_path, args.config)
-    label_list = read_file(label_path)
+    label_path = os.path.join(script_path, input_args.config)
+    label_data = read_file(label_path)
 
-    file_contexts = read_file(args.file_contexts)
-    check_file_contexts(args, file_contexts, whitelist_map, label_list)
+    file_contexts_data = read_file(input_args.file_contexts)
+    check_file_contexts(input_args, file_contexts_data, whitelist_data, label_data)

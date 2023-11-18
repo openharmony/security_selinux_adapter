@@ -20,10 +20,10 @@ limitations under the License.
 import argparse
 import os
 from collections import defaultdict
-
-from check_common import *
+from check_common import read_json_file, traverse_file_in_each_type
 
 WHITELIST_FILE_NAME = "perm_group_whitelist.json"
+
 
 class PolicyDb(object):
     def __init__(self, attributes_map, allow_map, class_map):
@@ -46,33 +46,38 @@ def deal_with_allow(cil_file, allow_map, attributes_map):
             # (allow A B (dir (getattr)))
             if len(elem_list) < 5:
                 continue
-            scontext = elem_list[1]
-            tcontext = elem_list[2]
-            tclass = elem_list[3]
-            perm = elem_list[4:]
-            if scontext in attributes_map:
-                for scon in attributes_map[scontext]:
-                    # allow attribute self
-                    if tcontext == 'self':
-                        allow_map[(scon, scon)][tclass] += perm
-                    # allow attribute attribute
-                    elif tcontext in attributes_map:
-                        for tcon in attributes_map[tcontext]:
-                            allow_map[(scon, tcon)][tclass] += perm
-                    # allow attribute type
-                    else:
-                        allow_map[(scon, tcontext)][tclass] += perm
-            else:
-                # allow type self
-                if tcontext == 'self':
-                    allow_map[(scontext, scontext)][tclass] += perm
-                # allow type attribute
-                elif tcontext in attributes_map:
-                    for tcon in attributes_map[tcontext]:
-                        allow_map[(scontext, tcon)][tclass] += perm
-                # allow type type
-                else:
-                    allow_map[(scontext, tcontext)][tclass] += perm
+            split_attribute(elem_list, allow_map, attributes_map)
+
+
+def split_attribute(elem_list, allow_map, attributes_map):
+    scontext = elem_list[1]
+    tcontext = elem_list[2]
+    tclass = elem_list[3]
+    perm = elem_list[4:]
+    if scontext not in attributes_map:
+        # allow type self
+        if tcontext == 'self':
+            allow_map[(scontext, scontext)][tclass] += perm
+        # allow type attribute
+        elif tcontext in attributes_map:
+            for tcon in attributes_map[tcontext]:
+                allow_map[(scontext, tcon)][tclass] += perm
+        # allow type type
+        else:
+            allow_map[(scontext, tcontext)][tclass] += perm
+        return
+
+    for scon in attributes_map[scontext]:
+        # allow attribute self
+        if tcontext == 'self':
+            allow_map[(scon, scon)][tclass] += perm
+        # allow attribute attribute
+        elif tcontext in attributes_map:
+            for tcon in attributes_map[tcontext]:
+                allow_map[(scon, tcon)][tclass] += perm
+        # allow attribute type
+        else:
+            allow_map[(scon, tcontext)][tclass] += perm
 
 
 def deal_with_typeattributeset(cil_file, attributes_map):
@@ -162,14 +167,15 @@ def get_whitelist(args, check_name, with_developer):
     for path in whitelist_file_list:
         white_list = read_json_file(path).get('whitelist')
         for item in white_list:
-            if item.get('name') == check_name:
-                contexts_list.extend(item.get('user'))
-                if with_developer:
-                    contexts_list.extend(item.get('developer'))
+            if item.get('name') != check_name:
+                continue
+            contexts_list.extend(item.get('user'))
+            if with_developer:
+                contexts_list.extend(item.get('developer'))
     return contexts_list
 
 
-def check_perm_group(args, rule, policy_db, with_developer = False):
+def check_perm_group(args, rule, policy_db, with_developer):
     check_name = rule.get('name')
     check_perm_group_list = get_perm_group_list(rule, policy_db.class_map)
     contexts_list = get_whitelist(args, check_name, with_developer)
@@ -181,8 +187,7 @@ def check_perm_group(args, rule, policy_db, with_developer = False):
         for perm_group in check_perm_group_list:
             check_success = False
             for check_class in perm_group.check_class_list:
-                if set(perm_group.check_perms) <= set(policy_db.allow_map[contexts][check_class]):
-                    check_success = True
+                check_success |= (set(perm_group.check_perms) <= set(policy_db.allow_map[contexts][check_class]))
             if check_success:
                 check_result += 1
         if check_result != len(check_perm_group_list):
@@ -231,15 +236,15 @@ def parse_args():
 
 
 if __name__ == '__main__':
-    args = parse_args()
+    input_args = parse_args()
     script_path = os.path.dirname(os.path.realpath(__file__))
 
-    policy_db = generate_database(args.cil_file)
-    developer_policy_db = generate_database(args.developer_cil_file)
-    check_rules = read_json_file(os.path.join(script_path, args.config)).get('check_rules')
-    check_result = False
-    for rule in check_rules:
-        check_result |= check_perm_group(args, rule, policy_db, False)
-        check_result |= check_perm_group(args, rule, developer_policy_db, True)
-    if check_result:
+    user_policy_db = generate_database(input_args.cil_file)
+    developer_policy_db = generate_database(input_args.developer_cil_file)
+    check_rules = read_json_file(os.path.join(script_path, input_args.config)).get('check_rules')
+    result = False
+    for check_rule in check_rules:
+        result |= check_perm_group(input_args, check_rule, user_policy_db, False)
+        result |= check_perm_group(input_args, check_rule, developer_policy_db, True)
+    if result:
         raise Exception(-1)
