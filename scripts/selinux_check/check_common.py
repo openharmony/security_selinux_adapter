@@ -43,10 +43,9 @@ def read_file(input_file):
             lines.append(line.strip())
     return lines
 
+
 def run_command(in_cmd):
-    cmdstr = " ".join(in_cmd)
-    print(cmdstr)
-    ret = subprocess.run(cmdstr, shell=True).returncode
+    ret = subprocess.run(in_cmd, shell=False).returncode
     if ret != 0:
         raise Exception(ret)
 

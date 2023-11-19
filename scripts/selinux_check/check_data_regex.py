@@ -20,13 +20,12 @@ limitations under the License.
 import argparse
 import os
 import re
-from check_common import *
+from check_common import read_file, traverse_file_in_each_type
 
 WHITELIST_FILE_NAME = "data_regex_whitelist.txt"
 
 
 def check_regex_path(path):
-    regex_set = set("")
     # remove all escape
     path = re.sub(r'\\\\', '', path)
     path = re.sub(r'\\/', '/', path)
@@ -59,7 +58,8 @@ def check_file_contexts(args, file_contexts, whitelist_set):
             print("Regex is not allowed in the secondary directory under data,",
                 "check '{}' failed in file {}:{}\n".format(path, args.file_contexts, line_index),
                 "There are two solutions:\n",
-                "1. Add '{}' to whitelist file \'{}\' under \'{}\';\n".format(path, WHITELIST_FILE_NAME, args.policy_dir_list),
+                "1. Add '{}' to whitelist file \'{}\' under \'{}\';\n".format(
+                    path, WHITELIST_FILE_NAME, args.policy_dir_list),
                 "2. Modify '{}' to remove the regular expression\n".format(path))
             err = True
     if err:
@@ -86,9 +86,9 @@ def parse_args():
 
 
 if __name__ == "__main__":
-    args = parse_args()
+    input_args = parse_args()
     script_path = os.path.dirname(os.path.realpath(__file__))
-    whitelist_set = get_whitelist(args)
+    whitelist_data = get_whitelist(input_args)
 
-    file_contexts = read_file(args.file_contexts)
-    check_file_contexts(args, file_contexts, whitelist_set)
+    file_contexts_data = read_file(input_args.file_contexts)
+    check_file_contexts(input_args, file_contexts_data, whitelist_data)
