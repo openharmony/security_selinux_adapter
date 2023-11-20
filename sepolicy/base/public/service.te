@@ -226,4 +226,3 @@ type sa_oaid_service, sa_service_attr;
 type sa_ui_appearance, sa_service_attr;
 type sa_device_standby, sa_service_attr;
 
-type sa_drm_device, sa_service_attr;
