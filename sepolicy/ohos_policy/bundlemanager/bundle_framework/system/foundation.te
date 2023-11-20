@@ -125,7 +125,7 @@ allow samgr bm:dir { search };
 allow samgr bm:file { open read };
 allow samgr bm:process { getattr };
 allow samgr bm:binder { call transfer };
-allow bm samgr:binder { call transfer };
+allow bm samgr:binder { call };
 allow accountmgr bm:binder { transfer };
 allow hiview bm:dir { search };
 allow hiview bm:file { read open getattr};
@@ -172,5 +172,10 @@ debug_only(`
     allow domain bms_param:file { map open read };
     allow { param_watcher } bms_param:parameter_service { set };
 ')
+
+developer_only(`
+    allow bm samgr:binder { transfer };
+')
+
 allow foundation arkui_param:file { map open read };
 
