@@ -122,7 +122,6 @@ type data_startup, file_attr, data_file_attr;
 type data_cache, file_attr, data_file_attr;
 type data_data_file, file_attr, data_file_attr;
 type data_drm, file_attr, data_file_attr;
-type data_drm, file_attr, data_file_attr;
 type data_ethernet, file_attr, data_file_attr;
 type data_filelog, file_attr, data_file_attr;
 type data_init_agent, file_attr, data_file_attr;
