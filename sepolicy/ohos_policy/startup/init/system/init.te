@@ -181,6 +181,7 @@ allow init data_local:dir { add_name create getattr open read relabelfrom relabe
 allow init data_local_tmp:dir { getattr open read relabelto setattr };
 allow init data_local_traces:dir { getattr open read relabelto setattr };
 allow init data_local_arkcache:dir { getattr open read relabelto setattr };
+allow init data_local_arkprofile:dir { getattr open read relabelto setattr };
 allow init data_log:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_log:file { relabelto };
 allow init data_media:dir { add_name create getattr open read relabelto search setattr write };
