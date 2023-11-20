@@ -216,3 +216,7 @@ allow intell_voice_service sa_huks_service:samgr_class { get };
 # avc:  denied  { call } for  pid=790 comm="IPC_3_3181" scontext=u:r:intell_voice_service:s0 tcontext=u:r:huks_service:s0 tclass=binder permissive=0
 allow intell_voice_service huks_service:binder { call };
 
+# avc:  denied  { map } for  pid=757 comm="SaOndemand" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=157 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=757 comm="SaOndemand" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=157 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+# avc:  denied  { read } for  pid=757 comm="SaOndemand" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=157 scontext=u:r:intell_voice_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+allow intell_voice_service arkcompiler_param:file { map open read };
