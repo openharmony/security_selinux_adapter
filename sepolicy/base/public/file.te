@@ -133,7 +133,6 @@ type data_local_arkcache, file_attr, data_file_attr;
 type data_log, file_attr, data_file_attr;
 type data_media, file_attr, data_file_attr;
 type data_mediadrm, file_attr, data_file_attr;
-type data_mediadrm, file_attr, data_file_attr;
 type data_misc, file_attr, data_file_attr;
 type data_misc_ce, file_attr, data_file_attr;
 type data_misc_de, file_attr, data_file_attr;
