@@ -81,7 +81,9 @@ allow daudio proc_file:file { read open };
 
 allow daudio pulseaudio:unix_stream_socket { connectto };
 
-allow daudio pulseaudio:binder { call };
+allow daudio pulseaudio:binder { call transfer };
+
+allow daudio pulseaudio:fd { use };
 
 allow daudio param_watcher:binder { call transfer };
 
@@ -106,6 +108,8 @@ allow daudio sa_pulseaudio_audio_service:samgr_class { get };
 allow daudio daudio:udp_socket { bind getattr };
 
 allow daudio node:udp_socket { node_bind };
+
+allow daudio sys_param:file { open read map };
 
 allow daudio system_bin_file:dir { search };
 
