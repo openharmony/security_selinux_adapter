@@ -40,6 +40,8 @@ allow wukong hiview:binder { call transfer };
 allow wukong multimodalinput:binder { call };
 allow wukong samgr:binder { call };
 allow wukong sh:fd { use };
+allow wukong sh:file { read open };
+allow wukong sh:dir { search };
 allow wukong sh_exec:file { execute_no_trans execute  read open map };
 allow wukong system_bin_file:file { execute execute_no_trans getattr map read open };
 allow wukong system_bin_file:lnk_file { read };
@@ -79,6 +81,9 @@ allow wukong sa_foundation_wms:samgr_class { get };
 allow wukong sa_multimodalinput_service:samgr_class { get };
 allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_sys_event_service:samgr_class { get };
+
+allow wukong render_service:fd { use };
+allow wukong wukong:capability { dac_read_search };
 # ps -ef
 allow wukong domain: dir { search };
 allow wukong domain: file { open read };
