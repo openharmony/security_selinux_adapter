@@ -83,3 +83,9 @@ int RestoreconRecurseParallel(const char *path, unsigned int nthreads)
 {
     return RestoreconCommon(path, SELINUX_RESTORECON_REALPATH | SELINUX_RESTORECON_RECURSE, nthreads);
 }
+
+int RestoreconRecurseForce(const char *path)
+{
+    return RestoreconCommon(path,
+        SELINUX_RESTORECON_REALPATH | SELINUX_RESTORECON_RECURSE | SELINUX_RESTORECON_IGNORE_DIGEST, 1);
+}
