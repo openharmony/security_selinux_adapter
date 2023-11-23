@@ -57,6 +57,8 @@
 1122	                               u:object_r:sa_wifi_enhancer_service:s0
 1123                                   u:object_r:sa_wifi_p2p_ability:s0
 1124                                   u:object_r:sa_wifi_scan_ability:s0
+1126                                   u:object_r:sa_dhcp_client:s0
+1127                                   u:object_r:sa_dhcp_server:s0
 1130                                   u:object_r:sa_bluetooth_server:s0
 1140	                               u:object_r:sa_nfc_manager_service:s0
 1150	                               u:object_r:sa_net_manager_service:s0
@@ -245,4 +247,5 @@
 7001	                               u:object_r:sa_subsys_ace_service:s0
 7002	                               u:object_r:sa_ui_appearance:s0
 8001	                               u:object_r:sa_ca_daemon_service:s0
+
 

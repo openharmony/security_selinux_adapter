@@ -101,3 +101,7 @@ allow netmanager mdnsmanager:binder { call };
 allow netmanager sa_netsys_ext_service:samgr_class { add get };
 allow netmanager sa_distributed_net_service:samgr_class { add get };
 
+allow netmanager wifi_hal_service:binder { transfer call };
+allow netmanager sa_dhcp_client:samgr_class { add get };
+allow netmanager sa_dhcp_server:samgr_class { add get };
+
