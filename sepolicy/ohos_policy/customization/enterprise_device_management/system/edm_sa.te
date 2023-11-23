@@ -136,6 +136,7 @@ allow edm_sa bluetooth_service:binder { call };
 allow edm_sa sa_location_locator_service:samgr_class { get };
 allow edm_sa sa_telephony_tel_cellular_data:samgr_class { get };
 allow edm_sa sa_telephony_tel_core_service:samgr_class { get };
+allow edm_sa locationhub:binder { call };
 
 # avc: denied { call } for pid=740 comm="edm" scontext=u:r:edm_sa:s0 tcontext=u:r:storage_manager:s0 tclass=binder permissive=1
 allow edm_sa storage_manager:binder { call };
