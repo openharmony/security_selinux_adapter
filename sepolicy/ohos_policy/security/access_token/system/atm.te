@@ -19,6 +19,9 @@ developer_only(`
     allow samgr atm:process { getattr };
     allow samgr atm:binder { call transfer };
 
+    allow atm hdcd:fifo_file { ioctl read write };
+    allowxperm atm hdcd:fifo_file ioctl { 0x5413 };
+
     allow atm sa_accesstoken_manager_service:samgr_class { get };
     allow atm sa_privacy_service:samgr_class { get };
     allow atm sh:fd { use };
