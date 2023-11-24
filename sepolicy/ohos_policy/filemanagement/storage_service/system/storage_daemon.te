@@ -57,6 +57,7 @@ allow storage_daemon data_service_el1_file:dir { rw_dir_perms rmdir ioctl getatt
 
 allow storage_daemon data_data_file:file { create_file_perms relabelto relabelfrom };
 allow storage_daemon data_data_file:dir { rw_dir_perms rmdir ioctl getattr search rename relabelto relabelfrom };
+allowxperm storage_daemon data_data_file:dir ioctl { 0x5705 };
 
 #avc:  denied  { create } for  pid=246 comm="storage_daemon" name="fscrypt_version" scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
 #avc:  denied  { write open } for  pid=246 comm="storage_daemon" path="/data/service/el0/storage_daemon/sd/fscrypt_version" dev="mmcblk0p11" ino=1044790 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:data_service_el0_file:s0 tclass=file permissive=1
