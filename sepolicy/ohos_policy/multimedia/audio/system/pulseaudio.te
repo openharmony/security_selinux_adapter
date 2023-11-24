@@ -179,3 +179,10 @@ allow pulseaudio sa_audio_policy_service:samgr_class { get };
 allow pulseaudio audio_policy:fd { use };
 
 allow pulseaudio sa_resource_schedule:samgr_class { get };
+
+#avc:  denied  { get } for service=3601 pid=387 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:sa_sensor_service:s0 tclass=samgr_class permissive=1
+allow pulseaudio sa_sensor_service:samgr_class { get };
+
+# avc:  denied  { call } for  pid=356 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for  pid=356 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
+allow pulseaudio sensors:binder { call transfer };
