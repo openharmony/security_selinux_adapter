@@ -33,10 +33,13 @@ constexpr int32_t BUFF_SIZE = 1024;
 constexpr const char UPDATER_EXE[] = "/bin/updater";
 constexpr const char SYSTEM_CIL[] = "/system/etc/selinux/system.cil";
 constexpr const char SYSTEM_DEVELOPER_CIL[] = "/system/etc/selinux/system_developer.cil";
+constexpr const char SYSTEM_COMMON_CIL[] = "/system/etc/selinux/system_common.cil";
 constexpr const char VENDOR_CIL[] = "/vendor/etc/selinux/vendor.cil";
 constexpr const char VENDOR_DEVELOPER_CIL[] = "/vendor/etc/selinux/vendor_developer.cil";
+constexpr const char VENDOR_COMMON_CIL[] = "/vendor/etc/selinux/vendor_common.cil";
 constexpr const char PUBLIC_CIL[] = "/vendor/etc/selinux/public.cil";
 constexpr const char PUBLIC_DEVELOPER_CIL[] = "/vendor/etc/selinux/public_developer.cil";
+constexpr const char PUBLIC_COMMON_CIL[] = "/vendor/etc/selinux/public_common.cil";
 constexpr const char SYSTEM_CIL_HASH[] = "/system/etc/selinux/system.cil.sha256";
 constexpr const char DEVELOPER_SYSTEM_CIL_HASH[] = "/system/etc/selinux/system_developer.cil.sha256";
 constexpr const char PRECOMPILED_POLICY_SYSTEM_CIL_HASH[] = "/vendor/etc/selinux/prebuild_sepolicy.system.cil.sha256";
@@ -327,21 +330,23 @@ static bool CompilePolicy(bool devMode)
         "-G",
         "-c",
         "31",
+        "-O",
         "-f",
         "/sys/fs/selinux/null",
         "-o",
         COMPILE_OUTPUT_POLICY,
     };
-    compileCmd.emplace_back(devMode ? SYSTEM_DEVELOPER_CIL : SYSTEM_CIL);
-    compileCmd.emplace_back(devMode ? VENDOR_DEVELOPER_CIL : VENDOR_CIL);
+    AddPolicy(compileCmd, SYSTEM_COMMON_CIL);
+    AddPolicy(compileCmd, VENDOR_COMMON_CIL);
+    AddPolicy(compileCmd, PUBLIC_COMMON_CIL);
+    AddPolicy(compileCmd, devMode ? SYSTEM_DEVELOPER_CIL : SYSTEM_CIL);
+    AddPolicy(compileCmd, devMode ? VENDOR_DEVELOPER_CIL : VENDOR_CIL);
+    AddPolicy(compileCmd, devMode ? PUBLIC_DEVELOPER_CIL : PUBLIC_CIL);
 
     std::string versionPolicy;
     if (GetVersionPolicy(versionPolicy, devMode)) {
-        selinux_log(SELINUX_WARNING, "Add policy %s\n", versionPolicy.c_str());
-        compileCmd.emplace_back(versionPolicy.c_str());
+        AddPolicy(compileCmd, versionPolicy.c_str());
     }
-
-    AddPolicy(compileCmd, devMode ? PUBLIC_DEVELOPER_CIL : PUBLIC_CIL);
 
     compileCmd.emplace_back(nullptr);
 
@@ -385,13 +390,13 @@ static bool GetPolicyFile(std::string &policyFile, bool devMode)
     // check precompiled policy
     if (CompareHash(devMode ? PRECOMPILED_DEVELOPER_POLICY_SYSTEM_CIL_HASH : PRECOMPILED_POLICY_SYSTEM_CIL_HASH,
                     devMode ? DEVELOPER_SYSTEM_CIL_HASH : SYSTEM_CIL_HASH)) {
-        if (access(devMode ? PRECOMPILED_DEVELOPER_POLICY : PRECOMPILED_POLICY, R_OK) == 0) {
-            policyFile = devMode ? PRECOMPILED_DEVELOPER_POLICY : PRECOMPILED_POLICY;
+        if (access(devMode ? BACKUP_PRECOMPILED_DEVELOPER_POLICY : BACKUP_PRECOMPILED_POLICY, R_OK) == 0) {
+            policyFile = devMode ? BACKUP_PRECOMPILED_DEVELOPER_POLICY : BACKUP_PRECOMPILED_POLICY;
             selinux_log(SELINUX_WARNING, "Found precompiled policy, load %s\n", policyFile.c_str());
             return true;
         }
-        if (access(devMode ? BACKUP_PRECOMPILED_DEVELOPER_POLICY : BACKUP_PRECOMPILED_POLICY, R_OK) == 0) {
-            policyFile = devMode ? BACKUP_PRECOMPILED_DEVELOPER_POLICY : BACKUP_PRECOMPILED_POLICY;
+        if (access(devMode ? PRECOMPILED_DEVELOPER_POLICY : PRECOMPILED_POLICY, R_OK) == 0) {
+            policyFile = devMode ? PRECOMPILED_DEVELOPER_POLICY : PRECOMPILED_POLICY;
             selinux_log(SELINUX_WARNING, "Found precompiled policy, load %s\n", policyFile.c_str());
             return true;
         }
