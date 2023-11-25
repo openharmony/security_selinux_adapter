@@ -56,6 +56,10 @@ attribute vendor_file_attr;
 # i.e. /chip_prod/*
 attribute chip_prod_file_attr;
 
+# Type of all chip_ckm files.
+# i.e. /chip_ckm/*
+attribute chip_ckm_file_attr;
+
 # Type of all domain access points, which is used in domain trasition.
 # i.e. vold_exec,
 #      appspawn_exec
