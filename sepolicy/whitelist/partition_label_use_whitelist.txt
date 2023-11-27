@@ -9,6 +9,7 @@
 /chip_prod(/.*)?     u:object_r:chip_prod_file:s0
 /eng_system(/.*)?           u:object_r:system_file:s0
 /eng_chipset(/.*)?           u:object_r:vendor_file:s0
+/chip_ckm(/.*)?              u:object_r:chip_ckm_file:s0
 /data(/.*)?                   u:object_r:data_file:s0
 /vendor(/.*)?       u:object_r:vendor_file:s0
 /module_update(/.*)?        u:object_r:module_update_file:s0
