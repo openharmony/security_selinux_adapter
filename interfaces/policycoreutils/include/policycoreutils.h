@@ -27,6 +27,7 @@ int Restorecon(const char *path);
 int RestoreconRecurse(const char *path);
 int RestoreconRecurseParallel(const char *path, unsigned int nthreads);
 int RestoreconRecurseForce(const char *path);
+int RestoreconFromParentDir(const char *path);
 
 #ifdef __cplusplus
 #if __cplusplus
