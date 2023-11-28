@@ -274,6 +274,14 @@ def get_type_set(cil_file_input):
     return type_set
 
 
+def add_base_typeattr_prefix(cil_file, prefix):
+    with open(cil_file, 'r') as cil_read:
+        data = cil_read.read()
+        data = data.replace('base_typeattr_', '_'.join([prefix, 'base_typeattr_']))
+        with open(cil_file, 'w') as cil_write:
+            cil_write.write(data)
+
+
 def build_binary_policy(tool_path, output_policy, check_neverallow, cil_list):
     build_policy_cmd = [os.path.join(tool_path, "secilc"),
                         " ".join(cil_list),
@@ -344,17 +352,15 @@ def get_policy_file_list(args, dir_list_object):
 
 
 def filter_out(pattern_file, input_file):
-    patterns = []
-    with open(pattern_file, 'r') as pat_file:
-        patterns.extend(pat_file.readlines())
-
-    tmp_output = tempfile.NamedTemporaryFile()
-    with open(input_file, 'r') as in_file:
-        tmp_output.writelines(line.encode(encoding='utf-8') for line in in_file.readlines()
-                              if line not in patterns)
-        tmp_output.write("\n".encode(encoding='utf-8'))
-        tmp_output.flush()
-    shutil.copyfile(tmp_output.name, input_file)
+    with open(pattern_file, 'r', encoding='utf-8') as pat_file:
+        patterns = set(pat_file)
+        tmp_output = tempfile.NamedTemporaryFile()
+        with open(input_file, 'r', encoding='utf-8') as in_file:
+            tmp_output.writelines(line.encode(encoding='utf-8') for line in in_file.readlines()
+                                if line not in patterns)
+            tmp_output.write("\n".encode(encoding='utf-8'))
+            tmp_output.flush()
+        shutil.copyfile(tmp_output.name, input_file)
 
 
 def generate_hash_file(input_file_list, output_file):
@@ -374,16 +380,12 @@ def generate_version_file(args, output_file):
 
 
 def generate_default_policy(args, policy, with_developer=False):
-    if args.updater_version != "enable" and args.developer_version == "false":
-        with_developer = True
-        output_path = os.path.abspath(os.path.dirname(args.dst_file))
+    if with_developer:
+        output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
     else:
-        if with_developer:
-            output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
-            if not os.path.exists(output_path):
-                os.makedirs(output_path)
-        else:
-            output_path = os.path.abspath(os.path.dirname(args.dst_file))
+        output_path = os.path.abspath(os.path.dirname(args.dst_file))
     system_output_conf = os.path.join(output_path, "system.conf")
     vendor_output_conf = os.path.join(output_path, "vendor.conf")
     min_output_conf = os.path.join(output_path, "min.conf")
@@ -401,6 +403,7 @@ def generate_default_policy(args, policy, with_developer=False):
     build_conf(args, vendor_output_conf, policy.vendor_policy_file_list, with_developer)
     # build vendor.cil
     build_cil(args, vendor_cil_path, vendor_output_conf)
+    add_base_typeattr_prefix(vendor_cil_path, 'vendor')
 
     # build min.conf
     build_conf(args, min_output_conf, policy.min_policy_file_list)
@@ -413,16 +416,12 @@ def generate_default_policy(args, policy, with_developer=False):
 
 
 def generate_special_policy(args, policy, with_developer=False):
-    if args.developer_version == "false":
-        with_developer = True
-        output_path = os.path.abspath(os.path.dirname(args.dst_file))
+    if with_developer:
+        output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
     else:
-        if with_developer:
-            output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
-            if not os.path.exists(output_path):
-                os.makedirs(output_path)
-        else:
-            output_path = os.path.abspath(os.path.dirname(args.dst_file))
+        output_path = os.path.abspath(os.path.dirname(args.dst_file))
 
     system_output_conf = os.path.join(output_path, "system.conf")
     vendor_output_conf = os.path.join(output_path, "vendor.conf")
@@ -437,7 +436,7 @@ def generate_special_policy(args, policy, with_developer=False):
     system_cil_path = os.path.join(output_path, "system.cil")
     vendor_cil_path = os.path.join(output_path, "vendor.cil")
     public_version_cil_path = os.path.join(output_path, "public.cil")
-    type_version_cil_path = os.path.join(output_path, "".join([args.vendor_policy_version, ".cil"]))
+    type_version_cil_path = os.path.join(output_path, "".join(["compatible/", args.vendor_policy_version, ".cil"]))
 
     # build system.conf
     build_conf(args, system_output_conf, policy.system_policy_file_list, with_developer)
@@ -478,13 +477,6 @@ def generate_special_policy(args, policy, with_developer=False):
     return [vendor_cil_path, system_cil_path, type_version_cil_path, public_version_cil_path]
 
 
-def build_developer_binary_policy(args, check_neverallow, cil_list, developer_cil_list):
-    if args.developer_version == "false":
-        return
-    developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
-    build_binary_policy(args.tool_path, developer_policy_path, check_neverallow, developer_cil_list)
-
-
 def compile_sepolicy(args):
     dir_list_object = get_policy_dir_list(args)
     file_list_object = get_policy_file_list(args, dir_list_object)
@@ -495,28 +487,27 @@ def compile_sepolicy(args):
     else:
         if args.components == "default":
             cil_list = generate_default_policy(args, file_list_object, False)
-            if args.developer_version == "true":
-                developer_cil_list = generate_default_policy(args, file_list_object, True)
+            developer_cil_list = generate_default_policy(args, file_list_object, True)
         else:
             cil_list = generate_special_policy(args, file_list_object, False)
-            if args.developer_version == "true":
-                developer_cil_list = generate_special_policy(args, file_list_object, True)
+            developer_cil_list = generate_special_policy(args, file_list_object, True)
 
         build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
-        if args.developer_version == "true":
-            build_developer_binary_policy(args, True, cil_list, developer_cil_list)
+        developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
+        build_binary_policy(args.tool_path, developer_policy_path, True, developer_cil_list)
 
 
 def copy_user_policy(args):
     if args.updater_version == "enable":
         return
 
-    user_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "user_policy")
-    if args.developer_version == "true":
-        src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
-    else:
-        src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "policy.31")
-    shutil.copyfile(src_policy_path, user_policy_path)
+    src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
+    dest_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/developer_policy")
+    shutil.copyfile(src_policy_path, dest_policy_path)
+
+    src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "policy.31")
+    dest_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "user_policy")
+    shutil.copyfile(src_policy_path, dest_policy_path)
 
 
 def main(args):

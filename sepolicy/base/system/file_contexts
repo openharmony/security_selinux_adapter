@@ -169,6 +169,7 @@
 /sys_prod(/.*)?      u:object_r:sys_prod_file:s0
 
 /chip_prod(/.*)?     u:object_r:chip_prod_file:s0
+/chip_ckm(/.*)?      u:object_r:chip_ckm_file:s0
 
 /eng_system(/.*)?           u:object_r:system_file:s0
 /eng_system/etc(/.*)?       u:object_r:system_etc_file:s0
@@ -235,6 +236,7 @@
 /data/local/traces(/.*)?                 u:object_r:data_local_traces:s0
 /data/local/tmp(/.*)?                 u:object_r:data_local_tmp:s0
 /data/local/ark-cache(/.*)?                 u:object_r:data_local_arkcache:s0
+/data/local/ark-profile(/.*)?               u:object_r:data_local_arkprofile:s0
 /data/log                       u:object_r:data_log:s0
 /data/log/(.*)?                 u:object_r:data_log:s0
 /data/media                       u:object_r:data_media:s0

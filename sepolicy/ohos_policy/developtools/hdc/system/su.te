@@ -75,7 +75,13 @@ debug_only(`
     allow distributeddata su:dir { search };
     allow distributeddata su:fd { use };
     allow distributeddata su:file { getattr open read };
+    # avc:  denied  { getattr } for  pid=2245 comm="ps" path="/proc/651" dev="proc" ino=19199 scontext=u:r:su:s0 tcontext=u:r:drm_service:s0 tclass=dir permissive=1
+    # avc:  denied  { search } for  pid=2245 comm="ps" name="651" dev="proc" ino=19199 scontext=u:r:su:s0 tcontext=u:r:drm_service:s0 tclass=dir permissive=1
+    allow su drm_service:dir { getattr search };
     #avc:  denied  { call } for  pid=686 comm="device_manager" scontext=u:r:device_manager:s0 tcontext=u:r:su:s0 tclass=binder permissive=0
+    # avc:  denied  { open } for  pid=2245 comm="ps" path="/proc/651/stat" dev="proc" ino=30035 scontext=u:r:su:s0 tcontext=u:r:drm_service:s0 tclass=file permissive=1
+    # avc:  denied  { read } for  pid=2245 comm="ps" name="stat" dev="proc" ino=30035 scontext=u:r:su:s0 tcontext=u:r:drm_service:s0 tclass=file permissive=1
+    allow su drm_service:file { open read };
     allow device_manager su:binder { call };
     allow daudio su:binder { call };
     allow daudio_host su:binder { call transfer };
@@ -180,7 +186,7 @@ debug_only(`
     allow resource_schedule_service su:dir { search };
     allow resource_schedule_service su:file { open };
     allow resource_schedule_service su:binder { call };
-    allow su su:code_sign { add_cert_chain };
+    allow su su:code_sign { add_cert_chain remove_cert_chain };
     # avc:  denied  { call } for  pid=12263 comm="IPC_1_12275" scontext=u:r:dlp_permission_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
     allow dlp_permission_service su:binder { call };
     # avc:  denied  { call } for  pid=2854 comm="IPC_1_2877" scontext=u:r:security_component_service:s0 tcontext=u:r:su:s0 tclass=binder permissive=1
@@ -241,7 +247,13 @@ debug_only(`
     domain_auto_transition_pattern(su, hisysevent_exec, hisysevent);
 
     # for su process crash faultlog
+    # avc:  denied  { getattr } for  pid=2245 comm="ps" path="/proc/503" dev="proc" ino=19131 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=dir permissive=1
+    # avc:  denied  { search } for  pid=2245 comm="ps" name="503" dev="proc" ino=19131 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=dir permissive=1
+    allow su clearplay_host:dir { getattr search };
     allow su processdump:process { share sigchld };
+    # avc:  denied  { open } for  pid=2245 comm="ps" path="/proc/503/stat" dev="proc" ino=30001 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=file permissive=1
+    # avc:  denied  { read } for  pid=2245 comm="ps" name="stat" dev="proc" ino=30001 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=file permissive=1
+    allow su clearplay_host:file { open read };
     domain_auto_transition_pattern(su, processdump_exec, processdump);
 
     # for hilog

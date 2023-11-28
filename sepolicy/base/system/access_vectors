@@ -554,3 +554,8 @@ class hmpsf
     module_load
     module_run
 }
+
+class ced
+{
+    container_escape_check
+}

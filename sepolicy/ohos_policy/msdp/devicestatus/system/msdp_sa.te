@@ -206,3 +206,6 @@ allow msdp_sa normal_hap_attr:fd { use };
 
 #avc: denied { transfer } for pid=858 comm="SoftBusConnect" scontext=u:r:msdp_sa:s0 tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
 allow msdp_sa multimodalinput:binder { transfer };
+
+#avc:  denied  { get } for service=3299 pid=470 scontext=u:r:msdp_sa:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+allow msdp_sa sa_foundation_cesfwk_service:samgr_class { get }; 

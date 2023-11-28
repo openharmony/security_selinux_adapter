@@ -11,5 +11,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+allow pulseaudio daudio:binder { call transfer };
 allow pulseaudio daudio_host:binder { call transfer };
 allow pulseaudio hdf_daudio_primary:hdf_devmgr_class { get };

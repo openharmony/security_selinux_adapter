@@ -61,6 +61,8 @@ allow hap_domain data_log:file { read write };
 allow hap_domain sa_dataobs_mgr_service_service:binder { call };
 allow hap_domain sa_dataobs_mgr_service_service:samgr_class { get };
 
+allow hap_domain self:ced { container_escape_check };
+
 binder_call(hap_domain, samgr);
 binder_call(hap_domain, render_service);
 binder_call(hap_domain, param_watcher);
@@ -145,21 +147,21 @@ neverallow { hap_domain } *:security { compute_av check_context };
 neverallow hap_domain fs_attr:filesystem ~getattr;
 
 #limit access to system_core_hap_data_file
-neverallow { domain -hap_domain -installs -storage_daemon -distributeddata -system_core_hap_data_file_attr_violator_dir } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
+neverallow { domain -hap_domain -installs -storage_daemon -distributeddata -download_server -system_core_hap_data_file_attr_violator_dir } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 neverallow { system_basic_hap_attr normal_hap_attr } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to system_basic_hap_data_file
-neverallow { domain -hap_domain -installs -storage_daemon  -distributeddata -hiview -system_basic_hap_data_file_attr_violator_dir } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
+neverallow { domain -hap_domain -installs -storage_daemon  -distributeddata -hiview -download_server -system_basic_hap_data_file_attr_violator_dir } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 neverallow normal_hap_attr system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file_attr
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview } normal_hap_data_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server } normal_hap_data_file_attr:dir_file_class_set { create unlink };
 
-neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -cloudfiledaemon -normal_hap_data_file_attr_violator_dir} normal_hap_data_file_attr:dir *;
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir} normal_hap_data_file_attr:dir *;
 
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open } normal_hap_data_file_attr:file_class_set open;
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open } normal_hap_data_file_attr:file_class_set open;
 
 neverallow { domain -installs } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 

@@ -20,8 +20,9 @@ limitations under the License.
 import argparse
 import os
 from collections import defaultdict
+from check_common import read_json_file, traverse_file_in_each_type
 
-from check_common import *
+WHITELIST_FILE_NAME = "perm_group_whitelist.json"
 
 
 class PolicyDb(object):
@@ -35,8 +36,8 @@ def simplify_string(string):
     return string.replace('(', '').replace(')', '').replace('\n', '').strip()
 
 
-def deal_with_allow(args, allow_map, attributes_map):
-    with open(args.cil_file, 'r', encoding='utf-8') as cil_read:
+def deal_with_allow(cil_file, allow_map, attributes_map):
+    with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
             if not line.startswith('(allow ') and not line.startswith('(auditallow '):
                 continue
@@ -44,38 +45,43 @@ def deal_with_allow(args, allow_map, attributes_map):
             elem_list = sub_string.split(' ')
             # (allow A B (dir (getattr)))
             if len(elem_list) < 5:
-                return
-            scontext = elem_list[1]
-            tcontext = elem_list[2]
-            tclass = elem_list[3]
-            perm = elem_list[4:]
-            if scontext in attributes_map:
-                for scon in attributes_map[scontext]:
-                    # allow attribute self
-                    if tcontext == 'self':
-                        allow_map[(scon, scon)][tclass] += perm
-                    # allow attribute attribute
-                    elif tcontext in attributes_map:
-                        for tcon in attributes_map[tcontext]:
-                            allow_map[(scon, tcon)][tclass] += perm
-                    # allow attribute type
-                    else:
-                        allow_map[(scon, tcontext)][tclass] += perm
-            else:
-                # allow type self
-                if tcontext == 'self':
-                    allow_map[(scontext, scontext)][tclass] += perm
-                # allow type attribute
-                elif tcontext in attributes_map:
-                    for tcon in attributes_map[tcontext]:
-                        allow_map[(scontext, tcon)][tclass] += perm
-                # allow type type
-                else:
-                    allow_map[(scontext, tcontext)][tclass] += perm
+                continue
+            split_attribute(elem_list, allow_map, attributes_map)
 
 
-def deal_with_typeattributeset(args, attributes_map):
-    with open(args.cil_file, 'r', encoding='utf-8') as cil_read:
+def split_attribute(elem_list, allow_map, attributes_map):
+    scontext = elem_list[1]
+    tcontext = elem_list[2]
+    tclass = elem_list[3]
+    perm = elem_list[4:]
+    if scontext not in attributes_map:
+        # allow type self
+        if tcontext == 'self':
+            allow_map[(scontext, scontext)][tclass] += perm
+        # allow type attribute
+        elif tcontext in attributes_map:
+            for tcon in attributes_map[tcontext]:
+                allow_map[(scontext, tcon)][tclass] += perm
+        # allow type type
+        else:
+            allow_map[(scontext, tcontext)][tclass] += perm
+        return
+
+    for scon in attributes_map[scontext]:
+        # allow attribute self
+        if tcontext == 'self':
+            allow_map[(scon, scon)][tclass] += perm
+        # allow attribute attribute
+        elif tcontext in attributes_map:
+            for tcon in attributes_map[tcontext]:
+                allow_map[(scon, tcon)][tclass] += perm
+        # allow attribute type
+        else:
+            allow_map[(scon, tcontext)][tclass] += perm
+
+
+def deal_with_typeattributeset(cil_file, attributes_map):
+    with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
             if not line.startswith('(typeattributeset '):
                 continue
@@ -86,8 +92,8 @@ def deal_with_typeattributeset(args, attributes_map):
             attributes_map[elem_list[1]] += elem_list[2:]
 
 
-def deal_with_class(args, class_map):
-    with open(args.cil_file, 'r', encoding='utf-8') as cil_read:
+def deal_with_class(cil_file, class_map):
+    with open(cil_file, 'r', encoding='utf-8') as cil_read:
         common_map = defaultdict(list)
         for line in cil_read:
             if not line.startswith('(common '):
@@ -98,7 +104,7 @@ def deal_with_class(args, class_map):
                 continue
             common_map[elem_list[1]] += elem_list[2:]
 
-    with open(args.cil_file, 'r', encoding='utf-8') as cil_read:
+    with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
             if not line.startswith('(class '):
                 continue
@@ -107,7 +113,7 @@ def deal_with_class(args, class_map):
             if len(elem_list) > 2:
                 class_map[elem_list[1]] += elem_list[2:]
 
-    with open(args.cil_file, 'r', encoding='utf-8') as cil_read:
+    with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
             if not line.startswith('(classcommon '):
                 continue
@@ -118,13 +124,13 @@ def deal_with_class(args, class_map):
             class_map[elem_list[1]] += common_map[elem_list[2]]
 
 
-def generate_database(args):
+def generate_database(cil_file):
     attributes_map = defaultdict(list)
     class_map = defaultdict(list)
     allow_map = defaultdict(lambda: defaultdict(list))
-    deal_with_typeattributeset(args, attributes_map)
-    deal_with_allow(args, allow_map, attributes_map)
-    deal_with_class(args, class_map)
+    deal_with_typeattributeset(cil_file, attributes_map)
+    deal_with_allow(cil_file, allow_map, attributes_map)
+    deal_with_class(cil_file, class_map)
     return PolicyDb(attributes_map, allow_map, class_map)
 
 
@@ -155,13 +161,24 @@ def get_perm_group_list(rule, class_map):
     return check_perm_group_list
 
 
-def check_perm_group(args, rule, policy_db, white_list):
+def get_whitelist(args, check_name, with_developer):
+    whitelist_file_list = traverse_file_in_each_type(args.policy_dir_list, WHITELIST_FILE_NAME)
+    contexts_list = []
+    for path in whitelist_file_list:
+        white_list = read_json_file(path).get('whitelist')
+        for item in white_list:
+            if item.get('name') != check_name:
+                continue
+            contexts_list.extend(item.get('user'))
+            if with_developer:
+                contexts_list.extend(item.get('developer'))
+    return contexts_list
+
+
+def check_perm_group(args, rule, policy_db, with_developer):
     check_name = rule.get('name')
     check_perm_group_list = get_perm_group_list(rule, policy_db.class_map)
-    contexts_list = []
-    for item in white_list:
-        if item.get('name') == check_name:
-            contexts_list = item.get('contexts')
+    contexts_list = get_whitelist(args, check_name, with_developer)
 
     non_exempt_violator_list = []
     violator_list = []
@@ -170,8 +187,7 @@ def check_perm_group(args, rule, policy_db, white_list):
         for perm_group in check_perm_group_list:
             check_success = False
             for check_class in perm_group.check_class_list:
-                if set(perm_group.check_perms) <= set(policy_db.allow_map[contexts][check_class]):
-                    check_success = True
+                check_success |= (set(perm_group.check_perms) <= set(policy_db.allow_map[contexts][check_class]))
             if check_success:
                 check_result += 1
         if check_result != len(check_perm_group_list):
@@ -184,20 +200,22 @@ def check_perm_group(args, rule, policy_db, white_list):
             non_exempt_violator_list.append(violater)
 
     if len(non_exempt_violator_list):
-        print('\tcheck rule \'{}\' failed, {}'.format(check_name, rule.get('description')))
+        print('\tcheck rule \'{}\' in {} mode failed, {}'.format(
+            check_name, "developer" if with_developer else "user", rule.get('description')))
         print('\tviolation list (scontext tcontext):')
         for violation in non_exempt_violator_list:
             print('\t\t{}'.format(violation))
         print('\tThere are two solutions:\n',
-              '\t1. Add the above list to whitelist file \'{}\'\n'.format(os.path.join(script_path, args.whitelist)),
+              '\t1. Add the above list to whitelist file \'{}\' under \'{}\' in \'{}\' part of \'{}\'\n'.format(
+                    WHITELIST_FILE_NAME, args.policy_dir_list, "developer" if with_developer else "user", check_name),
               '\t2. Change the policy to avoid violating rule \'{}\'\n'.format(check_name))
         return True
 
     diff_list = list(set(contexts_list) - set(violator_list))
     if len(diff_list):
-        print('\tcheck rule \'{}\' failed in whitelist file \'{}\'\n'.format(check_name,
-              os.path.join(script_path, args.whitelist)),
-              '\tremove the following unnecessary whitelists in rule \'{}\':'.format(check_name))
+        print('\tcheck rule \'{}\' failed in whitelist file \'{}\'\n'.format(check_name, WHITELIST_FILE_NAME),
+              '\tremove the following unnecessary whitelists in rule \'{}\' part \'{}\':'.format(
+                    check_name, 'developer' if with_developer else 'user'))
         for diff in diff_list:
             print('\t\t{}'.format(diff))
         return True
@@ -209,21 +227,24 @@ def parse_args():
     parser.add_argument(
         '--cil_file', help='the cil file path', required=True)
     parser.add_argument(
-        '--whitelist', help='the whitelist file path', required=True)
+        '--developer_cil_file', help='the developer cil file path', required=True)
+    parser.add_argument(
+        '--policy-dir-list', help='the whitelist path list', required=True)
     parser.add_argument(
         '--config', help='the config file path', required=True)
     return parser.parse_args()
 
 
 if __name__ == '__main__':
-    args = parse_args()
+    input_args = parse_args()
     script_path = os.path.dirname(os.path.realpath(__file__))
-    white_list = read_json_file(os.path.join(script_path, args.whitelist)).get('whitelist')
 
-    policy_db = generate_database(args)
-    check_rules = read_json_file(os.path.join(script_path, args.config)).get('check_rules')
-    check_result = False
-    for rule in check_rules:
-        check_result |= check_perm_group(args, rule, policy_db, white_list)
-    if check_result:
+    user_policy_db = generate_database(input_args.cil_file)
+    developer_policy_db = generate_database(input_args.developer_cil_file)
+    check_rules = read_json_file(os.path.join(script_path, input_args.config)).get('check_rules')
+    result = False
+    for check_rule in check_rules:
+        result |= check_perm_group(input_args, check_rule, user_policy_db, False)
+        result |= check_perm_group(input_args, check_rule, developer_policy_db, True)
+    if result:
         raise Exception(-1)

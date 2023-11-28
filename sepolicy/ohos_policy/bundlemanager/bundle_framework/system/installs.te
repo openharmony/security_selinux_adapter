@@ -41,6 +41,9 @@ allow installs data_local:file { create getattr ioctl setattr unlink map read op
 allow installs data_local:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow installs data_local_arkcache:file { create getattr ioctl setattr unlink map read open write };
 allow installs data_local_arkcache:dir { add_name create setattr getattr open read remove_name rmdir search write };
+allow installs data_local_arkprofile:file { create getattr ioctl map open read rename unlink write };
+allowxperm installs data_local_arkprofile:file ioctl { 0x5413 };
+allow installs data_local_arkprofile:dir { add_name create setattr getattr open read remove_name rmdir search write };
 allow installs system_bin_file:file { execute execute_no_trans map read open };
 allow appspawn data_local:dir { add_name create mounton search write read open getattr };
 allow normal_hap_attr data_local:file { getattr open read map create write };
@@ -66,3 +69,8 @@ allow installs sysfs_devices_system_cpu:file { open };
 allow installs kernel:key { search };
 allow installs installs:unix_dgram_socket { getopt setopt };
 allowxperm installs data_app_el1_file:file ioctl { 0x6601 0x66c8 };
+allow installs installs:code_sign { add_cert_chain remove_cert_chain };
+allow installs data_service_el0_file:dir { add_name create getattr write open read rmdir remove_name search };
+allow installs data_service_el0_file:file { create getattr open read unlink write };
+allow installs dev_code_sign:chr_file { ioctl write write open };
+allowxperm installs dev_code_sign:chr_file ioctl { 0x6b01 };

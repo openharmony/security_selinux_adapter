@@ -19,3 +19,7 @@
 #allow init privacy_service:process { rlimitinh siginh transition };
 
 allow init local_code_sign:process { rlimitinh siginh transition };
+
+allow init trusted_profile_data_file:dir { add_name create write open read relabelto getattr setattr search };
+
+allow init trusted_profile_data_file:dir { search };

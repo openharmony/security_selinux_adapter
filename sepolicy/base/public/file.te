@@ -42,7 +42,6 @@ type updater_file, system_file_attr, file_attr;
 type config_file, system_file_attr, file_attr;
 type system_lib_file, system_file_attr, file_attr;
 type system_etc_file, system_file_attr, file_attr;
-type system_data_file, system_file_attr, file_attr;
 type system_hap_file, system_file_attr, file_attr;
 type system_fonts_file, system_file_attr, file_attr;
 type system_profile_file, system_file_attr, file_attr;
@@ -65,6 +64,7 @@ type dev_file, dev_attr, file_attr;
 type sys_prod_file, sys_prod_file_attr, file_attr;
 
 type chip_prod_file, chip_prod_file_attr, file_attr;
+type chip_ckm_file, chip_ckm_file_attr, file_attr;
 
 type sysfs_block_file, sysfs_attr, fs_attr;
 type sysfs_hisys_file, sysfs_attr, fs_attr;
@@ -131,6 +131,7 @@ type data_local, file_attr, data_file_attr;
 type data_local_traces, file_attr, data_file_attr;
 type data_local_tmp, file_attr, data_file_attr;
 type data_local_arkcache, file_attr, data_file_attr;
+type data_local_arkprofile, file_attr, data_file_attr;
 type data_log, file_attr, data_file_attr;
 type data_media, file_attr, data_file_attr;
 type data_mediadrm, file_attr, data_file_attr;

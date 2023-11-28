@@ -208,5 +208,8 @@ allowxperm hiview tracefs:file ioctl { 0x5413 };
 #avc:  denied  { getattr } for  pid=3130 comm="plat_shared" path="/proc/diskstats" dev="proc" ino=4026532227 scontext=u:r:hiview:s0 tcontext=u:object_r:proc_diskstats_file:s0 tclass=file permissive=1
 allow hiview proc_diskstats_file:file { read open getattr };
 
+#avc:  denied  { call } for  pid=519 comm="IPC_0_576" scontext=u:r:hiview:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
+allow hiview softbus_server:binder { call };
+
 #avc:  denied  { kill } for pid=7601 comm="hiview" capability=5 scontext=u:r:hiview:s0 tcontexu:r:hiview tclass=capability permissive=1
 allow hiview domain:process signal

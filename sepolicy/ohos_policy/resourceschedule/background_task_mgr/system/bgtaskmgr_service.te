@@ -57,6 +57,7 @@ allow audio_policy bgtaskmgr_service:binder { call transfer };
 allow hiview bgtaskmgr_service:dir { getattr open read };
 allow hiview bgtaskmgr_service:file { getattr };
 allowxperm bgtaskmgr_service data_service_el1_file:file ioctl 0x5413;
+allow bgtaskmgr_service usb_service:fd { use };
 
 binder_call(bgtaskmgr_service, accountmgr);
 binder_call(bgtaskmgr_service, accesstoken_service);

@@ -65,6 +65,7 @@ allow netmanager dnsproxy_service:sock_file { write };
 allow netmanager netmanager:process { setfscreate };
 allow netmanager usb_service:binder { call };
 allow netmanager sa_usb_service:samgr_class { get };
+allow netmanager sa_telephony_tel_core_service:samgr_class { get };
 allow init configfs:dir { rmdir };
 allowxperm netmanager data_service_el1_file:file ioctl { 0x5413 };
 allowxperm netmanager data_init_agent:file ioctl { 0x5413 };

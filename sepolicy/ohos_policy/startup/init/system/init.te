@@ -62,7 +62,7 @@ allow init devinfo_private_param:parameter_service { set };
 allow { init appspawn } startup_appspawn_param:parameter_service { set };
 allow { init ueventd } startup_uevent_param:parameter_service { set };
 allow init devinfo_public_param:parameter_service { set };
-allow { sadomain hdfdomain nativedomain } bootevent_param:parameter_service { set };
+allow { sadomain hdfdomain native_system_domain native_chipset_domain } bootevent_param:parameter_service { set };
 allow { useriam } useriam_fwkready_param:parameter_service { set };
 allow { init bluetooth_service } bluetooth_param:parameter_service { set };
 
@@ -172,6 +172,7 @@ allow init data_data_pulse_dir:file { unlink };
 allow init data_drm:dir { getattr open read relabelto setattr };
 allow init data_ethernet:dir { open read relabelto setattr };
 allow init data_file:dir { add_name create getattr mounton open read relabelfrom relabelto remove_name search setattr write };
+allow init data_drm:dir { getattr open read relabelto setattr };
 allow init data_file:sock_file { getattr relabelfrom };
 allow init data_hilogd_file:dir { relabelto };
 allow init data_libinput:dir { getattr open read relabelto search setattr };
@@ -180,6 +181,7 @@ allow init data_local:dir { add_name create getattr open read relabelfrom relabe
 allow init data_local_tmp:dir { getattr open read relabelto setattr };
 allow init data_local_traces:dir { getattr open read relabelto setattr };
 allow init data_local_arkcache:dir { getattr open read relabelto setattr };
+allow init data_local_arkprofile:dir { getattr open read relabelto setattr };
 allow init data_log:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_log:file { relabelto };
 allow init data_media:dir { add_name create getattr open read relabelto search setattr write };
@@ -202,6 +204,11 @@ allow init data_service_el1_file:file { getattr setattr relabelto };
 allow init data_service_el1_public_deviceauthService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el1_public_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el2_public_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_data_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+allow init data_data_file:file { getattr setattr relabelto };
+allow init data_data_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_data_huksService_file:file { create getattr ioctl open read setattr unlink write };
+allowxperm init data_data_huksService_file:file ioctl { 0x5705 };
 allow init data_service_el2_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_el2_hmdfs:dir { getattr open read relabelto setattr };
 allow init data_service_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
@@ -455,6 +462,10 @@ allow init updater_block_file:lnk_file { relabelto };
 # avc:  denied  { ioctl } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=1
 allowxperm init tmpfs:blk_file ioctl { 0x5413 };
 
+# avc:  denied  { rlimitinh } for  pid=602 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:drm_service:s0 tclass=process permissive=1
+# avc:  denied  { siginh } for  pid=602 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:drm_service:s0 tclass=process permissive=1
+# avc:  denied  { transition } for  pid=602 comm="init" path="/system/bin/sa_main" dev="mmcblk0p7" ino=366 scontext=u:r:init:s0 tcontext=u:r:drm_service:s0 tclass=process permissive=1
+allow init drm_service:process { rlimitinh siginh transition };
 # avc:  denied  { ioctl } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 ioctlcmd=0x5413 scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=1
 # avc:  denied  { open } for  pid=1 comm="init" path="/dev/block/mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=1
 # avc:  denied  { read } for  pid=1 comm="init" name="mmcblk0p2" dev="tmpfs" ino=35 scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=blk_file permissive=1

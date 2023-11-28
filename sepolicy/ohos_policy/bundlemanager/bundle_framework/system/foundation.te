@@ -69,7 +69,7 @@ allow foundation distributedsche:binder { call };
 allow foundation foundation:unix_dgram_socket { getopt setopt };
 allow foundation hdf_devmgr:binder { call transfer };
 allow foundation hiview:binder { transfer };
-allow foundation huks_service:binder { call };
+allow foundation huks_service:binder { call transfer };
 allow foundation inputmethod_service:binder { call };
 allow foundation memmgrservice:binder { call };
 allow foundation msdp_sa:binder { call };
@@ -125,7 +125,7 @@ allow samgr bm:dir { search };
 allow samgr bm:file { open read };
 allow samgr bm:process { getattr };
 allow samgr bm:binder { call transfer };
-allow bm samgr:binder { call transfer };
+allow bm samgr:binder { call };
 allow accountmgr bm:binder { transfer };
 allow hiview bm:dir { search };
 allow hiview bm:file { read open getattr};
@@ -140,7 +140,7 @@ allow bm hdcd:fd { use };
 allow bm sh:fd { use };
 allow bm hdcd:fifo_file { read write ioctl };
 allowxperm bm hdcd:fifo_file ioctl { 0x5413 };
-allow bm data_file:dir { search getattr};
+allow bm data_file:dir { search getattr read open };
 allow bm data_local:dir read_dir_perms;
 allow bm data_local_tmp:dir read_dir_perms;
 allow foundation bm:binder { call transfer };
@@ -172,5 +172,10 @@ debug_only(`
     allow domain bms_param:file { map open read };
     allow { param_watcher } bms_param:parameter_service { set };
 ')
+
+developer_only(`
+    allow bm samgr:binder { transfer };
+')
+
 allow foundation arkui_param:file { map open read };
 

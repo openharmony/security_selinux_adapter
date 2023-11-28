@@ -11,9 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type init, nativedomain, domain;
+type init, native_system_domain, domain;
 type init_exec, exec_attr, file_attr, system_file_attr;
-type ueventd, domain, nativedomain;
+type ueventd, native_system_domain, domain;
 type ueventd_exec, system_file_attr, exec_attr, file_attr;
 
 allow init console:process { rlimitinh siginh transition getattr };
@@ -66,4 +66,5 @@ allow domain musl_param:file { map open read };
 allow init init_exec:file { open read getattr map };
 allow init faultloggerd_temp_file:dir { add_name remove_name write open read search };
 allow init faultloggerd_temp_file:file { create getattr setattr write open read unlink };
+allow init sa_device_service_manager:samgr_class{ get };
 

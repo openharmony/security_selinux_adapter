@@ -84,12 +84,12 @@ debug_only(`
 
 # avc:  denied  { add_name } for  pid=4702 comm="IPC_1_4704" name="retention_sandbox_info.json" scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
 # avc:  denied  { write } for  pid=4702 comm="IPC_1_4704" name="dlp_permission_service" dev="sdd78" ino=205 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
-allow dlp_permission_service data_service_el1_file:dir { getattr search add_name write };
+allow dlp_permission_service data_service_el1_file:dir { getattr search add_name write create read open remove_name rmdir };
 
 # avc:  denied  { create } for  pid=4702 comm="IPC_1_4704" name="retention_sandbox_info.json" scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 # avc:  denied  { read } for  pid=2334 comm="IPC_13_2590" name="retention_sandbox_info.json" dev="sdd78" ino=2807 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 # avc:  denied  { setattr } for  pid=2334 comm="IPC_13_2590" name="retention_sandbox_info.json" dev="sdd78" ino=2807 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
-allow dlp_permission_service data_service_el1_file:file { getattr ioctl open write create read setattr };
+allow dlp_permission_service data_service_el1_file:file { getattr ioctl open write create read setattr unlink lock map };
 # avc:  denied  { read write } for  pid=2040 comm="sa_main" path="/dev/block/zram0" dev="tmpfs" ino=592 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 allow dlp_permission_service dev_block_file:blk_file { read write };
 # avc:  denied  { get } for service=3901 pid=5063 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=1
@@ -118,5 +118,7 @@ allow dlp_permission_service zram_device:blk_file { read write };
 # avc:  denied  { get } for service=511 pid=2181 scontext=u:r:dlp_permission_service:s0 tcontext=u:object_r:sa_installd_service:s0 tclass=samgr_class permissive=1
 allow dlp_permission_service sa_installd_service:samgr_class { get };
 
-
 allow dlp_permission_service { vendor_etc_file sys_prod_file chip_prod_file }:dir { search };
+
+allow dlp_permission_service sa_distributeddata_service:samgr_class { get };
+allow dlp_permission_service distributeddata:binder { call transfer };

@@ -18,3 +18,15 @@ allow installs key_enable:key { search };
 allow installs local_code_sign:binder { call };
 
 allow installs sa_local_code_sign:samgr_class { get };
+
+allow installs data_service_el0_file:dir { search };
+
+allow installs installs:code_sign { add_cert_chain remove_cert_chain };
+
+allow installs dev_code_sign:chr_file { ioctl write open };
+
+allowxperm installs dev_code_sign:chr_file ioctl { 0x6b01 0x6b02 };
+
+allow installs trusted_profile_data_file:dir { add_name create search write open read getattr setattr remove_name rmdir };
+
+allow installs trusted_profile_data_file:file { getattr read unlink create setattr write open };

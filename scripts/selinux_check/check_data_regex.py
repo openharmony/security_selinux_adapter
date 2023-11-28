@@ -20,11 +20,12 @@ limitations under the License.
 import argparse
 import os
 import re
-from check_common import *
+from check_common import read_file, traverse_file_in_each_type
+
+WHITELIST_FILE_NAME = "data_regex_whitelist.txt"
 
 
 def check_regex_path(path):
-    regex_set = set("")
     # remove all escape
     path = re.sub(r'\\\\', '', path)
     path = re.sub(r'\\/', '/', path)
@@ -39,12 +40,7 @@ def check_regex_path(path):
     return re.search(r'[\$\(\)\*\+\.\[\]\?\\\^\{\}\|]', replace_str)
 
 
-def check_file_contexts(args, file_contexts, whitelist_path):
-    whitelist = read_file(whitelist_path)
-    whitelist_set = set()
-    for it in whitelist:
-        whitelist_set.add(it)
-
+def check_file_contexts(args, file_contexts, whitelist_set):
     line_index = 0
     err = False
     for line in file_contexts:
@@ -62,11 +58,22 @@ def check_file_contexts(args, file_contexts, whitelist_path):
             print("Regex is not allowed in the secondary directory under data,",
                 "check '{}' failed in file {}:{}\n".format(path, args.file_contexts, line_index),
                 "There are two solutions:\n",
-                "1. Add '{}' to whitelist file '{}';\n".format(path, whitelist_path),
+                "1. Add '{}' to whitelist file \'{}\' under \'{}\';\n".format(
+                    path, WHITELIST_FILE_NAME, args.policy_dir_list),
                 "2. Modify '{}' to remove the regular expression\n".format(path))
             err = True
     if err:
         raise Exception(-1)
+
+
+def get_whitelist(args):
+    whitelist_file_list = traverse_file_in_each_type(args.policy_dir_list, WHITELIST_FILE_NAME)
+    whitelist_set = set()
+    for path in whitelist_file_list:
+        whitelist = read_file(path)
+        for it in whitelist:
+            whitelist_set.add(it)
+    return whitelist_set
 
 
 def parse_args():
@@ -74,14 +81,14 @@ def parse_args():
     parser.add_argument(
         '--file_contexts', help='the file_contexts file path', required=True)
     parser.add_argument(
-        '--whitelist', help='the whitelist path', required=True)
+        '--policy-dir-list', help='the whitelist path list', required=True)
     return parser.parse_args()
 
 
 if __name__ == "__main__":
-    args = parse_args()
+    input_args = parse_args()
     script_path = os.path.dirname(os.path.realpath(__file__))
-    whitelist_path = os.path.join(script_path, args.whitelist)
+    whitelist_data = get_whitelist(input_args)
 
-    file_contexts = read_file(args.file_contexts)
-    check_file_contexts(args, file_contexts, whitelist_path)
+    file_contexts_data = read_file(input_args.file_contexts)
+    check_file_contexts(input_args, file_contexts_data, whitelist_data)

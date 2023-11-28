@@ -208,3 +208,6 @@ allow bluetooth_service sa_distributeddata_service:samgr_class { get };
 allow bluetooth_service sa_foundation_abilityms:samgr_class { get };
 allow bluetooth_service sa_net_conn_manager:samgr_class { get };
 
+allow bluetooth_service data_misc:dir { read write add_name remove_name open };
+allow bluetooth_service data_misc:file { read getattr unlink create ioctl write open };
+allowxperm bluetooth_service data_misc:file ioctl { 0x5413 };

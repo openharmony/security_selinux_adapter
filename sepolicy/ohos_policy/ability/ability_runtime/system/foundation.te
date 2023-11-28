@@ -42,6 +42,7 @@ allow foundation hdf_devmgr:binder { call transfer };
 allow foundation hdf_allocator_service:hdf_devmgr_class { get };
 allow foundation hiview:binder { transfer };
 allow foundation memmgrservice:binder { call transfer };
+allow foundation multimodalinput:binder { transfer };
 allow foundation multimodalinput:unix_stream_socket { read };
 allow foundation normal_hap_attr:process { sigkill signal };
 allow foundation normal_hap_data_file_attr:file { read };
@@ -101,8 +102,12 @@ allow foundation vfat:file { read write };
 allow foundation ntfs:file { read write };
 neverallow foundation *:process ptrace;
 
+# add for hiperf
+allow hiperf multimodalinput:fd { use };
+
 # add for aa
 developer_only(`
+    allow aa sa_foundation_appms:samgr_class { get };
     allow aa samgr:binder { call };
     allow aa debug_param:file { map read open };
     allow aa hilog_param:file { map read open };

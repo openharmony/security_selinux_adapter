@@ -142,8 +142,8 @@ neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file ent
 # keep every process join the domain attribute.
 neverallow ~{ domain develop_domain } { domain develop_domain }:process { transition dyntransition };
 
-# everyone should in { sadomain hdfdomain hap_domain nativedomain }
-neverallow domain { domain -sadomain -hdfdomain -hap_domain -nativedomain }:process { transition dyntransition };
+# everyone should in { sadomain hdfdomain hap_domain native_system_domain native_chipset_domain }
+neverallow domain { domain -sadomain -hdfdomain -hap_domain -native_system_domain -native_chipset_domain }:process { transition dyntransition };
 
 # keep file based type belong to file_attr , fs_attr, dev_attr, parameter_attr.
 # first label class
@@ -151,7 +151,7 @@ neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr develop_domain 
 
 # second level for file based label class
 neverallow { domain develop_domain } ~{ domain fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
-    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain }:{ file dir } *;
+    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain chip_ckm_file_attr }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
@@ -206,8 +206,8 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server'
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
 
-neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -dlp_permission_service} dev_attr:blk_file { open read write };
-neverallow { updater_sa sys_installer_sa } {dev_attr -updater_block_file}:blk_file { open read write };
+neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -dlp_permission_service -write_updater } dev_attr:blk_file { open read write };
+neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file}:blk_file { open read write };
 # fs operation limit
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
 neverallow { domain -init -storage_daemon -appspawn -netsysnative updater_only(`-updater')} *:filesystem mount;
@@ -285,7 +285,7 @@ neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_d
 neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice
              -installs updater_only(`debug_only(`-updater')')
              -storage_daemon -usb_host -cap_violator_dacoverride } self:{ capability cap_userns } dac_override;
-neverallow { domain -chipset_init -appspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater')} self:{ capability cap_userns } dac_read_search;
+neverallow { domain developer_only(`-SP_daemon -wukong') -chipset_init -appspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater')} self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner } self:{ capability cap_userns } fowner;
 neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -nwebspawn -faultloggerd -hiview -foundation -resource_schedule_service -native_daemon -cap_violator_kill } self:{ capability cap_userns } kill;
