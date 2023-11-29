@@ -43,7 +43,7 @@ allow hiview system_bin_file:file { read execute entrypoint };
 allow hiview system_bin_file:lnk_file { read };
 allow hiview sys_file:dir { read open };
 allow hiview sys_file:file { read open };
-allow hiview dev_bbox:chr_file { read open };
+allow hiview dev_bbox:chr_file { ioctl read open };
 allow hiview normal_hap_attr:dir { search };
 allow hiview normal_hap_attr:file { read open };
 allow hiview proc_cpuinfo_file:file { read open };
@@ -85,6 +85,9 @@ allow hiview vendor_lib_file:file { read open getattr map execute };
 
 allow hiview bgtaskmgr_service:dir { search };
 allow hiview bgtaskmgr_service:file { open read };
+
+allowxperm hiview dev_bbox:chr_file ioctl { 0x4264 };
+allowxperm hiview dev_bbox:chr_file ioctl { 0x4266 };
 
 #avc:  denied  { get } for service=3301 pid=618 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
 allow hiview sa_foundation_powermgr_service:samgr_class { get };
