@@ -213,3 +213,4 @@ allow hiview softbus_server:binder { call };
 
 #avc:  denied  { kill } for pid=7601 comm="hiview" capability=5 scontext=u:r:hiview:s0 tcontexu:r:hiview tclass=capability permissive=1
 allow hiview domain:process signal;
+allow hiview hiview:capability kill;
