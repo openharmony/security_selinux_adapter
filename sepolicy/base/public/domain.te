@@ -134,8 +134,8 @@ neverallow * self:memprotect mmap_zero;
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
     -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file}:file { execute execute_no_trans entrypoint };
-neverallow { domain -installs } data_local_arkcache:file { write };
-neverallow { domain -installs } data_local_arkcache:dir { write };
+neverallow { domain -installs -ark_aot_compiler } data_local_arkcache:file { write };
+neverallow { domain -installs -ark_aot_compiler } data_local_arkcache:dir { write };
 
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file entrypoint;
 
@@ -143,7 +143,7 @@ neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file ent
 neverallow ~{ domain develop_domain } { domain develop_domain }:process { transition dyntransition };
 
 # everyone should in { sadomain hdfdomain hap_domain native_system_domain native_chipset_domain }
-neverallow domain { domain -sadomain -hdfdomain -hap_domain -native_system_domain -native_chipset_domain }:process { transition dyntransition };
+neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -native_system_domain -native_chipset_domain }:process { transition dyntransition };
 
 # keep file based type belong to file_attr , fs_attr, dev_attr, parameter_attr.
 # first label class
@@ -282,7 +282,7 @@ neverallow { domain -processdump -hap_domain } domain:process ptrace;
 # means that only init can have the caps of chown.
 # TODO:debug/release
 neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown updater_only(`-updater') -distributedfiledaemon } self:{ capability cap_userns } chown;
-neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice
+neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice -ark_aot_compiler
              -installs updater_only(`debug_only(`-updater')')
              -storage_daemon -usb_host -cap_violator_dacoverride -distributedfiledaemon } self:{ capability cap_userns } dac_override;
 neverallow { domain developer_only(`-SP_daemon -wukong') -chipset_init -appspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater')} self:{ capability cap_userns } dac_read_search;
