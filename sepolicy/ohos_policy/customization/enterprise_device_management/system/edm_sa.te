@@ -99,6 +99,10 @@ allow edm_sa sa_comm_ethernet_manager_service:samgr_class { get };
 allow edm_sa sa_screenlock_service:samgr_class { get };
 # avc:  denied  { get } for service=3301 pid=2779 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=0
 allow edm_sa sa_foundation_powermgr_service:samgr_class { get };
+# avc:  denied  { get } for service=3009 pid=646 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=0
+allow edm_sa sa_audio_policy_service:samgr_class { get };
+# avc:  denied  { call } for  pid=607 comm="IPC_1_859" scontext=u:r:edm_sa:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=0
+allow edm_sa audio_policy:binder { call };
 
 # avc: denied { get } for service=5100 pid=740 scontext=u:r:edm_sa:s0 tcontext=u:object_r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
 allow edm_sa sa_device_service_manager:samgr_class { get };
