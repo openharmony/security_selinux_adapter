@@ -23,8 +23,6 @@ allow wukong data_file:dir { search read open };
 allow wukong data_hilogd_file:dir { open read search };
 allow wukong data_hilogd_file:file { getattr open read };
 allow wukong data_local:dir { search read open };
-allow wukong data_local_tmp:dir { remove_name add_name create open read search write getattr };
-allow wukong data_local_tmp:file { unlink create open write getattr ioctl read };
 allow wukong data_log:dir { read watch };
 allow wukong data_log:file { getattr open read };
 allow wukong data_service_el0_file:dir { search };
@@ -71,7 +69,6 @@ allow wukong hilog_param:file { read map open };
 allow wukong arkui_param:parameter_service { set };
 allow wukong arkcompiler_param:file { read open map };
 allow wukong persist_sys_param:file { map open read };
-allow wukong accesstoken_data_file:file { getattr open read write };
 allow wukong sa_accessibleabilityms:samgr_class { get };
 allow wukong sa_accesstoken_manager_service:samgr_class { get };
 allow wukong sa_foundation_abilityms:samgr_class { get };
@@ -81,9 +78,8 @@ allow wukong sa_foundation_wms:samgr_class { get };
 allow wukong sa_multimodalinput_service:samgr_class { get };
 allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_sys_event_service:samgr_class { get };
-
 allow wukong render_service:fd { use };
-allow wukong wukong:capability { dac_read_search };
+allow wukong vendor_etc_file:dir { search };
 # ps -ef
 allow wukong domain: dir { search };
 allow wukong domain: file { open read };
