@@ -25,9 +25,11 @@ type hiprofiler_plugins, native_system_domain, domain;
 
 type native_daemon_exec, exec_attr, file_attr, system_file_attr;
 
-type native_daemon, native_system_domain, domain;
+type native_daemon, sadomain, domain;
 
 type hiprofiler_socket, dev_attr, file_attr;
+
+type sa_native_daemon, sa_service_attr;
 
 domain_auto_transition_pattern(native_system_domain, hiprofilerd_exec, hiprofilerd);
 
