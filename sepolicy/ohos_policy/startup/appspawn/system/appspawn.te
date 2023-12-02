@@ -121,3 +121,4 @@ allow appspawn dev_xpm:chr_file { open read write ioctl };
 allow appspawn system_file:file { map };
 allow appspawn nwebspawn:process{ dyntransition };
 allow appspawn nwebspawn:process{ sigkill };
+allow appspawn tmpfs:filesystem { unmount };
