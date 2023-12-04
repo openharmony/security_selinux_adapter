@@ -43,6 +43,7 @@
                 "hiprofiler_plugins hilog_exec",
                 "hiprofiler_plugins hisysevent_exec",
                 "hiprofiler_plugins system_bin_file",
+                "hiprofiler_plugins SP_daemon_exec",
                 "hiprofilerd system_bin_file",
                 "hiview hidumper_exec",
                 "hiview hilog_exec",
