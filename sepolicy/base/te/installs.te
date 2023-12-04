@@ -71,3 +71,4 @@ allow installs system_core_hap_data_file_attr:dir { getattr open read relabelto 
 allow installs system_file:file { getattr open read };
 allow installs sys_usb_param:file { map open read };
 allowxperm installs data_app_el1_file:file ioctl { 0x5413 };
+allow installs data_service_el2_file:file { unlink };
