@@ -92,6 +92,15 @@ allow wifi_hal_service wifi_manager_service:binder { call };
 # avc:  denied  { nlmsg_read } for  pid=1006 comm="IPC_0_1130" scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_hal_service:s0 tclass=netlink_route_socket permissive=1
 allow wifi_hal_service wifi_hal_service:netlink_route_socket { nlmsg_read };
 
+#avc:  denied  { get } for service=hdf_device_manager pid=481 scontext=u:r:wifi_hal_service:s0 tcontext=u:object_r:hdf_device_manager:s0 tclass=hdf_devmgr_class permissive=0
+allow wifi_hal_service hdf_device_manager:hdf_devmgr_class { get };
+
+#avc:  denied  { get } for service=wpa_interface_service pid=481 scontext=u:r:wifi_hal_service:s0 tcontext=u:object_r:hdf_wpa_interface_service:s0 tclass=hdf_devmgr_class permissive=0
+allow wifi_hal_service hdf_wpa_interface_service:hdf_devmgr_class { get };
+
+#avc:  denied  { sendto } for  pid=499 comm="wifi_hal_servic" path=002F646174612F736572766963652F656C312F7075626C69632F776966692F736F636B6574732F7770612F776C616E30000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_host:s0 tclass=unix_dgram_socket permissive=1
+allow wifi_hal_service wifi_host:unix_dgram_socket { sendto };
+
 allow wifi_hal_service netmanager:binder { call };
 allow wifi_hal_service sa_dhcp_client:samgr_class { add get };
 allow wifi_hal_service sa_dhcp_server:samgr_class { add get };

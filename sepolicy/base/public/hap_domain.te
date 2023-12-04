@@ -117,9 +117,9 @@ neverallow hap_domain system_file:dir_file_class_set { create write setattr rela
 
 neverallow hap_domain { file_attr -data_file_attr -dev_attr }:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
-neverallow { hap_domain -system_core_hap_attr -isolated_render } system_core_hap_data_file_attr:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { hap_domain -system_core_hap_attr -isolated_render } system_core_hap_data_file_attr:dir_file_class_set { create setattr relabelfrom relabelto append unlink link rename };
 
-neverallow { hap_domain -system_basic_hap_attr -isolated_render } system_basic_hap_data_file_attr:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { hap_domain -system_basic_hap_attr -isolated_render } system_basic_hap_data_file_attr:dir_file_class_set { create setattr relabelfrom relabelto append unlink link rename };
 
 # dir_file_class_set defines { dir { { blk_file chr_file } { fifo_file file lnk_file sock_file } } }, need to subtract file
 neverallow { isolated_render } system_core_hap_data_file_attr: { dir blk_file chr_file fifo_file lnk_file sock_file } { create write setattr relabelfrom relabelto append unlink link rename };
@@ -147,21 +147,21 @@ neverallow { hap_domain } *:security { compute_av check_context };
 neverallow hap_domain fs_attr:filesystem ~getattr;
 
 #limit access to system_core_hap_data_file
-neverallow { domain -hap_domain -installs -storage_daemon -distributeddata -download_server -system_core_hap_data_file_attr_violator_dir } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
+neverallow { domain -hap_domain -installs -storage_daemon -distributeddata -download_server -system_core_hap_data_file_attr_violator_dir -distributedfiledaemon } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 neverallow { system_basic_hap_attr normal_hap_attr } system_core_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to system_basic_hap_data_file
-neverallow { domain -hap_domain -installs -storage_daemon  -distributeddata -hiview -download_server -system_basic_hap_data_file_attr_violator_dir } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
+neverallow { domain -hap_domain -installs -storage_daemon  -distributeddata -hiview -download_server -system_basic_hap_data_file_attr_violator_dir -distributedfiledaemon } system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 neverallow normal_hap_attr system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file_attr
 neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server } normal_hap_data_file_attr:dir_file_class_set { create unlink };
 
-neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir} normal_hap_data_file_attr:dir *;
+neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -distributedfiledaemon } normal_hap_data_file_attr:dir *;
 
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open } normal_hap_data_file_attr:file_class_set open;
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -distributedfiledaemon } normal_hap_data_file_attr:file_class_set open;
 
 neverallow { domain -installs } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
