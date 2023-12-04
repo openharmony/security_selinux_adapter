@@ -16,6 +16,8 @@ debug_only(`
     allow usb_service console:binder { call };
     allow usb_service console:fd { use };
 ')
+allow usb_service sa_enterprise_device_manager_service:samgr_class { get };
+allow usb_service edm_sa:binder { call };
 allow usb_service data_file:dir { search };
 allow usb_service dev_unix_socket:dir { search };
 allow usb_service dev_unix_socket:sock_file { write };

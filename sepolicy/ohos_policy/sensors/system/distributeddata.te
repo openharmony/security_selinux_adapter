@@ -11,10 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow hap_domain sa_filemanagement_cloud_sync_service:samgr_class { get };
-allow hap_domain cloudfiledaemon:binder { call transfer };
-allow hap_domain cloudfiledaemon:binder { call };
-allow hap_domain cloudfiledaemon:fd { use };
-allow hap_domain sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
-allow hap_domain sa_filemanagement_distributed_file_daemon_service:binder { call transfer };
-allow hap_domain distributedfiledaemon:binder { call transfer };
+#avc:  denied  { transfer } for  pid=1472 comm="IPC_4_2543" scontext=u:r:distributeddata:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
+allow distributeddata sensors:binder { transfer };
