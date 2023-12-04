@@ -79,7 +79,7 @@ allow wukong sa_multimodalinput_service:samgr_class { get };
 allow wukong sa_param_watcher:samgr_class { get };
 allow wukong sa_sys_event_service:samgr_class { get };
 allow wukong render_service:fd { use };
-allow wukong vendor_etc_file:dir { search };
+#allow wukong vendor_etc_file:dir { search };
 # ps -ef
 allow wukong domain: dir { search };
 allow wukong domain: file { open read };
