@@ -157,7 +157,7 @@ neverallow { domain -hap_domain -installs -storage_daemon  -distributeddata -hiv
 neverallow normal_hap_attr system_basic_hap_data_file_attr:dir_file_class_set { create unlink open };
 
 #limit access to normal_hap_data_file_attr
-neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server } normal_hap_data_file_attr:dir_file_class_set { create unlink };
+neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -distributedfiledaemon } normal_hap_data_file_attr:dir_file_class_set { create unlink };
 
 neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_dir -distributedfiledaemon } normal_hap_data_file_attr:dir *;
 

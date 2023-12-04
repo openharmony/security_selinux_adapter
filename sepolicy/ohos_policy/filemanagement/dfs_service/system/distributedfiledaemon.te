@@ -55,7 +55,7 @@ allow distributedfiledaemon data_app_file:dir { search };
 
 allow distributedfiledaemon data_app_el2_file:dir { search };
 
-allow distributedfiledaemon distributedfiledaemon:capability { dac_override chown };
+allow distributedfiledaemon distributedfiledaemon:capability { dac_override chown net_raw };
 
 allow distributedfiledaemon distributedfiledaemon:tcp_socket { create setopt bind getattr listen getopt shutdown connect accept write read };
 
@@ -63,26 +63,34 @@ allow distributedfiledaemon node:tcp_socket { node_bind };
 
 allow distributedfiledaemon distributedfiledaemon:udp_socket { ioctl shutdown create };
 
-allow distributedfiledaemon normal_hap_data_file_attr:dir { getattr write search read open };
+allow distributedfiledaemon normal_hap_data_file_attr:dir { getattr write search read open add_name create setattr };
 
-allow distributedfiledaemon normal_hap_data_file_attr:file { write setattr getattr read open };
+allow distributedfiledaemon normal_hap_data_file_attr:file { write setattr getattr read open create };
 
-allow distributedfiledaemon system_basic_hap_data_file_attr:dir { getattr write search read open };
+allow distributedfiledaemon system_basic_hap_data_file_attr:dir { getattr write search read open add_name create setattr };
 
-allow distributedfiledaemon system_basic_hap_data_file_attr:file { write setattr getattr read open };
+allow distributedfiledaemon system_basic_hap_data_file_attr:file { write setattr getattr read open create };
 
-allow distributedfiledaemon system_core_hap_data_file_attr:dir { getattr write search read open };
+allow distributedfiledaemon system_core_hap_data_file_attr:dir { getattr write search read open add_name create setattr };
 
-allow distributedfiledaemon system_core_hap_data_file_attr:file { write setattr getattr read open };
+allow distributedfiledaemon system_core_hap_data_file_attr:file { write setattr getattr read open create };
 
 allow distributedfiledaemon port:tcp_socket { name_connect name_bind };
 
 allow distributedfiledaemon sysfs_devices_system_cpu:dir { open read };
 
+allow distributedfiledaemon sysfs_devices_system_cpu:file { read };
+
 allow distributedfiledaemon data_file:file { getattr read open };
 
 allow distributedfiledaemon proc_stat_file:file { open read };
 
-allow distributedfiledaemon data_user_file:dir { search getattr write };
+allow distributedfiledaemon data_user_file:dir { search getattr write add_name create read open };
 
-allow distributedfiledaemon data_user_file:file { getattr open read write };
+allow distributedfiledaemon data_user_file:file { getattr open read write create };
+
+allow distributedfiledaemon hap_domain:binder { call };
+
+allow distributedfiledaemon hmdfs:dir { search read open write add_name create setattr };
+
+allow distributedfiledaemon hmdfs:file { read open getattr create write setattr };
