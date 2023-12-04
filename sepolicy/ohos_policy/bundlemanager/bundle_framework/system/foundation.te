@@ -163,6 +163,7 @@ allow bm data_app_el2_file:dir { search };
 allow bm quick_fix:binder { call transfer };
 allow bm sa_foundation_cesfwk_service:samgr_class { get };
 allow bm sa_quick_fix_mgr_service:samgr_class { get };
+allow bm sa_foundation_abilityms:samgr_class { get };
 allowxperm bm devpts:chr_file ioctl { 0x5413 };
 allowxperm bm sh:fifo_file ioctl { 0x5413 };
 
