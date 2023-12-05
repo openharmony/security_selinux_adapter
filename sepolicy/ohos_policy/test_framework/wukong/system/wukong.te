@@ -85,7 +85,7 @@ allow wukong data_local_tmp_wukong:dir { add_name create open read relabelto sea
 allow wukong data_local_tmp_wukong:file { create getattr ioctl open relabelto write };
 allowxperm wukong data_local_tmp_wukong:file ioctl { 0x5413 };
 allow wukong data_local_tmp:file { create getattr read relabelfrom ioctl write };
-allow wukong data_local_tmp:dir { add_name getattr search read relabelfrom };
+allow wukong data_local_tmp:dir { getattr read };
 
 # ps -ef
 allow wukong domain: dir { search };
