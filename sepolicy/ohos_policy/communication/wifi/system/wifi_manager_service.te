@@ -106,4 +106,4 @@ allow wifi_manager_service sa_dhcp_client:samgr_class { add get };
 allow wifi_manager_service sa_dhcp_server:samgr_class { add get };
 
 allow wifi_manager_service normal_hap_attr:fd { use };
-
+allow wifi_manager_service sa_msdp_movement_service:samgr_class { get };
