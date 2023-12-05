@@ -480,8 +480,13 @@ allow init render_service:file { read open write };
 allow init foundation:file { read open write };
 allow init sysfs_hungtask_userlist:file { read open write };
 
-# for chip_ckm
+# for chip ckm
 # avc:  denied  { getattr } for  pid=1 comm="init" path="/chip_ckm" dev="mmcblk0p7" ino=13 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=dir permissive=0
 # avc:  denied  { mounton } for  pid=1 comm="init" path="/chip_ckm" dev="mmcblk0p7" ino=13 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=dir permissive=0
-allow init chip_ckm_file:dir { getattr mounton };
+# avc:  denied  { search } for  pid=1 comm="init" name="/" dev="mmcblk0p14" ino=2 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=dir permissive=0
+allow init chip_ckm_file:dir { getattr mounton search };
+
+# avc:  denied  { read } for  pid=1 comm="init" name="kosample.ko" dev="mmcblk0p14" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=1 comm="init" path="/chip_ckm/kosample.ko" dev="mmcblk0p14" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=file permissive=0
+allow init chip_ckm_file:file { read open };
 
