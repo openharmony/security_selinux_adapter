@@ -294,4 +294,4 @@ neverallow hidumper_service *:process ptrace;
 allow hidumper_service render_service:binder transfer;
 
 allow hidumper_service arkcompiler_param:file { map open read };
-allow hidumper_service system_core_hap:lnk_file { read getattr };
+allow hidumper_service hap_domain:lnk_file { read getattr };
