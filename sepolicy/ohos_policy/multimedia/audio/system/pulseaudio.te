@@ -186,3 +186,6 @@ allow pulseaudio sa_sensor_service:samgr_class { get };
 # avc:  denied  { call } for  pid=356 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for  pid=356 comm="pulseaudio" scontext=u:r:pulseaudio:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
 allow pulseaudio sensors:binder { call transfer };
+
+# avc:  denied  { get } for service=effect_model_service pid=387 scontext=u:r:pulseaudio:s0 tcontext=u:object_r:hdf_effect_model_service:s0 tclass=hdf_devmgr_class permissive=1
+allow pulseaudio hdf_effect_model_service:hdf_devmgr_class { get };
