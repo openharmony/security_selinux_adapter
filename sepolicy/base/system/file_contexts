@@ -157,6 +157,9 @@
 
 /config(/.*)?       u:object_r:config_file:s0
 /updater(/.*)?       u:object_r:updater_file:s0
+/cust(/.*)?       u:object_r:system_file:s0
+/preload(/.*)?       u:object_r:system_file:s0
+/version(/.*)?       u:object_r:system_file:s0
 /system(/.*)?       u:object_r:system_file:s0
 /system/hap(/.*)?       u:object_r:system_hap_file:s0
 /system/bin(/.*)?       u:object_r:system_bin_file:s0
