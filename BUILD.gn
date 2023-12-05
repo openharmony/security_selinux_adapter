@@ -15,6 +15,9 @@
 import("//base/startup/init/begetd.gni")
 import("//build/ohos.gni")
 import("selinux.gni")
+if (special_build_selinux_gni_path != "") {
+  import(special_build_selinux_gni_path)
+}
 
 config("selinux_core_config") {
   include_dirs = [
@@ -357,6 +360,10 @@ action("build_policy") {
                             [ rebase_path(src) ],
                             "list lines")
     }
+    if (special_build_selinux_gni_path != "" &&
+        selinux_build_path_ext != "default") {
+      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+    }
   }
 
   if (special_build_policy_script != "default") {
@@ -454,6 +461,10 @@ action("build_update_policy") {
                             [ rebase_path(src) ],
                             "list lines")
     }
+    if (special_build_selinux_gni_path != "" &&
+        selinux_build_path_ext != "default") {
+      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+    }
   }
 
   if (special_build_policy_script != "default") {
@@ -502,6 +513,10 @@ action("build_contexts") {
       inputs += exec_script("//build/scripts/find.py",
                             [ rebase_path(src) ],
                             "list lines")
+    }
+    if (special_build_selinux_gni_path != "" &&
+        selinux_build_path_ext != "default") {
+      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
     }
   }
 
