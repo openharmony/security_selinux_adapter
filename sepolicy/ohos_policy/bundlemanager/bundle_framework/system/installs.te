@@ -74,3 +74,7 @@ allow installs data_service_el0_file:dir { add_name create getattr write open re
 allow installs data_service_el0_file:file { create getattr open read unlink write };
 allow installs dev_code_sign:chr_file { ioctl write write open };
 allowxperm installs dev_code_sign:chr_file ioctl { 0x6b01 };
+allow installs data_app_el3_file:file { create getattr setattr unlink map read rename };
+allow installs data_app_el3_file:dir { add_name create getattr open read relabelfrom remove_name search setattr write rmdir };
+allow installs data_app_el4_file:file { create getattr setattr unlink map read rename };
+allow installs data_app_el4_file:dir { add_name create getattr open read relabelfrom remove_name search setattr write rmdir };

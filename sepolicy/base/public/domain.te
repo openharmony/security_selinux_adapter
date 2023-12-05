@@ -101,9 +101,10 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain developer_only(`-SP_daemon -atm -aa') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -bm -uitest } data_local_tmp:dir never_write_dir;
 
-neverallow { domain developer_only(`-SP_daemon -atm -aa') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -bm -uitest } data_local_tmp:dir { open search };
+neverallow { domain developer_only(`-SP_daemon -atm -aa -bm') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -uitest } data_local_tmp:dir never_write_dir;
+
+neverallow { domain developer_only(`-SP_daemon -atm -aa -bm') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -uitest } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -134,8 +135,8 @@ neverallow * self:memprotect mmap_zero;
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
     -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file}:file { execute execute_no_trans entrypoint };
-neverallow { domain -installs } data_local_arkcache:file { write };
-neverallow { domain -installs } data_local_arkcache:dir { write };
+neverallow { domain -installs -ark_aot_compiler } data_local_arkcache:file { write };
+neverallow { domain -installs -ark_aot_compiler } data_local_arkcache:dir { write };
 
 neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file entrypoint;
 
@@ -143,7 +144,7 @@ neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file ent
 neverallow ~{ domain develop_domain } { domain develop_domain }:process { transition dyntransition };
 
 # everyone should in { sadomain hdfdomain hap_domain native_system_domain native_chipset_domain }
-neverallow domain { domain -sadomain -hdfdomain -hap_domain -native_system_domain -native_chipset_domain }:process { transition dyntransition };
+neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -native_system_domain -native_chipset_domain }:process { transition dyntransition };
 
 # keep file based type belong to file_attr , fs_attr, dev_attr, parameter_attr.
 # first label class
@@ -247,7 +248,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } { system_file_
 neverallow { domain -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
-neverallow { domain developer_only(`-SP_daemon -atm') -bm -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -data_local_tmp_violator_file_open } data_local_tmp:file open;
+neverallow { domain developer_only(`-SP_daemon -atm -bm') -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -data_local_tmp_violator_file_open } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -282,7 +283,7 @@ neverallow { domain -processdump -hap_domain } domain:process ptrace;
 # means that only init can have the caps of chown.
 # TODO:debug/release
 neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_daemon -cap_violator_chown updater_only(`-updater') -distributedfiledaemon } self:{ capability cap_userns } chown;
-neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice
+neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice -ark_aot_compiler
              -installs updater_only(`debug_only(`-updater')')
              -storage_daemon -usb_host -cap_violator_dacoverride -distributedfiledaemon } self:{ capability cap_userns } dac_override;
 neverallow { domain developer_only(`-SP_daemon') -chipset_init -appspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater')} self:{ capability cap_userns } dac_read_search;

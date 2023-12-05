@@ -49,6 +49,7 @@ allow accountmgr accesstoken_service:binder { call };
 allow accountmgr dev_unix_socket:dir { search };
 allow accountmgr param_watcher:binder { call };
 allow accountmgr storage_manager:binder { call };
+allow accountmgr storage_manager:binder { transfer };
 allow accountmgr distributeddata:binder { transfer };
 allow accountmgr distributeddata:binder { call };
 allow accountmgr data_init_agent:dir { search };
