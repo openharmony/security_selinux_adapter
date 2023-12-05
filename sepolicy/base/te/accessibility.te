@@ -78,3 +78,4 @@ allow accessibility dev_console_file:chr_file { read write };
 allow accessibility sysfs_devices_system_cpu:file { read };
 allow accessibility sa_dataobs_mgr_service_service:samgr_class { get };
 allow accessibility sa_render_service:samgr_class { get };
+allow accessibility render_service:binder { call transfer };
