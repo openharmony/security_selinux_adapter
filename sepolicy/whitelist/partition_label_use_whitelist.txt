@@ -9,6 +9,7 @@
 /version       u:object_r:system_file:s0
 /preload(/.*)?       u:object_r:system_file:s0
 /version(/.*)?       u:object_r:system_file:s0
+/cust(/.*)?       u:object_r:system_file:s0
 /sys_prod(/.*)?      u:object_r:sys_prod_file:s0
 /chip_prod(/.*)?     u:object_r:chip_prod_file:s0
 /eng_system(/.*)?           u:object_r:system_file:s0
