@@ -312,3 +312,5 @@ allowxperm storage_daemon share_public_file:dir ioctl { 0x581f 0x5820 0x6601 0x6
 # avc:  denied  { write } for pid=544 comm="storage_daemon" name="kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 # avc:  denied  { open } for pid=544 comm="storage_daemon" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow storage_daemon dev_kmsg_file:chr_file { write open };
+allow storage_daemon medialibrary_hap:fd { use };
+allow storage_daemon hap_file_attr:dir { mounton };
