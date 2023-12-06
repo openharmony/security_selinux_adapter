@@ -246,8 +246,7 @@ debug_only(`
     domain_auto_transition_pattern(su, hitrace_exec, hitrace);
     domain_auto_transition_pattern(su, bytrace_exec, bytrace);
     domain_auto_transition_pattern(su, hisysevent_exec, hisysevent);
-    ## for wukong
-    domain_auto_transition_pattern(su, wukong_exec, wukong);
+
     # for su process crash faultlog
     # avc:  denied  { getattr } for  pid=2245 comm="ps" path="/proc/503" dev="proc" ino=19131 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=dir permissive=1
     # avc:  denied  { search } for  pid=2245 comm="ps" name="503" dev="proc" ino=19131 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=dir permissive=1
