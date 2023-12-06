@@ -90,6 +90,7 @@
 (allow sh time_param (file (read map open)))
 (allow sh vendor_file (dir (search)))
 (allow sh system_lib_file (dir (search)))
+(allow sh hichecker_writable_param (parameter_service (set)))
 
 developer_only(`
 (allow sh SP_daemon (process (transition siginh rlimitinh)))
