@@ -79,3 +79,6 @@ allow installs data_app_el3_file:file { create getattr setattr unlink map read r
 allow installs data_app_el3_file:dir { add_name create getattr open read relabelfrom remove_name search setattr write rmdir };
 allow installs data_app_el4_file:file { create getattr setattr unlink map read rename };
 allow installs data_app_el4_file:dir { add_name create getattr open read relabelfrom remove_name search setattr write rmdir };
+allow installs normal_hap_data_file_attr:lnk_file { unlink };
+allow installs system_basic_hap_data_file_attr:lnk_file { unlink };
+allow installs system_core_hap_data_file_attr:lnk_file { unlink };
