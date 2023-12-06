@@ -374,7 +374,7 @@ int HapContext::HapLabelLookup(const std::string &apl, const std::string &packag
     if (*secontextPtr == nullptr) {
         return -SELINUX_PTR_NULL;
     }
-    char *secontext = *secontextPtr;
+    const char *secontext = *secontextPtr;
     context_t con = context_new(secontext);
     if (con == nullptr) {
         freecon(*secontextPtr);
@@ -431,17 +431,16 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         return SELINUX_SUCC;
     }
 
-    char *typeContext = nullptr;
-    if (getcon(&typeContext)) {
+    char *oldTypeContext = nullptr;
+    if (getcon(&oldTypeContext)) {
         return -SELINUX_GET_CONTEXT_ERROR;
     }
 
     context_t con = nullptr;
-    con = context_new(typeContext);
+    con = context_new(oldTypeContext);
     if (con == nullptr) {
         return -SELINUX_PTR_NULL;
     }
-    char *oldTypeContext = typeContext;
 
     int res = HapContextsLookup(true, hapDomainInfo.apl, hapDomainInfo.packageName, con, hapDomainInfo.hapFlags);
     if (res < 0) {
@@ -450,7 +449,7 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
         return res;
     }
 
-    typeContext = context_str(con);
+    const char *typeContext = context_str(con);
     if (typeContext == nullptr) {
         freecon(oldTypeContext);
         context_free(con);
