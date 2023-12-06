@@ -34,7 +34,7 @@ allow cloudfiledaemon data_service_el2_hmdfs:dir { create search read open write
 allow cloudfiledaemon data_service_el2_hmdfs:file { create setattr getattr read open write append ioctl rename unlink };
 allow cloudfiledaemon hmdfs:dir { search write remove_name add_name create open read rmdir };
 allow cloudfiledaemon hmdfs:file { read open getattr create append rename unlink ioctl };
-allowxperm cloudfiledaemon hmdfs:file ioctl { 0xf202 };
+allowxperm cloudfiledaemon hmdfs:file ioctl { 0xf202 0x5413 };
 allow cloudfiledaemon storage_daemon:fd { use };
 allow cloudfiledaemon sa_filemanagement_cloud_sync_service:samgr_class { add };
 allow cloudfiledaemon hap_domain:binder { call transfer };
@@ -77,3 +77,5 @@ allow accountmgr cloudfiledaemon:binder { transfer };
 allow cloudfiledaemon sa_accountmgr:samgr_class { get };
 allow cloudfiledaemon sa_foundation_powermgr_service:samgr_class { get };
 allow cloudfiledaemon dev_unix_file:sock_file { write };
+allow cloudfiledaemon normal_hap_data_file_attr:dir { search };
+
