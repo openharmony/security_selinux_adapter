@@ -175,6 +175,8 @@ developer_only(`
     allow bm sa_quick_fix_mgr_service:samgr_class { get };
     allow bm sa_foundation_abilityms:samgr_class { get };
     allow bm dev_kmsg_file:chr_file { write };
+    allow bm persist_sys_param:file { map open read };
+    allow bm arkcompiler_param:file { map open read };
     allowxperm bm devpts:chr_file ioctl { 0x5413 };
     allowxperm bm sh:fifo_file ioctl { 0x5413 };
 ')
