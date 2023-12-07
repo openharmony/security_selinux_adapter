@@ -77,7 +77,7 @@ allow { domain -limit_domain } startup_appspawn_param:file { map open read };
 allow { domain -limit_domain } startup_uevent_param:file { map open read };
 allow { domain -limit_domain } devinfo_public_param:file { map open read };
 allow { domain -limit_domain } telephony_param:file { map open read };
-allow { domain -limit_domain } useriam_fwkready_param:file { map open read };
+allow { domain -limit_domain -sh -console } useriam_fwkready_param:file { map open read };
 allow { domain -limit_domain } netmanager_base_param:file { map open read };
 
 #for udid
