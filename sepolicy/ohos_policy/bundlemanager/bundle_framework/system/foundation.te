@@ -130,7 +130,10 @@ debug_only(`
     allow { param_watcher } bms_param:parameter_service { set };
 ')
 
-allow bm samgr:binder { call transfer };
+developer_only(`
+    allow bm samgr:binder { transfer };
+')
+allow bm samgr:binder { call };
 allow samgr bm:dir { search };
 allow samgr bm:file { open read };
 allow samgr bm:process { getattr };
