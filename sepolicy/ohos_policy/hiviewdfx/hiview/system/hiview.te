@@ -88,6 +88,7 @@ allow hiview bgtaskmgr_service:file { open read };
 
 allowxperm hiview dev_bbox:chr_file ioctl { 0x4264 };
 allowxperm hiview dev_bbox:chr_file ioctl { 0x4266 };
+allowxperm hiview dev_bbox:chr_file ioctl { 0x426f };
 
 #avc:  denied  { get } for service=3301 pid=618 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
 allow hiview sa_foundation_powermgr_service:samgr_class { get };
