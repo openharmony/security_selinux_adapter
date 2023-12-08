@@ -20,7 +20,7 @@ startup.device.             u:object_r:servicectrl_reboot_param:s0
 const.build.                u:object_r:devinfo_public_param:s0
 const.SystemCapability.     u:object_r:devinfo_public_param:s0
 const.product.              u:object_r:devinfo_public_param:s0
-const.ohos                  u:object_r:devinfo_public_param:s0
+const.ohos.                 u:object_r:devinfo_public_param:s0
 
 startup.service.ctl.        u:object_r:startup_init_param:s0
 const.debuggable            u:object_r:startup_init_param:s0
