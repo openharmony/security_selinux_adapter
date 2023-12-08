@@ -17,4 +17,3 @@ neverallow installs { domain -installs_binder_violator -samgr -storage_manager -
 
 allow installs data_service_el2_file:dir { relabelfrom };
 
-allow installs data_service_el1_file:dir { relabelfrom };
