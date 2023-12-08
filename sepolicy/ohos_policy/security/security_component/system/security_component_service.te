@@ -139,3 +139,6 @@ allow security_component_service sysfs_devices_system_cpu:file { getattr open re
 
 # avc:  denied  { ioctl } for  pid=2600 comm="EventRunner#1" path="/data/service/el1/public/security_component_service/first_use_record.json" dev="sdd78" ino=19788 ioctlcmd=0x5413 scontext=u:r:security_component_service:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
 allowxperm security_component_service data_service_el1_file:file ioctl { 0x5413 };
+
+# avc:  denied  { get } for service=4606 pid=2034 scontext=u:r:security_component_service:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
+allow security_component_service sa_foundation_wms:samgr_class { get };

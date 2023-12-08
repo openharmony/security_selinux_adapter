@@ -43,6 +43,7 @@
                 "hiprofiler_plugins hilog_exec",
                 "hiprofiler_plugins hisysevent_exec",
                 "hiprofiler_plugins system_bin_file",
+                "hiprofiler_plugins SP_daemon_exec",
                 "hiprofilerd system_bin_file",
                 "hiview hidumper_exec",
                 "hiview hilog_exec",
@@ -82,6 +83,7 @@
                 "SP_daemon system_bin_file",
                 "aa system_bin_file",
                 "aa aa_exec",
+                "aa bm_exec",
                 "wukong sh_exec",
                 "SP_daemon sh_exec",
                 "wukong system_bin_file"

@@ -42,6 +42,7 @@ allow startup_uevent_param tmpfs:filesystem associate;
 allow devinfo_private_param tmpfs:filesystem associate;
 allow devinfo_public_param tmpfs:filesystem associate;
 allow useriam_fwkready_param tmpfs:filesystem associate;
+allow useriam_enable_writable_param tmpfs:filesystem associate;
 allow bluetooth_param tmpfs:filesystem associate;
 
 allow init servicectrl_param:file { map open read relabelto relabelfrom };
@@ -52,6 +53,7 @@ allow init startup_uevent_param:file { map open read relabelto relabelfrom };
 allow init devinfo_private_param:file { map open read relabelto relabelfrom };
 allow init devinfo_public_param:file { map open read relabelto relabelfrom };
 allow init useriam_fwkready_param:file { map open read relabelto relabelfrom };
+allow init useriam_enable_writable_param:file { map open read relabelto relabelfrom };
 allow init bluetooth_param:file { map open read relabelto relabelfrom };
 
 #for set
@@ -75,6 +77,7 @@ allow domain startup_uevent_param:file { map open read };
 allow domain devinfo_public_param:file { map open read };
 allow domain telephony_param:file { map open read };
 allow domain useriam_fwkready_param:file { map open read };
+allow domain useriam_enable_writable_param:file { map open read };
 allow domain bluetooth_param:file { map open read };
 
 #for udid
@@ -204,8 +207,15 @@ allow init data_service_el1_file:file { getattr setattr relabelto };
 allow init data_service_el1_public_deviceauthService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el1_public_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
 allow init data_service_el2_public_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_data_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+allow init data_data_file:file { getattr setattr relabelto };
+allow init data_data_huksService_file:dir { add_name create getattr open read relabelto search setattr write };
+allow init data_data_huksService_file:file { create getattr ioctl open read setattr unlink write };
+allowxperm init data_data_huksService_file:file ioctl { 0x5705 };
 allow init data_service_el2_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_el2_hmdfs:dir { getattr open read relabelto setattr };
+allow init data_service_el3_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
+allow init data_service_el4_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_file:dir { add_name create getattr open read relabelfrom relabelto search setattr write };
 allow init data_service_file:file { create getattr unlink write write open };
 allow init data_ss:dir { getattr open read relabelto setattr };
@@ -472,4 +482,14 @@ allow init appspawn:file { read open write };
 allow init render_service:file { read open write };
 allow init foundation:file { read open write };
 allow init sysfs_hungtask_userlist:file { read open write };
+
+# for chip ckm
+# avc:  denied  { getattr } for  pid=1 comm="init" path="/chip_ckm" dev="mmcblk0p7" ino=13 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=dir permissive=0
+# avc:  denied  { mounton } for  pid=1 comm="init" path="/chip_ckm" dev="mmcblk0p7" ino=13 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=dir permissive=0
+# avc:  denied  { search } for  pid=1 comm="init" name="/" dev="mmcblk0p14" ino=2 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=dir permissive=0
+allow init chip_ckm_file:dir { getattr mounton search };
+
+# avc:  denied  { read } for  pid=1 comm="init" name="kosample.ko" dev="mmcblk0p14" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=1 comm="init" path="/chip_ckm/kosample.ko" dev="mmcblk0p14" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=file permissive=0
+allow init chip_ckm_file:file { read open };
 

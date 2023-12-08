@@ -43,7 +43,7 @@ allow hiview system_bin_file:file { read execute entrypoint };
 allow hiview system_bin_file:lnk_file { read };
 allow hiview sys_file:dir { read open };
 allow hiview sys_file:file { read open };
-allow hiview dev_bbox:chr_file { read open };
+allow hiview dev_bbox:chr_file { ioctl read open };
 allow hiview normal_hap_attr:dir { search };
 allow hiview normal_hap_attr:file { read open };
 allow hiview proc_cpuinfo_file:file { read open };
@@ -85,6 +85,9 @@ allow hiview vendor_lib_file:file { read open getattr map execute };
 
 allow hiview bgtaskmgr_service:dir { search };
 allow hiview bgtaskmgr_service:file { open read };
+
+allowxperm hiview dev_bbox:chr_file ioctl { 0x4264 };
+allowxperm hiview dev_bbox:chr_file ioctl { 0x4266 };
 
 #avc:  denied  { get } for service=3301 pid=618 scontext=u:r:hiview:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
 allow hiview sa_foundation_powermgr_service:samgr_class { get };
@@ -141,7 +144,8 @@ allow hiview proc_sysrq_trigger_file:file { open getattr write ioctl };
 allow hiview data_app_file:dir { search };
 
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="el2" dev="mmcblk0p12" ino=47 scontext=u:r:hiview:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=0
-allow hiview data_app_el2_file:dir { search };
+allow hiview data_app_el2_file:dir { search read open };
+allow hiview data_app_el2_file:file { open getattr read write };
 
 #avc:  denied  { search } for  pid=247 comm="exportSysEventT" name="com.huawei.myapplication" dev="mmcblk0p12" ino=2366 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
 #avc:  denied  { write } for  pid=252 comm="exportSysEventT" name="hiview" dev="mmcblk0p12" ino=2417 scontext=u:r:hiview:s0 tcontext=u:object_r:system_basic_hap_data_file:s0 tclass=dir permissive=0
@@ -210,3 +214,20 @@ allow hiview proc_diskstats_file:file { read open getattr };
 
 #avc:  denied  { call } for  pid=519 comm="IPC_0_576" scontext=u:r:hiview:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
 allow hiview softbus_server:binder { call };
+
+#avc:  denied  { kill } for pid=7601 comm="hiview" capability=5 scontext=u:r:hiview:s0 tcontext=u:r:hiview:s0 tclass=capability permissive=1
+#avc:  denied  { signal } for pid=7601 comm="hiview" scontext=u:r:hiview:s0 tcontext=u:r:system_basic_hap:s0 tclass=process permissive=1
+allow hiview domain:process signal;
+allow hiview hiview:capability kill;
+
+#avc:  denied  { search } for  pid=251 comm="OS_IPC_3_2826" name="com.example.myapplication" dev="mmcblk0p15" ino=2012 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { write } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent" dev="mmcblk0p15" ino=2058 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+#avc:  denied  { add_name } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent_1501934018028.txt" scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
+allow hiview normal_hap_data_file_attr:dir { search write add_name };
+
+#avc:  denied  { create } for  pid=251 comm="OS_IPC_3_2826" name="hiappevent_1501934018028.txt" scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { write open } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { ioctl } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 ioctlcmd=0x5413 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+#avc:  denied  { getattr } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
+allow hiview normal_hap_data_file_attr:file { create write open ioctl getattr };
+allowxperm hiview normal_hap_data_file_attr:file ioctl { 0x5413 };

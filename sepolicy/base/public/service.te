@@ -22,6 +22,8 @@ type sa_wifi_device_ability, sa_service_attr;
 type sa_wifi_hotspot_ability, sa_service_attr;
 type sa_wifi_p2p_ability, sa_service_attr;
 type sa_wifi_scan_ability, sa_service_attr;
+type sa_dhcp_client, sa_service_attr;
+type sa_dhcp_server, sa_service_attr;
 type sa_bluetooth_server, sa_service_attr;
 type sa_net_conn_manager, sa_service_attr;
 type sa_netsys_native_manager, sa_service_attr;
@@ -226,4 +228,5 @@ type sa_devattest_service, sa_service_attr;
 type sa_oaid_service, sa_service_attr;
 type sa_ui_appearance, sa_service_attr;
 type sa_device_standby, sa_service_attr;
+
 

@@ -182,6 +182,16 @@ allow hdf_devmgr dhardware:binder { transfer };
 #avc:  denied  { call } for  pid=3100 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:codec_host:s0 tclass=binder permissive=1
 allow dhardware codec_host:binder { call };
 
+#avc:  denied  { get } for service=3011 pid=6484 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_av_codec_service:s0 tclass=samgr_class permissive=0
+#avc:  denied  { get } for service=3011 pid=6484 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_av_codec_service:s0 tclass=samgr_class permissive=1
+allow dhardware sa_av_codec_service:samgr_class { get };
+
+#avc:  denied  { call } for pid=4347 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=0
+#avc:  denied  { call } for pid=4445 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
+#avc:  denied  { transfer } for pid=4445 comm="SendOnLine" scontext=u:r:dhardware:s0 tcontext=u:r:av_codec_service:s0 tclass=binder permissive=1
+allow dhardware av_codec_service:binder { call transfer };
+
+
 allow dhardware sa_foundation_wms:samgr_class { get };
 
 allow dhardware paramservice_socket:sock_file { write };

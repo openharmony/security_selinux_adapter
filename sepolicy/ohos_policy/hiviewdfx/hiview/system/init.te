@@ -23,3 +23,5 @@ allow init hiview_file:dir { write add_name create };
 allow init sysfs_hungtask_userlist:file { setattr };
 
 allow init dev_ucollection:chr_file { setattr };
+
+allow init data_system:dir { relabelfrom };

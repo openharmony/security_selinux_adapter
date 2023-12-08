@@ -64,6 +64,7 @@ type dev_file, dev_attr, file_attr;
 type sys_prod_file, sys_prod_file_attr, file_attr;
 
 type chip_prod_file, chip_prod_file_attr, file_attr;
+type chip_ckm_file, chip_ckm_file_attr, file_attr;
 
 type sysfs_block_file, sysfs_attr, fs_attr;
 type sysfs_hisys_file, sysfs_attr, fs_attr;
@@ -104,6 +105,8 @@ type data_service_el0_file, file_attr, data_file_attr;
 type data_service_el1_file, file_attr, data_file_attr;
 type data_service_el1_public_print_service_file, file_attr, data_file_attr;
 type data_service_el2_file, file_attr, data_file_attr;
+type data_service_el3_file, file_attr, data_file_attr;
+type data_service_el4_file, file_attr, data_file_attr;
 type data_user_file, file_attr, data_file_attr;
 type data_chipset_file, file_attr, data_file_attr;
 type data_chipset_el1_file, file_attr, data_file_attr;

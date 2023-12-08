@@ -310,3 +310,7 @@ allow device_manager musl_param:file { read open map };
 
 #avc:  denied  { call } for  pid=255 comm="IPC_0_273" scontext=u:r:device_manager:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
 allow device_manager dcamera:binder { call };
+
+#avc:  denied  { get } for service=1130 pid=580 scontext=u:r:device_manager:s0 tcontext=u:object_r:sa_bluetooth_server:s0 tclass=samgr_class permissive=0
+allow device_manager sa_bluetooth_server:samgr_class { get };
+allow device_manager bluetooth_service:binder { call transfer };

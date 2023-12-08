@@ -40,6 +40,7 @@ def simplify_string(string):
 def deal_with_allow(cil_file, allow_map, attributes_map):
     with open(cil_file, 'r', encoding='utf-8') as cil_read:
         for line in cil_read:
+            line = line.strip()
             if not line.startswith('(allow ') and not line.startswith('(auditallow '):
                 continue
             sub_string = simplify_string(line)

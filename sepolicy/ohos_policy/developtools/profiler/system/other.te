@@ -74,3 +74,4 @@ allow samgr hiprofiler_plugins:process getattr;
 
 allow hiview hiprofiler_plugins:binder call;
 allow deviceauth_service dev_console_file:chr_file { read write };
+allow hiview sa_native_daemon:samgr_class { get };

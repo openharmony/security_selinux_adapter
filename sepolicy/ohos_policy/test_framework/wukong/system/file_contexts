@@ -13,3 +13,5 @@
 
 # for wukong tool
 /system/bin/wukong u:object_r:wukong_exec:s0
+
+/data/local/tmp/wukong(/.*)? u:object_r:data_local_tmp_wukong:s0

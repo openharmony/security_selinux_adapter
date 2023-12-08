@@ -352,17 +352,15 @@ def get_policy_file_list(args, dir_list_object):
 
 
 def filter_out(pattern_file, input_file):
-    patterns = []
-    with open(pattern_file, 'r') as pat_file:
-        patterns.extend(pat_file.readlines())
-
-    tmp_output = tempfile.NamedTemporaryFile()
-    with open(input_file, 'r') as in_file:
-        tmp_output.writelines(line.encode(encoding='utf-8') for line in in_file.readlines()
-                              if line not in patterns)
-        tmp_output.write("\n".encode(encoding='utf-8'))
-        tmp_output.flush()
-    shutil.copyfile(tmp_output.name, input_file)
+    with open(pattern_file, 'r', encoding='utf-8') as pat_file:
+        patterns = set(pat_file)
+        tmp_output = tempfile.NamedTemporaryFile()
+        with open(input_file, 'r', encoding='utf-8') as in_file:
+            tmp_output.writelines(line.encode(encoding='utf-8') for line in in_file.readlines()
+                                if line not in patterns)
+            tmp_output.write("\n".encode(encoding='utf-8'))
+            tmp_output.flush()
+        shutil.copyfile(tmp_output.name, input_file)
 
 
 def generate_hash_file(input_file_list, output_file):
@@ -438,7 +436,7 @@ def generate_special_policy(args, policy, with_developer=False):
     system_cil_path = os.path.join(output_path, "system.cil")
     vendor_cil_path = os.path.join(output_path, "vendor.cil")
     public_version_cil_path = os.path.join(output_path, "public.cil")
-    type_version_cil_path = os.path.join(output_path, "".join([args.vendor_policy_version, ".cil"]))
+    type_version_cil_path = os.path.join(output_path, "".join(["compatible/", args.vendor_policy_version, ".cil"]))
 
     # build system.conf
     build_conf(args, system_output_conf, policy.system_policy_file_list, with_developer)

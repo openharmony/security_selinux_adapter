@@ -25,8 +25,8 @@
 /storage      u:object_r:rootfs:s0
 /sys_prod      u:object_r:rootfs:s0
 /cust      u:object_r:rootfs:s0
-/version      u:object_r:rootfs:s0
-/preload      u:object_r:rootfs:s0
+/version      u:object_r:system_file:s0
+/preload      u:object_r:system_file:s0
 /tmp      u:object_r:rootfs:s0
 /sys           u:object_r:sys_file:s0
 
@@ -157,6 +157,9 @@
 
 /config(/.*)?       u:object_r:config_file:s0
 /updater(/.*)?       u:object_r:updater_file:s0
+/cust(/.*)?       u:object_r:system_file:s0
+/preload(/.*)?       u:object_r:system_file:s0
+/version(/.*)?       u:object_r:system_file:s0
 /system(/.*)?       u:object_r:system_file:s0
 /system/hap(/.*)?       u:object_r:system_hap_file:s0
 /system/bin(/.*)?       u:object_r:system_bin_file:s0
@@ -169,6 +172,7 @@
 /sys_prod(/.*)?      u:object_r:sys_prod_file:s0
 
 /chip_prod(/.*)?     u:object_r:chip_prod_file:s0
+/chip_ckm(/.*)?      u:object_r:chip_ckm_file:s0
 
 /eng_system(/.*)?           u:object_r:system_file:s0
 /eng_system/etc(/.*)?       u:object_r:system_etc_file:s0
@@ -194,6 +198,8 @@
 /data/service/el1(/.*)?       u:object_r:data_service_el1_file:s0
 /data/service/el1/public/print_service(/.*)?       u:object_r:data_service_el1_public_print_service_file:s0
 /data/service/el2(/.*)?       u:object_r:data_service_el2_file:s0
+/data/service/el3(/.*)?       u:object_r:data_service_el3_file:s0
+/data/service/el4(/.*)?       u:object_r:data_service_el4_file:s0
 /data/chipset                 u:object_r:data_chipset_file:s0
 /data/chipset/(.*)?           u:object_r:data_chipset_file:s0
 /data/chipset/el1(/.*)?       u:object_r:data_chipset_el1_file:s0
