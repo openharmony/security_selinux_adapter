@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow camera_service system_basic_hap_attr:binder { call transfer };
-allow camera_service normal_hap:binder { call transfer };
 allow camera_service telephony_sa:binder { call transfer };
