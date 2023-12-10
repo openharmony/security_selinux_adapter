@@ -13,6 +13,7 @@
 
 /data/service/el1/public/account/[0-9]+(/.*)?       u:object_r:account_data_file:s0
 /data/service/el1/public/account/account_list.json      u:object_r:account_data_file:s0
+/data/service/el1/public/account/account_index_info.json      u:object_r:account_data_file:s0
 /data/service/el1/public/account/account_info_digest.json      u:object_r:account_data_file:s0
 
 /data/service/el1/public/account/base_os_account_constraints.json      u:object_r:account_data_file:s0
