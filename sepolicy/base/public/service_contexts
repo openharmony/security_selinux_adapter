@@ -102,6 +102,7 @@
 1500	                               u:object_r:sa_subsys_drivers_service:s0
 1600	                               u:object_r:sa_subsys_global_service:s0
 1601	                               u:object_r:sa_enterprise_device_manager_service:s0
+1602                                   u:object_r:sa_i18n_service:s0
 1700	                               u:object_r:sa_subsys_graphic_service:s0
 1800	                               u:object_r:sa_subsys_hbs_service:s0
 1900	                               u:object_r:sa_subsys_iaware_service:s0
