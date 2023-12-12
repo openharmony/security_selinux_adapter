@@ -102,4 +102,6 @@ developer_only(`
 (allow sh uitest_exec (file (ioctl read getattr map execute open)))
 (allow sh wukong (process (transition siginh rlimitinh)))
 (allow sh wukong_exec (file (ioctl read getattr map execute open)))
+(allow sh uinput (process (transition rlimitinh siginh getattr)))
+(allow sh uinput_exec (file (open map getattr ioctl read execute)))
 ')

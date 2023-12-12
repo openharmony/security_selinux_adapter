@@ -75,6 +75,10 @@ allow system_basic_hap_attr multimodalinput:unix_stream_socket { read };
 allow system_basic_hap_attr multimodalinput:unix_stream_socket { read write };
 allow system_core_hap_attr multimodalinput:unix_stream_socket { read };
 allow init data_multimodalinput:dir { create getattr open read relabelfrom relabelto search setattr write };
+# avc:  denied  { read } scontext=u:r:useriam:s0 tcontext=u:r:multimodalinput:s0 tclass=unix_stream_socket permissive=1
+allow useriam multimodalinput:unix_stream_socket { read };
+# avc:  denied  { get } scontext=u:r:useriam:s0 tcontext=u:object_r:sa_multimodalinput_service:s0 tclass=samgr_class permissive=1
+allow useriam sa_multimodalinput_service:samgr_class { get };
 allowxperm multimodalinput data_log:file ioctl { 0x5413 };
 allowxperm multimodalinput dev_dri_file:chr_file ioctl { 0x641f };
 allowxperm multimodalinput dev_input_file:chr_file ioctl { 0x4503 0x4560 0x4542 0x4548 0x456f 0x450a 0x4559 0x4568 0x455a 0x455b 0x4577 };

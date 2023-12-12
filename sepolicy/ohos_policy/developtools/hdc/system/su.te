@@ -247,6 +247,20 @@ debug_only(`
     domain_auto_transition_pattern(su, bytrace_exec, bytrace);
     domain_auto_transition_pattern(su, hisysevent_exec, hisysevent);
 
+    # for uinput run
+    domain_auto_transition_pattern(su, uinput_exec, uinput);
+
+    # avc:  denied  { use } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
+    # avc:  denied  { ioctl } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { read } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { write } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { read write } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket permissive=0
+    # avc:  denied  { ioctl } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allow uinput su:fd { use };
+    allow uinput su:fifo_file { ioctl read write };
+    allow uinput su:unix_stream_socket { read write };
+    allowxperm uinput su:fifo_file ioctl { 0x5413 };
+
     # for su process crash faultlog
     # avc:  denied  { getattr } for  pid=2245 comm="ps" path="/proc/503" dev="proc" ino=19131 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=dir permissive=1
     # avc:  denied  { search } for  pid=2245 comm="ps" name="503" dev="proc" ino=19131 scontext=u:r:su:s0 tcontext=u:r:clearplay_host:s0 tclass=dir permissive=1
