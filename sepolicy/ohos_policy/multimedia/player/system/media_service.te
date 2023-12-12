@@ -119,3 +119,5 @@ allow media_service privacy_service:binder { call transfer };
 #avc:  denied  { get } for service=4607 pid=624 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_foundation_wms:s0 tclass=samgr_class permissive=0
 allow media_service sa_foundation_wms:samgr_class { get };
 
+# avc:  denied  { call } for  pid=568 comm="multiqueue4:src" scontext=u:r:media_service:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
+allow media_service drm_service:binder { call };
