@@ -139,6 +139,10 @@ allow sensors render_service:fd { use };
 allow sensors render_service:unix_stream_socket { read write };
 allow sensors render_service:binder { call };
 
+allow sensors camera_service:fd { use };
+allow sensors camera_service:unix_stream_socket { read write };
+allow sensors camera_service:binder { call };
+ 
 allow sensors pulseaudio:unix_stream_socket { read write };
 
 # avc:  denied  { use } for  pid=356 comm="pulseaudio" path="socket:[30765]" dev="sockfs" ino=30765 scontext=u:r:sensors:s0 tcontext=u:r:pulseaudio:s0 tclass=fd permissive=1

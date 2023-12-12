@@ -66,5 +66,3 @@ allow camera_service tracefs:dir { search };
 allow camera_service tracefs_trace_marker_file:file { open write };
 allow camera_service sa_memory_manager_service:samgr_class { get };
 allow camera_service memmgrservice:binder { call transfer };
-allow camera_service sa_sensor_service:samgr_class { get add};
-allow camera_service sensors:binder { call transfer };
