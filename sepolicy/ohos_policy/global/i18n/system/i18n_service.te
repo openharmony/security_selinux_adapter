@@ -27,3 +27,5 @@ allow i18n_service kernel:unix_stream_socket { connectto };
 allow i18n_service sa_foundation_appms:samgr_class { get };
 allow i18n_service sa_foundation_cesfwk_service:samgr_class { get };
 allow i18n_service foundation:binder { call };
+allow i18n_service arkcompiler_param:file { map open read };
+allow i18n_service dev_console_file:chr_file { read write };
