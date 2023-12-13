@@ -48,7 +48,6 @@ type misc, sadomain, domain;
 type netsysnative, sadomain, domain;
 type mdnsmanager, sadomain, domain;
 type hidumper_service, sadomain, domain;
-type console, sadomain, domain;
 type bootanimation, sadomain, domain;
 type limit_domain, develop_domain;
 type device_usage_statistics_service, sadomain, domain;
@@ -111,5 +110,6 @@ type ark_aot_compiler, native_system_domain, domain;
 type ark_aot_compiler_exec, exec_attr, file_attr, system_file_attr;
 
 debug_only(`
+    type console, sadomain, domain;
     type su, native_system_domain, domain;
 ')
