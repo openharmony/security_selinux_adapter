@@ -192,6 +192,9 @@ allow dhardware sa_av_codec_service:samgr_class { get };
 allow dhardware av_codec_service:binder { call transfer };
 
 
+allow dhardware sa_foundation_abilityms:samgr_class{ get };
+allow dhardware dev_kmsg_file:chr_file{ open write };
+
 allow dhardware sa_foundation_wms:samgr_class { get };
 
 allow dhardware paramservice_socket:sock_file { write };

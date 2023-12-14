@@ -30,3 +30,5 @@ allow camera_service accesstoken_service:binder { call transfer };
 allow camera_service privacy_service:binder { call transfer };
 allow privacy_service camera_service:binder { call transfer };
 allow camera_service sa_privacy_service:samgr_class { get };
+allow camera_service sa_sensor_service:samgr_class { get add};
+allow camera_service sensors:binder { call transfer };

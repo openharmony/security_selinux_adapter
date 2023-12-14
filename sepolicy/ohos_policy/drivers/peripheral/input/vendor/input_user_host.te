@@ -80,6 +80,8 @@ allow input_user_host hdf_hid_ddk_service:hdf_devmgr_class { add };
 #avc:  denied  { write } for  pid=522 comm="IPC_1_562" name="uinput" dev="tmpfs" ino=228 scontext=u:r:input_user_host:s0 tcontext=u:object_r:dev_uinput:s0 tclass=chr_file permissive=0
 allow input_user_host dev_uinput:chr_file { write ioctl open };
 
+allowxperm input_user_host dev_uinput:chr_file ioctl { 0x5501 0x5502 0x5564 0x5565 0x5566 0x5567 0x5568 0x5569 0x556b 0x556d 0x556e };
+
 debug_only(`
     allow input_user_host sh:binder { call };
 ')

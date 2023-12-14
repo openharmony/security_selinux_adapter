@@ -66,6 +66,8 @@ type hiviewdfx_profiler_param, parameter_attr;
 type hiviewdfx_hiview_param, parameter_attr;
 type bluetooth_param, parameter_attr;
 type print_param, parameter_attr;
+type i18n_param, parameter_attr;
+type const_i18n_param, parameter_attr;
 type hichecker_writable_param, parameter_attr;
 
 allow init parameter_attr:file relabelto;

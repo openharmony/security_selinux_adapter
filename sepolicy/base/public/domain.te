@@ -47,7 +47,7 @@ allow domain dev_ashmem_file:chr_file { getattr read ioctl lock map append write
 allow domain dev_binder_file:chr_file { ioctl map open read write };
 allowxperm domain dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f };
 allow domain dev_at_file:chr_file { ioctl open read write };
-allowxperm domain dev_at_file:chr_file ioctl { 0x4101 0x4103 0x4104 };
+allowxperm domain dev_at_file:chr_file ioctl { 0x4101 0x4103 0x4104 0x4107 };
 
 allow domain dev_unix_file:dir search;
 allow domain dev_unix_socket_file:dir { search };
@@ -101,9 +101,9 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 #neverallow { domain -init -foundation } data_file:dir { write add_name remove_name };
 
 # /data/local/tmp dir using for debug.
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa -bm') -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -uitest } data_local_tmp:dir never_write_dir;
+neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa') -bm -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -uitest } data_local_tmp:dir never_write_dir;
 
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa -bm') -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -uitest } data_local_tmp:dir { open search };
+neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa') -bm -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -uitest } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -206,7 +206,7 @@ neverallow { domain -init -ueventd -riladapter_host debug_only(`-softbus_server'
 #todo change file label for sock file
 #neverallow { domain -ueventd -riladapter_host } dev_file:sock_file *;
 
-neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -dlp_permission_service -write_updater } dev_attr:blk_file { open read write };
+neverallow { domain -kernel -init -chipset_init -misc -updater_sa -storage_daemon -partitionslot_host updater_only(`-updater ') -updater_binary -dev_attr_violator -sys_installer_sa -write_updater } dev_attr:blk_file { open read write };
 neverallow { updater_sa sys_installer_sa write_updater } {dev_attr -updater_block_file}:blk_file { open read write };
 # fs operation limit
 neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount unmount relabelfrom relabelto quotaget quotamod };
@@ -247,7 +247,7 @@ neverallow { domain -init -appspawn -nwebspawn -normal_hap_attr } { system_file_
 neverallow { domain -kernel -hap_domain -locationhub
              -audio_host updater_only(`-updater -updater_binary')} data_file:file never_write_file;
 
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -bm') -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -data_local_tmp_violator_file_open } data_local_tmp:file open;
+neverallow { domain developer_only(`-wukong -SP_daemon -atm') -bm -uitest -hdcd -hap_domain -sh -hiprofilerd -native_daemon -hiprofiler_plugins -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -data_local_tmp_violator_file_open } data_local_tmp:file open;
 
 #forbid root process access network;
 #
@@ -259,7 +259,7 @@ neverallow { domain developer_only(`-wukong -SP_daemon -atm -bm') -uitest -hdcd 
 #[OHOS ERROR]       (allow hdcd hdcd (tcp_socket (connect getopt name_connect)))
 #[OHOS ERROR]       (allow hdcd self (tcp_socket (ioctl read write create getattr bind listen accept setopt)))
 #
-neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver console } domain:{ tcp_socket udp_socket rawip_socket } *;
+neverallow { appspawn storage_daemon udevd resource_schedule_service ispserver } domain:{ tcp_socket udp_socket rawip_socket } *;
 
 #ensure no write access to readonly filesystem.
 
@@ -267,7 +267,7 @@ neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs sys
 neverallow { domain updater_only(`-init -updater -updater_binary')} { rootfs system_file_attr vendor_file_attr }:file never_write_file;
 
 #limit domain access to sh_exec
-neverallow { domain developer_only(`-wukong -SP_daemon -aa') -console -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
+neverallow { domain developer_only(`-wukong -SP_daemon -aa') -init -hdcd -sh -faultloggerd -riladapter_host -appspawn
     debug_only(`-hiprofiler_cmd -hiprofiler_plugins -hiprofilerd -native_daemon -camera_host') -hidumper_service -netsysnative
     -wifi_hal_service -sh_exec_violator } sh_exec:file execute;
 
@@ -285,12 +285,12 @@ neverallow { domain -appspawn  -chipset_init -init -ueventd -installs -storage_d
 neverallow { domain -appspawn -init  -chipset_init -ueventd -memmgrservice -ark_aot_compiler
              -installs updater_only(`debug_only(`-updater')')
              -storage_daemon -usb_host -cap_violator_dacoverride -distributedfiledaemon } self:{ capability cap_userns } dac_override;
-neverallow { domain -chipset_init -appspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater')} self:{ capability cap_userns } dac_read_search;
+neverallow { domain developer_only(`-SP_daemon -wukong') -chipset_init -appspawn -init -hidumper_service -hiview -storage_daemon -hiprofiler_plugins -file_guard_server debug_only(`-hiperf') -cap_violator_dacreadsearch updater_only(`-updater')} self:{ capability cap_userns } dac_read_search;
 neverallow { domain -init -chipset_init -ueventd -installs -storage_daemon -cap_violator_fowner } self:{ capability cap_userns } fowner;
 neverallow { domain -chipset_init -appspawn -init -ueventd -storage_daemon -cap_violator_fsetid } self:{ capability cap_userns } fsetid;
 neverallow { domain -init -memmgrservice -appspawn -nwebspawn -faultloggerd -hiview -foundation -resource_schedule_service -native_daemon -cap_violator_kill } self:{ capability cap_userns } kill;
-neverallow { domain -init -chipset_init -appspawn -nwebspawn -storage_daemon debug_only(`-console') -cap_violator_setuid updater_only(` -updater ') } self:{ capability cap_userns } setuid;
-neverallow { domain -init -chipset_init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-console -hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') updater_only(` -updater ') } self:{ capability cap_userns } setgid;
+neverallow { domain -init -chipset_init -appspawn -nwebspawn -storage_daemon -cap_violator_setuid updater_only(`-updater') } self:{ capability cap_userns } setuid;
+neverallow { domain -init -chipset_init -ueventd -appspawn -nwebspawn -storage_daemon debug_only(`-hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') updater_only(` -updater ') } self:{ capability cap_userns } setgid;
 neverallow { domain -init -chipset_init } self:{ capability cap_userns } setpcap;
 neverallow * self:{ capability cap_userns } linux_immutable;
 neverallow { domain -wifi_manager_service -wifi_hal_service -netsysnative } self:{ capability cap_userns } net_bind_service;

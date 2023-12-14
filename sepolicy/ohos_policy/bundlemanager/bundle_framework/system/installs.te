@@ -82,3 +82,4 @@ allow installs data_app_el4_file:dir { add_name create getattr open read relabel
 allow installs normal_hap_data_file_attr:lnk_file { unlink };
 allow installs system_basic_hap_data_file_attr:lnk_file { unlink };
 allow installs system_core_hap_data_file_attr:lnk_file { unlink };
+allow installs data_service_el1_file:dir { relabelfrom };

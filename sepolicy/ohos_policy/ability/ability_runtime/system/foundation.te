@@ -108,11 +108,6 @@ allow hiperf multimodalinput:fd { use };
 # add for aa
 developer_only(`
     allow aa bm_exec:file { getattr execute execute_no_trans map read open };
-    allow aa dev_kmsg_file:chr_file { write };
-    allow aa data_app_el2_file:dir { search };
-    allow aa data_app_file:dir { search };
-    allow aa data_test_file:dir { search };
-    allow aa data_test_file:file { getattr read open read };
     allow aa sa_foundation_appms:samgr_class { get };
     allow aa samgr:binder { call };
     allow aa debug_param:file { map read open };
@@ -170,7 +165,7 @@ developer_only(`
     allowxperm aa devpts:chr_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
-    allow foundation aa:binder { call transfer };
+    allow foundation aa:binder { call };
     allow samgr aa:dir { search };
     allow samgr aa:file { open read };
     allow samgr aa:process { getattr };
