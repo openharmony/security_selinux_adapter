@@ -24,7 +24,9 @@ allow device_usage_stats_service const_postinstall_fstab_param:file { map open r
 allow device_usage_stats_service const_postinstall_param:file { map open read };
 allow device_usage_stats_service const_product_param:file { map open read };
 allow device_usage_stats_service data_service_el1_file:dir { add_name };
-allow device_usage_stats_service debug_param:file { map open read };
+debug_only(`
+    allow device_usage_stats_service debug_param:file { map open read };
+')
 allow device_usage_stats_service default_param:file { map open read };
 allow device_usage_stats_service distributedsche_param:file { map open read };
 allow device_usage_stats_service hilog_param:file { map open read };
