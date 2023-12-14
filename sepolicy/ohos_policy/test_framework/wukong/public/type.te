@@ -11,7 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# for wukong tool
-/system/bin/wukong u:object_r:wukong_exec:s0
-
-/data/local/tmp/wukong(/.*)? u:object_r:data_local_tmp_wukong:s0
+type data_local_tmp_wukong, file_attr, data_file_attr;
