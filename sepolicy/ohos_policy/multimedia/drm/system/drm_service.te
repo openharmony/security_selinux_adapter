@@ -46,6 +46,7 @@ allow drm_service sa_privacy_service:samgr_class { get };
 # avc:  denied  { get } for service=clearplay_service pid=602 scontext=u:r:drm_service:s0 tcontext=u:object_r:hdf_clearplay_service:s0 tclass=hdf_devmgr_class permissive=1
 allow drm_service hdf_clearplay_service:hdf_devmgr_class { get };
 
+allow drm_service data_system:file { create read open getattr write ioctl}
 # avc:  denied  { transfer } for  pid=608 comm="OS_IPC_2_1673" scontext=u:r:drm_service:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
 allow drm_service media_service:binder { transfer };
 
