@@ -318,3 +318,4 @@ allow device_manager bluetooth_service:binder { call transfer };
 allow device_manager daudio:binder { call };
 allow device_manager softbus_server:fd { use };
 allow device_manager softbus_server:tcp_socket { read write setopt shutdown};
+allow device_manager arkcompiler_param:file { read };
