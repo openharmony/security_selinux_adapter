@@ -15,7 +15,17 @@
 import("//base/startup/init/begetd.gni")
 import("//build/ohos.gni")
 import("selinux.gni")
-if (special_build_selinux_gni_path != "") {
+
+special_build_selinux_gni_exist =
+    special_build_selinux_gni_path != "" &&
+    exec_script("/bin/sh",
+                [
+                  "-c",
+                  "if [ -f " + rebase_path(special_build_selinux_gni_path) +
+                      " ]; then echo true; else echo false; fi",
+                ],
+                "value")
+if (special_build_selinux_gni_exist) {
   import(special_build_selinux_gni_path)
 }
 
@@ -360,7 +370,7 @@ action("build_policy") {
                             [ rebase_path(src) ],
                             "list lines")
     }
-    if (special_build_selinux_gni_path != "" &&
+    if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
       selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
     }
@@ -461,7 +471,7 @@ action("build_update_policy") {
                             [ rebase_path(src) ],
                             "list lines")
     }
-    if (special_build_selinux_gni_path != "" &&
+    if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
       selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
     }
@@ -514,7 +524,7 @@ action("build_contexts") {
                             [ rebase_path(src) ],
                             "list lines")
     }
-    if (special_build_selinux_gni_path != "" &&
+    if (special_build_selinux_gni_exist &&
         selinux_build_path_ext != "default") {
       selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
     }
