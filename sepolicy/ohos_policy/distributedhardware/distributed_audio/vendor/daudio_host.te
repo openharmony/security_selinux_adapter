@@ -53,3 +53,7 @@ allow daudio_host vendor_bin_file:file { entrypoint map read execute };
 allow daudio_host vendor_etc_file:dir { search };
 
 allow daudio_host vendor_etc_file:file { getattr open read };
+
+allow daudio_host dev_kmsg_file:chr_file { write };
+
+allow daudio_host chip_prod_file:file { open getattr write };
