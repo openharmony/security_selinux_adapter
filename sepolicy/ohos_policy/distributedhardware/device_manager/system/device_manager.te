@@ -315,4 +315,4 @@ allow device_manager dcamera:binder { call };
 allow device_manager sa_bluetooth_server:samgr_class { get };
 allow device_manager bluetooth_service:binder { call transfer };
 
-allow device_manager daudio:binder { call };
+allow device_manager daudio:binder { call transfer };
