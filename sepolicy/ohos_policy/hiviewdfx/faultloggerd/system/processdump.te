@@ -35,6 +35,7 @@ processdump_cmd({
     app_el1_bundle_public
     data_app_el1_file # remove later
     vendor_bin_file
+    arkcompiler_param
 })
 
 #============= domain =================
@@ -71,6 +72,9 @@ allow processdump normal_hap_attr:dir { getattr open read search };
 allow processdump normal_hap_attr:file { getattr open read };
 allow processdump app_el1_bundle_public:dir search;
 allow processdump data_app_el1_file:dir search; # remove later
+
+#============ hap_domain ================
+allow processdump hap_domain:lnk_file { read };
 
 #============= for hdcd ================
 allow processdump hdcd:fd use;
