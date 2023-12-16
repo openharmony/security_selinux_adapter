@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow distributedfiledaemon sys_fs_hmdfs:dir { read search setattr getattr };
+allow distributedfiledaemon sys_fs_hmdfs:dir { read search setattr getattr open };
 allow distributedfiledaemon sys_fs_hmdfs:file { setattr getattr open read write };
 
 #avc:  denied  { transfer } for  pid=604 comm="distributedfile" scontext=u:r:distributedfiledaemon:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=1
