@@ -75,3 +75,11 @@ allow foundation inputmethod_service:binder { transfer };
 
 #avc:  denied  { get } for service=1301 pid=1216 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:sa_distributeddate_service:s0 tclass=samgr_class permissive=0
 allow inputmethod_service sa_distributeddata_service:samgr_class { get };
+
+# avc:  denied  { read } for  pid=3271 comm="inputmethod_ser" name="u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+# avc:  denied  { open } for  pid=1806 comm="inputmethod_ser" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:inputmethod_service:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=0
+# avc:  denied  { call } for  pid=3271 comm="SaInit0" scontext=u:r:inputmethod_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=0
+# avc:  denied  { use } for  pid=562 comm="OS_IPC_3_1292" path="/dev/ashmem" dev="tmpfs" ino=240 scontext=u:r:inputmethod_service:s0 tcontext=u:r:distributeddata:s0 tclass=fd permissive=0
+allow inputmethod_service arkcompiler_param:file { read open map };
+allow inputmethod_service distributeddata:binder { call transfer };
+allow inputmethod_service distributeddata:fd { use };
