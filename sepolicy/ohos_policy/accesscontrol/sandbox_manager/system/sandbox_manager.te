@@ -11,13 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow sandbox_manager_service sa_sandbox_manager_service:samgr_class { add };
+allow sandbox_manager_service sa_sandbox_manager_service:samgr_class { add get };
 allow sandbox_manager_service dev_unix_socket:dir { search };
 allow sandbox_manager_service tracefs:dir { search };
 allow sandbox_manager_service hilog_param:file { read open map };
 allow sandbox_manager_service debug_param:file { read open map };
 allow sandbox_manager_service sysfs_devices_system_cpu:file { read open getattr };
 allow sandbox_manager_service sandbox_manager_service:unix_dgram_socket { getopt setopt };
+allow sandbox_manager_service dev_kmsg_file:chr_file { write };
+allow sandbox_manager_service dev_file:dir { getattr };
+allow sandbox_manager_service system_bin_file:dir { search };
 
 debug_only(`
     binder_call(sandbox_manager_service, su);
