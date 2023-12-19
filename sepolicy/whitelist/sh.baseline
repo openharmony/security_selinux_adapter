@@ -102,4 +102,6 @@ developer_only(`
 (allow sh uitest_exec (file (ioctl read getattr map execute open)))
 (allow sh wukong (process (transition siginh rlimitinh)))
 (allow sh wukong_exec (file (ioctl read getattr map execute open)))
+(allow sh lldb_server_file (dir (create setattr getattr add_name open write remove_name read search rmdir)))
+(allow sh lldb_server_file (file (open unlink create write setattr read getattr append)))
 ')

@@ -85,7 +85,8 @@
                 "aa bm_exec",
                 "wukong sh_exec",
                 "SP_daemon sh_exec",
-                "wukong system_bin_file"
+                "wukong system_bin_file",
+                "lldb_server lldb_server_file"
             ]
         }
     ]

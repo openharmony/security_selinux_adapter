@@ -15,7 +15,7 @@
 allow domain init:process sigchld;
 allow init domain:process sigkill;
 
-allow domain self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
+allow { domain -lldb_server } self:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
 
 allow domain self:fd use;
 allow domain self:file rw_file_perms;
@@ -103,7 +103,7 @@ neverallow { domain -init -appspawn -nwebspawn } proc_file:{ file dir } mounton;
 # /data/local/tmp dir using for debug.
 neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa') -bm -hdcd -installs -init -hiprofilerd -hiprofiler_plugins -native_daemon -hiperf -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -sh -uitest } data_local_tmp:dir never_write_dir;
 
-neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa') -bm -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -uitest } data_local_tmp:dir { open search };
+neverallow { domain developer_only(`-wukong -SP_daemon -atm -aa -lldb_server -appspawn') -bm -hdcd -hap_domain -init -installs -foundation -sh -hiprofilerd -hiprofiler_plugins -hiperf -native_daemon -bytrace -hitrace debug_only(`-hiprofiler_cmd -hiebpf -camera_host') -uitest } data_local_tmp:dir { open search };
 
 # only samgr can be binder manager.
 neverallow { domain -samgr } *:binder set_context_mgr;
@@ -133,17 +133,21 @@ neverallow * self:memprotect mmap_zero;
 # only execute file with exec_attr & system_bin_file & vendor_bin_file ToDo delete vendor_file
 neverallow * { file_attr -lib_file -system_bin_file -system_lib_file -vendor_bin_file -vendor_lib_file
     -vendor_file -exec_attr -hap_file_attr -data_local_tmp -chip_prod_file -module_update_lib_file
-    -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file}:file { execute execute_no_trans entrypoint };
+    -module_update_bin_file -data_updater_file -data_local_arkcache -system_file -data_service_el1_public_print_service_file
+    developer_only(`-lldb_server_file') }:file { execute execute_no_trans entrypoint };
 neverallow { domain -installs -ark_aot_compiler } data_local_arkcache:file { write };
 neverallow { domain -installs -ark_aot_compiler } data_local_arkcache:dir { write };
 
-neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file }:file entrypoint;
+neverallow * { file_attr -exec_attr -system_bin_file -vendor_bin_file
+    developer_only(`-lldb_server_file') }:file entrypoint;
 
 # keep every process join the domain attribute.
 neverallow ~{ domain develop_domain } { domain develop_domain }:process { transition dyntransition };
 
 # everyone should in { sadomain hdfdomain hap_domain native_system_domain native_chipset_domain }
-neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -native_system_domain -native_chipset_domain }:process { transition dyntransition };
+neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -native_system_domain -native_chipset_domain
+    developer_only(`-lldb_server') }:process { transition };
+neverallow domain { domain -sadomain -ark_aot_compiler -hdfdomain -hap_domain -native_system_domain -native_chipset_domain }:process { dyntransition };
 
 # keep file based type belong to file_attr , fs_attr, dev_attr, parameter_attr.
 # first label class
@@ -151,7 +155,8 @@ neverallow * ~{ file_attr domain fs_attr dev_attr parameter_attr develop_domain 
 
 # second level for file based label class
 neverallow { domain develop_domain } ~{ domain fs_attr dev_attr parameter_attr system_file_attr sys_prod_file_attr vendor_file_attr
-    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain chip_ckm_file_attr }:{ file dir } *;
+    chip_prod_file_attr sysfs_attr data_file_attr rootfs_file_attr modem_file_attr module_update_file_attr log_file_attr develop_domain chip_ckm_file_attr
+    developer_only(`lldb_server_file') }:{ file dir } *;
 # keep every dev_node join dev_attr
 neverallow * ~{ dev_attr fs_attr } :devfile_class_set *;
 
@@ -274,7 +279,7 @@ neverallow { domain developer_only(`-wukong -SP_daemon -aa') -init -hdcd -sh -fa
 #limit execmem use
 neverallow { domain -appspawn -hap_domain } self:process execmem;
 
-neverallow { domain -processdump -hap_domain } domain:process ptrace;
+neverallow { domain -processdump -hap_domain developer_only(`-lldb_server') } domain:process ptrace;
 
 # limit capability use.
 # for exemption add rule like this:
