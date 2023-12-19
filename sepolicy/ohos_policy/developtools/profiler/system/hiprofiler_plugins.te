@@ -294,3 +294,6 @@ allow hiprofiler_plugins foundation:binder { call };
 allow accountmgr hiprofiler_plugins:binder { transfer };
 allow hiprofiler_plugins system_bin_file:lnk_file read;
 allow hiprofiler_plugins SP_daemon_exec:file { getattr open read execute execute_no_trans map};
+
+allow hiprofiler_plugins sa_render_service:samgr_class get;
+allow hiprofiler_plugins render_service:binder { call transfer };
