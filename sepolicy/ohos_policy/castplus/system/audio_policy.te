@@ -12,3 +12,5 @@
 # limitations under the License.
 
 allow audio_policy cast_engine_service:binder { call };
+allow audio_policy normal_hap:fd { use };
+allow audio_policy normal_hap:binder { transfer };

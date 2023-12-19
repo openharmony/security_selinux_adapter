@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow system_basic_hap_attr sa_cast_engine_service:samgr_class { get };
-allow system_basic_hap_attr cast_engine_service:binder { call transfer };
-allow system_basic_hap_attr ffrt_param:parameter_service { set };
+allow wifi_hal_service wifi_hal_service:udp_socket { ioctl getopt };

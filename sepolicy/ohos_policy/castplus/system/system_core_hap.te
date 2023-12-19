@@ -13,4 +13,7 @@
 
 allow system_core_hap_attr cast_engine_service:binder { call transfer };
 allow system_core_hap_attr sa_cast_engine_service:samgr_class { get };
+allow system_core_hap_attr sa_i18n_service:samgr_class { get };
+allow system_core_hap_attr i18n_service:binder { call };
 allow system_core_hap_attr hichecker_writable_param:file { read open map };
+allow system_core_hap_attr ffrt_param:parameter_service { set };
