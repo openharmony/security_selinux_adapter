@@ -100,6 +100,7 @@ allow foundation faultloggerd:fifo_file { read };
 allow foundation exfat:file { read write };
 allow foundation vfat:file { read write };
 allow foundation ntfs:file { read write };
+allow foundation key_enable:key { search };
 neverallow foundation *:process ptrace;
 
 # add for hiperf
