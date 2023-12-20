@@ -44,7 +44,7 @@ allow hiview system_bin_file:lnk_file { read };
 allow hiview sys_file:dir { read open };
 allow hiview sys_file:file { read open };
 allow hiview dev_bbox:chr_file { ioctl read open };
-allow hiview normal_hap_attr:dir { getattr open read search };
+allow hiview normal_hap_attr:dir { getattr open read };
 allow hiview normal_hap_attr:file { getattr open read search };
 allow hiview proc_cpuinfo_file:file { read open };
 allow hiview rootfs:chr_file { read write };
