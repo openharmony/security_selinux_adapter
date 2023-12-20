@@ -34,7 +34,7 @@ allow hiview hiview_file:dir { search getattr read open write add_name remove_na
 allow hiview hiview_file:file { getattr setattr append ioctl unlink map read write getattr open lock };
 
 allow hiview data_file:dir { search };
-allow hiview data_log:dir { add_name open read search watch write create remove_name };
+allow hiview data_log:dir { add_name open read search watch write create remove_name append };
 allow hiview data_log:file { create getattr lock map open read write unlink rename };
 allow hiview data_system:dir { search getattr };
 allow hiview system_etc_file:dir { open read };
@@ -44,8 +44,8 @@ allow hiview system_bin_file:lnk_file { read };
 allow hiview sys_file:dir { read open };
 allow hiview sys_file:file { read open };
 allow hiview dev_bbox:chr_file { ioctl read open };
-allow hiview normal_hap_attr:dir { search };
-allow hiview normal_hap_attr:file { read open };
+allow hiview normal_hap_attr:dir { getattr open read search };
+allow hiview normal_hap_attr:file { getattr open read search };
 allow hiview proc_cpuinfo_file:file { read open };
 allow hiview rootfs:chr_file { read write };
 allow hiview faultloggerd_temp_file:file { getattr };
@@ -55,6 +55,7 @@ allow hiview system_basic_hap_attr:file { getattr read open };
 allow hiview system_core_hap_attr:file { getattr read open };
 allow hiview usage_report_exec:file { getattr read open execute_no_trans map execute };
 allow hiview vendor_bin_file:dir { search };
+allow hiview proc_meminfo_file:file { open read };
 
 allow hiview data_init_agent:dir { search };
 allow hiview data_init_agent:file { ioctl open read append };
