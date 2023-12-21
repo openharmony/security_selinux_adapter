@@ -11,5 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow wifi_hal_service wifi_hal_service:udp_socket { ioctl getopt };
-allowxperm wifi_hal_service wifi_hal_service:udp_socket ioctl { 0x891b };
+type sa_cast_engine_service, sa_service_attr;

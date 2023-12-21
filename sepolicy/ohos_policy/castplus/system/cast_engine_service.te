@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Copyright (c) 2023 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -73,10 +73,3 @@ allow cast_engine_service softbus_server:tcp_socket { read write setopt shutdown
 allow cast_engine_service media_service:binder { call transfer };
 allow cast_engine_service cast_engine_service:unix_dgram_socket { getopt setopt };
 allow cast_engine_service sysfs_devices_system_cpu:file { getattr read open };
-allow distributedfiledaemon arkcompiler_param:file { read };
-allow distributedfiledaemon sysfs_devices_system_cpu:file { open };
-allow dslm_service sysfs_devices_system_cpu:file { read };
-allow dslm_service dev_console_file:chr_file { read write };
-allow kernel kernel:system { module_request };
-allow d-bms sysfs_devices_system_cpu:file { getattr };
-allow daudio dev_console_file:chr_file { read write };
