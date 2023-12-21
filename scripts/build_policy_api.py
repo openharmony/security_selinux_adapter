@@ -22,6 +22,8 @@ import re
 import shutil
 import subprocess
 import tempfile
+import threading
+import copy
 
 SYSTEM_CIL_HASH = "system.cil.sha256"
 PREBUILD_SEPOLICY_SYSTEM_CIL_HASH = "prebuild_sepolicy.system.cil.sha256"
@@ -379,7 +381,7 @@ def generate_version_file(args, output_file):
     run_command(cmd)
 
 
-def generate_default_policy(args, policy, with_developer=False):
+def generate_default_policy(args, policy, cil_list, with_developer=False):
     if with_developer:
         output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
         if not os.path.exists(output_path):
@@ -412,16 +414,20 @@ def generate_default_policy(args, policy, with_developer=False):
 
     filter_out(min_cil_path, vendor_cil_path)
 
-    return [vendor_cil_path, system_cil_path]
+    cil_list += [vendor_cil_path, system_cil_path]
 
 
-def generate_special_policy(args, policy, with_developer=False):
+def generate_special_policy(args, policy, cil_list, with_developer=False):
     if with_developer:
         output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/")
         if not os.path.exists(output_path):
             os.makedirs(output_path)
     else:
         output_path = os.path.abspath(os.path.dirname(args.dst_file))
+
+    compatible_dir = os.path.join(output_path, "compatible/")
+    if not os.path.exists(compatible_dir):
+        os.makedirs(compatible_dir)
 
     system_output_conf = os.path.join(output_path, "system.conf")
     vendor_output_conf = os.path.join(output_path, "vendor.conf")
@@ -474,56 +480,90 @@ def generate_special_policy(args, policy, with_developer=False):
     version_file = os.path.join(output_path, "version")
     generate_version_file(args, version_file)
 
-    return [vendor_cil_path, system_cil_path, type_version_cil_path, public_version_cil_path]
+    cil_list += [vendor_cil_path, system_cil_path, type_version_cil_path, public_version_cil_path]
 
 
 def compile_sepolicy(args):
     dir_list_object = get_policy_dir_list(args)
     file_list_object = get_policy_file_list(args, dir_list_object)
+    cil_list = []
+    developer_cil_list = []
 
     if args.updater_version == "enable":
-        cil_list = generate_default_policy(args, file_list_object, False)
+        generate_default_policy(args, file_list_object, cil_list, False)
         build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
     else:
         if args.components == "default":
-            cil_list = generate_default_policy(args, file_list_object, False)
-            developer_cil_list = generate_default_policy(args, file_list_object, True)
+            normal_thread = threading.Thread(target=generate_default_policy,
+                                             args=(args, file_list_object, cil_list, False))
+            developer_thread = threading.Thread(target=generate_default_policy,
+                                                args=(args, file_list_object, developer_cil_list, True))
         else:
-            cil_list = generate_special_policy(args, file_list_object, False)
-            developer_cil_list = generate_special_policy(args, file_list_object, True)
+            normal_thread = threading.Thread(target=generate_special_policy,
+                                             args=(args, file_list_object, cil_list, False))
+            developer_thread = threading.Thread(target=generate_special_policy,
+                                                args=(args, file_list_object, developer_cil_list, True))
 
-        build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
+        normal_thread.start()
+        developer_thread.start()
+        normal_thread.join()
+        developer_thread.join()
+
+        build_normal_thread = threading.Thread(target=build_binary_policy,
+                                               args=(args.tool_path, args.dst_file, True, cil_list,))
         developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
-        build_binary_policy(args.tool_path, developer_policy_path, True, developer_cil_list)
+        build_developer_thread = threading.Thread(target=build_binary_policy, args=(
+                                                  args.tool_path, developer_policy_path, True, developer_cil_list,))
+
+        build_normal_thread.start()
+        build_developer_thread.start()
+        build_normal_thread.join()
+        build_developer_thread.join()
 
 
 def copy_user_policy(args):
     if args.updater_version == "enable":
         return
 
-    src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
-    dest_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/developer_policy")
+    output_path = os.path.abspath(os.path.dirname(args.dst_file))
+    if args.debug_version == "enable":
+        src_dir = os.path.join(output_path, "pre_check/")
+    else:
+        src_dir = output_path
+
+    src_policy_path = os.path.join(src_dir, "developer/policy.31")
+    dest_policy_path = os.path.join(output_path, "developer/developer_policy")
     shutil.copyfile(src_policy_path, dest_policy_path)
 
-    src_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "policy.31")
-    dest_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "user_policy")
+    src_policy_path = os.path.join(src_dir, "policy.31")
+    dest_policy_path = os.path.join(output_path, "user_policy")
     shutil.copyfile(src_policy_path, dest_policy_path)
+
+
+def pre_check(args):
+    output_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "pre_check/")
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+    args.dst_file = os.path.join(output_path, "policy.31")
+
+    if args.debug_version == "enable":
+        args.debug_version = "disable"
+    else:
+        args.debug_version = "enable"
+
+    compile_sepolicy(args)
 
 
 def main(args):
-    # check both debug and release sepolicy
-    origin_debug_version = args.debug_version
-    if args.debug_version == "enable":
-        args.debug_version = "disable"
-        compile_sepolicy(args)
-        copy_user_policy(args)
-    else:
-        args.debug_version = "enable"
-        compile_sepolicy(args)
+    pre_check_args = copy.deepcopy(args)
+    pre_check_thread = threading.Thread(target=pre_check, args=(pre_check_args,))
+    pre_check_thread.start()
 
-    # build target policy according to desire debug_version
-    args.debug_version = origin_debug_version
-    compile_sepolicy(args)
+    compile_args = copy.deepcopy(args)
+    compile_thread = threading.Thread(target=compile_sepolicy, args=(compile_args,))
+    compile_thread.start()
 
-    if args.debug_version == "disable":
-        copy_user_policy(args)
+    pre_check_thread.join()
+    compile_thread.join()
+
+    copy_user_policy(args)
