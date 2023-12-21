@@ -54,6 +54,7 @@ allow distributeddata hdcd:fd { use };
 allow distributeddata hdcd:file { open read };
 allow distributeddata huks_service:binder { call };
 allow distributeddata musl_param:file { open read map };
+allow distributeddata multimodalinput:binder { transfer };
 allow distributeddata normal_hap_attr:binder { call transfer };
 allow distributeddata normal_hap_attr:dir { search };
 allow distributeddata normal_hap_attr:file { getattr open read };
