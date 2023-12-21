@@ -145,6 +145,8 @@ allow daudio system_lib_file:dir { read open };
 
 allow daudio persist_param:file { read open map };
 
+allow daudio codec_host:binder { call transfer };
+
 debug_only(`
     allow daudio sh:binder { call };
 ')

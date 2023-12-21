@@ -214,6 +214,8 @@ allow  dcamera_host chip_prod_file:file { open getattr write };
 allow  dcamera sa_device_security_level_manager_service:samgr_class{ get };
 allow accessibility sa_foundation_powermgr_service:samgr_class{ get };
 
+allow dcamera dev_ashmem_file:chr_file{ read open map };
+
 
 allow dcamera bootevent_param:file { map open read };
 allow dcamera bootevent_samgr_param:file { map open read };
