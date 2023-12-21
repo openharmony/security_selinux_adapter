@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+allow distributeddata multimodalinput:binder {transfer};
 allow multimodalinput accessibility_param:file { read };
 allow multimodalinput bootanimation:fd { use };
 allow multimodalinput data_file:dir { search };
@@ -32,6 +33,8 @@ allow multimodalinput dev_input_file:chr_file { ioctl };
 allow multimodalinput dev_input_file:dir { watch open read search getattr };
 allow multimodalinput dev_unix_socket:dir { search };
 allow multimodalinput dev_unix_socket:sock_file { write };
+allow multimodalinput distributeddata:binder { call };
+allow multimodalinput distributeddata:fd { use };
 allow multimodalinput allocator_host:binder { call };
 allow multimodalinput allocator_host:fd { use };
 allow multimodalinput hdf_allocator_service:hdf_devmgr_class { get };
@@ -52,7 +55,6 @@ allow multimodalinput sa_device_service_manager:samgr_class { get };
 allow multimodalinput sa_distributeddata_service:samgr_class { get };
 allow multimodalinput sa_foundation_dms:samgr_class { get };
 allow multimodalinput sa_foundation_wms:samgr_class { get };
-allow multimodalinput sa_multimodalinput_service:samgr_class { get };
 allow multimodalinput sa_render_service:samgr_class { get };
 allow multimodalinput sys_file:dir { open read };
 allow multimodalinput sys_file:file { getattr open read };
