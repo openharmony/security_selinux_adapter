@@ -54,6 +54,6 @@ allow drm_service media_service:binder { transfer };
 # avc:  denied  { use } for  pid=568 comm="multiqueue4:src" path="/dev/ashmem" dev="tmpfs" ino=238 scontext=u:r:drm_service:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=1
 allow drm_service media_service:fd { use };
 
-#avc:  denied  { read } for  pid=4768 comm="SaInit0" name="oem_certificate_service" dev="sdd74" ino=6055 scontext=u:r:drm_service:s0 tcontext=u:r:object_r:system_lib_file:s0 tclass=dir permissive=1
+#avc:  denied  { read } for  pid=4768 comm="SaInit0" name="oem_certificate_service" dev="sdd74" ino=6055 scontext=u:r:drm_service:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
 allow drm_service system_lib_file:dir { read };
 
