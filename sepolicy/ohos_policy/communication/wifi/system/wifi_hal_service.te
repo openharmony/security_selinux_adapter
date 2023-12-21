@@ -104,3 +104,5 @@ allow wifi_hal_service wifi_host:unix_dgram_socket { sendto };
 allow wifi_hal_service netmanager:binder { call };
 allow wifi_hal_service sa_dhcp_client:samgr_class { add get };
 allow wifi_hal_service sa_dhcp_server:samgr_class { add get };
+
+allow wifi_hal_service hdf_hostapd_interface_service:hdf_devmgr_class { get };
