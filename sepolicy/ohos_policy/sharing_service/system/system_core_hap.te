@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow device_manager cast_engine_service:binder { call };
+allow system_core_hap_attr sharing_service:binder { call transfer };
+allow system_core_hap_attr sa_sharing_service:samgr_class { get };
