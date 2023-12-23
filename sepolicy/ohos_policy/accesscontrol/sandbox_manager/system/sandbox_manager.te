@@ -21,6 +21,7 @@ allow sandbox_manager_service sandbox_manager_service:unix_dgram_socket { getopt
 allow sandbox_manager_service dev_kmsg_file:chr_file { write };
 allow sandbox_manager_service dev_file:dir { getattr };
 allow sandbox_manager_service system_bin_file:dir { search };
+allow sandbox_manager_service sa_accesstoken_manager_service:samgr_class { get };
 
 debug_only(`
     binder_call(sandbox_manager_service, su);
