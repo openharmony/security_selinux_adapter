@@ -37,6 +37,12 @@ neverallow system_basic_hap_attr { domain -system_basic_hap_attr }:file never_rw
 neverallow { hap_domain -system_basic_hap_attr } system_basic_hap_attr:file never_rw_file;
 neverallow { domain -system_basic_hap_attr -processdump } system_basic_hap_attr:process ptrace;
 
+neverallow hap_domain ~{ proc_attr tmpfs system_bin_file data_user_file hmdfs hap_domain rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file }:lnk_file *;
+neverallow hap_domain { proc_attr tmpfs system_bin_file rootfs lib_file system_lib_file vendor_lib_file sysfs_attr etc_file }:lnk_file ~{ getattr read };
+neverallow hap_domain hap_domain:lnk_file ~{ read_file_perms };
+neverallow { hap_domain -hap_domain_lnk_file_violators } data_user_file:lnk_file *;
+neverallow { hap_domain -hap_domain_lnk_file_violators } hmdfs:lnk_file *;
+
 type system_core_hap_data_file, system_core_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 type system_basic_hap_data_file, system_basic_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;
 type normal_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_file_attr, file_attr;

@@ -13,4 +13,3 @@
 
 allow system_basic_hap_attr system_basic_hap_data_file_attr:file { watch watch_reads create_file_perms execute };
 allow system_basic_hap_attr system_basic_hap_data_file_attr:dir { watch watch_reads create_dir_perms };
-allow system_basic_hap_attr system_basic_hap_data_file_attr:lnk_file { create_file_perms };
