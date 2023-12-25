@@ -120,7 +120,6 @@ allow system_basic_hap_attr system_lib_file:dir { open read };
 allow system_basic_hap_attr system_usr_file:dir { search };
 allow system_basic_hap_attr time_service:binder { call transfer };
 allow system_basic_hap_attr tmpfs:dir { add_name create write };
-allow system_basic_hap_attr tmpfs:lnk_file { create };
 allow system_basic_hap_attr tracefs:dir { search };
 allow system_basic_hap_attr tracefs_trace_marker_file:file { open write };
 allow system_basic_hap_attr ui_service:binder { call transfer };
