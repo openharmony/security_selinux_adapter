@@ -27,7 +27,7 @@ allow media_service data_data_pulse_dir:dir { getattr open read search };
 allow media_service data_data_pulse_dir:file { lock open read write };
 
 #avc:  denied  { call } for  pid=434 comm="aqueue:src" scontext=u:r:media_service:s0 tcontext=u:r:pulseaudio:s0 tclass=binder permissive=1
-allow media_service pulseaudio:binder { call };
+allow media_service pulseaudio:binder { call transfer };
 
 #avc:  denied  { get } for service=3009 pid=512 scontext=u:r:media_service:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
 allow media_service sa_audio_policy_service:samgr_class { get };
@@ -39,3 +39,4 @@ allow media_service sa_pulseaudio_audio_service:samgr_class { get };
 #avc:  denied  { transfer } for  pid=466 comm="media_service" scontext=u:r:media_service:s0 tcontext=u:r:dcamera:s0 tclass=binder permissive=0
 allow media_service dcamera:binder { call transfer };
 
+allow media_service pulseaudio:fd { use };
