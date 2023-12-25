@@ -71,3 +71,6 @@ allow softbus_server sa_distributeddata_service:samgr_class { get };
 
 #avc:  denied  { get } for service=182 pid=522 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_dataobs_mgr_service_service:s0 tclass=samgr_class permissive=0
 allow softbus_server sa_dataobs_mgr_service_service:samgr_class { get };
+
+#avc:  denied  { get } for service=401 pid=512 scontext=u:r:softbus_server:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
+allow softbus_server sa_foundation_bms:samgr_class { get };
