@@ -35,3 +35,5 @@ allow time_service sa_foundation_powermgr_service:samgr_class { get };
 debug_only(`
     allow time_service sh:binder { call };
 ')
+#avc:  denied  { write } for pid=936 comm="IPC_5_2549" name="dnsproxyd" dev="tmpfs" ino=805 scontext=u:r:time_service:s0 tcontext=u:dev_unix_file:sock_file:s0 tclass=sock_file permissive=1
+allow time_service dev_unix_file:sock_file { write };
