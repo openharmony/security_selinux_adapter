@@ -114,6 +114,7 @@ allow wifi_manager_service hdf_devmgr:binder { call };
 allow wifi_manager_service hdf_wlan_interface_service:hdf_devmgr_class { get };
 allow wifi_manager_service hdf_device_manager:hdf_devmgr_class { get };
 allow wifi_manager_service hdf_wpa_interface_service:hdf_devmgr_class { get };
-allow wifi_manager_service sa_time_service:samgr_class{ get };
-allow wifi_manager_service sa_foundation_battery_service:samgr_class{ get };
+allow wifi_manager_service sa_time_service:samgr_class { get };
+allow wifi_manager_service sa_foundation_battery_service:samgr_class { get };
+allow wifi_manager_service time_service:binder { call };
 
