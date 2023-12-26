@@ -23,9 +23,6 @@ allow uinput dev_unix_socket:dir { search };
 # avc:  denied  { call } tcontext=u:r:multimodalinput:s0 tclass=binder permissive=1
 allow uinput multimodalinput:binder { call };
 
-# avc:  denied  { write } scontext=u:r:uinput:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=0
-allow uinput dev_kmsg_file:chr_file { write };
-
 # avc:  denied  { map } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
 # avc:  denied  { open } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
 # avc:  denied  { read } scontext=u:r:uinput:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
@@ -66,7 +63,26 @@ allow samgr uinput:process { getattr };
 # avc:  denied  { ioctl } scontext=u:r:uinput:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
 allowxperm uinput devpts:chr_file ioctl { 0x5413 };
 
+debug_only(`
+    # for uinput run
+    domain_auto_transition_pattern(su, uinput_exec, uinput);
+
+    # avc:  denied  { use } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
+    # avc:  denied  { ioctl } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { read } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { write } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    # avc:  denied  { read write } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket permissive=0
+    # avc:  denied  { ioctl } for scontext=u:r:uinput:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allow uinput su:fd { use };
+    allow uinput su:fifo_file { ioctl read write };
+    allow uinput su:unix_stream_socket { read write };
+    allowxperm uinput su:fifo_file ioctl { 0x5413 };
+')
+
 developer_only(`
+    #for uinput run
+    domain_auto_transition_pattern(sh, uinput_exec, uinput);
+
     allow uinput sh:fd { use };
     allow uinput sh:fifo_file { ioctl read write };
     allow uinput sh:unix_stream_socket { read write };
