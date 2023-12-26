@@ -104,4 +104,7 @@ developer_only(`
 (allow sh wukong_exec (file (ioctl read getattr map execute open)))
 (allow sh lldb_server_file (dir (create setattr getattr add_name open write remove_name read search rmdir)))
 (allow sh lldb_server_file (file (open unlink create write setattr read getattr append)))
+(allow sh power_shell (process (transition siginh rlimitinh getattr)))
+(allow sh power_shell_exec (file (open map read ioctl execute getattr)))
+(allow sh power_shell (lnk_file (read)))
 ')
