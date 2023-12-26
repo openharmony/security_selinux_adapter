@@ -47,6 +47,7 @@
 (allow sh hilog_input_socket (sock_file (write)))
 (allow sh hilog_output_socket (sock_file (write)))
 (allow sh hilog_param (file (read map open)))
+(allow sh hilog_param (parameter_service (set)))
 (allow sh hilogd (unix_dgram_socket (sendto)))
 (allow sh hilogd (unix_stream_socket (connectto)))
 (allow sh hiperf (process (transition siginh rlimitinh)))

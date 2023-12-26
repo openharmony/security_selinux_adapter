@@ -42,6 +42,7 @@ const.allow.                            u:object_r:const_allow_param:s0
 const.allow.mock.                       u:object_r:const_allow_mock_param:s0
 security.                               u:object_r:security_param:s0
 hilog.                                  u:object_r:hilog_param:s0
+hilog.private.on                        u:object_r:hilog_private_param:s0
 libc.hook_mode                          u:object_r:hook_param:s0
 persist.                                u:object_r:persist_param:s0
 persist.sys.                            u:object_r:persist_sys_param:s0
