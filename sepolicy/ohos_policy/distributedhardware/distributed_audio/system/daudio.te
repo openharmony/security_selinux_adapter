@@ -126,6 +126,27 @@ allow daudio sa_foundation_bms:samgr_class { get };
 allow daudio foundation:binder { call };
 
 allow daudio dhardware:binder { transfer };
+
+allow daudio sa_foundation_devicemanager_service:samgr_class { get };
+
+allow daudio dslm_service:binder { call transfer };
+
+allow daudio device_manager:binder { call transfer };
+
+allow daudio dev_kmsg_file:chr_file { write };
+
+allow daudio sa_device_security_level_manager_service:samgr_class { get };
+
+allow daudio persist_sys_param:file { read open map };
+
+allow daudio arkcompiler_param:file { read open map };
+
+allow daudio system_lib_file:dir { read open };
+
+allow daudio persist_param:file { read open map };
+
+allow daudio codec_host:binder { call transfer };
+
 debug_only(`
     allow daudio sh:binder { call };
 ')

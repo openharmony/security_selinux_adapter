@@ -147,7 +147,9 @@ allowxperm wifi_host data_misc:file ioctl { 0x5413 };
 #allow wifi_host wifi_host:capability { dac_override };
 
 #avc:  denied  { dac_read_search } for  pid=1621 comm="IPC_1_1625" capability=2  scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_host:s0 tclass=capability permissive=0
-#allow wifi_host wifi_host:capability { dac_read_search };
+allow wifi_host wifi_host:capability { dac_read_search };
+
+allow wifi_host wifi_host:capability { net_admin net_raw };
 
 #avc:  denied  { read } for  pid=1374 comm="IPC_1_1379" name="rfkill" dev="tmpfs" ino=219 scontext=u:r:wifi_host:s0 tcontext=u:object_r:dev_rfkill:s0 tclass=chr_file permissive=0
 #avc:  denied  { open } for  pid=1387 comm="IPC_1_1389" path="/dev/rfkill" dev="tmpfs" ino=219 scontext=u:r:wifi_host:s0 tcontext=u:object_r:dev_rfkill:s0 tclass=chr_file permissive=0
@@ -159,3 +161,5 @@ allowxperm wifi_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 
 #avc:  denied  { sendto } for  pid=533 comm="WpaMainThread" path="/data/service/el1/public/wifi/wpa_ctrl_499-1" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_hal_service:s0 tclass=unix_dgram_socket permissive=1
 allow wifi_host wifi_hal_service:unix_dgram_socket { sendto };
+
+allow wifi_host hdf_hostapd_interface_service:hdf_devmgr_class { add };

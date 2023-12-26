@@ -228,3 +228,18 @@ allow audio_policy dev_ashmem_file:chr_file { open };
 debug_only(`
     allow audio_policy sh:binder { call };
 ')
+
+# /dev/input/
+allow audio_policy dev_input_file:dir { search };
+allow audio_policy dev_input_file:chr_file { read open };
+
+# netsys_socket
+allow audio_policy audio_policy:netlink_kobject_uevent_socket { getattr read bind create setopt };
+
+# /dev/bus/
+allow audio_policy dev_bus:dir { search };
+allow audio_policy dev_bus_usb_file:dir { open read search };
+allow audio_policy dev_bus_usb_file:chr_file { getattr read open };
+
+# /sys/class/switch/
+allow audio_policy sysfs_switch:file { open read getattr };

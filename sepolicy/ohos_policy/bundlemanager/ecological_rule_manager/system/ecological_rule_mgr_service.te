@@ -13,3 +13,5 @@
 
 type sa_ecological_rule_mgr_service, sa_service_attr;
 allow foundation sa_ecological_rule_mgr_service:samgr_class { add get };
+allow normal_hap sa_ecological_rule_mgr_service:samgr_class { get };
+allow debug_hap sa_ecological_rule_mgr_service:samgr_class { get };

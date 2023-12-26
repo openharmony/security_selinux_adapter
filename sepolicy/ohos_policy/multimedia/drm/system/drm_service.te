@@ -29,6 +29,7 @@ allow drm_service dcamera:binder { transfer };
 
 debug_only(`
     allow drm_service sh:binder { call transfer };
+    allow drm_service su:binder { transfer };
 ')
 
 #avc:  denied  { get } for service=401 pid=599 scontext=u:r:drm_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
@@ -45,4 +46,14 @@ allow privacy_service drm_service:binder { call transfer };
 allow drm_service sa_privacy_service:samgr_class { get };
 # avc:  denied  { get } for service=clearplay_service pid=602 scontext=u:r:drm_service:s0 tcontext=u:object_r:hdf_clearplay_service:s0 tclass=hdf_devmgr_class permissive=1
 allow drm_service hdf_clearplay_service:hdf_devmgr_class { get };
+allow drm_service data_system:file { create read open getattr write ioctl };
+
+# avc:  denied  { transfer } for  pid=608 comm="OS_IPC_2_1673" scontext=u:r:drm_service:s0 tcontext=u:r:media_service:s0 tclass=binder permissive=1
+allow drm_service media_service:binder { transfer };
+
+# avc:  denied  { use } for  pid=568 comm="multiqueue4:src" path="/dev/ashmem" dev="tmpfs" ino=238 scontext=u:r:drm_service:s0 tcontext=u:r:media_service:s0 tclass=fd permissive=1
+allow drm_service media_service:fd { use };
+
+#avc:  denied  { read } for  pid=4768 comm="SaInit0" name="oem_certificate_service" dev="sdd74" ino=6055 scontext=u:r:drm_service:s0 tcontext=u:object_r:system_lib_file:s0 tclass=dir permissive=1
+allow drm_service system_lib_file:dir { read };
 

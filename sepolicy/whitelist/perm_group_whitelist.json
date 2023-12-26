@@ -8,7 +8,6 @@
                 "audio_host system_bin_file",
                 "bgtaskmgr_service system_bin_file",
                 "camera_host system_bin_file",
-                "console system_bin_file",
                 "cupsd system_bin_file",
                 "download_server system_bin_file",
                 "faultloggerd system_bin_file",
@@ -86,7 +85,8 @@
                 "aa bm_exec",
                 "wukong sh_exec",
                 "SP_daemon sh_exec",
-                "wukong system_bin_file"
+                "wukong system_bin_file",
+                "lldb_server lldb_server_file"
             ]
         }
     ]

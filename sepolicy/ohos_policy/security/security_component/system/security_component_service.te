@@ -96,7 +96,7 @@ allow security_component_service multimodalinput:fd { use };
 allow security_component_service multimodalinput:unix_stream_socket { read write write };
 
 # avc:  denied  { call } for  pid=2942 comm="SaInit0" scontext=u:r:security_component_service:s0 tcontext=u:r:privacy_service:s0 tclass=binder permissive=1
-allow security_component_service privacy_service:binder { call };
+allow security_component_service privacy_service:binder { call transfer };
 
 # avc:  denied  { call } for  pid=2854 comm="IPC_1_2877" scontext=u:r:security_component_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1
 # avc:  denied  { transfer } for  pid=2854 comm="IPC_1_2877" scontext=u:r:security_component_service:s0 tcontext=u:r:sh:s0 tclass=binder permissive=1

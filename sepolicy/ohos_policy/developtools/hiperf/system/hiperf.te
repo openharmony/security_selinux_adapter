@@ -72,7 +72,7 @@ allow hiperf sh:fifo_file { read write };
 allow hiperf sys_param:file { map open read };
 allow hiperf sys_usb_param:file { map open read };
 allow hiperf tracefs:dir { open read search };
-allow hiperf tracefs:file { getattr open read };
+allow hiperf tracefs:file { getattr open read write };
 allow hiperf tty_device:chr_file { read write };
 
 allow hiperf appspawn_exec:file { getattr map open read };

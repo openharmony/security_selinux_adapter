@@ -191,6 +191,7 @@ attribute binder_call_installs_violators;
 attribute permissions_mount_file_attr;
 attribute log_file_attr;
 attribute appspawn_unmount_filesystem_violators;
+attribute hap_domain_lnk_file_violators;
 
 attribute filesystem_violator;
 
@@ -250,3 +251,5 @@ attribute system_etc_file_violator_lnk_file;
 attribute system_profile_file_violator_dir;
 
 attribute hdf_service_violators;
+
+attribute binder_call_hdfdomain_violators;
