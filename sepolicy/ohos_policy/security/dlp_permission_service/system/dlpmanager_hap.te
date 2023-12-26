@@ -23,3 +23,11 @@ allow dlpmanager_hap fuse_file:dir { search };
 # avc:  denied  { open } for  pid=3454 comm="com.ohos.dlpman" path="/data/fuse/default.dlp" dev="fuse" ino=547205767392 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:fuse_file:s0 tclass=file permissive=1
 # avc:  denied  { read write } for  pid=3454 comm="com.ohos.dlpman" name="default.dlp" dev="fuse" ino=547205767392 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:fuse:s0 tclass=file permissive=1
 allow dlpmanager_hap fuse_file:file { open };
+
+# avc:  denied  { search } for  pid=4806 comm="com.ohos.dlpmanager" name="/" dev="fuse" ino=1 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=dir permissive=1
+allow dlpmanager_hap dlp_fuse_file:dir { search }; 
+
+# avc:  denied  { getattr } for  pid=4806 comm="com.ohos.dlpmanager" path="/mnt/data/fuse/com.example.ohnotes_1_17033229925098225126260049263.txt.dlp.link" dev="fuse" ino=548097499168 scontext=u:r:dlpmanager_hap:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=file permissive=1
+allow dlpmanager_hap dlp_fuse_file:file { getattr };
+
+neverallow dlpmanager_hap dlp_fuse_file:file { open read write };

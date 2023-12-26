@@ -218,8 +218,8 @@ neverallow { domain -filesystem_violator } *:filesystem ~{ getattr mount remount
 neverallow { domain -init -storage_daemon -appspawn -netsysnative updater_only(`-updater')} *:filesystem mount;
 neverallow { domain -init } *:filesystem remount;
 neverallow { domain -init -storage_daemon -appspawn -nwebspawn updater_only(`-updater')} *:filesystem unmount;
-neverallow { domain -init -storage_daemon } *:filesystem relabelfrom;
-neverallow { domain -init -storage_daemon } *:filesystem relabelto;
+neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelfrom;
+neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelto;
 neverallow { domain -storage_daemon } *:filesystem quotaget;
 neverallow { domain -storage_daemon } *:filesystem quotamod;
 
