@@ -22,6 +22,7 @@ allow sandbox_manager_service dev_kmsg_file:chr_file { write };
 allow sandbox_manager_service dev_file:dir { getattr };
 allow sandbox_manager_service system_bin_file:dir { search };
 allow sandbox_manager_service sa_accesstoken_manager_service:samgr_class { get };
+allow sandbox_manager_service sa_foundation_cesfwk_service:samgr_class { get };
 
 debug_only(`
     binder_call(sandbox_manager_service, su);
