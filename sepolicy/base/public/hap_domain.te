@@ -169,7 +169,7 @@ neverallow { domain -hap_domain -installs -appspawn -nwebspawn -distributeddata 
 
 neverallow { domain -hap_domain -installs -distributeddata -storage_daemon -hiview -download_server -cloudfiledaemon -normal_hap_data_file_attr_violator_file_open -distributedfiledaemon } normal_hap_data_file_attr:file_class_set open;
 
-neverallow { domain -installs } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
+neverallow { domain -installs -normal_hap_data_file_attr_violator_relabel } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
 neverallow hap_domain { domain -hap_domain -processdump }:process transition;
 neverallow hap_domain { domain -hap_domain }:process dyntransition;
@@ -192,8 +192,6 @@ neverallow hap_domain system_file:dir_file_class_set { create write setattr rela
 
 # limit access to /data/(*)? first level.todo
 #neverallow hap_domain data_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
-
-neverallow { domain -installs } normal_hap_data_file_attr:dir_file_class_set { relabelfrom relabelto };
 
 neverallow { hap_domain -system_basic_hap_attr } data_app_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
