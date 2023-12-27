@@ -29,6 +29,7 @@ developer_only(`
     allow uitest render_service:fd { use };
     allow uitest data_file:dir { search };
     allow uitest data_local:dir { search };
+    neverallow uitest {data_file_attr - data_local_tmp}:file {execute};
     allow uitest data_local_tmp:file { read create write open ioctl getattr map execute };
     allow uitest uitest:tcp_socket { accept read write setopt create };
     allow uitest key_enable:key { search };
