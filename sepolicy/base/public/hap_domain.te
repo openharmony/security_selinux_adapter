@@ -185,7 +185,9 @@ neverallow hap_domain dev_input_file:chr_file ~getattr;
 neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
-neverallow { domain -hap_domain -nwebspawn -cupsd} data_file_attr:file { execute execute_no_trans };
+neverallow { domain -hap_domain -nwebspawn -cupsd} data_file_attr:file { execute_no_trans };
+# allow uitest load and execute test tool in data_local_tmp in developer mode
+neverallow { domain -hap_domain -nwebspawn -cupsd developer_only(`-uitest')} data_file_attr:file { execute };
 neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
 neverallow hap_domain system_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
