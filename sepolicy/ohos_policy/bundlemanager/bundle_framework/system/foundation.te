@@ -170,6 +170,7 @@ allow bm data_app_file:dir { search };
 allow bm devpts:chr_file { read write ioctl };
 allow bm tty_device:chr_file { read write };
 allow bm system_file:file { getattr read open };
+allow bm system_file:dir { open read };
 allow bm data_app_el2_file:dir { search };
 allow bm quick_fix:binder { call transfer };
 allow bm sa_foundation_cesfwk_service:samgr_class { get };
