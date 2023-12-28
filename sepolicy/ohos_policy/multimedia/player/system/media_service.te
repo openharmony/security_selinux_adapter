@@ -121,3 +121,7 @@ allow media_service sa_foundation_wms:samgr_class { get };
 
 # avc:  denied  { call } for  pid=568 comm="multiqueue4:src" scontext=u:r:media_service:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
 allow media_service drm_service:binder { call };
+
+allow media_service sa_concurrent_task_service:samgr_class { get };
+
+allow media_service concurrent_task_service:binder { call };
