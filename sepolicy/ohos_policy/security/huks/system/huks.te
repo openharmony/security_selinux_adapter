@@ -61,3 +61,25 @@ allow huks_service devinfo_private_param:file { map open read };
 #avc:  denied  { get } for service=401 pid=342 scontext=u:r:huks_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=0
 allow huks_service sa_foundation_bms:samgr_class { get };
 allow huks_service sa_ca_daemon_service:samgr_class { add get };
+
+debug_only(`
+    allow huks_service su:binder { call transfer };
+    allow su huks_service:binder { call transfer };
+')
+
+allow dslm_service huks_service:binder { call transfer };
+allow huks_service dslm_service:binder { call transfer };
+
+allow system_basic_hap huks_service:binder { call transfer };
+allow huks_service system_basic_hap:binder { call transfer };
+
+allow system_core_hap huks_service:binder { call transfer };
+allow huks_service system_core_hap:binder { call transfer };
+
+allow normal_hap huks_service:binder { call transfer };
+allow huks_service normal_hap:binder { call transfer };
+
+developer_only(`
+    allow debug_hap huks_service:binder { call transfer };
+    allow huks_service debug_hap:binder { call transfer };
+')
