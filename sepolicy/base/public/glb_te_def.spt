@@ -111,6 +111,7 @@ define(`control_hilog', `
     allow $1 hilog_exec:file { getattr open read execute execute_no_trans map };
     allow $1 hilog_control_socket:sock_file write;
     allow $1 hilogd:unix_stream_socket connectto;
+    allow $1 hilog_param:parameter_service { set };
 ')
 
 # define(`native_system_domain', `sh hdcd atm bm updater uitest wukong SP_daemon aa su bytrace hiebpf 
