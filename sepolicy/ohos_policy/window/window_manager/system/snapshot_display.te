@@ -62,6 +62,10 @@ debug_only(`
     allowxperm snapshot_display data_local_tmp:file ioctl { 0x5413 };
     # avc:  denied  { ioctl } for  pid=1475 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
     allowxperm snapshot_display devpts:chr_file ioctl { 0x5413 };
+    # avc:  denied  { write } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allow snapshot_display su:fifo_file { ioctl read write };
+    # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allowxperm snapshot_display su:fifo_file ioctl { 0x5413 };
 ')
 
 developer_only(`
@@ -115,4 +119,8 @@ developer_only(`
     allowxperm snapshot_display data_local_tmp:file ioctl { 0x5413 };
     # avc:  denied  { ioctl } for  pid=1475 comm="snapshot_displa" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
     allowxperm snapshot_display devpts:chr_file ioctl { 0x5413 };
+    # avc:  denied  { write } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allow snapshot_display sh:fifo_file { ioctl read write };
+    # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
+    allowxperm snapshot_display sh:fifo_file ioctl { 0x5413 };
 ')
