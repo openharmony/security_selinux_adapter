@@ -34,3 +34,6 @@ allow appspawn dlp_fuse_file:filesystem { mount relabelfrom relabelto };
 
 # avc:  denied  { relabelfrom } for  pid=4924 comm="ohos.dlpmanager" scontext=u:r:appspawn:s0 tcontext=u:object_r:fuse_file:s0 tclass=filesystem permissive=1
 allow appspawn fuse_file:filesystem { relabelfrom };
+
+# avc:  denied  { unmount } for pid=3664 comm="ohos.dlpmanager" scontext=u:r:appspawn:s0 tcontext=u:object_r:dlp_fuse_file:s0 tclass=filesystem permissive=0
+allow appspawn dlp_fuse_file:filesystem { unmount };
