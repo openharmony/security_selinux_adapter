@@ -34,6 +34,7 @@ developer_only(`
     allow uitest data_local_tmp:file { read create write open ioctl getattr map execute };
     allow uitest uitest:tcp_socket { accept read write setopt create bind name_bind node_bind listen };
     allow uitest port:tcp_socket { name_bind name_connect };
+    allow uitest node:tcp_socket { node_bind };
     allowxperm uitest devpts:chr_file ioctl { 0x5413 };
     allow uitest dev_kmsg_file:chr_file { write };
     allow uitest key_enable:key { search };
