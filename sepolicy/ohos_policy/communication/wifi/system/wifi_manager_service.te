@@ -125,5 +125,9 @@ allow wifi_manager_service sa_accountmgr:samgr_class { get };
 # avc:  denied  { transfer } for  pid=2121 comm="IPC_2_2419" scontext=u:r:wifi_manager_service:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
 allow wifi_manager_service accountmgr:binder { call transfer };
 
+allow wifi_manager_service wifi_host:binder { call transfer };
+allow wifi_manager_service wifi_host:unix_dgram_socket { sendto };
+allow wifi_manager_service data_local:dir { search };
+
 allow wifi_manager_service dev_unix_socket:sock_file { write };
 allow wifi_manager_service paramservice_socket:sock_file { write };
