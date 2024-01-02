@@ -37,3 +37,5 @@ debug_only(`
 ')
 #avc:  denied  { write } for pid=936 comm="IPC_5_2549" name="dnsproxyd" dev="tmpfs" ino=805 scontext=u:r:time_service:s0 tcontext=u:dev_unix_file:sock_file:s0 tclass=sock_file permissive=1
 allow time_service dev_unix_file:sock_file { write };
+allow time_service wifi_manager_service:binder { call transfer };
+
