@@ -191,3 +191,5 @@ allow pulseaudio sensors:binder { call transfer };
 allow pulseaudio hdf_effect_model_service:hdf_devmgr_class { get };
 
 allow pulseaudio media_service:binder { call transfer };
+
+allow pulseaudio system_basic_hap:binder { transfer };
