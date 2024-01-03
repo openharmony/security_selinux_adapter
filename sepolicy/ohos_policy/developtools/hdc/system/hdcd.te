@@ -155,6 +155,7 @@ allow hdcd data_log:dir { getattr read open };
 allow hdcd data_log:file { getattr read open };
 allow hdcd data_hilogd_file:dir { getattr read open };
 allow hdcd data_hilogd_file:file { getattr read open };
+allow { normal_hap_attr system_basic_hap_attr system_core_hap_attr debug_hap } hdcd:unix_stream_socket { read write connectto };
 
 developer_only(`
     allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
