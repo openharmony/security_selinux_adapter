@@ -27,3 +27,5 @@ allow system_basic_hap_attr sa_pulseaudio_audio_service:samgr_class { get };
 allow system_basic_hap_attr native_socket:sock_file { write };
 allow system_basic_hap_attr pulseaudio:unix_stream_socket { connectto };
 
+allow system_basic_hap_attr pulseaudio:binder { transfer };
+allow system_basic_hap_attr pulseaudio:fd { use };
