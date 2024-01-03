@@ -30,8 +30,8 @@ allow accountmgr data_service_el1_file:dir { add_name create getattr open read s
 allow accountmgr data_service_el1_file:file { create getattr ioctl relabelfrom setattr write open read unlink map lock watch };
 allowxperm accountmgr data_service_el1_file:file ioctl { 0xf50c };
 allowxperm accountmgr data_service_el1_file:file ioctl { 0x5413 };
-allow accountmgr account_data_file:file { getattr setattr open ioctl create write read relabelto unlink };
-allow accountmgr account_data_file:dir { getattr search read write watch };
+allow accountmgr account_data_file:file { getattr setattr open ioctl create write read relabelto unlink map };
+allow accountmgr account_data_file:dir { add_name create open setattr remove_name rmdir getattr search read write watch };
 allow accountmgr vendor_lib_file:file { getattr open read map execute };
 allow accountmgr vendor_lib_file:lnk_file { read };
 allow accountmgr vendor_lib_file:dir { search };
@@ -56,6 +56,7 @@ allow accountmgr data_init_agent:dir { search };
 allow accountmgr data_init_agent:file { read append ioctl open };
 allow accountmgr param_watcher:binder { transfer };
 allow accountmgr devinfo_private_param:file { map open read };
+allow accountmgr wifi_manager_service:binder { transfer };
 
 allow accountmgr sa_accountmgr:samgr_class { add };
 allow accountmgr sa_param_watcher:samgr_class { get };

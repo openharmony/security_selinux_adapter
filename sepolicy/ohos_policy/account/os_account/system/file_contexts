@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+/data/service/el1/public/account      u:object_r:account_data_file:s0
 /data/service/el1/public/account/[0-9]+(/.*)?       u:object_r:account_data_file:s0
 /data/service/el1/public/account/account_list.json      u:object_r:account_data_file:s0
 /data/service/el1/public/account/account_index_info.json      u:object_r:account_data_file:s0
