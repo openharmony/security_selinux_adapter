@@ -121,3 +121,5 @@ allowxperm av_codec_service dev_mpp:chr_file ioctl { 0x7601 };
 
 allow av_codec_service dev_rga:chr_file { open read write ioctl };
 allowxperm av_codec_service dev_rga:chr_file ioctl { 0x601b 0x5017 };
+
+allow av_codec_service media_service:binder { call transfer };
