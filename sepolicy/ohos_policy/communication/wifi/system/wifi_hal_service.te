@@ -83,9 +83,6 @@ allow wifi_hal_service data_service_el1_file:file { unlink };
 # avc:  denied  { read write } for  pid=478 comm="wifi_hal_servic" path="/dev/console" dev="tmpfs" ino=40 scontext=u:r:wifi_hal_service:s0 tcontext=u:object_r:dev_console_file:s0 tclass=chr_file permissive=1
 allow wifi_hal_service dev_console_file:chr_file { read write };
 
-# avc:  denied  { net_bind_service } for  pid=1006 comm="IPC_0_1130" capability=10  scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_hal_service:s0 tclass=capability permissive=1
-allow wifi_hal_service wifi_hal_service:capability { net_bind_service };
-
 # avc:  denied  { call } for  pid=1009 comm="IPC_0_1136" scontext=u:r:wifi_hal_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
 allow wifi_hal_service wifi_manager_service:binder { call };
 
