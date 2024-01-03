@@ -88,6 +88,8 @@ allow download_server sa_foundation_wms:samgr_class { get };
 allow download_server sa_foundation_cesfwk_service:samgr_class { get };
 #avc:  denied  { search } for  pid=2496 comm="IPC_2_2504" name="app" dev="mmcblk0p14" ino=54 scontext=u:r:download_server:s0 tcontext=u:object_r:data_app_file:s0 tclass=dir permissive=1
 allow download_server data_app_file:dir { search };
+#avc:  denied  { search } for  pid=18412 comm="OS_IPC_1_18414" name="el1" dev="mmcblk0p15" ino=57 scontext=u:r:download_server:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir permissive=1
+allow download_server data_app_el1_file:dir { search };
 #avc:  denied  { search } for  pid=2496 comm="IPC_2_2504" name="el2" dev="mmcblk0p14" ino=58 scontext=u:r:download_server:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 allow download_server data_app_el2_file:dir { search };
 #avc:  denied  { search } for  pid=2496 comm="IPC_2_2504" name="com.example.mytest1" dev="mmcblk0p14" ino=1984 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
