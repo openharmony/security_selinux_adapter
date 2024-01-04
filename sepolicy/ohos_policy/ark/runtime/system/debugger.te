@@ -12,18 +12,11 @@
 # limitations under the License.
 
 developer_only(`
-    allow normal_hap_attr hdcd:unix_stream_socket { connectto };
-    allow system_basic_hap_attr hdcd:unix_stream_socket { connectto };
-    allow system_core_hap_attr hdcd:unix_stream_socket { connectto };
-    allow normal_hap_attr sh:unix_stream_socket { read write };
-    allow system_basic_hap_attr sh:unix_stream_socket { read write };
-    allow system_core_hap_attr sh:unix_stream_socket { read write };
+    allow hap_domain hdcd:unix_stream_socket { connectto read write };
 ')
 
 debug_only(`
     developer_only(`
-        allow normal_hap_attr su:unix_stream_socket { read write };
-        allow system_basic_hap_attr su:unix_stream_socket { read write };
-        allow system_core_hap_attr su:unix_stream_socket { read write };
+        allow hap_domain su:unix_stream_socket { read write };
     ')
 ')
