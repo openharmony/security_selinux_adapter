@@ -233,3 +233,5 @@ allow hiview normal_hap_data_file_attr:dir { search write add_name };
 #avc:  denied  { getattr } for  pid=251 comm="OS_IPC_3_2826" path="/data/app/el2/100/base/com.example.myapplication/cache/hiappevent/hiappevent_1501934018028.txt" dev="mmcblk0p15" ino=2832 scontext=u:r:hiview:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=file permissive=1
 allow hiview normal_hap_data_file_attr:file { create write open ioctl getattr };
 allowxperm hiview normal_hap_data_file_attr:file ioctl { 0x5413 };
+
+allow hiview sa_distributeddata_service:samgr_class { get };
