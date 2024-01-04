@@ -106,6 +106,7 @@ debug_only(`
     allow camera_host data_local_tmp:file { getattr create append open ioctl read };
     allowxperm camera_host data_local_tmp:file ioctl { 0x5413 };
     allowxperm camera_host dev_video_file:chr_file ioctl { 0x516c };
+    allow camera_host sh_exec:file { execute read open execute_no_trans map };
 ')
 allowxperm camera_host dev_dri_file:chr_file ioctl { 0x641f 0x642d 0x642e 0x64b2 0x64b4 };
 allowxperm camera_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
