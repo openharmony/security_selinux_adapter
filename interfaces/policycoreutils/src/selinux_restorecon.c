@@ -178,7 +178,7 @@ int RestoreconRecurseForce(const char *path)
 /* Restorecon the path recursively, using parent directory's label */
 int RestoreconFromParentDir(const char *path)
 {
-    pthread_once_t fcOnce = PTHREAD_ONCE_INIT;
+    static pthread_once_t fcOnce = PTHREAD_ONCE_INIT;
     __selinux_once(fcOnce, SelinuxSetCallback);
 
     if (path == NULL) {
