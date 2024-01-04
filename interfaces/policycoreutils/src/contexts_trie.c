@@ -305,12 +305,11 @@ bool ReadParamFromSharedMem(ParamContextsTrie **trieRoot, ParamContextsList **li
         char *paramName = ReadSharedMem(memPtr->data, memPtr->paramNameSize);
         char *context = ReadSharedMem(memPtr->data + memPtr->paramNameSize + 1, memPtr->paramLabelSize);
         int tmpIndex = FindContextFromList(context, tmpHead->next);
-        tmpIndex = (tmpIndex == DEFAULT_CONTEXT_INDEX) ? index : tmpIndex;
+        tmpIndex = (tmpIndex == DEFAULT_CONTEXT_INDEX) ? index++ : tmpIndex;
         if ((!InsertParamToTrie(root, paramName, context, tmpIndex)) ||
             (!InsertContextsList(&listPtr, paramName, context, tmpIndex))) {
             continue;
         }
-        index++;
         uint32_t dataLen = memPtr->paramNameSize + memPtr->paramLabelSize + 2; // 2 bytes for '\0'
         uint32_t readSize = dataLen + sizeof(SharedMem);                       // space used for read SharedMem struct
         currentPos += readSize;
