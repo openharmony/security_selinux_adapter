@@ -186,6 +186,7 @@ neverallow hap_domain hdcd_socket:sock_file write;
 
 # can't execute data file unless hap.
 neverallow { domain -hap_domain -nwebspawn -cupsd} data_file_attr:file { execute execute_no_trans };
+neverallow hap_domain rootfs:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
 neverallow hap_domain system_file:dir_file_class_set { create write setattr relabelfrom relabelto append unlink link rename };
 
