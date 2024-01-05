@@ -13,7 +13,7 @@
 
 neverallow uitest {data_file_attr -data_local_tmp}:file {execute};
 
-developer_only(`
+debug_only(`
     domain_auto_transition_pattern(su, uitest_exec, uitest);
 ')
 
