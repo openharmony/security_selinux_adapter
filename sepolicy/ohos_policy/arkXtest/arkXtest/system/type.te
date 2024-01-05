@@ -11,6 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+neverallow uitest {data_file_attr -data_local_tmp}:file {execute};
+
+debug_only(`
+    domain_auto_transition_pattern(su, uitest_exec, uitest);
+')
+
 developer_only(`
     allow uitest sa_accessibleabilityms:samgr_class { get };
     allow uitest accessibility:binder { call transfer };
@@ -29,7 +35,14 @@ developer_only(`
     allow uitest render_service:fd { use };
     allow uitest data_file:dir { search };
     allow uitest data_local:dir { search };
-    allow uitest data_local_tmp:file { read create write open ioctl getattr };
+    # allow uitest load and execute test tool in data_local_tmp in developer mode
+    allow uitest data_local_tmp:file { read create write open ioctl getattr map execute };
+    allow uitest uitest:tcp_socket { accept read write setopt create bind name_bind node_bind listen };
+    allow uitest port:tcp_socket { name_bind name_connect };
+    allow uitest node:tcp_socket { node_bind };
+    allowxperm uitest devpts:chr_file ioctl { 0x5413 };
+    allow uitest dev_kmsg_file:chr_file { write };
+    allow uitest key_enable:key { search };
     allow uitest data_local_tmp:dir { search map open create write read add_name};
     allowxperm uitest data_local_tmp:file ioctl { 0x5413 };
     allow uitest dev_unix_socket:dir { search };
