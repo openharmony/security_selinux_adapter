@@ -17,3 +17,6 @@ type medialibrary_hap_data_file, normal_hap_data_file_attr, hap_file_attr, data_
 
 allow medialibrary_hap mimetype_file:file { open read getattr };
 allow medialibrary_hap privacy_service:binder call;
+
+#avc:  denied  { use } for  pid=1525 comm="Worker_0" path="/dmabuf:" dev="dmabuf" ino=44370 scontext=u:r:medialibrary_hap:s0 tcontext=u:r:cameradaemon:s0 tclass=fd permissive=1
+allow medialibrary_hap cameradaemon:fd use;
