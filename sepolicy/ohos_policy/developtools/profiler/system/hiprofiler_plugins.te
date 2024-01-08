@@ -297,4 +297,4 @@ allow hiprofiler_plugins SP_daemon_exec:file { getattr open read execute execute
 
 allow hiprofiler_plugins sa_render_service:samgr_class get;
 allow hiprofiler_plugins render_service:binder { call transfer };
-allow hiprofiler_plugins normal_hap:unix_stream_socket { connectto };
+allow hiprofiler_plugins normal_hap_attr:unix_stream_socket { connectto };
