@@ -180,6 +180,10 @@ developer_only(`
     allow normal_hap_attr aa:binder { transfer };
     allow hidumper_service aa:dir { search };
     allow hidumper_service aa:file { getattr open read };
+    allow hidumper_service aa:fd { use };
+    allow hidumper_service aa:fifo_file { write };
+    allow hidumper aa:fd { use };
+    allow hidumper aa:fifo_file { write };
 
     # avc:  denied  { getattr } for  pid=4155 comm="sh" path="/data/local/tmp" dev="mmcblk0p14" ino=106 scontext=u:r:aa:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
     # avc:  denied  { write search } for  pid=4155 comm="sh" name="tmp" dev="mmcblk0p14" ino=106 scontext=u:r:aa:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
