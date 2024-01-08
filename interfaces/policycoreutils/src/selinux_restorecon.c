@@ -109,8 +109,7 @@ static int RestoreconRecurseFromParentDir(const char *realPath, char *newSeconte
         return -SELINUX_PTR_NULL;
     }
 
-    int ftsFlags = FTS_PHYSICAL | FTS_NOCHDIR;
-    FTS *fts = fts_open(paths, ftsFlags, NULL);
+    FTS *fts = fts_open(paths, FTS_PHYSICAL | FTS_NOCHDIR, NULL);
     if (fts == NULL) {
         selinux_log(SELINUX_ERROR, "file_open failed on %s: %s\n", paths[0], strerror(errno));
         free(paths[0]);
@@ -145,7 +144,9 @@ static int RestoreconRecurseFromParentDir(const char *realPath, char *newSeconte
                 continue;
             case FTS_D:
             default:
-                error += RestoreconSb(ftsent->fts_path, newSecontext);
+                if (RestoreconSb(ftsent->fts_path, newSecontext) != 0) {
+                    error = -SELINUX_RESTORECON_ERROR;
+                }
                 break;
         }
     }
