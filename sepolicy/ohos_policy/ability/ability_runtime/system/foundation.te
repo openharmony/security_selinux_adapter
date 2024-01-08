@@ -191,3 +191,8 @@ developer_only(`
     # avc:  denied  { read open } for  pid=4176 comm="EventRunner#1" path="/system/bin/sh" dev="mmcblk0p7" ino=381 scontext=u:r:aa:s0 tcontext=u:object_r:sh_exec:s0 tclass=file permissive=1
     allow aa sh_exec:file { execute execute_no_trans map read open };
 ')
+
+debug_only(`
+    allow aa dev_kmsg_file:chr_file { write };
+    allow aa uinput_exec:file { execute execute_no_trans getattr map read open };
+')
