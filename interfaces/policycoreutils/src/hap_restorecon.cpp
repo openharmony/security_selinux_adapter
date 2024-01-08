@@ -322,7 +322,9 @@ int HapContext::HapFileRecurseRestorecon(const std::string &realPath, HapFileInf
                 continue;
             case FTS_D:
             default:
-                error += RestoreconSb(ftsent->fts_path, hapFileInfo);
+                if (RestoreconSb(ftsent->fts_path, hapFileInfo) != 0) {
+                    error = -SELINUX_RESTORECON_ERROR;
+                }
                 break;
         }
     }
