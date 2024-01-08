@@ -29,10 +29,6 @@
                 "permissionmanager_hap system_bin_file",
                 "system_basic_hap system_bin_file",
                 "system_core_hap system_bin_file",
-                "hdcd hdcd_exec",
-                "hdcd hilogd_exec",
-                "hdcd hisysevent_exec",
-                "hdcd hiview_exec",
                 "hidumper system_bin_file",
                 "hidumper_service hilog_exec",
                 "hidumper_service sh_exec",
@@ -63,8 +59,6 @@
                 "resource_schedule_service system_bin_file",
                 "riladapter_host sh_exec",
                 "riladapter_host system_bin_file",
-                "sh hilog_exec",
-                "sh system_bin_file",
                 "softbus_server system_bin_file",
                 "storage_daemon system_bin_file",
                 "updater_binary tmpfs",
@@ -87,6 +81,12 @@
                 "wukong sh_exec",
                 "SP_daemon sh_exec",
                 "wukong system_bin_file",
+                "hdcd hdcd_exec",
+                "hdcd hilogd_exec",
+                "hdcd hisysevent_exec",
+                "hdcd hiview_exec",
+                "sh hilog_exec",
+                "sh system_bin_file",
                 "lldb_server lldb_server_file"
             ]
         }

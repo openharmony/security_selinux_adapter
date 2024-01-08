@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+developer_only(`
 (allow sh aa (process (transition siginh rlimitinh)))
 (allow sh aa_exec (file (ioctl read getattr map execute open)))
 (allow sh bm (process (transition siginh rlimitinh)))
@@ -94,7 +95,6 @@
 (allow sh hichecker_writable_param (parameter_service (set)))
 (allow sh devinfo_public_param (file (map open read)))
 
-developer_only(`
 (allow sh SP_daemon (process (transition siginh rlimitinh)))
 (allow sh SP_daemon_exec (file (ioctl read getattr map execute open)))
 (allow sh atm (process (transition siginh rlimitinh)))

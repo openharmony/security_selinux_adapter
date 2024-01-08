@@ -11,7 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# for debug version
+# for developer_only version
+developer_only(`
 # for shell
 allow sh rootfs:dir { search };
 allow sh rootfs:lnk_file { read };
@@ -104,12 +105,10 @@ domain_auto_transition_pattern(sh, hidumper_exec, hidumper);
 domain_auto_transition_pattern(sh, hitrace_exec, hitrace);
 domain_auto_transition_pattern(sh, bytrace_exec, bytrace);
 domain_auto_transition_pattern(sh, hisysevent_exec, hisysevent);
-developer_only(`
-    domain_auto_transition_pattern(sh, wukong_exec, wukong);
-    domain_auto_transition_pattern(sh, SP_daemon_exec, SP_daemon);
-    domain_auto_transition_pattern(sh, uitest_exec, uitest);
-    domain_auto_transition_pattern(sh, snapshot_display_exec, snapshot_display);
-')
+domain_auto_transition_pattern(sh, wukong_exec, wukong);
+domain_auto_transition_pattern(sh, SP_daemon_exec, SP_daemon);
+domain_auto_transition_pattern(sh, uitest_exec, uitest);
+domain_auto_transition_pattern(sh, snapshot_display_exec, snapshot_display);
 
 # for sh process crash faultlog
 allow sh processdump:process { share sigchld };
@@ -119,3 +118,4 @@ domain_auto_transition_pattern(sh, processdump_exec, processdump);
 use_hilog(sh)
 read_hilog(sh)
 control_hilog(sh)
+')
