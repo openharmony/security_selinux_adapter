@@ -77,4 +77,5 @@ developer_only(`
     allow hidumper_service uitest:file { open getattr };
     allow uitest aa:fd { use };
     allow foundation uitest:binder {transfer};
+    allow uitest multimodalinput:fd {use};
 ')
