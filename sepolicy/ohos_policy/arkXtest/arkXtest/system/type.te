@@ -78,4 +78,6 @@ developer_only(`
     allow uitest aa:fd { use };
     allow foundation uitest:binder {transfer};
     allow uitest multimodalinput:fd {use};
+    # allow sh kill uitest in deverloper mode
+    allow sh uitest:process { sigkill };
 ')
