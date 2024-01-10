@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow netsysnative dev_unix_socket:dir { search };
+allow netsysnative dev_unix_socket:sock_file { write };
 allow netsysnative netsysnative:capability { net_admin net_raw net_bind_service sys_resource sys_admin };
 allow netsysnative netsysnative:netlink_route_socket { create listen nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
