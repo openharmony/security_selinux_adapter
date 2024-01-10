@@ -99,7 +99,7 @@ developer_only(`
 (allow sh SP_daemon_exec (file (ioctl read getattr map execute open)))
 (allow sh atm (process (transition siginh rlimitinh)))
 (allow sh atm_exec (file (ioctl read getattr map execute open)))
-(allow sh uitest (process (transition siginh rlimitinh)))
+(allow sh uitest (process (transition siginh rlimitinh sigkill)))
 (allow sh uitest_exec (file (ioctl read getattr map execute open)))
 (allow sh wukong (process (transition siginh rlimitinh)))
 (allow sh wukong_exec (file (ioctl read getattr map execute open)))
