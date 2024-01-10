@@ -224,6 +224,7 @@ debug_only(`
     allow foundation su:binder { call transfer };
     allow { SP_daemon wukong uitest } su:fd { use };
     allow { SP_daemon wukong uitest }  su:unix_stream_socket { read write };
+    allow su data_hdc_pubkeys:dir { getattr setattr };
 
     # sh.te baseline to su
     allow su su:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };

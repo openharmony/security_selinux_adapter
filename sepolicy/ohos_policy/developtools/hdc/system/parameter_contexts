@@ -12,3 +12,7 @@
 # limitations under the License.
 
 persist.hdc.control                     u:object_r:developtools_hdc_control_param:s0
+
+persist.hdc.daemon.auth_result          u:object_r:developtools_hdc_auth_param:s0
+persist.hdc.client.hostname             u:object_r:developtools_hdc_auth_param:s0
+persist.hdc.daemon.auth_cancel          u:object_r:developtools_hdc_auth_param:s0
