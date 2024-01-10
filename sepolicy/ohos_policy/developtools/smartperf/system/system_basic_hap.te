@@ -26,5 +26,7 @@ allow system_basic_hap_attr system_usr_file:dir { search };
 allow system_basic_hap_attr vendor_file:dir { search };
 developer_only(`
 allow system_basic_hap_attr SP_daemon:binder { call };
+allow system_basic_hap sysfs_pg:file { read open read };
+allow system_basic_hap sysfs_pg:dir { read open read };
 ')
 

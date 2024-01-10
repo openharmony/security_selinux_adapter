@@ -98,4 +98,16 @@ allow SP_daemon data_hilogd_file:dir { search };
 # ps -ef
 allow SP_daemon domain: dir { search getattr };
 allow SP_daemon domain: file { open read };
+allow SP_daemon dev_kmsg_file:chr_file { write };
+allow SP_daemon hisysevent:lnk_file { read };
+allow SP_daemon hisysevent:process { signal };
+allow SP_daemon hitrace:lnk_file { read };
+allow SP_daemon proc_net:file { getattr read open read };
+allow SP_daemon dev_ucollection:chr_file { ioctl read open read write open write };
+allowxperm SP_daemon dev_ucollection:chr_file ioctl { 0x1 0x2 0x3 };
+allow SP_daemon SP_daemon:tcp_socket { connect read shutdown write };
+allow SP_daemon SP_daemon_exec:file { execute_no_trans };
+allow SP_daemon port:tcp_socket { name_connect };
+allow SP_daemon sysfs_devices_system_cpu:dir { read open read };
+allow SP_daemon foundation:binder { transfer };
 ')
