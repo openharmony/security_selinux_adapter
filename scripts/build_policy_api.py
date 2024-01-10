@@ -22,7 +22,7 @@ import re
 import shutil
 import subprocess
 import tempfile
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
 import copy
 
 SYSTEM_CIL_HASH = "system.cil.sha256"
@@ -492,35 +492,33 @@ def compile_sepolicy(args):
     if args.updater_version == "enable":
         generate_default_policy(args, file_list_object, cil_list, False)
         build_binary_policy(args.tool_path, args.dst_file, True, cil_list)
-        return
-
-    with ThreadPoolExecutor(max_workers=2) as executor:
+    else:
         if args.components == "default":
-            normal_thread = executor.submit(generate_default_policy, args, file_list_object, cil_list, False)
-            developer_thread = executor.submit(generate_default_policy, args, file_list_object,
-                                                developer_cil_list, True)
+            normal_thread = threading.Thread(target=generate_default_policy,
+                                             args=(args, file_list_object, cil_list, False))
+            developer_thread = threading.Thread(target=generate_default_policy,
+                                                args=(args, file_list_object, developer_cil_list, True))
         else:
-            normal_thread = executor.submit(generate_special_policy, args, file_list_object, cil_list, False)
-            developer_thread = executor.submit(generate_special_policy, args, file_list_object,
-                                                developer_cil_list, True)
+            normal_thread = threading.Thread(target=generate_special_policy,
+                                             args=(args, file_list_object, cil_list, False))
+            developer_thread = threading.Thread(target=generate_special_policy,
+                                                args=(args, file_list_object, developer_cil_list, True))
 
-        for future in as_completed([normal_thread, developer_thread]):
-            try:
-                future.result()
-            except Exception as e:
-                raise e
+        normal_thread.start()
+        developer_thread.start()
+        normal_thread.join()
+        developer_thread.join()
 
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        build_normal_thread = executor.submit(build_binary_policy, args.tool_path, args.dst_file, True, cil_list)
+        build_normal_thread = threading.Thread(target=build_binary_policy,
+                                               args=(args.tool_path, args.dst_file, True, cil_list,))
         developer_policy_path = os.path.join(os.path.abspath(os.path.dirname(args.dst_file)), "developer/policy.31")
-        build_developer_thread = executor.submit(build_binary_policy, args.tool_path, developer_policy_path,
-                                                    True, developer_cil_list)
+        build_developer_thread = threading.Thread(target=build_binary_policy, args=(
+                                                  args.tool_path, developer_policy_path, True, developer_cil_list,))
 
-        for future in as_completed([build_normal_thread, build_developer_thread]):
-            try:
-                future.result()
-            except Exception as e:
-                raise e
+        build_normal_thread.start()
+        build_developer_thread.start()
+        build_normal_thread.join()
+        build_developer_thread.join()
 
 
 def copy_user_policy(args):
@@ -557,17 +555,15 @@ def pre_check(args):
 
 
 def main(args):
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        pre_check_args = copy.deepcopy(args)
-        pre_check_thread = executor.submit(pre_check, pre_check_args)
+    pre_check_args = copy.deepcopy(args)
+    pre_check_thread = threading.Thread(target=pre_check, args=(pre_check_args,))
+    pre_check_thread.start()
 
-        compile_args = copy.deepcopy(args)
-        compile_thread = executor.submit(compile_sepolicy, compile_args)
+    compile_args = copy.deepcopy(args)
+    compile_thread = threading.Thread(target=compile_sepolicy, args=(compile_args,))
+    compile_thread.start()
 
-        for future in as_completed([pre_check_thread, compile_thread]):
-            try:
-                future.result()
-            except Exception as e:
-                raise e
+    pre_check_thread.join()
+    compile_thread.join()
 
     copy_user_policy(args)
