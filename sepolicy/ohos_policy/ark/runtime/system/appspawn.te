@@ -30,6 +30,3 @@ allowxperm hap_domain data_local_arkprofile:file ioctl { 0x5413 };
 allow hap_domain data_local_arkprofile:dir { add_name remove_name search write };
 allow appspawn data_local_arkprofile:dir { search mounton };
 
-# allow appspawn to run a native process(such as lldb-server) with signature.
-allow appspawn key_enable:key { search };
-
