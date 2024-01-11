@@ -87,7 +87,8 @@
                 "hdcd hiview_exec",
                 "sh hilog_exec",
                 "sh system_bin_file",
-                "lldb_server lldb_server_file"
+                "lldb_server lldb_server_file",
+                "execute_no_trans"
             ]
         }
     ]
