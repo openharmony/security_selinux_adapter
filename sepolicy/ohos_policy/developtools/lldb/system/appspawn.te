@@ -21,5 +21,7 @@ domain_auto_transition_pattern(appspawn, lldb_server_file, lldb_server);
 allow appspawn data_local_tmp:dir { search };
 allow appspawn lldb_server_file:dir { search };
 allow appspawn lldb_server:process2 { nosuid_transition };
+# For fs-verify(signature checking) of lldb-server. appspawn will execute lldb-server.
+allow appspawn key_enable:key { search };
 
 ')
