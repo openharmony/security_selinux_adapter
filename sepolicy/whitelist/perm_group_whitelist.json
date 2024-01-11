@@ -87,8 +87,7 @@
                 "hdcd hiview_exec",
                 "sh hilog_exec",
                 "sh system_bin_file",
-                "lldb_server lldb_server_file",
-                "SP_daemon SP_daemon_exec"
+                "lldb_server lldb_server_file"
             ]
         }
     ]
