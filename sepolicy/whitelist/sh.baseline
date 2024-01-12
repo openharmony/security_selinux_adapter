@@ -94,6 +94,7 @@ developer_only(`
 (allow sh system_lib_file (dir (search)))
 (allow sh hichecker_writable_param (parameter_service (set)))
 (allow sh devinfo_public_param (file (map open read)))
+(allow sh ark_profile (parameter_service (set)))
 
 (allow sh SP_daemon (process (transition siginh rlimitinh)))
 (allow sh SP_daemon_exec (file (ioctl read getattr map execute open)))
