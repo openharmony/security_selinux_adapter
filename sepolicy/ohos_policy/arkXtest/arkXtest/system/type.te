@@ -43,7 +43,7 @@ developer_only(`
     allow uitest persist_sys_param:file { map read open };
     allow uitest tracefs:dir { search };
     allow uitest hilog_param:file { map open read };
-    allow uitest samgr:binder { call };
+    allow uitest samgr:binder { call transfer };
     allow uitest sh:fd { use };
     allow uitest sh:fifo_file { write };
     allow uitest tty_device:chr_file { read write };
@@ -67,4 +67,6 @@ developer_only(`
     allow uitest multimodalinput:fd {use};
     # allow sh kill uitest in deverloper mode
     allow sh uitest:process { sigkill };
+    allow uitest pasteboard_service:binder { call };
+    allow uitest sa_pasteboard_service:samgr_class { get };
 ')
