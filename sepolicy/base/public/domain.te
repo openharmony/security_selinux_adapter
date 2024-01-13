@@ -279,7 +279,7 @@ neverallow { domain developer_only(`-wukong -SP_daemon -aa') -init -hdcd -sh -fa
 #limit execmem use
 neverallow { domain -appspawn -hap_domain } self:process execmem;
 
-neverallow { domain -processdump -hap_domain developer_only(`-lldb_server -SP_daemon') } domain:process ptrace;
+neverallow { domain -processdump -hap_domain developer_only(`-lldb_server') } domain:process ptrace;
 
 # limit capability use.
 # for exemption add rule like this:
@@ -308,7 +308,7 @@ neverallow { domain -cap_violator_sysmodule } self:{ capability cap_userns } sys
 neverallow { domain -init -chipset_init -cap_violator_sysrawio} self:{ capability cap_userns } sys_rawio;
 neverallow { domain -init -chipset_init -appspawn } self:{ capability cap_userns } sys_chroot;
 neverallow { domain -hiview -hidumper_service -memmgrservice -storage_daemon -hiprofiler_cmd -hiprofiler_plugins -native_daemon -hiperf
-    -foundation -cap_violator_sysptrace debug_only(`-hiebpf') } self:{ capability cap_userns } sys_ptrace;
+    -foundation -cap_violator_sysptrace debug_only(`-hiebpf') developer_only(`-SP_daemon') } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
 neverallow { domain -init -chipset_init -storage_daemon -appspawn -nwebspawn -netsysnative -file_guard_server debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater')} self:{ capability cap_userns } sys_admin;
 neverallow { domain -init -chipset_init } self:{ capability cap_userns } sys_boot;
