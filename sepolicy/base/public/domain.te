@@ -279,7 +279,7 @@ neverallow { domain developer_only(`-wukong -SP_daemon -aa') -init -hdcd -sh -fa
 #limit execmem use
 neverallow { domain -appspawn -hap_domain } self:process execmem;
 
-neverallow { domain -processdump -hap_domain developer_only(`-lldb_server') } domain:process ptrace;
+neverallow { domain -processdump -hap_domain developer_only(`-lldb_server -SP_daemon') } domain:process ptrace;
 
 # limit capability use.
 # for exemption add rule like this:
