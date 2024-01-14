@@ -316,3 +316,8 @@ allow storage_daemon medialibrary_hap:fd { use };
 allow storage_daemon hap_file_attr:dir { mounton };
 allow storage_daemon proc_drop_caches_file:file { open ioctl getattr write };
 allowxperm storage_daemon proc_drop_caches_file:file ioctl { 0x5413 };
+
+allow storage_daemon foundation:binder { call transfer };
+allow storage_daemon foundation:fd { use };
+allow storage_daemon sa_foundation_bms:samgr_class { get };
+allow storage_daemon tracefs:dir { search };
