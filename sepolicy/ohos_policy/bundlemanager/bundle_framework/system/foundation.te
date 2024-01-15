@@ -183,4 +183,6 @@ allowxperm bm devpts:chr_file ioctl { 0x5413 };
 allowxperm bm sh:fifo_file ioctl { 0x5413 };
 
 allow foundation arkui_param:file { map open read };
+allow foundation storage_daemon:binder { call transfer };
+allow foundation storage_daemon:fd { use };
 
