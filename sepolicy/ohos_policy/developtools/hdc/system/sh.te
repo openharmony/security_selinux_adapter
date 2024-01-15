@@ -57,6 +57,7 @@ allowxperm sh tty_device:chr_file ioctl { 0x5401 0x5403 0x540f 0x5413 0x5410 };
 # for reboot
 allow sh servicectrl_reboot_param:parameter_service set;
 allow sh hichecker_writable_param:parameter_service { set };
+allow sh arkui_param:parameter_service { set };
 allow sh paramservice_socket:sock_file { write };
 ## for /dev/unix/socket/parameterservice
 allow sh kernel:unix_stream_socket { connectto };
