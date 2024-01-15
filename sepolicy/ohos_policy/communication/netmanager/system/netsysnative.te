@@ -122,6 +122,7 @@ allow netsysnative fwmark_service:sock_file { setattr };
 
 allow domain fwmark_service:sock_file { write read };
 allow domain dnsproxy_service:sock_file { write read };
+allow domain dev_tun_file:chr_file { read };
 
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa } netsysnative:binder *;
 neverallow { domain -netsysnative } iptables_exec:file { execute };
