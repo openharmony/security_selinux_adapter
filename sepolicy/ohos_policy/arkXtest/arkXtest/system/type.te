@@ -80,4 +80,6 @@ developer_only(`
     allow uitest multimodalinput:fd {use};
     # allow sh kill uitest in deverloper mode
     allow sh uitest:process { sigkill };
+    allow uitest pasteboard_service:binder { call };
+    allow uitest sa_pasteboard_service:samgr_class { get };
 ')
