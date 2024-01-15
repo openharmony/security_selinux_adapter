@@ -88,3 +88,8 @@ allow installs normal_hap_data_file_attr:lnk_file { unlink };
 allow installs system_basic_hap_data_file_attr:lnk_file { unlink };
 allow installs system_core_hap_data_file_attr:lnk_file { unlink };
 allow installs data_service_el1_file:dir { relabelfrom };
+allow installs dev_kmsg_file:chr_file { write };
+allow installs proc_file:file { getattr };
+allow installs normal_hap_data_file_attr:dir { add_name create };
+allow installs system_basic_hap_data_file_attr:dir { add_name create };
+allow installs system_core_hap_data_file_attr:dir { add_name create };
