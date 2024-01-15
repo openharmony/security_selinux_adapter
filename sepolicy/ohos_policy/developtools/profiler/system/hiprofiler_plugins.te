@@ -136,9 +136,7 @@ allow hiprofiler_plugins bgtaskmgr_service:file read;
 allow hiprofiler_plugins bluetooth_service:file read;
 allow hiprofiler_plugins device_usage_stats_service:file read;
 allow hiprofiler_plugins pasteboard_service:file read;
-allow hiprofiler_plugins pulseaudio:file read;
 
-allow hiprofiler_plugins audio_policy:file read;
 allow hiprofiler_plugins download_server:file read;
 allow hiprofiler_plugins edm_sa:file read;
 allow hiprofiler_plugins msdp_sa:file read;
@@ -220,7 +218,7 @@ allow hiprofiler_plugins locationhub:file getattr;
 allow hiprofiler_plugins memmgrservice:file getattr;
 allow hiprofiler_plugins pasteboard_service:file getattr;
 allow hiprofiler_plugins proc_file:file { getattr open read };
-allow hiprofiler_plugins pulseaudio:file getattr;
+allow hiprofiler_plugins audio_server:file { getattr read };
 allow hiprofiler_plugins tracefs:file open;
 
 allow hiprofiler_plugins proc_diskstats_file:file { open read };

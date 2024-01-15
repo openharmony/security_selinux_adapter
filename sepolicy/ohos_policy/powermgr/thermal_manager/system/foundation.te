@@ -43,9 +43,6 @@ allow foundation sa_foundation_displaymgr_service:samgr_class { get };
 #avc:  denied  { get } for service=3009 pid=2003 scontext=u:r:thermal:s0 tcontext=u:object_r:sa_audio_policy_service:s0 tclass=samgr_class permissive=1
 allow foundation sa_audio_policy_service:samgr_class { get };
 
-#avc:  denied  { call } for  pid=2298 comm="thermal" scontext=u:r:thermal:s0 tcontext=u:r:audio_policy:s0 tclass=binder permissive=1
-allow foundation audio_policy:binder { call };
-
 #avc:  denied  { add } for service=3303 pid=487 scontext=u:r:foundation:s0 tcontext=u:object_r:sa_thermal_service:s0 tclass=samgr_class permissive=1
 allow foundation sa_foundation_thermal_service:samgr_class { add };
 

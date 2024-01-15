@@ -19,7 +19,7 @@ allow daudio debug_param:file { open read map };
 
 allow daudio accesstoken_service:binder { call };
 
-allow daudio audio_policy:binder { call transfer };
+allow daudio audio_server:binder { call transfer };
 
 allow daudio media_service:binder { call transfer};
 
@@ -79,11 +79,9 @@ allow daudio tracefs_trace_marker_file:file { write open };
 
 allow daudio proc_file:file { read open };
 
-allow daudio pulseaudio:unix_stream_socket { connectto };
+allow daudio audio_server:unix_stream_socket { connectto };
 
-allow daudio pulseaudio:binder { call transfer };
-
-allow daudio pulseaudio:fd { use };
+allow daudio audio_server:fd { use };
 
 allow daudio param_watcher:binder { call transfer };
 

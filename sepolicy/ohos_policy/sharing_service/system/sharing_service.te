@@ -41,7 +41,7 @@ allow sharing_service sa_media_service:samgr_class { get };
 allow sharing_service sa_softbus_service:samgr_class { get };
 allow sharing_service sa_foundation_devicemanager_service:samgr_class { get };
 allow sharing_service device_manager:binder { call transfer };
-allow sharing_service audio_policy:binder { call transfer };
+allow sharing_service audio_server:binder { call transfer };
 allow sharing_service softbus_server:binder { call transfer };
 allow sharing_service softbus_server:fd { use };
 allow sharing_service softbus_server:tcp_socket { read write setopt shutdown };
