@@ -160,8 +160,7 @@ debug_only(`
     allow msdp_sa su:binder { call };
     #avc:  denied  { use } for  pid=1794 comm="InteractionMana" path="/dev/ashmem" dev="tmpfs" ino=197 scontext=u:r:msdp_sa:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
     allow msdp_sa su:fd { use };
-    allow audio_policy su:binder { call };
-    allow pulseaudio su:binder { call transfer };
+    allow audio_server su:binder { call transfer };
     allow av_codec_service su:binder { call transfer };
     allow av_codec_service su:fd { use };
     allow av_session su:binder { call transfer };
@@ -355,7 +354,6 @@ debug_only(`
     allow hiview su:dir search;
     allow hiview su:file { getattr open read };
     allow hiview su:binder { call transfer };
-    allow audio_policy su:binder { call }; 
     allow bytrace su:fifo_file { ioctl write };
     allowxperm bytrace su:fifo_file ioctl { 0x5413 };
     allow init su:process { rlimitinh siginh transition getattr };

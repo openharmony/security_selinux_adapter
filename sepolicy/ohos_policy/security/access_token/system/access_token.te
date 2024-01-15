@@ -17,7 +17,7 @@ allow accesstoken_service accesstoken_data_file:dir { search add_name open read 
 allow accesstoken_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink };
 allow accesstoken_service accesstoken_perm_param:parameter_service { set };
 allow accesstoken_service accesstoken_service:unix_dgram_socket { getopt setopt };
-allow accesstoken_service audio_policy:binder { call transfer };
+allow accesstoken_service audio_server:binder { call transfer };
 allow accesstoken_service bootevent_param:file { map open read };
 allow accesstoken_service bootevent_samgr_param:file { map open read };
 allow accesstoken_service build_version_param:file { map open read };

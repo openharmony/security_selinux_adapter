@@ -191,12 +191,12 @@ allow storage_daemon kernel:system { module_request };
 #avc:  denied  { read } for  pid=255 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:pin_auth_host:s0 tclass=file permissive=1
 allow storage_daemon pin_auth_host:file { read };
 
-#avc:  denied  { search } for  pid=257 comm="storage_daemon" name="fd" dev="proc" ino=31594 scontext=u:r:storage_daemon:s0 tcontext=u:r:pulseaudio:s0 tclass=dir permissive=1
-allow storage_daemon pulseaudio:dir { search };
-#avc:  denied  { read } for  pid=257 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:pulseaudio:s0 tclass=file permissive=1
-allow storage_daemon pulseaudio:file { read };
-#avc:  denied  { read } for  pid=257 comm="storage_daemon" name="16" dev="proc" ino=31611 scontext=u:r:storage_daemon:s0 tcontext=u:r:pulseaudio:s0 tclass=lnk_file permissive=1
-allow storage_daemon pulseaudio:lnk_file { read };
+#avc:  denied  { search } for  pid=257 comm="storage_daemon" name="fd" dev="proc" ino=31594 scontext=u:r:storage_daemon:s0 tcontext=u:r:audio_server:s0 tclass=dir permissive=1
+allow storage_daemon audio_server:dir { search };
+#avc:  denied  { read } for  pid=257 comm="storage_daemon" scontext=u:r:storage_daemon:s0 tcontext=u:r:audio_server:s0 tclass=file permissive=1
+allow storage_daemon audio_server:file { read };
+#avc:  denied  { read } for  pid=257 comm="storage_daemon" name="16" dev="proc" ino=31611 scontext=u:r:storage_daemon:s0 tcontext=u:r:audio_server:s0 tclass=lnk_file permissive=1
+allow storage_daemon audio_server:lnk_file { read };
 
 #avc:  denied  { read } for  pid=257 comm="storage_daemon" name="54" dev="proc" ino=35056 scontext=u:r:storage_daemon:s0 tcontext=u:r:render_service:s0 tclass=lnk_file permissive=1
 allow storage_daemon render_service:lnk_file { read };
