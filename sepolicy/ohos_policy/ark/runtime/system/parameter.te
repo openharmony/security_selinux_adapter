@@ -12,3 +12,4 @@
 # limitations under the License.
 
 type ark_profile, parameter_attr;
+type ark_writeable_param, parameter_attr;
