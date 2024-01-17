@@ -93,3 +93,8 @@ allow installs proc_file:file { getattr };
 allow installs normal_hap_data_file_attr:dir { add_name create };
 allow installs system_basic_hap_data_file_attr:dir { add_name create };
 allow installs system_core_hap_data_file_attr:dir { add_name create };
+allow installs dev_block_file:dir { search };
+allow installs dev_block_file:lnk_file { read };
+allow installs dev_block_volfile:dir { search };
+allow installs labeledfs:filesystem { quotaget };
+allow installs installs:capability { sys_admin };
