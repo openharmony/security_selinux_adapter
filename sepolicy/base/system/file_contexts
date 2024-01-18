@@ -109,6 +109,7 @@
 /dev/khdf_ut                       u:object_r:dev_hdf_test:s0
 /dev/I2C_TEST                       u:object_r:dev_i2c_test:s0
 /dev/bbox                           u:object_r:dev_bbox:s0
+/dev/sysevent                       u:object_r:dev_sysevent:s0
 /dev/bus                            u:object_r:dev_bus:s0
 /dev/cec0                           u:object_r:dev_dev_cec0:s0
 /dev/full                           u:object_r:dev_full:s0
