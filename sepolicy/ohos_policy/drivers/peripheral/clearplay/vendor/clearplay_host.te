@@ -49,14 +49,16 @@ allow clearplay_host data_file:dir { search };
 allow clearplay_host data_local:dir { search };
 
 # avc:  denied  { search } for  pid=534 comm="OS_IPC_2_1671" name="traces" dev="mmcblk0p15" ino=113 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=dir permissive=1
-allow clearplay_host data_local_traces:dir { search };
+# avc:  denied  { add_name } for  pid=515 comm="OS_IPC_0_578" name="offline_key.txt" scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=dir permissive=1
+# avc:  denied  { write } for  pid=515 comm="OS_IPC_0_578" name="traces" dev="mmcblk0p15" ino=115 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=dir permissive=1
+allow clearplay_host data_local_traces:dir { search add_name write };
 
 # avc:  denied  { getattr } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
 # avc:  denied  { ioctl } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 ioctlcmd=0x5413 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
 # avc:  denied  { read write open } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
 # avc:  denied  { read write } for  pid=534 comm="OS_IPC_2_1671" name="offline_key.txt" dev="mmcblk0p15" ino=2968 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
 # avc:  denied  { write } for  pid=534 comm="OS_IPC_2_1671" name="offline_key.txt" dev="mmcblk0p15" ino=2968 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
-allow clearplay_host data_local_traces:file { getattr ioctl read write open };
+allow clearplay_host data_local_traces:file { getattr ioctl read write open create };
 
 # avc:  denied  { call } for  pid=534 comm="OS_IPC_2_1671" scontext=u:r:clearplay_host:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
 allow clearplay_host drm_service:binder { call };
@@ -66,3 +68,4 @@ allow clearplay_host media_service:fd { use };
 
 # avc:  denied  { ioctl } for  pid=534 comm="OS_IPC_2_1671" path="/data/local/traces/offline_key.txt" dev="mmcblk0p15" ino=2968 ioctlcmd=0x5413 scontext=u:r:clearplay_host:s0 tcontext=u:object_r:data_local_traces:s0 tclass=file permissive=1
 allowxperm clearplay_host data_local_traces:file ioctl { 0x5413 };
+
