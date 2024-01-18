@@ -38,3 +38,5 @@ domain_auto_transition_pattern(native_system_domain, hiprofiler_cmd_exec, hiprof
 domain_auto_transition_pattern(native_system_domain, hiprofiler_plugins_exec, hiprofiler_plugins);
 
 domain_auto_transition_pattern(native_system_domain, native_daemon_exec, native_daemon);
+
+domain_auto_transition_pattern(hiprofiler_plugins, SP_daemon_exec, SP_daemon);
