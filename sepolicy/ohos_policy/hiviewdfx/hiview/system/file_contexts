@@ -20,3 +20,5 @@
 /data/system/hiview(/.*)?       u:object_r:hiview_file:s0
 
 /dev/ucollection                u:object_r:dev_ucollection:s0
+
+/dev/sysevent                   u:object_r:dev_sysevent:s0
