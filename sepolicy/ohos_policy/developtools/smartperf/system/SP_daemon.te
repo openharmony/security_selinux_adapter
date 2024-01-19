@@ -109,4 +109,10 @@ allow SP_daemon SP_daemon:tcp_socket { connect read shutdown write };
 allow SP_daemon port:tcp_socket { name_connect };
 allow SP_daemon sysfs_devices_system_cpu:dir { read open read };
 allow SP_daemon foundation:binder { transfer };
+
+allow SP_daemon hiprofiler_plugins:fd { use };
+allow SP_daemon hiprofiler_plugins:fifo_file { ioctl write };
+allow SP_daemon hiprofiler_plugins:unix_stream_socket { read write };
+allow SP_daemon hiprofilerd:fd { use };
+allowxperm SP_daemon hiprofiler_plugins:fifo_file ioctl { 0x5413 };
 ')

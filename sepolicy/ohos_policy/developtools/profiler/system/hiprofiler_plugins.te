@@ -300,4 +300,5 @@ allow hiprofiler_plugins normal_hap_attr:unix_stream_socket { connectto };
 developer_only(`
     allow hiprofiler_plugins system_usr_file:dir { search };
     allow hiprofiler_plugins system_usr_file:file { getattr map open read };
+    allow hiprofiler_plugins SP_daemon:process { rlimitinh siginh sigkill signal };
 ')
