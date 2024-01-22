@@ -277,7 +277,7 @@ allow init dev_sched_rtg_ctrl:chr_file { setattr };
 allow init dev_uhid_file:chr_file { setattr };
 allow init dev_tun_file:chr_file { setattr };
 allow init dev_unix_file:dir { getattr open read relabelto };
-allow init dev_unix_file:sock_file { getattr relabelto };
+allow init dev_unix_file:sock_file { getattr relabelto write };
 allow init dev_unix_socket:dir { add_name getattr open read relabelto remove_name search write };
 allow init dev_unix_socket:sock_file { create getattr relabelfrom setattr };
 allow init dev_usb_ffs:dir { add_name create getattr mounton open read relabelto search setattr write };
