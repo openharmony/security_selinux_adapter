@@ -43,4 +43,4 @@ allow accessibility sa_foundation_displaymgr_service:samgr_class { get };
 allowxperm accessibility data_service_el1_file:file ioctl { 0x5413 };
 
 allow accessibility accessibility_param:file { map open read };
-allow accessibility audio_policy:binder { call transfer };
+allow accessibility audio_server:binder { call transfer };

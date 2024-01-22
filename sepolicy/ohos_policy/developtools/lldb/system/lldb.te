@@ -44,6 +44,9 @@ allow lldb_server appspawn_exec:file { getattr read open map };
 # sending ptrace syscalls.
 allow lldb_server debug_hap:process { ptrace sigkill signal sigstop };
 
+# For fs-verify(signature checking) of lldb-server. lldb-server will execute lldb-server.
+allow lldb_server key_enable:key { search };
+
 ')
 
 # Forbid lldb-server to debug other processes except debuggable applications and

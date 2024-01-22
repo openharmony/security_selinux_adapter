@@ -472,8 +472,9 @@ action("build_update_policy") {
                             "list lines")
     }
     if (special_build_selinux_gni_exist &&
-        selinux_build_path_ext != "default") {
-      selinux_build_path = selinux_build_path + ":" + selinux_build_path_ext
+        selinux_build_path_ext_updater != "default") {
+      selinux_build_path =
+          selinux_build_path + ":" + selinux_build_path_ext_updater
     }
   }
 
@@ -565,6 +566,62 @@ action("build_contexts") {
     target_out_dir + "/service_contexts",
     target_out_dir + "/hdf_service_contexts",
     target_out_dir + "/parameter_contexts",
+  ]
+}
+
+action("build_updater_contexts") {
+  inputs = exec_script("//build/scripts/find.py",
+                       [ rebase_path("sepolicy") ],
+                       "list lines")
+  if (selinux_build_path != "default") {
+    foreach(src, string_split(selinux_build_path, ":")) {
+      src = "//" + src
+      inputs += exec_script("//build/scripts/find.py",
+                            [ rebase_path(src) ],
+                            "list lines")
+    }
+    if (special_build_selinux_gni_exist &&
+        selinux_build_path_ext_updater != "default") {
+      selinux_build_path =
+          selinux_build_path + ":" + selinux_build_path_ext_updater
+    }
+  }
+
+  if (special_build_contexts_script != "default") {
+    script = special_build_contexts_script
+  } else {
+    script = "scripts/build_contexts.py"
+  }
+  args = [
+    "--dst-dir",
+    rebase_path(target_out_dir + "/updater"),
+    "--tool-path",
+    rebase_path(root_build_dir + "/clang_x64/thirdparty/selinux/"),
+    "--policy-file",
+    rebase_path(target_out_dir + "/updater/policy.31"),
+    "--source-root-dir",
+    rebase_path("//"),
+    "--policy_dir_list",
+    selinux_build_path,
+    "--components",
+    components,
+  ]
+  if (contexts_extra_args != "default") {
+    foreach(arg, string_split(contexts_extra_args, " ")) {
+      args += [ arg ]
+    }
+  }
+  deps = [
+    ":build_update_policy",
+    "$THIRD_PARTY_DIR/selinux:sefcontext_compile($host_toolchain)",
+  ]
+  outputs = [
+    target_out_dir + "/updater/file_contexts.bin",
+    target_out_dir + "/updater/file_contexts",
+    target_out_dir + "/updater/sehap_contexts",
+    target_out_dir + "/updater/service_contexts",
+    target_out_dir + "/updater/hdf_service_contexts",
+    target_out_dir + "/updater/parameter_contexts",
   ]
 }
 
@@ -740,15 +797,23 @@ ohos_prebuilt_etc("file_contexts") {
   subsystem_name = "security"
   relative_install_dir = "selinux/targeted/contexts/"
   if (components == "vendor") {
-    install_images = [
-      "vendor",
-      "updater_vendor",
-    ]
+    install_images = [ "vendor" ]
   } else {
-    install_images = [
-      "system",
-      "updater",
-    ]
+    install_images = [ "system" ]
+  }
+}
+
+ohos_prebuilt_etc("file_contexts_updater") {
+  deps = [ ":build_updater_contexts" ]
+  source = target_out_dir + "/updater/file_contexts"
+  license_file = "LICENSE"
+  part_name = "selinux_adapter"
+  subsystem_name = "security"
+  relative_install_dir = "selinux/targeted/contexts/"
+  if (components == "vendor") {
+    install_images = [ "updater_vendor" ]
+  } else {
+    install_images = [ "updater" ]
   }
 }
 
@@ -1105,6 +1170,7 @@ group("selinux_group") {
       ":build_updater_sepolicy",
       ":config",
       ":file_contexts",
+      ":file_contexts_updater",
       ":filecontexts_toolchain",
       ":hap_restorecon",
       ":hdf_service_contexts",

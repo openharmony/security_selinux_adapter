@@ -45,7 +45,7 @@ allow domain dev_null_file:chr_file rw_file_perms;
 allow domain dev_zero_file:chr_file rw_file_perms;
 allow domain dev_ashmem_file:chr_file { getattr read ioctl lock map append write };
 allow domain dev_binder_file:chr_file { ioctl map open read write };
-allowxperm domain dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f };
+allowxperm domain dev_binder_file:chr_file ioctl { 0x6201 0x6205 0x6208 0x6209 0x621e 0x621f 0x6220 };
 allow domain dev_at_file:chr_file { ioctl open read write };
 allowxperm domain dev_at_file:chr_file ioctl { 0x4101 0x4103 0x4104 0x4107 };
 
@@ -220,7 +220,7 @@ neverallow { domain -init } *:filesystem remount;
 neverallow { domain -init -storage_daemon -appspawn -nwebspawn updater_only(`-updater')} *:filesystem unmount;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelfrom;
 neverallow { domain -init -storage_daemon -appspawn } *:filesystem relabelto;
-neverallow { domain -storage_daemon } *:filesystem quotaget;
+neverallow { domain -storage_daemon -installs } *:filesystem quotaget;
 neverallow { domain -storage_daemon } *:filesystem quotamod;
 
 neverallow { domain updater_only(`-updater -updater_binary -init')} rootfs:file { create write setattr relabelto append unlink link rename };
@@ -310,7 +310,7 @@ neverallow { domain -init -chipset_init -appspawn } self:{ capability cap_userns
 neverallow { domain -hiview -hidumper_service -memmgrservice -storage_daemon -hiprofiler_cmd -hiprofiler_plugins -native_daemon -hiperf
     -foundation -cap_violator_sysptrace debug_only(`-hiebpf') developer_only(`-SP_daemon') } self:{ capability cap_userns } sys_ptrace;
 neverallow * self:{ capability cap_userns } sys_pacct;
-neverallow { domain -init -chipset_init -storage_daemon -appspawn -nwebspawn -netsysnative -file_guard_server debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater')} self:{ capability cap_userns } sys_admin;
+neverallow { domain -init -chipset_init -storage_daemon -installs -appspawn -nwebspawn -netsysnative -file_guard_server debug_only(`-hiprofiler_plugins -hiebpf') updater_only(`-updater')} self:{ capability cap_userns } sys_admin;
 neverallow { domain -init -chipset_init } self:{ capability cap_userns } sys_boot;
 neverallow { domain -render_service -cap_violator_sysnice -composer_host } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -chipset_init -memmgrservice -netsysnative  debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;

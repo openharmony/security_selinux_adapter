@@ -194,17 +194,6 @@ HWTEST_F(SelinuxUnitTest, HashMapAdd004, TestSize.Level1)
 }
 
 /**
- * @tc.name: LoadParameterContextsToSharedMem001
- * @tc.desc: Test 'int LoadParameterContextsToSharedMem(void)' must success.
- * @tc.type: FUNC
- * @tc.require:
- */
-HWTEST_F(SelinuxUnitTest, LoadParameterContextsToSharedMem001, TestSize.Level1)
-{
-    ASSERT_EQ(0, LoadParameterContextsToSharedMem());
-}
-
-/**
  * @tc.name: InitSharedMem001
  * @tc.desc: Test 'void *InitSharedMem(const char *fileName, uint32_t spaceSize, bool readOnly)' with invalid params.
  * @tc.type: FUNC

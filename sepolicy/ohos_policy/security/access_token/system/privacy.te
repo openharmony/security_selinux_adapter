@@ -16,7 +16,7 @@ type privacy_service, sadomain, domain;
 allow privacy_service accesstoken_data_file:dir { search add_name open read write remove_name };
 allow privacy_service accesstoken_data_file:file { open read getattr ioctl lock write create unlink };
 allow privacy_service accesstoken_service:binder { call };
-allow privacy_service audio_policy:binder { call transfer };
+allow privacy_service audio_server:binder { call transfer };
 allow privacy_service bootevent_param:file { map open read };
 allow privacy_service bootevent_samgr_param:file { map open read };
 allow privacy_service build_version_param:file { map open read };
@@ -53,7 +53,6 @@ allow privacy_service ohos_param:file { map open read };
 allow privacy_service param_watcher:binder { call transfer };
 allow privacy_service persist_param:file { map open read };
 allow privacy_service persist_sys_param:file { map open read };
-allow privacy_service pulseaudio:binder { call transfer };
 allow privacy_service sa_accesstoken_manager_service:samgr_class { get };
 allow privacy_service sa_audio_policy_service:samgr_class { get };
 # avc:  denied  { get } for service=3008 pid=500 scontext=u:r:privacy_service:s0 tcontext=u:object_r:sa_camera_service:s0 tclass=samgr_class permissive=0

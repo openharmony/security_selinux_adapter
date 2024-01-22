@@ -112,4 +112,10 @@ allow SP_daemon foundation:binder { transfer };
 allow SP_daemon SP_daemon_exec:file { execute_no_trans };
 allow SP_daemon SP_daemon:capability { sys_ptrace };
 neverallow SP_daemon *:process ptrace;
+
+allow SP_daemon hiprofiler_plugins:fd { use };
+allow SP_daemon hiprofiler_plugins:fifo_file { ioctl write };
+allow SP_daemon hiprofiler_plugins:unix_stream_socket { read write };
+allow SP_daemon hiprofilerd:fd { use };
+allowxperm SP_daemon hiprofiler_plugins:fifo_file ioctl { 0x5413 };
 ')
