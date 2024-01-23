@@ -36,6 +36,7 @@ processdump_cmd({
     data_app_el1_file # remove later
     vendor_bin_file
     arkcompiler_param
+    chip_prod_file
 })
 
 #============= domain =================
@@ -134,6 +135,9 @@ allow processdump proc_file:lnk_file { read };
 allow processdump tmpfs:dir { search };
 allow processdump tmpfs:lnk_file { read };
 allow processdump debugfs:dir { search };
+
+#============ chip_prod_file ===================
+allow processdump chip_prod_file:dir { search };
 
 ############################
 ## neverallow assertions: ##
