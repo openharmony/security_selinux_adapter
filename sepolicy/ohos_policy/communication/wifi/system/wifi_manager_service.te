@@ -136,5 +136,4 @@ allow wifi_manager_service hdf_hostapd_interface_service:hdf_devmgr_class { get 
 allow wifi_manager_service dev_block_volfile:dir { search };
 allow wifi_manager_service kernel:unix_stream_socket { connectto };
 allow wifi_manager_service data_vendor:dir { search };
-allow wifi_manager_service vendor_etc_file:dir { search };
 
