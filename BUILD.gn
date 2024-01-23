@@ -1145,6 +1145,7 @@ if (components != "default") {
       ":eng_system_system_common_cil",
       ":eng_system_system_developer_cil",
       ":eng_system_system_developer_cil_sha256",
+      ":filecontexts_toolchain",
     ]
   }
 
@@ -1160,6 +1161,7 @@ if (components != "default") {
       ":eng_chipset_vendor_cil",
       ":eng_chipset_vendor_common_cil",
       ":eng_chipset_vendor_developer_cil",
+      ":filecontexts_toolchain",
     ]
   }
 }
