@@ -123,3 +123,4 @@ allow av_codec_service dev_rga:chr_file { open read write ioctl };
 allowxperm av_codec_service dev_rga:chr_file ioctl { 0x601b 0x5017 };
 
 allow av_codec_service media_service:binder { call transfer };
+allow av_codec_service system_core_hap_attr:binder { call transfer };
