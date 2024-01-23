@@ -321,3 +321,5 @@
 /system/bin/hdcd        u:object_r:hdcd_exec:s0
 
 /system/lib64(/.*)?        u:object_r:system_lib_file:s0
+
+/eng_system/bin/hdcd        u:object_r:hdcd_exec:s0
