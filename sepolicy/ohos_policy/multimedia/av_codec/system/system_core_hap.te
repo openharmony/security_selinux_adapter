@@ -15,3 +15,5 @@ allow system_core_hap_attr av_codec_service:fd { use };
 allow system_core_hap_attr data_user_file:file { getattr };
 allow system_core_hap_attr data_user_file:file { read };
 allow system_core_hap_attr hmdfs:file { getattr };
+allow system_core_hap_attr sa_av_codec_service:samgr_class { get };
+allow system_core_hap_attr av_codec_service:binder { call transfer }; 
