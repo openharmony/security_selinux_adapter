@@ -104,6 +104,8 @@ allow netsysnative sa_distributed_net_service:samgr_class { add get };
 
 allow netsysnative cgroup2:dir { read open };
 
+allow netsysnative sa_netvirt_ext:samgr_class { add };
+
 allow init fs_bpf:dir { add_name create mounton open read search setattr write };
 allow init fs_bpf:file { create getattr open };
 allow init fs_bpf:filesystem { mount };
