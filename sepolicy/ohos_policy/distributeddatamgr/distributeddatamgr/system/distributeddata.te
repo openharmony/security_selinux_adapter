@@ -185,3 +185,7 @@ allow distributeddata dlp_permission_service:binder { call transfer };
 allow distributeddata sa_filemanagement_distributed_file_daemon_service:samgr_class { get };
 allow distributeddata distributedfiledaemon:binder { call };
 allow distributeddata inputmethod_service:binder { call transfer };
+allow distributeddata data_service_el1_file:dir { relabelfrom };
+allow distributeddata data_service_el1_utd_file:dir { relabelto add_name search write };
+allow distributeddata data_service_el1_utd_file:file { create ioctl getattr read write open };
+allowxperm distributeddata data_service_el1_utd_file:file ioctl { 0x5413 };
