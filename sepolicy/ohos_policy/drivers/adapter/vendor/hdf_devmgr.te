@@ -202,3 +202,4 @@ allow hdf_devmgr vendor_etc_file:dir { search };
 allow hdf_devmgr vendor_etc_file:file { getattr open read };
 allow hdf_devmgr telephony_sa:binder { call };
 allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6203 };
+

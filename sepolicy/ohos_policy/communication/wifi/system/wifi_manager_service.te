@@ -137,3 +137,4 @@ allow wifi_manager_service dev_block_volfile:dir { search };
 allow wifi_manager_service kernel:unix_stream_socket { connectto };
 allow wifi_manager_service data_vendor:dir { search };
 
+

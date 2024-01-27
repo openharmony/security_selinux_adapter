@@ -163,3 +163,4 @@ allowxperm wifi_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allow wifi_host wifi_hal_service:unix_dgram_socket { sendto };
 
 allow wifi_host hdf_hostapd_interface_service:hdf_devmgr_class { add };
+
