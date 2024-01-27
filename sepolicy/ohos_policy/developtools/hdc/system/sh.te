@@ -88,6 +88,17 @@ allow sh domain:file { open read };
 allow sh domain:process { getattr };
 allow sh selinuxfs:filesystem { getattr };
 
+# for access debug_hap_data_file
+allow sh sh:capability dac_read_search;
+allow sh data_file:dir search;
+allow sh data_app_file:dir search;
+allow sh data_app_el1_file:dir search;
+allow sh data_app_el2_file:dir search;
+allow sh data_app_el3_file:dir search;
+allow sh data_app_el4_file:dir search;
+allow sh debug_hap_data_file:dir { search getattr read open };
+allow sh debug_hap_data_file:file { getattr read open };
+
 # for param_get
 allow sh dev_parameters_file:dir { search };
 allow sh dev_parameters_file:file read_file_perms;
