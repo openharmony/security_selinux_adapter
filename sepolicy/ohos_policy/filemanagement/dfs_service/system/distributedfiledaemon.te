@@ -94,3 +94,6 @@ allow distributedfiledaemon hap_domain:binder { call };
 allow distributedfiledaemon hmdfs:dir { search read open write add_name create setattr };
 
 allow distributedfiledaemon hmdfs:file { read open getattr create write setattr };
+
+allow distributedfiledaemon dev_kmsg_file:chr_file { write };
+
