@@ -175,3 +175,4 @@ neverallow hdcd hmdfs:file ioctl;
 
 # hdc control
 neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:parameter_service { set };
+neverallow hdcd { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr -debug_hap_data_file }:{ dir file } *;
