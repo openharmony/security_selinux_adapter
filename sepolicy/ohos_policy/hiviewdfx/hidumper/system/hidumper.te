@@ -76,3 +76,5 @@ allow hidumper musl_param:file { read open map };
 allow hidumper hiprofiler_plugins:fifo_file { read };
 allow hidumper sys_file:file { read };
 allow hidumper hdcd:fifo_file {read };
+
+allow hidumper hidumper_file:file { write open read };
