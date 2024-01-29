@@ -118,6 +118,9 @@ domain_auto_transition_pattern(sh, processdump_exec, processdump);
 # for sh process arkCompiler AOT
 allow sh ark_profile:parameter_service { set };
 
+# for sh process arkCompiler param
+allow sh ark_writeable_param:parameter_service { set };
+
 # for hilog
 use_hilog(sh)
 read_hilog(sh)
