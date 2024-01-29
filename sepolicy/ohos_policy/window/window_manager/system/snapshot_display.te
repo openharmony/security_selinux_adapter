@@ -33,7 +33,8 @@ debug_only(`
     # avc:  denied  { get } for service=4607 pid=1289 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
     allow snapshot_display sa_foundation_dms:samgr_class { get };
     # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/tty" dev="tmpfs" ino=40 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
-    allow snapshot_display tty_device:chr_file { read write };
+    allow snapshot_display tty_device:chr_file { read write open ioctl };
+    allowxperm snapshot_display tty_device:chr_file ioctl { 0x5413 };
     # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
     allow snapshot_display arkcompiler_param:file { map read open read };
     # avc:  denied  { write search } for  pid=1475 comm="snapshot_displa" name="tmp" dev="mmcblk0p15" ino=115 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
@@ -66,6 +67,11 @@ debug_only(`
     allow snapshot_display su:fifo_file { ioctl read write };
     # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
     allowxperm snapshot_display su:fifo_file ioctl { 0x5413 };
+
+
+    allow snapshot_display hilog_control_socket:sock_file { write };
+    allow snapshot_display hilogd:unix_stream_socket { connectto };
+    allow snapshot_display hilog_output_socket:sock_file { write };
 ')
 
 developer_only(`
@@ -90,7 +96,8 @@ developer_only(`
     # avc:  denied  { get } for service=4607 pid=1289 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:sa_foundation_dms:s0 tclass=samgr_class permissive=1
     allow snapshot_display sa_foundation_dms:samgr_class { get };
     # avc:  denied  { read write } for  pid=1636 comm="snapshot_displa" path="/dev/tty" dev="tmpfs" ino=40 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
-    allow snapshot_display tty_device:chr_file { read write };
+    allow snapshot_display tty_device:chr_file { read write open ioctl };
+    allowxperm snapshot_display tty_device:chr_file ioctl { 0x5413 };
     # avc:  denied  { read } for  pid=1475 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:arkcompiler_param:s0" dev="tmpfs" ino=84 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:arkcompiler_param:s0 tclass=file permissive=1
     allow snapshot_display arkcompiler_param:file { map read open read };
     # avc:  denied  { write search } for  pid=1475 comm="snapshot_displa" name="tmp" dev="mmcblk0p15" ino=115 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
@@ -123,4 +130,8 @@ developer_only(`
     allow snapshot_display sh:fifo_file { ioctl read write };
     # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
     allowxperm snapshot_display sh:fifo_file ioctl { 0x5413 };
+
+    allow snapshot_display hilog_control_socket:sock_file { write };
+    allow snapshot_display hilogd:unix_stream_socket { connectto };
+    allow snapshot_display hilog_output_socket:sock_file { write };
 ')
