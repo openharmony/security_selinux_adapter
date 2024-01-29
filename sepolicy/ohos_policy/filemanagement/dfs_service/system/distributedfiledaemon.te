@@ -97,3 +97,4 @@ allow distributedfiledaemon hmdfs:file { read open getattr create write setattr 
 
 allow distributedfiledaemon dev_kmsg_file:chr_file { write };
 
+allow distributedfiledaemon data_service_el2_hmdfs:file { create };
