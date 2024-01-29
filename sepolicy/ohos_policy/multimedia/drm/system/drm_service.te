@@ -113,4 +113,7 @@ allow drm_service av_codec_service:fd { use };
 # avc:  denied  { use } for  pid=550 comm="OS_IPC_2_2362" path="/dev/ashmem" dev="tmpfs" ino=245 scontext=u:r:clearplay_host:s0 tcontext=u:r:av_codec_service:s0 tclass=fd permissive=1
 allow clearplay_host av_codec_service:fd { use };
 
+#avc:  denied  { get } for service=1151 pid=5890 scontext=u:r:drm_service:s0 tcontext=u:object_r:sa_net_conn_manager:s0 tclass=samgr_class permissive=1
+allow drm_service sa_net_conn_manager:samgr_class { get };
+
 allow drm_service tty_device:chr_file { read write };
