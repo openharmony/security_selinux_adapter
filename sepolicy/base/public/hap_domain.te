@@ -137,7 +137,7 @@ neverallow { isolated_render } system_core_hap_data_file_attr: file ~{ read writ
 neverallow { isolated_render } system_basic_hap_data_file_attr: { dir blk_file chr_file fifo_file lnk_file sock_file } { create write setattr relabelfrom relabelto append unlink link rename };
 
 # access already open hap data files received by ipc
-neverallow { isolated_render } system_basic_hap_data_file_attr: file ~{ read write };
+neverallow { isolated_render } system_basic_hap_data_file_attr: file ~{ read write lock };
 
 neverallow hap_domain { sysfs_attr proc_attr }:dir_file_class_set write;
 
