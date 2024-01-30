@@ -66,6 +66,13 @@ debug_only(`
     allow snapshot_display su:fifo_file { ioctl read write };
     # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
     allowxperm snapshot_display su:fifo_file ioctl { 0x5413 };
+
+    allow snapshot_display hdcd:fd { use };
+    allow snapshot_display hdcd:fifo_file { read write };
+    allow snapshot_display hdcd:unix_stream_socket { read write };
+    allow snapshot_display hilog_control_socket:sock_file { write };
+    allow snapshot_display hilogd:unix_stream_socket { connectto };
+    allow snapshot_display hilog_output_socket:sock_file { write };
 ')
 
 developer_only(`
@@ -123,4 +130,11 @@ developer_only(`
     allow snapshot_display sh:fifo_file { ioctl read write };
     # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
     allowxperm snapshot_display sh:fifo_file ioctl { 0x5413 };
+
+    allow snapshot_display hdcd:fd { use };
+    allow snapshot_display hdcd:fifo_file { read write };
+    allow snapshot_display hdcd:unix_stream_socket { read write };
+    allow snapshot_display hilog_control_socket:sock_file { write };
+    allow snapshot_display hilogd:unix_stream_socket { connectto };
+    allow snapshot_display hilog_output_socket:sock_file { write };
 ')
