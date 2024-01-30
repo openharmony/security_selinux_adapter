@@ -202,3 +202,15 @@ allow hdf_devmgr vendor_etc_file:dir { search };
 allow hdf_devmgr vendor_etc_file:file { getattr open read };
 allow hdf_devmgr telephony_sa:binder { call };
 allowxperm hdf_devmgr dev_hdf_kevent:chr_file ioctl { 0x6203 };
+
+# avc:  denied  { search } for  pid=571 comm="IPC_0_581" name="1364" dev="proc" ino=31517 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=dir permissive=1
+allow hdf_devmgr wifi_manager_service:dir { search };
+
+# avc:  denied  { read } for  pid=562 comm="IPC_1_572" name="current" dev="proc" ino=19801 scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=file permissive=1
+allow hdf_devmgr wifi_manager_service:file { open read };
+
+# avc:  denied  { getattr } for  pid=571 comm="IPC_0_581" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=process permissive=1
+allow hdf_devmgr wifi_manager_service:process { getattr };
+
+# avc:  denied  { transfer } for  pid=562 comm="IPC_1_572" scontext=u:r:hdf_devmgr:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow hdf_devmgr wifi_manager_service:binder { transfer };
