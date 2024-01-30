@@ -71,6 +71,9 @@ allow hitrace dev_console_file:chr_file { read write };
 allow hitrace samgr:binder { call };
 allow hitrace hiview:binder { call transfer };
 
+allow hitrace system_usr_file:file { read open getattr };
+allow hitrace system_usr_file:dir { search };
+
 allow samgr hitrace:dir { search };
 allow samgr hitrace:file { read open };
 allow samgr hitrace:process { getattr };
