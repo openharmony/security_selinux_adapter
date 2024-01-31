@@ -50,3 +50,7 @@ allow backup_sa normal_hap_data_file_attr:file { getattr read write };
 allow backup_sa system_basic_hap_data_file_attr:file { getattr read write };
 allow backup_sa data_storage:dir { search };
 allow backup_sa hmdfs:file { getattr read write };
+allow backup_sa sys_prod_file:file { map open read getattr };
+allow backup_sa sys_prod_file:dir { search };
+allow backup_sa system_file:file { map open read getattr };
+allow backup_sa system_file:dir { search };
