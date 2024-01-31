@@ -117,9 +117,9 @@ allow init cgroup2:filesystem { mount };
 allow init cgroup2:file { write };
 allow init cgroup2:lnk_file { create };
 
-allow init dnsproxy_service:sock_file { getattr relabelto };
+allow init dnsproxy_service:sock_file { getattr unlink setattr relabelto };
 allow netsysnative dnsproxy_service:sock_file { setattr };
-allow init fwmark_service:sock_file { getattr relabelto };
+allow init fwmark_service:sock_file { getattr unlink setattr relabelto };
 allow netsysnative fwmark_service:sock_file { setattr };
 
 allow domain fwmark_service:sock_file { write read };
