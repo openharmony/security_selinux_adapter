@@ -55,13 +55,15 @@ allow distributedfiledaemon data_app_file:dir { search };
 
 allow distributedfiledaemon data_app_el2_file:dir { search };
 
-allow distributedfiledaemon distributedfiledaemon:capability { dac_override chown net_raw };
+allow distributedfiledaemon distributedfiledaemon:capability { dac_read_search chown net_raw };
 
 allow distributedfiledaemon distributedfiledaemon:tcp_socket { create setopt bind getattr listen getopt shutdown connect accept write read };
 
 allow distributedfiledaemon node:tcp_socket { node_bind };
 
 allow distributedfiledaemon distributedfiledaemon:udp_socket { ioctl shutdown create };
+
+allowxperm distributedfiledaemon distributedfiledaemon:udp_socket ioctl { 0x8912 };
 
 allow distributedfiledaemon normal_hap_data_file_attr:dir { getattr write search read open add_name create setattr };
 
