@@ -53,3 +53,4 @@ allow deviceauth_service sa_net_conn_manager:samgr_class { get };
 allow deviceauth_service normal_hap_attr:binder { call transfer };
 allow deviceauth_service sa_foundation_bms:samgr_class { get };
 allow deviceauth_service sa_foundation_abilityms:samgr_class { get };
+allow deviceauth_service accountmgr:fd { use };
