@@ -137,6 +137,10 @@ allow wifi_manager_service dev_block_volfile:dir { search };
 allow wifi_manager_service kernel:unix_stream_socket { connectto };
 allow wifi_manager_service data_vendor:dir { search };
 
+allow wifi_manager_service persist_param:parameter_service { set };
+allow wifi_manager_service dev_block_file:dir { search };
+allow wifi_manager_service dev_block_file:lnk_file { read };
+
 # avc:  denied  { getattr } for  pid=1419 comm="RunHandleThread" laddr=7.246.161.199 lport=52412 faddr=121.14.84.231 fport=80 scontext=u:r:wifi_manager_service:s0 tcontext=u:r:wifi_manager_service:s0 tclass=tcp_socket permissive=1
 allow wifi_manager_service wifi_manager_service:tcp_socket { getattr setopt };
 
