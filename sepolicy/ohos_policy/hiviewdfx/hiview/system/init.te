@@ -26,4 +26,4 @@ allow init dev_ucollection:chr_file { setattr };
 
 allow init data_system:dir { relabelfrom };
 
-allowxperm init dev_bbox:chr_file ioctl { 0x426a };
+allowxperm init dev_bbox:chr_file ioctl { 0x426a 0x4202 0x4203};
