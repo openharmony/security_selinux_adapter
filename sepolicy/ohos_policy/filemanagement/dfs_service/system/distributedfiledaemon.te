@@ -63,7 +63,7 @@ allow distributedfiledaemon node:tcp_socket { node_bind };
 
 allow distributedfiledaemon distributedfiledaemon:udp_socket { ioctl shutdown create };
 
-allowxperm distributedfiledaemon distributedfiledaemon:udp_socket ioctl { 0x8912 };
+allowxperm distributedfiledaemon distributedfiledaemon:udp_socket ioctl { 0x8912 0x8913 0x8915 0x891b };
 
 allow distributedfiledaemon normal_hap_data_file_attr:dir { getattr write search read open add_name create setattr };
 
