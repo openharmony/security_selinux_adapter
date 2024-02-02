@@ -19,9 +19,6 @@ neverallow { chipset_domain } system_file:{ blk_file chr_file fifo_file lnk_file
 
 # Prohibit chipset component processes from accessing system bin files to achieve access isolation
 neverallow { chipset_domain -system_bin_file_violator_dir } system_bin_file:dir ~{ search getattr };
-neverallow { chipset_domain -a2dp_host -blue_host -sample_host -audio_host -camera_host -codec_host -dcamera_host -allocator_host -composer_host 
-    -input_user_host -intell_voice_host -light_host -location_host -partitionslot_host -power_host -sensor_host -usb_host -face_auth_host -fingerprint_auth_host 
-    -pin_auth_host -user_auth_host -vibrator_host -wifi_host -riladapter_host -chipset_init -system_bin_file_violator_dir_search } system_bin_file:dir { search };
 neverallow { chipset_domain -camera_host -system_bin_file_violator_dir_getattr } system_bin_file:dir { getattr };
 neverallow { chipset_domain -system_bin_file_violator_file } system_bin_file:file ~{ execute execute_no_trans map read open getattr };
 neverallow { chipset_domain -audio_host -camera_host -input_user_host -usb_host -riladapter_host -chipset_init -system_bin_file_violator_file_execute } system_bin_file:file { execute };
