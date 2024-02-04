@@ -127,3 +127,4 @@ developer_only(`
     allow debug_hap dev_asanlog_file:file { create_file_perms };
 ')
 allow normal_hap_attr sa_hiview_service:samgr_class { get };
+allow normal_hap normal_hap_data_file:sock_file { create };
