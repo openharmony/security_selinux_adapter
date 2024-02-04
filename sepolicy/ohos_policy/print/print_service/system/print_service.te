@@ -87,3 +87,4 @@ allow print_service print_service:tcp_socket { accept bind getattr listen shutdo
 allow print_service usb_service:binder { call };
 allow print_service sa_wifi_device_ability:samgr_class { get };
 allow print_service sa_wifi_p2p_ability:samgr_class { get };
+allow print_service wifi_manager_service:binder { call };
