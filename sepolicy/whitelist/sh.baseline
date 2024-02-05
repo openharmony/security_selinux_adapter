@@ -79,7 +79,7 @@ developer_only(`
 (allow sh self (unix_stream_socket (read write create connect setopt)))
 (allow sh selinuxfs (filesystem (getattr)))
 (allow sh servicectrl_reboot_param (parameter_service (set)))
-(allow sh sh_exec (file (execute_no_trans read getattr map execute open entrypoint)))
+(allow sh sh_exec (file (read getattr map execute open entrypoint)))
 (allow sh sys_file (dir (search)))
 (allow sh system_bin_file (dir (read getattr open search)))
 (allow sh system_bin_file (file (read getattr map execute open execute_no_trans)))
