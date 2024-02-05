@@ -137,3 +137,4 @@ allow system_basic_hap_attr sa_locationhub_lbsservice_network:samgr_class { get 
 allow system_basic_hap_attr sa_locationhub_lbsservice_passive:samgr_class { get };
 allow system_basic_hap_attr sa_location_geo_convert_service:samgr_class { get };
 allow system_basic_hap_attr sa_hiview_service:samgr_class { get };
+allow system_basic_hap_attr system_basic_hap_data_file_attr:sock_file { create };
