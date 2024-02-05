@@ -87,7 +87,6 @@
                 "sh system_bin_file",
                 "lldb_server lldb_server_file",
                 "SP_daemon SP_daemon_exec",
-                "sh sh_exec",
                 "sh data_local_tmp"
             ]
         }
