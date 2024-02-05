@@ -99,6 +99,7 @@ allow netsysnative system_core_hap_attr:tcp_socket { read write getopt setopt };
 allow netsysnative system_core_hap_attr:udp_socket { read write getopt setopt };
 allow netsysnative edm_sa:binder { call };
 allow netsysnative sysfs_devices_system_cpu:file { read open getattr };
+allow netsysnative dev_kmsg_file:chr_file { open write };
 
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 

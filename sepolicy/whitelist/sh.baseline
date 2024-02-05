@@ -24,7 +24,7 @@ developer_only(`
 (allow sh data_hilogd_file (file (ioctl read getattr lock map open watch watch_reads)))
 (allow sh data_local (dir (ioctl read getattr lock open watch watch_reads search)))
 (allow sh data_local_tmp (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
-(allow sh data_local_tmp (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
+(allow sh data_local_tmp (file (execute execute_no_trans ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
 (allow sh debug_param (file (read map open)))
 (allow sh dev_console_file (chr_file (read write getattr)))
 (allow sh dev_file (dir (search)))
@@ -125,4 +125,8 @@ developer_only(`
 (allow sh data_app_el4_file (dir (search)))
 (allow sh debug_hap_data_file (dir (search getattr read open)))
 (allow sh debug_hap_data_file (file (getattr read open)))
+
+(allow sh system_file (dir (search)))
+(allow sh system_fonts_file (dir (getattr search read open)))
+(allow sh system_fonts_file (file (getattr read open)))
 ')

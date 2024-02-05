@@ -35,6 +35,10 @@ allow sh devinfo_public_param:file { map open read };
 ## for musl.so
 allow sh system_lib_file:file { map read execute open getattr };
 
+#avc: denied { execute } for pid=26490 comm="sh" name="hdcd_user_permit" dev="mmcblk0p15" ino=2134 scontext=u:r:sh:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+#avc: denied { execute_no_trans } for pid=1621 comm="sh" path="/data/local/tmp/a.sh" dev="mmcblk0p15" ino=1984 scontext=u:r:sh:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=0
+allow sh data_local_tmp:file { execute execute_no_trans };
+
 # for toybox command execute
 allow sh system_file:dir { search };
 allow sh vendor_file:dir { search };
@@ -101,6 +105,11 @@ allow sh data_app_el3_file:dir search;
 allow sh data_app_el4_file:dir search;
 allow sh debug_hap_data_file:dir { search getattr read open };
 allow sh debug_hap_data_file:file { getattr read open };
+
+# for system_fonts_file
+allow sh system_file:dir search;
+allow sh system_fonts_file:dir { getattr search read open };
+allow sh system_fonts_file:file { getattr read open }; 
 
 # for param_get
 allow sh dev_parameters_file:dir { search };
