@@ -124,3 +124,4 @@ allow appspawn system_file:file { map };
 allow appspawn nwebspawn:process{ dyntransition };
 allow appspawn nwebspawn:process{ sigkill };
 allow appspawn dev_asanlog_file:dir { getattr };
+allow appspawn share_public_file:dir { search };
