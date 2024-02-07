@@ -163,3 +163,9 @@ allowxperm wifi_host dev_hdf_kevent:chr_file ioctl { 0x6201 0x6202 0x6203 };
 allow wifi_host wifi_hal_service:unix_dgram_socket { sendto };
 
 allow wifi_host hdf_hostapd_interface_service:hdf_devmgr_class { add };
+
+# avc:  denied  { read } for  pid=1398 comm="IPC_1_1430" name="WL_IRAM.bin" dev="sdd84" ino=448 scontext=u:r:wifi_host:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=1
+allow wifi_host vendor_file:file { open read };
+
+# avc:  denied  { call } for  pid=1293 comm="WpaMainThread" scontext=u:r:wifi_host:s0 tcontext=u:r:wifi_manager_service:s0 tclass=binder permissive=1
+allow wifi_host wifi_manager_service:binder { call };

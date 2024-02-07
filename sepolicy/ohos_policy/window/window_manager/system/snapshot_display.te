@@ -66,6 +66,23 @@ debug_only(`
     allow snapshot_display su:fifo_file { ioctl read write };
     # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
     allowxperm snapshot_display su:fifo_file ioctl { 0x5413 };
+
+    allow snapshot_display hdcd:fd { use };
+    allow snapshot_display hdcd:fifo_file { read write };
+    allow snapshot_display hdcd:unix_stream_socket { read write };
+    allow snapshot_display hilog_control_socket:sock_file { write };
+    allow snapshot_display hilogd:unix_stream_socket { connectto };
+    allow snapshot_display hilog_output_socket:sock_file { write };
+
+    # avc:  denied  { open } for  pid=8117 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=654 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+    allow snapshot_display dev_ashmem_file:chr_file { open };
+    # avc:  denied  { write } for  pid=8184 comm="snapshot_displa" path="/dev/kmsg" dev="tmpfs" ino=110 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+    allow snapshot_display dev_kmsg_file:chr_file { write };
+    # avc:  denied  { read } for  pid=8117 comm="snapshot_displa" name="u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+    # avc:  denied  { read open } for  pid=8117 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+    allow snapshot_display persist_param:file { read read open };
+    # avc:  denied  { search } for  pid=8117 comm="snapshot_displa" name="bin" dev="sdd74" ino=357 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+    allow snapshot_display system_bin_file:dir { search };
 ')
 
 developer_only(`
@@ -123,4 +140,21 @@ developer_only(`
     allow snapshot_display sh:fifo_file { ioctl read write };
     # avc:  denied  { ioctl } for  pid=1565 comm="snapshot_displa" path="pipe:[30382]" dev="pipefs" ino=30382 ioctlcmd=0x5413 scontext=u:r:snapshot_display:s0 tcontext=u:r:su:s0 tclass=fifo_file permissive=1
     allowxperm snapshot_display sh:fifo_file ioctl { 0x5413 };
+
+    allow snapshot_display hdcd:fd { use };
+    allow snapshot_display hdcd:fifo_file { read write };
+    allow snapshot_display hdcd:unix_stream_socket { read write };
+    allow snapshot_display hilog_control_socket:sock_file { write };
+    allow snapshot_display hilogd:unix_stream_socket { connectto };
+    allow snapshot_display hilog_output_socket:sock_file { write };
+
+    # avc:  denied  { open } for  pid=8117 comm="snapshot_displa" path="/dev/ashmem" dev="tmpfs" ino=654 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_ashmem_file:s0 tclass=chr_file permissive=1
+    allow snapshot_display dev_ashmem_file:chr_file { open };
+    # avc:  denied  { write } for  pid=8184 comm="snapshot_displa" path="/dev/kmsg" dev="tmpfs" ino=110 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+    allow snapshot_display dev_kmsg_file:chr_file { write };
+    # avc:  denied  { read } for  pid=8117 comm="snapshot_displa" name="u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+    # avc:  denied  { read open } for  pid=8117 comm="snapshot_displa" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=142 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=1
+    allow snapshot_display persist_param:file { read read open };
+    # avc:  denied  { search } for  pid=8117 comm="snapshot_displa" name="bin" dev="sdd74" ino=357 scontext=u:r:snapshot_display:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir permissive=1
+    allow snapshot_display system_bin_file:dir { search };
 ')

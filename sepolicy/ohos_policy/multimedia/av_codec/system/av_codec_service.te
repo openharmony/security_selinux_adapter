@@ -123,3 +123,7 @@ allow av_codec_service dev_rga:chr_file { open read write ioctl };
 allowxperm av_codec_service dev_rga:chr_file ioctl { 0x601b 0x5017 };
 
 allow av_codec_service media_service:binder { call transfer };
+allow av_codec_service system_core_hap_attr:binder { call transfer };
+
+# avc_audit_slow:260] avc: denied { call } for pid=1654, comm="/system/bin/sa_main"  scontext=u:r:av_codec_service:s0 tcontext=u:r:drm_service:s0 tclass=binder permissive=1
+allow av_codec_service drm_service:binder { call };

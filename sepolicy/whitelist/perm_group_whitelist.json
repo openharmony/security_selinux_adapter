@@ -70,14 +70,12 @@
                 "cupsd data_service_el1_public_print_service_file"
             ],
             "developer": [
-                "aa hilog_exec",
                 "aa sh_exec",
                 "SP_daemon uitest_exec",
                 "SP_daemon system_bin_file",
                 "aa system_bin_file",
                 "aa aa_exec",
                 "snapshot_display snapshot_display_exec",
-                "aa bm_exec",
                 "wukong sh_exec",
                 "SP_daemon sh_exec",
                 "wukong system_bin_file",
@@ -87,7 +85,9 @@
                 "hdcd hiview_exec",
                 "sh hilog_exec",
                 "sh system_bin_file",
-                "lldb_server lldb_server_file"
+                "lldb_server lldb_server_file",
+                "SP_daemon SP_daemon_exec",
+                "sh data_local_tmp"
             ]
         }
     ]

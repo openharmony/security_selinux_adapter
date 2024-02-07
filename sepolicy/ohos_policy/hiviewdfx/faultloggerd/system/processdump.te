@@ -36,11 +36,13 @@ processdump_cmd({
     data_app_el1_file # remove later
     vendor_bin_file
     arkcompiler_param
+    chip_prod_file
 })
 
 #============= domain =================
 allow domain processdump:process { share sigchld };
 allow domain self:fifo_file { write };
+allow domain system_bin_file:dir { search };
 allow processdump { domain -processdump -kernel }:process ptrace;
 allow processdump domain:fd use;
 allow processdump domain:fifo_file { read write };
@@ -63,6 +65,7 @@ allow processdump processdump:dir { search };
 allow processdump processdump:lnk_file { read };
 allow processdump processdump:unix_dgram_socket { create connect write };
 allow processdump processdump:unix_stream_socket { create setopt connect write read };
+allow processdump data_local_tmp:file { getattr map open read };
 
 #============ hidumper ==============
 allow processdump hidumper_service:fifo_file ioctl;
@@ -134,6 +137,9 @@ allow processdump proc_file:lnk_file { read };
 allow processdump tmpfs:dir { search };
 allow processdump tmpfs:lnk_file { read };
 allow processdump debugfs:dir { search };
+
+#============ chip_prod_file ===================
+allow processdump chip_prod_file:dir { search };
 
 ############################
 ## neverallow assertions: ##

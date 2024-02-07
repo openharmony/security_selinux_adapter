@@ -136,9 +136,7 @@ allow hiprofiler_plugins bgtaskmgr_service:file read;
 allow hiprofiler_plugins bluetooth_service:file read;
 allow hiprofiler_plugins device_usage_stats_service:file read;
 allow hiprofiler_plugins pasteboard_service:file read;
-allow hiprofiler_plugins pulseaudio:file read;
 
-allow hiprofiler_plugins audio_policy:file read;
 allow hiprofiler_plugins download_server:file read;
 allow hiprofiler_plugins edm_sa:file read;
 allow hiprofiler_plugins msdp_sa:file read;
@@ -220,7 +218,7 @@ allow hiprofiler_plugins locationhub:file getattr;
 allow hiprofiler_plugins memmgrservice:file getattr;
 allow hiprofiler_plugins pasteboard_service:file getattr;
 allow hiprofiler_plugins proc_file:file { getattr open read };
-allow hiprofiler_plugins pulseaudio:file getattr;
+allow hiprofiler_plugins audio_server:file { getattr read };
 allow hiprofiler_plugins tracefs:file open;
 
 allow hiprofiler_plugins proc_diskstats_file:file { open read };
@@ -298,3 +296,9 @@ allow hiprofiler_plugins SP_daemon_exec:file { getattr open read execute execute
 allow hiprofiler_plugins sa_render_service:samgr_class get;
 allow hiprofiler_plugins render_service:binder { call transfer };
 allow hiprofiler_plugins normal_hap_attr:unix_stream_socket { connectto };
+
+developer_only(`
+    allow hiprofiler_plugins system_usr_file:dir { search };
+    allow hiprofiler_plugins system_usr_file:file { getattr map open read };
+    allow hiprofiler_plugins SP_daemon:process { rlimitinh siginh sigkill signal };
+')

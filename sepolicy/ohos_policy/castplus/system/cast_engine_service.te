@@ -41,7 +41,7 @@ allow cast_engine_service sa_media_service:samgr_class { get };
 allow cast_engine_service sa_softbus_service:samgr_class { get };
 allow cast_engine_service sa_foundation_devicemanager_service:samgr_class { get };
 allow cast_engine_service device_manager:binder { call transfer };
-allow cast_engine_service audio_policy:binder { call transfer };
+allow cast_engine_service audio_server:binder { call transfer };
 allow cast_engine_service softbus_server:binder { call transfer };
 allow cast_engine_service softbus_server:fd { use };
 allow cast_engine_service softbus_server:tcp_socket { read write setopt shutdown };

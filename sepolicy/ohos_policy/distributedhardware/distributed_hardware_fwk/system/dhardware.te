@@ -198,3 +198,7 @@ allow dhardware dev_kmsg_file:chr_file{ open write };
 allow dhardware sa_foundation_wms:samgr_class { get };
 
 allow dhardware paramservice_socket:sock_file { write };
+
+#avc:  denied  { get } for service=3301 pid=4564 scontext=u:r:dhardware:s0 tcontext=u:object_r:sa_foundation_powermgr_service:s0 tclass=samgr_class permissive=1
+allow dhardware sa_foundation_powermgr_service:samgr_class { get };
+

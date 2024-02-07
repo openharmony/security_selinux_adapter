@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,5 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#avc:  denied  { call } for  pid=1262 comm="IPC_0_1276" scontext=u:r:audio_policy:s0 tcontext=u:r:sensors:s0 tclass=binder permissive=1
-allow audio_policy sensors:binder { call };
+developer_only(`
+    allow debug_hap debug_hap_data_file:sock_file { create unlink read write };
+')
+allow normal_hap_attr normal_hap_data_file_attr:sock_file { create unlink read write };
+allow system_basic_hap_attr system_basic_hap_data_file_attr:sock_file { create unlink read write };
+allow system_core_hap_attr system_core_hap_data_file_attr:sock_file { create unlink read write };

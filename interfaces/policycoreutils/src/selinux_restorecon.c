@@ -64,7 +64,7 @@ static void SetFileContextsHandle(void)
     selinux_restorecon_set_sehandle(g_fcHandle);
 }
 
-static int RestoreconCommon(const char *path, unsigned int flag, unsigned int nthreads)
+int RestoreconCommon(const char *path, unsigned int flag, unsigned int nthreads)
 {
     __selinux_once(g_fcOnce, SetFileContextsHandle);
     if (g_fcHandle == NULL) {

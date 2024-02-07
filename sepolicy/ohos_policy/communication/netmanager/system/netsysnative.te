@@ -12,6 +12,7 @@
 # limitations under the License.
 
 allow netsysnative dev_unix_socket:dir { search };
+allow netsysnative dev_unix_socket:sock_file { write };
 allow netsysnative netsysnative:capability { net_admin net_raw net_bind_service sys_resource sys_admin };
 allow netsysnative netsysnative:netlink_route_socket { create listen nlmsg_write write };
 allow netsysnative netsysnative:unix_dgram_socket { ioctl };
@@ -98,10 +99,13 @@ allow netsysnative system_core_hap_attr:tcp_socket { read write getopt setopt };
 allow netsysnative system_core_hap_attr:udp_socket { read write getopt setopt };
 allow netsysnative edm_sa:binder { call };
 allow netsysnative sysfs_devices_system_cpu:file { read open getattr };
+allow netsysnative dev_kmsg_file:chr_file { open write };
 
 allow netsysnative sa_distributed_net_service:samgr_class { add get };
 
 allow netsysnative cgroup2:dir { read open };
+
+allow netsysnative sa_netvirt_ext:samgr_class { add };
 
 allow init fs_bpf:dir { add_name create mounton open read search setattr write };
 allow init fs_bpf:file { create getattr open };
@@ -114,13 +118,15 @@ allow init cgroup2:filesystem { mount };
 allow init cgroup2:file { write };
 allow init cgroup2:lnk_file { create };
 
-allow init dnsproxy_service:sock_file { getattr relabelto };
+allow init dnsproxy_service:sock_file { getattr unlink setattr relabelto };
 allow netsysnative dnsproxy_service:sock_file { setattr };
-allow init fwmark_service:sock_file { getattr relabelto };
+allow init fwmark_service:sock_file { getattr unlink setattr relabelto };
 allow netsysnative fwmark_service:sock_file { setattr };
 
 allow domain fwmark_service:sock_file { write read };
 allow domain dnsproxy_service:sock_file { write read };
+allow domain dev_tun_file:chr_file { read write };
+allow domain netsysnative:fd { use };
 
 neverallow { domain -wifi_hal_service -wifi_manager_service -netmanager -telephony_sa -param_watcher -hidumper_service -samgr -edm_sa } netsysnative:binder *;
 neverallow { domain -netsysnative } iptables_exec:file { execute };

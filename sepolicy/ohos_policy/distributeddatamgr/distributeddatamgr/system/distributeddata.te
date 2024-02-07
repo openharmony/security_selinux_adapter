@@ -15,7 +15,7 @@ allow distributeddata accesstoken_service:binder { call };
 allow distributeddata accountmgr:binder { call };
 allow distributeddata accountmgr:dir { search };
 allow distributeddata accountmgr:file { getattr open read };
-allow distributeddata audio_policy:binder { call transfer };
+allow distributeddata audio_server:binder { call transfer };
 allow distributeddata data_app_el1_database_file:dir { add_name create open read remove_name rmdir search setattr write };
 allow distributeddata data_app_el1_database_file:file { create getattr ioctl lock map open read rename setattr unlink write };
 allow distributeddata data_app_el2_database_file:dir { add_name create open read remove_name rmdir search setattr write };

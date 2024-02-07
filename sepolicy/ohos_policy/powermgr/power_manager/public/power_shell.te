@@ -11,6 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow audio_policy sharing_service:binder { call };
-allow audio_policy normal_hap_attr:fd { use };
-allow audio_policy normal_hap_attr:binder { transfer };
+type power_shell, native_system_domain, domain;

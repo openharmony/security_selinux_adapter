@@ -325,3 +325,5 @@
 /system/bin/hdcd_user_permit        u:object_r:hdcd_user_permit_exec:s0
 
 /system/lib64(/.*)?        u:object_r:system_lib_file:s0
+
+/eng_system/bin/hdcd        u:object_r:hdcd_exec:s0

@@ -119,8 +119,7 @@ developer_only(`
 
     allow hdcd samgr:binder { call };
     allow hdcd param_watcher:binder { call transfer };
-    allow hdcd audio_policy:binder { call transfer };
-    allow hdcd pulseaudio:binder { call };
+    allow hdcd audio_server:binder { call transfer };
     allow hdcd sa_audio_policy_service:samgr_class { get };
     allow hdcd sa_pulseaudio_audio_service:samgr_class { get };
 

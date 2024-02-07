@@ -15,6 +15,8 @@ allow init nwebspawn_socket:sock_file { unlink };
 allow init appspawn_socket:sock_file { unlink };
 allow init data_ethernet:dir { getattr };
 allow init data_log:file { getattr };
+allow init bootuptrace_file:dir { add_name getattr open read search write relabelto };
+allow init bootuptrace_file:file { create getattr write open relabelto };
 allow init data_parameters:file { getattr };
 allow init data_udev:dir { relabelfrom };
 allow init privacy_service:process { transition };
@@ -277,7 +279,7 @@ allow init dev_sched_rtg_ctrl:chr_file { setattr };
 allow init dev_uhid_file:chr_file { setattr };
 allow init dev_tun_file:chr_file { setattr };
 allow init dev_unix_file:dir { getattr open read relabelto };
-allow init dev_unix_file:sock_file { getattr relabelto };
+allow init dev_unix_file:sock_file { getattr relabelto write };
 allow init dev_unix_socket:dir { add_name getattr open read relabelto remove_name search write };
 allow init dev_unix_socket:sock_file { create getattr relabelfrom setattr };
 allow init dev_usb_ffs:dir { add_name create getattr mounton open read relabelto search setattr write };
@@ -447,7 +449,7 @@ allowxperm init devpts:chr_file ioctl { 0x5413 };
 
 # for hyperhold
 allow init zram_device:blk_file { read open write ioctl getattr };
-allow init hyperhold_sys:dir { search relabelto write add_name getattr setattr };
+allow init hyperhold_sys:dir { search relabelto write add_name getattr setattr remove_name };
 allow init hyperhold_sys:file { getattr open read write create rename unlink };
 allowxperm init zram_device:blk_file ioctl { 0x126e };
 
@@ -493,3 +495,5 @@ allow init chip_ckm_file:dir { getattr mounton search };
 # avc:  denied  { open } for  pid=1 comm="init" path="/chip_ckm/kosample.ko" dev="mmcblk0p14" ino=12 scontext=u:r:init:s0 tcontext=u:object_r:chip_ckm_file:s0 tclass=file permissive=0
 allow init chip_ckm_file:file { read open };
 
+allow init sysfs_block_file:dir { read open };
+allow init sysfs_block_file:file { open write };
