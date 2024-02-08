@@ -300,6 +300,7 @@ allow init faultloggerd_exec:file { execute getattr read open };
 allow init faultloggerd:process { rlimitinh siginh transition };
 allow init faultloggerd_socket:sock_file { getattr relabelto unlink };
 allow init faultloggerd_temp_file:dir { getattr open read relabelfrom relabelto setattr };
+allow init faultloggerd_socket_sdkdump:sock_file { getattr relabelto unlink };
 allow init fd_holder_socket:sock_file { getattr relabelto write };
 allow init foundation:dir { search };
 allow init foundation:file { open read };
