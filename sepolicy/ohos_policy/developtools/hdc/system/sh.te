@@ -129,6 +129,13 @@ allow sh kernel:fd { use };
 allow sh init:netlink_kobject_uevent_socket { read write };
 # [pid=1][PARAM][INFO][param_service.c:173]Handle set param msgId 2 pid 4309 key: persist.hdc.daemon.auth_result
 
+#[param_service.c:173]Handle set param msgId 2 pid 950 key: sys.usb.ffs.ready
+#avc:  denied  { set } for parameter=sys.usb.ffs.ready pid=950 uid=2000 gid=2000 scontext=u:r:sh:s0 tcontext=u:object_r:sys_param:s0 tclass=parameter_service permissive=0
+#[param_base.c:530]Selinux check name sys.usb.ffs.ready in u:object_r:sys_param:s0 info [950 2000 2000] failed!
+#[param_manager.c:674]Forbid to access sys.usb.ffs.ready label 9072 11
+#[param_service.c:142]Forbid to set parameter sys.usb.ffs.ready
+#allow sh sys_param:parameter_service { set };
+
 # for bin run
 ## for bm install
 domain_auto_transition_pattern(sh, bm_exec, bm);
