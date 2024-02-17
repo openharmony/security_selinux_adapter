@@ -120,3 +120,7 @@ allow drm_service sa_net_conn_manager:samgr_class { get };
 allow drm_service codec_host:fd { use };
 
 allow drm_service tty_device:chr_file { read write };
+
+# avc_audit_slow:260] avc: denied { call } for pid=1540, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+# avc_audit_slow:260] avc: denied { transfer } for pid=1540, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+allow drm_service system_basic_hap:binder { call transfer };
