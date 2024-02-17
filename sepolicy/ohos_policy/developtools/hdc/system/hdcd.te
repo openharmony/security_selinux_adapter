@@ -287,5 +287,5 @@ neverallow hdcd hmdfs:file ioctl;
 
 # hdc control
 neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:parameter_service { set };
-neverallow { domain -hdcd_user_permit -sh } hdcd_user_permit_exec:file { execute };
+neverallow { domain -hdcd_user_permit -hdcd } hdcd_user_permit_exec:file { execute };
 neverallow { domain -hdcd -hdcd_user_permit -system_basic_hap_attr } developtools_hdc_auth_param:parameter_service { set };

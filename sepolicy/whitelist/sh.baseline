@@ -45,8 +45,6 @@ developer_only(`
 (allow sh hdcd (fd (use)))
 (allow sh hdcd (fifo_file (ioctl read write)))
 (allow sh hdcd (unix_stream_socket (read write)))
-(allow sh hdcd_user_permit_exec (file (read map getattr ioctl open execute)))
-(allow sh hdcd_user_permit (process (transition getattr siginh rlimitinh)))
 (allow sh hidumper (process (transition siginh rlimitinh)))
 (allow sh hidumper_exec (file (ioctl read getattr map execute open)))
 (allow sh hilog_control_socket (sock_file (write)))
