@@ -118,17 +118,6 @@ allow sh debug_param:file { map read open };
 allow sh hilog_param:file { map read open };
 allow sh developtools_hdc_control_param:file { map read open };
 
-# for hdc_user_permit set parameter
-#avc: denied { ioctl } for pid=4309 comm="sh" path="/dev/null" dev="tmpfs" ino=3 ioctlcmd=0x5413 scontext=u:r:sh:s0 tcontext=u:object_r:dev_null_file:s0 tclass=chr_file permissive=0
-allow sh dev_null_file:chr_file { ioctl };
-#avc: denied { use } for pid=4309 comm="sh" path="socket:[1840]" dev="sockfs" ino=1840 scontext=u:r:sh:s0 tcontext=u:r:init:s0 tclass=fd permissive=0
-allow sh init:fd { use };
-#avc: denied { use } for pid=4309 comm="sh" path="anon_inode:[eventpoll]" dev="anon_inodefs" ino=19288 scontext=u:r:sh:s0 tcontext=u:r:kernel:s0 tclass=fd permissive=0
-allow sh kernel:fd { use };
-#avc: denied { read write } for pid=4309 comm="sh" path="socket:[26435]" dev="sockfs" ino=26435 scontext=u:r:sh:s0 tcontext=u:r:init:s0 tclass=netlink_kobject_uevent_socket permissive=0
-allow sh init:netlink_kobject_uevent_socket { read write };
-# [pid=1][PARAM][INFO][param_service.c:173]Handle set param msgId 2 pid 4309 key: persist.hdc.daemon.auth_result
-
 # for bin run
 ## for bm install
 domain_auto_transition_pattern(sh, bm_exec, bm);
