@@ -148,6 +148,9 @@ developer_only(`
     allow hdcd data_hilogd_file:dir { getattr read open };
     allow hdcd data_hilogd_file:file { getattr read open };
 
+    # for read hdc.version
+    allow hdcd debug_param:file { map read open };
+
     allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
 
     domain_auto_transition_pattern(hdcd, sh_exec, sh);
