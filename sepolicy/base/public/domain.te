@@ -117,8 +117,7 @@ neverallow * { file_attr fs_attr dev_attr }:{ lnk_file fifo_file sock_file } mou
 neverallow { domain -init } debugfs: { file lnk_file } never_rw_file;
 
 #ioctl cmd TIOCSTI, dangerous cmd.
-#avc: denied { ioctl } for pid=3677 comm="async-62" path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=0x540e scontext=u:r:hdcd:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
-neverallowxperm { -hdcd } devpts:chr_file ioctl 0x5412;
+neverallowxperm * devpts:chr_file ioctl 0x5412;
 
 neverallow domain dev_port:chr_file ~{ create relabelto unlink setattr getattr };
 
