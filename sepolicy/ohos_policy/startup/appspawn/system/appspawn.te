@@ -125,3 +125,5 @@ allow appspawn nwebspawn:process{ dyntransition };
 allow appspawn nwebspawn:process{ sigkill };
 allow appspawn dev_asanlog_file:dir { getattr };
 allow appspawn share_public_file:dir { search };
+# avc_audit_slow:260] avc: denied { dyntransition } for pid=1, comm="/system/bin/appspawn"  scontext=u:r:appspawn:s0 tcontext=u:r:pid_ns_init:s0 tclass=process permissive=1
+allow appspawn pid_ns_init:process { dyntransition };

@@ -13,3 +13,5 @@
 
 type appspawn, native_system_domain, domain;
 type appspawn_exec, system_file_attr, exec_attr, file_attr;
+type pid_ns_init, native_system_domain, domain;
+type pid_ns_init_exec, system_file_attr, exec_attr, file_attr;
