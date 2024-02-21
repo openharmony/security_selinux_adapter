@@ -261,6 +261,9 @@ developer_only(`
     allow hdcd data_hilogd_file:dir { getattr read open };
     allow hdcd data_hilogd_file:file { getattr read open };
 
+    # for read hdc.version
+    allow hdcd debug_param:file { map read open };
+
     allow hdcd { normal_hap_attr system_basic_hap_attr system_core_hap_attr sh }:unix_stream_socket { connectto };
 
     domain_auto_transition_pattern(hdcd, sh_exec, sh);
@@ -290,3 +293,4 @@ neverallow hdcd hmdfs:file ioctl;
 neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:parameter_service { set };
 neverallow { domain -hdcd_user_permit -hdcd } hdcd_user_permit_exec:file { execute };
 neverallow { domain -hdcd -hdcd_user_permit -system_basic_hap_attr } developtools_hdc_auth_param:parameter_service { set };
+neverallow hdcd { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr -debug_hap_data_file }:{ dir file } *;

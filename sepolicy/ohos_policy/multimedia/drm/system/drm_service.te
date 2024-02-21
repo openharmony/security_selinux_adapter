@@ -66,7 +66,7 @@ allow drm_service arkcompiler_param:file { map open read };
 allow drm_service data_file:dir { search };
 
 # avc:  denied  { search } for  pid=11141 comm="SaInit0" name="system" dev="sdd91" ino=29 scontext=u:r:drm_service:s0 tcontext=u:object_r:data_system:s0 tclass=dir permissive=1
-allow drm_service data_system:dir { search };
+allow drm_service data_system:dir { search write add_name create read open };
 
 # avc:  denied  { write } for  pid=11141 comm="sa_main" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:drm_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow drm_service dev_kmsg_file:chr_file { write };
@@ -120,3 +120,7 @@ allow drm_service sa_net_conn_manager:samgr_class { get };
 allow drm_service codec_host:fd { use };
 
 allow drm_service tty_device:chr_file { read write };
+
+# avc_audit_slow:260] avc: denied { call } for pid=1540, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+# avc_audit_slow:260] avc: denied { transfer } for pid=1540, comm="/system/bin/sa_main"  scontext=u:r:drm_service:s0 tcontext=u:r:system_basic_hap:s0 tclass=binder permissive=1
+allow drm_service system_basic_hap:binder { call transfer };

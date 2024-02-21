@@ -79,3 +79,4 @@ allow accessibility sysfs_devices_system_cpu:file { read };
 allow accessibility sa_dataobs_mgr_service_service:samgr_class { get };
 allow accessibility sa_render_service:samgr_class { get };
 allow accessibility render_service:binder { call transfer };
+allow accessibility sa_resource_schedule:samgr_class { get };
