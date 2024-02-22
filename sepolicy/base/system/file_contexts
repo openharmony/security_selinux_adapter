@@ -224,8 +224,6 @@
 /data/bluetooth                       u:object_r:data_bluetooth:s0
 /data/bluetooth/(.*)?                 u:object_r:data_bluetooth:s0
 /data/service/el0/startup(/.*)?                 u:object_r:data_startup:s0
-/data/service/el0/hdc                           u:object_r:data_hdc_pubkeys:s0
-/data/service/el0/hdc/(.*)?                     u:object_r:data_hdc_pubkeys:s0
 /data/cache                       u:object_r:data_cache:s0
 /data/cache/(.*)?                 u:object_r:data_cache:s0
 /data/data                       u:object_r:data_data_file:s0
@@ -321,8 +319,6 @@
 /system/bin/sh        u:object_r:sh_exec:s0
 
 /system/bin/hdcd        u:object_r:hdcd_exec:s0
-
-/system/bin/hdcd_user_permit        u:object_r:hdcd_user_permit_exec:s0
 
 /system/lib64(/.*)?        u:object_r:system_lib_file:s0
 

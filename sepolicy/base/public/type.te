@@ -84,10 +84,6 @@ type hdcd, native_system_domain, domain;
 type hdcd_exec, exec_attr, file_attr, system_file_attr;
 #domain_auto_transition_pattern(init, hdcd_exec, hdcd);
 
-type hdcd_user_permit, native_system_domain, domain;
-type hdcd_user_permit_exec, exec_attr, file_attr, system_file_attr;
-domain_auto_transition_pattern(hdcd, hdcd_user_permit_exec, hdcd_user_permit);
-
 type atm, native_system_domain, domain;
 type atm_exec, exec_attr, file_attr, system_file_attr;
 
