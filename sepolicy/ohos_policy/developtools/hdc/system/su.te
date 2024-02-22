@@ -47,14 +47,6 @@ debug_only(`
     allow bytrace su:fifo_file { read write };
     allow hiebpf su:fd use;
     allow hdcd su:process { signal sigkill };
-    allow su su:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
-    allow su su:fd use;
-    allow su su:file rw_file_perms;
-    allow su su:fifo_file rw_file_perms;
-    allow su su:dir read_dir_perms;
-    allow su su:lnk_file read_file_perms;
-    allow su su:unix_dgram_socket { connect create write };
-    allow su su:unix_stream_socket { connect create write read setopt };
     allow hiperf su:dir { getattr open read search };
     allow hiperf su:fd use;
     allow hiperf su:fifo_file { read write };
@@ -223,6 +215,7 @@ debug_only(`
     allow foundation su:binder { call transfer };
     allow { SP_daemon wukong uitest } su:fd { use };
     allow { SP_daemon wukong uitest }  su:unix_stream_socket { read write };
+    allow su data_hdc_pubkeys:dir { getattr setattr };
 
     # sh.te baseline to su
     allow su su:process { fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid setpgid getcap setcap getattr setrlimit };
@@ -368,6 +361,12 @@ debug_only(`
     allowxperm SP_daemon su:fifo_file ioctl { 0x5413 };
     allow SP_daemon su:dir { getattr open read search };
     allow SP_daemon su:file { getattr open read };
-    allow SP_daemon su:lnk_file read; 
+    allow SP_daemon su:lnk_file read;
+
+    #for read and write system parameter
+    #avc: denied { use } for pid=696 comm="async-55" path="socket:[28017]" dev="sockfs" ino=28017 scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=fd permissive=0
+    allow hdcd su:fd { use };
+    #avc: denied { connect } for pid=696 comm="async-55" scontext=u:r:hdcd:s0 tcontext=u:r:su:s0 tclass=unix_dgram_socket permissive=0
+    allow hdcd su:unix_dgram_socket { connect };
 ')
 
