@@ -125,3 +125,8 @@ allow appspawn nwebspawn:process{ dyntransition };
 allow appspawn nwebspawn:process{ sigkill };
 allow appspawn dev_asanlog_file:dir { getattr };
 allow appspawn share_public_file:dir { search };
+# for app cgroup pids
+allow appspawn cgroup:dir { add_name create search open read write };
+allow appspawn cgroup:file { append getattr ioctl open read write };
+allowxperm appspawn cgroup:file ioctl {  0x5413  };
+
