@@ -314,7 +314,7 @@ neverallow { domain -init -chipset_init -storage_daemon -installs -appspawn -nwe
 neverallow { domain -init -chipset_init } self:{ capability cap_userns } sys_boot;
 neverallow { domain -render_service -cap_violator_sysnice -composer_host } self:{ capability cap_userns } sys_nice;
 neverallow { domain -init -chipset_init -memmgrservice -netsysnative  debug_only(`-hiebpf') } self:{ capability cap_userns } sys_resource;
-neverallow { domain -time_service -updater } self:{ capability cap_userns } sys_time;
+neverallow { domain -time_service updater_only(`-updater') } self:{ capability cap_userns } sys_time;
 neverallow * self:{ capability cap_userns } sys_tty_config;
 neverallow { domain -ueventd -kernel -storage_daemon } self:{ capability cap_userns } mknod;
 neverallow * self:{ capability cap_userns } lease;
