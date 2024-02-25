@@ -93,7 +93,7 @@ allow download_server data_app_el1_file:dir { search };
 #avc:  denied  { search } for  pid=2496 comm="IPC_2_2504" name="el2" dev="mmcblk0p14" ino=58 scontext=u:r:download_server:s0 tcontext=u:object_r:data_app_el2_file:s0 tclass=dir permissive=1
 allow download_server data_app_el2_file:dir { search };
 #avc:  denied  { search } for  pid=2496 comm="IPC_2_2504" name="com.example.mytest1" dev="mmcblk0p14" ino=1984 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
-#avc:  denied  { write } for  pid=2496 comm="IPC_2_2504" name="updown" dev="mmcblk0p14" ino=2026 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1     
+#avc:  denied  { write } for  pid=2496 comm="IPC_2_2504" name="updown" dev="mmcblk0p14" ino=2026 scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 #avc:  denied  { add_name } for  pid=2496 comm="IPC_2_2504" name="test.txt" scontext=u:r:download_server:s0 tcontext=u:object_r:debug_hap_data_file:s0 tclass=dir permissive=1
 allow download_server normal_hap_data_file_attr:dir { search write add_name };
 allow download_server system_basic_hap_data_file_attr:dir { search write add_name };
@@ -111,3 +111,6 @@ allow download_server arkcompiler_param:file { read map open };
 allow download_server dev_unix_file:sock_file { write };
 #avc: denied { get } for service=4007 pid=28302 scontext=u:r:download_server:s0 tcontext=u:object_r:sa_telephony_tel_cellular_data:s0 tclass=samgr_class permissive=0
 allow download_server sa_telephony_tel_cellular_data:samgr_class { get };
+#avc:  denied  { shutdown } for  pid=2940 comm="async-3" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=0
+#avc:  denied  { sendto } for  pid=1710 comm="async-1" scontext=u:r:download_server:s0 tcontext=u:r:download_server:s0 tclass=unix_dgram_socket permissive=0
+allow download_server download_server:unix_dgram_socket { shutdown sendto };
