@@ -290,3 +290,6 @@ allow audio_server system_basic_hap_attr:binder { call transfer };
 allow audio_server hdf_effect_model_service:hdf_devmgr_class { get };
 
 allow audio_server intell_voice_service:binder { call transfer };
+
+allow audio_server sa_foundation_dms:samgr_class { get };
+

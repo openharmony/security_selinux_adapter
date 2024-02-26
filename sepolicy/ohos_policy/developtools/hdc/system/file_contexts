@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Copyright (c) 2021-2024 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow samgr ark_aot_compiler:binder { call transfer };
-allow samgr ark_aot_compiler:dir { search };
-allow samgr ark_aot_compiler:file { read open read };
-allow samgr ark_aot_compiler:process { getattr };
+/data/service/el0/hdc               u:object_r:data_hdc_pubkeys:s0
+/data/service/el0/hdc/(.*)?         u:object_r:data_hdc_pubkeys:s0
+/system/bin/hdcd_user_permit        u:object_r:hdcd_user_permit_exec:s0

@@ -66,7 +66,7 @@ allow drm_service arkcompiler_param:file { map open read };
 allow drm_service data_file:dir { search };
 
 # avc:  denied  { search } for  pid=11141 comm="SaInit0" name="system" dev="sdd91" ino=29 scontext=u:r:drm_service:s0 tcontext=u:object_r:data_system:s0 tclass=dir permissive=1
-allow drm_service data_system:dir { search };
+allow drm_service data_system:dir { search write add_name create read open };
 
 # avc:  denied  { write } for  pid=11141 comm="sa_main" path="/dev/kmsg" dev="tmpfs" ino=116 scontext=u:r:drm_service:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
 allow drm_service dev_kmsg_file:chr_file { write };
