@@ -124,7 +124,7 @@ allow appspawn system_file:file { map };
 allow appspawn nwebspawn:process{ dyntransition };
 allow appspawn nwebspawn:process{ sigkill };
 allow appspawn dev_asanlog_file:dir { getattr };
-allow appspawn share_public_file:dir { search };
+allow appspawn share_public_file:dir { search create add_name write };
 # for app cgroup pids
 allow appspawn cgroup:dir { add_name create search open read write };
 allow appspawn cgroup:file { append getattr ioctl open read write };
