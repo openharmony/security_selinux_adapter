@@ -93,3 +93,5 @@ allow locationhub sa_wifi_scan_ability:samgr_class { get };
 
 allow locationhub sa_bgtaskmgr:samgr_class { get };
 allow locationhub bgtaskmgr_service:binder { call };
+
+allow locationhub sa_form_mgr_service:samgr_class { get };
