@@ -321,3 +321,5 @@ allow storage_daemon foundation:binder { call transfer };
 allow storage_daemon foundation:fd { use };
 allow storage_daemon sa_foundation_bms:samgr_class { get };
 allow storage_daemon tracefs:dir { search };
+storage_daemon_relabel(data_service_el2_share);
+
