@@ -13,7 +13,11 @@
 
 developer_only(`
     allow debug_hap debug_hap_data_file:sock_file { create unlink read write };
+    allow installs debug_hap_data_file:sock_file { unlink }; 
 ')
 allow normal_hap_attr normal_hap_data_file_attr:sock_file { create unlink read write };
 allow system_basic_hap_attr system_basic_hap_data_file_attr:sock_file { create unlink read write };
 allow system_core_hap_attr system_core_hap_data_file_attr:sock_file { create unlink read write };
+allow installs normal_hap_data_file_attr:sock_file { unlink };
+allow installs system_basic_hap_data_file_attr:sock_file { unlink };
+allow installs system_core_hap_data_file_attr:sock_file { unlink };
