@@ -73,6 +73,7 @@ allow hiperf sys_param:file { map open read };
 allow hiperf sys_usb_param:file { map open read };
 allow hiperf tracefs:dir { open read search };
 allow hiperf tracefs:file { getattr open read write ioctl };
+allowxperm hiperf tracefs:file ioctl { 0x5413 };
 allow hiperf tty_device:chr_file { read write };
 
 allow hiperf appspawn_exec:file { getattr map open read };
