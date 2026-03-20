@@ -181,3 +181,8 @@ allow SP_daemon hiview:unix_dgram_socket { sendto };
 allow SP_daemon data_service_el2_file:dir { search read open getattr };
 allow SP_daemon data_service_el2_file:file { read open getattr };
 allow SP_daemon data_service_file:dir { search };
+
+allow SP_daemon data_app_el1_file:file { open read getattr };
+allow SP_daemon data_app_el1_file:dir { search };
+allow SP_daemon system_usr_file:lnk_file { read };
+allow SP_daemon data_app_file:dir { search };
