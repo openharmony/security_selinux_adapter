@@ -186,3 +186,5 @@ allow SP_daemon data_app_el1_file:file { open read getattr };
 allow SP_daemon data_app_el1_file:dir { search };
 allow SP_daemon system_usr_file:lnk_file { read };
 allow SP_daemon data_app_file:dir { search };
+allow SP_daemon data_app_el1_shadercache:dir { search };
+allow SP_daemon data_app_el1_shadercache:file { open read getattr };
