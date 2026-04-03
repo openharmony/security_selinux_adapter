@@ -12,5 +12,5 @@
 # limitations under the License.
 
 developer_only(`
-    allow debug_hap normal_hap_attr:process { ptrace };
+    allow debug_hap_attr normal_hap_attr:process { ptrace };
 ')

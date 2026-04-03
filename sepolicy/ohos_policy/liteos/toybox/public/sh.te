@@ -39,7 +39,7 @@ allow sh devpts:chr_file { ioctl };
 allowxperm sh devpts:chr_file ioctl { 0x5401 0x5404 };
 
 # avc: denied { read open } for pid=6685, comm="/bin/top" path="/proc/6052/task" scontext=u:r:sh:s0 tcontext=u:r:debug_hap:s0 tclass=dir permissive=0
-allow sh debug_hap:dir { read open };
+allow sh debug_hap_attr:dir { read open };
 
 # avc: denied { read open } for pid=6685, comm="/bin/top" path="/proc/stat" scontext=u:r:sh:s0 tcontext=u:object_r:proc_stat_file:s0 tclass=file permissive=0
 allow sh proc_stat_file:file { read open };

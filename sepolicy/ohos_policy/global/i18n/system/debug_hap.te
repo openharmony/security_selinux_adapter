@@ -11,11 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow debug_hap system_usr_file:file { open read getattr };
-allow debug_hap system_usr_file:dir { open read getattr };
-allow debug_hap sysfs_devices_system_cpu:file { getattr };
-allow debug_hap sa_i18n_service:samgr_class { get };
-allow debug_hap i18n_service:binder { call };
-allow debug_hap i18n_service:fd { use };
+allow debug_hap_attr system_usr_file:file { open read getattr };
+allow debug_hap_attr system_usr_file:dir { open read getattr };
+allow debug_hap_attr sysfs_devices_system_cpu:file { getattr };
+allow debug_hap_attr sa_i18n_service:samgr_class { get };
+allow debug_hap_attr i18n_service:binder { call };
+allow debug_hap_attr i18n_service:fd { use };
 # avc: denied { getattr } for pid=51567, comm="/system/bin/chrome_crashpad_handler"  path="/dev" dev="" ino=0 scontext=u:r:debug_hap:s0 tcontext=u:object_r:dev_file:s0 tclass=dir permissive=1
-allow debug_hap dev_file:dir { getattr };
+allow debug_hap_attr dev_file:dir { getattr };

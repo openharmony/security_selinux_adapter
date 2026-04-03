@@ -32,9 +32,9 @@ allow lldb_server lldb_server:process { fork getsched setsched };
 # lldb-server needs to read the procfs of a debuggable app to know runtime
 # information such as what the binary is and the runtime vm address the binary
 # is loaded at.
-allow lldb_server debug_hap:dir { search read open };
-allow lldb_server debug_hap:file { read open };
-allow lldb_server debug_hap:lnk_file { read };
+allow lldb_server debug_hap_attr:dir { search read open };
+allow lldb_server debug_hap_attr:file { read open };
+allow lldb_server debug_hap_attr:lnk_file { read };
 
 # lldb-server needs to read system libraries and the Appspawn/CJAppspawn binary so that it
 # can compare these with local module caches which are used for symbol resolving
@@ -45,7 +45,7 @@ allow lldb_server cjappspawn_exec:file { getattr read open map };
 
 # Debugging functionalities like breakpoints and stepping are accomplished by
 # sending ptrace syscalls.
-allow lldb_server debug_hap:process { ptrace sigkill signal sigstop };
+allow lldb_server debug_hap_attr:process { ptrace sigkill signal sigstop };
 
 # For fs-verify(signature checking) of lldb-server. lldb-server will execute lldb-server.
 allow lldb_server key_enable:key { search };
@@ -54,7 +54,7 @@ allow lldb_server key_enable:key { search };
 
 # Forbid lldb-server to debug other processes except debuggable applications and
 # even child processes launched by lldb-server.
-neverallow lldb_server { domain developer_only(`-debug_hap -input_debug_hap') -violator_ptrace_debug_hap }:process {
+neverallow lldb_server { domain developer_only(`-debug_hap_attr -input_debug_hap') -violator_ptrace_debug_hap }:process {
     ptrace sigkill signal sigstop };
 neverallow lldb_server self:process { ptrace sigkill signal sigstop };
 # Only processes of Appspawn/CJAppspawn and lldb-server can execute lldb-server.
