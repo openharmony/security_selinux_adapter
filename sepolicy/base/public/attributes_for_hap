@@ -1,0 +1,42 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# Type of all processes in the hap format.
+# i.e. com.ohos.setting
+attribute hap_domain;
+
+# Type of all haps in apl normal.
+attribute normal_hap_attr;
+
+# Type of all debuggable haps in apl normal.
+attribute debug_hap_attr;
+
+# Type of all haps in apl system_basic.
+attribute system_basic_hap_attr;
+
+# Type of all haps in apl system_core.
+attribute system_core_hap_attr;
+
+# File type of all processes in the hap format.
+# i.e. com.ohos.setting
+attribute hap_file_attr;
+
+# File type of all haps in apl normal.
+attribute normal_hap_data_file_attr;
+
+# File type of all haps in apl system_basic.
+attribute system_basic_hap_data_file_attr;
+
+# File type of all haps in apl system_core.
+attribute system_core_hap_data_file_attr;

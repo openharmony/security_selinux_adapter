@@ -11,8 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-allow debug_hap gamecontroller_server:binder { call transfer };
-allow debug_hap sa_gamecontroller_server:samgr_class { get };
-
+allow debug_hap_attr gamecontroller_server:binder { call transfer };
+allow debug_hap_attr sa_gamecontroller_server:samgr_class { get };
 
 

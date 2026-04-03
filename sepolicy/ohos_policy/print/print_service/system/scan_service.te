@@ -29,7 +29,7 @@ allow scan_service data_service_el1_public_print_service_file:dir { search remov
 allow scan_service data_service_el1_public_print_service_file:file { read unlink create ioctl write getattr open };
 allow scan_service data_service_el1_public_print_service_file:lnk_file { read };
 allow scan_service data_service_file:dir { search };
-allow scan_service debug_hap:binder { call };
+allow scan_service debug_hap_attr:binder { call };
 allow scan_service scan_service:udp_socket { ioctl read write create setopt bind getattr };
 allow scan_service sysfs_devices_system_cpu:file { getattr open read };
 allow scan_service dev_bus:dir { search };
@@ -70,7 +70,7 @@ allow installs data_service_scan_service_driver_file:dir { write add_name search
 allow scan_service dev_bus_usb_file:file { open read };
 allow scan_service sa_sane_service:samgr_class { get };
 allow scan_service sane_service:binder { call };
-allow debug_hap scan_service:fd { use };
+allow debug_hap_attr scan_service:fd { use };
 allow scan_service data_service_sane_service_config_file:dir { write add_name search getattr };
 allow scan_service data_service_sane_service_config_file:file { create open read write setattr getattr ioctl };
 allowxperm scan_service data_service_sane_service_config_file:file ioctl 0x5413;

@@ -2,11 +2,13 @@
     "checks": [
         {
             "base": "normal_hap_data_file",
-            "extend": "appdat"
+            "extend": "appdat",
+            "check_type": "tcontext"
         },
         {
             "base": "appdat",
-            "extend": "normal_hap_data_file"
+            "extend": "normal_hap_data_file",
+            "check_type": "tcontext"
         }
     ]
 }

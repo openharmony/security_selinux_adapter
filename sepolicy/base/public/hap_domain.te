@@ -14,10 +14,12 @@
 type system_core_hap, domain;
 type system_basic_hap, domain;
 type normal_hap, domain;
-type debug_hap, domain, hap_domain, normal_hap_attr;
+type debug_hap, domain, hap_domain;
 
 typeattribute normal_hap hap_domain;
 typeattribute normal_hap normal_hap_attr;
+typeattribute debug_hap normal_hap_attr;
+typeattribute debug_hap debug_hap_attr;
 
 neverallow { normal_hap_attr -hap_domain_kernel_violators } { domain -normal_hap_attr }:file never_rw_file;
 neverallow { hap_domain -normal_hap_attr } normal_hap_attr:file never_rw_file;

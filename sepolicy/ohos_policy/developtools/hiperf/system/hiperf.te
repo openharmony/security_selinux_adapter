@@ -195,12 +195,12 @@ developer_only(`
     allow hiperf sh:fifo_file { read write };
     allow hiperf sh:process signull;
     allow hiperf data_log:fifo_file { create open read unlink write };
-    allow hiperf debug_hap:process { ptrace };
+    allow hiperf debug_hap_attr:process { ptrace };
     # avc: denied { ptrace } for pid=31856, comm="/bin/hiperf"  scontext=u:r:hiperf:s0 tcontext=u:r:isolated_render:s0 tclass=process permissive=1
     allow hiperf isolated_render:process { ptrace };
 ')
 
-neverallow hiperf { domain debug_only(`-hap_domain') developer_only(`-debug_hap -input_debug_hap -isolated_render') debug_only(`-vpn_isolate_hap') }:process ptrace;
+neverallow hiperf { domain debug_only(`-hap_domain') developer_only(`-debug_hap_attr -input_debug_hap -isolated_render') debug_only(`-vpn_isolate_hap') }:process ptrace;
 allow hiperf data_local_tmp:file { create getattr ioctl map open read rename unlink write };
 allow hiperf data_local_tmp:dir { open read add_name remove_name search write };
 allow hiperf self:capability2 perfmon;

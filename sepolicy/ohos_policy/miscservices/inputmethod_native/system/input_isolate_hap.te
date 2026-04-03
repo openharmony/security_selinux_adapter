@@ -14,8 +14,8 @@
 binder_call(input_isolate_hap, hap_domain);
 binder_call(hap_domain, input_isolate_hap);
 developer_only(`
-    binder_call(input_isolate_hap, debug_hap);
-    binder_call(debug_hap, input_isolate_hap);
+    binder_call(input_isolate_hap, debug_hap_attr);
+    binder_call(debug_hap_attr, input_isolate_hap);
 ')
 
 allow input_isolate_hap system_file:file { open read getattr map };
@@ -35,4 +35,3 @@ allow input_isolate_hap hilog_input_socket:sock_file { write };
 allow input_isolate_hap dev_unix_socket:dir { search };
 allow input_isolate_hap data_app_el2_group_file:file { read open getattr map lock watch watch_reads };
 allow input_isolate_hap data_app_el2_group_file:dir { add_name search read write create open remove_name setattr getattr lock watch watch_reads };
-
