@@ -76,3 +76,5 @@ allow mechbody sa_foundation_bms:samgr_class { get };
 allow mechbody sa_resource_schedule:samgr_class { get };
 
 allow mechbody sensors:binder { call transfer };
+
+allow mechbody sa_foundation_appms:samgr_class { get };
