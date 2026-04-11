@@ -52,7 +52,9 @@ allow medialibrary_hap dev_at_file:chr_file { ioctl };
 allowxperm medialibrary_hap dev_at_file:chr_file ioctl { 0x5413 };
 allow sandbox_manager_service sa_foundation_bms:samgr_class { get };
 allow sandbox_manager_service sys_prod_file:dir { search };
+# avc: denied { get } for service=3524 sid=u:r:sandbox_manager_service:s0 scontext=u:r:sandbox_manager_service:s0 tcontext=u:object_r:sa_sg_collect_service:s0 tclass=samgr_class permissive=1
 allow sandbox_manager_service sa_sg_collect_service:samgr_class { get };
+# avc: denied { call } for pid=6856, comm="/system/bin/sa_main"  scontext=u:r:sandbox_manager_service:s0 tcontext=u:r:security_guard:s0 tclass=binder permissive=1
 allow sandbox_manager_service security_guard:binder { call };
 
 debug_only(`
