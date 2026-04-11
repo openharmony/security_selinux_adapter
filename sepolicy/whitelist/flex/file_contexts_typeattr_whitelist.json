@@ -361,7 +361,8 @@
                     "/data/service/el1/public/update/dupdate_engine",
                     "/data/service/el1/public/update/dupdate_engine(/.*)?",
                     "/data/service/el1/public/update/update_service",
-                    "/data/service/el1/public/update/update_service(/.*)?"
+                    "/data/service/el1/public/update/update_service(/.*)?",
+                    "/data/service/el2/public/ohos_object_editor_service(/.*)?"
                 ],
                 "developer": []
             }
