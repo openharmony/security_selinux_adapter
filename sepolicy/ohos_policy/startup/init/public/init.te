@@ -144,3 +144,6 @@ allow init dev_block_file:dir { write remove_name add_name };
 allow init dev_block_file:lnk_file { create getattr unlink write link };
 #avc denied { ptrace } for pid=1, comm="/bin/init" scontext=u:r:init:so tcontext=u:r:normal_hap:so tclass=process permission=0
 allow init { domain -kernel -ueventd -init }:process { ptrace };
+
+# allow snapshot pin_state write
+allow init self:hmcap { deep_sleep_snap };
