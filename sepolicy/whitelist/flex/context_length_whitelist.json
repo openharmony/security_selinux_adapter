@@ -20,7 +20,8 @@
             "u:object_r:data_service_el1_public_deviceauthService_file:s0",
             "u:object_r:data_service_el1_framework_arkcache:s0",
             "u:object_r:data_service_el1_public_sharing_service_file:s0",
-            "u:object_r:data_service_el1_public_huksService_file:s0"
+            "u:object_r:data_service_el1_public_huksService_file:s0",
+            "u:object_r:object_editor_service_el2_data_file:s0"
         ],
         "service_contexts": [
             "u:object_r:sa_comm_net_tethering_manager_service:s0",
