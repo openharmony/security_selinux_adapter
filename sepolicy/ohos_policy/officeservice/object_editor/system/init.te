@@ -16,9 +16,9 @@
 # avc: denied { rlimitinh } for pid=11026, comm="/system/bin/sa_main"  scontext=u:r:init:s0 tcontext=u:r:ohos_object_editor_service:s0 tclass=process
 allow init ohos_object_editor_service:process { rlimitinh siginh transition };
 
-# avc: denied { getattr } for pid=11945, comm="/bin/init"  path="/data/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=67549 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_service_el2_data_file:s0 tclass=dir
-# avc: denied { setattr } for pid=11945, comm="/bin/init"  name="/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=67549 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_service_el2_data_file:s0 tclass=dir
-# avc: denied { relabelto } for pid=8174, comm="/bin/init"  name="/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=42216 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_service_el2_data_file:s0 tclass=dir
-# avc: denied { read } for pid=8174, comm="/bin/init"  path="/data/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=42216 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_service_el2_data_file:s0 tclass=dir
-# avc: denied { open } for pid=8174, comm="/bin/init"  path="/data/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=42216 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_service_el2_data_file:s0 tclass=dir
-allow init object_editor_service_el2_data_file:dir { getattr setattr relabelto read open };
+# avc: denied { getattr } for pid=11945, comm="/bin/init"  path="/data/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=67549 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_el2_data_file:s0 tclass=dir
+# avc: denied { setattr } for pid=11945, comm="/bin/init"  name="/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=67549 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_el2_data_file:s0 tclass=dir
+# avc: denied { relabelto } for pid=8174, comm="/bin/init"  name="/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=42216 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_el2_data_file:s0 tclass=dir
+# avc: denied { read } for pid=8174, comm="/bin/init"  path="/data/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=42216 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_el2_data_file:s0 tclass=dir
+# avc: denied { open } for pid=8174, comm="/bin/init"  path="/data/service/el2/public/object_editor_service" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=42216 scontext=u:r:init:s0 tcontext=u:object_r:object_editor_el2_data_file:s0 tclass=dir
+allow init object_editor_el2_data_file:dir { getattr setattr relabelto read open };
