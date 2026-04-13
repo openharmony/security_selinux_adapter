@@ -210,15 +210,15 @@ def parse_all_contexts(input_args):
     contexts_files = input_args.all_contexts.split(':')
     for contexts_file in contexts_files:
         filename = os.path.basename(contexts_file)
-        if filename == FILE_CONTEXTS or filename == "all_" + FILE_CONTEXTS:
+        if filename == FILE_CONTEXTS or filename == "all_{}".format(FILE_CONTEXTS):
             parse_file_contexts(contexts_file)
-        elif filename == SERVICE_CONTEXTS or filename == "all_" + SERVICE_CONTEXTS:
+        elif filename == SERVICE_CONTEXTS or filename == "all_{}".format(SERVICE_CONTEXTS):
             parse_service_contexts(contexts_file)
-        elif filename == HDF_SERVICE_CONTEXTS or filename == "all_" + HDF_SERVICE_CONTEXTS:
+        elif filename == HDF_SERVICE_CONTEXTS or filename == "all_{}".format(HDF_SERVICE_CONTEXTS):
             parse_hdf_service_contexts(contexts_file)
-        elif filename == PARAMETER_CONTEXTS or filename == "all_" + PARAMETER_CONTEXTS:
+        elif filename == PARAMETER_CONTEXTS or filename == "all_{}".format(PARAMETER_CONTEXTS):
             parse_parameter_contexts(contexts_file)
-        elif (filename == SEHAP_CONTEXTS or filename == "all_" + SEHAP_CONTEXTS):
+        elif (filename == SEHAP_CONTEXTS or filename == "all_{}".format(SEHAP_CONTEXTS)):
             parse_sehap_contexts(contexts_file)
     
     get_virtfs_contexts_data(input_args)
