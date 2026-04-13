@@ -37,7 +37,7 @@ def get_request_args(args, request):
             all_contexts_list = []
             contexts_files = ["file_contexts", "service_contexts", "hdf_service_contexts", "parameter_contexts", "sehap_contexts"]
             for contexts_file in contexts_files:
-                contexts_path = os.path.join(args.output_path, "all_" + contexts_file)
+                contexts_path = os.path.join(args.output_path, "all_{}".format(contexts_file))
                 if not os.path.exists(contexts_path):
                     contexts_path = os.path.join(args.output_path, contexts_file)
                 all_contexts_list.append(contexts_path)
