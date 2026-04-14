@@ -26,3 +26,13 @@
 /dev/unix/socket/CJAppSpawn       u:object_r:appspawn_socket:s0
 
 /dev/unix/socket/NativeSpawn       u:object_r:appspawn_socket:s0
+
+/data/service/el1/startup/appspawn(/.*)?        u:object_r:data_spawn_shm:s0
+
+/data/service/el1/startup/nwebspawn(/.*)?       u:object_r:data_spawn_shm:s0
+
+/data/service/el1/startup/nativespawn(/.*)?     u:object_r:data_spawn_shm:s0
+
+/data/service/el1/startup/cjappspawn(/.*)?      u:object_r:data_spawn_shm:s0
+
+/data/service/el1/startup/hybridspawn(/.*)?     u:object_r:data_spawn_shm:s0
