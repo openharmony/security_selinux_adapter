@@ -77,6 +77,9 @@ allow mechbody sa_resource_schedule:samgr_class { get };
 
 allow mechbody sensors:binder { call transfer };
 
+# avc: denied { get } for service=501 sid=u:r:mechbody:s0 scontext=u:r:mechbody:s0 tcontext=u:object_r:sa_foundation_appms:s0 tclass=samgr_class permissive=0
+allow mechbody sa_foundation_appms:samgr_class { get };
+
 allow mechbody foundation:binder { transfer };
 
 allow mechbody sa_foundation_cesfwk_service:samgr_class { get };
