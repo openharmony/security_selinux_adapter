@@ -280,3 +280,15 @@ allowxperm appspawn dev_bbox:chr_file ioctl { 0xab09 };
 # avc: denied { ioctl } for pid=530, comm="/system/bin/appspawn"  path="/proc/checkpoint/checkpoint" dev="" ino=309 ioctlcmd=0xe000 scontext=u:r:appspawn:s0 tcontext=u:object_r:checkpoint:s0 tclass=file permissive=0
 allow appspawn checkpoint:file { open ioctl read write };
 allowxperm appspawn checkpoint:file ioctl { 0xe001 0xe004 0xe000 };
+
+# avc: denied { write add_name search } for pid=614, comm="/system/bin/appspawn"  name="/service/el1/startup/appspawn" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=3696 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=dir permissive=1
+# avc: denied { write remove_name search } for pid=12752, comm="/system/bin/appspawn"  name="/service/el1/startup/appspawn" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=3696 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=dir permissive=1
+# avc: denied { getattr } for pid=614, comm="/system/bin/appspawn"  name="/service/el1/startup/appspawn" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=3696 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=dir permissive=1
+allow { appspawn nwebspawn nativespawn cjappspawn } data_spawn_shm:dir { search getattr write add_name remove_name };
+
+# avc: denied { create } for pid=614, comm="/system/bin/appspawn"  name="/service/el1/startup/appspawn/prefork_96" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=47144 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=file permissive=1
+# avc: denied { map } for pid=12752, comm="/system/bin/appspawn"  path="/data/service/el1/startup/appspawn/prefork_96" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=47144 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=file permissive=1
+# avc: denied { open } for pid=12752, comm="/system/bin/appspawn"  path="/data/service/el1/startup/appspawn/prefork_96" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=47144 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=file permissive=1
+# avc: denied { read write } for pid=614, comm="/system/bin/appspawn"  path="/data/service/el1/startup/appspawn/prefork_96" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=47144 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=file permissive=1
+# avc: denied { unlink } for pid=12752, comm="/system/bin/appspawn"  name="/service/el1/startup/appspawn/prefork_96" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=47144 scontext=u:r:appspawn:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=file permissive=1
+allow { appspawn nwebspawn nativespawn cjappspawn } data_spawn_shm:file { create map open read write unlink };

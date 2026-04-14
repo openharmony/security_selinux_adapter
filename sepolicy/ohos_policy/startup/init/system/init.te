@@ -595,3 +595,9 @@ allow init teecd_data_file:filesystem { unmount };
 #avc: denied { getattr } for pid=10102, comm="/bin/sh" path="/proc/filesystems" dev="" ino=38 scontext=u:r:init:s0 tcontext=u:object_r:proc_filesystems_file:s0 tclass=file permissive=1
 allow init proc_filesystems_file:file { open read getattr };
 allow domain process_etc_file:file { getattr map read open };
+
+# avc: denied { open } for pid=1, comm="/bin/init"  path="/data/service/el1/startup/appspawn" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=45512 scontext=u:r:init:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=dir permissive=1
+# avc: denied { read } for pid=1, comm="/bin/init"  path="/data/service/el1/startup/appspawn" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=45512 scontext=u:r:init:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=dir permissive=1
+# avc: denied { relabelto } for pid=1, comm="/bin/init"  name="/service/el1/startup/appspawn" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=45512 scontext=u:r:init:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=dir permissive=1
+# avc: denied { setattr } for pid=1, comm="/bin/init"  name="/service/el1/startup/appspawn" dev="/dev/block/platform/ee500000.ufs/by-name/userdata" ino=45512 scontext=u:r:init:s0 tcontext=u:object_r:data_spawn_shm:s0 tclass=dir permissive=1
+allow init data_spawn_shm:dir { open read relabelto setattr };
