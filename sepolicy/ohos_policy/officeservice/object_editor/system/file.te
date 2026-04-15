@@ -11,4 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type ohos_object_editor_service, sadomain, domain;
+type object_editor_el2_data_file, file_attr, data_file_attr, data_service_file_attr;
