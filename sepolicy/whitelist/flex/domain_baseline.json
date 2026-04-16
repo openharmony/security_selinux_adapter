@@ -42,6 +42,7 @@
             "mmi_uinput_service",
             "lmks",
             "upms",
+            "aimgr",
             "resource_schedule_service",
             "time_service",
             "uinput_inject",
