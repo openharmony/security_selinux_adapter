@@ -37,7 +37,10 @@ allow netsysnative netsysnative:netlink_nflog_socket { read };
 allow netsysnative dev_file:sock_file { write unlink };
 allow netsysnative dev_console_file:chr_file { read write };
 allow netsysnative dev_file:dir { remove_name };
-allow netsysnative netsysnative:netlink_netfilter_socket { listen };
+
+# avc:  denied  { read } for  pid=45337 comm="/system/bin/sa main" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_netfilter_socket permissive=1
+# avc:  denied  { write } for  pid=45337 comm="/system/bin/sa main" scontext=u:r:netsysnative:s0 tcontext=u:r:netsysnative:s0 tclass=netlink_netfilter_socket permissive=1
+allow netsysnative netsysnative:netlink_netfilter_socket { listen read write };
 allow netsysnative netsysnative:netlink_kobject_uevent_socket { listen };
 allow netsysnative system_bin_file:lnk_file { read };
 allow netsysnative toybox_exec:lnk_file { read };
