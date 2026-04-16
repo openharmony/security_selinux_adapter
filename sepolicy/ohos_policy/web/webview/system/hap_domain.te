@@ -19,7 +19,7 @@ allow hap_domain isolated_render:unix_stream_socket { read write shutdown };
 allow hap_domain data_app_el2_file:dir { getattr };
 allow hap_domain data_app_el2_group_file:dir { getattr };
 
-allow debug_hap arkweb_crashpad_handler_exec:file { execute open read execute_no_trans map };
+allow debug_hap_attr arkweb_crashpad_handler_exec:file { execute open read execute_no_trans map };
 
 allow hap_domain isolated_render:unix_stream_socket { getopt };
 

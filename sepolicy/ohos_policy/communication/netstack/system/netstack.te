@@ -12,7 +12,7 @@
 # limitations under the License.
 
 developer_only(`
-    allow debug_hap debug_hap_data_file:sock_file { append create getattr lock map open read rename setattr unlink watch watch_reads write };
+    allow debug_hap_attr debug_hap_data_file:sock_file { append create getattr lock map open read rename setattr unlink watch watch_reads write };
     allow installs debug_hap_data_file:sock_file { unlink }; 
 ')
 allow normal_hap_attr normal_hap_data_file_attr:sock_file { append create getattr lock map open read rename setattr unlink watch watch_reads write };
