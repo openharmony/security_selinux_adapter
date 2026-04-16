@@ -138,7 +138,7 @@ developer_only(`
     allow aa toybox_exec:lnk_file { read };
     allow aa tracefs:dir { search };
     allow aa tty_device:chr_file { read write open ioctl };
-    allow debug_hap aa:binder { call };
+    allow debug_hap_attr aa:binder { call };
     allow foundation aa:binder { call transfer };
     allow hdcd aa:process { signal };
     allow hidumper_service aa:dir { search };
