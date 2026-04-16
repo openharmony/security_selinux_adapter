@@ -144,6 +144,13 @@ allow init dev_block_file:dir { write remove_name add_name };
 allow init dev_block_file:lnk_file { create getattr unlink write link };
 #avc denied { ptrace } for pid=1, comm="/bin/init" scontext=u:r:init:so tcontext=u:r:normal_hap:so tclass=process permission=0
 allow init { domain -kernel -ueventd -init }:process { ptrace };
-
 # allow snapshot pin_state write
 allow init self:hmcap { deep_sleep_snap };
+#avc denied { read } for pid=1, comm="/bin/init" path="/proc/13549/task" dev="" ino=42323 scontext=u:r:init:s0 tcontext=0:r:normal_hap:s0:x61,x334,x512,x868,x1024 tclass=dir permissive=0
+#avc denied { open } for pid=1, comm="/bin/init" path="/proc/13549/task" dev="" ino=42323 scontext=u:r:init:s0 tcontext=0:r:normal_hap:s0:x61,x334,x512,x868,x1024 tclass=dir permissive=0
+#avc denied { getattr } for pid=15407, comm="/bin/lsof" path="/proc/4730" dev="" ino=37486 scontext=u:r:init:s0 tcontext=0:r:system_basic_hap:s0 tclass=dir permissive=0
+allow init { domain -kernel }:dir { open read getattr };
+#avc denied { read } for pid=15488, comm="/bin/lsof" path="/4741/cwd" dev="" ino=40423 scontext=u:r:init:s0 tcontext=0:r:system_basic_hap:s0 tclass=lnk_file permissive=0
+allow init { domain -kernel }:lnk_file { read };
+#avc denied { getattr } for pid=15488, comm="/bin/lsof" path="/proc/thread_count_limit" dev="" ino=83 scontext=u:r:init:s0 tcontext=0:r:system_basic_hap:s0 tclass=file permissive=0
+allow init { domain -kernel }:file { getattr };
