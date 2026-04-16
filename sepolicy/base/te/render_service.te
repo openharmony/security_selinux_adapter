@@ -87,14 +87,14 @@ hdi_call(render_service, hdf_allocator_service)
 allow render_service usb_service:fd { use };
 allow render_service data_service_el1_file:file { map write read };
 allow render_service tty_device:chr_file { write };
-# avc: denied { call } for pid=14457, comm="/system/bin/render_process"  scontext=u:r:render_service:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
-# avc: denied { transfer } for pid=15973, comm="/system/bin/render_process"  scontext=u:r:render_service:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+# avc: denied { call } for pid=8596, comm="/system/bin/render_process"  scontext=u:r:render_service:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
+# avc: denied { transfer } for pid=8165, comm="/system/bin/render_service"  scontext=u:r:render_service:s0 tcontext=u:r:render_service:s0 tclass=binder permissive=1
 allow render_service render_service:binder { call transfer };
-# avc:  denied  { get } for service=66006 sid=u:r:render_service:s0 scontext=u:r:render_service:s0 tcontext=u:object_r:sa_gameservice_server:s0 tclass=samgr_class permissive=1
+# avc: denied { get } for service=401 sid=u:r:render_service:s0 scontext=u:r:render_service:s0 tcontext=u:object_r:sa_foundation_bms:s0 tclass=samgr_class permissive=1
 allow render_service sa_foundation_bms:samgr_class { get };
-# avc: denied { execute } for pid=14457, comm="/system/bin/render_service"  path="/system/bin/render_process" dev="overlay" ino=1559 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-# avc: denied { execute_no_trans } for pid=14457, comm="/system/bin/render_service"  scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-# avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/render_process" dev="overlay" ino=1559 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-# avc: denied { open } for pid=14457, comm="/system/bin/render_service"  path="/system/bin/render_process" dev="overlay" ino=1559 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
-# avc: denied { read } for pid=14457, comm="/system/bin/render_process"  path="/system/bin/render_process" dev="/dev/block/dm-2" ino=86846732 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+# avc: denied { execute } for pid=8596, comm="/system/bin/render_service"  path="/system/bin/render_process" dev="overlay" ino=1545 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+# avc: denied { execute_no_trans } for pid=8596, comm="/system/bin/render_service"  scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+# avc: denied { map } for pid=unknown, comm=unknown, cidx=0x0  path="/system/bin/render_process" dev="overlay" ino=1545 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+# avc: denied { open } for pid=8596, comm="/system/bin/render_service"  path="/system/bin/render_process" dev="overlay" ino=1545 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
+# avc: denied { read } for pid=8596, comm="/system/bin/render_process"  path="/system/bin/render_process" dev="/dev/block/dm-2" ino=86846604 scontext=u:r:render_service:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=1
 allow render_service system_bin_file:file { execute execute_no_trans map open read };
