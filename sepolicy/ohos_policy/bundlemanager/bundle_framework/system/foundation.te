@@ -156,6 +156,12 @@ allow foundation bms_db_file:dir { add_name remove_name search rename create ioc
 allowxperm foundation bms_db_file:file ioctl { 0x5413 0xf546 0xf547 0xf50c };
 allowxperm foundation bms_db_file:dir ioctl { 0x5413 0xf546 0xf547 0xf50c };
 
+# avc: denied { ioctl } for pid=1261, comm="/system/bin/sa_main"  path="/dev/bbox" dev="" ino=70 ioctlcmd=0x420b scontext=u:r:foundation:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=1
+allow foundation dev_bbox:chr_file { ioctl };
+
+# avc: denied { ioctl } for pid=1261, comm="/system/bin/sa_main"  path="/dev/bbox" dev="" ino=70 ioctlcmd=0x420b scontext=u:r:foundation:s0 tcontext=u:object_r:dev_bbox:s0 tclass=chr_file permissive=1
+allowxperm foundation dev_bbox:chr_file ioctl { 0x420b };
+
 allow foundation cgroup:dir { search };
 allow foundation cgroup:file { getattr open read };
 
