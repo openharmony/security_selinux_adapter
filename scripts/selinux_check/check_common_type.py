@@ -105,9 +105,9 @@ def collect_inline_policy_text(text, line_no, policy_file, restricted_types, vio
         if not statement:
             continue
         if AUTH_RULE_PATTERN.match(statement):
-            collect_auth_rule(statement + ";", line_no, policy_file, restricted_types, violations)
+            collect_auth_rule("{};".format(statement), line_no, policy_file, restricted_types, violations)
             continue
-        collect_macro_calls(statement + ";", line_no, policy_file, restricted_types, violations)
+        collect_macro_calls("{};".format(statement), line_no, policy_file, restricted_types, violations)
 
 
 def find_matching_right_paren(line, left_paren_index):

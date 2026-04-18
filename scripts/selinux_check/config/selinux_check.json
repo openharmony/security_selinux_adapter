@@ -56,14 +56,14 @@
             "extra_args": ""
         },
         {
-            "script": "base/security/selinux_adapter/scripts/selinux_check/check_consistency_of_tcontext.py",
-            "args": "--cil_file",
-            "extra_args": "--config config/cosistency_pair.json"
-        },
-        {
             "script": "base/security/selinux_adapter/scripts/selinux_check/check_common_type.py",
             "args": "",
             "extra_args": "--config config/restricted_type.json"
+        },
+        {
+            "script": "base/security/selinux_adapter/scripts/selinux_check/check_consistency_of_tcontext.py",
+            "args": "--cil_file",
+            "extra_args": "--config config/cosistency_pair.json"
         },
         {
             "script": "base/security/selinux_adapter/scripts/selinux_check/check_context_length.py",
