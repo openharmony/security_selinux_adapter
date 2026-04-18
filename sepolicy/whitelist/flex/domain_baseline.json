@@ -136,7 +136,8 @@
             "distributeddata",
             "av_codec_service",
             "distributedfile",
-            "midi_server"
+            "midi_server",
+            "ohos_object_editor_service"
         ],
         "rgm_violator_sadomain": [],
         "hap_domain": [
