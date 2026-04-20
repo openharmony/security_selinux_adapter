@@ -165,6 +165,12 @@ allow accountmgr accessibility:binder { call transfer };
 # avc:  denied  { call } for  pid=2208 comm="system/bin/sa_main" scontext=u:r:accountmgr:s0 tcontext=u:r:distributedsche:s0 tclass=binder permissive=0
 allow accountmgr distributedsche:binder { call };
 
+# avc: denied { call } for pid=1884, comm="/system/bin/sa_main" scontext=u:r:accountmgr:s0 tcontext=u:r:device_manager:s0 tclass=binder permissive=0
+allow accountmgr device_manager:binder { call };
+
+# avc: denied { call } for pid=1884, comm="/system/bin/sa_main" scontext=u:r:accountmgr:s0 tcontext=u:r:softbus_server:s0 tclass=binder permissive=0
+allow accountmgr softbus_server:binder { call };
+
 # add for test
 debug_only(`
     allow accountmgr sh:binder { call };
