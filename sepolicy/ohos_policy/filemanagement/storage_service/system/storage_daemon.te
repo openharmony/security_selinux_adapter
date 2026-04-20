@@ -530,3 +530,8 @@ allow storage_daemon data_app_el2_group_file:dir { add_name create getattr open 
 allow storage_daemon data_app_el3_group_file:dir { add_name create getattr open read search setattr write };
 allow storage_daemon data_app_el4_group_file:dir { add_name create getattr open read search setattr write };
 allow storage_daemon data_app_el5_group_file:dir { add_name create getattr open read search setattr write };
+
+# avc: denied { get } for pid=617, comm="/system/bin/sa_main"  scontext=u:r:storage_daemon:s0 tcontext=u:r:sa_resource_schedule:s0 tclass=samgr_class permissive=0
+allow storage_daemon sa_resource_schedule:samgr_class { get };
+# avc: denied { call } for pid=617, comm="/system/bin/sa_main"  scontext=u:r:storage_daemon:s0 tcontext=u:r:resource_schedule_service:s0 tclass=binder permissive=0
+allow storage_daemon resource_schedule_service:binder { call };
