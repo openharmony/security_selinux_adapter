@@ -20,7 +20,6 @@
 181	                                   u:object_r:sa_ability_mst_service:s0
 182	                                   u:object_r:sa_dataobs_mgr_service_service:s0
 183	                                   u:object_r:sa_uri_permission_mgr_service:s0
-186                                    u:object_r:sa_aimgr_climgr:s0
 200                                    u:object_r:sa_accountmgr:s0
 300	                                   u:object_r:sa_subsys_ai_service:s0
 310	                                   u:object_r:sa_subsys_ai_ds_service:s0
