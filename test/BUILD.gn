@@ -146,10 +146,10 @@ ohos_unittest("service_checker_unittest") {
     "unittest/common/test_common.cpp",
     "unittest/service_checker/unit_test.cpp",
   ]
+  deps = [ "../:libservice_checker" ]
   external_deps = [
     "googletest:gtest",
     "selinux:libselinux",
-    "selinux_adapter:libservice_checker",
   ]
 }
 
