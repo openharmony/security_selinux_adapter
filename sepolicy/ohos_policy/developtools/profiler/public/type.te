@@ -33,6 +33,8 @@ type sa_native_daemon, sa_service_attr;
 
 type hidebug_private_param, parameter_attr;
 
+type hiprofiler_file, file_attr, data_file_attr;
+
 domain_auto_transition_pattern(native_system_domain, hiprofilerd_exec, hiprofilerd);
 
 domain_auto_transition_pattern(native_system_domain, hiprofiler_cmd_exec, hiprofiler_cmd);
