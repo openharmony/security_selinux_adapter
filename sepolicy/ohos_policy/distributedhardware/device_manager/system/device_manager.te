@@ -356,3 +356,6 @@ allow device_manager sys_prod_file:dir { search };
 allow device_manager tty_device:chr_file { write };
 allow device_manager sa_time_service:samgr_class { get };
 allow device_manager time_service:binder { call };
+
+#avc: denied { transfer } for pid=1685, comm="/system/bin/sa_main" scontext=u:r:device_manager:s0 tcontext=u:r:accountmgr:s0 tclass=binder permissive=0
+allow device_manager accountmgr:binder { transfer };
