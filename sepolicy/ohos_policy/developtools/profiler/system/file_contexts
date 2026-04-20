@@ -24,3 +24,5 @@
 /dev/unix/socket/hiprofiler_unix_socket u:object_r:hiprofiler_socket:s0
 
 /dev/unix/socket/hook_unix_socket u:object_r:hiprofiler_socket:s0
+
+/data/log/hiprofiler(/.*)? u:object_r:hiprofiler_file:s0
