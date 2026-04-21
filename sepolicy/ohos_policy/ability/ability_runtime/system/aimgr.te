@@ -11,5 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# selinux permission denied! SA:186,callSid:u:r:aimgr:s0
+# avc:  denied  { add } for service=186 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_aimgr_climgr:s0 tclass=samgr_class permissive=0
 allow aimgr sa_aimgr_climgr:samgr_class { add };
+
+# avc:  denied  { search } for  pid=2479 comm="sa_main" name="socket" dev="tmpfs" ino=43 scontext=u:r:aimgr:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir permissive=1
+allow aimgr dev_unix_socket:dir { search };
+
+# avc:  denied  { get } for service=1301 sid=u:r:aimgr:s0 scontext=u:r:aimgr:s0 tcontext=u:object_r:sa_distributeddata_service:s0 tclass=samgr_class
+allow aimgr sa_distributeddata_service:samgr_class { get };
