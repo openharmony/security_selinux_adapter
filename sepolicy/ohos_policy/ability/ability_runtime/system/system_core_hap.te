@@ -30,7 +30,7 @@ allow system_core_hap_attr system_file:file { map };
 allow system_core_hap_attr data_service_el1_file:file { map };
 
 #avc: denied { get } for service=186 pid=8861 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_aimgr_climgr:s0 tclass=samgr_class permissive=1
-allow system_basic_hap_attr sa_aimgr_climgr:samgr_class { get };
+allow system_core_hap_attr sa_aimgr_climgr:samgr_class { get };
 
 debug_only(`
     allow system_core_hap_attr sh:binder { call transfer };

@@ -13,5 +13,7 @@
 
 allow init quick_fix:process { rlimitinh siginh transition };
 
+# avc:  denied  { rlimitinh } for  pid=2479 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:aimgr:s0 tclass=process permissive=1
+# avc:  denied  { siginh } for  pid=2479 comm="sa_main" scontext=u:r:init:s0 tcontext=u:r:aimgr:s0 tclass=process permissive=1
 # avc:  denied  { transition } for  pid=28868 comm="init" path="/system/bin/sa_main" dev="mmcblk0p7" ino=390 scontext=u:r:init:s0 tcontext=u:r:aimgr:s0 tclass=process permissive=0
-allow init aimgr:process { transition };
+allow init aimgr:process { rlimitinh siginh transition };
