@@ -27,3 +27,6 @@ allow system_basic_hap_attr sa_quick_fix_mgr_service:samgr_class { get };
 allow system_basic_hap_attr sa_foundation_agentmgr:samgr_class { get };
 allow system_basic_hap_attr quick_fix:binder { call };
 allow system_basic_hap_attr system_file:file { map };
+
+#avc: denied { get } for service=186 pid=4594 scontext=u:r:system_basic_hap:s0 tcontext=u:object_r:sa_aimgr_climgr:s0 tclass=samgr_class permissive=1
+allow system_basic_hap_attr sa_aimgr_climgr:samgr_class { get };
