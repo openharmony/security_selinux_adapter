@@ -14,4 +14,4 @@
 ##################
 ## Type define: ##
 ##################
-type histogram_sa, samgr_type;
+type histogram_sa, sa_service_attr;
