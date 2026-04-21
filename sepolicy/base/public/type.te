@@ -43,7 +43,6 @@ type deviceinfoservice, sadomain, domain;
 type distributedhardware_fwk, sadomain, domain;
 type nwebspawn, sadomain, domain;
 type upms, sadomain, domain;
-type aimgr, sadomain, domain;
 type mmi_uinput_service, sadomain, domain;
 type download_server, sadomain, domain;
 type msdp_sa, sadomain, domain;

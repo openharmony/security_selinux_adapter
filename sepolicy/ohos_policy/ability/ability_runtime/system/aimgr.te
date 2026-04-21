@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# selinux permission denied! SA:186,callSid:u:r:aimgr:s0
 allow aimgr sa_aimgr_climgr:samgr_class { add };
