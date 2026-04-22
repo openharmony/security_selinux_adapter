@@ -74,3 +74,7 @@ allow blue_host data_vendor:dir { add_name write };
 allow blue_host data_vendor:file { create read write open };
 allow blue_host blue_host:capability { sys_nice };
 
+allow blue_host paramservice_socket:sock_file { write };
+allow blue_host kernel:unix_stream_socket { connectto };
+allow blue_host bluetooth_param:parameter_service { set };
+allow blue_host proc_connectivity:file { read open getattr };
