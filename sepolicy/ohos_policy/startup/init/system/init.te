@@ -603,5 +603,5 @@ allow domain process_etc_file:file { getattr map read open };
 allow init data_spawn_shm:dir { open read relabelto setattr };
 # avc: denied { getattr open read relabelto setattr } for pid=1, comm="/bin/init" path="/data/log/hiprofiler" scontext=u:r:init:s0 tcontext=u:object_r:hiprofiler_file:s0 tclass=dir permissive=1
 allow init hiprofiler_file:dir { getattr open read relabelto setattr };
-# avc: denied { write } for hm.freezer.pin_state or procs_tree
+# avc: denied { deep_sleep_snap } for pid=1, comm="/bin/init"  scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=hmcap permissive=0
 allow init self:hmcap { deep_sleep_snap };
