@@ -11,5 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# avc: denied { add } for service=66568 sid=u:r:limit_domain:s0 scontext=u:r:limit_domain:s0 tcontext=u:object_r:histogram_sa:s0 tclass=samger_class permissive=1
-allow histogram_service histogram_sa:samgr_class { add };
+# avc: denied { add } for service=66568 sid=u:r:limit_domain:s0 scontext=u:r:limit_domain:s0 tcontext=u:object_r:histogram_service:s0 tclass=samger_class permissive=1
+allow histogram_sa histogram_service:samgr_class { add };
