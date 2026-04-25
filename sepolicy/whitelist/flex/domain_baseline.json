@@ -138,7 +138,8 @@
             "av_codec_service",
             "distributedfile",
             "midi_server",
-            "ohos_object_editor_service"
+            "ohos_object_editor_service",
+            "disk_manager"
         ],
         "rgm_violator_sadomain": [],
         "hap_domain": [
