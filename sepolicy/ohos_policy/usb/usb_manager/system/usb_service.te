@@ -133,7 +133,8 @@ allow usb_service hdf_usb_device_interface_service:hdf_devmgr_class { get };
 allow usb_service hdf_usb_port_interface_service:hdf_devmgr_class { get };
 allow usb_service paramservice_socket:sock_file { write };
 allow usb_service devinfo_type_param:file { read };
-allow usb_service tty_device:chr_file { read write open ioctl };
+# avc: denied { lock } for pid=2770, comm="/system/bin/sa_main"  path="/dev/ttyUSB0" dev="" ino=832 scontext=u:r:usb_service:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=0
+allow usb_service tty_device:chr_file { read write open ioctl lock };
 allowxperm usb_service tty_device:chr_file ioctl { 0x5401 0x5402 };
 allow usb_service allocator_host:binder { call };
 allow usb_service allocator_host:fd { use };
