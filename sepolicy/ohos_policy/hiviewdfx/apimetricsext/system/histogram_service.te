@@ -11,8 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-##################
-## Type define: ##
-##################
-type histogram_sa, sa_service_attr;
-type histogram_service, sadomain, domain;
+# avc: denied { add } for service=66568 sid=u:r:limit_domain:s0 scontext=u:r:limit_domain:s0 tcontext=u:object_r:histogram_sa:s0 tclass=samger_class permissive=1
+allow histogram_service histogram_sa:samgr_class { add };
