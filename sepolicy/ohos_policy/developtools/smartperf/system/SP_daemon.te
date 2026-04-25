@@ -199,16 +199,6 @@ allow SP_daemon data_app_el1_shadercache:dir { search };
 #[hmseh:392]avc: denied { getattr } for pid=8196, comm="/bin/SP_daemon"  path="/data/app/el1/100/system_optimize/com.tencent.tmgp.sgame.hw/shader_cache/shader_dfx/shader_report_info.txt" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=50968 scontext=u:r:SP_daemon:s0 tcontext=o:object_r:data_app_el1_shadercache:s0:x238,x334,x512,x868,x1024 tclass=file permissive=1
 allow SP_daemon data_app_el1_shadercache:file { open read getattr };
 
-# avc: denied { get } for pid=18411, comm="/system/bin/sa_main"  scontext=u:r:SP_daemon:s0 tcontext=u:r:sa_device_service_manager:s0 tclass=samgr_class permissive=1
-allow SP_daemon sa_device_service_manager:samgr_class { get };
-# avc: denied { call } for pid=18411, comm="/system/bin/sa_main"  scontext=u:r:SP_daemon:s0 tcontext=u:r:game_accelerate_schedule:s0 tclass=binder permissive=1
-# avc: denied { transfer } for pid=18411, comm="/system/bin/sa_main"  scontext=u:r:SP_daemon:s0 tcontext=u:r:game_accelerate_schedule:s0 tclass=binder permissive=1
-allow SP_daemon game_accelerate_schedule:binder { call transfer };
-# avc: denied { get } for pid=18411, comm="/system/bin/sa_main"  scontext=u:r:SP_daemon:s0 tcontext=u:r:sa_game_accelerate_schedule:s0 tclass=samgr_class permissive=1
-allow SP_daemon sa_game_accelerate_schedule:samgr_class { get };
-# avc: denied { call } for pid=18411, comm="/system/bin/sa_main"  scontext=u:r:SP_daemon:s0 tcontext=u:r:sa_game_accelerate_schedule:s0 tclass=binder permissive=1
-# avc: denied { transfer } for pid=18411, comm="/system/bin/sa_main"  scontext=u:r:SP_daemon:s0 tcontext=u:r:sa_game_accelerate_schedule:s0 tclass=binder permissive=1
-allow SP_daemon sa_game_accelerate_schedule:binder { call transfer };
 # avc: denied { getattr } for pid=22749, comm="/bin/cp" path="/data/log/hitrace/trace_20260423102907@104-5995.sys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata"ino=7575 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=file permissive=1
 # avc: denied { read } for pid=22749, comm="/bin/cp" path="/data/log/hitrace/trace_20260423102907@104-5995.sys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata"ino=7575 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=file permissive=1
 # avc: denied { open } for pid=22749, comm="/bin/cp" path="/data/log/hitrace/trace_20260423102907@104-5995.sys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata"ino=7575 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=file permissive=1
