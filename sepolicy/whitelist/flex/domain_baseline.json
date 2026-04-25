@@ -139,7 +139,7 @@
             "distributedfile",
             "midi_server",
             "ohos_object_editor_service",
-            "histogram_sa"
+            "histogram_service"
         ],
         "rgm_violator_sadomain": [],
         "hap_domain": [
