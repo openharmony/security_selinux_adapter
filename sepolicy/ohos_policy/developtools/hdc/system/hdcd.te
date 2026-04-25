@@ -329,6 +329,17 @@ developer_only(`
 
     # avc: denied { signal } for pid=25234, comm="/system/bin/hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:sqlite3:s0 tclass=process permissive=0
     allow hdcd sqlite3:process { signal };
+
+    # avc: denied { map } for pid=1996, comm="/system/bin/hdcd" path="/dev/__parameters__/u:object_r:developtools_hdc_report_param:s0" dev="" ino=269 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_report_param:s0 tclass=file permissive=1
+    # avc: denied { open } for pid=1996, comm="/system/bin/hdcd" path="/dev/__parameters__/u:object_r:developtools_hdc_report_param:s0" dev="" ino=269 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_report_param:s0 tclass=file permissive=1
+    # avc: denied { read } for pid=1996, comm="/system/bin/hdcd" path="/dev/__parameters__/u:object_r:developtools_hdc_report_param:s0" dev="" ino=269 scontext=u:r:hdcd:s0 tcontext=u:object_r:developtools_hdc_report_param:s0 tclass=file permissive=1
+    allow hdcd developtools_hdc_report_param:file { map open read };
+
+    # avc: denied { get } for service=3299, sid=u:r:hdcd:s0 scontext=u:r:hdcd:s0 tcontext=u:object_r:sa_foundation_cesfwk_service:s0 tclass=samgr_class permissive=0
+    allow hdcd sa_foundation_cesfwk_service:samgr_class { get };
+
+    # avc: denied { call } for pid=824, comm="/system/bin/hdcd" scontext=u:r:hdcd:s0 tcontext=u:r:foundation:s0 tclass=binder permissive=0
+    allow hdcd foundation:binder { call };
 ')
 
 neverallow hdcd hmdfs:dir ioctl;
@@ -339,3 +350,7 @@ neverallow { domain -usb_host -init -edm_sa } developtools_hdc_control_param:par
 neverallow { domain -hdcd_user_permit -hdcd } hdcd_user_permit_exec:file { execute };
 neverallow { domain -hdcd -hdcd_user_permit -system_basic_hap_attr -parent_control_hdc_attr } developtools_hdc_auth_param:parameter_service { set };
 neverallow hdcd { normal_hap_data_file_attr system_basic_hap_data_file_attr system_core_hap_data_file_attr -debug_hap_data_file }:{ dir file } *;
+
+# hdc report
+neverallow { domain } developtools_hdc_report_param:parameter_service { set };
+neverallow { domain -hdcd -init -param_watcher } developtools_hdc_report_param:file { read map open };
