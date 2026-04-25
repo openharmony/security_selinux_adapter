@@ -23,3 +23,6 @@ persist.hdc.jdwp                        u:object_r:debug_param:s0
 persist.hdc.mode.usb                    u:object_r:developtools_hdc_auth_param:s0
 persist.hdc.mode.tcp                    u:object_r:developtools_hdc_auth_param:s0
 persist.hdc.mode.uart                   u:object_r:developtools_hdc_auth_param:s0
+
+persist.hdc.report.enable               u:object_r:developtools_hdc_report_param:s0
+persist.hdc.shell_history.enable        u:object_r:developtools_hdc_report_param:s0
