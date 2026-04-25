@@ -12,4 +12,4 @@
 # limitations under the License.
 
 # avc:  denied  { get } for service=66568 sid=u:r:hidumper_service:s0 scontext=u:r:hidumper_service:s0 tcontext=u:object_r:default_service:s0 tclass=samgr_class permissive=1
-allow hidumper_service histogram_sa:samgr_class { get };
+allow hidumper_service histogram_service:samgr_class { get };
