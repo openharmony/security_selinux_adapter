@@ -16,4 +16,3 @@
 ##################
 type histogram_sa, sa_service_attr;
 type histogram_service, sadomain, domain;
-
