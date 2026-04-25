@@ -18,4 +18,20 @@ developer_only(`
     allow accountmgr test_server:binder { transfer };
     # avc: denied { get } for service=200 sid=u:r:test_server:s0 scontext=u:r:test_server:s0 tcontext=u:object_r:sa_accountmgr:s0 tclass=samgr_class permissive=1
     allow test_server sa_accountmgr:samgr_class { get };
+
+    # avc: denied { get } for service=7002 sid=u:r:test_server:s0 scontext=u:r:test_server:s0 tcontext=u:r:sa_ui_appearance:s0 tclass=samgr_class permissive=0
+    allow test_server sa_ui_appearance:samgr_class { get };
+    # avc: denied { call } for pid=16626, comm="/system/bin/sa_main" scontext=u:r:test_server:s0 tcontext=u:r:ui_service:s0 tclass=binder permissive=0
+    allow test_server ui_service:binder { call };
+    # avc: denied { search } for pid=14842, comm="/system/bin/sa_main"  name="/local/tmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1392 scontext=u:r:test_server:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+    allow test_server data_local_tmp:dir { search };
+    # avc: denied { search } for pid=14842, comm="/system/bin/sa_main"  name="/local" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=94 scontext=u:r:test_server:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
+    allow test_server data_local:dir { search };
+    # avc: denied { read } for pid=14842, comm="/system/bin/sa_main"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:test_server:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    # avc: denied { open } for pid=14842, comm="/system/bin/sa_main"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:test_server:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    allow test_server data_local_tmp:file { read open };
+    # avc: denied { get } for service=66262 sid=u:r:test_server:s0 scontext=u:r:test_server:s0 tcontext=u:r:sa_font_manager_server:s0 tclass=samgr_class permissive=1
+    allow test_server sa_font_manager_server:samgr_class { get };
+    # avc: denied { call } for pid=9966, comm="/system/bin/sa_main" scontext=u:r:test_server:s0 tcontext=u:r:font_manager_server:s0 tclass=binder permissive=0
+    allow test_server font_manager_server:binder { call };
 ')
