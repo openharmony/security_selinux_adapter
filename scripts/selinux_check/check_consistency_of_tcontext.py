@@ -257,6 +257,26 @@ class PolicyMap:
             self.name, other.name, self.check_type,
             "developer" if with_developer else "user"))
 
+    def print_violations(self, not_found, inconsistent, missing_attrs, other_name):
+        if not_found:
+            print("Violate list (policy)")
+            for allow in not_found:
+                print("\t{}".format(allow))
+            print("Solution: add the above policy to '{}'.\n".format(other_name))
+
+        if inconsistent:
+            print("Violate list (policy)")
+            for base, target in inconsistent:
+                print("\t{}: {}".format(self.name, base))
+                print("\t{}: {}".format(other_name, target))
+                print("")
+            print("Solution: the above policy should be consisent.\n")
+
+        if missing_attrs:
+            print("Violate list (types)")
+            for allow in missing_attrs:
+                print("\t{}".format(allow))
+            print("Solution: add the above typeattribute to '{}'.\n".format(other_name))
 
     def check_consistency(self, other, with_developer, policy_resolver, ignored_issues=None):
         if ignored_issues is None:
@@ -306,25 +326,7 @@ class PolicyMap:
         if error:
             self.print_error_header(other, with_developer)
 
-        if not_found:
-            print("Violate list (policy)")
-            for allow in not_found:
-                print("\t{}".format(allow))
-            print("Solution: add the above policy to '{}'.\n".format(other.name))
-
-        if inconsistent:
-            print("Violate list (policy)")
-            for base, target in inconsistent:
-                print("\t{}: {}".format(self.name, base))
-                print("\t{}: {}".format(other.name, target))
-                print("")
-            print("Solution: the above policy should be consisent.\n")
-
-        if missing_attrs:
-            print("Violate list (types)")
-            for allow in missing_attrs:
-                print("\t{}".format(allow))
-            print("Solution: add the above typeattribute to '{}'.\n".format(other.name))
+        self.print_violations(not_found, inconsistent, missing_attrs, other.name)
 
         return error, issue_keys
 
