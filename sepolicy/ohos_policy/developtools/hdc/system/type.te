@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Huawei Device Co., Ltd.
+# Copyright (c) 2026 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,8 +11,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-type font_manager_server, sadomain, domain;
-typeattribute font_manager_server system_violator_data_local_tmp_dir_open;
-neverallow { system_violator_data_local_tmp_dir_open -font_manager_server } data_local_tmp:dir { open search };
-typeattribute font_manager_server system_violator_data_local_tmp_file_open;
-neverallow { system_violator_data_local_tmp_file_open -font_manager_server } data_local_tmp:file open;
+type developtools_hdc_report_param, parameter_attr, system_parameter_attr, system_restricted_parameter_attr;

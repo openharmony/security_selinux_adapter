@@ -38,4 +38,13 @@ developer_only(`
     allow testhelper dev_unix_socket:dir { search };
     # avc: denied { write } for pid=8339, comm="/bin/testhelper"  name="0" dev="0" major=136 minor=0 scontext=u:r:testhelper:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1    
     allow testhelper tty_device:chr_file { write };
+    # avc: denied { search } for pid=20954, comm="/bin/testhelper"  name="/local/tmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1392 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+    allow testhelper data_local_tmp:dir { search };
+    # avc: denied { search } for pid=20954, comm="/bin/testhelper"  name="/local" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=94 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_local:s0 tclass=dir permissive=1
+    allow testhelper data_local:dir { search };
+    # avc: denied { getattr } for pid=20954, comm="/bin/testhelper"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    # avc: denied { map } for pid=20954, comm="/bin/testhelper"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    # avc: denied { read } for pid=20954, comm="/bin/testhelper"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    # avc: denied { open } for pid=20954, comm="/bin/testhelper"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:testhelper:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    allow testhelper data_local_tmp:file { getattr map read open };
 ')

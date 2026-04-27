@@ -1,0 +1,24 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+developer_only(`
+    # avc: denied { search } for pid=9911, comm="/system/bin/sa_main"  name="/local/tmp" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=1392 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+    allow font_manager_server data_local_tmp:dir { search };
+    # avc: denied { read } for pid=9911, comm="/system/bin/sa_main"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    # avc: denied { open } for pid=9911, comm="/system/bin/sa_main"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    # avc: denied { getattr } for pid=9911, comm="/system/bin/sa_main"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    # avc: denied { map } for pid=9911, comm="/system/bin/sa_main"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+    allow font_manager_server data_local_tmp:file { read open getattr map };
+    # avc: denied { use } for pid=9911, comm="/system/bin/sa_main"  name="/data/local/tmp/test.ttf" dev="/dev/block/platform/fa500000.ufs/by-name/userdata" ino=42111 scontext=u:r:font_manager_server:s0 tcontext=u:object_r:test_server:s0 tclass=fd permissive=1
+    allow font_manager_server test_server:fd { use };
+')
