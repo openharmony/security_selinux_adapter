@@ -1,7 +1,9 @@
 {
     "baseline": {
         "user": {
-            "system_restricted_parameter_attr": [],
+            "system_restricted_parameter_attr": [
+                "developtools_hdc_report_param"
+            ],
             "system_public_parameter_attr": [],
             "vendor_restricted_parameter_attr": [],
             "vendor_public_parameter_attr": []

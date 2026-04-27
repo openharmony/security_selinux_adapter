@@ -139,7 +139,8 @@
             "distributedfile",
             "midi_server",
             "ohos_object_editor_service",
-            "disk_manager"
+            "disk_manager",
+            "histogram_sa"
         ],
         "rgm_violator_sadomain": [],
         "hap_domain": [
