@@ -17,6 +17,38 @@ developer_only(`
     allow hitrace { data_log hitrace_log_file }:dir { add_name search write };
     allow hitrace { data_log hitrace_log_file }:file { create getattr open write };
     allow hitrace data_local_tmp:dir { add_name search write create };
+
+    debug_only(`
+        #avc:  denied  { read } for  pid=2063 comm="hitrace" name="hitrace" dev="mmcblk0p15" ino=44 scontext=u:r:hitrace:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=dir permissive=0
+        #avc:  denied  { open } for  pid=2102 comm="hitrace" path="/data/log/hitrace" dev="mmcblk0p15" ino=44 scontext=u:r:hitrace:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=dir permissive=0
+        #avc:  denied  { remove_name } for  pid=2242 comm="hitrace" name="saved_events_format" dev="mmcblk0p15" ino=4111 scontext=u:r:hitrace:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=dir permissive=1
+        #avc:  denied  { getattr } for  pid=2230 comm="hitrace" path="/data/local/tmp" dev="mmcblk0p15" ino=164 scontext=u:r:hitrace:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=dir permissive=1
+        allow hitrace hitrace_log_file:dir { read open remove_name getattr };
+
+        #avc:  denied  { read } for  pid=2104 comm="HitraceDump" name="saved_events_format" dev="mmcblk0p15" ino=4025 scontext=u:r:hitrace:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=file permissive=0
+        #avc:  denied  { unlink } for  pid=2242 comm="hitrace" name="saved_events_format" dev="mmcblk0p15" ino=4111 scontext=u:r:hitrace:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=file permissive=1
+        #avc:  denied  { ioctl } for  pid=2230 comm="hitrace" path="/data/local/tmp/boot_trace.cfg" dev="mmcblk0p15" ino=4013 ioctlcmd=0x5413 scontext=u:r:hitrace:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+        allow hitrace hitrace_log_file:file { read unlink ioctl };
+
+        #avc:  denied  { read } for  pid=2085 comm="hitrace" name="u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:hitrace:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+        #avc:  denied  { open } for  pid=2115 comm="hitrace" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:hitrace:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+        allow hitrace persist_param:file { read open };
+        #avc:  denied  { map } for  pid=2049 comm="hitrace" path="/dev/__parameters__/u:object_r:persist_param:s0" dev="tmpfs" ino=70 scontext=u:r:hitrace:s0 tcontext=u:object_r:persist_param:s0 tclass=file permissive=0
+        allow hitrace persist_param:file { open read map };
+
+        #avc:  denied  { ioctl } for  pid=2119 comm="hitrace" path="/data/local/tmp/boot_trace.cfg" dev="mmcblk0p15" ino=4013 ioctlcmd=0x5413 scontext=u:r:hitrace:s0 tcontext=u:object_r:data_local_tmp:s0 tclass=file permissive=1
+        allow hitrace data_local_tmp:file { read write };
+
+        #avc:  denied  { getattr } for  pid=2101 comm="HitraceDump" path="/proc/7/status" dev="proc" ino=11598 scontext=u:r:hitrace:s0 tcontext=u:r:kernel:s0 tclass=file permissive=0
+        allow hitrace kernel:file { getattr };
+
+        #avc:  denied  { search } for  pid=2063 comm="hitrace" name="etc" dev="mmcblk0p9" ino=12 scontext=u:r:hitrace:s0 tcontext=u:object_r:sys_prod_file:s0 tclass=dir permissive=0
+        allow hitrace sys_prod_file:dir { search };
+        #avc:  denied  { read } for  pid=2248 comm="HitraceDump" name="cpu" dev="sysfs" ino=5525 scontext=u:r:hitrace:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+        #avc:  denied  { open } for  pid=2248 comm="HitraceDump" path="/sys/devices/system/cpu" dev="sysfs" ino=5525 scontext=u:r:hitrace:s0 tcontext=u:object_r:sysfs_devices_system_cpu:s0 tclass=dir permissive=1
+        allow hitrace sysfs_devices_system_cpu:dir { read open };
+    ')
+
     allow hitrace data_local_tmp:file { create getattr open write };
     allow hitrace debug_param:parameter_service set;
     allow hitrace debug_param:file { open read map };

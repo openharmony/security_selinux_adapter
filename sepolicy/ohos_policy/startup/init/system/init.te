@@ -135,6 +135,7 @@ debug_only(`
     allow init sh:file { map open read relabelto relabelfrom };
     allow init sh:dir { search };
     allow init sh:process { getattr };
+    allow init hitrace_param:parameter_service { set };
 ')
 
 allow init a2dp_host:process { rlimitinh siginh sigkill transition };
