@@ -28,6 +28,8 @@ allow system_core_hap_attr sa_foundation_agentmgr:samgr_class { get };
 allow system_core_hap_attr quick_fix:binder { call };
 allow system_core_hap_attr system_file:file { map };
 allow system_core_hap_attr data_service_el1_file:file { map };
+# avc: denied { call } for pid=11520, comm="/system/bin/appspawn" scontext=u:r:system_core_hap:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=1
+allow system_core_hap_attr aimgr:binder { call };
 
 #avc: denied { get } for service=186 pid=8861 scontext=u:r:system_core_hap:s0 tcontext=u:object_r:sa_aimgr_climgr:s0 tclass=samgr_class permissive=1
 allow system_core_hap_attr sa_aimgr_climgr:samgr_class { get };

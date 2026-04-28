@@ -23,3 +23,5 @@ allow normal_hap_attr sa_service_router_mgr_service:samgr_class { get };
 allow normal_hap_attr service_router:binder { call transfer };
 allow normal_hap_attr data_app_el2_file:file { append };
 allow normal_hap_attr data_app_el2_group_file:file { append };
+# avc:  denied  { call } for  pid=21830 comm="claw_test" scontext=u:r:normal_hap_attr:s0 tcontext=u:r:aimgr:s0 tclass=binder permissive=1
+allow normal_hap_attr aimgr:binder { call };

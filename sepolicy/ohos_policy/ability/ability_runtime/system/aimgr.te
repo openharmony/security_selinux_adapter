@@ -28,3 +28,27 @@ allow aimgr system_bin_file:dir { open read };
 # avc: denied { open } for pid=30480, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs/ohos-aa.json" dev="overlay" ino=1051 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
 # avc: denied { getattr } for pid=18167, comm="/system/bin/sa_main"  path="/system/bin/cli_tool/configs/ohos-aa.json" dev="overlay" ino=1055 scontext=u:r:aimgr:s0 tcontext=u:object_r:system_bin_file:s0 tclass=file permissive=0
 allow aimgr system_bin_file:file { open read getattr };
+
+# avc:  denied  { call } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+# avc:  denied  { transfer } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:distributeddata:s0 tclass=binder permissive=1
+allow aimgr distributeddata:binder { call transfer };
+
+# avc:  denied  { rmdir } for pid=11754, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { search } for pid=11754, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allow aimgr data_service_el1_file:dir { add_name create getattr open read remove_name search setattr write rmdir };
+
+# avc:  denied  { create } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=file permissive=1
+allow aimgr data_service_el1_file:file { create getattr setattr ioctl unlink write open read };
+
+# avc:  denied  { 0xf50c } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" ioctlcmd=0xf50c scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { 0xf50c } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" ioctlcmd=0xf546 scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+# avc:  denied  { 0xf50c } for pid=11258, comm="/system/bin/sa_main" name="/service/el1/public/database/aimgr" ioctlcmd=0xf547 scontext=u:r:aimgr:s0 tcontext=u:object_r:data_service_el1_file:s0 tclass=dir permissive=1
+allowxperm aimgr data_service_el1_file:file ioctl { 0xf50c 0xf546 0xf547 };
+
+# avc:  denied  { getopt } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:aimgr:s0 tclass=unix_dgram_socket permissive=1
+# avc:  denied  { setopt } for pid=11258, comm="/system/bin/sa_main" scontext=u:r:aimgr:s0 tcontext=u:r:aimgr:s0 tclass=unix_dgram_socket permissive=1
+allow aimgr aimgr:unix_dgram_socket { getopt setopt };
+
+# avc:  denied  { open } for pid=11754, comm="/system/bin/sa_main" path="/dev/kmsg" dev="" scontext=u:r:aimgr:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+# avc:  denied  { write } for pid=11754, comm="/system/bin/sa_main" path="/dev/kmsg" dev="" scontext=u:r:aimgr:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file permissive=1
+allow aimgr dev_kmsg_file:chr_file { open write };
