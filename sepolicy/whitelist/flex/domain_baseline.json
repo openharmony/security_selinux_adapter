@@ -29,6 +29,7 @@
             "render_service",
             "faultloggerd",
             "usb_service",
+            "serial_service",
             "hiview",
             "app_domain_verify_agent",
             "selection_service",
