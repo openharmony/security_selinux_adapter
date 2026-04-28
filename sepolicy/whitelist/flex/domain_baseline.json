@@ -156,6 +156,7 @@
             "system_core_hap",
             "ringtonelibrary_hap",
             "formrenderservice_hap",
+            "claw_cli",
             "input_hap",
             "input_debug_hap"
         ],
@@ -211,6 +212,7 @@
             "nwebspawn",
             "processdump",
             "uitest",
+            "claw_sandbox_loader",
             "perftest",
             "testhelper",
             "gphotofs"
