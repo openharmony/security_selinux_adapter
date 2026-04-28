@@ -11,4 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# avc: denied { getattr } for pid=1, comm="/bin/init"  path="/proc/1461/comm" dev="" ino=18639 scontext=u:r:init:s0 tcontext=u:r:blue_host:s0 tclass=file permissive=1
 allow init blue_host:file { getattr };
