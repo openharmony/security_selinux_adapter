@@ -1,0 +1,157 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+type claw_sandbox_exec, system_file_attr, exec_attr, file_attr;
+
+domain_auto_transition_pattern(foundation, claw_sandbox_exec, claw_sandbox_loader);
+
+# avc: denied { read write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:bms_db_file:s0 tclass=file
+allow claw_sandbox_loader bms_db_file:file { read write };
+
+# avc: denied { dyntransition } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_cli:s0 tclass=process
+allow claw_sandbox_loader claw_cli:process { dyntransition };
+
+# avc: denied { setuid } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
+# avc: denied { setgid } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
+# avc: denied { sys_admin } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
+# avc: denied { sys_chroot } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
+# avc: denied { sys_ptrace } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=capability
+allow claw_sandbox_loader claw_sandbox_loader:capability { setuid setgid sys_admin sys_chroot sys_ptrace };
+
+# avc: denied { setcurrent } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=process
+allow claw_sandbox_loader claw_sandbox_loader:process { setcurrent };
+
+# avc: denied { setopt } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=unix_dgram_socket
+# avc: denied { getopt } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=unix_dgram_socket
+allow claw_sandbox_loader claw_sandbox_loader:unix_dgram_socket { setopt getopt };
+
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/dev" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_file:s0 tclass=dir
+allow claw_sandbox_loader dev_file:dir { getattr };
+
+# avc: denied { open } comm="/system/bin/claw_sandbox" path="/dev/kmsg" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file
+# avc: denied { write } comm="/system/bin/claw_sandbox" path="/dev/kmsg" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_kmsg_file:s0 tclass=chr_file
+allow claw_sandbox_loader dev_kmsg_file:chr_file { open write };
+
+# avc: denied { search } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:dev_unix_socket:s0 tclass=dir
+allow claw_sandbox_loader dev_unix_socket:dir { search };
+
+# avc: denied { use } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=fd
+allow claw_sandbox_loader foundation:fd { use };
+
+# avc: denied { read } comm="/system/bin/claw_sandbox" path="pipe:[111]" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=fifo_file
+# avc: denied { write } comm="/system/bin/claw_sandbox" path="pipe:[111]" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=fifo_file
+# avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="pipe:[3571]" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=fifo_file
+allow claw_sandbox_loader foundation:fifo_file { read write ioctl };
+allowxperm claw_sandbox_loader foundation:fifo_file ioctl { 0x5413 };
+
+# avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=unix_stream_socket
+# avc: denied { write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:foundation:s0 tclass=unix_stream_socket
+allow claw_sandbox_loader foundation:unix_stream_socket { read write };
+
+# avc: denied { sendto } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket
+allow claw_sandbox_loader hiview:unix_dgram_socket { sendto };
+
+# avc: denied { read write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:multimodalinput:s0 tclass=unix_stream_socket
+allow claw_sandbox_loader multimodalinput:unix_stream_socket { read write };
+
+# avc: denied { read write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0 tclass=unix_stream_socket
+allow claw_sandbox_loader normal_hap_attr:unix_stream_socket { read write };
+
+# avc: denied { use } path="/ashm" comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0 tclass=fd
+allow claw_sandbox_loader normal_hap_attr:fd { use };
+
+# avc: denied { read } path="/proc/3671/smaps_rollup" comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0 tclass=file
+# avc: denied { open } path="/proc/3671/ns/mnt" comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0 tclass=file
+allow claw_sandbox_loader normal_hap_attr:file { read open };
+
+# avc: denied { search } comm="/system/bin/claw_sandbox" name="/19325" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0 tclass=dir
+allow claw_sandbox_loader normal_hap_attr:dir { search };
+
+# avc: denied { read } comm="/system/bin/claw_sandbox" name="/19325/ns/mnt" scontext=u:r:claw_sandbox_loader:s0 tcontext=o:r:normal_hap:s0 tclass=lnk_file
+allow claw_sandbox_loader normal_hap_attr:lnk_file { read };
+
+# avc: denied { write } path="/proc/sys/hguard/user_list" comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:proc_file:s0 tclass=file
+allow claw_sandbox_loader proc_file:file { write };
+
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/data/storage/el1/bundle" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:data_app_el1_file:s0 tclass=dir
+allow claw_sandbox_loader data_app_el1_file:dir { getattr };
+
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/system/bin" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_bin_file:s0 tclass=dir
+allow claw_sandbox_loader system_bin_file:dir { getattr };
+
+# avc: denied { getattr } comm="/system/resource" path="/system/bin" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_file:s0 tclass=dir
+allow claw_sandbox_loader system_file:dir { getattr };
+
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/system/fonts" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_fonts_file:s0 tclass=dir
+allow claw_sandbox_loader system_fonts_file:dir { getattr };
+
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/system/profile" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_profile_file:s0 tclass=dir
+allow claw_sandbox_loader system_profile_file:dir { getattr };
+
+# avc: denied { getattr } comm="/system/bin/claw_sandbox" path="/usr" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir
+# avc: denied { read } comm="/system/bin/claw_sandbox" path="/usr" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir
+# avc: denied { search } comm="/system/bin/claw_sandbox" path="/usr" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_usr_file:s0 tclass=dir
+allow claw_sandbox_loader system_usr_file:dir { getattr read search };
+
+# avc: denied { read } comm="/system/bin/claw_sandbox" path="/usr" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:system_usr_file:s0 tclass=lnk_file
+allow claw_sandbox_loader system_usr_file:lnk_file { read };
+
+# avc: denied { create } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx/.old_root" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+# avc: denied { mounton } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+# avc: denied { rmdir } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx/.old_root" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+# avc: denied { write add_name } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+# avc: denied { write remove_name } comm="/system/bin/claw_sandbox" path="/sandbox/claw/xxxx" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=dir
+allow claw_sandbox_loader tmpfs:dir { create mounton rmdir write add_name remove_name };
+
+# avc: denied { unmount } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:labeledfs:s0 tclass=filesystem
+allow claw_sandbox_loader labeledfs:filesystem { unmount };
+
+# avc: denied { unmount } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:tmpfs:s0 tclass=filesystem
+allow claw_sandbox_loader tmpfs:filesystem { unmount };
+
+# avc: denied { use } comm="/system/bin/claw_sandbox" path="/dev/ashmem" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:usb_service:s0 tclass=fd
+allow claw_sandbox_loader usb_service:fd { use };
+
+# avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x5413 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+# avc: denied { ioctl } comm="/system/bin/claw_sandbox" path="/dev/access_token_id" ioctlcmd=0x4102 scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:dev_at_file:s0 tclass=chr_file
+allow claw_sandbox_loader dev_at_file:chr_file { ioctl };
+allowxperm claw_sandbox_loader dev_at_file:chr_file ioctl { 0x5413 0x4102 };
+
+# avc: denied { call } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:samgr:s0 tclass=binder
+allow claw_sandbox_loader samgr:binder { call };
+
+# avc: denied { transfer } comm="/system/bin/samgr" scontext=u:r:samgr:s0 tcontext=u:r:claw_sandbox_loader:s0 tclass=binder
+allow samgr claw_sandbox_loader:binder { transfer };
+
+# avc: denied { call } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:accesstoken_service:s0 tclass=binder
+allow claw_sandbox_loader accesstoken_service:binder { call };
+
+# avc: denied { get } comm="/system/bin/samgr" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:sa_accesstoken_manager_service:s0 tclass=samgr_class
+allow claw_sandbox_loader sa_accesstoken_manager_service:samgr_class { get };
+
+# avc: denied { read } comm="/system/bin/claw_sandbox" path="/dev/pts/0" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file
+# avc: denied { write } comm="/system/bin/claw_sandbox" path="/dev/pts/0" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file
+allow claw_sandbox_loader devpts:chr_file { read write };
+
+debug_only(`
+    domain_auto_transition_pattern(su, claw_sandbox_exec, claw_sandbox_loader);
+
+    # avc: denied { use } comm="/system/bin/claw_sandbox" path="/unix/socket" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:su:s0 tclass=fd
+    allow claw_sandbox_loader su:fd { use };
+
+    # avc: denied { read } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket
+    # avc: denied { write } comm="/system/bin/claw_sandbox" scontext=u:r:claw_sandbox_loader:s0 tcontext=u:r:su:s0 tclass=unix_stream_socket
+    allow claw_sandbox_loader su:unix_stream_socket { read write };
+')
+
+neverallow { domain develop_domain debug_only(`-su') -foundation -claw_sandbox_loader } claw_sandbox_exec:file { execute };
