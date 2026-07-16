@@ -85,12 +85,6 @@ allow locationhub distributeddata:binder { call };
 allow locationhub distributeddata:fd { use };
 allow locationhub vendor_bin_file:dir { search };
 
-# avc_audit_slow:277] avc: denied { use } for pid=1597, comm="/system/bin/sa_main"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:locationhub:s0 tcontext=u:r:foundation:s0 tclass=fd permissive=0
-allow locationhub foundation:fd { use };
-
-# avc_audit_slow:267] avc: denied { use } for pid=15813, comm="/system/bin/appspawn"  path="/dev/ashmem" dev="" ino=1 scontext=u:r:locationhub:s0 tcontext=u:r:normal_hap:s0 tclass=fd permissive=0
-allow locationhub normal_hap_attr:fd { use };
-
 allow locationhub musl_param:file { open };
 allow locationhub dev_file:dir { getattr };
 
