@@ -29,6 +29,7 @@
 
 #include "hap_restorecon.h"
 #include "selinux_error.h"
+#include "parse_hap_restorecon_int.h"
 
 using namespace Selinux;
 
@@ -77,6 +78,17 @@ static void PrintUsage()
     printf("\n");
 }
 
+
+static unsigned int ParseRecurseFlags(const std::string &text)
+{
+    unsigned int flags = 0;
+    if (!ParseHapRestoreconUInt(text, flags)) {
+        printf("invalid recurse flag: %s\n", text.c_str());
+        exit(-1);
+    }
+    return flags;
+}
+
 static void SetOptions(int argc, char *argv[], const option *options, TestInput &input)
 {
     int index = 0;
@@ -105,9 +117,21 @@ static void SetOptions(int argc, char *argv[], const option *options, TestInput 
             case 'u': input.uid = TEST_UID; break;
             case 'F': input.force = true; break;
             case 'S': input.stop = true; break;
-            case 'R': input.stopReason = atoi(optarg); break;
+            case 'R': {
+                if (!ParseHapRestoreconInt(optarg, input.stopReason)) {
+                    printf("invalid stop-reason: %s\n", optarg != nullptr ? optarg : "(null)");
+                    exit(-1);
+                }
+                break;
+            }
             case 'T': input.testInterruption = true; break;
-            case 't': input.runTime = atoi(optarg); break;
+            case 't': {
+                if (!ParseHapRestoreconInt(optarg, input.runTime)) {
+                    printf("invalid run-time: %s\n", optarg != nullptr ? optarg : "(null)");
+                    exit(-1);
+                }
+                break;
+            }
             default:
                 printf("Try 'hap_restorecon -h' for more information.\n");
                 exit(-1);
@@ -146,7 +170,7 @@ int main(int argc, char *argv[])
             .pathNameOrig = testCmd.multiPath,
             .apl = testCmd.apl,
             .packageName = testCmd.name,
-            .flags = static_cast<unsigned int>(atoi(testCmd.recurse.c_str())),
+            .flags = ParseRecurseFlags(testCmd.recurse),
             .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
             .uid = testCmd.uid
         };
@@ -179,7 +203,7 @@ int main(int argc, char *argv[])
             .pathNameOrig = testCmd.multiPath,
             .apl = testCmd.apl,
             .packageName = testCmd.name,
-            .flags = static_cast<unsigned int>(atoi(testCmd.recurse.c_str())),
+            .flags = ParseRecurseFlags(testCmd.recurse),
             .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
             .uid = testCmd.uid
         };
@@ -212,7 +236,7 @@ int main(int argc, char *argv[])
             .pathNameOrig = testCmd.multiPath,
             .apl = testCmd.apl,
             .packageName = testCmd.name,
-            .flags = static_cast<unsigned int>(atoi(testCmd.recurse.c_str())),
+            .flags = ParseRecurseFlags(testCmd.recurse),
             .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
             .uid = testCmd.uid
         };
@@ -223,7 +247,7 @@ int main(int argc, char *argv[])
             .pathNameOrig = testCmd.multiPath,
             .apl = testCmd.apl,
             .packageName = testCmd.name,
-            .flags = static_cast<unsigned int>(atoi(testCmd.recurse.c_str())),
+            .flags = ParseRecurseFlags(testCmd.recurse),
             .hapFlags = testCmd.isPreinstalledApp ? 1 : 0,
             .uid = testCmd.uid
         };
