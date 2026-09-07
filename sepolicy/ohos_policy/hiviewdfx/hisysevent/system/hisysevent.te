@@ -49,6 +49,8 @@ allow hisysevent hiview_sys_def_file:dir { search };
 allow hisysevent hiview_sys_def_file:file { read open getattr };
 # avc:  denied  { search } for  pid=26889 comm="hisysevent" name="/" dev="mmcblk0p15" ino=3 scontext=u:r:hisysevent:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
 allow hisysevent data_file:dir { search };
+# avc:  denied  { read } for  pid=7965 comm="hisysevent" name="usr" dev="vda" ino=8245 scontext=u:r:hisysevent:s0 tcontext=u:object_r:system_usr_file:s0 tclass=lnk_file permissive=0
+allow hisysevent system_usr_file:lnk_file { read };
 
 developer_only(`
 allow hisysevent sh:fd { use };
