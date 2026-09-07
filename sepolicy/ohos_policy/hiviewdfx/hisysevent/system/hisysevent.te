@@ -47,6 +47,8 @@ allow hisysevent data_system:dir { search };
 allow hisysevent hiview_file:dir { search };
 allow hisysevent hiview_sys_def_file:dir { search };
 allow hisysevent hiview_sys_def_file:file { read open getattr };
+# avc:  denied  { search } for  pid=26889 comm="hisysevent" name="/" dev="mmcblk0p15" ino=3 scontext=u:r:hisysevent:s0 tcontext=u:object_r:data_file:s0 tclass=dir permissive=0
+allow hisysevent data_file:dir { search };
 
 developer_only(`
 allow hisysevent sh:fd { use };
