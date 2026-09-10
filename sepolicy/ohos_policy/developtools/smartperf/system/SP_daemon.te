@@ -187,3 +187,5 @@ allow SP_daemon data_service_file:dir { search };
 allow SP_daemon hitrace_log_file:file { getattr read open };
 # avc: denied { search } for pid=22749, comm="/bin/cp" path="/data/log/hitrace/trace_20260423102907@104-5995.sys" dev="/dev/block/platform/fa500000.ufs/by-name/userdata"ino=7575 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hitrace_log_file:s0 tclass=dir permissive=1
 allow SP_daemon hitrace_log_file:dir { search };
+# avc: denied { read } for pid=10789, comm="/system/bin/SP_daemon" path="/log/hiview/unified_collection/trace/special/Other_trace_20260907112018@87-16464.sys" dev="/dev/block/platform/ee560000.ufs/by-name/userdata"ino=39007 scontext=u:rSP_daemon:s0 tcontext=u:object_r:hiview:s0 tclass=lnk_file permissive=1
+allow SP_daemon hiview_file:lnk_file { read };
