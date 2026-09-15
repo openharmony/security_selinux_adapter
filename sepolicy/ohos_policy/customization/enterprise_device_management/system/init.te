@@ -13,3 +13,9 @@
 
 allow init edm_config_file:dir { add_name create write relabelto read open search setattr getattr };
 allow init edm_config_file:file { relabelto setattr getattr };
+
+# avc: denied { relabelto } for pid=1, comm="/bin/init"  name="/service/el1/public/edm" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=53249 scontext=u:r:init:s0 tcontext=u:object_r:edm_base_file:s0 tclass=dir permissive=0
+allow init edm_base_file:dir { add_name read open getattr relabelto create relabelfrom search write setattr };
+
+# avc: denied { relabelto } for pid=1, comm="/bin/init" name="/service/el1/public/edm" dev="/dev/block/platform/b0000000.hi_pcie/by-name/userdata" ino=53249 scontext=u:r:init:s0 tcontext=u:object_r:edm_base_file:s0 tclass=file permissive=0
+allow init edm_base_file:file { relabelto setattr getattr };

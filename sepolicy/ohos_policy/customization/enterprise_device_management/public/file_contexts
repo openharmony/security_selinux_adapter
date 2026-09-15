@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+/data/service/el1/public/edm(/.*)?                          u:object_r:edm_base_file:s0
 /data/service/el1/public/edm/config(/.*)?                          u:object_r:edm_config_file:s0
 /data/service/el1/public/edm/config/application(/.*)?              u:object_r:edm_application_config_file:s0
