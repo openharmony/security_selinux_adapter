@@ -317,7 +317,11 @@ neverallow { domain -init -memmgrservice -appspawn -nativespawn -cjappspawn -sto
 neverallow { domain -init -chipset_init -appspawn -compiler_service -nwebspawn -nativespawn -cjappspawn -storage_daemon -cap_violator_setuid updater_only(`-updater') -rgm_violator_ohos_capability_setuid -rgm_violator_cap_setuid -claw_sandbox_loader } self:{ capability cap_userns } setuid;
 neverallow { domain -init -chipset_init -ueventd -appspawn -compiler_service -nwebspawn -nativespawn -cjappspawn -storage_daemon debug_only(`-hiperf -hiprofilerd -hiprofiler_plugins -hiprofiler_cmd -native_daemon -bytrace -hitrace') updater_only(` -updater ') -rgm_violator_ohos_capability_setgid -rgm_violator_cap_setgid -cap_violator_setgid -claw_sandbox_loader } self:{ capability cap_userns } setgid;
 neverallow { domain -init -chipset_init -rgm_violator_ohos_capability_setpcap } self:{ capability cap_userns } setpcap;
+<<<<<<< HEAD
 neverallow {domain -cap_violator_linuximmutable} self:{ capability cap_userns } linux_immutable;
+=======
+neverallow {domain -cap_violator_linuximutable} self:{ capability cap_userns } linux_immutable;
+>>>>>>> 36355d2c432f2857071117ea6c30da517cd3cbce
 neverallow { domain -wifi_manager_service -netsysnative -cap_violator_netbindservice } self:{ capability cap_userns } net_bind_service;
 neverallow {domain -cap_violator_netbroadcast} self:{ capability cap_userns } net_broadcast;
 neverallow { domain -init -appspawn -nativespawn -chipset_init -ueventd -wifi_hal_service -wifi_manager_service -softbus_server -netsysnative -storage_daemon -udevd -blue_host -netmanager -riladapter_host -bluetooth_service -cap_violator_netadmin -wifi_host -ethernet_host -resource_schedule_executor -rgm_violator_ohos_capability_netadmin } self:{ capability cap_userns } net_admin;

@@ -125,7 +125,11 @@ attribute cap_violator_perfmon;
 attribute cap_violator_sysmodule;
 attribute cap_violator_syslog;
 attribute cap_violator_sysrawio;
+<<<<<<< HEAD
 attribute cap_violator_linuximmutable;
+=======
+attribute cap_violator_linuximutable;
+>>>>>>> 36355d2c432f2857071117ea6c30da517cd3cbce
 attribute cap_violator_netbroadcast;
 attribute cap_violator_systtyconfig;
 attribute cap_violator_blocksuspend;
