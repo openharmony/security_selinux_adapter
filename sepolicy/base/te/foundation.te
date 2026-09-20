@@ -127,6 +127,7 @@ allow foundation wallpaper_service:binder { call };
 allow foundation wifi_manager_service:binder { call };
 allow foundation allocator_host:fd { use };
 allow foundation useriam:binder { call transfer };
+allow foundation sa_accessibleabilityms:samgr_class { get };
 allowxperm foundation data_service_el1_file:file ioctl { 0xf50c 0xf546 0xf547 };
 allowxperm foundation data_service_el1_file:dir ioctl { 0xf50c 0xf546 0xf547 };
 allowxperm foundation dev_dri_file:chr_file ioctl { 0x641f };
