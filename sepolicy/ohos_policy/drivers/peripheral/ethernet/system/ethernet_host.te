@@ -10,9 +10,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
- 
+
 # avc:  denied  { get } for service=3512 sid=u:r:ethernet_host:s0 scontext=u:r:ethernet_host:s0 tcontext=u:object_r:sa_cert_manager_service:s0 tclass=samgr_class permissive=0
 allow ethernet_host sa_cert_manager_service:samgr_class { get };
- 
+
 # avc:  denied  { call } for scontext=u:r:ethernet_host:s0 tcontext=u:r:cert_manager_service:s0 tclass=binder permissive=0
 allow ethernet_host cert_manager_service:binder { call };
