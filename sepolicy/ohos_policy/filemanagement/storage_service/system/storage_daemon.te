@@ -563,7 +563,9 @@ allow storage_daemon mnt_external_file:file { open read };
 # avc: denied { open } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { read write } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { ioctl } for pid=706, comm="/system/bin/storage_daemon" path="/dev/block/sr0" dev="" ino=7057 ioctlcmd=0x2285 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
-allow storage_daemon dev_block_file:blk_file { ioctl open read write };
+# avc: denied { lock } for pid=10694, comm="/bin/fsck.ntfs"  path="/dev/block/loop0" dev="" ino=526 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=0
+allow storage_daemon dev_block_file:blk_file { ioctl open read write lock };
+
 # avc: denied { ioctl } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 ioctlcmd=0x1268 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { ioctl } for pid=13700, comm="/bin/mkfs.exfat"  path="/dev/block/sda1" dev="" ino=5651 ioctlcmd=0x1277 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
 # avc: denied { ioctl } for pid=16988, comm="/bin/newfs_msdos"  path="/dev/block/sda3" dev="" ino=895 ioctlcmd=0x1268 scontext=u:r:storage_daemon:s0 tcontext=u:object_r:dev_block_file:s0 tclass=blk_file permissive=1
