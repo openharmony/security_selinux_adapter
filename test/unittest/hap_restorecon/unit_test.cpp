@@ -1490,6 +1490,100 @@ HWTEST_F(SelinuxUnitTest, HapContextsLookup020, TestSize.Level1)
 }
 
 /**
+ * @tc.name: HapContextsLookup021
+ * @tc.desc: test HapContextsLookup with disableMCS=true and isDomain=true, mcs should be skipped
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup021, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = 0;
+    params.isDomain = true;
+    params.disableMCS = true;
+#ifdef MCS_ENABLE
+    params.uid = TEST_UID;
+    EXPECT_EQ(SELINUX_SUCC, HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+#else
+    EXPECT_EQ(SELINUX_SUCC, HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+#endif
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup022
+ * @tc.desc: test HapContextsLookup with disableMCS=true and isDomain=false, mcs should be skipped
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup022, TestSize.Level1)
+{
+    char **secontextPtr = nullptr;
+    *secontextPtr = strdup(DEFAULT_CONTEXT);
+    ASSERT_NE(nullptr, *secontextPtr);
+    const char *secontext = *secontextPtr;
+    context_t con = context_new(secontext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = 0;
+    params.disableMCS = true;
+#ifdef MCS_ENABLE
+    params.uid = TEST_UID;
+    EXPECT_EQ(SELINUX_SUCC, HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE.c_str());
+#else
+    EXPECT_EQ(SELINUX_SUCC, HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_TYPE.c_str());
+#endif
+
+    freecon(*secontextPtr);
+    context_free(con);
+}
+
+/**
+ * @tc.name: HapContextsLookup023
+ * @tc.desc: test HapContextsLookup with disableMCS=false and isDomain=true, mcs should be applied
+ * @tc.type: FUNC
+ * @tc.require:
+ */
+HWTEST_F(SelinuxUnitTest, HapContextsLookup023, TestSize.Level1)
+{
+    char *oldTypeContext = nullptr;
+    ASSERT_EQ(SELINUX_SUCC, getcon(&oldTypeContext));
+    context_t con = context_new(oldTypeContext);
+
+    HapContextParams params;
+    params.apl = NORMAL_APL;
+    params.packageName = EMPTY_STRING;
+    params.hapFlags = 0;
+    params.isDomain = true;
+    params.disableMCS = false;
+#ifdef MCS_ENABLE
+    params.uid = TEST_UID;
+    EXPECT_EQ(SELINUX_SUCC, HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN_WITH_CATEGORY.c_str());
+#else
+    EXPECT_EQ(SELINUX_SUCC, HapContextsLookup(params, con));
+    EXPECT_STREQ(context_str(con), TEST_NORMAL_DOMAIN.c_str());
+#endif
+
+    freecon(oldTypeContext);
+    context_free(con);
+}
+
+/**
  * @tc.name: TypeSet001
  * @tc.desc: ContextTypeSet type is empty.
  * @tc.type: FUNC
