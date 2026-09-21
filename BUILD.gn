@@ -288,6 +288,10 @@ selinux_parameter_template("libselinux_parameter_static_noflto") {
 
 ohos_shared_library("libparaperm_checker") {
   branch_protector_ret = "pac_ret"
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+  }
   output_name = "libparaperm_checker"
   sources = [ "framework/policycoreutils/src/param_checker.c" ]
   public_configs = [ ":selinux_core_config" ]
