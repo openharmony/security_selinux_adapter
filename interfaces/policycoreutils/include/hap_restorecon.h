@@ -69,6 +69,7 @@ struct HapDomainInfo {
     std::string extensionType;
     uint64_t hapFlags = 0;
     uint32_t uid = 0;
+    bool disableMCS = false;
 };
 
 struct HapContextParams {
@@ -78,6 +79,7 @@ struct HapContextParams {
     std::string extension;
     bool isDomain = false;
     uint32_t uid = 0;
+    bool disableMCS = false;
 };
 
 class HapContext {

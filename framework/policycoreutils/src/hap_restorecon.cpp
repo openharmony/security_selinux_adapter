@@ -757,7 +757,7 @@ static int HapContextsLookup(const HapContextParams &params, context_t con)
         return res;
     }
 #ifdef MCS_ENABLE
-    if (contextInfo.levelFrom != LEVELFROM_NONE && (params.isDomain || g_mcsHapFileEnabled)) {
+    if (contextInfo.levelFrom != LEVELFROM_NONE && (params.isDomain || g_mcsHapFileEnabled) && !params.disableMCS) {
         return UserAndMCSRangeSet(params.uid, con, contextInfo.levelFrom, contextInfo.user);
     }
 #endif
@@ -840,7 +840,7 @@ int HapContext::HapDomainSetcontext(HapDomainInfo& hapDomainInfo)
     }
 
     HapContextParams params = {hapDomainInfo.apl, hapDomainInfo.packageName,
-        hapDomainInfo.hapFlags, hapDomainInfo.extensionType, true, hapDomainInfo.uid};
+        hapDomainInfo.hapFlags, hapDomainInfo.extensionType, true, hapDomainInfo.uid, hapDomainInfo.disableMCS};
     int res = HapContextsLookup(params, con);
     if (res < 0) {
         FreeContext(oldTypeContext, con);
