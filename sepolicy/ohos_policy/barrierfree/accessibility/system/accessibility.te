@@ -100,3 +100,6 @@ allow sensors accessibility:fd { use };
 
 # avc: denied { write } for pid=1617, comm="/system/bin/sa_main"  scontext=u:r:sensors:s0 tcontext=u:r:accessibility:s0 tclass=unix_stream_socket permissive=1
 allow sensors accessibility:unix_stream_socket { write };
+
+# avc:  denied  { get } for service=3704 sid=u:r:accessibility:s0 scontext=u:r:accessibility:s0 tcontext=u:object_r:sa_screenlock_service:s0 tclass=samgr_class permissive=0
+allow accessibility sa_screenlock_service:samgr_class { get };
