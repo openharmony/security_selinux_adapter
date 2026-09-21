@@ -98,6 +98,9 @@ debug_only(`
     allowxperm aa hdcd:fifo_file ioctl { 0x5413 };
     allowxperm aa sh:fifo_file ioctl { 0x5413 };
     allowxperm aa tty_device:chr_file ioctl { 0x5413 };
+
+    # avc: denied { sendto } for pid=11137, comm="/bin/aa" scontext=u:r:aa:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=0
+    allow aa hiview:unix_dgram_socket { sendto };
 ')
 
 # add for aa in developer mode
@@ -158,4 +161,7 @@ developer_only(`
     allow aa inputmethod_service:binder { call transfer };
     allow inputmethod_service aa:binder { call transfer };
     allow aa ime_exec:file { getattr execute execute_no_trans map read open};
+
+    # avc: denied { sendto } for pid=11137, comm="/bin/aa" scontext=u:r:aa:s0 tcontext=u:r:hiview:s0 tclass=unix_dgram_socket permissive=0
+    allow aa hiview:unix_dgram_socket { sendto };
 ')
