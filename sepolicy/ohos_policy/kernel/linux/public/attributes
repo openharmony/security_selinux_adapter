@@ -24,8 +24,3 @@ attribute hmcap_supervsable_platform_attr;
 attribute actv_binder_client_attr;
 # declare the actv binder server
 attribute actv_binder_server_attr;
-
-attribute violator_domain_linux_immutable;
-attribute violator_domain_net_broadcast;
-attribute violator_domain_sys_tty_config;
-attribute violator_domain_block_suspend;
