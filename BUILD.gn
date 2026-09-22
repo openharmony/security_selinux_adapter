@@ -1394,16 +1394,18 @@ if (selinux_adapter_components != "default") {
     script = "copy_file_or_dir.sh"
   }
 
-  action("eng_system_system_cil_sha256") {
-    deps = [ ":build_policy" ]
-    sources = [ "$target_out_dir/system.cil.sha256" ]
-    outputs =
-        [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system.cil.sha256" ]
-    args = [
-      rebase_path(sources[0]),
-      rebase_path(outputs[0]),
-    ]
-    script = "copy_file_or_dir.sh"
+  if (selinux_adapter_components == "system") {
+    action("eng_system_system_cil_sha256") {
+      deps = [ ":build_policy" ]
+      sources = [ "$target_out_dir/system.cil.sha256" ]
+      outputs =
+          [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system.cil.sha256" ]
+      args = [
+        rebase_path(sources[0]),
+        rebase_path(outputs[0]),
+      ]
+      script = "copy_file_or_dir.sh"
+    }
   }
 
   action("eng_system_system_common_cil") {
@@ -1431,15 +1433,17 @@ if (selinux_adapter_components != "default") {
     script = "copy_file_or_dir.sh"
   }
 
-  action("eng_system_system_developer_cil_sha256") {
-    deps = [ ":build_policy" ]
-    sources = [ "$target_out_dir/developer/system.cil.sha256" ]
-    outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system_developer.cil.sha256" ]
-    args = [
-      rebase_path(sources[0]),
-      rebase_path(outputs[0]),
-    ]
-    script = "copy_file_or_dir.sh"
+  if (selinux_adapter_components == "system") {
+    action("eng_system_system_developer_cil_sha256") {
+      deps = [ ":build_policy" ]
+      sources = [ "$target_out_dir/developer/system.cil.sha256" ]
+      outputs = [ "$root_out_dir/$eng_system_base_dir/etc/selinux/system_developer.cil.sha256" ]
+      args = [
+        rebase_path(sources[0]),
+        rebase_path(outputs[0]),
+      ]
+      script = "copy_file_or_dir.sh"
+    }
   }
 
   action("eng_chipset_developer_policy") {
@@ -1566,12 +1570,17 @@ if (selinux_adapter_components != "default") {
       ":eng_system_compatible",
       ":eng_system_compatible_developer",
       ":eng_system_system_cil",
-      ":eng_system_system_cil_sha256",
       ":eng_system_system_common_cil",
       ":eng_system_system_developer_cil",
-      ":eng_system_system_developer_cil_sha256",
       ":filecontexts_toolchain",
     ]
+
+    if (selinux_adapter_components == "system") {
+      deps += [
+        ":eng_system_system_cil_sha256",
+        ":eng_system_system_developer_cil_sha256"
+      ]
+    }
   }
 
   group("eng_chipset_selinux_group") {
