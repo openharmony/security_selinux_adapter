@@ -13,8 +13,8 @@
 
 attribute cap_violator_resource;
 attribute cap_violator_systime;
-attribute violator_domain_linux_immutable;
-attribute violator_domain_net_broadcast;
-attribute violator_domain_sys_tty_config;
-attribute violator_domain_block_suspend;
+attribute violator_cap_linux_immutable;
+attribute violator_cap_net_broadcast;
+attribute violator_cap_sys_tty_config;
+attribute violator_cap_block_suspend;
 attribute hiviewdfx_profiler_param_violator;
