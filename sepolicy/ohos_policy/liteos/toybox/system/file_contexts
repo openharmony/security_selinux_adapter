@@ -14,4 +14,3 @@
 # for toybox
 /system/bin/toybox             u:object_r:toybox_exec:s0
 /eng_system/bin/toybox         u:object_r:toybox_exec:s0
-/system/bin/netstat            u:object_r:netstat_exec:s0
