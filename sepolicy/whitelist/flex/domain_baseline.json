@@ -220,7 +220,6 @@
             "claw_sandbox_loader",
             "perftest",
             "testhelper",
-            "netstat",
             "gphotofs"
         ],
         "hdfdomain": [
